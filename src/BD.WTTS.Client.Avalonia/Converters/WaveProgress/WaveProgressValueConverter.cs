@@ -1,5 +1,9 @@
 namespace BD.WTTS.Converters;
 
+[Mobius(
+"""
+Mobius.UI.Converters.WaveProgressValueConverter
+""")]
 public sealed class WaveProgressValueConverter : IValueConverter
 {
     public static readonly WaveProgressValueConverter Instance = new();
@@ -18,6 +22,10 @@ public sealed class WaveProgressValueConverter : IValueConverter
     }
 }
 
+[Mobius(
+"""
+Mobius.UI.Converters.WaveProgressValueColorConverter
+""")]
 public class WaveProgressValueColorConverter : IValueConverter
 {
     public static readonly WaveProgressValueColorConverter Instance = new();
@@ -37,6 +45,10 @@ public class WaveProgressValueColorConverter : IValueConverter
     }
 }
 
+[Mobius(
+"""
+Mobius.UI.Converters.WaveProgressValueTextConverter
+""")]
 public class WaveProgressValueTextConverter : IValueConverter
 {
     public static readonly WaveProgressValueTextConverter Instance = new();
@@ -54,6 +66,10 @@ public class WaveProgressValueTextConverter : IValueConverter
     }
 }
 
+[Mobius(
+"""
+Mobius.UI.Converters.WaveProgressGradientOffsetConverter
+""")]
 public class WaveProgressGradientOffsetConverter : IValueConverter
 {
     public static readonly WaveProgressGradientOffsetConverter Instance = new();

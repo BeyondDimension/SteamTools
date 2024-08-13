@@ -5,6 +5,10 @@ using AvaNotificationType = Avalonia.Controls.Notifications.NotificationType;
 
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(
+"""
+Mobius.Services.ToastService
+""")]
 [TemplatePart("PART_Items", typeof(Panel))]
 [PseudoClasses(":topleft", ":topright", ":bottomleft", ":bottomright")]
 sealed class AvaloniaToastServiceImpl : IToastService

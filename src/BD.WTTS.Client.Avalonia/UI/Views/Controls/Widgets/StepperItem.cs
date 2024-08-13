@@ -4,6 +4,10 @@ using Avalonia.Controls.Mixins;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 [PseudoClasses(":pressed", ":selected")]
 public class StepperItem : ContentControl, ISelectable
 {

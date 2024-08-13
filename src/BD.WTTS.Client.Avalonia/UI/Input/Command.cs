@@ -3,6 +3,10 @@ using System.Windows.Input;
 
 namespace BD.WTTS.UI;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls.Stepper.DelegateInputCommand
+""")]
 internal class Command : ICommand
 {
     private readonly Action<object?> _onExecute;

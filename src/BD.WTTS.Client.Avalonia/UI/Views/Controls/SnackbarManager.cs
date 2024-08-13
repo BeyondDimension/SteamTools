@@ -6,6 +6,10 @@ namespace BD.WTTS.UI.Views.Controls;
 /// <summary>
 /// An <see cref="INotificationManager"/> that displays notifications in a <see cref="Window"/>.
 /// </summary>
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 [TemplatePart("PART_Items", typeof(Panel))]
 [PseudoClasses(":topleft", ":topright", ":bottomleft", ":bottomright")]
 public class SnackbarManager : TemplatedControl, IManagedNotificationManager

@@ -1,5 +1,9 @@
 namespace BD.WTTS.Converters;
 
+[Mobius(
+"""
+Mobius.UI.Converters.WaveProgressGradientOffsetConverter
+""")]
 public sealed class BitmapAssetValueConverter : ImageValueConverter
 {
     public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

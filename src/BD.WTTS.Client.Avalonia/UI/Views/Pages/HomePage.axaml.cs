@@ -2,6 +2,10 @@ using BD.WTTS.Client.Resources;
 
 namespace BD.WTTS.UI.Views.Pages;
 
+[Mobius(
+"""
+Mobius.UI.Views.Pages
+""")]
 public partial class HomePage : ReactiveUserControl<HomePageViewModel>
 {
     public HomePage()

@@ -6,6 +6,10 @@ using System.Xml.Linq;
 
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(
+"""
+Mobius.Services.NavigationService
+""")]
 public sealed class NavigationService : INavigationService
 {
     public static NavigationService Instance { get; } = (NavigationService)Ioc.Get<INavigationService>();
@@ -14,6 +18,14 @@ public sealed class NavigationService : INavigationService
 
     public Type? CurrnetPage => _frame?.CurrentSourcePageType;
 
+    [Mobius(
+"""
+isCreateInstance = true
+Mobius.Services.NavigationService.GetViewModelToPageContent
+
+isCreateInstance = false
+Mobius.Services.NavigationService.GetViewModelToPageContentType
+""")]
     public object? GetViewModelToPageContent(object viewModel, bool isCreateInstance = true)
     {
         string name;

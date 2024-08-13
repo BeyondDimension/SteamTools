@@ -2,6 +2,10 @@ using Avalonia.Controls;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public class OptionsDisplayItem : TemplatedControl
 {
     public static readonly StyledProperty<object?> HeaderProperty =

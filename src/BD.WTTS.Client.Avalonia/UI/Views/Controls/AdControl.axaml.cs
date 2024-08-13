@@ -4,6 +4,10 @@ using FluentAvalonia.Core;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public partial class AdControl : UserControl
 {
     /// <summary>

@@ -5,6 +5,10 @@ using System.Reactive;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public class CarouselItems : ItemsControl
 {
     /// <summary>

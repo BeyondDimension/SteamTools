@@ -1,5 +1,9 @@
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public sealed class FlexPanel : Panel
 {
     private static readonly Func<Layoutable, int> s_getOrder = x => x is { } y ? Flex.GetOrder(y) : 0;

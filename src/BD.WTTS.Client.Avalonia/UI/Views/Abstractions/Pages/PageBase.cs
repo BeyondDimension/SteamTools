@@ -5,6 +5,10 @@ using FluentAvalonia.UI.Navigation;
 
 namespace BD.WTTS.UI.Views.Pages;
 
+[Mobius(
+"""
+Mobius.UI.Views.Pages.Abstractions.PageBase
+""")]
 public class PageBase : UserControl
 {
     public PageBase() : base()
@@ -321,6 +325,10 @@ public class PageBase : UserControl
     private CompositeDisposable _disposables;
 }
 
+[Mobius(
+"""
+Mobius.UI.Views.Pages.Abstractions.PageBase<TViewModel>
+""")]
 public class PageBase<TViewModel> : PageBase, IViewFor<TViewModel> where TViewModel : class
 {
     public static readonly StyledProperty<TViewModel?> ViewModelProperty = AvaloniaProperty.Register<PageBase<TViewModel>, TViewModel?>(nameof(ViewModel));

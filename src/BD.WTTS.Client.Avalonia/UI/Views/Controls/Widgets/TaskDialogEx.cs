@@ -1,5 +1,9 @@
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public sealed class TaskDialogEx : TaskDialog
 {
     private Button? _closeButton;

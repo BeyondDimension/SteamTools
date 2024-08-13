@@ -1,5 +1,9 @@
 namespace BD.WTTS.Converters;
 
+[Mobius(
+"""
+Mobius.UI.Converters.VisibleStringConverter
+""")]
 public sealed class VisibleStringConverter : IMultiValueConverter
 {
     public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)

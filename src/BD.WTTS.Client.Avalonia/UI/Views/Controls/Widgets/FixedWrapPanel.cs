@@ -5,6 +5,10 @@ namespace BD.WTTS.UI.Views.Controls;
 /// <summary>
 /// 固定的 WrapPanel
 /// </summary>
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public class FixedWrapPanel : Panel, INavigableContainer
 {
     /// <summary>

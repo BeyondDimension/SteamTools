@@ -2,6 +2,10 @@ using IBinding = BD.WTTS.Converters.Abstractions.IBinding;
 
 namespace BD.WTTS.Converters;
 
+[Mobius(
+"""
+Mobius.UI.Converters.EnumEqualValueConverter
+""")]
 public sealed class EnumEqualValueConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

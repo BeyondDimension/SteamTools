@@ -1,5 +1,9 @@
 namespace BD.WTTS.Converters;
 
+[Mobius(
+"""
+Mobius.UI.Converters.StringEqualsConverter
+""")]
 public class StringEqualsConverter : IValueConverter
 {
     static string ToString(object? obj) => obj?.ToString() ?? string.Empty;

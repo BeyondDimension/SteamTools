@@ -1,5 +1,9 @@
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public class PureRing : PureCircle
 {
     public static readonly StyledProperty<double> InnerDiameterProperty = AvaloniaProperty.Register<PureRing, double>(

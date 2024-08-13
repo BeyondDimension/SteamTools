@@ -6,6 +6,10 @@ using static BD.WTTS.Startup;
 
 namespace BD.WTTS.UI.Views.Windows;
 
+[Mobius(
+"""
+Mobius.UI.Views.Windows.MainWindow
+""")]
 public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
 {
     public MainWindow()
@@ -96,6 +100,10 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
     }
 }
 
+[Mobius(
+"""
+Mobius.UI.MobiusSplashScreen
+""")]
 public sealed class AppSplashScreen : IApplicationSplashScreen
 {
     public static bool IsInitialized = false;

@@ -4,6 +4,10 @@ using FluentAvalonia.Core;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public class ContentLoader : ContentControl
 {
     /// <summary>

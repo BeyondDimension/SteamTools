@@ -2,6 +2,10 @@ using Avalonia.Input;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public sealed class CustomFilePicker : ContentControl
 {
     public static readonly StyledProperty<string?> FileNameProperty = AvaloniaProperty.Register<CustomFilePicker, string?>(nameof(FileName), null);

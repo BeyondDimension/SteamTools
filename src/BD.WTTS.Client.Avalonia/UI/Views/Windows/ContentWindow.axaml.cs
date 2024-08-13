@@ -1,5 +1,9 @@
 namespace BD.WTTS.UI.Views.Windows;
 
+[Mobius(
+"""
+Mobius.UI.Views.Windows
+""")]
 public partial class ContentWindow : ReactiveAppWindow<ContentWindowViewModel>
 {
     public ContentWindow()

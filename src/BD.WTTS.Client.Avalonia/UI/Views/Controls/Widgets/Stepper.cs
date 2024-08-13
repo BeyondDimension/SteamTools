@@ -1,5 +1,9 @@
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 [TemplatePart("PART_ItemsPresenter", typeof(ItemsPresenter))]
 [TemplatePart("PART_ProgressBar", typeof(ProgressBar))]
 public class Stepper : SelectingItemsControl

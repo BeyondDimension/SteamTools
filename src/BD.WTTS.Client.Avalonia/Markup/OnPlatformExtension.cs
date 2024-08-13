@@ -2,6 +2,10 @@ using BD.WTTS.Markup.Abstractions;
 
 namespace BD.WTTS.Markup;
 
+[Mobius(
+"""
+Mobius.UI.Markup.OnPlatformExtension
+""")]
 public sealed class OnPlatformExtension : MarkupExtension<bool>
 {
     public OnPlatformExtension(string member) : base(member)

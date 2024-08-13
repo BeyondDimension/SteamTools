@@ -3,6 +3,10 @@ using BD.Common.Models.Abstractions;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public partial class TitleBar : UserControl
 {
     public Image WindowIcon => BarIcon;

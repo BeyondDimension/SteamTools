@@ -1,5 +1,9 @@
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public class Skeleton : ContentControl
 {
     public static readonly StyledProperty<bool> IsActiveProperty =

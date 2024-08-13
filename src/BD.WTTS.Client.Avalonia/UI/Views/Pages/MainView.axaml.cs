@@ -6,6 +6,10 @@ using FluentAvalonia.UI.Navigation;
 
 namespace BD.WTTS.UI.Views.Pages;
 
+[Mobius(
+"""
+Mobius.UI.Views.Pages
+""")]
 public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
 {
     public MainView()

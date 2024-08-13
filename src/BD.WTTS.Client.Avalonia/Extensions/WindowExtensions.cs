@@ -1,6 +1,10 @@
 // ReSharper disable once CheckNamespace
 namespace Avalonia.Controls;
 
+[BD.Mobius(
+"""
+Mobius.UI.WindowExtensions
+""")]
 public static partial class WindowExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

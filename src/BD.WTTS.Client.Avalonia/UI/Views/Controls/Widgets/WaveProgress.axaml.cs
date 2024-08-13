@@ -1,5 +1,9 @@
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public sealed partial class WaveProgress : UserControl
 {
     public static readonly DirectProperty<WaveProgress, double> ValueProperty =

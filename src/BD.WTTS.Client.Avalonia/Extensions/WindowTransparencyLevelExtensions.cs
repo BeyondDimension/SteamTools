@@ -3,6 +3,10 @@ namespace BD.WTTS;
 
 public static class WindowTransparencyLevelExtensions
 {
+    [Mobius(
+"""
+Mobius.Enums.UI.WindowTransparencyLevelExtensions
+""")]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static WindowTransparencyLevel ToWindowTransparencyLevel(
         this WindowBackgroundMaterial value)

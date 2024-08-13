@@ -1,5 +1,9 @@
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public readonly struct FlexBasis : IEquatable<FlexBasis>
 {
     public double Value { get; }

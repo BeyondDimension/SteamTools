@@ -1,6 +1,9 @@
 namespace BD.WTTS.UI.Views.Controls;
 
-[SuppressMessage("Naming", "CA1717:Only FlagsAttribute enums should have plural names")]
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public enum AlignItems
 {
     FlexStart,

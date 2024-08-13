@@ -4,6 +4,10 @@ using System.Numerics;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public class AppItem : TemplatedControl
 {
     public static readonly StyledProperty<string> TitleProperty =

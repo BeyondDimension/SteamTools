@@ -1,5 +1,9 @@
 namespace BD.WTTS.Converters;
 
+[Mobius(
+"""
+Mobius.UI.Converters.EnumLocalizationNameConverter
+""")]
 public sealed class EnumLocalizationNameConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

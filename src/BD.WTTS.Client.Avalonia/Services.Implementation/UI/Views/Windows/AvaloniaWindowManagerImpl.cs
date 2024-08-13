@@ -4,10 +4,18 @@ using System.Collections.Immutable;
 namespace BD.WTTS.Services.Implementation;
 
 /// <inheritdoc cref="IWindowManager"/>
+[Mobius(
+"""
+Mobius.Services.WindowManagerService
+""")]
 public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
 {
     Type? IWindowManagerImpl.WindowType => typeof(Window);
 
+    [Mobius(
+"""
+Mobius.Services.WindowManagerService.GetWindowTopLevel
+""")]
     public static TopLevel? GetWindowTopLevel()
     {
         if (App.Instance.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

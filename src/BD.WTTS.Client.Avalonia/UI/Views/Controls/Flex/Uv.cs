@@ -1,5 +1,9 @@
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 internal readonly struct Uv(double u, double v)
 {
     public double U { get; } = u;

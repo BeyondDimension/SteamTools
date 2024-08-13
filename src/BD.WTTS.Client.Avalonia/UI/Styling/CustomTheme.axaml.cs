@@ -3,6 +3,10 @@ namespace BD.WTTS.UI.Styling;
 /// <summary>
 /// Includes the fluent theme in an application.
 /// </summary>
+[Mobius(
+"""
+Mobius.UI.Styling.CustomTheme
+""")]
 public class CustomTheme : Styles, IResourceProvider
 {
     public const string LightModeString = "Light";

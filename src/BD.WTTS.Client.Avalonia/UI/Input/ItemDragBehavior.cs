@@ -6,6 +6,10 @@ using System.Collections.Specialized;
 
 namespace BD.WTTS.UI;
 
+[Mobius(
+"""
+Mobius.UI.Behaviors.ItemDragBehavior
+""")]
 public class ItemDragBehavior : Behavior<Control>
 {
     private bool _enableDrag;

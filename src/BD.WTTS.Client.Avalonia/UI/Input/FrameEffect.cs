@@ -3,6 +3,10 @@ using FluentAvalonia.UI.Media.Animation;
 
 namespace BD.WTTS.UI;
 
+[Mobius(
+"""
+Mobius.UI.Animations.FrameEffect
+""")]
 public static class FrameEffect
 {
     public static SlideNavigationTransitionEffect GetEffect(int oldIndex, int index)

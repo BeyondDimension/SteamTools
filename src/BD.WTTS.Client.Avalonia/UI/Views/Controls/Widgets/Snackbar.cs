@@ -3,6 +3,10 @@ using Avalonia.Controls.Notifications;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public class Snackbar : InfoBar
 {
     private bool _isClosing;

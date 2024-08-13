@@ -1,5 +1,9 @@
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(
+"""
+BD.Common8.Essentials.Services.Implementation.AvaloniaMainThreadPlatformServiceImpl
+""")]
 sealed class MainThreadPlatformServiceImpl : IMainThreadPlatformService
 {
     public bool PlatformIsMainThread

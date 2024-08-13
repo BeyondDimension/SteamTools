@@ -3,6 +3,10 @@ using Avalonia.Controls.Shapes;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public class Ripple : Ellipse
 {
     private static Easing _easing = new CircularEaseOut();

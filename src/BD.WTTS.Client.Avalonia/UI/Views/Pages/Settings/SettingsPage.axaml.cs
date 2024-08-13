@@ -2,6 +2,10 @@ using Avalonia;
 
 namespace BD.WTTS.UI.Views.Pages;
 
+[Mobius(
+"""
+Mobius.UI.Views.Pages
+""")]
 public partial class SettingsPage : PageBase<SettingsPageViewModel>
 {
     public SettingsPage()

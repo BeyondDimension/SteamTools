@@ -2,6 +2,10 @@ using SteamKit2;
 
 namespace BD.WTTS.Converters;
 
+[Mobius(
+"""
+Mobius.UI.Converters.StringFormatConverter
+""")]
 public sealed class StringFormatConverter : IValueConverter, IMultiValueConverter
 {
     const string Size = "size";

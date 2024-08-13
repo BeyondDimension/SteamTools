@@ -3,6 +3,10 @@ namespace BD.WTTS;
 /// <summary>
 /// <see cref="IEnumerable"/> extensions methods
 /// </summary>
+[Mobius(
+"""
+Mobius.IEnumerableExtensions
+""")]
 public static class IEnumerableExtensions
 {
     public static IEnumerable<IEnumerable> Batch(this IEnumerable source, int size)

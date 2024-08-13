@@ -8,6 +8,10 @@ using WinUI = Windows.UI.StartScreen;
 namespace BD.WTTS.Services.Implementation;
 
 /// <inheritdoc cref="IJumpListService"/>
+[Mobius(
+"""
+Mobius.Services.Platform.Windows.Abstractions.IJumpListService
+""")]
 internal sealed class JumpListServiceImpl : IJumpListService
 {
 #if WINDOWS

@@ -2,6 +2,10 @@ using Avalonia.Controls.Shapes;
 
 namespace BD.WTTS.UI.Views.Controls;
 
+[Mobius(
+"""
+Mobius.UI.Views.Controls
+""")]
 public class RippleEffect : ContentControl
 {
     // ReSharper disable once InconsistentNaming

@@ -2,6 +2,10 @@ using Avalonia.Markup.Xaml.MarkupExtensions;
 
 namespace BD.WTTS.UI.Views.Pages;
 
+[Mobius(
+"""
+Mobius.UI.Views.Pages
+""")]
 public partial class TextInputDialogPage : ReactiveUserControl<TextBoxWindowViewModel>
 {
     public TextInputDialogPage()

@@ -7,6 +7,10 @@ using System.Drawing.Drawing2D;
 
 namespace BD.WTTS.UI;
 
+[Mobius(
+"""
+Mobius.UI.App
+""")]
 public sealed partial class App : Application
 {
     const string TAG = "AvaApp";
@@ -233,6 +237,12 @@ public sealed partial class App : Application
 
     public ICommand OpenBrowserCommand { get; }
 
+    [Mobius(
+"""
+Mobius.UI.App.OpenBrowserCommandCore
+1. 不提示 打开链接失败
+2. 使用统一的 OpenAuthUrl
+""")]
     public async void OpenBrowserCommandCore(object? url)
     {
         try
@@ -266,6 +276,11 @@ public sealed partial class App : Application
 
     public ICommand CopyToClipboardCommand { get; }
 
+    [Mobius(
+"""
+Mobius.UI.App.OpenBrowserCommandCore
+1. 不提示 复制内容失败
+""")]
     public async void CopyToClipboardCommandCore(object? text)
     {
         try

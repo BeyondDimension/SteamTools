@@ -3,6 +3,10 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace BD.WTTS.Services.Implementation;
 
+[Mobius(
+"""
+BD.Common8.Essentials.Services.Implementation.AvaloniaClipboardPlatformServiceImpl
+""")]
 public sealed class AvaloniaClipboardPlatformService : IClipboardPlatformService
 {
     public bool PlatformHasText => !string.IsNullOrEmpty(PlatformGetTextAsync().GetAwaiter().GetResult());

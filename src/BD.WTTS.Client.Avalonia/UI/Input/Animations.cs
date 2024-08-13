@@ -5,6 +5,10 @@ using Visual = Avalonia.Visual;
 
 namespace BD.WTTS.UI;
 
+[Mobius(
+"""
+Mobius.UI.Animations.Animations
+""")]
 public static class Animations
 {
     private static readonly Easing DefaultEasing = new LinearEasing();

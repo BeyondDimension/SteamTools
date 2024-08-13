@@ -2,6 +2,10 @@ using SkiaSharp;
 
 namespace BD.WTTS.Converters;
 
+[Mobius(
+"""
+Mobius.UI.Converters.Abstractions.ImageValueConverter
+""")]
 public abstract class ImageValueConverter : IValueConverter
 {
     public abstract object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture);
@@ -46,6 +50,7 @@ public abstract class ImageValueConverter : IValueConverter
     /// <param name="clipStream"></param>
     /// <param name="bitmap"></param>
     /// <returns></returns>
+    [Mobius("", Obsolete = true)]
     static bool TryGetBitmap([NotNullWhen(true)] ImageSource.ClipStream? clipStream, [NotNullWhen(true)] out SKBitmap? bitmap)
     {
         if (clipStream?.Stream == null)

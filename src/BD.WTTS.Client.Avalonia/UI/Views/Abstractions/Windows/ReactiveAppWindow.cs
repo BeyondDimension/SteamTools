@@ -7,6 +7,10 @@ namespace BD.WTTS.UI.Views.Windows;
 /// and vice versa.
 /// </summary>
 /// <typeparam name="TViewModel">ViewModel type.</typeparam>
+[Mobius(
+"""
+Mobius.UI.Views.Windows.Abstractions.ReactiveAppWindow<TViewModel>
+""")]
 public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IViewFor, IActivatableView where TViewModel : class
 {
     public static readonly StyledProperty<TViewModel?> ViewModelProperty = ReactiveWindow<TViewModel>.ViewModelProperty.AddOwner<ReactiveAppWindow<TViewModel>>();
