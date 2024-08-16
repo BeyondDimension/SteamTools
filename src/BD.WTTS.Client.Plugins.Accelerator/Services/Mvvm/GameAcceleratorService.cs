@@ -763,4 +763,9 @@ public sealed partial class GameAcceleratorService
             }
         }
     }
+
+    public async Task ShowXunYouWindow(bool showHide)
+    {
+        var result = await Ioc.Get<IAcceleratorService>().XY_ShowWinodw(showHide);
+    }
 }

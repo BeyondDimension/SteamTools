@@ -304,37 +304,55 @@
 
             <Separator Margin="0,8" Classes="Horizontal" />
 
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding SetupCertificateCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_SetupCertificate}" />
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding DeleteCertificateCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_DeleteCertificate}" />
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding ShowCertificateCommand}"
-                Content="查看证书信息" />
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding OpenCertificateDirCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_OpenCertificateDir}" />
+            <ItemsControl>
+                <ItemsControl.Items>
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding SetupCertificateCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_SetupCertificate}" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding DeleteCertificateCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_DeleteCertificate}" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding ShowCertificateCommand}"
+                        Content="查看证书信息" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding OpenCertificateDirCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_OpenCertificateDir}" />
+                </ItemsControl.Items>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <spp:FixedWrapPanel ItemsPerLine="2" Spacing="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
 
             <Separator Margin="0,8" Classes="Horizontal" />
 
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding EditHostsFileCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_EditHostsFile}" />
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding ResetHostsFileCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_ResetHostsFile}" />
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding OpenHostsDirCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_OpenHostsDir}" />
+            <ItemsControl>
+                <ItemsControl.Items>
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding EditHostsFileCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_EditHostsFile}" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding ResetHostsFileCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_ResetHostsFile}" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding OpenHostsDirCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_OpenHostsDir}" />
+                </ItemsControl.Items>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <spp:FixedWrapPanel ItemsPerLine="2" Spacing="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
 
             <!--<ui:FAComboBox ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" SelectedItem="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}">
                 <ui:FAComboBox.ItemTemplate>
@@ -362,14 +380,29 @@
 
             </ui:SettingsExpander>-->
 
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding InstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
-                Content="{x:Static spp:Strings.GameAccelerator_InstallWattAccelerator}" />
-            <Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding UninstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
-                Content="{x:Static spp:Strings.GameAccelerator_UninstallWattAccelerator}" />
+            <ItemsControl>
+                <ItemsControl.Items>
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding ShowXunYouWindow, Source={x:Static s:GameAcceleratorService.Current}}"
+                        CommandParameter="True"
+                        Content="打开 Watt 加速器" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding InstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                        Content="{x:Static spp:Strings.GameAccelerator_InstallWattAccelerator}" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding UninstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                        Content="{x:Static spp:Strings.GameAccelerator_UninstallWattAccelerator}" />
+                </ItemsControl.Items>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <spp:FixedWrapPanel ItemsPerLine="2" Spacing="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
         </StackPanel>
     </spp:PageBase.PaneContent>
     <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
@@ -379,9 +412,9 @@
             ItemContainerTheme="{StaticResource TabItemStyle}"
             Theme="{StaticResource TabStripStyle}">
             <TabStripItem Content="平台加速" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
-                <WrapPanel>
-                    <TextBlock Text="平台加速" />
-                    <Border
+                <!--<WrapPanel>-->
+                <TextBlock Text="平台加速" />
+                <!--<Border
                         Margin="5,0,0,0"
                         Padding="5,1"
                         VerticalAlignment="Center"
@@ -398,14 +431,14 @@
                             Foreground="White"
                             Text="免费" />
                     </Border>
-                </WrapPanel>
+                </WrapPanel>-->
             </TabStripItem>
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
             <TabStripItem Name="GameAccTab">
-                <WrapPanel>
-                    <TextBlock Text="游戏加速" />
-                    <Border
+                <!--<WrapPanel>-->
+                <TextBlock Text="游戏加速" />
+                <!--<Border
                         Margin="5,0,0,0"
                         Padding="5,1"
                         VerticalAlignment="Center"
@@ -421,8 +454,8 @@
                             FontSize="10"
                             Foreground="White"
                             Text="收费" />
-                    </Border>
-                </WrapPanel>
+                    </Border>-->
+                <!--</WrapPanel>-->
             </TabStripItem>
         </TabStrip>
         <Carousel

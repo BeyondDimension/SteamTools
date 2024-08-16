@@ -244,4 +244,17 @@ partial class BackendAcceleratorServiceImpl
         await Task.CompletedTask;
         return result;
     }
+
+    /// <inheritdoc/>
+    public async Task<ApiRsp<int>> XY_ShowWinodw(bool showHide, CancellationToken cancellationToken = default)
+    {
+        if (!XunYouSDK.IsSupported)
+        {
+            return ApiRspHelper.Ok(0);
+        }
+
+        XunYouSDK.xunyou_show(Convert.ToInt32(showHide));
+        await Task.CompletedTask;
+        return ApiRspHelper.Ok(0);
+    }
 }

@@ -180,16 +180,21 @@ public class FixedWrapPanel : Panel, INavigableContainer
                 continue;
             }
 
-            if (i < end - 1)
+            try
             {
-                child.Arrange(new Rect(x, y, width - Spacing, height));
-                x += width + Spacing;
+                if (i < end - 1 || i % ItemsPerLine == 0)
+                {
+
+                    child.Arrange(new Rect(x, y, width - Spacing, height));
+                    x += width + Spacing;
+                }
+                else
+                {
+                    child.Arrange(new Rect(x, y, width, height));
+                    x += width;
+                }
             }
-            else
-            {
-                child.Arrange(new Rect(x, y, width, height));
-                x += width;
-            }
+            catch { }
         }
     }
 
