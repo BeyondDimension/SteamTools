@@ -161,6 +161,11 @@ public partial interface IProxySettings
     int AcceleratorTabsSelectedIndex { get; set; }
 
     /// <summary>
+    /// 加速后自动唤起 Watt 加速器界面
+    /// </summary>
+    bool AutoShowWattAcceleratorWindow { get; set; }
+
+    /// <summary>
     /// 启用脚本自动检查更新的默认值
     /// </summary>
     const bool DefaultIsAutoCheckScriptUpdate = true;
@@ -279,5 +284,10 @@ public partial interface IProxySettings
     /// 加速页面 Tab 选项卡选中下标的默认值
     /// </summary>
     static readonly int DefaultAcceleratorTabsSelectedIndex = 0;
+
+    /// <summary>
+    /// 加速后自动唤起 Watt 加速器界面的默认值
+    /// </summary>
+    const bool DefaultAutoShowWattAcceleratorWindow = true;
 
 }

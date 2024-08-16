@@ -254,7 +254,7 @@ public sealed partial class GameAcceleratorService
     /// <summary>
     /// 设置加速游戏状态
     /// </summary>
-    void SetGameStatus(XunYouGameViewModel game, int areaId = 0, int serverId = 0)
+    async void SetGameStatus(XunYouGameViewModel game, int areaId = 0, int serverId = 0)
     {
         if (!XunYouSDK.IsSupported)
         {
@@ -307,6 +307,10 @@ public sealed partial class GameAcceleratorService
 
         //加速后
         Toast.Show(ToastIcon.Success, "加速成功");
+        if (ProxySettings.AutoShowWattAcceleratorWindow.Value)
+        {
+            _ = ShowXunYouWindow(true);
+        }
         int testSpeedCallback(SpeedCallbackWrapper w)
         {
             if (CurrentAcceleratorGame != null)

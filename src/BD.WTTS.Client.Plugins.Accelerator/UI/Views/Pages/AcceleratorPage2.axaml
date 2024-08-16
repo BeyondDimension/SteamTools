@@ -362,9 +362,19 @@
                 </ui:FAComboBox.ItemTemplate>
             </ui:FAComboBox>-->
 
-            <Separator Margin="0,8" Classes="Horizontal" />
+            <StackPanel IsVisible="{x:Static spp:XunYouSDK.IsSupported}}" Spacing="10">
+                <Separator Margin="0,8" Classes="Horizontal" />
 
-            <!--<TextBlock Text="{x:Static spp:Strings.GameAccelerator_WattAcceleratorInstallPath}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                <TextBlock Text="Watt 加速器相关" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+                <ToggleSwitch
+                    VerticalAlignment="Center"
+                    Classes="NoContent"
+                    IsChecked="{Binding Source={x:Static ms:ProxySettings.AutoShowWattAcceleratorWindow}, Path=Value, Mode=TwoWay}"
+                    OffContent="{x:Static spp:Strings.GameAccelerator_SetShowWattWindow}"
+                    OnContent="{x:Static spp:Strings.GameAccelerator_SetShowWattWindow}" />
+
+                <!--<TextBlock Text="{x:Static spp:Strings.GameAccelerator_WattAcceleratorInstallPath}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <ui:SettingsExpander Description="{Binding Source={x:Static ms:GameAcceleratorSettings.WattAcceleratorDirPath}, Path=Value, Mode=OneWay}}" IsExpanded="True">
                 <ui:SettingsExpander.IconSource>
@@ -380,29 +390,31 @@
 
             </ui:SettingsExpander>-->
 
-            <ItemsControl>
-                <ItemsControl.Items>
-                    <Button
-                        HorizontalAlignment="Stretch"
-                        Command="{Binding ShowXunYouWindow, Source={x:Static s:GameAcceleratorService.Current}}"
-                        CommandParameter="True"
-                        Content="打开 Watt 加速器" />
-                    <Button
-                        HorizontalAlignment="Stretch"
-                        Command="{Binding InstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
-                        Content="{x:Static spp:Strings.GameAccelerator_InstallWattAccelerator}" />
-                    <Button
-                        HorizontalAlignment="Stretch"
-                        Command="{Binding UninstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
-                        Content="{x:Static spp:Strings.GameAccelerator_UninstallWattAccelerator}" />
-                </ItemsControl.Items>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <spp:FixedWrapPanel ItemsPerLine="2" Spacing="5" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                <!--<ItemsControl>
+                    <ItemsControl.Items>
+					</ItemsControl.Items>
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<spp:FixedWrapPanel ItemsPerLine="2" Spacing="5" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+				</ItemsControl>-->
 
+                <Button
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding ShowXunYouWindow, Source={x:Static s:GameAcceleratorService.Current}}"
+                    CommandParameter="True"
+                    Content="{x:Static spp:Strings.GameAccelerator_ShowWattAccelerator}" />
+                <Button
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding InstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                    Content="{x:Static spp:Strings.GameAccelerator_InstallWattAccelerator}" />
+                <Button
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding UninstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                    Content="{x:Static spp:Strings.GameAccelerator_UninstallWattAccelerator}" />
+
+            </StackPanel>
         </StackPanel>
     </spp:PageBase.PaneContent>
     <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">

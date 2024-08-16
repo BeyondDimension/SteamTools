@@ -135,14 +135,14 @@
             <ItemsControl>
                 <ItemsControl.Items>
                     <Border Height="30" Background="Red" />
-                    <Border Background="Blue" />
-                    <Border Background="Yellow" />
-                    <Border Height="30" Background="Yellow" />
-                    <Border Background="Red" />
-                    <Border Background="Blue" />
                     <Border Height="30" Background="Blue" />
-                    <Border Background="Blue" />
-                    <Border Background="Blue" />
+                    <Border Height="30" Background="Yellow" />
+                    <Border Height="30" Background="Yellow" />
+                    <Border Height="30" Background="Red" />
+                    <Border Height="30" Background="Blue" />
+                    <Border Height="30" Background="Blue" />
+                    <Border Height="30" Background="Blue" />
+                    <Border Height="30" Background="Blue" />
                     <Border Height="30" Background="Red" />
                 </ItemsControl.Items>
                 <ItemsControl.ItemsPanel>

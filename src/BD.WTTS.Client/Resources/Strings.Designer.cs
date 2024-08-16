@@ -1350,7 +1350,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 打开 Hosts 所在文件夹 的本地化字符串。
+        ///   查找类似 打开 Hosts 文件夹 的本地化字符串。
         /// </summary>
         public static string CommunityFix_OpenHostsDir {
             get {
@@ -2673,7 +2673,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 安装Watt加速器插件 的本地化字符串。
+        ///   查找类似 安装 Watt 加速器插件 的本地化字符串。
         /// </summary>
         public static string GameAccelerator_InstallWattAccelerator {
             get {
@@ -2691,6 +2691,24 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 加速后唤起 Watt 加速器界面 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_SetShowWattWindow {
+            get {
+                return ResourceManager.GetString("GameAccelerator_SetShowWattWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 打开 Watt 加速器 的本地化字符串。
+        /// </summary>
+        public static string GameAccelerator_ShowWattAccelerator {
+            get {
+                return ResourceManager.GetString("GameAccelerator_ShowWattAccelerator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 停止 的本地化字符串。
         /// </summary>
         public static string GameAccelerator_Stop {
@@ -2700,7 +2718,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   查找类似 卸载Watt加速器插件 的本地化字符串。
+        ///   查找类似 卸载 Watt 加速器插件 的本地化字符串。
         /// </summary>
         public static string GameAccelerator_UninstallWattAccelerator {
             get {

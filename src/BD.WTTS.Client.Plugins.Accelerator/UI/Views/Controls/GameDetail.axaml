@@ -183,7 +183,7 @@
                                 Classes="accent"
                                 Command="{Binding ShowXunYouWindow, Source={x:Static s:GameAcceleratorService.Current}}"
                                 CommandParameter="True"
-                                Content="打开 Watt 加速器"
+                                Content="{x:Static spp:Strings.GameAccelerator_ShowWattAccelerator}"
                                 FontSize="18" />
 
                             <Button

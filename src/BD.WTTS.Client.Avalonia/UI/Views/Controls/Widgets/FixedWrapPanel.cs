@@ -85,44 +85,35 @@ public class FixedWrapPanel : Panel, INavigableContainer
     /// <inheritdoc/>
     protected override Size MeasureOverride(Size constraint)
     {
-        double itemWidth = (constraint.Width - (Spacing * (ItemsPerLine - 1))) / ItemsPerLine;
-        MutableSize currentLineSize = default;
-        MutableSize panelSize = default;
-        Size lineConstraint = new(constraint.Width, constraint.Height);
-        Size childConstraint = new(itemWidth - Spacing, constraint.Height);
+        var panelSize = default(MutableSize);
+        var lineSize = default(MutableSize);
+        int itemsInCurrentLine = 0;
 
-        for (int i = 0, count = Children.Count; i < count; i++)
+        foreach (var child in Children.OfType<Control>())
         {
-            Control child = Children[i];
-            if (child is null)
-            {
-                continue;
-            }
+            child.Measure(constraint);
+            var childSize = child.DesiredSize;
 
-            child.Measure(childConstraint);
-            Size childSize = new(itemWidth, child.DesiredSize.Height);
-
-            if (MathUtilities.GreaterThan(currentLineSize.Width + childSize.Width + Spacing, lineConstraint.Width))
+            if (itemsInCurrentLine == ItemsPerLine)
             {
-                // Need to switch to another line
-                panelSize.Width = Max(currentLineSize.Width, panelSize.Width);
-                panelSize.Height += currentLineSize.Height;
-                currentLineSize = new(childSize);
+                // Start a new line
+                panelSize.Width = Math.Max(panelSize.Width, lineSize.Width);
+                panelSize.Height += lineSize.Height + Spacing;
+                lineSize = new MutableSize(childSize.Width, childSize.Height);
+                itemsInCurrentLine = 1;
             }
             else
             {
-                // Continue to accumulate a line
-                currentLineSize.Width += childSize.Width + Spacing;
-                currentLineSize.Height = Max(childSize.Height, currentLineSize.Height);
+                // Add to the current line
+                lineSize.Width += childSize.Width + (itemsInCurrentLine > 0 ? Spacing : 0);
+                lineSize.Height = Math.Max(lineSize.Height, childSize.Height);
+                itemsInCurrentLine++;
             }
         }
 
-        // The last line size, if any should be added
-        panelSize.Width = Max(currentLineSize.Width, panelSize.Width);
-        panelSize.Height = currentLineSize.Height;
-
-        if (double.IsInfinity(panelSize.Width))
-            panelSize.Width = 0;
+        // Add the last line size
+        panelSize.Width = Math.Max(panelSize.Width, lineSize.Width);
+        panelSize.Height += lineSize.Height;
 
         return panelSize.ToSize();
     }
@@ -130,40 +121,34 @@ public class FixedWrapPanel : Panel, INavigableContainer
     /// <inheritdoc/>
     protected override Size ArrangeOverride(Size finalSize)
     {
-        double itemWidth = (finalSize.Width - (Spacing * (ItemsPerLine - 1))) / ItemsPerLine;
-        int firstInLine = 0;
-        double accumulatedHeight = 0;
-        var currentLineSize = default(MutableSize);
+        var itemWidth = (finalSize.Width - (Spacing * (ItemsPerLine - 1))) / ItemsPerLine;
+        var position = default(MutablePoint);
+        var lineHeight = 0.0;
+        int itemsInCurrentLine = 0;
 
-        for (int i = 0; i < Children.Count; i++)
+        foreach (var child in Children.OfType<Control>())
         {
-            Control child = Children[i];
-            if (child == null)
+            if (itemsInCurrentLine == ItemsPerLine)
             {
-                continue;
+                // Move to the next line
+                position.X = 0;
+                position.Y += lineHeight + Spacing;
+                lineHeight = 0;
+                itemsInCurrentLine = 0;
             }
 
-            MutableSize itemSize = new(itemWidth, child.DesiredSize.Height);
-            if (MathUtilities.GreaterThan(currentLineSize.Width + itemSize.Width, finalSize.Width))
+            var childSize = new Size(itemWidth, child.DesiredSize.Height);
+            try
             {
-                // Need to switch to another line
-                ArrangeLine(accumulatedHeight, currentLineSize.Height, firstInLine, i, itemWidth);
-                accumulatedHeight += currentLineSize.Height;
-                currentLineSize = itemSize;
-                firstInLine = i;
+                child.Arrange(new Rect(position.ToPoint(), childSize));
             }
-            else
+            catch
             {
-                // Continue to accumulate a line
-                currentLineSize.Width += itemSize.Width;
-                currentLineSize.Height = Max(itemSize.Height, currentLineSize.Height);
             }
-        }
 
-        if (firstInLine < Children.Count)
-        {
-            // Arrange the last line, if any
-            ArrangeLine(accumulatedHeight, currentLineSize.Height, firstInLine, Children.Count, itemWidth);
+            position.X += itemWidth + Spacing;
+            lineHeight = Math.Max(lineHeight, childSize.Height);
+            itemsInCurrentLine++;
         }
 
         return finalSize;
@@ -196,6 +181,14 @@ public class FixedWrapPanel : Panel, INavigableContainer
             }
             catch { }
         }
+    }
+
+    record struct MutablePoint
+    {
+        internal double X;
+        internal double Y;
+
+        internal readonly Point ToPoint() => new Point(X, Y);
     }
 
     record struct MutableSize

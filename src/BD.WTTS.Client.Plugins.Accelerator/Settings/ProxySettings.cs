@@ -203,6 +203,12 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     [MPKey(23), MP2Key(23), JsonPropertyOrder(23)]
     public int AcceleratorTabsSelectedIndex { get; set; } = IProxySettings.DefaultAcceleratorTabsSelectedIndex;
 
+    /// <summary>
+    /// 加速后自动唤起 Watt 加速器界面
+    /// </summary>
+    [MPKey(24), MP2Key(24), JsonPropertyOrder(24)]
+    public bool AutoShowWattAcceleratorWindow { get; set; } = IProxySettings.DefaultAutoShowWattAcceleratorWindow;
+
 }
 
 public static partial class ProxySettings
@@ -370,5 +376,11 @@ public static partial class ProxySettings
     /// </summary>
     public static SettingsStructProperty<int, ProxySettings_> AcceleratorTabsSelectedIndex { get; }
         = new(DefaultAcceleratorTabsSelectedIndex);
+
+    /// <summary>
+    /// 加速后自动唤起 Watt 加速器界面
+    /// </summary>
+    public static SettingsStructProperty<bool, ProxySettings_> AutoShowWattAcceleratorWindow { get; }
+        = new(DefaultAutoShowWattAcceleratorWindow);
 
 }
