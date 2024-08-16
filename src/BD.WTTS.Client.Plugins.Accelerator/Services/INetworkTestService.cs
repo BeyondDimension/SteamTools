@@ -57,7 +57,7 @@ internal interface IHttpRequestTestService
     /// <param name="uploadBytes"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<(bool success, double? rate)> TestUploadSpeedAsync(
+    Task<(bool Success, double? Rate)> TestUploadSpeedAsync(
             string uploadServerUrl,
             byte[] uploadBytes,
             CancellationToken cancellationToken = default
@@ -69,7 +69,7 @@ internal interface IHttpRequestTestService
     /// <param name="downloadUrl"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<(bool success, double? rate)> TestDownloadSpeedAsync(string downloadUrl, CancellationToken cancellationToken = default);
+    Task<(bool Success, double? Rate)> TestDownloadSpeedAsync(string downloadUrl, CancellationToken cancellationToken = default);
 }
 
 internal interface IStunTestService

@@ -52,7 +52,7 @@ internal partial class NetworkTestService : INetworkTestService
 
     #region Upload/Download Speed Test
 
-    public async Task<(bool success, double? rate)> TestUploadSpeedAsync(
+    public async Task<(bool Success, double? Rate)> TestUploadSpeedAsync(
             string uploadServerUrl,
             byte[] uploadBytes,
             CancellationToken cancellationToken = default
@@ -78,7 +78,7 @@ internal partial class NetworkTestService : INetworkTestService
         }
     }
 
-    public async Task<(bool success, double? rate)> TestDownloadSpeedAsync(string downloadUrl, CancellationToken cancellationToken = default)
+    public async Task<(bool Success, double? Rate)> TestDownloadSpeedAsync(string downloadUrl, CancellationToken cancellationToken = default)
     {
         using HttpClient testClient = new HttpClient();
 
@@ -94,7 +94,7 @@ internal partial class NetworkTestService : INetworkTestService
     /// <param name="uploadBytes"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    static async Task<(bool success, double? rate)> TestUploadSpeedCoreAsync(
+    static async Task<(bool Success, double? Rate)> TestUploadSpeedCoreAsync(
                 Func<HttpClient> httpClientFunc,
                 Func<byte[], HttpContent> uploadContentFunc,
                 string uploadServerUrl,
@@ -134,7 +134,7 @@ internal partial class NetworkTestService : INetworkTestService
     /// <param name="url"></param>
     /// <param name="httpClientFunc"></param>
     /// <returns></returns>
-    static async Task<(bool success, double? rate)> TestDownloadSpeedCoreAsync(string url, Func<HttpClient>? httpClientFunc = null, CancellationToken cancellationToken = default)
+    static async Task<(bool Success, double? Rate)> TestDownloadSpeedCoreAsync(string url, Func<HttpClient>? httpClientFunc = null, CancellationToken cancellationToken = default)
     {
         var httpClient = httpClientFunc?.Invoke() ?? new HttpClient();
 
@@ -744,7 +744,7 @@ internal partial class NetworkTestService : INetworkTestService
         }
     }
 
-    class DnsQueryAnswerRecordConverter : System.Text.Json.Serialization.JsonConverter<DnsQueryAnswerRecord>
+    private class DnsQueryAnswerRecordConverter : System.Text.Json.Serialization.JsonConverter<DnsQueryAnswerRecord>
     {
         public override DnsQueryAnswerRecord? Read(ref Utf8JsonReader reader, Type typeToConvert, SystemTextJsonSerializerOptions options)
         {
