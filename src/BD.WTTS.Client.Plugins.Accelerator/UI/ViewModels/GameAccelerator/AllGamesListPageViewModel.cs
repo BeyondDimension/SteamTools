@@ -9,17 +9,20 @@ public sealed class AllGamesListPageViewModel : WindowViewModel
     {
         XunYouGames = new ObservableCollection<XunYouGameViewModel>();
 
-        Task2.InBackground(() =>
+        if (XunYouSDK.IsSupported)
         {
-            var games = XunYouSDK.GetAllGames();
-            if (games != null)
+            Task2.InBackground(() =>
             {
-                XunYouGames.Clear();
-                foreach (var game in games)
+                var games = XunYouSDK.GetAllGames();
+                if (games != null)
                 {
-                    XunYouGames.Add(new XunYouGameViewModel(game));
+                    XunYouGames.Clear();
+                    foreach (var game in games)
+                    {
+                        XunYouGames.Add(new XunYouGameViewModel(game));
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }

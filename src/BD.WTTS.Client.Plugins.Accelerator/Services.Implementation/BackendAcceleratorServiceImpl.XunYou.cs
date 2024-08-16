@@ -80,6 +80,11 @@ partial class BackendAcceleratorServiceImpl
     /// <inheritdoc/>
     public async Task<ApiRsp<bool>> XY_IsInstall(CancellationToken cancellationToken = default)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return ApiRspHelper.Ok(false);
+        }
+
         var result = XunYouSDK.IsInstall();
         await Task.CompletedTask;
         return result;
@@ -88,6 +93,11 @@ partial class BackendAcceleratorServiceImpl
     /// <inheritdoc/>
     public async Task<ApiRsp<XunYouUninstallCode>> XY_Uninstall(CancellationToken cancellationToken = default)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return ApiRspHelper.Ok(XunYouUninstallCode.卸载成功);
+        }
+
         var result = XunYouSDK.Uninstall();
         await Task.CompletedTask;
         return result;
@@ -104,6 +114,11 @@ partial class BackendAcceleratorServiceImpl
         string? svrPath = default,
         CancellationToken cancellationToken = default)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return ApiRspHelper.Ok(0);
+        }
+
         var result = XunYouSDK.StartEx2(
             openid,
             nickname,
@@ -128,6 +143,11 @@ partial class BackendAcceleratorServiceImpl
       string? svrName = default,
       CancellationToken cancellationToken = default)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return ApiRspHelper.Ok(0);
+        }
+
         var result = XunYouSDK.StartAccel(
             gameid,
             area,
@@ -141,6 +161,11 @@ partial class BackendAcceleratorServiceImpl
     /// <inheritdoc/>
     public async Task<ApiRsp<XunYouAccelStateModel?>> XY_GetAccelStateEx(CancellationToken cancellationToken = default)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return ApiRspHelper.Ok((XunYouAccelStateModel?)null);
+        }
+
         var result = GetXunYouAccelStateModel(lastXunYouState);
         await Task.CompletedTask;
         return result;
@@ -149,6 +174,11 @@ partial class BackendAcceleratorServiceImpl
     /// <inheritdoc/>
     public async IAsyncEnumerable<ApiRsp<int>> XY_Install(string installPath, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            yield break;
+        }
+
         var channel = Channel.CreateUnbounded<int>();
         int XunYouDownLoadCallback(int par, nint thisptr)
         {
@@ -177,6 +207,11 @@ partial class BackendAcceleratorServiceImpl
     /// <inheritdoc/>
     public async Task<ApiRsp<XunYouSendResultCode>> XY_StopAccel(CancellationToken cancellationToken = default)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return ApiRspHelper.Ok(XunYouSendResultCode.发送成功);
+        }
+
         var result = XunYouSDK.Stop();
         await Task.CompletedTask;
         return result;
@@ -185,6 +220,11 @@ partial class BackendAcceleratorServiceImpl
     /// <inheritdoc/>
     public async Task<ApiRsp<XunYouIsRunningCode>> XY_IsRunning(CancellationToken cancellationToken = default)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return ApiRspHelper.Ok(XunYouIsRunningCode.加速器未启动);
+        }
+
         var result = XunYouSDK.IsRunning();
         await Task.CompletedTask;
         return result;
@@ -193,6 +233,11 @@ partial class BackendAcceleratorServiceImpl
     /// <inheritdoc/>
     public async Task<ApiRsp<XunYouStartGameCode>> XY_StartGame(CancellationToken cancellationToken = default)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return ApiRspHelper.Ok(XunYouStartGameCode.失败);
+        }
+
         var result = XunYouSDK.StartGame();
         await Task.CompletedTask;
         return result;

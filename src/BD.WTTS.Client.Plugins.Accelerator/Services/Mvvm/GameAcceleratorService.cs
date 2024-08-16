@@ -256,6 +256,11 @@ public sealed partial class GameAcceleratorService
     /// </summary>
     void SetGameStatus(XunYouGameViewModel game, int areaId = 0, int serverId = 0)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return;
+        }
+
         if (CurrentAcceleratorGame != null && CurrentAcceleratorGame.Id == game.Id)
         {
             CurrentAcceleratorGame.IsAccelerating = false;
@@ -328,6 +333,11 @@ public sealed partial class GameAcceleratorService
 
     public async Task GameAccelerator(XunYouGameViewModel app)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return;
+        }
+
         if (app.IsAccelerating)
             return;
 
