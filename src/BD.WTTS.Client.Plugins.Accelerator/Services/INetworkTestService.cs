@@ -51,6 +51,15 @@ internal interface INetworkTestService : IHttpRequestTestService, IStunTestServi
 internal interface IHttpRequestTestService
 {
     /// <summary>
+    /// 测试打开网址
+    /// </summary>
+    /// <param name="url"></param>
+    /// <param name="httpClientFunc"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<(bool success, long? delayMs)> TestOpenUrlAsync(string url, Func<HttpClient>? httpClientFunc = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// 测试上传速度
     /// </summary>
     /// <param name="uploadServerUrl"></param>
