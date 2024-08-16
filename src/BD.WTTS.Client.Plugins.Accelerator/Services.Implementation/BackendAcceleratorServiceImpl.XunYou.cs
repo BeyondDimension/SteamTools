@@ -119,9 +119,11 @@ partial class BackendAcceleratorServiceImpl
             return ApiRspHelper.Ok(0);
         }
 
+        var show = XunYouShowCommands.SW_HIDE;
         var result = XunYouSDK.StartEx2(
             openid,
             nickname,
+            show,
             gameid,
             area,
             server,
