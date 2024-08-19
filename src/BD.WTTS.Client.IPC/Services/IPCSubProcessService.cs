@@ -311,10 +311,29 @@ sealed class IPCSubProcessFileSystem : IOPath.FileSystemBase
         config.LoggingRules.Add(new LoggingRule("*", minLevel, target));
     }
 
+    public static string GetLogDirPath(string? moduleName = null, string? cacheDirectory = null)
+    {
+        cacheDirectory ??= IOPath.CacheDirectory;
+
+        string logDirPath;
+        if (moduleName == null)
+        {
+            logDirPath = Path.Combine(cacheDirectory, LogDirName);
+        }
+        else
+        {
+            var dirName = GetDirectoryName(moduleName);
+            logDirPath = Path.Combine(cacheDirectory, LogDirName, dirName);
+        }
+
+        IOPath.DirCreateByNotExists(logDirPath);
+        return logDirPath;
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void InitLog(
         ref string? logDirPath,
-        string? mainProcessModuleName = null,
+        string? moduleName = null,
         string? alias = null,
         string? cacheDirectory = null
 #if STARTUP_WATCH_TRACE || DEBUG
@@ -335,16 +354,8 @@ sealed class IPCSubProcessFileSystem : IOPath.FileSystemBase
 
         cacheDirectory ??= IOPath.CacheDirectory;
 
-        if (mainProcessModuleName == null)
-        {
-            logDirPath = Path.Combine(cacheDirectory, LogDirName);
-        }
-        else
-        {
-            var dirName = GetDirectoryName(mainProcessModuleName);
-            logDirPath = Path.Combine(cacheDirectory, LogDirName, dirName);
-        }
-        IOPath.DirCreateByNotExists(logDirPath);
+        logDirPath = GetLogDirPath(moduleName, cacheDirectory);
+
 #if (STARTUP_WATCH_TRACE || DEBUG) && !LIB_CLIENT_IPC
         if (watchTrace) Startup.WatchTrace.Record("InitLog.IOPath");
 #endif
