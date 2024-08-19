@@ -346,6 +346,10 @@
                         HorizontalAlignment="Stretch"
                         Command="{Binding OpenHostsDirCommand}"
                         Content="{x:Static spp:Strings.CommunityFix_OpenHostsDir}" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding OpenLogFileCommand}"
+                        Content="打开加速日志文件夹" />
                 </ItemsControl.Items>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

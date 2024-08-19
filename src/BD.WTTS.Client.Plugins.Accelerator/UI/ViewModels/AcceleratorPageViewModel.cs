@@ -65,6 +65,10 @@ public sealed partial class AcceleratorPageViewModel
                 certificateManager.GetCerFilePathGeneratedWhenNoFileExists();
                 platformService.OpenFolder(certificateManager.PfxFilePath);
             });
+            OpenLogFileCommand = ReactiveCommand.Create(() =>
+            {
+                platformService.OpenFolder(IPCSubProcessFileSystem.GetLogDirPath(Plugin.Instance.UniqueEnglishName));
+            });
         }
     }
 

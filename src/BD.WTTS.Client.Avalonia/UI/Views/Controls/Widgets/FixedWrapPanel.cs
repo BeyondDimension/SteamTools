@@ -88,10 +88,11 @@ public class FixedWrapPanel : Panel, INavigableContainer
         var panelSize = default(MutableSize);
         var lineSize = default(MutableSize);
         int itemsInCurrentLine = 0;
+        double itemWidth = (constraint.Width - (Spacing * (ItemsPerLine - 1))) / ItemsPerLine;
 
         foreach (var child in Children.OfType<Control>())
         {
-            child.Measure(constraint);
+            child.Measure(new Size(itemWidth, constraint.Height));
             var childSize = child.DesiredSize;
 
             if (itemsInCurrentLine == ItemsPerLine)
@@ -125,31 +126,29 @@ public class FixedWrapPanel : Panel, INavigableContainer
         var position = default(MutablePoint);
         var lineHeight = 0.0;
         int itemsInCurrentLine = 0;
-
-        foreach (var child in Children.OfType<Control>())
+        try
         {
-            if (itemsInCurrentLine == ItemsPerLine)
+            foreach (var child in Children.OfType<Control>())
             {
-                // Move to the next line
-                position.X = 0;
-                position.Y += lineHeight + Spacing;
-                lineHeight = 0;
-                itemsInCurrentLine = 0;
-            }
+                if (itemsInCurrentLine == ItemsPerLine)
+                {
+                    // Move to the next line
+                    position.X = 0;
+                    position.Y += lineHeight + Spacing;
+                    lineHeight = 0;
+                    itemsInCurrentLine = 0;
+                }
 
-            var childSize = new Size(itemWidth, child.DesiredSize.Height);
-            try
-            {
+                var childSize = new Size(itemWidth, child.DesiredSize.Height);
                 child.Arrange(new Rect(position.ToPoint(), childSize));
-            }
-            catch
-            {
-            }
 
-            position.X += itemWidth + Spacing;
-            lineHeight = Math.Max(lineHeight, childSize.Height);
-            itemsInCurrentLine++;
+                position.X += itemWidth + Spacing;
+                lineHeight = Math.Max(lineHeight, childSize.Height);
+                itemsInCurrentLine++;
+            }
         }
+        catch
+        { }
 
         return finalSize;
     }

@@ -30,4 +30,6 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     public ICommand? ProxySettingsCommand { get; }
 
     public ICommand? TrustCerCommand { get; }
+
+    public ICommand? OpenLogFileCommand { get; }
 }
