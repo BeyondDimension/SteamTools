@@ -6,6 +6,8 @@ namespace BD.WTTS.Services;
 
 internal interface INetworkTestService : IHttpRequestTestService, IStunTestService
 {
+    static INetworkTestService Instance => Ioc.Get<INetworkTestService>();
+
     /// <summary>
     /// Ping
     /// </summary>

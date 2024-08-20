@@ -2,6 +2,8 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 
 using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
+using STUN.StunResult;
+using System.Net.NetworkInformation;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -12,6 +14,7 @@ public sealed partial class AcceleratorPageViewModel
     readonly IPlatformService platformService = IPlatformService.Instance;
     readonly IReverseProxyService reverseProxyService = IReverseProxyService.Constants.Instance;
     readonly ICertificateManager certificateManager = ICertificateManager.Constants.Instance;
+    readonly INetworkTestService networkTestService = INetworkTestService.Instance;
 
     public AcceleratorPageViewModel()
     {
@@ -43,10 +46,42 @@ public sealed partial class AcceleratorPageViewModel
             GameAcceleratorService.Current.LoadGames();
         });
 
+        // https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error
+        NATCheckCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            var natCheckResult = await networkTestService.TestStunClient3489Async() ?? new ClassicStunResult { NatType = STUN.Enums.NatType.Unknown };
+            var (netSucc, _) = await networkTestService.TestOpenUrlAsync("https://www.baidu.com");
+
+            var natStatus = natCheckResult.NatType switch
+            {
+                STUN.Enums.NatType.OpenInternet or STUN.Enums.NatType.FullCone => NATType.Open,
+                STUN.Enums.NatType.RestrictedCone or STUN.Enums.NatType.PortRestrictedCone or STUN.Enums.NatType.SymmetricUdpFirewall => NATType.Moderate,
+                STUN.Enums.NatType.Symmetric or STUN.Enums.NatType.UdpBlocked => NATType.Strict,
+                STUN.Enums.NatType.Unknown or STUN.Enums.NatType.UnsupportedServer or _ => NATType.Unknown,
+            };
+
+            return (natStatus, netSucc);
+        });
+        NATCheckCommand
+            .IsExecuting
+            .ToPropertyEx(this, x => x.IsNATChecking);
+
+        ConnectTestCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            await Task.Delay(200);
+            var enableDomains = ProxyService.Current.GetEnableProxyDomains();
+            foreach (var enableDomain in enableDomains)
+            {
+                var firstMatchDomain = enableDomain.MatchDomainNames.Split(';')[0];
+                var shouldBeSame = enableDomain.DomainNamesArray[0];
+                Log.Info(shouldBeSame, firstMatchDomain);
+            }
+        });
+
         ProxySettingsCommand = ReactiveCommand.Create(() =>
         {
             var vm = new ProxySettingsWindowViewModel();
-            IWindowManager.Instance.ShowTaskDialogAsync(vm, vm.Title, pageContent: new ProxySettingsPage(), isOkButton: false);
+            _ = IWindowManager.Instance.ShowTaskDialogAsync(vm, vm.Title, pageContent: new ProxySettingsPage(), isOkButton: false);
         });
 
         if (IApplication.IsDesktop())

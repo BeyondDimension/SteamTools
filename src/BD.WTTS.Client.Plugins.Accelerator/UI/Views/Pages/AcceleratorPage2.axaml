@@ -12,7 +12,7 @@
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
-    d:DesignHeight="450"
+    d:DesignHeight="650"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:AcceleratorPageViewModel"
@@ -372,6 +372,7 @@
                 Content="{x:Static spp:Strings.GameAccelerator_UninstallWattAccelerator}" />
         </StackPanel>
     </spp:PageBase.PaneContent>
+	
     <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
         <TabStrip
             x:Name="AcceleratorTabs"
@@ -400,8 +401,9 @@
                     </Border>
                 </WrapPanel>
             </TabStripItem>
-            <TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
-            <TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
+			<TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
+			<TabStripItem Content="网路测试" IsVisible="True" />
+			<TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
             <TabStripItem Name="GameAccTab">
                 <WrapPanel>
                     <TextBlock Text="游戏加速" />
@@ -509,9 +511,72 @@
                 </spp:ContentLoader>
             </ScrollViewer>
 
-            <!--  流量统计  -->
-            <spp:ProxyChartView Margin="5,0" />
+			<!--  流量统计  -->
+			<spp:ProxyChartView Margin="5,0" />
 
+			<!--  网路测试  -->
+			<StackPanel Margin="0 0 8 0">
+				<ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
+					<ui:SettingsExpander.Header>
+						<StackPanel Orientation="Horizontal" >
+							<ui:FontIcon FontSize="26" Margin="0 0 12 0" FontFamily="Segoe Fluent Icons" Glyph="&#xE969;" />
+							<TextBlock VerticalAlignment="Center" Text="NAT 测试" />
+						</StackPanel>
+					</ui:SettingsExpander.Header>
+					<ui:SettingsExpander.Footer>
+						<Button x:Name="NATCheckButton"
+								Width="100" Content="检测"
+								IsEnabled="True" />
+					</ui:SettingsExpander.Footer>
+
+					<StackPanel>
+						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+							<DockPanel>
+								<TextBlock VerticalAlignment="Center" Text="NAT 类型：" />
+
+								<ui:ProgressRing x:Name="NATTypeRing" DockPanel.Dock="Right" Width="22" />
+
+								<StackPanel x:Name="NATTypeStatus" Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right" >
+									<SelectableTextBlock x:Name="NATTextBlock" Text="未知" Foreground="Gray" Margin="0 8 8 0" />
+									<ui:FontIcon FontSize="20" Glyph="&#xE946;">
+										<ToolTip.Tip>
+											<TextBlock x:Name="NATTypeTip" Text="未知类型" />
+										</ToolTip.Tip>
+									</ui:FontIcon>
+								</StackPanel>
+							</DockPanel>
+						</ui:SettingsExpanderItem>
+						<Border Classes="paper" Margin="-16 0"/>
+						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+							<DockPanel>
+								<TextBlock Text="互联网连通情况：" Margin="0 12 0 0"/>
+
+								<ui:ProgressRing x:Name="NetworkRing" DockPanel.Dock="Right" Width="22" Margin="0 6 0 0" />
+
+								<ui:FontIcon x:Name="PingOK" DockPanel.Dock="Right"
+									HorizontalAlignment="Right" FontSize="26" Margin="0 6 6 0"
+									FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe73d;" Foreground="Green" />
+
+								<Grid x:Name="PingError" Margin="0 6 6 0" DockPanel.Dock="Right">
+									<ui:FontIcon 
+										HorizontalAlignment="Right" FontSize="20" Margin="3" 
+										FontFamily="Segoe Fluent Icons" Glyph="&#xf127;" Foreground="Red" />
+									<ui:FontIcon 
+										HorizontalAlignment="Right" FontSize="26" 
+										Glyph="&#xea39;" Foreground="White" />
+								</Grid>
+							</DockPanel>
+
+						</ui:SettingsExpanderItem>
+
+						<Border Classes="paper" Margin="-16 0"/>
+						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+							<HyperlinkButton Content="了解更多" NavigateUri="https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error" />
+						</ui:SettingsExpanderItem>
+					</StackPanel>
+				</ui:SettingsExpander>
+				</StackPanel>
+			
             <!--  加速服务  -->
             <Grid Margin="0,0,10,0" ColumnDefinitions="*,20,*">
                 <Border
@@ -519,17 +584,16 @@
                     Padding="10"
                     Classes="paper">
                     <DockPanel>
-                        <TextBlock
-                            Margin="0,0,0,10"
-                            DockPanel.Dock="Top"
-                            FontSize="16"
-                            Text="{x:Static spp:Strings.CommunityFix_AccelerationsEnable}" />
-                        <ScrollViewer>
+						<DockPanel Margin="0,0,0,10" DockPanel.Dock="Top" HorizontalAlignment="Stretch">
+							<TextBlock FontSize="16" Text="{x:Static spp:Strings.CommunityFix_AccelerationsEnable}" />
+							<Button x:Name="ConnectTest" DockPanel.Dock="Right" Content="连通性测试" HorizontalAlignment="Right"/>
+						</DockPanel>
+						<ScrollViewer>
                             <ItemsControl ItemsSource="{Binding EnableProxyDomains, Source={x:Static s:ProxyService.Current}}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type spp:AccelerateProjectDTO}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate DataType="{x:Type spp:AccelerateProjectDTO}">
                                         <StackPanel Margin="10">
-                                            <DockPanel>
+                                            <DockPanel HorizontalAlignment="Stretch">
                                                 <TextBlock Text="{Binding Name}" />
                                                 <Border
                                                     Padding="5,0"
@@ -548,7 +612,8 @@
                                                         FontSize="10"
                                                         Text="Beta" />
                                                 </Border>
-                                            </DockPanel>
+												<TextBlock DockPanel.Dock="Right" Text="???ms" HorizontalAlignment="Right" />
+											</DockPanel>
                                             <Separator Classes="Separator" />
                                         </StackPanel>
                                     </DataTemplate>
@@ -655,6 +720,7 @@
 						</TabItem>-->
         </Carousel>
 
+		<!--  Side tab of paid game spped up  -->
         <StackPanel
             Grid.ColumnSpan="2"
             HorizontalAlignment="Right"
@@ -732,7 +798,7 @@
             </AutoCompleteBox>
         </StackPanel>
 
-
+		<!--  Side tab after speed up  -->
         <StackPanel
             Grid.ColumnSpan="2"
             HorizontalAlignment="Right"

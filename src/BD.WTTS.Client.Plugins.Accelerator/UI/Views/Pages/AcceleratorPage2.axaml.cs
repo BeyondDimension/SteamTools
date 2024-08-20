@@ -1,8 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -73,6 +71,34 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
                 GameAccTab.IsVisible = false;
                 AcceleratorTabs.SelectedIndex = 0;
             }
+
+            this.BindCommand(ViewModel, vm => vm.ConnectTestCommand, v => v.ConnectTest).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.NATCheckCommand, v => v.NATCheckButton).DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.IsNATChecking, v => v.NATTypeRing.IsVisible).DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.IsNATChecking, v => v.NATTypeStatus.IsVisible, v => !v).DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.IsNATChecking, v => v.NetworkRing.IsVisible).DisposeWith(disposables);
+
+            PingOK.IsVisible = false;
+            PingError.IsVisible = false;
+            NATCheckButton.Click += (_, _) => PingError.IsVisible = PingOK.IsVisible = false;
+            ViewModel!.NATCheckCommand
+                .Subscribe(result =>
+                {
+                    (NATTextBlock.Text, NATTypeTip.Text) = result.Nat switch
+                    {
+                        AcceleratorPageViewModel.NATType.Open => ("开放 NAT", "您可与在其网络上具有任意 NAT 类型的用户玩多人游戏和发起多人游戏。"),
+                        AcceleratorPageViewModel.NATType.Moderate => ("中等 NAT", "您可与一些用户玩多人游戏；但是，并且通常你将不会被选为比赛的主持人。"),
+                        AcceleratorPageViewModel.NATType.Strict => ("严格 NAT", "您只能与具有开放 NAT 类型的用户玩多人游戏。您不能被选为比赛的主持人。"),
+                        _ => ("不可用 NAT", "如果 NAT 不可用，您将无法使用群聊天或连接到某些 Xbox 游戏的多人游戏。"),
+                    };
+
+                    (PingOK.IsVisible, PingError.IsVisible) = result.PingSuccess switch
+                    {
+                        true => (true, false),
+                        false => (false, true),
+                    };
+                }).DisposeWith(disposables);
+
         });
 
         SearchGameBox.DropDownClosed += SearchGameBox_DropDownClosed;
