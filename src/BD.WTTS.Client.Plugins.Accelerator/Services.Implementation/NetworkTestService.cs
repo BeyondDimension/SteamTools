@@ -50,7 +50,30 @@ internal partial class NetworkTestService : INetworkTestService
 
     #endregion Ping
 
-    #region Upload/Download Speed Test
+    #region Open/Upload/Download Speed Test
+
+    public async Task<(bool Success, long? DelayMs)> TestOpenUrlAsync(string url, Func<HttpClient>? httpClientFunc = null, CancellationToken cancellationToken = default)
+    {
+        using var testClient = httpClientFunc?.Invoke() ?? new HttpClient();
+
+        Stopwatch watch = Stopwatch.StartNew();
+
+        try
+        {
+            var resp = await testClient.GetAsync(url, HttpCompletionOption.ResponseContentRead, cancellationToken);
+
+            watch.Stop();
+
+            resp.EnsureSuccessStatusCode();
+
+            return (true, watch.ElapsedMilliseconds);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(NetworkTestService), ex, "测试打开 URL 异常");
+            return (false, default);
+        }
+    }
 
     public async Task<(bool Success, double? Rate)> TestUploadSpeedAsync(
             string uploadServerUrl,
@@ -70,11 +93,11 @@ internal partial class NetworkTestService : INetworkTestService
 
         static MultipartFormDataContent BuildUploadContent(byte[] data)
         {
-            MultipartFormDataContent cotent = new MultipartFormDataContent();
+            MultipartFormDataContent content = new MultipartFormDataContent();
 
-            cotent.Add(new ByteArrayContent(data));
+            content.Add(new ByteArrayContent(data));
 
-            return cotent;
+            return content;
         }
     }
 
@@ -175,7 +198,7 @@ internal partial class NetworkTestService : INetworkTestService
         return megabits / seconds; // 返回速率，单位是 Mbps
     }
 
-    #endregion Upload/Download Speed Test
+    #endregion Open/Upload/Download Speed Test
 
     #region STUN 测试
 
