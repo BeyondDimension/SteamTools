@@ -64,8 +64,6 @@ internal partial class NetworkTestService : INetworkTestService
 
             watch.Stop();
 
-            resp.EnsureSuccessStatusCode();
-
             return (true, watch.ElapsedMilliseconds);
         }
         catch (Exception ex)

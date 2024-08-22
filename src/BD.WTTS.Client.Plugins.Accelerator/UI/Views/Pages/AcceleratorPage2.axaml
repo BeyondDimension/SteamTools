@@ -21,104 +21,104 @@
     ScrollViewer.VerticalScrollBarVisibility="Disabled"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
-    <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
-    </spp:PageBase.PreviewImage>
-    <spp:PageBase.ActionContent>
-        <StackPanel Orientation="Horizontal" Spacing="2">
-            <SplitButton
+	<spp:PageBase.PreviewImage>
+		<ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+	</spp:PageBase.PreviewImage>
+	<spp:PageBase.ActionContent>
+		<StackPanel Orientation="Horizontal" Spacing="2">
+			<SplitButton
                 Padding="8,4"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Command="{Binding StartProxyCommand}"
                 DockPanel.Dock="Right"
                 IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
-                <SplitButton.Flyout>
-                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!--<ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
+				<SplitButton.Flyout>
+					<ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+						<!--<ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
                             <ui:MenuFlyoutSubItem.ItemTemplate>
                                 <DataTemplate>
                                     <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{Binding}" />
                                 </DataTemplate>
                             </ui:MenuFlyoutSubItem.ItemTemplate>
                         </ui:MenuFlyoutSubItem>-->
-                        <ui:ToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}" Text="启用脚本" />
-                    </ui:FAMenuFlyout>
-                </SplitButton.Flyout>
-                <Panel>
-                    <Viewbox
+						<ui:ToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}" Text="启用脚本" />
+					</ui:FAMenuFlyout>
+				</SplitButton.Flyout>
+				<Panel>
+					<Viewbox
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SpeedHigh}" />
-                    </Viewbox>
-                    <ContentControl
+						<ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SpeedHigh}" />
+					</Viewbox>
+					<ContentControl
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
-                        <ContentControl.Content>
-                            <MultiBinding Converter="{StaticResource VisibleStringConverter}">
-                                <CompiledBinding
+						<ContentControl.Content>
+							<MultiBinding Converter="{StaticResource VisibleStringConverter}">
+								<CompiledBinding
                                     Mode="OneWay"
                                     Path="ProxyStarting"
                                     Source="{x:Static s:ProxyService.Current}" />
-                                <CompiledBinding
+								<CompiledBinding
                                     Mode="OneWay"
                                     Path="Res.CommunityFix_Starting"
                                     Source="{x:Static s:ResourceService.Current}" />
-                                <CompiledBinding
+								<CompiledBinding
                                     Mode="OneWay"
                                     Path="Res.CommunityFix_StartProxy"
                                     Source="{x:Static s:ResourceService.Current}" />
-                            </MultiBinding>
-                        </ContentControl.Content>
-                    </ContentControl>
-                    <!--<TextBlock
+							</MultiBinding>
+						</ContentControl.Content>
+					</ContentControl>
+					<!--<TextBlock
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Text="{x:Static spp:Strings.CommunityFix_StartProxy}" />-->
-                </Panel>
-            </SplitButton>
+				</Panel>
+			</SplitButton>
 
-            <Button
+			<Button
                 Padding="8,4"
                 Command="{Binding StartProxyCommand}"
                 DockPanel.Dock="Right"
                 IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}"
                 Theme="{StaticResource TransparentButton}">
-                <Panel>
-                    <Viewbox
+				<Panel>
+					<Viewbox
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="StopFilled" />
-                    </Viewbox>
-                    <TextBlock
+						<ui:SymbolIcon Symbol="StopFilled" />
+					</Viewbox>
+					<TextBlock
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
-                        <!--<Run Text="{Binding Path=Res.CommunityFix_StopProxy,Source={x:Static s:ResourceService.Current}},Mode=OneWay}" />
+						<!--<Run Text="{Binding Path=Res.CommunityFix_StopProxy,Source={x:Static s:ResourceService.Current}},Mode=OneWay}" />
                         <Run Text=" " />
                         <Run Text="{Binding Path=AccelerateTime,Source={x:Static s:ProxyService.Current}},Mode=OneWay,Converter={StaticResource StringFormatConverter}}" />-->
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} {1}">
-                                <CompiledBinding
+						<TextBlock.Text>
+							<MultiBinding StringFormat="{}{0} {1}">
+								<CompiledBinding
                                     Mode="OneWay"
                                     Path="."
                                     Source="{x:Static spp:Strings.CommunityFix_StopProxy}}" />
-                                <CompiledBinding
+								<CompiledBinding
                                     Converter="{StaticResource StringFormatConverter}"
                                     Mode="OneWay"
                                     Path="AccelerateTime"
                                     Source="{x:Static s:ProxyService.Current}" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                </Panel>
-            </Button>
+							</MultiBinding>
+						</TextBlock.Text>
+					</TextBlock>
+				</Panel>
+			</Button>
 
-            <Separator
+			<Separator
                 Height="18"
                 Margin="5,0"
                 VerticalAlignment="Center"
@@ -127,47 +127,47 @@
                 DockPanel.Dock="Right"
                 IsHitTestVisible="False" />
 
-            <Button
+			<Button
                 Padding="8,4"
                 Command="{Binding RefreshCommand}"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
-                <Panel>
-                    <Viewbox
+				<Panel>
+					<Viewbox
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Refresh" />
-                    </Viewbox>
-                    <TextBlock
+						<ui:SymbolIcon Symbol="Refresh" />
+					</Viewbox>
+					<TextBlock
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Text="{x:Static spp:Strings.Refresh}" />
-                </Panel>
-            </Button>
+				</Panel>
+			</Button>
 
-            <ToggleButton
+			<ToggleButton
                 Padding="8,4"
                 DockPanel.Dock="Right"
                 IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
                 Theme="{StaticResource TransparentToggleButton}">
-                <Panel>
-                    <Viewbox
+				<Panel>
+					<Viewbox
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Settings" />
-                    </Viewbox>
-                    <TextBlock
+						<ui:SymbolIcon Symbol="Settings" />
+					</Viewbox>
+					<TextBlock
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Text="{x:Static spp:Strings.CommunityFix_MenuName}" />
-                </Panel>
-            </ToggleButton>
+				</Panel>
+			</ToggleButton>
 
-            <DropDownButton
+			<DropDownButton
                 Padding="8"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
@@ -175,18 +175,18 @@
                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                 FontSize="20"
                 Theme="{StaticResource TransparentButton}">
-                <DropDownButton.Flyout>
-                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!--<ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
+				<DropDownButton.Flyout>
+					<ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+						<!--<ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
                             <ui:MenuFlyoutSubItem.ItemTemplate>
                                 <DataTemplate>
                                     <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{Binding}" />
                                 </DataTemplate>
                             </ui:MenuFlyoutSubItem.ItemTemplate>
                         </ui:MenuFlyoutSubItem>-->
-                        <!--<ui:MenuFlyoutItem Text="{x:Static spp:Strings.Settings_Plugin}" />-->
-                        <!--<ui:MenuFlyoutSeparator />-->
-                        <!--<ui:MenuFlyoutItem Text="安装证书" />
+						<!--<ui:MenuFlyoutItem Text="{x:Static spp:Strings.Settings_Plugin}" />-->
+						<!--<ui:MenuFlyoutSeparator />-->
+						<!--<ui:MenuFlyoutItem Text="安装证书" />
                         <ui:MenuFlyoutItem Text="移除证书" />
                         <ui:MenuFlyoutItem Text="打开证书文件夹" />
                         <ui:MenuFlyoutSeparator />
@@ -194,33 +194,33 @@
                         <ui:MenuFlyoutItem Text="重置 hosts 文件" />
                         <ui:MenuFlyoutItem Text="打开 hosts 文件夹" />
                         <ui:MenuFlyoutSeparator />-->
-                        <ui:MenuFlyoutItem IsEnabled="False">
-                            <ui:MenuFlyoutItem.Text>
-                                <MultiBinding StringFormat="{}{0}{1}">
-                                    <CompiledBinding
+						<ui:MenuFlyoutItem IsEnabled="False">
+							<ui:MenuFlyoutItem.Text>
+								<MultiBinding StringFormat="{}{0}{1}">
+									<CompiledBinding
                                         Mode="OneWay"
                                         Path="."
                                         Source="{x:Static spp:Strings.Plugin_Version}" />
-                                    <CompiledBinding
+									<CompiledBinding
                                         Mode="OneWay"
                                         Path="Version"
                                         Source="{x:Static s:Plugin.Instance}" />
-                                </MultiBinding>
-                            </ui:MenuFlyoutItem.Text>
-                        </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{x:Static spp:Strings.ViewInStore}" />
+								</MultiBinding>
+							</ui:MenuFlyoutItem.Text>
+						</ui:MenuFlyoutItem>
+						<!--<ui:MenuFlyoutItem Text="{x:Static spp:Strings.ViewInStore}" />
                         <ui:MenuFlyoutItem Text="{x:Static spp:Strings.UseHelp}" />
                         <ui:MenuFlyoutItem Text="{x:Static spp:Strings.AboutThisPlugin}" />-->
-                    </ui:FAMenuFlyout>
-                </DropDownButton.Flyout>
-            </DropDownButton>
-        </StackPanel>
-    </spp:PageBase.ActionContent>
-    <spp:PageBase.PaneContent>
-        <StackPanel Margin="15,20" Spacing="10">
-            <TextBlock Text="{x:Static spp:Strings.CommunityFix_ProxyMode}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+					</ui:FAMenuFlyout>
+				</DropDownButton.Flyout>
+			</DropDownButton>
+		</StackPanel>
+	</spp:PageBase.ActionContent>
+	<spp:PageBase.PaneContent>
+		<StackPanel Margin="15,20" Spacing="10">
+			<TextBlock Text="{x:Static spp:Strings.CommunityFix_ProxyMode}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
-            <TabStrip
+			<TabStrip
                 Name="ProxyModeTab"
                 Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
                 CornerRadius="{StaticResource ControlCornerRadius}"
@@ -229,51 +229,51 @@
                 ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}"
                 SelectedItem="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}"
                 Theme="{StaticResource TabStripStyle}">
-                <TabStrip.ItemTemplate>
-                    <DataTemplate DataType="spp:ProxyMode">
-                        <TextBlock Text="{Binding}" />
-                    </DataTemplate>
-                </TabStrip.ItemTemplate>
-            </TabStrip>
+				<TabStrip.ItemTemplate>
+					<DataTemplate DataType="spp:ProxyMode">
+						<TextBlock Text="{Binding}" />
+					</DataTemplate>
+				</TabStrip.ItemTemplate>
+			</TabStrip>
 
-            <DockPanel>
-                <TextBlock Text="{x:Static spp:Strings.CommunityFix_MenuName}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+			<DockPanel>
+				<TextBlock Text="{x:Static spp:Strings.CommunityFix_MenuName}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
-                <TextBlock
+				<TextBlock
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Classes.NotSupport="{Binding Source={x:Static s:ProxyService.Current}, Path=IPv6AddresString, Mode=OneWay, Converter={StaticResource IsNullConverter}}"
                     Classes.Support="{Binding Source={x:Static s:ProxyService.Current}, Path=IPv6AddresString, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
                     Theme="{StaticResource CaptionTextBlockStyle}"
                     ToolTip.Tip="{Binding Source={x:Static s:ProxyService.Current}, Path=IPv6AddresString, Mode=OneWay}">
-                    <TextBlock.Styles>
-                        <Style Selector="TextBlock.Support">
-                            <Setter Property="Text" Value="已支持 IPv6 访问" />
-                            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                        </Style>
-                        <Style Selector="TextBlock.NotSupport">
-                            <Setter Property="Text" Value="不支持 IPv6 访问" />
-                            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}" />
-                        </Style>
-                    </TextBlock.Styles>
-                </TextBlock>
-            </DockPanel>
+					<TextBlock.Styles>
+						<Style Selector="TextBlock.Support">
+							<Setter Property="Text" Value="已支持 IPv6 访问" />
+							<Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+						</Style>
+						<Style Selector="TextBlock.NotSupport">
+							<Setter Property="Text" Value="不支持 IPv6 访问" />
+							<Setter Property="Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+						</Style>
+					</TextBlock.Styles>
+				</TextBlock>
+			</DockPanel>
 
-            <ToggleSwitch
+			<ToggleSwitch
                 VerticalAlignment="Center"
                 Classes="NoContent"
                 IsChecked="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Mode=TwoWay}"
                 OffContent="{x:Static spp:Strings.CommunityFix_EnableScriptService}"
                 OnContent="{x:Static spp:Strings.CommunityFix_EnableScriptService}" />
 
-            <ToggleSwitch
+			<ToggleSwitch
                 VerticalAlignment="Center"
                 Classes="NoContent"
                 IsChecked="{Binding Source={x:Static ms:ProxySettings.ProgramStartupRunProxy}, Path=Value, Mode=TwoWay}"
                 OffContent="{x:Static spp:Strings.CommunityFix_AutoRunProxy}"
                 OnContent="{x:Static spp:Strings.CommunityFix_AutoRunProxy}" />
 
-            <!--<StackPanel Orientation="Horizontal" Spacing="4">
+			<!--<StackPanel Orientation="Horizontal" Spacing="4">
                 <ToggleButton
                     Padding="8"
                     Theme="{StaticResource TransparentToggleButton}"
@@ -297,46 +297,46 @@
                 </ToggleButton>
             </StackPanel>-->
 
-            <Button
+			<Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding ProxySettingsCommand}"
                 Content="{x:Static spp:Strings.CommunityFix_ProxySettings}" />
 
-            <Separator Margin="0,8" Classes="Horizontal" />
+			<Separator Margin="0,8" Classes="Horizontal" />
 
-            <Button
+			<Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding SetupCertificateCommand}"
                 Content="{x:Static spp:Strings.CommunityFix_SetupCertificate}" />
-            <Button
+			<Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding DeleteCertificateCommand}"
                 Content="{x:Static spp:Strings.CommunityFix_DeleteCertificate}" />
-            <Button
+			<Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding ShowCertificateCommand}"
                 Content="查看证书信息" />
-            <Button
+			<Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding OpenCertificateDirCommand}"
                 Content="{x:Static spp:Strings.CommunityFix_OpenCertificateDir}" />
 
-            <Separator Margin="0,8" Classes="Horizontal" />
+			<Separator Margin="0,8" Classes="Horizontal" />
 
-            <Button
+			<Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding EditHostsFileCommand}"
                 Content="{x:Static spp:Strings.CommunityFix_EditHostsFile}" />
-            <Button
+			<Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding ResetHostsFileCommand}"
                 Content="{x:Static spp:Strings.CommunityFix_ResetHostsFile}" />
-            <Button
+			<Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding OpenHostsDirCommand}"
                 Content="{x:Static spp:Strings.CommunityFix_OpenHostsDir}" />
 
-            <!--<ui:FAComboBox ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" SelectedItem="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}">
+			<!--<ui:FAComboBox ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" SelectedItem="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}">
                 <ui:FAComboBox.ItemTemplate>
                     <DataTemplate DataType="spp:ProxyMode">
                         <TextBlock Text="{Binding}" />
@@ -344,9 +344,9 @@
                 </ui:FAComboBox.ItemTemplate>
             </ui:FAComboBox>-->
 
-            <Separator Margin="0,8" Classes="Horizontal" />
+			<Separator Margin="0,8" Classes="Horizontal" />
 
-            <!--<TextBlock Text="{x:Static spp:Strings.GameAccelerator_WattAcceleratorInstallPath}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+			<!--<TextBlock Text="{x:Static spp:Strings.GameAccelerator_WattAcceleratorInstallPath}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <ui:SettingsExpander Description="{Binding Source={x:Static ms:GameAcceleratorSettings.WattAcceleratorDirPath}, Path=Value, Mode=OneWay}}" IsExpanded="True">
                 <ui:SettingsExpander.IconSource>
@@ -359,157 +359,156 @@
                     <Button Content="打开文件夹" />
                     <Button Content="选择路径" />
                 </StackPanel>
-
             </ui:SettingsExpander>-->
 
-            <Button
+			<Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding InstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
                 Content="{x:Static spp:Strings.GameAccelerator_InstallWattAccelerator}" />
-            <Button
+			<Button
                 HorizontalAlignment="Stretch"
                 Command="{Binding UninstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
                 Content="{x:Static spp:Strings.GameAccelerator_UninstallWattAccelerator}" />
-        </StackPanel>
-    </spp:PageBase.PaneContent>
-	
-    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
-        <TabStrip
+		</StackPanel>
+	</spp:PageBase.PaneContent>
+
+	<Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
+		<TabStrip
             x:Name="AcceleratorTabs"
             VerticalAlignment="Top"
             ItemContainerTheme="{StaticResource TabItemStyle}"
             Theme="{StaticResource TabStripStyle}">
-            <TabStripItem Content="平台加速" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
-                <WrapPanel>
-                    <TextBlock Text="平台加速" />
-                    <Border
+			<TabStripItem Content="平台加速" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
+				<WrapPanel>
+					<TextBlock Text="平台加速" />
+					<Border
                         Margin="5,0,0,0"
                         Padding="5,1"
                         VerticalAlignment="Center"
                         CornerRadius="2">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                <GradientStop Offset="0.0" Color="#48C6EF" />
-                                <GradientStop Offset="1.0" Color="#6F86D6" />
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <TextBlock
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+								<GradientStop Offset="0.0" Color="#48C6EF" />
+								<GradientStop Offset="1.0" Color="#6F86D6" />
+							</LinearGradientBrush>
+						</Border.Background>
+						<TextBlock
                             VerticalAlignment="Center"
                             FontSize="10"
                             Foreground="White"
                             Text="免费" />
-                    </Border>
-                </WrapPanel>
-            </TabStripItem>
+					</Border>
+				</WrapPanel>
+			</TabStripItem>
 			<TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
 			<TabStripItem Content="网路测试" IsVisible="True" />
 			<TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
-            <TabStripItem Name="GameAccTab">
-                <WrapPanel>
-                    <TextBlock Text="游戏加速" />
-                    <Border
+			<TabStripItem Name="GameAccTab">
+				<WrapPanel>
+					<TextBlock Text="游戏加速" />
+					<Border
                         Margin="5,0,0,0"
                         Padding="5,1"
                         VerticalAlignment="Center"
                         CornerRadius="2">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                <GradientStop Offset="0.0" Color="#EEAD92" />
-                                <GradientStop Offset="1.0" Color="#6018DC" />
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <TextBlock
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+								<GradientStop Offset="0.0" Color="#EEAD92" />
+								<GradientStop Offset="1.0" Color="#6018DC" />
+							</LinearGradientBrush>
+						</Border.Background>
+						<TextBlock
                             VerticalAlignment="Center"
                             FontSize="10"
                             Foreground="White"
                             Text="收费" />
-                    </Border>
-                </WrapPanel>
-            </TabStripItem>
-        </TabStrip>
-        <Carousel
+					</Border>
+				</WrapPanel>
+			</TabStripItem>
+		</TabStrip>
+		<Carousel
             Grid.Row="1"
             Margin="0,10,0,0"
             Classes="AnimeSlide"
             SelectedIndex="{Binding #AcceleratorTabs.SelectedIndex}">
 
-            <!--  平台加速  -->
-            <ScrollViewer
+			<!--  平台加速  -->
+			<ScrollViewer
                 Padding="0,0,10,0"
                 HorizontalScrollBarVisibility="Disabled"
                 VerticalScrollBarVisibility="Auto">
-                <spp:ContentLoader IsLoading="{Binding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="{x:Static spp:Strings.CommunityFix_ItemsEmpty}">
-                    <ItemsControl ItemsSource="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
+				<spp:ContentLoader IsLoading="{Binding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="{x:Static spp:Strings.CommunityFix_ItemsEmpty}">
+					<ItemsControl ItemsSource="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="spp:AccelerateProjectGroupDTO">
-                                <Border>
-                                    <!--<ui:SettingsExpander ItemsSource="{Binding Items}">-->
-                                    <ui:SettingsExpander IsClickEnabled="False">
-                                        <ui:SettingsExpander.Header>
-                                            <StackPanel Orientation="Horizontal" Spacing="10">
-                                                <CheckBox IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}" />
-                                                <spp:Image2
+						<ItemsControl.ItemTemplate>
+							<DataTemplate x:DataType="spp:AccelerateProjectGroupDTO">
+								<Border>
+									<!--<ui:SettingsExpander ItemsSource="{Binding Items}">-->
+									<ui:SettingsExpander IsClickEnabled="False">
+										<ui:SettingsExpander.Header>
+											<StackPanel Orientation="Horizontal" Spacing="10">
+												<CheckBox IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}" />
+												<spp:Image2
                                                     Width="30"
                                                     Height="30"
                                                     VerticalAlignment="Center"
                                                     RenderOptions.BitmapInterpolationMode="HighQuality"
                                                     Source="{Binding IconUrl}"
                                                     Stretch="UniformToFill" />
-                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-                                            </StackPanel>
-                                        </ui:SettingsExpander.Header>
-                                        <ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
-                                            <TreeView ItemsSource="{Binding ObservableItems}" SelectionMode="Single">
-                                                <TreeView.ItemTemplate>
-                                                    <TreeDataTemplate DataType="spp:AccelerateProjectDTO" ItemsSource="{Binding ObservableItems}">
-                                                        <DockPanel Margin="8,0">
-                                                            <CheckBox
+												<TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+											</StackPanel>
+										</ui:SettingsExpander.Header>
+										<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+											<TreeView ItemsSource="{Binding ObservableItems}" SelectionMode="Single">
+												<TreeView.ItemTemplate>
+													<TreeDataTemplate DataType="spp:AccelerateProjectDTO" ItemsSource="{Binding ObservableItems}">
+														<DockPanel Margin="8,0">
+															<CheckBox
                                                                 HorizontalAlignment="Left"
                                                                 DockPanel.Dock="Left"
                                                                 IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}">
-                                                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-                                                                    <Border
+																<StackPanel Orientation="Horizontal" Spacing="8">
+																	<TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+																	<Border
                                                                         Padding="5,0"
                                                                         CornerRadius="5"
                                                                         IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
                                                                         ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
-                                                                        <Border.Background>
-                                                                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                                                                <GradientStop Offset="0.0" Color="#43cbff" />
-                                                                                <GradientStop Offset="1.0" Color="#9708cc" />
-                                                                            </LinearGradientBrush>
-                                                                        </Border.Background>
-                                                                        <TextBlock
+																		<Border.Background>
+																			<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+																				<GradientStop Offset="0.0" Color="#43cbff" />
+																				<GradientStop Offset="1.0" Color="#9708cc" />
+																			</LinearGradientBrush>
+																		</Border.Background>
+																		<TextBlock
                                                                             VerticalAlignment="Center"
                                                                             FontSize="10"
                                                                             Text="Beta" />
-                                                                    </Border>
-                                                                </StackPanel>
-                                                            </CheckBox>
-                                                            <TextBlock
+																	</Border>
+																</StackPanel>
+															</CheckBox>
+															<TextBlock
                                                                 HorizontalAlignment="Right"
                                                                 VerticalAlignment="Center"
                                                                 DockPanel.Dock="Right"
                                                                 Text="{Binding DomainNamesArray[0]}" />
-                                                        </DockPanel>
-                                                    </TreeDataTemplate>
-                                                </TreeView.ItemTemplate>
-                                            </TreeView>
-                                        </ui:SettingsExpanderItem>
-                                    </ui:SettingsExpander>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </spp:ContentLoader>
-            </ScrollViewer>
+														</DockPanel>
+													</TreeDataTemplate>
+												</TreeView.ItemTemplate>
+											</TreeView>
+										</ui:SettingsExpanderItem>
+									</ui:SettingsExpander>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</spp:ContentLoader>
+			</ScrollViewer>
 
 			<!--  流量统计  -->
 			<spp:ProxyChartView Margin="5,0" />
@@ -518,7 +517,7 @@
 			<StackPanel Margin="0 0 8 0">
 				<ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
 					<ui:SettingsExpander.Header>
-						<StackPanel Orientation="Horizontal" >
+						<StackPanel Orientation="Horizontal">
 							<ui:FontIcon FontSize="26" Margin="0 0 12 0" FontFamily="Segoe Fluent Icons" Glyph="&#xE969;" />
 							<TextBlock VerticalAlignment="Center" Text="NAT 测试" />
 						</StackPanel>
@@ -530,14 +529,14 @@
 					</ui:SettingsExpander.Footer>
 
 					<StackPanel>
-						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}" Height="56">
 							<DockPanel>
-								<TextBlock VerticalAlignment="Center" Text="NAT 类型：" />
+								<TextBlock VerticalAlignment="Center" Text="NAT 类型：" Margin="22 0 0 0" />
 
 								<ui:ProgressRing x:Name="NATTypeRing" DockPanel.Dock="Right" Width="22" />
 
-								<StackPanel x:Name="NATTypeStatus" Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right" >
-									<SelectableTextBlock x:Name="NATTextBlock" Text="未知" Foreground="Gray" Margin="0 8 8 0" />
+								<StackPanel x:Name="NATTypeStatus" Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+									<SelectableTextBlock x:Name="NATTextBlock" Text="未知" Foreground="Gray" Margin="0 2 8 0" />
 									<ui:FontIcon FontSize="20" Glyph="&#xE946;">
 										<ToolTip.Tip>
 											<TextBlock x:Name="NATTypeTip" Text="未知类型" />
@@ -546,151 +545,203 @@
 								</StackPanel>
 							</DockPanel>
 						</ui:SettingsExpanderItem>
-						<Border Classes="paper" Margin="-16 0"/>
-						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+
+						<!--<Border Classes="paper" Margin="-16 0" />
+						<ui:SettingsExpanderItem>
 							<DockPanel>
-								<TextBlock Text="互联网连通情况：" Margin="0 12 0 0"/>
-
-								<ui:ProgressRing x:Name="NetworkRing" DockPanel.Dock="Right" Width="22" Margin="0 6 0 0" />
-
-								<ui:FontIcon x:Name="PingOK" DockPanel.Dock="Right"
-									HorizontalAlignment="Right" FontSize="26" Margin="0 6 6 0"
-									FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe73d;" Foreground="Green" />
-
-								<Grid x:Name="PingError" Margin="0 6 6 0" DockPanel.Dock="Right">
-									<ui:FontIcon 
-										HorizontalAlignment="Right" FontSize="20" Margin="3" 
-										FontFamily="Segoe Fluent Icons" Glyph="&#xf127;" Foreground="Red" />
-									<ui:FontIcon 
-										HorizontalAlignment="Right" FontSize="26" 
-										Glyph="&#xea39;" Foreground="White" />
-								</Grid>
+								<TextBlock VerticalAlignment="Center" Text="本地IP地址：" />
+								<SelectableTextBlock DockPanel.Dock="Right" Text="192.168.2.32" />
 							</DockPanel>
-
 						</ui:SettingsExpanderItem>
 
-						<Border Classes="paper" Margin="-16 0"/>
-						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
-							<HyperlinkButton Content="了解更多" NavigateUri="https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error" />
+						<Border Classes="paper" Margin="-16 0" />
+						<ui:SettingsExpanderItem>
+							<DockPanel>
+								<TextBlock VerticalAlignment="Center" Text="对外IP地址：" ToolTip.Tip="若与您路由器 WAN IP 地址相同，则为公共网络" />
+								<SelectableTextBlock DockPanel.Dock="Right" Text="110.52.217.135" />
+							</DockPanel>
+						</ui:SettingsExpanderItem>-->
+
+						<Border Classes="paper" Margin="-16 0" />
+						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}" Height="66">
+							<DockPanel>
+								<TextBlock VerticalAlignment="Center" Text="互联网连通情况：" Margin="22 4 0 0" />
+
+								<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+									<ui:ProgressRing x:Name="NetworkRing" Width="22" Margin="0 4 0 0" />
+
+									<ui:FontIcon x:Name="PingOK"
+										HorizontalAlignment="Right" FontSize="26"
+										FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe73d;" Foreground="Green" />
+
+									<Grid x:Name="PingError">
+										<ui:FontIcon
+											HorizontalAlignment="Right" FontSize="20" Margin="3"
+											FontFamily="Segoe Fluent Icons" Glyph="&#xf127;" Foreground="Red" />
+										<ui:FontIcon
+											HorizontalAlignment="Right" FontSize="26"
+											Glyph="&#xea39;" Foreground="White" />
+									</Grid>
+								</Grid>
+							</DockPanel>
+						</ui:SettingsExpanderItem>
+
+						<Border Classes="paper" Margin="-16 0" />
+						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}" Height="40">
+							<StackPanel Orientation="Horizontal" Margin="-8 8 0 0" Spacing="8">
+								<TextBlock Text="相关链接" FontWeight="Bold" VerticalAlignment="Center" />
+								<HyperlinkButton VerticalAlignment="Center" Content="解决NAT错误" NavigateUri="https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error" />
+							</StackPanel>
 						</ui:SettingsExpanderItem>
 					</StackPanel>
 				</ui:SettingsExpander>
-				</StackPanel>
-			
-            <!--  加速服务  -->
-            <Grid Margin="0,0,10,0" ColumnDefinitions="*,20,*">
-                <Border
+
+				<!--<ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
+					<ui:SettingsExpander.Header>
+						<StackPanel Orientation="Horizontal">
+							<ui:FontIcon FontSize="26" Margin="0 0 12 0" FontFamily="Segoe Fluent Icons" Glyph="&#xEDA3;" />
+							<TextBlock VerticalAlignment="Center" Text="DNS 检测" />
+						</StackPanel>
+					</ui:SettingsExpander.Header>
+					<ui:SettingsExpander.Footer>
+						<Button x:Name="DNSCheckButton"
+								Width="100" Content="检测"
+								IsEnabled="True" />
+					</ui:SettingsExpander.Footer>
+					<StackPanel>
+						<ui:SettingsExpanderItem>
+							<DockPanel>
+								<TextBlock VerticalAlignment="Center" Text="您的IP地址信息：" />
+								<SelectableTextBlock DockPanel.Dock="Right" Text="110.52.217.135 湖南省长沙市联通" />
+							</DockPanel>
+						</ui:SettingsExpanderItem>
+
+						<ui:SettingsExpanderItem>
+							<DockPanel>
+								<TextBlock Text="您的DNS地址信息：" />
+								<SelectableTextBlock DockPanel.Dock="Right" Text="157.255.7.44 广东省广州市联通" />
+							</DockPanel>
+						</ui:SettingsExpanderItem>
+					</StackPanel>
+				</ui:SettingsExpander>-->
+			</StackPanel>
+
+			<!--  加速服务  -->
+			<Grid Margin="0,0,10,0" ColumnDefinitions="*,20,*">
+				<Border
                     Grid.Column="0"
                     Padding="10"
                     Classes="paper">
-                    <DockPanel>
+					<DockPanel>
 						<DockPanel Margin="0,0,0,10" DockPanel.Dock="Top" HorizontalAlignment="Stretch">
 							<TextBlock FontSize="16" Text="{x:Static spp:Strings.CommunityFix_AccelerationsEnable}" />
-							<Button x:Name="ConnectTest" DockPanel.Dock="Right" Content="连通性测试" HorizontalAlignment="Right"/>
+							<Button x:Name="ConnectTest" DockPanel.Dock="Right" Content="连通性测试" HorizontalAlignment="Right" />
 						</DockPanel>
 						<ScrollViewer>
-                            <ItemsControl ItemsSource="{Binding EnableProxyDomains, Source={x:Static s:ProxyService.Current}}">
+							<ItemsControl ItemsSource="{Binding EnableProxyDomainVMs}">
 								<ItemsControl.ItemTemplate>
-									<DataTemplate DataType="{x:Type spp:AccelerateProjectDTO}">
-                                        <StackPanel Margin="10">
-                                            <DockPanel HorizontalAlignment="Stretch">
-                                                <TextBlock Text="{Binding Name}" />
-                                                <Border
+									<DataTemplate>
+										<StackPanel Margin="10">
+											<DockPanel HorizontalAlignment="Stretch">
+												<TextBlock Text="{Binding Name}" />
+												<Border
                                                     Padding="5,0"
                                                     HorizontalAlignment="Left"
                                                     CornerRadius="5"
                                                     IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
                                                     ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
-                                                    <Border.Background>
-                                                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                                            <GradientStop Offset="0.0" Color="#43cbff" />
-                                                            <GradientStop Offset="1.0" Color="#9708cc" />
-                                                        </LinearGradientBrush>
-                                                    </Border.Background>
-                                                    <TextBlock
+													<Border.Background>
+														<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+															<GradientStop Offset="0.0" Color="#43cbff" />
+															<GradientStop Offset="1.0" Color="#9708cc" />
+														</LinearGradientBrush>
+													</Border.Background>
+													<TextBlock
                                                         VerticalAlignment="Center"
                                                         FontSize="10"
                                                         Text="Beta" />
-                                                </Border>
-												<TextBlock DockPanel.Dock="Right" Text="???ms" HorizontalAlignment="Right" />
+												</Border>
+												<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0 0 4 0" Orientation="Horizontal">
+													<TextBlock Text="{Binding DelayMillseconds}" Foreground="{Binding DelayColor}" />
+													<Button Content="R" IsVisible="False" Command="{Binding RetestCommand}" />
+												</StackPanel>
 											</DockPanel>
-                                            <Separator Classes="Separator" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
+											<Separator Classes="Separator" />
+										</StackPanel>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</ScrollViewer>
+					</DockPanel>
+				</Border>
 
-                <Border
+				<Border
                     Grid.Column="2"
                     Padding="10"
                     Classes="paper">
-                    <DockPanel>
-                        <TextBlock
+					<DockPanel>
+						<TextBlock
                             Margin="0,0,0,10"
                             DockPanel.Dock="Top"
                             FontSize="16"
                             Text="{x:Static spp:Strings.CommunityFix_ScriptsEnable}" />
-                        <ScrollViewer>
-                            <ItemsControl ItemsSource="{Binding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type spp:ScriptDTO}">
-                                        <StackPanel Margin="10">
-                                            <DockPanel>
-                                                <TextBlock Text="{Binding Name}" />
-                                            </DockPanel>
-                                            <Separator Classes="Separator" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
-            </Grid>
+						<ScrollViewer>
+							<ItemsControl ItemsSource="{Binding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate DataType="{x:Type spp:ScriptDTO}">
+										<StackPanel Margin="10">
+											<DockPanel>
+												<TextBlock Text="{Binding Name}" />
+											</DockPanel>
+											<Separator Classes="Separator" />
+										</StackPanel>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</ScrollViewer>
+					</DockPanel>
+				</Border>
+			</Grid>
 
-
-            <!--  游戏加速  -->
-            <Panel x:DataType="spp:GameAcceleratorPageViewModel">
-                <Panel.DataContext>
-                    <spp:GameAcceleratorPageViewModel />
-                </Panel.DataContext>
-                <spp:ContentLoader
+			<!--  游戏加速  -->
+			<Panel x:DataType="spp:GameAcceleratorPageViewModel">
+				<Panel.DataContext>
+					<spp:GameAcceleratorPageViewModel />
+				</Panel.DataContext>
+				<spp:ContentLoader
                     IsLoading="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=IsLoadingGames, Mode=OneWay}"
                     IsShowNoResultText="{Binding !!!Games.Count}"
                     IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!CurrentAcceleratorGame.IsAccelerated}"
                     NoResultMessage="{x:Static spp:Strings.GameAccelerator_GamesEmptyTip}}">
-                    <ScrollViewer
+					<ScrollViewer
                         Name="GameScrollViewer"
                         Padding="0,0,10,0"
                         HorizontalScrollBarVisibility="Disabled"
                         IsVisible="{Binding !!Games.Count}"
                         VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <ItemsRepeater ItemsSource="{Binding Games}" VerticalCacheLength="30">
-                                <ItemsRepeater.Layout>
-                                    <UniformGridLayout
+						<StackPanel>
+							<ItemsRepeater ItemsSource="{Binding Games}" VerticalCacheLength="30">
+								<ItemsRepeater.Layout>
+									<UniformGridLayout
                                         ItemsJustification="Start"
                                         ItemsStretch="Uniform"
                                         MinColumnSpacing="10"
                                         MinItemHeight="240"
                                         MinItemWidth="200"
                                         MinRowSpacing="10" />
-                                </ItemsRepeater.Layout>
-                                <ItemsRepeater.ItemTemplate>
-                                    <DataTemplate DataType="spp:XunYouGameViewModel">
-                                        <spp:GameAppItem ButtonCommand="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}" />
-                                    </DataTemplate>
-                                </ItemsRepeater.ItemTemplate>
-                            </ItemsRepeater>
+								</ItemsRepeater.Layout>
+								<ItemsRepeater.ItemTemplate>
+									<DataTemplate DataType="spp:XunYouGameViewModel">
+										<spp:GameAppItem ButtonCommand="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}" />
+									</DataTemplate>
+								</ItemsRepeater.ItemTemplate>
+							</ItemsRepeater>
 
-                            <StackPanel
+							<StackPanel
                                 Margin="0,30"
                                 HorizontalAlignment="Center"
                                 Spacing="10">
-                                <spp:Image2
+								<spp:Image2
                                     Width="100"
                                     Height="100"
                                     HorizontalAlignment="Center"
@@ -698,61 +749,59 @@
                                     RenderOptions.BitmapInterpolationMode="HighQuality"
                                     Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/empty.png"
                                     Stretch="UniformToFill" />
-                                <TextBlock
+								<TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Text="已经到底啦! 没有找到想加速的游戏的话可以搜索添加哦~" />
-                            </StackPanel>
-                        </StackPanel>
-                    </ScrollViewer>
-                </spp:ContentLoader>
-                <spp:GameDetail
+							</StackPanel>
+						</StackPanel>
+					</ScrollViewer>
+				</spp:ContentLoader>
+				<spp:GameDetail
                     Margin="0,0,10,0"
                     Content="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame}"
                     IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame.IsAccelerated}" />
-            </Panel>
+			</Panel>
 
-            <!--<TabItem Header="加速日志">
-
+			<!--<TabItem Header="加速日志">
 					    </TabItem>-->
-            <!--<TabItem Header="AD">
-					
+			<!--<TabItem Header="AD">
 						</TabItem>-->
-        </Carousel>
+		</Carousel>
 
 		<!--  Side tab of paid game spped up  -->
-        <StackPanel
+		<StackPanel
             Grid.ColumnSpan="2"
             HorizontalAlignment="Right"
             IsVisible="{Binding #GameAccTab.IsSelected}"
             Orientation="Horizontal"
             Spacing="5">
-            <Border
+			<Border
                 Padding="5,1"
                 VerticalAlignment="Center"
                 CornerRadius="2"
                 IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=VipEndTimeString, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                        <GradientStop Offset="0.0" Color="#453a94" />
-                        <GradientStop Offset="1.0" Color="#f43b47" />
-                    </LinearGradientBrush>
-                </Border.Background>
-                <TextBlock
+				<Border.Background>
+					<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+						<GradientStop Offset="0.0" Color="#453a94" />
+						<GradientStop Offset="1.0" Color="#f43b47" />
+					</LinearGradientBrush>
+				</Border.Background>
+				<TextBlock
                     VerticalAlignment="Center"
                     FontSize="12"
                     Foreground="White"
                     Text="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=VipEndTimeString}" />
-            </Border>
-            <Button
+			</Border>
+			<Button
                 Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                 CommandParameter="https://steampp.net/customer/service"
                 Cursor="Hand"
                 Theme="{StaticResource TransparentButton}"
                 ToolTip.Tip="联系客服">
-                <ui:FontIcon FontSize="22" Glyph="&#xE95B;" />
-            </Button>
-            <AutoCompleteBox
+				<ui:FontIcon FontSize="22" Glyph="&#xE95B;" />
+			</Button>
+			<AutoCompleteBox
                 Name="SearchGameBox"
                 Width="240"
                 VerticalAlignment="Center"
@@ -762,10 +811,10 @@
                 MaxDropDownHeight="300"
                 ValueMemberBinding="{Binding Name, x:DataType=spp:XunYouGame}"
                 Watermark="{x:Static spp:Strings.GameAccelerator_SearchGame}">
-                <AutoCompleteBox.ItemTemplate>
-                    <DataTemplate DataType="spp:XunYouGame">
-                        <WrapPanel>
-                            <spp:Image2
+				<AutoCompleteBox.ItemTemplate>
+					<DataTemplate DataType="spp:XunYouGame">
+						<WrapPanel>
+							<spp:Image2
                                 Width="20"
                                 Height="20"
                                 Margin="0,0,5,0"
@@ -773,76 +822,76 @@
                                 VerticalAlignment="Center"
                                 DecodeWidth="20"
                                 Source="{Binding IconUrl}">
-                                <spp:Image2.Transitions>
-                                    <Transitions>
-                                        <DoubleTransition
+								<spp:Image2.Transitions>
+									<Transitions>
+										<DoubleTransition
                                             Easing="0,0 0,1"
                                             Property="Width"
                                             Duration="00:00:00.25" />
-                                        <DoubleTransition
+										<DoubleTransition
                                             Easing="0,0 0,1"
                                             Property="Height"
                                             Duration="00:00:00.25" />
-                                    </Transitions>
-                                </spp:Image2.Transitions>
-                            </spp:Image2>
-                            <TextBlock
+									</Transitions>
+								</spp:Image2.Transitions>
+							</spp:Image2>
+							<TextBlock
                                 VerticalAlignment="Center"
                                 MaxLines="2"
                                 Text="{Binding Name}"
                                 TextTrimming="CharacterEllipsis"
                                 TextWrapping="WrapWithOverflow" />
-                        </WrapPanel>
-                    </DataTemplate>
-                </AutoCompleteBox.ItemTemplate>
-            </AutoCompleteBox>
-        </StackPanel>
+						</WrapPanel>
+					</DataTemplate>
+				</AutoCompleteBox.ItemTemplate>
+			</AutoCompleteBox>
+		</StackPanel>
 
 		<!--  Side tab after speed up  -->
-        <StackPanel
+		<StackPanel
             Grid.ColumnSpan="2"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}"
             Orientation="Horizontal"
             Spacing="8">
-            <StackPanel.IsVisible>
-                <MultiBinding Converter="{x:Static BoolConverters.And}">
-                    <CompiledBinding
+			<StackPanel.IsVisible>
+				<MultiBinding Converter="{x:Static BoolConverters.And}">
+					<CompiledBinding
                         Mode="OneWay"
                         Path="ProxyStatus"
                         Source="{x:Static s:ProxyService.Current}" />
-                    <Binding Path="!#GameAccTab.IsSelected" />
-                </MultiBinding>
-            </StackPanel.IsVisible>
-            <StackPanel.Styles>
-                <Style Selector="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center" />
-                </Style>
-            </StackPanel.Styles>
-            <Button Theme="{StaticResource TransparentButton}" ToolTip.ShowDelay="0">
-                <ToolTip.Tip>
-                    <TextBlock>
-                        <Run FontSize="16" Text="Q：为什么加速后流量一直显示 0KB ？" />
-                        <LineBreak />
-                        <Run Text="A：流量统计图表是用于查看实时流量数据信息，您需要先访问对应的网站，这边才会有相应的流量波动数据，请检查是否已经选择了对应的网站加速项目，如果确定有正常勾选加速项目并且访问网站依然无流量，则可能是加速的监听服务没有启用成功，尝试更换加速模式。" />
-                        <LineBreak />
-                        <LineBreak />
-                        <Run FontSize="16" Text="Q：加速后对应网站打不开显示SSL错误或者Steam浏览器显示-100错误？" />
-                        <LineBreak />
-                        <Run Text="A：可以尝试执行以下操作进行修复，关闭加速，点击加速设置-移除证书再安装证书，重开加速。或者加速设置-代理设置-尝试更换doh地址或者关闭doh使用dns等方案。" />
-                    </TextBlock>
-                </ToolTip.Tip>
-                <ui:FontIcon FontSize="20" Glyph="&#xE82F;" />
-            </Button>
-            <TextBlock Text="{x:Static spp:Strings.CommunityFix_ProxyMode}" />
-            <TextBlock Text="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
+					<Binding Path="!#GameAccTab.IsSelected" />
+				</MultiBinding>
+			</StackPanel.IsVisible>
+			<StackPanel.Styles>
+				<Style Selector="TextBlock">
+					<Setter Property="VerticalAlignment" Value="Center" />
+				</Style>
+			</StackPanel.Styles>
+			<Button Theme="{StaticResource TransparentButton}" ToolTip.ShowDelay="0">
+				<ToolTip.Tip>
+					<TextBlock>
+						<Run FontSize="16" Text="Q：为什么加速后流量一直显示 0KB ？" />
+						<LineBreak />
+						<Run Text="A：流量统计图表是用于查看实时流量数据信息，您需要先访问对应的网站，这边才会有相应的流量波动数据，请检查是否已经选择了对应的网站加速项目，如果确定有正常勾选加速项目并且访问网站依然无流量，则可能是加速的监听服务没有启用成功，尝试更换加速模式。" />
+						<LineBreak />
+						<LineBreak />
+						<Run FontSize="16" Text="Q：加速后对应网站打不开显示SSL错误或者Steam浏览器显示-100错误？" />
+						<LineBreak />
+						<Run Text="A：可以尝试执行以下操作进行修复，关闭加速，点击加速设置-移除证书再安装证书，重开加速。或者加速设置-代理设置-尝试更换doh地址或者关闭doh使用dns等方案。" />
+					</TextBlock>
+				</ToolTip.Tip>
+				<ui:FontIcon FontSize="20" Glyph="&#xE82F;" />
+			</Button>
+			<TextBlock Text="{x:Static spp:Strings.CommunityFix_ProxyMode}" />
+			<TextBlock Text="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=OneWay, Converter={StaticResource EnumLocalizationNameConverter}}" />
 
-            <TextBlock Text="{x:Static spp:Strings.CommunityFix_EnableScriptService}" />
-            <TextBlock Text="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
-        </StackPanel>
+			<TextBlock Text="{x:Static spp:Strings.CommunityFix_EnableScriptService}" />
+			<TextBlock Text="{Binding Source={x:Static s:ProxyService.Current}, Path=IsEnableScript, Converter={StaticResource StringFormatConverter}}" />
+		</StackPanel>
 
-        <spp:AdControl
+		<spp:AdControl
             Grid.Row="1"
             Grid.Column="1"
             Width="165"
@@ -850,5 +899,5 @@
             Margin="0,10,0,0"
             VerticalAlignment="Top"
             Standard="Vertical" />
-    </Grid>
+	</Grid>
 </spp:PageBase>

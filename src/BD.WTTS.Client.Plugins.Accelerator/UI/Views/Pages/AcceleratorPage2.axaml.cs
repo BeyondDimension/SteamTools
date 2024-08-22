@@ -92,13 +92,15 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
                         _ => ("不可用 NAT", "如果 NAT 不可用，您将无法使用群聊天或连接到某些 Xbox 游戏的多人游戏。"),
                     };
 
-                    (PingOK.IsVisible, PingError.IsVisible) = result.PingSuccess switch
+                    if (result.PingSuccess)
                     {
-                        true => (true, false),
-                        false => (false, true),
-                    };
+                        PingOK.IsVisible = true;
+                    }
+                    else
+                    {
+                        PingError.IsVisible = true;
+                    }
                 }).DisposeWith(disposables);
-
         });
 
         SearchGameBox.DropDownClosed += SearchGameBox_DropDownClosed;

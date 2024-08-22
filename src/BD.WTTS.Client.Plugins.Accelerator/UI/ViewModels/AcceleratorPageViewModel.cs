@@ -4,6 +4,7 @@ using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
 using STUN.StunResult;
 using System.Net.NetworkInformation;
+using System.CommandLine.Parsing;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -25,6 +26,12 @@ public sealed partial class AcceleratorPageViewModel
 #endif
             //ProxyService.Current.ProxyStatus = !ProxyService.Current.ProxyStatus;
             await ProxyService.Current.StartOrStopProxyService(!ProxyService.Current.ProxyStatus);
+
+            // Create new ProxyEnableDomain for 加速服务 page
+            var enableDomainVMs = ProxyService.Current.GetEnableProxyDomains()
+                .Select(x => new ProxyDomainViewModel(x.Name, x.ProxyType, "https://" + x.ListenDomainNames.Split(";")[0])) // DomainNamesArray[0]
+                .ToList();
+            EnableProxyDomainVMs = new(enableDomainVMs);
         });
 
         RefreshCommand = ReactiveCommand.Create(async () =>
@@ -32,6 +39,7 @@ public sealed partial class AcceleratorPageViewModel
             if (_initializeTime > DateTime.Now.AddSeconds(-2))
             {
                 Toast.Show(ToastIcon.Warning, Strings.Warning_DoNotOperateFrequently);
+
                 return;
             }
 
@@ -66,17 +74,23 @@ public sealed partial class AcceleratorPageViewModel
             .IsExecuting
             .ToPropertyEx(this, x => x.IsNATChecking);
 
+        var canConnectTest = this.WhenAnyValue(x => x.EnableProxyDomainVMs).Select(v => v is not null);
         ConnectTestCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            await Task.Delay(200);
-            var enableDomains = ProxyService.Current.GetEnableProxyDomains();
-            foreach (var enableDomain in enableDomains)
+            var tasks = EnableProxyDomainVMs!.Select(async enableDomain =>
             {
-                var firstMatchDomain = enableDomain.MatchDomainNames.Split(';')[0];
-                var shouldBeSame = enableDomain.DomainNamesArray[0];
-                Log.Info(shouldBeSame, firstMatchDomain);
-            }
-        });
+                enableDomain.DelayMillseconds = "- ms";
+                var (success, delayMs) = await networkTestService.TestOpenUrlAsync(enableDomain.Url);
+                enableDomain.DelayMillseconds = success switch
+                {
+                    true when delayMs > 20000 => "Timeout",
+                    true => delayMs.ToString() + " ms",
+                    false => "error",
+                };
+            });
+
+            await Task.WhenAll(tasks);
+        }, canConnectTest);
 
         ProxySettingsCommand = ReactiveCommand.Create(() =>
         {
@@ -104,6 +118,7 @@ public sealed partial class AcceleratorPageViewModel
     }
 
 #if LINUX
+
     public bool EnvironmentCheck()
     {
         try
@@ -124,6 +139,7 @@ public sealed partial class AcceleratorPageViewModel
             return false;
         }
     }
+
 #endif
 
     public void TrustCer_OnClick()
