@@ -513,118 +513,149 @@
 			<!--  流量统计  -->
 			<spp:ProxyChartView Margin="5,0" />
 
-			<!--  网路测试  -->
-			<StackPanel Margin="0 0 8 0">
-				<ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
-					<ui:SettingsExpander.Header>
-						<StackPanel Orientation="Horizontal">
-							<ui:FontIcon FontSize="26" Margin="0 0 12 0" FontFamily="Segoe Fluent Icons" Glyph="&#xE969;" />
-							<TextBlock VerticalAlignment="Center" Text="NAT 测试" />
-						</StackPanel>
-					</ui:SettingsExpander.Header>
-					<ui:SettingsExpander.Footer>
-						<Button x:Name="NATCheckButton"
-								Width="100" Content="检测"
-								IsEnabled="True" />
-					</ui:SettingsExpander.Footer>
+			<!--  网路测试 (Margin 隔离广告栏)  -->
+			<ScrollViewer Padding="0,0,10,0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+				<StackPanel Spacing="8">
 
-					<StackPanel>
-						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}" Height="56">
-							<DockPanel>
-								<TextBlock VerticalAlignment="Center" Text="NAT 类型：" Margin="22 0 0 0" />
-
-								<ui:ProgressRing x:Name="NATTypeRing" DockPanel.Dock="Right" Width="22" />
-
-								<StackPanel x:Name="NATTypeStatus" Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
-									<SelectableTextBlock x:Name="NATTextBlock" Text="未知" Foreground="Gray" Margin="0 2 8 0" />
-									<ui:FontIcon FontSize="20" Glyph="&#xE946;">
-										<ToolTip.Tip>
-											<TextBlock x:Name="NATTypeTip" Text="未知类型" />
-										</ToolTip.Tip>
-									</ui:FontIcon>
-								</StackPanel>
-							</DockPanel>
-						</ui:SettingsExpanderItem>
-
-						<!--<Border Classes="paper" Margin="-16 0" />
-						<ui:SettingsExpanderItem>
-							<DockPanel>
-								<TextBlock VerticalAlignment="Center" Text="本地IP地址：" />
-								<SelectableTextBlock DockPanel.Dock="Right" Text="192.168.2.32" />
-							</DockPanel>
-						</ui:SettingsExpanderItem>
-
-						<Border Classes="paper" Margin="-16 0" />
-						<ui:SettingsExpanderItem>
-							<DockPanel>
-								<TextBlock VerticalAlignment="Center" Text="对外IP地址：" ToolTip.Tip="若与您路由器 WAN IP 地址相同，则为公共网络" />
-								<SelectableTextBlock DockPanel.Dock="Right" Text="110.52.217.135" />
-							</DockPanel>
-						</ui:SettingsExpanderItem>-->
-
-						<Border Classes="paper" Margin="-16 0" />
-						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}" Height="66">
-							<DockPanel>
-								<TextBlock VerticalAlignment="Center" Text="互联网连通情况：" Margin="22 4 0 0" />
-
-								<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
-									<ui:ProgressRing x:Name="NetworkRing" Width="22" Margin="0 4 0 0" />
-
-									<ui:FontIcon x:Name="PingOK"
-										HorizontalAlignment="Right" FontSize="26"
-										FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe73d;" Foreground="Green" />
-
-									<Grid x:Name="PingError">
-										<ui:FontIcon
-											HorizontalAlignment="Right" FontSize="20" Margin="3"
-											FontFamily="Segoe Fluent Icons" Glyph="&#xf127;" Foreground="Red" />
-										<ui:FontIcon
-											HorizontalAlignment="Right" FontSize="26"
-											Glyph="&#xea39;" Foreground="White" />
-									</Grid>
-								</Grid>
-							</DockPanel>
-						</ui:SettingsExpanderItem>
-
-						<Border Classes="paper" Margin="-16 0" />
-						<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}" Height="40">
-							<StackPanel Orientation="Horizontal" Margin="-8 8 0 0" Spacing="8">
-								<TextBlock Text="相关链接" FontWeight="Bold" VerticalAlignment="Center" />
-								<HyperlinkButton VerticalAlignment="Center" Content="解决NAT错误" NavigateUri="https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error" />
+					<ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
+						<ui:SettingsExpander.Header>
+							<StackPanel Orientation="Horizontal">
+								<ui:FontIcon FontSize="26" FontFamily="Segoe Fluent Icons" Glyph="&#xE969;" />
+								<TextBlock Margin="12 0 0 0" VerticalAlignment="Center" Text="NAT 测试" />
 							</StackPanel>
-						</ui:SettingsExpanderItem>
-					</StackPanel>
-				</ui:SettingsExpander>
+						</ui:SettingsExpander.Header>
+						<ui:SettingsExpander.Footer>
+							<Button x:Name="NATCheckButton"
+									Width="100" Content="检测" IsEnabled="True" />
+						</ui:SettingsExpander.Footer>
 
-				<!--<ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
-					<ui:SettingsExpander.Header>
-						<StackPanel Orientation="Horizontal">
-							<ui:FontIcon FontSize="26" Margin="0 0 12 0" FontFamily="Segoe Fluent Icons" Glyph="&#xEDA3;" />
-							<TextBlock VerticalAlignment="Center" Text="DNS 检测" />
+						<StackPanel Margin="24 0 0 0" Spacing="8">
+							<ui:SettingsExpanderItem>
+								<DockPanel>
+									<TextBlock VerticalAlignment="Center" Text="NAT 类型：" />
+
+									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+										<ui:ProgressRing HorizontalAlignment="Right" IsVisible="{Binding IsNATChecking}" Margin="0 -4 0 -10" Width="22" />
+
+										<StackPanel Orientation="Horizontal" IsVisible="{Binding !IsNATChecking}">
+											<SelectableTextBlock x:Name="NATTextBlock"  VerticalAlignment="Center"
+																 Text="未知" Foreground="Gray" />
+											<ui:FontIcon FontSize="20" Glyph="&#xE946;">
+												<ToolTip.Tip>
+													<TextBlock x:Name="NATTypeTip" Text="未知类型" />
+												</ToolTip.Tip>
+											</ui:FontIcon>
+										</StackPanel>
+									</Grid>
+								</DockPanel>
+							</ui:SettingsExpanderItem>
+
+							<Border Classes="paper" Margin="-64 0" />
+							<ui:SettingsExpanderItem>
+								<DockPanel>
+									<TextBlock VerticalAlignment="Center" Text="本地IP地址：" />
+
+									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" IsVisible="{Binding IsNATChecking}" Width="22" />
+										<SelectableTextBlock x:Name="LocalIPAddress" Foreground="Gray" IsVisible="{Binding !IsNATChecking}" />
+									</Grid>
+								</DockPanel>
+							</ui:SettingsExpanderItem>
+
+							<Border Classes="paper" Margin="-64 0" />
+							<ui:SettingsExpanderItem>
+								<DockPanel>
+									<TextBlock VerticalAlignment="Center" Text="对外IP地址：" ToolTip.Tip="若与您路由器 WAN IP 地址相同，则为公共网络" />
+
+									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+										<ui:ProgressRing HorizontalAlignment="Right" IsVisible="{Binding IsNATChecking}" Margin="0 -4 0 -10" Width="22" />
+										<SelectableTextBlock Text="{Binding PublicEndPoint}" Foreground="Gray" IsVisible="{Binding !IsNATChecking}" />
+									</Grid>
+								</DockPanel>
+							</ui:SettingsExpanderItem>
+
+							<Border Classes="paper" Margin="-64 0" />
+							<ui:SettingsExpanderItem>
+								<DockPanel>
+									<TextBlock VerticalAlignment="Center" Text="互联网连通情况：" />
+
+									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" Width="22" IsVisible="{Binding IsNATChecking}" />
+
+										<ui:FontIcon x:Name="PingOK"
+											HorizontalAlignment="Right" FontSize="26"
+											FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe73d;" Foreground="Green" />
+
+										<Grid x:Name="PingError">
+											<ui:FontIcon
+												HorizontalAlignment="Right" FontSize="20" Margin="3"
+												FontFamily="Segoe Fluent Icons" Glyph="&#xf127;" Foreground="Red" />
+											<ui:FontIcon
+												HorizontalAlignment="Right" FontSize="26"
+												Glyph="&#xea39;" Foreground="White" />
+										</Grid>
+									</Grid>
+								</DockPanel>
+							</ui:SettingsExpanderItem>
+
+							<Border Classes="paper" Margin="-64 0" />
+
+							<ui:SettingsExpanderItem Margin="-28 0 0 -4">
+								<StackPanel Orientation="Horizontal" Spacing="8">
+									<TextBlock Text="相关链接" FontWeight="Bold" VerticalAlignment="Center" />
+									<HyperlinkButton VerticalAlignment="Center" Content="解决NAT错误" NavigateUri="https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error" />
+								</StackPanel>
+							</ui:SettingsExpanderItem>
 						</StackPanel>
-					</ui:SettingsExpander.Header>
-					<ui:SettingsExpander.Footer>
-						<Button x:Name="DNSCheckButton"
-								Width="100" Content="检测"
-								IsEnabled="True" />
-					</ui:SettingsExpander.Footer>
-					<StackPanel>
-						<ui:SettingsExpanderItem>
-							<DockPanel>
-								<TextBlock VerticalAlignment="Center" Text="您的IP地址信息：" />
-								<SelectableTextBlock DockPanel.Dock="Right" Text="110.52.217.135 湖南省长沙市联通" />
-							</DockPanel>
-						</ui:SettingsExpanderItem>
+					</ui:SettingsExpander>
 
-						<ui:SettingsExpanderItem>
-							<DockPanel>
-								<TextBlock Text="您的DNS地址信息：" />
-								<SelectableTextBlock DockPanel.Dock="Right" Text="157.255.7.44 广东省广州市联通" />
-							</DockPanel>
-						</ui:SettingsExpanderItem>
-					</StackPanel>
-				</ui:SettingsExpander>-->
-			</StackPanel>
+					<!--DNS-->
+					<ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
+						<ui:SettingsExpander.Header>
+							<StackPanel Orientation="Horizontal">
+								<ui:FontIcon FontSize="26" FontFamily="Segoe Fluent Icons" Glyph="&#xEDA3;" />
+								<TextBlock VerticalAlignment="Center" Margin="12 0 0 0"  Text="DNS 检测" />
+							</StackPanel>
+						</ui:SettingsExpander.Header>
+						<ui:SettingsExpander.Footer>
+							<Button x:Name="DNSCheckButton"
+									Width="100" Content="检测" IsEnabled="True" />
+						</ui:SettingsExpander.Footer>
+
+						<StackPanel Margin="24 0 0 0">
+							<ui:SettingsExpanderItem>
+								<DockPanel>
+									<TextBlock Text="您的IP地址信息：" />
+									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" Width="22" IsVisible="{Binding IsDNSChecking}" />
+										<SelectableTextBlock Text="{Binding PublicIPAddress}" Foreground="Gray" IsVisible="{Binding !IsDNSChecking}" />
+									</Grid>
+								</DockPanel>
+							</ui:SettingsExpanderItem>
+
+							<ui:SettingsExpanderItem>
+								<DockPanel>
+									<TextBlock Text="您的DNS地址信息：" />
+									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" Width="22" IsVisible="{Binding IsDNSChecking}" />
+										<SelectableTextBlock Text="{Binding PublicDNSAddress}" Foreground="Gray" IsVisible="{Binding !IsDNSChecking}" />
+									</Grid>
+								</DockPanel>
+							</ui:SettingsExpanderItem>
+
+							<ui:SettingsExpanderItem>
+								<DockPanel>
+									<TextBlock Text="您的本机DNS地址信息：" />
+									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" Width="22"  IsVisible="{Binding IsDNSChecking}" />
+										<SelectableTextBlock Text="{Binding LocalDNSAddress}" Foreground="Gray"  IsVisible="{Binding !IsDNSChecking}" />
+									</Grid>
+								</DockPanel>
+							</ui:SettingsExpanderItem>
+						</StackPanel>
+					</ui:SettingsExpander>
+				</StackPanel>
+			</ScrollViewer>
 
 			<!--  加速服务  -->
 			<Grid Margin="0,0,10,0" ColumnDefinitions="*,20,*">

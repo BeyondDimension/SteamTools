@@ -60,7 +60,7 @@ public class ProxyDomainViewModel : ReactiveObject
 
 public sealed partial class AcceleratorPageViewModel : TabItemViewModel
 {
-    public enum NATType
+    public enum NatTypeSimple
     {
         Unknown,
         Open,
@@ -70,19 +70,39 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
 
     public override string Name => Strings.Welcome;
 
+    [ObservableAsProperty]
+    public bool IsNATChecking { get; }
+
+    [ObservableAsProperty]
+    public bool IsDNSChecking { get; }
+
     [Reactive]
     public ReadOnlyCollection<ProxyDomainViewModel>? EnableProxyDomainVMs { get; set; }
 
-    [ObservableAsProperty]
-    public bool IsNATChecking { get; }
+    [Reactive]
+    public string LocalEndPoint { get; set; } = string.Empty;
+
+    [Reactive]
+    public string PublicEndPoint { get; set; } = string.Empty;
+
+    [Reactive]
+    public string PublicIPAddress { get; set; } = string.Empty;
+
+    [Reactive]
+    public string PublicDNSAddress { get; set; } = string.Empty;
+
+    [Reactive]
+    public string LocalDNSAddress { get; set; } = string.Empty;
+
+    public ReactiveCommand<Unit, (NatTypeSimple Nat, bool PingSuccess)> NATCheckCommand { get; }
+
+    public ReactiveCommand<Unit, Unit> DNSCheckCommand { get; }
+
+    public ReactiveCommand<Unit, Unit> ConnectTestCommand { get; }
 
     public ICommand StartProxyCommand { get; }
 
     public ICommand RefreshCommand { get; }
-
-    public ReactiveCommand<Unit, (NATType Nat, bool PingSuccess)> NATCheckCommand { get; }
-
-    public ReactiveCommand<Unit, Unit> ConnectTestCommand { get; }
 
     public ICommand? SetupCertificateCommand { get; }
 

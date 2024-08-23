@@ -5,6 +5,8 @@ using BD.WTTS.UI.Views.Pages;
 using STUN.StunResult;
 using System.Net.NetworkInformation;
 using System.CommandLine.Parsing;
+using STUN.Enums;
+using System.Net.Http;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -57,16 +59,19 @@ public sealed partial class AcceleratorPageViewModel
         // https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error
         NATCheckCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            var natCheckResult = await networkTestService.TestStunClient3489Async() ?? new ClassicStunResult { NatType = STUN.Enums.NatType.Unknown };
+            var natCheckResult = await networkTestService.TestStunClient3489Async() ?? new ClassicStunResult { NatType = NatType.Unknown };
             var (netSucc, _) = await networkTestService.TestOpenUrlAsync("https://www.baidu.com");
 
             var natStatus = natCheckResult.NatType switch
             {
-                STUN.Enums.NatType.OpenInternet or STUN.Enums.NatType.FullCone => NATType.Open,
-                STUN.Enums.NatType.RestrictedCone or STUN.Enums.NatType.PortRestrictedCone or STUN.Enums.NatType.SymmetricUdpFirewall => NATType.Moderate,
-                STUN.Enums.NatType.Symmetric or STUN.Enums.NatType.UdpBlocked => NATType.Strict,
-                STUN.Enums.NatType.Unknown or STUN.Enums.NatType.UnsupportedServer or _ => NATType.Unknown,
+                NatType.OpenInternet or NatType.FullCone => NatTypeSimple.Open,
+                NatType.RestrictedCone or NatType.PortRestrictedCone or NatType.SymmetricUdpFirewall => NatTypeSimple.Moderate,
+                NatType.Symmetric or NatType.UdpBlocked => NatTypeSimple.Strict,
+                NatType.Unknown or NatType.UnsupportedServer or _ => NatTypeSimple.Unknown,
             };
+
+            PublicEndPoint = natCheckResult.PublicEndPoint?.Address.ToString() ?? "Unknown";
+            LocalEndPoint = natCheckResult.LocalEndPoint?.Address.ToString() ?? "Unknown";
 
             return (natStatus, netSucc);
         });
@@ -91,6 +96,75 @@ public sealed partial class AcceleratorPageViewModel
 
             await Task.WhenAll(tasks);
         }, canConnectTest);
+
+        static string[] GetLocalDnsServers()
+        {
+            var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+            foreach (var networkInterface in networkInterfaces)
+            {
+                var ipProperties = networkInterface.GetIPProperties();
+                var dnsAddresses = ipProperties.DnsAddresses;
+
+                if (dnsAddresses.Count > 0)
+                {
+                    return dnsAddresses.Select(dns => dns.ToString()).ToArray();
+                }
+            }
+            return [];
+        }
+
+        static (string, string) ExtractIPAndDNS(string content)
+        {
+            // 正则表达式匹配 IP 和 DNS 信息
+            var ipMatch = IpAddr().Match(content);
+            var dnsMatch = DnsAddr().Match(content);
+
+            if (ipMatch.Success && dnsMatch.Success)
+            {
+                string ipAddress = ipMatch.Groups[1].Value.Trim();
+                string dnsAddress = dnsMatch.Groups[1].Value.Trim();
+                return (ipAddress, dnsAddress);
+            }
+            return ("Unknown", "Unknown");
+        }
+        DNSCheckCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            string url = "https://nstool.netease.com/";
+            try
+            {
+                using HttpClient client = new HttpClient();
+                var response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                string htmlContent = await response.Content.ReadAsStringAsync();
+                var match = PageFrameSrcUrl().Match(htmlContent);
+                if (!match.Success)
+                    throw new HttpRequestException("Found src url failed");
+                var src = match.Groups["src"].Value;
+
+                var res = await client.GetAsync(src);
+                var content = await res.Content.ReadAsStringAsync();
+
+                var extractedData = ExtractIPAndDNS(content);
+
+                PublicIPAddress = extractedData.Item1;
+                PublicDNSAddress = extractedData.Item2;
+            }
+            catch (HttpRequestException ex)
+            {
+                Log.Error(nameof(AcceleratorPageViewModel), ex, "Request error");
+                PublicIPAddress = PublicDNSAddress = "Unknown";
+            }
+
+            var dnsServers = GetLocalDnsServers();
+            if (dnsServers != null && dnsServers.Length != 0)
+            {
+                LocalDNSAddress = dnsServers[0];
+            }
+        });
+        DNSCheckCommand
+            .IsExecuting
+            .ToPropertyEx(this, x => x.IsDNSChecking);
 
         ProxySettingsCommand = ReactiveCommand.Create(() =>
         {
@@ -184,4 +258,13 @@ public sealed partial class AcceleratorPageViewModel
         var certInfo = certificateManager.GetCertificateInfo();
         MessageBox.Show(certInfo, "证书信息");
     }
+
+    [GeneratedRegex(@"<iframe[^>]+src\s*=\s*['""](?<src>[^'""]+)['""]", RegexOptions.IgnoreCase, "zh-CN")]
+    private static partial Regex PageFrameSrcUrl();
+
+    [GeneratedRegex(@"您的IP地址信息:\s*([^<]+)")]
+    private static partial Regex IpAddr();
+
+    [GeneratedRegex(@"您的DNS地址信息:\s*([^<]+)")]
+    private static partial Regex DnsAddr();
 }
