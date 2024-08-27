@@ -104,9 +104,9 @@
     </spp:PageBase.PaneContent>
 
     <ScrollViewer>
-		<StackPanel x:Name="Grid_Menu" MaxWidth="1000">
+		<StackPanel x:Name="Grid_Menu" MaxWidth="1000" Spacing="8">
 			<Border Padding="20" Classes="paper" 
-					Height="180" Margin="16">
+                    Height="180">
 				<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*" />
@@ -138,7 +138,7 @@
 				</Grid>
 			</Border>
 
-			<Expander Margin="16" IsExpanded="True">
+			<Expander IsExpanded="True">
 				<Expander.Styles>
 					<Style Selector="Expander /template/ ToggleButton#ExpanderHeader">
 						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -148,7 +148,7 @@
 					<DockPanel>
 						<StackPanel Orientation="Horizontal" >
 							<ui:FontIcon FontSize="26" Margin="0 0 12 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;" />
-							<TextBlock VerticalAlignment="Center" Text="游戏信息" />
+							<TextBlock VerticalAlignment="Center" Text="窗口信息" />
 							<!--<TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.SteamAppType_Game, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
 							<!--<TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.Info, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
 						</StackPanel>
@@ -225,7 +225,7 @@
 							</WrapPanel.Styles>
 
 							<!--Button Group 1-->
-							<Button Classes="accent" Command="{ReflectionBinding BorderlessWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}" >
+							<Button Command="{ReflectionBinding BorderlessWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
 								<!--<Button.Styles>
 									<Style Selector="Button">
 										<Setter Property="Background" Value="#0071c7" />
