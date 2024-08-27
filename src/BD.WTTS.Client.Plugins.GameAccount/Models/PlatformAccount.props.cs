@@ -26,6 +26,8 @@ public sealed partial class PlatformAccount : ReactiveObject
 
     public bool IsRegDeleteOnClear { get; set; }
 
+    public bool AllFilesRequired { get; set; }
+
     public string? ExeExtraArgs { get; set; }
 
     public string? DefaultExePath { get; set; }

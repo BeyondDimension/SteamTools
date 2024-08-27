@@ -575,14 +575,16 @@ Windows Registry Editor Version 5.00
             // FILE OR FOLDER
             if (PathHelper.HandleFileOrFolder(accFile, savedFile, localCachePath, false, platform.FolderPath)) continue;
 
-            // Could not find file/folder
-            Toast.Show(ToastIcon.Error, AppResources.Error_CannotFindAccountFile_.Format(accFile));
-
-            return false;
-
-            // TODO: Run some action that can be specified in the Platforms.json file
-            // Add for the start, and end of this function -- To allow 'plugins'?
-            // Use reflection?
+            if (platform.AllFilesRequired)
+            {
+                // Could not find file/folder
+                Toast.Show(ToastIcon.Error, AppResources.Error_CannotFindAccountFile_.Format(accFile));
+                return false;
+            }
+            else
+            {
+                Log.Warn(nameof(CurrnetUserAdd), $"{accFile} Could not find file/folder");
+            }
         }
 
         JTokenHelper.SaveRegJson(regJson, platform.RegJsonPath(name));
