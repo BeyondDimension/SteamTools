@@ -7,6 +7,7 @@
 		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\avalonia.snk</AssemblyOriginatorKeyFile>
 		<!--https://github.com/AvaloniaUI/Avalonia/blob/0.10.10/build/SharedVersion.props#L18-->
+		<AvaloniaAccessUnstablePrivateApis>true</AvaloniaAccessUnstablePrivateApis>
 	</PropertyGroup>
 
 	<ItemGroup>

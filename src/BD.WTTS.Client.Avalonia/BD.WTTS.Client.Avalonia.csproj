@@ -4,6 +4,7 @@
 		<RootNamespace>BD.WTTS</RootNamespace>
 		<DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+		<AvaloniaAccessUnstablePrivateApis>true</AvaloniaAccessUnstablePrivateApis>
 	</PropertyGroup>
 
 	<ItemGroup>
