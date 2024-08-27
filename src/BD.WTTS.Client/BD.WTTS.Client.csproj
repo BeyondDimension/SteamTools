@@ -123,6 +123,7 @@
 		<PackageReference Include="SkiaSharp" />
 		<PackageReference Include="SkiaSharp.HarfBuzz" />
 		<PackageReference Include="HarfBuzzSharp" />
+		<PackageReference Include="Utf8StringInterpolation" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">

@@ -76,6 +76,9 @@
 		<Compile Include="..\BD.WTTS.Client\Services\Platform\IPlatformService.OS.Linux.Etc.Os_Release.cs">
 			<LinkBase>Services\Platform</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client\Services\Mvvm\LogConsoleService.Logger.cs">
+			<LinkBase>Services\Mvvm</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -104,6 +107,7 @@
 		<PackageReference Include="System.Drawing.Common" />
 		<PackageReference Include="System.Runtime.Caching" />
 		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
+		<PackageReference Include="Utf8StringInterpolation" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::IsOSPlatform('windows')) AND ($(RuntimeIdentifier.StartsWith('win-')) OR $(RuntimeIdentifier) == '')">

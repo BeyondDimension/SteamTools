@@ -67,4 +67,6 @@ public interface IPCMainProcessService : IAsyncDisposable
     /// <param name="moduleName"></param>
     /// <returns></returns>
     ValueTask<T?> GetServiceAsync<T>(string moduleName) where T : class;
+
+    void WriteMessage(string? moduleName, byte[] bytes);
 }

@@ -167,6 +167,12 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         return bytes;
     }
 
+    public string? GetLogAllMessage()
+    {
+        var result = LogConsoleService.Utf8StringLogger.Builder;
+        return result.ToString();
+    }
+
     // IDisposable
 
     protected override void DisposeCore()
