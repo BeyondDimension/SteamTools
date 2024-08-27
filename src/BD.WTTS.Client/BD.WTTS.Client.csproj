@@ -107,7 +107,6 @@
 		<PackageReference Include="SharpZipLib" />
 		<PackageReference Include="NLog" />
 		<PackageReference Include="NLog.Extensions.Logging" />
-		<PackageReference Include="SkiaSharp" />
 		<PackageReference Include="Net.Codecrete.QrCodeGenerator" />
 		<PackageReference Include="Fleck" />
 		<PackageReference Include="Stun.Net" />
