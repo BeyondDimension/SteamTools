@@ -73,9 +73,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BD.Common.XmlnsDefinition.Avalonia">
-			<Aliases>BD_Common_XmlnsDefinition_Avalonia</Aliases>
-		</PackageReference>
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="BD.Common.Primitives" />
 		<PackageReference Include="BD.Common.Essentials" />

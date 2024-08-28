@@ -190,9 +190,6 @@
 		<!--<PackageReference Include="Microsoft.Extensions.DependencyModel" />-->
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 		<PackageReference Include="Avalonia" />
-		<PackageReference Include="BD.Common.XmlnsDefinition.Avalonia">
-			<Aliases>BD_Common_XmlnsDefinition_Avalonia</Aliases>
-		</PackageReference>
 		<!--<PackageReference Include="Facepunch.Steamworks" />-->
 		<!--<PackageReference Include="Avalonia.Desktop" />
 		<PackageReference Include="Avalonia.ReactiveUI" />
