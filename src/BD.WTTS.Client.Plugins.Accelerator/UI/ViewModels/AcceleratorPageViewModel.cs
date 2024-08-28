@@ -141,11 +141,13 @@ public sealed partial class AcceleratorPageViewModel
                     var configDns = ProxySettings.ProxyMasterDns.Value ?? string.Empty;
                     (delayMs, address) = await networkTestService.TestDNSAsync(testDomain, configDns, 53);
                 }
-                DNSTestResult = delayMs + "ms " + address.FirstOrDefault() ?? "0.0.0.0";
+                DNSTestDelay = delayMs + "ms ";
+                DNSTestResult = "" + address.FirstOrDefault() ?? "0.0.0.0";
             }
             catch (Exception ex)
             {
                 Log.Error(nameof(AcceleratorPageViewModel), ex.ToString());
+                DNSTestDelay = string.Empty;
                 DNSTestResult = "error";
             }
 

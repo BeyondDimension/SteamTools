@@ -134,6 +134,9 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     public string LocalDNSAddress { get; set; } = string.Empty;
 
     [Reactive]
+    public string DNSTestDelay { get; set; } = string.Empty;
+
+    [Reactive]
     public string DNSTestResult { get; set; } = string.Empty;
 
     public ReactiveCommand<Unit, (NatTypeSimple Nat, bool PingSuccess)> NATCheckCommand { get; }

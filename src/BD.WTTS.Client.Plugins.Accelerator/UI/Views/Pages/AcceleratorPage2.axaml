@@ -527,7 +527,7 @@
 						</ui:SettingsExpander.Header>
 						<ui:SettingsExpander.Footer>
 							<WrapPanel>
-								<ui:FAComboBox x:Name="STUNServer" Margin="4" ToolTip.Tip="STUN 服务器" IsEditable="False" IsEnabled="{Binding !IsNATChecking}" ItemsSource="{Binding STUNAddress}" />
+								<ui:FAComboBox x:Name="STUNServer" Margin="4" Text="stun.syncthing.net" ToolTip.Tip="STUN 服务器" IsEditable="False" IsEnabled="{Binding !IsNATChecking}" ItemsSource="{Binding STUNAddress}" />
 								<Button x:Name="NATCheckButton"
 										Margin="4" Width="100" Content="检测" IsEnabled="True" />
 							</WrapPanel>
@@ -642,7 +642,7 @@
 							<ui:SettingsExpanderItem>
 								<TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
-									<TextBox IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
+									<TextBox IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh2}, Path=!Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
@@ -656,7 +656,7 @@
 							<ui:SettingsExpanderItem>
 								<TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
-									<TextBox IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
+									<TextBox IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh2}, Path=Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
@@ -667,12 +667,25 @@
 							<Separator Classes="Separator" Margin="-64 0" />
 
 							<ui:SettingsExpanderItem>
-								<TextBlock Text="延迟与解析地址" />
+								<TextBlock Text="延迟" />
 								<ui:SettingsExpanderItem.Footer>
-									<SelectableTextBlock Foreground="Gray" Text="{Binding DNSTestResult}" />
+									<Grid>
+										<ui:ProgressRing IsVisible="{Binding IsDNSChecking}" Margin="0 -4 0 -10" Width="22" />
+										<SelectableTextBlock Text="{Binding DNSTestDelay}" />
+									</Grid>
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
+							<ui:SettingsExpanderItem>
+								<TextBlock Text="解析地址" />
+								<ui:SettingsExpanderItem.Footer>
+									<Grid>
+										<ui:ProgressRing IsVisible="{Binding IsDNSChecking}" Margin="0 -4 0 -10" Width="22" />
+										<SelectableTextBlock Text="{Binding DNSTestResult}" />
+									</Grid>
+								</ui:SettingsExpanderItem.Footer>
+							</ui:SettingsExpanderItem>
+							
 							<!--<ui:SettingsExpanderItem>
 								<TextBlock Text="您的IP地址信息：" />
 
