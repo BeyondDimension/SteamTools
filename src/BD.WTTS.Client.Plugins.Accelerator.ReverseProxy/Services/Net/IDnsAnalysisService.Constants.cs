@@ -18,8 +18,8 @@ public partial interface IDnsAnalysisService // 公共常量定义
 
     const string Google_DohAddres = "https://dns.google/resolve/";
     const string Cloudflare_DohAddres = "https://cloudflare-dns.com/resolve";
-    const string DohAddres_360 = "https://doh.360.cn/dns-query/resolve";
-    const string TUNA_DohAddres = "https://101.6.6.6:8443/dns-query/resolve";
+    const string DohAddres_360 = "https://doh.360.cn/resolve";
+    const string TUNA_DohAddres = "https://101.6.6.6:8443/resolve";
 
     const string PrimaryDNS_IPV6_Ali = "2400:3200::1";
 
