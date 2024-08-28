@@ -217,13 +217,4 @@ public sealed partial class AcceleratorPageViewModel
         var certInfo = certificateManager.GetCertificateInfo();
         MessageBox.Show(certInfo, "证书信息");
     }
-
-    [GeneratedRegex(@"<iframe[^>]+src\s*=\s*['""](?<src>[^'""]+)['""]", RegexOptions.IgnoreCase, "zh-CN")]
-    private static partial Regex PageFrameSrcUrl();
-
-    [GeneratedRegex(@"您的IP地址信息:\s*([^<]+)")]
-    private static partial Regex IpAddr();
-
-    [GeneratedRegex(@"您的DNS地址信息:\s*([^<]+)")]
-    private static partial Regex DnsAddr();
 }
