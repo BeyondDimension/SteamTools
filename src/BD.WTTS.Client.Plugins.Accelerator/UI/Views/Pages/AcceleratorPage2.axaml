@@ -686,36 +686,6 @@
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 							
-							<!--<ui:SettingsExpanderItem>
-								<TextBlock Text="您的IP地址信息：" />
-
-								<ui:SettingsExpanderItem.Footer>
-									<Grid>
-										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" Width="22" IsVisible="{Binding IsDNSChecking}" />
-										<SelectableTextBlock Text="{Binding PublicIPAddress}" Foreground="Gray" IsVisible="{Binding !IsDNSChecking}" />
-									</Grid>
-								</ui:SettingsExpanderItem.Footer>
-							</ui:SettingsExpanderItem>
-
-							<ui:SettingsExpanderItem>
-								<TextBlock Text="您的DNS地址信息：" />
-								<ui:SettingsExpanderItem.Footer>
-									<Grid>
-										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" Width="22" IsVisible="{Binding IsDNSChecking}" />
-										<SelectableTextBlock Text="{Binding PublicDNSAddress}" Foreground="Gray" IsVisible="{Binding !IsDNSChecking}" />
-									</Grid>
-								</ui:SettingsExpanderItem.Footer>
-							</ui:SettingsExpanderItem>
-
-							<ui:SettingsExpanderItem>
-								<TextBlock Text="您的本机DNS地址信息：" />
-								<ui:SettingsExpanderItem.Footer>
-									<Grid>
-										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" Width="22"  IsVisible="{Binding IsDNSChecking}" />
-										<SelectableTextBlock Text="{Binding LocalDNSAddress}" Foreground="Gray"  IsVisible="{Binding !IsDNSChecking}" />
-									</Grid>
-								</ui:SettingsExpanderItem.Footer>
-							</ui:SettingsExpanderItem>-->
 						</StackPanel>
 					</ui:SettingsExpander>
 				</StackPanel>

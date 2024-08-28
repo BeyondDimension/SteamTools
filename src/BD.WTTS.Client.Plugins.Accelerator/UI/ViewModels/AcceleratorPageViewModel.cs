@@ -94,36 +94,6 @@ public sealed partial class AcceleratorPageViewModel
             .IsExecuting
             .ToPropertyEx(this, x => x.IsNATChecking);
 
-        static string[] GetLocalDnsServers()
-        {
-            var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-            foreach (var networkInterface in networkInterfaces)
-            {
-                var ipProperties = networkInterface.GetIPProperties();
-                var dnsAddresses = ipProperties.DnsAddresses;
-
-                if (dnsAddresses.Count > 0)
-                {
-                    return dnsAddresses.Select(dns => dns.ToString()).ToArray();
-                }
-            }
-            return [];
-        }
-
-        static (string, string) ExtractIPAndDNS(string content)
-        {
-            // 正则表达式匹配 IP 和 DNS 信息
-            var ipMatch = IpAddr().Match(content);
-            var dnsMatch = DnsAddr().Match(content);
-
-            if (ipMatch.Success && dnsMatch.Success)
-            {
-                string ipAddress = ipMatch.Groups[1].Value.Trim();
-                string dnsAddress = dnsMatch.Groups[1].Value.Trim();
-                return (ipAddress, dnsAddress);
-            }
-            return ("Unknown", "Unknown");
-        }
         DNSCheckCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             var testDomain = DomainPendingTest == string.Empty ? "steamcommunity.com" : DomainPendingTest;
@@ -150,39 +120,6 @@ public sealed partial class AcceleratorPageViewModel
                 DNSTestDelay = string.Empty;
                 DNSTestResult = "error";
             }
-
-            //string url = "https://nstool.netease.com/";
-            //try
-            //{
-            //    using HttpClient client = new HttpClient();
-            //    var response = await client.GetAsync(url);
-            //    response.EnsureSuccessStatusCode();
-
-            //    string htmlContent = await response.Content.ReadAsStringAsync();
-            //    var match = PageFrameSrcUrl().Match(htmlContent);
-            //    if (!match.Success)
-            //        throw new HttpRequestException("Found src url failed");
-            //    var src = match.Groups["src"].Value;
-
-            //    var res = await client.GetAsync(src);
-            //    var content = await res.Content.ReadAsStringAsync();
-
-            //    var extractedData = ExtractIPAndDNS(content);
-
-            //    PublicIPAddress = extractedData.Item1;
-            //    PublicDNSAddress = extractedData.Item2;
-            //}
-            //catch (HttpRequestException ex)
-            //{
-            //    Log.Error(nameof(AcceleratorPageViewModel), ex, "Request error");
-            //    PublicIPAddress = PublicDNSAddress = "Unknown";
-            //}
-
-            //var dnsServers = GetLocalDnsServers();
-            //if (dnsServers != null && dnsServers.Length != 0)
-            //{
-            //    LocalDNSAddress = dnsServers[0];
-            //}
         });
         DNSCheckCommand
             .IsExecuting
