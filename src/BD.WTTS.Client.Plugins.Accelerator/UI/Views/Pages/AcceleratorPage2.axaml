@@ -635,14 +635,14 @@
 							<ui:SettingsExpanderItem>
 								<TextBlock Text="待检测的域名" />
 								<ui:SettingsExpanderItem.Footer>
-									<TextBox x:Name="DomainTextBox" Watermark="steamcommunity.com" MinWidth="140" />
+									<TextBox Width="160"  x:Name="DomainTextBox" Watermark="steamcommunity.com" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
 							<ui:SettingsExpanderItem>
 								<TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
-									<TextBox IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh2}, Path=!Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
+									<TextBox Width="160"  IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh2}, Path=!Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
@@ -656,7 +656,7 @@
 							<ui:SettingsExpanderItem>
 								<TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
-									<TextBox IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh2}, Path=Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
+									<TextBox Width="160"  IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh2}, Path=Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
