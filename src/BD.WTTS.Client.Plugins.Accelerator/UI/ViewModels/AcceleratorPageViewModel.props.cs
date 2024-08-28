@@ -125,15 +125,6 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     public string PublicEndPoint { get; set; } = string.Empty;
 
     [Reactive]
-    public string PublicIPAddress { get; set; } = string.Empty;
-
-    [Reactive]
-    public string PublicDNSAddress { get; set; } = string.Empty;
-
-    [Reactive]
-    public string LocalDNSAddress { get; set; } = string.Empty;
-
-    [Reactive]
     public string DNSTestDelay { get; set; } = string.Empty;
 
     [Reactive]
