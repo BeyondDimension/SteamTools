@@ -29,11 +29,25 @@ public sealed partial class AcceleratorPageViewModel
             //ProxyService.Current.ProxyStatus = !ProxyService.Current.ProxyStatus;
             await ProxyService.Current.StartOrStopProxyService(!ProxyService.Current.ProxyStatus);
 
+            if (ProxyService.Current.ProxyStatus == false)
+                return;
+
             // Create new ProxyEnableDomain for 加速服务 page
-            var enableDomainVMs = ProxyService.Current.GetEnableProxyDomains()
-                .Select(x => new ProxyDomainViewModel(x.Name, x.ProxyType, "https://" + x.ListenDomainNames.Split(";")[0])) // DomainNamesArray[0]
+            var enableGroupDomain = ProxyService.Current.ProxyDomainsList
+                .Where(list => list.ThreeStateEnable == true || list.ThreeStateEnable == null)
+                .Select(list => new ProxyDomainGroupViewModel
+                {
+                    Name = list.Name,
+                    IconUrl = list.IconUrl ?? string.Empty,
+                    EnableProxyDomainVMs = new(
+                        list.Items!
+                            .Where(i => i.ThreeStateEnable == true)
+                            .Select(i => new ProxyDomainViewModel(i.Name, i.ProxyType, "https://" + i.ListenDomainNames.Split(";")[0]))
+                            .ToList()),
+                })
                 .ToList();
-            EnableProxyDomainVMs = new(enableDomainVMs);
+
+            EnableProxyDomainGroupVMs = new(enableGroupDomain);
         });
 
         RefreshCommand = ReactiveCommand.Create(async () =>
@@ -56,10 +70,11 @@ public sealed partial class AcceleratorPageViewModel
             GameAcceleratorService.Current.LoadGames();
         });
 
-        // https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error
+        SelectedSTUNAddress = STUNAddress[0];
+
         NATCheckCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            var natCheckResult = await networkTestService.TestStunClient3489Async() ?? new ClassicStunResult { NatType = NatType.Unknown };
+            var natCheckResult = await networkTestService.TestStunClient3489Async(testServerHostName: SelectedSTUNAddress) ?? new ClassicStunResult { NatType = NatType.Unknown };
             var (netSucc, _) = await networkTestService.TestOpenUrlAsync("https://www.baidu.com");
 
             var natStatus = natCheckResult.NatType switch
@@ -78,24 +93,6 @@ public sealed partial class AcceleratorPageViewModel
         NATCheckCommand
             .IsExecuting
             .ToPropertyEx(this, x => x.IsNATChecking);
-
-        var canConnectTest = this.WhenAnyValue(x => x.EnableProxyDomainVMs).Select(v => v is not null);
-        ConnectTestCommand = ReactiveCommand.CreateFromTask(async () =>
-        {
-            var tasks = EnableProxyDomainVMs!.Select(async enableDomain =>
-            {
-                enableDomain.DelayMillseconds = "- ms";
-                var (success, delayMs) = await networkTestService.TestOpenUrlAsync(enableDomain.Url);
-                enableDomain.DelayMillseconds = success switch
-                {
-                    true when delayMs > 20000 => "Timeout",
-                    true => delayMs.ToString() + " ms",
-                    false => "error",
-                };
-            });
-
-            await Task.WhenAll(tasks);
-        }, canConnectTest);
 
         static string[] GetLocalDnsServers()
         {
@@ -129,38 +126,61 @@ public sealed partial class AcceleratorPageViewModel
         }
         DNSCheckCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            string url = "https://nstool.netease.com/";
+            var testDomain = DomainPendingTest == string.Empty ? "steamcommunity.com" : DomainPendingTest;
             try
             {
-                using HttpClient client = new HttpClient();
-                var response = await client.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-
-                string htmlContent = await response.Content.ReadAsStringAsync();
-                var match = PageFrameSrcUrl().Match(htmlContent);
-                if (!match.Success)
-                    throw new HttpRequestException("Found src url failed");
-                var src = match.Groups["src"].Value;
-
-                var res = await client.GetAsync(src);
-                var content = await res.Content.ReadAsStringAsync();
-
-                var extractedData = ExtractIPAndDNS(content);
-
-                PublicIPAddress = extractedData.Item1;
-                PublicDNSAddress = extractedData.Item2;
+                long delayMs;
+                IPAddress[] address;
+                if (ProxySettings.UseDoh2)
+                {
+                    var configDoh = ProxySettings.CustomDohAddres.Value ?? string.Empty;
+                    (delayMs, address) = await networkTestService.TestDNSOverHttpsAsync(testDomain, configDoh);
+                }
+                else
+                {
+                    var configDns = ProxySettings.ProxyMasterDns.Value ?? string.Empty;
+                    (delayMs, address) = await networkTestService.TestDNSAsync(testDomain, configDns, 53);
+                }
+                DNSTestResult = delayMs + "ms " + address.FirstOrDefault() ?? "0.0.0.0";
             }
-            catch (HttpRequestException ex)
+            catch (Exception ex)
             {
-                Log.Error(nameof(AcceleratorPageViewModel), ex, "Request error");
-                PublicIPAddress = PublicDNSAddress = "Unknown";
+                Log.Error(nameof(AcceleratorPageViewModel), ex.ToString());
+                DNSTestResult = "error";
             }
 
-            var dnsServers = GetLocalDnsServers();
-            if (dnsServers != null && dnsServers.Length != 0)
-            {
-                LocalDNSAddress = dnsServers[0];
-            }
+            //string url = "https://nstool.netease.com/";
+            //try
+            //{
+            //    using HttpClient client = new HttpClient();
+            //    var response = await client.GetAsync(url);
+            //    response.EnsureSuccessStatusCode();
+
+            //    string htmlContent = await response.Content.ReadAsStringAsync();
+            //    var match = PageFrameSrcUrl().Match(htmlContent);
+            //    if (!match.Success)
+            //        throw new HttpRequestException("Found src url failed");
+            //    var src = match.Groups["src"].Value;
+
+            //    var res = await client.GetAsync(src);
+            //    var content = await res.Content.ReadAsStringAsync();
+
+            //    var extractedData = ExtractIPAndDNS(content);
+
+            //    PublicIPAddress = extractedData.Item1;
+            //    PublicDNSAddress = extractedData.Item2;
+            //}
+            //catch (HttpRequestException ex)
+            //{
+            //    Log.Error(nameof(AcceleratorPageViewModel), ex, "Request error");
+            //    PublicIPAddress = PublicDNSAddress = "Unknown";
+            //}
+
+            //var dnsServers = GetLocalDnsServers();
+            //if (dnsServers != null && dnsServers.Length != 0)
+            //{
+            //    LocalDNSAddress = dnsServers[0];
+            //}
         });
         DNSCheckCommand
             .IsExecuting

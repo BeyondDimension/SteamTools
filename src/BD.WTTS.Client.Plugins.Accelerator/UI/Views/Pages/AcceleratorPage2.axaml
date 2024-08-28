@@ -403,6 +403,7 @@
 			<TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
 			<TabStripItem Content="网路测试" IsVisible="True" />
 			<TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
+			<TabStripItem Content="加速脚本" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
 			<TabStripItem Name="GameAccTab">
 				<WrapPanel>
 					<TextBlock Text="游戏加速" />
@@ -525,21 +526,23 @@
 							</StackPanel>
 						</ui:SettingsExpander.Header>
 						<ui:SettingsExpander.Footer>
-							<Button x:Name="NATCheckButton"
-									Width="100" Content="检测" IsEnabled="True" />
+							<WrapPanel>
+								<ui:FAComboBox x:Name="STUNServer" Margin="4" ToolTip.Tip="STUN 服务器" IsEditable="False" IsEnabled="{Binding !IsNATChecking}" ItemsSource="{Binding STUNAddress}" />
+								<Button x:Name="NATCheckButton"
+										Margin="4" Width="100" Content="检测" IsEnabled="True" />
+							</WrapPanel>
 						</ui:SettingsExpander.Footer>
 
 						<StackPanel Margin="24 0 0 0" Spacing="8">
 							<ui:SettingsExpanderItem>
-								<DockPanel>
-									<TextBlock VerticalAlignment="Center" Text="NAT 类型：" />
-
-									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+								<TextBlock VerticalAlignment="Center" Text="NAT 类型：" />
+								<ui:SettingsExpanderItem.Footer>
+									<Grid>
 										<ui:ProgressRing HorizontalAlignment="Right" IsVisible="{Binding IsNATChecking}" Margin="0 -4 0 -10" Width="22" />
 
 										<StackPanel Orientation="Horizontal" IsVisible="{Binding !IsNATChecking}">
 											<SelectableTextBlock x:Name="NATTextBlock"  VerticalAlignment="Center"
-																 Text="未知" Foreground="Gray" />
+                                                                 Text="未知" Foreground="Gray" />
 											<ui:FontIcon FontSize="20" Glyph="&#xE946;">
 												<ToolTip.Tip>
 													<TextBlock x:Name="NATTypeTip" Text="未知类型" />
@@ -547,55 +550,54 @@
 											</ui:FontIcon>
 										</StackPanel>
 									</Grid>
-								</DockPanel>
+								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
-							<Border Classes="paper" Margin="-64 0" />
+							<Separator Classes="Separator" Margin="-64 0" />
 							<ui:SettingsExpanderItem>
-								<DockPanel>
-									<TextBlock VerticalAlignment="Center" Text="本地IP地址：" />
-
-									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+								<TextBlock VerticalAlignment="Center" Text="本地IP地址：" />
+								<ui:SettingsExpanderItem.Footer>
+									<Grid>
 										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" IsVisible="{Binding IsNATChecking}" Width="22" />
 										<SelectableTextBlock x:Name="LocalIPAddress" Foreground="Gray" IsVisible="{Binding !IsNATChecking}" />
 									</Grid>
-								</DockPanel>
+								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
-							<Border Classes="paper" Margin="-64 0" />
+							<Separator Classes="Separator" Margin="-64 0" />
 							<ui:SettingsExpanderItem>
-								<DockPanel>
-									<TextBlock VerticalAlignment="Center" Text="对外IP地址：" ToolTip.Tip="若与您路由器 WAN IP 地址相同，则为公共网络" />
-
-									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+								<TextBlock VerticalAlignment="Center" Text="对外IP地址：" ToolTip.Tip="若与您路由器 WAN IP 地址相同，则为公共网络" />
+								<ui:SettingsExpanderItem.Footer>
+									<Grid>
 										<ui:ProgressRing HorizontalAlignment="Right" IsVisible="{Binding IsNATChecking}" Margin="0 -4 0 -10" Width="22" />
 										<SelectableTextBlock Text="{Binding PublicEndPoint}" Foreground="Gray" IsVisible="{Binding !IsNATChecking}" />
 									</Grid>
-								</DockPanel>
+								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
-							<Border Classes="paper" Margin="-64 0" />
-							<ui:SettingsExpanderItem>
-								<DockPanel>
-									<TextBlock VerticalAlignment="Center" Text="互联网连通情况：" />
+							<Separator Classes="Separator" Margin="-64 0" />
 
-									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+							<!--<Border Classes="paper" Margin="-64 0" />-->
+							<ui:SettingsExpanderItem>
+								<TextBlock VerticalAlignment="Center" Text="互联网连通情况：" />
+								<ui:SettingsExpanderItem.Footer>
+									<Grid>
 										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" Width="22" IsVisible="{Binding IsNATChecking}" />
 
 										<ui:FontIcon x:Name="PingOK"
-											HorizontalAlignment="Right" FontSize="26"
-											FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe73d;" Foreground="Green" />
+                                            HorizontalAlignment="Right" FontSize="26"
+                                            FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe73d;" Foreground="Green" />
 
 										<Grid x:Name="PingError">
 											<ui:FontIcon
-												HorizontalAlignment="Right" FontSize="20" Margin="3"
-												FontFamily="Segoe Fluent Icons" Glyph="&#xf127;" Foreground="Red" />
+                                                HorizontalAlignment="Right" FontSize="20" Margin="3"
+                                                FontFamily="Segoe Fluent Icons" Glyph="&#xf127;" Foreground="Red" />
 											<ui:FontIcon
-												HorizontalAlignment="Right" FontSize="26"
-												Glyph="&#xea39;" Foreground="White" />
+                                                HorizontalAlignment="Right" FontSize="26"
+                                                Glyph="&#xea39;" Foreground="White" />
 										</Grid>
 									</Grid>
-								</DockPanel>
+								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
 							<Border Classes="paper" Margin="-64 0" />
@@ -619,120 +621,195 @@
 						</ui:SettingsExpander.Header>
 						<ui:SettingsExpander.Footer>
 							<Button x:Name="DNSCheckButton"
-									Width="100" Content="检测" IsEnabled="True" />
+                                    Width="100" Content="检测" IsEnabled="True" />
 						</ui:SettingsExpander.Footer>
 
 						<StackPanel Margin="24 0 0 0">
+
+							<ui:SettingsExpanderItem Margin="-28 0 0 -4">
+								<TextBlock Text="检测项目" FontWeight="Bold" VerticalAlignment="Center" />
+							</ui:SettingsExpanderItem>
+
+							<Separator Classes="Separator" Margin="-64 0" />
+
 							<ui:SettingsExpanderItem>
-								<DockPanel>
-									<TextBlock Text="您的IP地址信息：" />
-									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+								<TextBlock Text="待检测的域名" />
+								<ui:SettingsExpanderItem.Footer>
+									<TextBox x:Name="DomainTextBox" Watermark="steamcommunity.com" MinWidth="140" />
+								</ui:SettingsExpanderItem.Footer>
+							</ui:SettingsExpanderItem>
+
+							<ui:SettingsExpanderItem>
+								<TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								<ui:SettingsExpanderItem.Footer>
+									<TextBox IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
+								</ui:SettingsExpanderItem.Footer>
+							</ui:SettingsExpanderItem>
+
+							<ui:SettingsExpanderItem>
+								<TextBlock Text="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								<ui:SettingsExpanderItem.Footer>
+									<ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh2}, Path=Value, Mode=TwoWay}" />
+								</ui:SettingsExpanderItem.Footer>
+							</ui:SettingsExpanderItem>
+
+							<ui:SettingsExpanderItem>
+								<TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								<ui:SettingsExpanderItem.Footer>
+									<TextBox IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
+								</ui:SettingsExpanderItem.Footer>
+							</ui:SettingsExpanderItem>
+
+							<ui:SettingsExpanderItem Margin="-28 0 0 -4">
+								<TextBlock Text="测试结果" FontWeight="Bold" VerticalAlignment="Center" />
+							</ui:SettingsExpanderItem>
+
+							<Separator Classes="Separator" Margin="-64 0" />
+
+							<ui:SettingsExpanderItem>
+								<TextBlock Text="延迟与解析地址" />
+								<ui:SettingsExpanderItem.Footer>
+									<SelectableTextBlock Foreground="Gray" Text="{Binding DNSTestResult}" />
+								</ui:SettingsExpanderItem.Footer>
+							</ui:SettingsExpanderItem>
+
+							<!--<ui:SettingsExpanderItem>
+								<TextBlock Text="您的IP地址信息：" />
+
+								<ui:SettingsExpanderItem.Footer>
+									<Grid>
 										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" Width="22" IsVisible="{Binding IsDNSChecking}" />
 										<SelectableTextBlock Text="{Binding PublicIPAddress}" Foreground="Gray" IsVisible="{Binding !IsDNSChecking}" />
 									</Grid>
-								</DockPanel>
+								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
 							<ui:SettingsExpanderItem>
-								<DockPanel>
-									<TextBlock Text="您的DNS地址信息：" />
-									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+								<TextBlock Text="您的DNS地址信息：" />
+								<ui:SettingsExpanderItem.Footer>
+									<Grid>
 										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" Width="22" IsVisible="{Binding IsDNSChecking}" />
 										<SelectableTextBlock Text="{Binding PublicDNSAddress}" Foreground="Gray" IsVisible="{Binding !IsDNSChecking}" />
 									</Grid>
-								</DockPanel>
+								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
 							<ui:SettingsExpanderItem>
-								<DockPanel>
-									<TextBlock Text="您的本机DNS地址信息：" />
-									<Grid DockPanel.Dock="Right" HorizontalAlignment="Right">
+								<TextBlock Text="您的本机DNS地址信息：" />
+								<ui:SettingsExpanderItem.Footer>
+									<Grid>
 										<ui:ProgressRing HorizontalAlignment="Right" Margin="0 -4 0 -10" Width="22"  IsVisible="{Binding IsDNSChecking}" />
 										<SelectableTextBlock Text="{Binding LocalDNSAddress}" Foreground="Gray"  IsVisible="{Binding !IsDNSChecking}" />
 									</Grid>
-								</DockPanel>
-							</ui:SettingsExpanderItem>
+								</ui:SettingsExpanderItem.Footer>
+							</ui:SettingsExpanderItem>-->
 						</StackPanel>
 					</ui:SettingsExpander>
 				</StackPanel>
 			</ScrollViewer>
 
 			<!--  加速服务  -->
-			<Grid Margin="0,0,10,0" ColumnDefinitions="*,20,*">
-				<Border
-                    Grid.Column="0"
-                    Padding="10"
-                    Classes="paper">
-					<DockPanel>
-						<DockPanel Margin="0,0,0,10" DockPanel.Dock="Top" HorizontalAlignment="Stretch">
-							<TextBlock FontSize="16" Text="{x:Static spp:Strings.CommunityFix_AccelerationsEnable}" />
-							<Button x:Name="ConnectTest" DockPanel.Dock="Right" Content="连通性测试" HorizontalAlignment="Right" />
-						</DockPanel>
-						<ScrollViewer>
-							<ItemsControl ItemsSource="{Binding EnableProxyDomainVMs}">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<StackPanel Margin="10">
-											<DockPanel HorizontalAlignment="Stretch">
-												<TextBlock Text="{Binding Name}" />
-												<Border
-                                                    Padding="5,0"
-                                                    HorizontalAlignment="Left"
-                                                    CornerRadius="5"
-                                                    IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
-                                                    ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
-													<Border.Background>
-														<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-															<GradientStop Offset="0.0" Color="#43cbff" />
-															<GradientStop Offset="1.0" Color="#9708cc" />
-														</LinearGradientBrush>
-													</Border.Background>
-													<TextBlock
-                                                        VerticalAlignment="Center"
-                                                        FontSize="10"
-                                                        Text="Beta" />
-												</Border>
-												<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0 0 4 0" Orientation="Horizontal">
-													<TextBlock Text="{Binding DelayMillseconds}" Foreground="{Binding DelayColor}" />
-													<Button Content="R" IsVisible="False" Command="{Binding RetestCommand}" />
-												</StackPanel>
-											</DockPanel>
-											<Separator Classes="Separator" />
-										</StackPanel>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-						</ScrollViewer>
-					</DockPanel>
-				</Border>
+			<ScrollViewer
+                Padding="0,0,10,0"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+				<ItemsControl Margin="0 0 8 0" ItemsSource="{Binding EnableProxyDomainGroupVMs}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
 
-				<Border
-                    Grid.Column="2"
-                    Padding="10"
-                    Classes="paper">
-					<DockPanel>
-						<TextBlock
-                            Margin="0,0,0,10"
-                            DockPanel.Dock="Top"
-                            FontSize="16"
-                            Text="{x:Static spp:Strings.CommunityFix_ScriptsEnable}" />
-						<ScrollViewer>
-							<ItemsControl ItemsSource="{Binding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate DataType="{x:Type spp:ScriptDTO}">
-										<StackPanel Margin="10">
-											<DockPanel>
-												<TextBlock Text="{Binding Name}" />
-											</DockPanel>
-											<Separator Classes="Separator" />
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Border>
+								<ui:SettingsExpander IsClickEnabled="False">
+									<ui:SettingsExpander.Header>
+										<StackPanel Orientation="Horizontal" Spacing="10">
+											<spp:Image2
+												Width="30"
+												Height="30"
+												VerticalAlignment="Center"
+												RenderOptions.BitmapInterpolationMode="HighQuality"
+												Source="{Binding IconUrl}"
+												Stretch="UniformToFill" />
+											<TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
 										</StackPanel>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-						</ScrollViewer>
-					</DockPanel>
-				</Border>
-			</Grid>
+									</ui:SettingsExpander.Header>
+									<ui:SettingsExpander.Footer>
+										<Button Click="ConnectTestButtonOnClick" DockPanel.Dock="Right" Content="连通性测试" HorizontalAlignment="Right" Command="{Binding ConnectTestCommand}" />
+									</ui:SettingsExpander.Footer>
+									<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+										<TreeView ItemsSource="{Binding EnableProxyDomainVMs}" SelectionMode="Single">
+											<TreeView.ItemTemplate>
+												<TreeDataTemplate>
+													<DockPanel Margin="8,0">
+														<StackPanel Orientation="Horizontal" Spacing="8">
+															<TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+															<Border
+																Padding="5,0"
+																CornerRadius="5"
+																IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
+																ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
+																<Border.Background>
+																	<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+																		<GradientStop Offset="0.0" Color="#43cbff" />
+																		<GradientStop Offset="1.0" Color="#9708cc" />
+																	</LinearGradientBrush>
+																</Border.Background>
+																<TextBlock
+																	VerticalAlignment="Center"
+																	FontSize="10"
+																	Text="Beta" />
+															</Border>
+														</StackPanel>
+														<TextBlock DockPanel.Dock="Right"  HorizontalAlignment="Right" Margin="0 0 4 0" Text="{Binding DelayMillseconds}" Foreground="{Binding DelayColor}" />
+													</DockPanel>
+												</TreeDataTemplate>
+											</TreeView.ItemTemplate>
+										</TreeView>
+									</ui:SettingsExpanderItem>
+								</ui:SettingsExpander>
+							</Border>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</ScrollViewer>
+
+			<!--  加速脚本  -->
+			<ScrollViewer
+						Padding="0,0,10,0"
+						HorizontalScrollBarVisibility="Disabled"
+						VerticalScrollBarVisibility="Auto">
+				<ItemsControl Grid.Column="1" ItemsSource="{Binding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="{x:Type spp:ScriptDTO}">
+							<spp:AppItem Margin="4"
+								Title="{Binding Name}"
+								MaxWidth="135"
+								Classes="Vertical"
+								Description="{Binding AuthorName}"
+								ImageMargin="20"
+								ImageStretch="None"
+								ToolTip.Tip="{Binding Describe}">
+
+								<spp:AppItem.Image>
+									<spp:Image2
+										FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico"
+										RenderOptions.BitmapInterpolationMode="HighQuality"
+										Source="{Binding IconUrl}"
+										Stretch="Uniform" />
+								</spp:AppItem.Image>
+							</spp:AppItem>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</ScrollViewer>
 
 			<!--  游戏加速  -->
 			<Panel x:DataType="spp:GameAcceleratorPageViewModel">
@@ -795,9 +872,9 @@
 			</Panel>
 
 			<!--<TabItem Header="加速日志">
-					    </TabItem>-->
+                        </TabItem>-->
 			<!--<TabItem Header="AD">
-						</TabItem>-->
+                        </TabItem>-->
 		</Carousel>
 
 		<!--  Side tab of paid game spped up  -->

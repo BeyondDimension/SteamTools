@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.VisualTree;
+using FluentAvalonia.UI.Controls;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -72,10 +74,11 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
                 AcceleratorTabs.SelectedIndex = 0;
             }
 
-            this.BindCommand(ViewModel, vm => vm.ConnectTestCommand, v => v.ConnectTest).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.SelectedSTUNAddress, v => v.STUNServer.SelectedItem).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.NATCheckCommand, v => v.NATCheckButton).DisposeWith(disposables);
             this.OneWayBind(ViewModel, vm => vm.LocalEndPoint, v => v.LocalIPAddress.Text).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.DNSCheckCommand, v => v.DNSCheckButton).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.DomainPendingTest, v => v.DomainTextBox.Text).DisposeWith(disposables);
 
             PingOK.IsVisible = false;
             PingError.IsVisible = false;
@@ -105,6 +108,15 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
         SearchGameBox.DropDownClosed += SearchGameBox_DropDownClosed;
         SearchGameBox.TextSelector = (_, _) => null!;
         SearchGameBox.TextFilter = GameContains;
+    }
+
+    private void ConnectTestButtonOnClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Button button)
+        {
+            var expander = button.FindAncestorOfType<SettingsExpander>();
+            if (expander != null) expander.IsExpanded = true;
+        }
     }
 
     void AcceleratorTabs_SelectionChanged(object? sender, SelectionChangedEventArgs e)

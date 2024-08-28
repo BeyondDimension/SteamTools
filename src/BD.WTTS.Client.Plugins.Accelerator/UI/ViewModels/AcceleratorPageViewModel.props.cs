@@ -1,7 +1,41 @@
 using Avalonia.Media;
+using BD.WTTS.Services.Implementation;
 using System.Reactive;
 
 namespace BD.WTTS.UI.ViewModels;
+
+public class ProxyDomainGroupViewModel : ReactiveObject
+{
+    private readonly INetworkTestService networkTestService = INetworkTestService.Instance;
+
+    public string Name { get; set; } = string.Empty;
+
+    public string IconUrl { get; set; } = string.Empty;
+
+    public ReadOnlyCollection<ProxyDomainViewModel>? EnableProxyDomainVMs { get; set; }
+
+    public ReactiveCommand<Unit, Unit> ConnectTestCommand { get; set; }
+
+    public ProxyDomainGroupViewModel()
+    {
+        ConnectTestCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            var tasks = EnableProxyDomainVMs!.Select(async enableDomain =>
+            {
+                enableDomain.DelayMillseconds = "- ms";
+                var (success, delayMs) = await networkTestService.TestOpenUrlAsync(enableDomain.Url);
+                enableDomain.DelayMillseconds = success switch
+                {
+                    true when delayMs > 20000 => "Timeout",
+                    true => delayMs.ToString() + " ms",
+                    false => "error",
+                };
+            });
+
+            await Task.WhenAll(tasks);
+        });
+    }
+}
 
 public class ProxyDomainViewModel : ReactiveObject
 {
@@ -22,20 +56,11 @@ public class ProxyDomainViewModel : ReactiveObject
     [ObservableAsProperty]
     public IBrush DelayColor { get; } = null!;
 
-    public ReactiveCommand<Unit, Unit> RetestCommand { get; set; }
-
     public ProxyDomainViewModel(string name, ProxyType proxyType, string url)
     {
         Name = name;
         ProxyType = proxyType;
         Url = url;
-
-        RetestCommand = ReactiveCommand.CreateFromTask(async () =>
-        {
-            DelayMillseconds = "-";
-            var (success, delayMs) = await networkTestService.TestOpenUrlAsync(Url);
-            DelayMillseconds = success ? delayMs.ToString()! + " ms" : "error";
-        });
 
         this.WhenAnyValue(x => x.DelayMillseconds)
             .Select(d => d != string.Empty && d != "-")
@@ -49,8 +74,8 @@ public class ProxyDomainViewModel : ReactiveObject
                 var s when s.Split(' ') is [var num, "ms"] && int.TryParse(num, out int ms)
                    => ms switch
                    {
-                       <= DelayMiddle => Brushes.Green,    // 0-700 ms range
-                       > DelayMiddle => Brushes.Orange,    // Above 700 ms
+                       <= DelayMiddle => Brushes.Green,
+                       > DelayMiddle => Brushes.Orange,
                    },
                 _ => Brushes.Black,
             })
@@ -70,6 +95,17 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
 
     public override string Name => Strings.Welcome;
 
+    [Reactive]
+    public string SelectedSTUNAddress { get; set; }
+
+    public List<string> STUNAddress { get; } =
+    [
+        "stun.syncthing.net",
+        "stun.hot-chilli.net",
+        "stun.fitauto.ru",
+        "stun.miwifi.com",
+    ];
+
     [ObservableAsProperty]
     public bool IsNATChecking { get; }
 
@@ -77,7 +113,10 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     public bool IsDNSChecking { get; }
 
     [Reactive]
-    public ReadOnlyCollection<ProxyDomainViewModel>? EnableProxyDomainVMs { get; set; }
+    public string DomainPendingTest { get; set; } = string.Empty;
+
+    [Reactive]
+    public ReadOnlyCollection<ProxyDomainGroupViewModel>? EnableProxyDomainGroupVMs { get; set; }
 
     [Reactive]
     public string LocalEndPoint { get; set; } = string.Empty;
@@ -94,11 +133,12 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     [Reactive]
     public string LocalDNSAddress { get; set; } = string.Empty;
 
+    [Reactive]
+    public string DNSTestResult { get; set; } = string.Empty;
+
     public ReactiveCommand<Unit, (NatTypeSimple Nat, bool PingSuccess)> NATCheckCommand { get; }
 
     public ReactiveCommand<Unit, Unit> DNSCheckCommand { get; }
-
-    public ReactiveCommand<Unit, Unit> ConnectTestCommand { get; }
 
     public ICommand StartProxyCommand { get; }
 
