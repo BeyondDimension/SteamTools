@@ -193,4 +193,39 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
         PseudoClasses.Set(":bottomleft", position == NotificationPosition.BottomLeft);
         PseudoClasses.Set(":bottomright", position == NotificationPosition.BottomRight);
     }
+
+    /// <inheritdoc/>
+    public void Close(INotification notification)
+    {
+        Dispatcher.UIThread.VerifyAccess();
+
+        //if (_items.Remove(notification, out var notificationCard))
+        //{
+        //    notificationCard.Close();
+        //}
+    }
+
+    /// <inheritdoc/>
+    public void Close(object content)
+    {
+        Dispatcher.UIThread.VerifyAccess();
+
+        //if (_items.Remove(content, out var notificationCard))
+        //{
+        //    notificationCard.Close();
+        //}
+    }
+
+    /// <inheritdoc/>
+    public void CloseAll()
+    {
+        Dispatcher.UIThread.VerifyAccess();
+
+        //foreach (var kvp in _items)
+        //{
+        //    kvp.Close();
+        //}
+
+        _items?.Clear();
+    }
 }

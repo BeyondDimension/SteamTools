@@ -107,7 +107,6 @@
 		<PackageReference Include="SharpZipLib" />
 		<PackageReference Include="NLog" />
 		<PackageReference Include="NLog.Extensions.Logging" />
-		<PackageReference Include="SkiaSharp" />
 		<PackageReference Include="Net.Codecrete.QrCodeGenerator" />
 		<PackageReference Include="Fleck" />
 		<PackageReference Include="Stun.Net" />
@@ -192,9 +191,6 @@
 		<!--<PackageReference Include="Microsoft.Extensions.DependencyModel" />-->
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 		<PackageReference Include="Avalonia" />
-		<PackageReference Include="BD.Common.XmlnsDefinition.Avalonia">
-			<Aliases>BD_Common_XmlnsDefinition_Avalonia</Aliases>
-		</PackageReference>
 		<!--<PackageReference Include="Facepunch.Steamworks" />-->
 		<!--<PackageReference Include="Avalonia.Desktop" />
 		<PackageReference Include="Avalonia.ReactiveUI" />
