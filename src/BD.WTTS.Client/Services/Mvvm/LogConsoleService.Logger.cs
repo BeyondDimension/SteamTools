@@ -7,6 +7,13 @@ namespace BD.WTTS.Services;
 partial class LogConsoleService
 {
     /// <summary>
+    /// 控制台显示最大字符数
+    /// </summary>
+    const int ConsoleMaxCharCount = 10_0000;
+
+    static readonly int ConsoleMaxByteCount = Encoding.UTF8.GetMaxByteCount(ConsoleMaxCharCount);
+
+    /// <summary>
     /// 日志源
     /// </summary>
     [DebuggerDisplay("{DebuggerDisplay(),nq}")]
@@ -41,46 +48,19 @@ ByteLength: {ByteLength}
 
         void BuilderClear()
         {
-            var last_it = chunk?.LastOrDefault();
-            chunk?.Clear();
+            if (chunk != null && chunk.Count > 1)
+            {
+                // 保留最后 21.3% 的日志
+                var keppLength = (int)MathF.Floor(chunk.Count * .213f);
+                if (keppLength <= 0 || keppLength >= chunk.Count)
+                {
+                    keppLength = 1;
+                }
+                chunk = chunk.TakeLast(keppLength).ToList();
+            }
 
             message = null;
-            chunk = last_it != null ? [last_it] : null;
-        }
-
-        string? BuilderToString()
-        {
-            if (chunk == null)
-            {
-                return null;
-            }
-            else if (chunk.Count <= 0)
-            {
-                return string.Empty;
-            }
-
-            using var buffer = Utf8String.CreateWriter(out var writer);
-
-            foreach (var it in chunk)
-            {
-                writer.AppendUtf8(it);
-            }
-
-            writer.Flush();
-
-            var result = buffer.ToString();
-            return result;
-        }
-
-        /// <summary>
-        /// 获取所有收到的日志字符串
-        /// </summary>
-        /// <returns></returns>
-        string? GetMessage()
-        {
-            var result = BuilderToString();
-            message = new(result, ByteLength);
-            return result;
+            ByteLength = 0;
         }
 
         /// <summary>
@@ -90,7 +70,7 @@ ByteLength: {ByteLength}
         {
             if (value != null && value.Length > 0)
             {
-                if (ByteLength > 8000)
+                if (ByteLength > ConsoleMaxByteCount)
                 {
                     BuilderClear();
                 }
@@ -106,17 +86,39 @@ ByteLength: {ByteLength}
             {
                 if (ByteLength == message.Value.byteLength)
                 {
+                    // 根据 len 判断是否使用缓存
                     return message.Value.str;
                 }
-                else
-                {
-                    return GetMessage();
-                }
             }
-            else
+
+            if (chunk == null)
             {
-                return GetMessage();
+                return null;
             }
+            else if (chunk.Count <= 0)
+            {
+                return string.Empty;
+            }
+
+            using var buffer = Utf8String.CreateWriter(out var writer);
+
+            foreach (var it in chunk)
+            {
+                // 拼接字符串
+                writer.AppendUtf8(it);
+            }
+
+            writer.Flush();
+
+            var u8_bytes = buffer.ToArray();
+
+            chunk = [u8_bytes];
+
+            var result = Encoding.UTF8.GetString(u8_bytes);
+
+            // 设置缓存值
+            message = new(result, ByteLength);
+            return result;
         }
     }
 
