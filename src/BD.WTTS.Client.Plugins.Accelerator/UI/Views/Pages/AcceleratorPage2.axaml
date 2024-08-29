@@ -563,7 +563,7 @@
 			<spp:ProxyChartView Margin="5,0" />
 
 			<!--  网路测试 (Margin 隔离广告栏)  -->
-			<ScrollViewer Padding="0,0,10,0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+			<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 				<StackPanel Spacing="8">
 
 					<ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
@@ -581,8 +581,8 @@
 							</WrapPanel>
 						</ui:SettingsExpander.Footer>
 
-						<StackPanel Margin="24 0 0 0" Spacing="8">
-							<ui:SettingsExpanderItem>
+						<StackPanel Margin="24 0 0 0" Spacing="8" Background="Transparent">
+							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock VerticalAlignment="Center" Text="NAT 类型：" />
 								<ui:SettingsExpanderItem.Footer>
 									<Grid>
@@ -602,7 +602,7 @@
 							</ui:SettingsExpanderItem>
 
 							<Separator Classes="Separator" Margin="-64 0" />
-							<ui:SettingsExpanderItem>
+							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock VerticalAlignment="Center" Text="本地IP地址：" />
 								<ui:SettingsExpanderItem.Footer>
 									<Grid>
@@ -613,7 +613,7 @@
 							</ui:SettingsExpanderItem>
 
 							<Separator Classes="Separator" Margin="-64 0" />
-							<ui:SettingsExpanderItem>
+							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock VerticalAlignment="Center" Text="对外IP地址：" ToolTip.Tip="若与您路由器 WAN IP 地址相同，则为公共网络" />
 								<ui:SettingsExpanderItem.Footer>
 									<Grid>
@@ -626,7 +626,7 @@
 							<Separator Classes="Separator" Margin="-64 0" />
 
 							<!--<Border Classes="paper" Margin="-64 0" />-->
-							<ui:SettingsExpanderItem>
+							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock VerticalAlignment="Center" Text="互联网连通情况：" />
 								<ui:SettingsExpanderItem.Footer>
 									<Grid>
@@ -650,7 +650,7 @@
 
 							<Border Classes="paper" Margin="-64 0" />
 
-							<ui:SettingsExpanderItem Margin="-28 0 0 -4">
+							<ui:SettingsExpanderItem Margin="-28 0 0 -4" Background="Transparent">
 								<StackPanel Orientation="Horizontal" Spacing="8">
 									<TextBlock Text="相关链接" FontWeight="Bold" VerticalAlignment="Center" />
 									<HyperlinkButton VerticalAlignment="Center" Content="解决NAT错误" NavigateUri="https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error" />
@@ -674,47 +674,47 @@
 
 						<StackPanel Margin="24 0 0 0">
 
-							<ui:SettingsExpanderItem Margin="-28 0 0 -4">
+							<ui:SettingsExpanderItem Margin="-28 0 0 -4" Background="Transparent">
 								<TextBlock Text="检测项目" FontWeight="Bold" VerticalAlignment="Center" />
 							</ui:SettingsExpanderItem>
 
 							<Separator Classes="Separator" Margin="-64 0" />
 
-							<ui:SettingsExpanderItem>
+							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock Text="待检测的域名" />
 								<ui:SettingsExpanderItem.Footer>
 									<TextBox Width="160"  x:Name="DomainTextBox" Watermark="steamcommunity.com" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
-							<ui:SettingsExpanderItem>
+							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
 									<TextBox Width="160"  IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
-							<ui:SettingsExpanderItem>
+							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock Text="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
 									<ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
-							<ui:SettingsExpanderItem>
+							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
 									<TextBox Width="160"  IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
-							<ui:SettingsExpanderItem Margin="-28 0 0 -4">
+							<ui:SettingsExpanderItem Margin="-28 0 0 -4" Background="Transparent">
 								<TextBlock Text="测试结果" FontWeight="Bold" VerticalAlignment="Center" />
 							</ui:SettingsExpanderItem>
 
 							<Separator Classes="Separator" Margin="-64 0" />
 
-							<ui:SettingsExpanderItem>
+							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock Text="延迟" />
 								<ui:SettingsExpanderItem.Footer>
 									<Grid>
@@ -724,7 +724,7 @@
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
-							<ui:SettingsExpanderItem>
+							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock Text="解析地址" />
 								<ui:SettingsExpanderItem.Footer>
 									<Grid>
