@@ -10,9 +10,11 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <AvaloniaEdit:TextEditor
-        x:Name="LogTextbox"
-        HorizontalScrollBarVisibility="Disabled"
-        IsReadOnly="True"
-        ShowLineNumbers="True" />
+    <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="{DynamicResource ControlCornerRadius}">
+        <AvaloniaEdit:TextEditor
+            x:Name="LogTextbox"
+            HorizontalScrollBarVisibility="Disabled"
+            IsReadOnly="True"
+            ShowLineNumbers="True" />
+    </Border>
 </UserControl>

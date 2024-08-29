@@ -54,7 +54,7 @@ public partial class ProxyLog : UserControl
 
     private void LogTextbox_TextChanged(object? sender, EventArgs e)
     {
-        LogTextbox.ScrollToEnd();
+        LogTextbox.ScrollToLine(LogTextbox.Document.LineCount);
     }
 
     void FlushLogsAsync()
@@ -76,7 +76,8 @@ public partial class ProxyLog : UserControl
                 {
                     Dispatcher.UIThread.Post(() =>
                     {
-                        LogTextbox.Text = logtext;
+                        if (LogTextbox.Text.Length != logtext.Length)
+                            LogTextbox.Text = logtext;
                     });
                 }
             }
