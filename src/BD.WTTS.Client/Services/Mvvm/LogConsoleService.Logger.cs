@@ -6,6 +6,120 @@ namespace BD.WTTS.Services;
 
 partial class LogConsoleService
 {
+    /// <summary>
+    /// 日志源
+    /// </summary>
+    [DebuggerDisplay("{DebuggerDisplay(),nq}")]
+    internal sealed partial class Source
+    {
+        List<byte[]>? chunk;
+        (string? str, long byteLength)? message = null;
+
+#if DEBUG
+        readonly string moduleName;
+
+        public Source(string moduleName)
+        {
+            this.moduleName = moduleName;
+        }
+
+        string DebuggerDisplay() =>
+$"""
+moduleName: {moduleName}
+ByteLength: {ByteLength}
+{ToString()}
+""";
+#endif
+
+        public long ByteLength { get; private set; }
+
+        public void BuilderAppend(byte[] value)
+        {
+            (chunk ??= new()).Add(value);
+            ByteLength += value.Length;
+        }
+
+        void BuilderClear()
+        {
+            var last_it = chunk?.LastOrDefault();
+            chunk?.Clear();
+
+            message = null;
+            chunk = last_it != null ? [last_it] : null;
+        }
+
+        string? BuilderToString()
+        {
+            if (chunk == null)
+            {
+                return null;
+            }
+            else if (chunk.Count <= 0)
+            {
+                return string.Empty;
+            }
+
+            using var buffer = Utf8String.CreateWriter(out var writer);
+
+            foreach (var it in chunk)
+            {
+                writer.AppendUtf8(it);
+            }
+
+            writer.Flush();
+
+            var result = buffer.ToString();
+            return result;
+        }
+
+        /// <summary>
+        /// 获取所有收到的日志字符串
+        /// </summary>
+        /// <returns></returns>
+        string? GetMessage()
+        {
+            var result = BuilderToString();
+            message = new(result, ByteLength);
+            return result;
+        }
+
+        /// <summary>
+        /// 追加收到的日志 UTF-8 字节
+        /// </summary>
+        public void Append(byte[]? value)
+        {
+            if (value != null && value.Length > 0)
+            {
+                if (ByteLength > 8000)
+                {
+                    BuilderClear();
+                }
+
+                // 追加收到的日志 UTF-8 字节
+                BuilderAppend(value);
+            }
+        }
+
+        public override string? ToString()
+        {
+            if (message != null)
+            {
+                if (ByteLength == message.Value.byteLength)
+                {
+                    return message.Value.str;
+                }
+                else
+                {
+                    return GetMessage();
+                }
+            }
+            else
+            {
+                return GetMessage();
+            }
+        }
+    }
+
     #region 服务进程部分
 
     static readonly string _messagePadding = new string(' ', 6);
@@ -83,6 +197,72 @@ partial class LogConsoleService
             logBuilder.AppendLine(exception.ToString());
     }
 
+    static byte[] CreateDefaultLogMessageWithNLogFileLayout(LogLevel logLevel, string logName, int eventId, string? message, Exception? exception)
+    {
+        // Layout = "
+        // ${longdate}|
+        // ${level}|
+        // ${logger}|${message} |${all-event-properties} ${exception:format=tostring}",
+
+        using var buffer = Utf8String.CreateWriter(out var logBuilder);
+
+        logBuilder.Append(DateTime.Now.ToString(
+            "yyyy-MM-dd HH:mm:ss.fff",
+            CultureInfo.InvariantCulture));
+        logBuilder.AppendUtf8("|"u8);
+
+        switch (logLevel) // see NLog.LogLevel
+        {
+            case LogLevel.Trace:
+                logBuilder.AppendUtf8("Trace"u8);
+                break;
+            case LogLevel.Debug:
+                logBuilder.AppendUtf8("Debug"u8);
+                break;
+            case LogLevel.Information:
+                logBuilder.AppendUtf8("Info"u8);
+                break;
+            case LogLevel.Warning:
+                logBuilder.AppendUtf8("Warn"u8);
+                break;
+            case LogLevel.Error:
+                logBuilder.AppendUtf8("Error"u8);
+                break;
+            case LogLevel.Critical:
+                logBuilder.AppendUtf8("Fatal"u8);
+                break;
+            case LogLevel.None:
+                logBuilder.AppendUtf8("Off"u8);
+                break;
+            default:
+                logBuilder.Append(logLevel.ToString());
+                break;
+        }
+        logBuilder.AppendUtf8("|"u8);
+
+        logBuilder.Append(logName);
+        logBuilder.AppendUtf8("|"u8);
+
+        logBuilder.Append(message);
+        logBuilder.AppendUtf8("| "u8);
+
+        logBuilder.Append(exception?.ToString());
+        logBuilder.AppendLine();
+
+        logBuilder.Flush();
+
+        var result = buffer.ToArray();
+        return result;
+    }
+
+#if APP_REVERSE_PROXY
+    internal static readonly Source Builder = new(
+#if DEBUG
+        AssemblyInfo.Accelerator
+#endif
+        );
+#endif
+
     internal sealed class Utf8StringLogger(string name) : ILogger
     {
         readonly string name = name;
@@ -102,10 +282,6 @@ partial class LogConsoleService
 #endif
         }
 
-#if APP_REVERSE_PROXY
-        internal static readonly StringBuilder Builder = new();
-#endif
-
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
         {
             if (!IsEnabled(logLevel))
@@ -120,22 +296,14 @@ partial class LogConsoleService
             {
 
 #if APP_REVERSE_PROXY
-                try
-                {
-                    if (Builder.Length >= 8000)
-                    {
-                        Builder.Remove(0, 8000);
-                    }
-                }
-                catch
-                {
-                }
-                CreateDefaultLogMessage(Builder, name, eventId.Id, message, exception);
+                var logMessageU8 = CreateDefaultLogMessageWithNLogFileLayout(logLevel, name, eventId.Id, message, exception);
+                Builder.Append(logMessageU8);
 #else
                 try
                 {
 #if APP_REVERSE_PROXY
                     //var s = IReverseProxyService.Instance;
+                    // TODO Ipc
 #else
                     var s = IPCMainProcessService.Instance;
 #endif

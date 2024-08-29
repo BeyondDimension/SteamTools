@@ -171,7 +171,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 
     public string? GetLogAllMessage()
     {
-        var result = LogConsoleService.Utf8StringLogger.Builder;
+        var result = LogConsoleService.Builder;
         return result.ToString();
     }
 
