@@ -63,17 +63,16 @@ public partial class ProxyLog : UserControl
         {
             try
             {
-                var logtext = IReverseProxyService.Constants.Instance.GetLogAllMessage();
-                if (string.IsNullOrEmpty(logtext))
-                {
-                    Thread.Sleep(1000);
-                    continue;
-                }
-
                 var isAttachedToVisualTree = this.IsAttachedToVisualTree();
-
                 if (isAttachedToVisualTree)
                 {
+                    var logtext = IReverseProxyService.Constants.Instance.GetLogAllMessage();
+                    if (string.IsNullOrEmpty(logtext))
+                    {
+                        Thread.Sleep(1000);
+                        continue;
+                    }
+
                     Dispatcher.UIThread.Post(() =>
                     {
                         if (LogTextbox.Text.Length != logtext.Length)
