@@ -53,14 +53,14 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
     {
         if (dnsClients.TryGetValue(dohAddresUri, out var value))
             return value;
-        var client = CreateClient($"{TAG}_{dohAddresUri}", HttpHandlerCategory.Default);
-        //var handler = new HttpClientHandler
-        //{
-        //    UseCookies = false,
-        //    UseProxy = false,
-        //    Proxy = HttpNoProxy.Instance,
-        //};
-        //var client = new HttpClient(handler);
+        //var client = CreateClient($"{TAG}_{dohAddresUri}", HttpHandlerCategory.Default);
+        var handler = new HttpClientHandler
+        {
+            UseCookies = false,
+            UseProxy = false,
+            Proxy = HttpNoProxy.Instance,
+        };
+        var client = new HttpClient(handler);
         client.BaseAddress = dohAddresUri;
         var dnsClient = new DnsHttpClient(client);
         dnsClients.TryAdd(dohAddresUri, dnsClient);

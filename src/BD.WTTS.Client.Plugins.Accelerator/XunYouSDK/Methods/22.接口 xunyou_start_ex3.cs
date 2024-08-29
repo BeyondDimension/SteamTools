@@ -14,6 +14,7 @@ partial class XunYouSDK // 22.接口 xunyou_start_ex3
     /// </summary>
     /// <param name="jwt">登录 token，由调用方提供</param>
     /// <param name="nickname">账号昵称</param>
+    /// <param name="show"><see cref="PInvoke.User32.WindowStyles"/></param>
     /// <param name="gameid">游戏 id，由迅游给出明确值，或传 0，如果传 0，表示只启动迅游，不自动加速。</param>
     /// <param name="area">游戏分区 id ，由游戏给出区服名和 id 对照表，或传 0，如果传 0，表示只启动迅游，不自动加速。</param>
     /// <param name="server">游戏服 id</param>
@@ -26,6 +27,7 @@ partial class XunYouSDK // 22.接口 xunyou_start_ex3
     public static int StartEx3(
         string jwt,
         string nickname,
+        XunYouShowCommands show = XunYouShowCommands.SW_HIDE,
         int gameid = 0,
         int area = 0,
         int server = 0,
@@ -49,7 +51,7 @@ partial class XunYouSDK // 22.接口 xunyou_start_ex3
 
             result = xunyou_start_ex2(appId, jwt, jwt_len,
                 userType, channel_no, channel_no.Length,
-                nickname, nickname_len, XunYouShowCommands.SW_HIDE,
+                nickname, nickname_len, show,
                 gameid,
                 area, server, xunyou_callback, ptr,
                 installPath, install_path_len, areaName,

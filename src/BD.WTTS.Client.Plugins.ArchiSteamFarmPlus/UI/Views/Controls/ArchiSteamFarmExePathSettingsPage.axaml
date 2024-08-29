@@ -26,5 +26,16 @@
                 <Button Command="{Binding SelectProgramPath}" Content="选择路径" />
             </ui:SettingsExpander.Footer>
         </ui:SettingsExpander>
+        <ui:SettingsExpander
+            Description="下载并设置 ASF 路径"
+            Header="还没有下载过ASF？请点击下载"
+            IsClickEnabled="True">
+            <ui:SettingsExpander.IconSource>
+                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE896;" />
+            </ui:SettingsExpander.IconSource>
+            <ui:SettingsExpander.Footer>
+                <Button Command="{Binding DownloadASF}" Content="一键下载" />
+            </ui:SettingsExpander.Footer>
+        </ui:SettingsExpander>
     </StackPanel>
 </UserControl>

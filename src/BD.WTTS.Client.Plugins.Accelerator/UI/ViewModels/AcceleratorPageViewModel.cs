@@ -101,7 +101,7 @@ public sealed partial class AcceleratorPageViewModel
             {
                 long delayMs;
                 IPAddress[] address;
-                if (ProxySettings.UseDoh2)
+                if (ProxySettings.UseDoh)
                 {
                     var configDoh = ProxySettings.CustomDohAddres.Value ?? string.Empty;
                     (delayMs, address) = await networkTestService.TestDNSOverHttpsAsync(testDomain, configDoh);
@@ -146,6 +146,10 @@ public sealed partial class AcceleratorPageViewModel
             {
                 certificateManager.GetCerFilePathGeneratedWhenNoFileExists();
                 platformService.OpenFolder(certificateManager.PfxFilePath);
+            });
+            OpenLogFileCommand = ReactiveCommand.Create(() =>
+            {
+                platformService.OpenFolder(IPCSubProcessFileSystem.GetLogDirPath(Plugin.Instance.UniqueEnglishName));
             });
         }
     }

@@ -304,37 +304,59 @@
 
 			<Separator Margin="0,8" Classes="Horizontal" />
 
-			<Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding SetupCertificateCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_SetupCertificate}" />
-			<Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding DeleteCertificateCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_DeleteCertificate}" />
-			<Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding ShowCertificateCommand}"
-                Content="查看证书信息" />
-			<Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding OpenCertificateDirCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_OpenCertificateDir}" />
+            <ItemsControl>
+                <ItemsControl.Items>
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding SetupCertificateCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_SetupCertificate}" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding DeleteCertificateCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_DeleteCertificate}" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding ShowCertificateCommand}"
+                        Content="查看证书信息" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding OpenCertificateDirCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_OpenCertificateDir}" />
+                </ItemsControl.Items>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <spp:FixedWrapPanel ItemsPerLine="2" Spacing="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
 
 			<Separator Margin="0,8" Classes="Horizontal" />
 
-			<Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding EditHostsFileCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_EditHostsFile}" />
-			<Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding ResetHostsFileCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_ResetHostsFile}" />
-			<Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding OpenHostsDirCommand}"
-                Content="{x:Static spp:Strings.CommunityFix_OpenHostsDir}" />
+            <ItemsControl>
+                <ItemsControl.Items>
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding EditHostsFileCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_EditHostsFile}" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding ResetHostsFileCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_ResetHostsFile}" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding OpenHostsDirCommand}"
+                        Content="{x:Static spp:Strings.CommunityFix_OpenHostsDir}" />
+                    <Button
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding OpenLogFileCommand}"
+                        Content="打开加速日志文件夹" />
+                </ItemsControl.Items>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <spp:FixedWrapPanel ItemsPerLine="2" Spacing="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
 
 			<!--<ui:FAComboBox ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" SelectedItem="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}">
                 <ui:FAComboBox.ItemTemplate>
@@ -344,9 +366,19 @@
                 </ui:FAComboBox.ItemTemplate>
             </ui:FAComboBox>-->
 
-			<Separator Margin="0,8" Classes="Horizontal" />
+            <StackPanel IsVisible="{x:Static spp:XunYouSDK.IsSupported}}" Spacing="10">
+                <Separator Margin="0,8" Classes="Horizontal" />
 
-			<!--<TextBlock Text="{x:Static spp:Strings.GameAccelerator_WattAcceleratorInstallPath}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                <TextBlock Text="Watt 加速器相关" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+                <ToggleSwitch
+                    VerticalAlignment="Center"
+                    Classes="NoContent"
+                    IsChecked="{Binding Source={x:Static ms:ProxySettings.AutoShowWattAcceleratorWindow}, Path=Value, Mode=TwoWay}"
+                    OffContent="{x:Static spp:Strings.GameAccelerator_SetShowWattWindow}"
+                    OnContent="{x:Static spp:Strings.GameAccelerator_SetShowWattWindow}" />
+
+                <!--<TextBlock Text="{x:Static spp:Strings.GameAccelerator_WattAcceleratorInstallPath}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <ui:SettingsExpander Description="{Binding Source={x:Static ms:GameAcceleratorSettings.WattAcceleratorDirPath}, Path=Value, Mode=OneWay}}" IsExpanded="True">
                 <ui:SettingsExpander.IconSource>
@@ -361,27 +393,43 @@
                 </StackPanel>
             </ui:SettingsExpander>-->
 
-			<Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding InstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
-                Content="{x:Static spp:Strings.GameAccelerator_InstallWattAccelerator}" />
-			<Button
-                HorizontalAlignment="Stretch"
-                Command="{Binding UninstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
-                Content="{x:Static spp:Strings.GameAccelerator_UninstallWattAccelerator}" />
-		</StackPanel>
-	</spp:PageBase.PaneContent>
+                <!--<ItemsControl>
+                    <ItemsControl.Items>
+					</ItemsControl.Items>
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<spp:FixedWrapPanel ItemsPerLine="2" Spacing="5" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+				</ItemsControl>-->
 
-	<Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
-		<TabStrip
+                <Button
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding ShowXunYouWindow, Source={x:Static s:GameAcceleratorService.Current}}"
+                    CommandParameter="True"
+                    Content="{x:Static spp:Strings.GameAccelerator_ShowWattAccelerator}" />
+                <Button
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding InstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                    Content="{x:Static spp:Strings.GameAccelerator_InstallWattAccelerator}" />
+                <Button
+                    HorizontalAlignment="Stretch"
+                    Command="{Binding UninstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
+                    Content="{x:Static spp:Strings.GameAccelerator_UninstallWattAccelerator}" />
+
+            </StackPanel>
+        </StackPanel>
+    </spp:PageBase.PaneContent>
+    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
+        <TabStrip
             x:Name="AcceleratorTabs"
             VerticalAlignment="Top"
             ItemContainerTheme="{StaticResource TabItemStyle}"
             Theme="{StaticResource TabStripStyle}">
-			<TabStripItem Content="平台加速" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
-				<WrapPanel>
-					<TextBlock Text="平台加速" />
-					<Border
+            <TabStripItem Content="平台加速" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
+                <!--<WrapPanel>-->
+                <TextBlock Text="平台加速" />
+                <!--<Border
                         Margin="5,0,0,0"
                         Padding="5,1"
                         VerticalAlignment="Center"
@@ -397,17 +445,17 @@
                             FontSize="10"
                             Foreground="White"
                             Text="免费" />
-					</Border>
-				</WrapPanel>
-			</TabStripItem>
-			<TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
+                    </Border>
+                </WrapPanel>-->
+            </TabStripItem>
+            <TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
 			<TabStripItem Content="网路测试" IsVisible="True" />
 			<TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
 			<TabStripItem Content="加速脚本" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
 			<TabStripItem Name="GameAccTab">
-				<WrapPanel>
-					<TextBlock Text="游戏加速" />
-					<Border
+                <!--<WrapPanel>-->
+                <TextBlock Text="游戏加速" />
+                <!--<Border
                         Margin="5,0,0,0"
                         Padding="5,1"
                         VerticalAlignment="Center"
@@ -423,11 +471,11 @@
                             FontSize="10"
                             Foreground="White"
                             Text="收费" />
-					</Border>
-				</WrapPanel>
-			</TabStripItem>
-		</TabStrip>
-		<Carousel
+                    </Border>-->
+                <!--</WrapPanel>-->
+            </TabStripItem>
+        </TabStrip>
+        <Carousel
             Grid.Row="1"
             Margin="0,10,0,0"
             Classes="AnimeSlide"
@@ -642,21 +690,21 @@
 							<ui:SettingsExpanderItem>
 								<TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
-									<TextBox Width="160"  IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh2}, Path=!Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
+									<TextBox Width="160"  IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
 							<ui:SettingsExpanderItem>
 								<TextBlock Text="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
-									<ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh2}, Path=Value, Mode=TwoWay}" />
+									<ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
 							<ui:SettingsExpanderItem>
 								<TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
-									<TextBox Width="160"  IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh2}, Path=Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
+									<TextBox Width="160"  IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 

@@ -60,5 +60,5 @@ public partial interface IDnsAnalysisService // 公共常量定义
         public static readonly IPEndPoint Cloudflare2 = new(IPAddress.Parse("1.0.0.1"), 53);
     }
 
-    #endregion
+    #endregion DNS 常量
 }

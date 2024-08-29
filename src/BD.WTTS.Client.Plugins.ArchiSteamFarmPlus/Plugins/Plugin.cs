@@ -24,7 +24,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     protected sealed override string? AuthorOriginalString => null;
 
-    public sealed override string Description => moduleName;
+    public sealed override string Description => moduleName + " 控制台功能实现";
 
     public sealed override object? Icon => Resources.asf;
 

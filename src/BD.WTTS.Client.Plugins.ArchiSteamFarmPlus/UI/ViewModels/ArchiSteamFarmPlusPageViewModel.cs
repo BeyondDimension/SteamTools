@@ -9,7 +9,7 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel : ViewModelBase
 
     public ArchiSteamFarmPlusPageViewModel()
     {
-        SelectASFExePath = ReactiveCommand.CreateFromTask(ASFService.Current.SelectASFProgramLocation);
+        SelectASFExePath = ReactiveCommand.CreateFromTask(ASFService.Current.SelectASFProgramLocationAsync);
 
         OpenWebUIConsole = ReactiveCommand.Create(() => ASFService.Current.OpenBrowser(null));
 
@@ -18,12 +18,12 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel : ViewModelBase
         RunOrStop = ReactiveCommand.Create(RunOrStopASF);
     }
 
-    public override void Activation()
+    public override async void Activation()
     {
         base.Activation();
         if (string.IsNullOrEmpty(ASFSettings.ArchiSteamFarmExePath.Value))
         {
-            MainThread2.InvokeOnMainThreadAsync(async () =>
+            await MainThread2.InvokeOnMainThreadAsync(async () =>
             {
                 var model = new ArchiSteamFarmExePathSettingsPageViewModel();
                 await IWindowManager.Instance.ShowTaskDialogAsync(model,
@@ -44,7 +44,16 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel : ViewModelBase
             StartOrStopASF_Click();
     }
 
-    public static void StartOrStopASF_Click(bool? startOrStop = null) => Task.Run(async () =>
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            ASFService.Current.StopASFAsync().Wait();
+        }
+        base.Dispose(disposing);
+    }
+
+    public void StartOrStopASF_Click(bool? startOrStop = null) => _ = Task.Run(async () =>
     {
         var s = ASFService.Current;
         if (!s.IsASFRuning)

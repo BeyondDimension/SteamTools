@@ -66,7 +66,14 @@ public sealed partial class GameAcceleratorService
         DeleteMyGameCommand = ReactiveCommand.Create<XunYouGameViewModel>(DeleteMyGame);
         GameAcceleratorCommand = ReactiveCommand.CreateFromTask<XunYouGameViewModel>(GameAccelerator);
         GameLaunchCommand = ReactiveCommand.CreateFromTask<XunYouGameViewModel>(GameLaunch);
-        InstallAcceleratorCommand = ReactiveCommand.CreateFromTask(InstallAccelerator);
+        InstallAcceleratorCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            if (await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel(),
+    pageContent: new AcceleratorPathAskBox(), title: "游戏加速", isCancelButton: false, isOkButton: false))
+            {
+                await InstallAccelerator();
+            }
+        });
         UninstallAcceleratorCommand = ReactiveCommand.Create(UninstallAccelerator);
         AcceleratorChangeAreaCommand = ReactiveCommand.Create<XunYouGameViewModel>(AcceleratorChangeArea);
 
@@ -247,8 +254,13 @@ public sealed partial class GameAcceleratorService
     /// <summary>
     /// 设置加速游戏状态
     /// </summary>
-    void SetGameStatus(XunYouGameViewModel game, int areaId = 0, int serverId = 0)
+    async void SetGameStatus(XunYouGameViewModel game, int areaId = 0, int serverId = 0)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return;
+        }
+
         if (CurrentAcceleratorGame != null && CurrentAcceleratorGame.Id == game.Id)
         {
             CurrentAcceleratorGame.IsAccelerating = false;
@@ -295,6 +307,10 @@ public sealed partial class GameAcceleratorService
 
         //加速后
         Toast.Show(ToastIcon.Success, "加速成功");
+        if (ProxySettings.AutoShowWattAcceleratorWindow.Value)
+        {
+            _ = ShowXunYouWindow(true);
+        }
         int testSpeedCallback(SpeedCallbackWrapper w)
         {
             if (CurrentAcceleratorGame != null)
@@ -321,6 +337,11 @@ public sealed partial class GameAcceleratorService
 
     public async Task GameAccelerator(XunYouGameViewModel app)
     {
+        if (!XunYouSDK.IsSupported)
+        {
+            return;
+        }
+
         if (app.IsAccelerating)
             return;
 
@@ -348,7 +369,7 @@ public sealed partial class GameAcceleratorService
                     //}
 
                     if (!await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel(),
-                        pageContent: new AcceleratorPathAskBox(), title: "未安装加速插件", isCancelButton: true))
+                        pageContent: new AcceleratorPathAskBox(), title: "游戏加速", isCancelButton: false, isOkButton: false))
                     {
                         app.IsAccelerating = false;
                         return;
@@ -745,5 +766,10 @@ public sealed partial class GameAcceleratorService
                 Toast.Show(ToastIcon.Error, $"启动 {app.Name} 失败");
             }
         }
+    }
+
+    public async Task ShowXunYouWindow(bool showHide)
+    {
+        var result = await Ioc.Get<IAcceleratorService>().XY_ShowWinodw(showHide);
     }
 }

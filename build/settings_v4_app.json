@@ -964,8 +964,8 @@
         },
         {
           "TypeName": "bool",
-          "PropertyName": "UseDoh2",
-          "DefaultValue": "false",
+          "PropertyName": "UseDoh",
+          "DefaultValue": "true",
           "DefaultValueIsConst": true,
           "Summary": "启用 DNS over HTTPS",
           "IsRegionOrEndregion": null,
@@ -986,6 +986,15 @@
           "DefaultValue": "0",
           "DefaultValueIsConst": false,
           "Summary": "加速页面 Tab 选项卡选中下标",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "AutoShowWattAcceleratorWindow",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "加速后自动唤起 Watt 加速器界面",
           "IsRegionOrEndregion": null,
           "IsValueType": null
         }

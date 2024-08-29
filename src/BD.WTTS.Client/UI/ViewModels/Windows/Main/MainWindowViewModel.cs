@@ -174,7 +174,8 @@ public sealed partial class MainWindowViewModel : WindowViewModel
                         b.Append(item);
                         b.AppendLine(FileEx.JSON);
                     }
-                    MessageBox.Show(b.ToString(), Strings.Error, icon: MessageBox.Image.Error);
+                    var errorMsg = b.ToString();
+                    MessageBox.Show(errorMsg, Strings.Error, icon: MessageBox.Image.Error);
                 });
             }
 

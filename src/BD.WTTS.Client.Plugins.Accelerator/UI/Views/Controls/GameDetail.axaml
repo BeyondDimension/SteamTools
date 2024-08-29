@@ -178,6 +178,15 @@
                                 IsVisible="{Binding ShowStart}" />
 
                             <Button
+                                Width="175"
+                                Height="42"
+                                Classes="accent"
+                                Command="{Binding ShowXunYouWindow, Source={x:Static s:GameAcceleratorService.Current}}"
+                                CommandParameter="True"
+                                Content="{x:Static spp:Strings.GameAccelerator_ShowWattAccelerator}"
+                                FontSize="18" />
+
+                            <Button
                                 Width="150"
                                 Height="42"
                                 Command="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"

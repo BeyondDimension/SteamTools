@@ -20,7 +20,7 @@ public partial interface IReverseProxyConfig
     /// </summary>
     /// <param name="domain"></param>
     /// <returns></returns>
-    bool IsMatch(string domain) => TryGetDomainConfig(domain, out _);
+    bool IsMatch(string url) => TryGetDomainConfig(url, out _);
 
     /// <summary>
     /// 尝试获取域名配置
@@ -28,7 +28,7 @@ public partial interface IReverseProxyConfig
     /// <param name="domain"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    bool TryGetDomainConfig(string domain, [MaybeNullWhen(false)] out IDomainConfig value);
+    bool TryGetDomainConfig(string url, [MaybeNullWhen(false)] out IDomainConfig value);
 
     /// <summary>
     /// 尝试获取脚本配置
@@ -36,7 +36,7 @@ public partial interface IReverseProxyConfig
     /// <param name="domain"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    bool TryGetScriptConfig(string domain, [MaybeNullWhen(false)] out IEnumerable<IScriptConfig> value);
+    bool TryGetScriptConfig(string url, [MaybeNullWhen(false)] out IEnumerable<IScriptConfig> value);
 
     /// <summary>
     /// 尝试获取脚本内容

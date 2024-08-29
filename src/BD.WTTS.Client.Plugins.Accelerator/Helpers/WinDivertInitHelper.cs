@@ -42,6 +42,14 @@ static class WinDivertInitHelper
     /// </summary>
     public static async Task InitializeAsync()
     {
+        (byte[] WinDivert_dll, byte[] WinDivert64_sys) data = default;
+
+        void GetData()
+        {
+            if (data != default)
+                data = GetWinDivertBinRes();
+        }
+
         if (libraryPath != null && libraryDirPath != null)
         {
             bool isWrite;
@@ -55,9 +63,10 @@ static class WinDivertInitHelper
                 }
                 else
                 {
+                    GetData();
                     var libraryBytes = await File.ReadAllBytesAsync(libraryPath);
                     var libraryHash = SHA256.HashData(libraryBytes);
-                    var libraryHashRes = SHA256.HashData(WinDivertBinRes.WinDivert_dll);
+                    var libraryHashRes = SHA256.HashData(data.WinDivert_dll!);
                     if (libraryHash.SequenceEqual(libraryHashRes)) // 哈希值相同，不写入
                     {
                         isWrite = false;
@@ -76,14 +85,15 @@ static class WinDivertInitHelper
 
             if (isWrite) // 检查文件不存在时写入
             {
+                GetData();
                 switch (RuntimeInformation.ProcessArchitecture)
                 {
                     //case Architecture.X86:
                     //    break;
                     case Architecture.X64:
                         IOPath.DirCreateByNotExists(libraryDirPath);
-                        var task1 = File.WriteAllBytesAsync(Path.Combine(libraryDirPath, "WinDivert64.sys"), WinDivertBinRes.WinDivert64_sys);
-                        var task2 = File.WriteAllBytesAsync(libraryPath, WinDivertBinRes.WinDivert_dll);
+                        var task1 = File.WriteAllBytesAsync(Path.Combine(libraryDirPath, "WinDivert64.sys"), data.WinDivert64_sys!);
+                        var task2 = File.WriteAllBytesAsync(libraryPath, data.WinDivert_dll!);
                         await Task.WhenAll(task1, task2);
                         break;
                 }
@@ -127,6 +137,16 @@ static class WinDivertInitHelper
                 libraryDirPath = Path.GetDirectoryName(libraryPath);
                 break;
         }
+    }
+
+    static (byte[] WinDivert_dll, byte[] WinDivert64_sys) GetWinDivertBinRes()
+    {
+        byte[] bytes = WinDivertBinRes.WinDivert_mpo;
+        bytes.AsSpan().Reverse();
+
+        var data = MemoryPackSerializer.Deserialize<byte[][]>(bytes)!;
+
+        return (data[0], data[1]);
     }
 }
 #endif

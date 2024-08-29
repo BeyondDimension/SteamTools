@@ -134,8 +134,10 @@
                 <Button
                     Click="GameToolsPage_Click"
                     IsEnabled="{spp:OnPlatform Windows}"
-                    Tag="{x:Null}"
                     Theme="{StaticResource NavButtonStyle}">
+					<Button.Tag>
+						<x:Type TypeName="spp:CsgoVacRepairPage" />
+					</Button.Tag>
                     <Grid RowDefinitions="3*,*">
                         <Border
                             HorizontalAlignment="Stretch"
@@ -157,7 +159,7 @@
                     </Grid>
                 </Button>
             </Border>
-
+			
             <Border spp:Animations.EnableAnimations="True">
                 <Button
                     Click="GameToolsPage_Click"

@@ -1,9 +1,10 @@
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
+using Avalonia.ReactiveUI;
 
 namespace BD.WTTS.UI.Views.Controls;
 
-public partial class AcceleratorPathAskBox : UserControl
+public partial class AcceleratorPathAskBox : ReactiveUserControl<MessageBoxWindowViewModel>
 {
     public AcceleratorPathAskBox()
     {
@@ -29,5 +30,10 @@ public partial class AcceleratorPathAskBox : UserControl
         {
             GameAcceleratorSettings.WattAcceleratorDirPath.Value = Path.Combine(path, "WattAccelerator");
         }
+    }
+
+    private void OKButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        this.ViewModel?.Close?.Invoke(true);
     }
 }

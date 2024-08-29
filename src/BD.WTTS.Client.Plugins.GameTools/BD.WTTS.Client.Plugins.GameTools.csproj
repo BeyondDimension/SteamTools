@@ -12,6 +12,7 @@
 	  <None Remove="UI\Assets\CounterStrike.png" />
 	  <None Remove="UI\Assets\CPU.png" />
 	  <None Remove="UI\Assets\movecross.png" />
+	  <None Remove="UI\Assets\movecross_hide.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -19,6 +20,7 @@
 	  <AvaloniaResource Include="UI\Assets\CounterStrike.png" />
 	  <AvaloniaResource Include="UI\Assets\CPU.png" />
 	  <AvaloniaResource Include="UI\Assets\movecross.png" />
+	  <AvaloniaResource Include="UI\Assets\movecross_hide.png" />
 	  <AvaloniaResource Include="UI\Assets\toolbox.ico" />
 	</ItemGroup>
 
@@ -72,6 +74,9 @@
 		<Compile Include="..\ImplicitUsings.NLog.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\ImplicitUsings.Steam.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
 		<Compile Include="..\ImplicitUsings.Plugins.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
@@ -91,6 +96,9 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\Views\CsgoVacRepairPage.axaml.cs">
+	    <DependentUpon>CsgoVacRepairPage.axaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="UI\Views\GameToolsPage.axaml.cs">
 	    <DependentUpon>GameToolsPage.axaml</DependentUpon>

@@ -94,11 +94,11 @@ public sealed partial class GameAccountPageViewModel
         GamePlatforms?[0].LoadUsers();
 
         var temp = GetSupportPlatforms();
-        if (temp != null)
+        if (temp != null && OperatingSystem2.IsWindows())
         {
             if (GameAccountSettings.EnablePlatforms.Any_Nullable())
             {
-                AddGamePlatforms = new ObservableCollection<PlatformAccount>();
+                AddGamePlatforms = [];
 
                 foreach (var p in temp)
                 {

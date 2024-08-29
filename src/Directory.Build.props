@@ -22,6 +22,7 @@
 		<GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
 		<ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
 		<Deterministic>true</Deterministic>
+		<CheckEolWorkloads>false</CheckEolWorkloads>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.cs">

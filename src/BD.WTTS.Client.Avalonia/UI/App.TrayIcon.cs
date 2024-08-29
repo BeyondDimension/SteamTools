@@ -63,9 +63,49 @@ partial class App
 #else
                 s.HasTrayIcon ? ShutdownMode.OnExplicitShutdown : ShutdownMode.OnMainWindowClose;
 #endif
-
+#if MACOS
+            if (Current!.TryGetFeature<IActivatableLifetime>() is { } activatableLifetime)
+            {
+                activatableLifetime.Activated += ActivatableLifetimeOnActivated;
+                // macOS 中 右键隐藏 会触发目前不需要使用
+                //activatableLifetime.Deactivated += ActivatableLifetimeOnDeactivated;
+            }
+#endif
         }
     }
+
+#if MACOS
+    /// <summary>
+    /// 从 macOS Dock 栏恢复窗口显示
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ActivatableLifetimeOnActivated(object? sender, ActivatedEventArgs e)
+    {
+        switch (e.Kind)
+        {
+            case ActivationKind.Background:
+            case ActivationKind.Reopen:
+                RestoreMainWindow();
+                break;
+        }
+    }
+
+    ///// <summary>
+    ///// macOS 中 右键隐藏 会触发目前不需要使用
+    ///// </summary>
+    ///// <param name="sender"></param>
+    ///// <param name="e"></param>
+    //private void ActivatableLifetimeOnDeactivated(object? sender, ActivatedEventArgs e)
+    //{
+    //    switch (e.Kind)
+    //    {
+    //        case ActivationKind.Background:
+    //            Console.WriteLine($"ActivatableLifetimeOnDeactivated {e.Kind}");
+    //            break;
+    //    }
+    //}
+#endif
 
     public void UpdateMenuItems()
     {

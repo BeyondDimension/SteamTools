@@ -46,7 +46,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
             }
             else
             {
-                await steamService.SetSteamCurrentUserAsync(string.Empty);
+                await ClearCurrentLoginUser(platform);
                 foreach (var user in users)
                 {
                     user.MostRecent = false;
@@ -62,7 +62,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         return true;
     }
 
-    async ValueTask<bool> IPlatformSwitcher.ClearCurrentLoginUser(PlatformAccount platform)
+    public async ValueTask<bool> ClearCurrentLoginUser(PlatformAccount platform)
     {
         await steamService.SetSteamCurrentUserAsync(string.Empty);
         return true;
@@ -82,6 +82,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
 
     public async ValueTask NewUserLogin(PlatformAccount platform)
     {
+        await ClearCurrentLoginUser(platform);
         await SwapToAccount(null, platform);
     }
 

@@ -189,7 +189,7 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     /// 启用 DNS over HTTPS
     /// </summary>
     [MPKey(21), MP2Key(21), JsonPropertyOrder(21)]
-    public bool UseDoh2 { get; set; } = IProxySettings.DefaultUseDoh2;
+    public bool UseDoh { get; set; } = IProxySettings.DefaultUseDoh;
 
     /// <summary>
     /// 自定义 DNS over HTTPS 地址
@@ -202,6 +202,12 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     /// </summary>
     [MPKey(23), MP2Key(23), JsonPropertyOrder(23)]
     public int AcceleratorTabsSelectedIndex { get; set; } = IProxySettings.DefaultAcceleratorTabsSelectedIndex;
+
+    /// <summary>
+    /// 加速后自动唤起 Watt 加速器界面
+    /// </summary>
+    [MPKey(24), MP2Key(24), JsonPropertyOrder(24)]
+    public bool AutoShowWattAcceleratorWindow { get; set; } = IProxySettings.DefaultAutoShowWattAcceleratorWindow;
 
 }
 
@@ -356,8 +362,8 @@ public static partial class ProxySettings
     /// <summary>
     /// 启用 DNS over HTTPS
     /// </summary>
-    public static SettingsStructProperty<bool, ProxySettings_> UseDoh2 { get; }
-        = new(DefaultUseDoh2);
+    public static SettingsStructProperty<bool, ProxySettings_> UseDoh { get; }
+        = new(DefaultUseDoh);
 
     /// <summary>
     /// 自定义 DNS over HTTPS 地址
@@ -370,5 +376,11 @@ public static partial class ProxySettings
     /// </summary>
     public static SettingsStructProperty<int, ProxySettings_> AcceleratorTabsSelectedIndex { get; }
         = new(DefaultAcceleratorTabsSelectedIndex);
+
+    /// <summary>
+    /// 加速后自动唤起 Watt 加速器界面
+    /// </summary>
+    public static SettingsStructProperty<bool, ProxySettings_> AutoShowWattAcceleratorWindow { get; }
+        = new(DefaultAutoShowWattAcceleratorWindow);
 
 }

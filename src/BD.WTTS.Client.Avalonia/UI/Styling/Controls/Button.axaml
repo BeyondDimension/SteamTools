@@ -9,6 +9,11 @@
             <StackPanel Spacing="10">
                 <HyperlinkButton Content="更新日志" />
                 <Button Content="更新日志" Theme="{StaticResource HyperlinkButton}" />
+                <Button Classes="TransparentAccent" Content="更新日志" />
+                <Button
+                    Classes="TransparentAccent"
+                    Content="更新日志"
+                    IsEnabled="False" />
                 <Button
                     Content="更新日志"
                     IsEnabled="False"
@@ -221,6 +226,15 @@
         <Setter Property="Background" Value="Transparent" />
     </Style>
 
+    <Style Selector="Button.TransparentAccent /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForeground}" />
+    </Style>
 
+    <Style Selector="Button.TransparentAccent:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundPointerOver}" />
+    </Style>
 
+    <Style Selector="Button.TransparentAccent:pressed /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundPressed}" />
+    </Style>
 </Styles>
