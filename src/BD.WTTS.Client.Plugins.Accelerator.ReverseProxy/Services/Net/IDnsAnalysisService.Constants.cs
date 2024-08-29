@@ -16,7 +16,7 @@ public partial interface IDnsAnalysisService // 公共常量定义
     const string Dnspod_DohAddres2 = "https://doh.pub/resolve";
     const string Dnspod_DohAddres3 = "https://120.53.53.53/resolve";
 
-    const string Google_DohAddres = "https://dns.google/resolve/";
+    const string Google_DohAddres = "https://dns.google/resolve";
     const string Cloudflare_DohAddres = "https://cloudflare-dns.com/resolve";
     const string DohAddres_360 = "https://doh.360.cn/resolve";
     const string TUNA_DohAddres = "https://101.6.6.6:8443/resolve";
