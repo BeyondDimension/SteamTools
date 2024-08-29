@@ -23,13 +23,11 @@ public sealed partial class LogConsoleService : ReactiveObject
     /// <summary>
     /// 加速进程的日志
     /// </summary>
-    [Reactive]
     public string? LogMessageAccelerator => logMessages[0];
 
     /// <summary>
     /// 后端进程的日志
     /// </summary>
-    [Reactive]
     public string? LogMessageBackEnd => logMessages[1];
 
     /// <summary>
