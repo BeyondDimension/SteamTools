@@ -65,6 +65,8 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                 WebRootPath = RootPath,
             });
 
+            builder.Logging.AddProvider(new LogConsoleService.Utf8StringLoggerProvider(AssemblyInfo.Accelerator));
+
             builder.Services.Configure<HostFilteringOptions>(static o =>
             {
                 o.AllowEmptyHosts = true;
