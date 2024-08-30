@@ -1359,6 +1359,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   查找类似 加速日志 的本地化字符串。
+        /// </summary>
+        public static string CommunityFix_ProxyLog {
+            get {
+                return ResourceManager.GetString("CommunityFix_ProxyLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 加速模式 的本地化字符串。
         /// </summary>
         public static string CommunityFix_ProxyMode {

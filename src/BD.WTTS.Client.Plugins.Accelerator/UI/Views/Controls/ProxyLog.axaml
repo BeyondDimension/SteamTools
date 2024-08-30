@@ -1,0 +1,20 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.ProxyLog"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:AvaloniaEdit="using:AvaloniaEdit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="{DynamicResource ControlCornerRadius}">
+        <AvaloniaEdit:TextEditor
+            x:Name="LogTextbox"
+            HorizontalScrollBarVisibility="Disabled"
+            IsReadOnly="True"
+            ShowLineNumbers="True" />
+    </Border>
+</UserControl>

@@ -7,14 +7,8 @@ namespace BD.WTTS.Logging;
 /// </summary>
 public abstract class ClientLogger : ILogger
 {
-    static readonly string _messagePadding;
-    static readonly string _newLineWithMessagePadding;
-
-    static ClientLogger()
-    {
-        _messagePadding = new string(' ', 6);
-        _newLineWithMessagePadding = Environment.NewLine + _messagePadding;
-    }
+    static readonly string _messagePadding = new string(' ', 6);
+    static readonly string _newLineWithMessagePadding = Environment.NewLine + _messagePadding;
 
     protected readonly string name;
 

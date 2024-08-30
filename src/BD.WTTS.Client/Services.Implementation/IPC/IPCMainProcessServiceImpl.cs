@@ -450,6 +450,13 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         return result.All(static x => x.result);
     }
 
+    public void WriteMessage(string? moduleName, byte[] bytes)
+    {
+#if !ANDROID && !IOS
+        LogConsoleService.Current.WriteMessage(moduleName, bytes);
+#endif
+    }
+
     /// <summary>
     /// 配置服务
     /// </summary>

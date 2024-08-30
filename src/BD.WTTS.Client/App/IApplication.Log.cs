@@ -86,6 +86,22 @@ partial interface IApplication
             //#elif MACOS || MACCATALYST || (IOS && DEBUG)
             //            builder.AddProvider(Logging.OSLogLoggerProvider.Instance);
             //#endif
+
+            //#if !ANDROID && !IOS
+            //            var isBackend = false;
+            //            try
+            //            {
+            //                isBackend = Startup.Instance.HasIPCRoot;
+            //            }
+            //            catch
+            //            {
+            //            }
+
+            //            if (isBackend)
+            //            {
+            //                builder.AddProvider(new LogConsoleService.Utf8StringLoggerProvider(IPlatformService.IPCRoot.moduleName));
+            //            }
+            //#endif
         };
     }
 

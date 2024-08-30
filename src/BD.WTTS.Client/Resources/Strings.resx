@@ -2612,6 +2612,9 @@
     <value>已加速  </value>
     <comment>Comment=末尾带空格;</comment>
   </data>
+	<data name="CommunityFix_ProxyLog" xml:space="preserve">
+    <value>加速日志</value>
+  </data>
 	<data name="CommunityFix_FlowStatistics" xml:space="preserve">
     <value>流量统计</value>
   </data>
