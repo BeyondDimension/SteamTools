@@ -14,7 +14,7 @@ public sealed class ProxySettingsWindowViewModel : WindowViewModel
     //public IEnumerable<ExternalProxyType> ProxyTypes { get; }
     //    = Enum2.GetAll<ExternalProxyType>();
 
-    public IEnumerable<string> ProxyDNSs { get; } = new[]
+    public static IEnumerable<string> ProxyDNSs { get; } = new[]
     {
         "System Default",
         PrimaryDNS_114,
@@ -31,7 +31,7 @@ public sealed class ProxySettingsWindowViewModel : WindowViewModel
             "127.0.0.1",
         };
 
-    public IEnumerable<string> DohAddress { get; }
+    public static IEnumerable<string> DohAddress { get; }
         = new[] {
             Dnspod_DohAddres,
             Dnspod_DohAddres2,

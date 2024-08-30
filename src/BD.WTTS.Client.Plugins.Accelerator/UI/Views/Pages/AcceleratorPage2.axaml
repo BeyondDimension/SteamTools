@@ -594,6 +594,11 @@
 									</ui:SettingsExpander.Footer>
 									<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
 										<TreeView ItemsSource="{Binding EnableProxyDomainVMs}" SelectionMode="Single">
+											<TreeView.ItemContainerTheme>
+												<ControlTheme TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+													<Setter Property="IsExpanded" Value="True" />
+												</ControlTheme>
+											</TreeView.ItemContainerTheme>
 											<TreeView.ItemTemplate>
 												<TreeDataTemplate ItemsSource="{Binding Children}">
 													<DockPanel Margin="8,0">
@@ -859,7 +864,10 @@
 							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
-									<TextBox Width="160"  IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
+									<ui:FAComboBox Width="160"  IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}"
+										IsEditable="False"
+										ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.ProxyDNSs}}"
+										Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
@@ -873,7 +881,11 @@
 							<ui:SettingsExpanderItem Background="Transparent">
 								<TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 								<ui:SettingsExpanderItem.Footer>
-									<TextBox Width="160"  IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}" IsReadOnly="True" Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
+									<ui:FAComboBox IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}"
+										IsEditable="False" Width="160"
+										ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.DohAddress}}"
+										PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres}, Mode=OneWay}"
+										Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
 								</ui:SettingsExpanderItem.Footer>
 							</ui:SettingsExpanderItem>
 
