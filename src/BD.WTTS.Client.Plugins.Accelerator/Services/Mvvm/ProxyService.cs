@@ -152,7 +152,7 @@ public sealed partial class ProxyService
 
             ProxyStarting = false;
             ProxyStatus = startOrStop;
-            IsAnyProxyScripts = ProxyStatus && CheckProxyScriptsEnable();
+            IsAnyProxyScripts = ProxyStatus && IsEnableScript;
         }
     }
 
