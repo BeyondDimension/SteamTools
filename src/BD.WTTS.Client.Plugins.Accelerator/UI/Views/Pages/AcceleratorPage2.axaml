@@ -743,7 +743,7 @@
 						</ui:SettingsExpander.Header>
 						<ui:SettingsExpander.Footer>
 							<WrapPanel>
-								<ui:FAComboBox x:Name="STUNServer" Margin="4" Text="stun.syncthing.net" ToolTip.Tip="STUN 服务器" IsEditable="False" IsEnabled="{Binding !IsNATChecking}" ItemsSource="{Binding STUNAddress}" />
+								<ui:FAComboBox x:Name="STUNServer" Margin="4" ToolTip.Tip="STUN 服务器" IsEditable="False" IsEnabled="{Binding !IsNATChecking}" ItemsSource="{Binding STUNAddress}" />
 								<Button x:Name="NATCheckButton"
 										Margin="4" Width="100" Content="检测" IsEnabled="True" />
 							</WrapPanel>
