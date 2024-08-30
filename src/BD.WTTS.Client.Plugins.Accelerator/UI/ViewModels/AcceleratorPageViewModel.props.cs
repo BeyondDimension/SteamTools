@@ -1,5 +1,5 @@
+using Avalonia.Controls;
 using Avalonia.Media;
-using BD.WTTS.Services.Implementation;
 using System.Reactive;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -83,7 +83,7 @@ public class ProxyDomainViewModel : ReactiveObject
                        <= DelayMiddle => Brushes.Green,
                        > DelayMiddle => Brushes.Orange,
                    },
-                _ => Brushes.Black,
+                _ => (IBrush?)App.Instance.FindResource("TextFillColorPrimaryBrush"),
             })
             .ToPropertyEx(this, x => x.DelayColor);
     }

@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:spp="https://steampp.net/ui"
+			 xmlns:s="https://steampp.net/services"
+			 x:DataType="spp:AcceleratorPageViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BD.WTTS.UI.Views.Pages.ProxyServiceStatus">
+	<ScrollViewer
+		Padding="0,0,10,0"
+		HorizontalScrollBarVisibility="Disabled"
+		VerticalScrollBarVisibility="Auto">
+		<ItemsControl Grid.Column="1" ItemsSource="{Binding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<WrapPanel />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate DataType="{x:Type spp:ScriptDTO}">
+					<spp:AppItem Margin="4"
+						Title="{Binding Name}"
+						MaxWidth="135"
+						Classes="Vertical"
+						Description="{Binding AuthorName}"
+						ImageMargin="20"
+						ImageStretch="None"
+						ToolTip.Tip="{Binding Describe}">
+
+						<spp:AppItem.Image>
+							<spp:Image2
+								FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico"
+								RenderOptions.BitmapInterpolationMode="HighQuality"
+								Source="{Binding IconUrl}"
+								Stretch="Uniform" />
+						</spp:AppItem.Image>
+					</spp:AppItem>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</ScrollViewer>
+</UserControl>

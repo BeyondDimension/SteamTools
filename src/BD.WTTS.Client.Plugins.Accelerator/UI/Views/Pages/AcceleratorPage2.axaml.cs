@@ -74,19 +74,19 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
                 AcceleratorTabs.SelectedIndex = 0;
             }
 
-            this.Bind(ViewModel, vm => vm.SelectedSTUNAddress, v => v.STUNServer.SelectedItem).DisposeWith(disposables);
-            this.BindCommand(ViewModel, vm => vm.NATCheckCommand, v => v.NATCheckButton).DisposeWith(disposables);
-            this.OneWayBind(ViewModel, vm => vm.LocalEndPoint, v => v.LocalIPAddress.Text).DisposeWith(disposables);
-            this.BindCommand(ViewModel, vm => vm.DNSCheckCommand, v => v.DNSCheckButton).DisposeWith(disposables);
-            this.Bind(ViewModel, vm => vm.DomainPendingTest, v => v.DomainTextBox.Text).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.SelectedSTUNAddress, v => v.NetworkCheckControl.STUNServer.SelectedItem).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.NATCheckCommand, v => v.NetworkCheckControl.NATCheckButton).DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.LocalEndPoint, v => v.NetworkCheckControl.LocalIPAddress.Text).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.DNSCheckCommand, v => v.NetworkCheckControl.DNSCheckButton).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.DomainPendingTest, v => v.NetworkCheckControl.DomainTextBox.Text).DisposeWith(disposables);
 
-            PingOK.IsVisible = false;
-            PingError.IsVisible = false;
-            NATCheckButton.Click += (_, _) => PingError.IsVisible = PingOK.IsVisible = false;
+            NetworkCheckControl.PingOK.IsVisible = false;
+            NetworkCheckControl.PingError.IsVisible = false;
+            NetworkCheckControl.NATCheckButton.Click += (_, _) => NetworkCheckControl.PingError.IsVisible = NetworkCheckControl.PingOK.IsVisible = false;
             ViewModel!.NATCheckCommand
                 .Subscribe(result =>
                 {
-                    (NATTextBlock.Text, NATTypeTip.Text) = result.Nat switch
+                    (NetworkCheckControl.NATTextBlock.Text, NetworkCheckControl.NATTypeTip.Text) = result.Nat switch
                     {
                         AcceleratorPageViewModel.NatTypeSimple.Open => ("开放 NAT", "您可与在其网络上具有任意 NAT 类型的用户玩多人游戏和发起多人游戏。"),
                         AcceleratorPageViewModel.NatTypeSimple.Moderate => ("中等 NAT", "您可与一些用户玩多人游戏；但是，并且通常你将不会被选为比赛的主持人。"),
@@ -96,11 +96,11 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
 
                     if (result.PingSuccess)
                     {
-                        PingOK.IsVisible = true;
+                        NetworkCheckControl.PingOK.IsVisible = true;
                     }
                     else
                     {
-                        PingError.IsVisible = true;
+                        NetworkCheckControl.PingError.IsVisible = true;
                     }
                 }).DisposeWith(disposables);
         });
@@ -108,15 +108,6 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
         SearchGameBox.DropDownClosed += SearchGameBox_DropDownClosed;
         SearchGameBox.TextSelector = (_, _) => null!;
         SearchGameBox.TextFilter = GameContains;
-    }
-
-    private void ConnectTestButtonOnClick(object? sender, RoutedEventArgs e)
-    {
-        if (sender is Button button)
-        {
-            var expander = button.FindAncestorOfType<SettingsExpander>();
-            if (expander != null) expander.IsExpanded = true;
-        }
     }
 
     void AcceleratorTabs_SelectionChanged(object? sender, SelectionChangedEventArgs e)
