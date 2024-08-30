@@ -474,7 +474,7 @@
                     </Border>-->
                 <!--</WrapPanel>-->
             </TabStripItem>
-			<TabStripItem Content="网路测试" IsVisible="True" />
+			<TabStripItem Content="网络测试" IsVisible="True" />
 			<TabStripItem Content="dummy_tab_for_transisit_animation" IsVisible="False" />
 		</TabStrip>
         <Carousel
@@ -566,7 +566,7 @@
                 Padding="0,0,10,0"
                 HorizontalScrollBarVisibility="Disabled"
                 VerticalScrollBarVisibility="Auto">
-				<ItemsControl Margin="0 0 8 0" ItemsSource="{Binding EnableProxyDomainGroupVMs}">
+				<ItemsControl ItemsSource="{Binding EnableProxyDomainGroupVMs}">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
@@ -576,7 +576,7 @@
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
 							<Border>
-								<ui:SettingsExpander IsClickEnabled="False">
+								<ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
 									<ui:SettingsExpander.Header>
 										<StackPanel Orientation="Horizontal" Spacing="10">
 											<spp:Image2
@@ -595,7 +595,7 @@
 									<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
 										<TreeView ItemsSource="{Binding EnableProxyDomainVMs}" SelectionMode="Single">
 											<TreeView.ItemTemplate>
-												<TreeDataTemplate>
+												<TreeDataTemplate ItemsSource="{Binding Children}">
 													<DockPanel Margin="8,0">
 														<StackPanel Orientation="Horizontal" Spacing="8">
 															<TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
@@ -730,7 +730,7 @@
                     IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame.IsAccelerated}" />
 			</Panel>
 
-			<!--  网路测试 (Margin 隔离广告栏)  -->
+			<!--  网络测试  -->
 			<ScrollViewer Padding="0,0,10,0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 				<StackPanel Spacing="8">
 

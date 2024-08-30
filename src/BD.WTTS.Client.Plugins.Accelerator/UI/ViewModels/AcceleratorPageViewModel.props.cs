@@ -56,11 +56,17 @@ public class ProxyDomainViewModel : ReactiveObject
     [ObservableAsProperty]
     public IBrush DelayColor { get; } = null!;
 
-    public ProxyDomainViewModel(string name, ProxyType proxyType, string url)
+    public ReadOnlyCollection<ProxyDomainViewModel>? Children { get; }
+
+    public ProxyDomainViewModel(string name, ProxyType proxyType, string url, List<ProxyDomainViewModel>? children = null)
     {
         Name = name;
         ProxyType = proxyType;
         Url = url;
+        Children = children?.AsReadOnly();
+
+        this.WhenAnyValue(x => x.DelayMillseconds)
+            .Subscribe(delay => Children?.ForEach(child => child.DelayMillseconds = delay));
 
         this.WhenAnyValue(x => x.DelayMillseconds)
             .Select(d => d != string.Empty && d != "-")

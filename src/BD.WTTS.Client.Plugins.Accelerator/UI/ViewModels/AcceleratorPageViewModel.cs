@@ -1,12 +1,8 @@
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
-using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
 using STUN.StunResult;
-using System.Net.NetworkInformation;
-using System.CommandLine.Parsing;
 using STUN.Enums;
-using System.Net.Http;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -42,12 +38,15 @@ public sealed partial class AcceleratorPageViewModel
                     EnableProxyDomainVMs = new(
                         list.Items!
                             .Where(i => i.ThreeStateEnable == true)
-                            .Select(i => new ProxyDomainViewModel(i.Name, i.ProxyType, "https://" + i.ListenDomainNames.Split(";")[0]))
+                            .Select(i => new ProxyDomainViewModel(i.Name, i.ProxyType, "https://" + i.ListenDomainNames.Split(";")[0],
+                                                                i.Items?
+                                                                    .Select(c => new ProxyDomainViewModel(c.Name, c.ProxyType, "https://" + c.ListenDomainNames.Split(';')[0]))
+                                                                    .ToList()))
                             .ToList()),
                 })
                 .ToList();
 
-            EnableProxyDomainGroupVMs = new(enableGroupDomain);
+            EnableProxyDomainGroupVMs = enableGroupDomain.AsReadOnly();
         });
 
         RefreshCommand = ReactiveCommand.Create(async () =>
