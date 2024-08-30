@@ -11,7 +11,6 @@ public partial class NetworkCheck : UserControl
     {
         InitializeComponent();
 
-        STUNServer.SelectedItem = "stun.syncthing.net";
         this.dummy.SelectedItem = ProxySettings.ProxyMasterDns.Value;
         this.dummy.Text = ProxySettings.ProxyMasterDns.Value;
     }

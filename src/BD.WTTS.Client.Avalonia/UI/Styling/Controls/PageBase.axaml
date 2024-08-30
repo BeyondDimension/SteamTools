@@ -97,7 +97,7 @@
     </Design.PreviewWith>
 
     <Styles.Resources>
-        <Thickness x:Key="AppPageMargin">20</Thickness>
+        <Thickness x:Key="AppPageMargin">20,10,20,20</Thickness>
     </Styles.Resources>
 
     <Style Selector="spp|PageBase">
@@ -313,7 +313,7 @@
             <Setter Property="Grid.Row" Value="2" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0 12" />
+            <Setter Property="Margin" Value="0 12 0 0" />
         </Style>
 
         <Style Selector="^ /template/ Panel#PageDetails">

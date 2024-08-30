@@ -1,84 +1,98 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:ui="using:FluentAvalonia.UI.Controls"
-             xmlns:enum="using:BD.WTTS.Enums"
-             xmlns:spp="https://steampp.net/ui"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 x:CompileBindings="True"
-			 x:DataType="spp:AcceleratorPageViewModel"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BD.WTTS.UI.Views.Pages.AcceleratorServiceStatus">
-	<ScrollViewer
-                Padding="0,0,10,0"
-                HorizontalScrollBarVisibility="Disabled"
-                VerticalScrollBarVisibility="Auto">
-		<ItemsControl ItemsSource="{Binding EnableProxyDomainGroupVMs}">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.AcceleratorServiceStatus"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enum="using:BD.WTTS.Enums"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:AcceleratorPageViewModel"
+    mc:Ignorable="d">
+    <ScrollViewer
+        Padding="0,0,10,0"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <ItemsControl ItemsSource="{Binding EnableProxyDomainGroupVMs}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" Spacing="{StaticResource SettingsSpacing}" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
 
-			<ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<Border>
-						<ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
-							<ui:SettingsExpander.Header>
-								<StackPanel Orientation="Horizontal" Spacing="10">
-									<spp:Image2
-										Width="30"
-										Height="30"
-										VerticalAlignment="Center"
-										RenderOptions.BitmapInterpolationMode="HighQuality"
-										Source="{Binding IconUrl}"
-										Stretch="UniformToFill" />
-									<TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-								</StackPanel>
-							</ui:SettingsExpander.Header>
-							<ui:SettingsExpander.Footer>
-								<Button Click="ConnectTestButtonOnClick" DockPanel.Dock="Right" Content="连通性测试" HorizontalAlignment="Right" Command="{Binding ConnectTestCommand}" />
-							</ui:SettingsExpander.Footer>
-							<ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
-								<TreeView ItemsSource="{Binding EnableProxyDomainVMs}" SelectionMode="Single">
-									<TreeView.ItemContainerTheme>
-										<ControlTheme TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
-											<Setter Property="IsExpanded" Value="True" />
-										</ControlTheme>
-									</TreeView.ItemContainerTheme>
-									<TreeView.ItemTemplate>
-										<TreeDataTemplate ItemsSource="{Binding Children}">
-											<DockPanel Margin="8,0">
-												<StackPanel Orientation="Horizontal" Spacing="8">
-													<TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-													<Border
-														Padding="5,0"
-														CornerRadius="5"
-														IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
-														ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
-														<Border.Background>
-															<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-																<GradientStop Offset="0.0" Color="#43cbff" />
-																<GradientStop Offset="1.0" Color="#9708cc" />
-															</LinearGradientBrush>
-														</Border.Background>
-														<TextBlock
-															VerticalAlignment="Center"
-															FontSize="10"
-															Text="Beta" />
-													</Border>
-												</StackPanel>
-												<TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0 0 4 0" Text="{Binding DelayMillseconds}" Foreground="{Binding DelayColor}" />
-											</DockPanel>
-										</TreeDataTemplate>
-									</TreeView.ItemTemplate>
-								</TreeView>
-							</ui:SettingsExpanderItem>
-						</ui:SettingsExpander>
-					</Border>
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
-		</ItemsControl>
-	</ScrollViewer>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border>
+                        <ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
+                            <ui:SettingsExpander.Header>
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <spp:Image2
+                                        Width="30"
+                                        Height="30"
+                                        VerticalAlignment="Center"
+                                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                                        Source="{Binding IconUrl}"
+                                        Stretch="UniformToFill" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                </StackPanel>
+                            </ui:SettingsExpander.Header>
+                            <ui:SettingsExpander.Footer>
+                                <Button
+                                    HorizontalAlignment="Right"
+                                    Click="ConnectTestButtonOnClick"
+                                    Command="{Binding ConnectTestCommand}"
+                                    Content="连通性测试"
+                                    DockPanel.Dock="Right" />
+                            </ui:SettingsExpander.Footer>
+                            <ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+                                <TreeView ItemsSource="{Binding EnableProxyDomainVMs}" SelectionMode="Single">
+                                    <TreeView.ItemContainerTheme>
+                                        <ControlTheme BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
+                                            <Setter Property="IsExpanded" Value="True" />
+                                        </ControlTheme>
+                                    </TreeView.ItemContainerTheme>
+                                    <TreeView.ItemTemplate>
+                                        <TreeDataTemplate ItemsSource="{Binding Children}">
+                                            <DockPanel Margin="8,0">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                    <Border
+                                                        Padding="5,0"
+                                                        CornerRadius="5"
+                                                        IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
+                                                        ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
+                                                        <Border.Background>
+                                                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                                                <GradientStop Offset="0.0" Color="#43cbff" />
+                                                                <GradientStop Offset="1.0" Color="#9708cc" />
+                                                            </LinearGradientBrush>
+                                                        </Border.Background>
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontSize="10"
+                                                            Text="Beta" />
+                                                    </Border>
+                                                </StackPanel>
+                                                <TextBlock
+                                                    Margin="0,0,4,0"
+                                                    HorizontalAlignment="Right"
+                                                    DockPanel.Dock="Right"
+                                                    Foreground="{Binding DelayColor}"
+                                                    Text="{Binding DelayMillseconds}"
+                                                    ToolTip.Tip="此数值代表测试网页打开访问所需时间，仅供参考" />
+                                            </DockPanel>
+                                        </TreeDataTemplate>
+                                    </TreeView.ItemTemplate>
+                                </TreeView>
+                            </ui:SettingsExpanderItem>
+                        </ui:SettingsExpander>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
 
 </UserControl>

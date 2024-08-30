@@ -11,6 +11,7 @@
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.UI.Views.Windows")]
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Converters")]
 [assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Markup")]
+[assembly: XmlnsDefinition("https://steampp.net/ui", "BD.WTTS.Behaviors")]
 [assembly: XmlnsDefinition("https://steampp.net/services", "BD.WTTS.Services")]
 [assembly: XmlnsDefinition("https://steampp.net/services", "BD.WTTS.Plugins")]
 [assembly: XmlnsDefinition("https://steampp.net/services", "BD.WTTS.Plugins.Abstractions")]
