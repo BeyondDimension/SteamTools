@@ -1,6 +1,7 @@
 // ReSharper disable once CheckNamespace
 using Avalonia.Data;
 using Google.Protobuf.WellKnownTypes;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 using System.Linq;
 
 namespace BD.WTTS.Services;
@@ -151,6 +152,7 @@ public sealed partial class ProxyService
 
             ProxyStarting = false;
             ProxyStatus = startOrStop;
+            IsAnyProxyScripts = CheckProxyScriptsEnable();
         }
     }
 
@@ -259,6 +261,16 @@ public sealed partial class ProxyService
 
     [Reactive]
     public bool ProxyStatus { get; set; }
+
+    [Reactive]
+    public bool IsAnyProxyScripts { get; set; }
+
+    private bool CheckProxyScriptsEnable()
+    {
+        if (!ProxyScripts.Items.Any_Nullable())
+            return false;
+        return ProxyScripts.Items!.Any(w => !w.Disable);
+    }
 
     #endregion 代理状态启动退出
 
