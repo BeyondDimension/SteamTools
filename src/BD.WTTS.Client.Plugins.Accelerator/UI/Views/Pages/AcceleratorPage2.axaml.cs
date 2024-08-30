@@ -1,8 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-using static System.Net.Mime.MediaTypeNames;
+using Avalonia.VisualTree;
+using FluentAvalonia.UI.Controls;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -73,6 +73,36 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
                 GameAccTab.IsVisible = false;
                 AcceleratorTabs.SelectedIndex = 0;
             }
+
+            this.Bind(ViewModel, vm => vm.SelectedSTUNAddress, v => v.NetworkCheckControl.STUNServer.SelectedItem).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.NATCheckCommand, v => v.NetworkCheckControl.NATCheckButton).DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.LocalEndPoint, v => v.NetworkCheckControl.LocalIPAddress.Text).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.DNSCheckCommand, v => v.NetworkCheckControl.DNSCheckButton).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.DomainPendingTest, v => v.NetworkCheckControl.DomainTextBox.Text).DisposeWith(disposables);
+
+            NetworkCheckControl.PingOK.IsVisible = false;
+            NetworkCheckControl.PingError.IsVisible = false;
+            NetworkCheckControl.NATCheckButton.Click += (_, _) => NetworkCheckControl.PingError.IsVisible = NetworkCheckControl.PingOK.IsVisible = false;
+            ViewModel!.NATCheckCommand
+                .Subscribe(result =>
+                {
+                    (NetworkCheckControl.NATTextBlock.Text, NetworkCheckControl.NATTypeTip.Text) = result.Nat switch
+                    {
+                        AcceleratorPageViewModel.NatTypeSimple.Open => ("开放 NAT", "您可与在其网络上具有任意 NAT 类型的用户玩多人游戏和发起多人游戏。"),
+                        AcceleratorPageViewModel.NatTypeSimple.Moderate => ("中等 NAT", "您可与一些用户玩多人游戏；但是，并且通常你将不会被选为比赛的主持人。"),
+                        AcceleratorPageViewModel.NatTypeSimple.Strict => ("严格 NAT", "您只能与具有开放 NAT 类型的用户玩多人游戏。您不能被选为比赛的主持人。"),
+                        _ => ("不可用 NAT", "如果 NAT 不可用，您将无法使用群聊天或连接到某些 Xbox 游戏的多人游戏。"),
+                    };
+
+                    if (result.PingSuccess)
+                    {
+                        NetworkCheckControl.PingOK.IsVisible = true;
+                    }
+                    else
+                    {
+                        NetworkCheckControl.PingError.IsVisible = true;
+                    }
+                }).DisposeWith(disposables);
         });
 
         SearchGameBox.DropDownClosed += SearchGameBox_DropDownClosed;

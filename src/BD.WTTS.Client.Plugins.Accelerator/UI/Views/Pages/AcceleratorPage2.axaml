@@ -6,13 +6,15 @@
     xmlns:enum="using:BD.WTTS.Enums"
     xmlns:i="using:Avalonia.Xaml.Interactivity"
     xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:ir="using:Avalonia.Xaml.Interactions.Responsive"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
+    xmlns:sys="using:System"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
-    d:DesignHeight="450"
+    d:DesignHeight="650"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:AcceleratorPageViewModel"
@@ -391,7 +393,6 @@
                     <Button Content="打开文件夹" />
                     <Button Content="选择路径" />
                 </StackPanel>
-
             </ui:SettingsExpander>-->
 
                 <!--<ItemsControl>
@@ -421,12 +422,45 @@
             </StackPanel>
         </StackPanel>
     </spp:PageBase.PaneContent>
-    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
+    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,*">
+        <Grid.Resources>
+            <sys:Double x:Key="AdaptiveWidth">800</sys:Double>
+        </Grid.Resources>
+        <Grid.Styles>
+            <Style Selector="StackPanel.small">
+                <Setter Property="Grid.Row" Value="1" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+            <Style Selector="StackPanel.wide">
+                <Setter Property="Grid.Row" Value="0" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+            </Style>
+
+            <Style Selector="TabStrip.small">
+                <Setter Property="Grid.ColumnSpan" Value="2" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+            <Style Selector="TabStrip.wide">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+            </Style>
+        </Grid.Styles>
         <TabStrip
             x:Name="AcceleratorTabs"
             VerticalAlignment="Top"
             ItemContainerTheme="{StaticResource TabItemStyle}"
             Theme="{StaticResource TabStripStyle}">
+            <i:Interaction.Behaviors>
+                <spp:AdaptiveBehavior SourceControl="{Binding $parent[TopLevel]}">
+                    <ir:AdaptiveClassSetter
+                        MinWidth="0"
+                        MaxWidth="{StaticResource AdaptiveWidth}"
+                        ClassName="small" />
+                    <ir:AdaptiveClassSetter
+                        MinWidth="{StaticResource AdaptiveWidth}"
+                        MaxWidth="Infinity"
+                        ClassName="wide" />
+                </spp:AdaptiveBehavior>
+            </i:Interaction.Behaviors>
             <TabStripItem Content="平台加速" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
                 <!--<WrapPanel>-->
                 <TextBlock Text="平台加速" />
@@ -435,13 +469,13 @@
                         Padding="5,1"
                         VerticalAlignment="Center"
                         CornerRadius="2">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                <GradientStop Offset="0.0" Color="#48C6EF" />
-                                <GradientStop Offset="1.0" Color="#6F86D6" />
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <TextBlock
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+								<GradientStop Offset="0.0" Color="#48C6EF" />
+								<GradientStop Offset="1.0" Color="#6F86D6" />
+							</LinearGradientBrush>
+						</Border.Background>
+						<TextBlock
                             VerticalAlignment="Center"
                             FontSize="10"
                             Foreground="White"
@@ -449,9 +483,10 @@
                     </Border>
                 </WrapPanel>-->
             </TabStripItem>
+            <TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
+            <TabStripItem Content="加速脚本" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=IsAnyProxyScripts, Mode=OneWay}" />
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_ProxyLog}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
-            <TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
             <TabStripItem Name="GameAccTab">
                 <!--<WrapPanel>-->
                 <TextBlock Text="游戏加速" />
@@ -460,13 +495,13 @@
                         Padding="5,1"
                         VerticalAlignment="Center"
                         CornerRadius="2">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                <GradientStop Offset="0.0" Color="#EEAD92" />
-                                <GradientStop Offset="1.0" Color="#6018DC" />
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <TextBlock
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+								<GradientStop Offset="0.0" Color="#EEAD92" />
+								<GradientStop Offset="1.0" Color="#6018DC" />
+							</LinearGradientBrush>
+						</Border.Background>
+						<TextBlock
                             VerticalAlignment="Center"
                             FontSize="10"
                             Foreground="White"
@@ -474,9 +509,11 @@
                     </Border>-->
                 <!--</WrapPanel>-->
             </TabStripItem>
+            <TabStripItem Content="网络检测" IsVisible="True" />
+            <TabStripItem Content="dummy_tab_for_transisit_animation" IsVisible="False" />
         </TabStrip>
         <Carousel
-            Grid.Row="1"
+            Grid.Row="2"
             Margin="0,10,0,0"
             Classes="AnimeSlide"
             SelectedIndex="{Binding #AcceleratorTabs.SelectedIndex}">
@@ -558,86 +595,18 @@
                     </ItemsControl>
                 </spp:ContentLoader>
             </ScrollViewer>
+
+            <!--  加速服务  -->
+            <spp:AcceleratorServiceStatus />
+
+            <!--  加速脚本  -->
+            <spp:ProxyServiceStatus />
+
             <!--  加速日志  -->
             <spp:ProxyLog Margin="5,0" />
 
             <!--  流量统计  -->
             <spp:ProxyChartView Margin="5,0" />
-
-            <!--  加速服务  -->
-            <Grid Margin="0,0,10,0" ColumnDefinitions="*,20,*">
-                <Border
-                    Grid.Column="0"
-                    Padding="10"
-                    Classes="paper">
-                    <DockPanel>
-                        <TextBlock
-                            Margin="0,0,0,10"
-                            DockPanel.Dock="Top"
-                            FontSize="16"
-                            Text="{x:Static spp:Strings.CommunityFix_AccelerationsEnable}" />
-                        <ScrollViewer>
-                            <ItemsControl ItemsSource="{Binding EnableProxyDomains, Source={x:Static s:ProxyService.Current}}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type spp:AccelerateProjectDTO}">
-                                        <StackPanel Margin="10">
-                                            <DockPanel>
-                                                <TextBlock Text="{Binding Name}" />
-                                                <Border
-                                                    Padding="5,0"
-                                                    HorizontalAlignment="Left"
-                                                    CornerRadius="5"
-                                                    IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
-                                                    ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
-                                                    <Border.Background>
-                                                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                                            <GradientStop Offset="0.0" Color="#43cbff" />
-                                                            <GradientStop Offset="1.0" Color="#9708cc" />
-                                                        </LinearGradientBrush>
-                                                    </Border.Background>
-                                                    <TextBlock
-                                                        VerticalAlignment="Center"
-                                                        FontSize="10"
-                                                        Text="Beta" />
-                                                </Border>
-                                            </DockPanel>
-                                            <Separator Classes="Separator" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
-
-                <Border
-                    Grid.Column="2"
-                    Padding="10"
-                    Classes="paper">
-                    <DockPanel>
-                        <TextBlock
-                            Margin="0,0,0,10"
-                            DockPanel.Dock="Top"
-                            FontSize="16"
-                            Text="{x:Static spp:Strings.CommunityFix_ScriptsEnable}" />
-                        <ScrollViewer>
-                            <ItemsControl ItemsSource="{Binding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type spp:ScriptDTO}">
-                                        <StackPanel Margin="10">
-                                            <DockPanel>
-                                                <TextBlock Text="{Binding Name}" />
-                                            </DockPanel>
-                                            <Separator Classes="Separator" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
-            </Grid>
-
 
             <!--  游戏加速  -->
             <Panel x:DataType="spp:GameAcceleratorPageViewModel">
@@ -699,20 +668,30 @@
                     IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=CurrentAcceleratorGame.IsAccelerated}" />
             </Panel>
 
-            <!--<TabItem Header="加速日志">
+            <!--  网络检测  -->
+            <spp:NetworkCheck x:Name="NetworkCheckControl" />
 
-					    </TabItem>-->
-            <!--<TabItem Header="AD">
-					
-						</TabItem>-->
         </Carousel>
 
+        <!--  Side tab of paid game spped up  -->
         <StackPanel
             Grid.ColumnSpan="2"
-            HorizontalAlignment="Right"
             IsVisible="{Binding #GameAccTab.IsSelected}"
             Orientation="Horizontal"
             Spacing="5">
+
+            <i:Interaction.Behaviors>
+                <spp:AdaptiveBehavior SourceControl="{Binding $parent[TopLevel]}">
+                    <ir:AdaptiveClassSetter
+                        MinWidth="0"
+                        MaxWidth="{StaticResource AdaptiveWidth}"
+                        ClassName="small" />
+                    <ir:AdaptiveClassSetter
+                        MinWidth="{StaticResource AdaptiveWidth}"
+                        MaxWidth="Infinity"
+                        ClassName="wide" />
+                </spp:AdaptiveBehavior>
+            </i:Interaction.Behaviors>
             <Border
                 Padding="5,1"
                 VerticalAlignment="Center"
@@ -784,14 +763,26 @@
             </AutoCompleteBox>
         </StackPanel>
 
-
+        <!--  Side tab after speed up  -->
         <StackPanel
             Grid.ColumnSpan="2"
-            HorizontalAlignment="Right"
             VerticalAlignment="Center"
             IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}"
             Orientation="Horizontal"
             Spacing="8">
+
+            <i:Interaction.Behaviors>
+                <spp:AdaptiveBehavior SourceControl="{Binding $parent[TopLevel]}">
+                    <ir:AdaptiveClassSetter
+                        MinWidth="0"
+                        MaxWidth="{StaticResource AdaptiveWidth}"
+                        ClassName="small" />
+                    <ir:AdaptiveClassSetter
+                        MinWidth="{StaticResource AdaptiveWidth}"
+                        MaxWidth="Infinity"
+                        ClassName="wide" />
+                </spp:AdaptiveBehavior>
+            </i:Interaction.Behaviors>
             <StackPanel.IsVisible>
                 <MultiBinding Converter="{x:Static BoolConverters.And}">
                     <CompiledBinding
@@ -829,7 +820,7 @@
         </StackPanel>
 
         <spp:AdControl
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="1"
             Width="165"
             Height="390"

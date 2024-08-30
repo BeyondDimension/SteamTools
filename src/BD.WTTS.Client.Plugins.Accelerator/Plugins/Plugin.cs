@@ -66,6 +66,9 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             services.AddSingleton(_ => certificateManager.Task.GetAwaiter().GetResult());
 #endif
         }
+
+        services.AddSingleton<INetworkTestService, NetworkTestService>();
+
         //if (startup.HasIPCRoot)
         //{
         //    services.AddSingleton<IAcceleratorService, BackendAcceleratorServiceImpl>();

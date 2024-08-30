@@ -1,0 +1,47 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.ProxyServiceStatus"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="spp:AcceleratorPageViewModel"
+    mc:Ignorable="d">
+    <ScrollViewer
+        Padding="0,0,10,0"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <ItemsControl Grid.Column="1" ItemsSource="{Binding EnableProxyScripts^, Source={x:Static s:ProxyService.Current}}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type spp:ScriptDTO}">
+                    <spp:AppItem
+                        Title="{Binding Name}"
+                        MaxWidth="135"
+                        Margin="4"
+                        Classes="Vertical"
+                        Description="{Binding AuthorName}"
+                        ImageMargin="20"
+                        ImageStretch="None"
+                        ToolTip.Tip="{Binding Describe}">
+
+                        <spp:AppItem.Image>
+                            <spp:Image2
+                                FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico"
+                                RenderOptions.BitmapInterpolationMode="HighQuality"
+                                Source="{Binding IconUrl}"
+                                Stretch="Uniform" />
+                        </spp:AppItem.Image>
+                    </spp:AppItem>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
+</UserControl>

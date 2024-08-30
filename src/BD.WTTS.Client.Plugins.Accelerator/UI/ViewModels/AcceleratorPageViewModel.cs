@@ -1,7 +1,8 @@
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
-using BD.WTTS.Client.Resources;
 using BD.WTTS.UI.Views.Pages;
+using STUN.StunResult;
+using STUN.Enums;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -12,6 +13,7 @@ public sealed partial class AcceleratorPageViewModel
     readonly IPlatformService platformService = IPlatformService.Instance;
     readonly IReverseProxyService reverseProxyService = IReverseProxyService.Constants.Instance;
     readonly ICertificateManager certificateManager = ICertificateManager.Constants.Instance;
+    readonly INetworkTestService networkTestService = INetworkTestService.Instance;
 
     public AcceleratorPageViewModel()
     {
@@ -22,6 +24,29 @@ public sealed partial class AcceleratorPageViewModel
 #endif
             //ProxyService.Current.ProxyStatus = !ProxyService.Current.ProxyStatus;
             await ProxyService.Current.StartOrStopProxyService(!ProxyService.Current.ProxyStatus);
+
+            if (ProxyService.Current.ProxyStatus == false)
+                return;
+
+            // Create new ProxyEnableDomain for 加速服务 page
+            var enableGroupDomain = ProxyService.Current.ProxyDomainsList
+                .Where(list => list.ThreeStateEnable == true || list.ThreeStateEnable == null)
+                .Select(list => new ProxyDomainGroupViewModel
+                {
+                    Name = list.Name,
+                    IconUrl = list.IconUrl ?? string.Empty,
+                    EnableProxyDomainVMs = new(
+                        list.Items!
+                            .Where(i => i.ThreeStateEnable == true)
+                            .Select(i => new ProxyDomainViewModel(i.Name, i.ProxyType, "https://" + i.ListenDomainNames.Split(";")[0],
+                                                                i.Items?
+                                                                    .Select(c => new ProxyDomainViewModel(c.Name, c.ProxyType, "https://" + c.ListenDomainNames.Split(';')[0]))
+                                                                    .ToList()))
+                            .ToList()),
+                })
+                .ToList();
+
+            EnableProxyDomainGroupVMs = enableGroupDomain.AsReadOnly();
         });
 
         RefreshCommand = ReactiveCommand.Create(async () =>
@@ -29,6 +54,7 @@ public sealed partial class AcceleratorPageViewModel
             if (_initializeTime > DateTime.Now.AddSeconds(-2))
             {
                 Toast.Show(ToastIcon.Warning, Strings.Warning_DoNotOperateFrequently);
+
                 return;
             }
 
@@ -43,10 +69,65 @@ public sealed partial class AcceleratorPageViewModel
             GameAcceleratorService.Current.LoadGames();
         });
 
+        SelectedSTUNAddress = STUNAddress[0];
+
+        NATCheckCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            var natCheckResult = await networkTestService.TestStunClient3489Async(testServerHostName: SelectedSTUNAddress) ?? new ClassicStunResult { NatType = NatType.Unknown };
+            var (netSucc, _) = await networkTestService.TestOpenUrlAsync("https://www.baidu.com");
+
+            var natStatus = natCheckResult.NatType switch
+            {
+                NatType.OpenInternet or NatType.FullCone => NatTypeSimple.Open,
+                NatType.RestrictedCone or NatType.PortRestrictedCone or NatType.SymmetricUdpFirewall => NatTypeSimple.Moderate,
+                NatType.Symmetric or NatType.UdpBlocked => NatTypeSimple.Strict,
+                NatType.Unknown or NatType.UnsupportedServer or _ => NatTypeSimple.Unknown,
+            };
+
+            PublicEndPoint = natCheckResult.PublicEndPoint?.Address.ToString() ?? "Unknown";
+            LocalEndPoint = natCheckResult.LocalEndPoint?.Address.ToString() ?? "Unknown";
+
+            return (natStatus, netSucc);
+        });
+        NATCheckCommand
+            .IsExecuting
+            .ToPropertyEx(this, x => x.IsNATChecking);
+
+        DNSCheckCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            var testDomain = DomainPendingTest == string.Empty ? "steamcommunity.com" : DomainPendingTest;
+            try
+            {
+                long delayMs;
+                IPAddress[] address;
+                if (ProxySettings.UseDoh)
+                {
+                    var configDoh = ProxySettings.CustomDohAddres.Value ?? string.Empty;
+                    (delayMs, address) = await networkTestService.TestDNSOverHttpsAsync(testDomain, configDoh);
+                }
+                else
+                {
+                    var configDns = ProxySettings.ProxyMasterDns.Value ?? string.Empty;
+                    (delayMs, address) = await networkTestService.TestDNSAsync(testDomain, configDns, 53);
+                }
+                DNSTestDelay = delayMs + "ms ";
+                DNSTestResult = "" + address.FirstOrDefault() ?? "0.0.0.0";
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(AcceleratorPageViewModel), ex.ToString());
+                DNSTestDelay = string.Empty;
+                DNSTestResult = "error";
+            }
+        });
+        DNSCheckCommand
+            .IsExecuting
+            .ToPropertyEx(this, x => x.IsDNSChecking);
+
         ProxySettingsCommand = ReactiveCommand.Create(() =>
         {
             var vm = new ProxySettingsWindowViewModel();
-            IWindowManager.Instance.ShowTaskDialogAsync(vm, vm.Title, pageContent: new ProxySettingsPage(), isOkButton: false);
+            _ = IWindowManager.Instance.ShowTaskDialogAsync(vm, vm.Title, pageContent: new ProxySettingsPage(), isOkButton: false);
         });
 
         if (IApplication.IsDesktop())
@@ -73,6 +154,7 @@ public sealed partial class AcceleratorPageViewModel
     }
 
 #if LINUX
+
     public bool EnvironmentCheck()
     {
         try
@@ -93,6 +175,7 @@ public sealed partial class AcceleratorPageViewModel
             return false;
         }
     }
+
 #endif
 
     public void TrustCer_OnClick()

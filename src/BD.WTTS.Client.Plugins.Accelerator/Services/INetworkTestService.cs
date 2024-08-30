@@ -6,6 +6,8 @@ namespace BD.WTTS.Services;
 
 internal interface INetworkTestService : IHttpRequestTestService, IStunTestService
 {
+    static INetworkTestService Instance => Ioc.Get<INetworkTestService>();
+
     /// <summary>
     /// Ping
     /// </summary>
@@ -51,13 +53,22 @@ internal interface INetworkTestService : IHttpRequestTestService, IStunTestServi
 internal interface IHttpRequestTestService
 {
     /// <summary>
+    /// 测试打开网址
+    /// </summary>
+    /// <param name="url"></param>
+    /// <param name="httpClientFunc"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<(bool Success, long? DelayMs)> TestOpenUrlAsync(string url, Func<HttpClient>? httpClientFunc = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// 测试上传速度
     /// </summary>
     /// <param name="uploadServerUrl"></param>
     /// <param name="uploadBytes"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<(bool success, double? rate)> TestUploadSpeedAsync(
+    Task<(bool Success, double? Rate)> TestUploadSpeedAsync(
             string uploadServerUrl,
             byte[] uploadBytes,
             CancellationToken cancellationToken = default
@@ -69,7 +80,7 @@ internal interface IHttpRequestTestService
     /// <param name="downloadUrl"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<(bool success, double? rate)> TestDownloadSpeedAsync(string downloadUrl, CancellationToken cancellationToken = default);
+    Task<(bool Success, double? Rate)> TestDownloadSpeedAsync(string downloadUrl, CancellationToken cancellationToken = default);
 }
 
 internal interface IStunTestService

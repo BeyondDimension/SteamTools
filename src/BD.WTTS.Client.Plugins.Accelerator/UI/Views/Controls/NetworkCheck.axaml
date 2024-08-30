@@ -1,0 +1,307 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.NetworkCheck"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:sys="using:System"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="spp:AcceleratorPageViewModel"
+    mc:Ignorable="d">
+    <ScrollViewer
+        Padding="0,0,10,0"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="8">
+            <ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
+                <ui:SettingsExpander.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="26"
+                            Glyph="&#xE969;" />
+                        <TextBlock
+                            Margin="12,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="NAT 类型检测" />
+                    </StackPanel>
+                </ui:SettingsExpander.Header>
+                <ui:SettingsExpander.Footer>
+                    <WrapPanel>
+                        <ui:FAComboBox
+                            x:Name="STUNServer"
+                            Margin="4"
+                            x:FieldModifier="public"
+                            IsEditable="False"
+                            IsEnabled="{Binding !IsNATChecking}"
+                            ItemsSource="{Binding STUNAddress}"
+                            SelectedItem="{Binding SelectedSTUNAddress}"
+                            ToolTip.Tip="STUN 服务器地址">
+                            <ui:FAComboBox.ItemTemplate>
+                                <DataTemplate DataType="sys:String">
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ui:FAComboBox.ItemTemplate>
+                        </ui:FAComboBox>
+                        <Button
+                            x:Name="NATCheckButton"
+                            Width="100"
+                            Margin="4"
+                            x:FieldModifier="public"
+                            Content="检测"
+                            IsEnabled="True" />
+                    </WrapPanel>
+                </ui:SettingsExpander.Footer>
+
+                <StackPanel
+                    Margin="24,0,0,0"
+                    Background="Transparent"
+                    Spacing="8">
+                    <ui:SettingsExpanderItem Background="Transparent">
+                        <TextBlock VerticalAlignment="Center" Text="NAT 类型：" />
+                        <ui:SettingsExpanderItem.Footer>
+                            <Grid>
+                                <ui:ProgressRing
+                                    Width="22"
+                                    Margin="0,-4,0,-10"
+                                    HorizontalAlignment="Right"
+                                    IsVisible="{Binding IsNATChecking}" />
+
+                                <DockPanel IsVisible="{Binding !IsNATChecking}">
+                                    <SelectableTextBlock
+                                        x:Name="NATTextBlock"
+                                        VerticalAlignment="Center"
+                                        Foreground="Gray"
+                                        Text="未知" />
+                                    <ui:FontIcon
+                                        Margin="3,0"
+                                        FontSize="20"
+                                        Glyph="&#xE946;">
+                                        <ToolTip.Tip>
+                                            <TextBlock x:Name="NATTypeTip" Text="未知类型" />
+                                        </ToolTip.Tip>
+                                    </ui:FontIcon>
+                                </DockPanel>
+                            </Grid>
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+
+                    <Separator Margin="-64,0" Classes="Separator" />
+                    <ui:SettingsExpanderItem Background="Transparent">
+                        <TextBlock VerticalAlignment="Center" Text="本地IP地址：" />
+                        <ui:SettingsExpanderItem.Footer>
+                            <Grid>
+                                <ui:ProgressRing
+                                    Width="22"
+                                    Margin="0,-4,0,-10"
+                                    HorizontalAlignment="Right"
+                                    IsVisible="{Binding IsNATChecking}" />
+                                <SelectableTextBlock
+                                    x:Name="LocalIPAddress"
+                                    Foreground="Gray"
+                                    IsVisible="{Binding !IsNATChecking}" />
+                            </Grid>
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+
+                    <Separator Margin="-64,0" Classes="Separator" />
+                    <ui:SettingsExpanderItem Background="Transparent">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Text="对外IP地址："
+                            ToolTip.Tip="若与您路由器 WAN IP 地址相同，则为公共网络" />
+                        <ui:SettingsExpanderItem.Footer>
+                            <Grid>
+                                <ui:ProgressRing
+                                    Width="22"
+                                    Margin="0,-4,0,-10"
+                                    HorizontalAlignment="Right"
+                                    IsVisible="{Binding IsNATChecking}" />
+                                <SelectableTextBlock
+                                    Foreground="Gray"
+                                    IsVisible="{Binding !IsNATChecking}"
+                                    Text="{Binding PublicEndPoint}" />
+                            </Grid>
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+
+                    <Separator Margin="-64,0" Classes="Separator" />
+
+                    <!--<Border Classes="paper" Margin="-64 0" />-->
+                    <ui:SettingsExpanderItem Background="Transparent">
+                        <TextBlock VerticalAlignment="Center" Text="互联网连通情况：" />
+                        <ui:SettingsExpanderItem.Footer>
+                            <Grid>
+                                <ui:ProgressRing
+                                    Width="22"
+                                    Margin="0,-4,0,-10"
+                                    HorizontalAlignment="Right"
+                                    IsVisible="{Binding IsNATChecking}" />
+
+                                <ui:FontIcon
+                                    x:Name="PingOK"
+                                    HorizontalAlignment="Right"
+                                    x:FieldModifier="public"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="26"
+                                    Foreground="Green"
+                                    Glyph="&#xe73d;" />
+
+                                <Grid x:Name="PingError" x:FieldModifier="public">
+                                    <ui:FontIcon
+                                        Margin="3"
+                                        HorizontalAlignment="Right"
+                                        FontFamily="Segoe Fluent Icons"
+                                        FontSize="20"
+                                        Foreground="Red"
+                                        Glyph="&#xf127;" />
+                                    <ui:FontIcon
+                                        HorizontalAlignment="Right"
+                                        FontSize="26"
+                                        Foreground="White"
+                                        Glyph="&#xea39;" />
+                                </Grid>
+                            </Grid>
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+
+                    <!--<Separator Classes="Separator" Margin="-64 0" />-->
+                    <Separator Margin="-64,0" Classes="Horizontal" />
+
+                    <ui:SettingsExpanderItem Margin="-28,0,0,-4" Background="Transparent">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="相关链接" />
+                            <HyperlinkButton
+                                VerticalAlignment="Center"
+                                Content="解决NAT错误"
+                                NavigateUri="https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error" />
+                        </StackPanel>
+                    </ui:SettingsExpanderItem>
+                </StackPanel>
+            </ui:SettingsExpander>
+
+            <!--  DNS  -->
+            <ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
+                <ui:SettingsExpander.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="26"
+                            Glyph="&#xEDA3;" />
+                        <TextBlock
+                            Margin="12,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="DNS 检测" />
+                    </StackPanel>
+                </ui:SettingsExpander.Header>
+                <ui:SettingsExpander.Footer>
+                    <Button
+                        x:Name="DNSCheckButton"
+                        Width="100"
+                        Content="检测"
+                        IsEnabled="True" />
+                </ui:SettingsExpander.Footer>
+
+                <StackPanel Margin="24,0,0,0">
+
+                    <ui:SettingsExpanderItem Margin="-28,0,0,-4" Background="Transparent">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Text="检测项目" />
+                    </ui:SettingsExpanderItem>
+
+                    <Separator Margin="-64,0" Classes="Separator" />
+
+                    <ui:SettingsExpanderItem Background="Transparent">
+                        <TextBlock Text="待检测的域名" />
+                        <ui:SettingsExpanderItem.Footer>
+                            <TextBox
+                                x:Name="DomainTextBox"
+                                Width="200"
+                                Watermark="steamcommunity.com" />
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+
+                    <ui:SettingsExpanderItem Background="Transparent">
+                        <TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:SettingsExpanderItem.Footer>
+                            <ui:FAComboBox
+                                x:Name="dummy"
+                                Width="200"
+                                IsEditable="False"
+                                IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}"
+                                ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.ProxyDNSs}}"
+                                Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+
+                    <ui:SettingsExpanderItem Background="Transparent">
+                        <TextBlock Text="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:SettingsExpanderItem.Footer>
+                            <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value, Mode=TwoWay}" />
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+
+                    <ui:SettingsExpanderItem Background="Transparent">
+                        <TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:SettingsExpanderItem.Footer>
+                            <ui:FAComboBox
+                                Width="200"
+                                IsEditable="False"
+                                IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}"
+                                ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.DohAddress}}"
+                                PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres}, Mode=OneWay}"
+                                Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+
+                    <ui:SettingsExpanderItem Margin="-28,0,0,-4" Background="Transparent">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Text="测试结果" />
+                    </ui:SettingsExpanderItem>
+
+                    <Separator Margin="-64,0" Classes="Separator" />
+
+                    <ui:SettingsExpanderItem Background="Transparent">
+                        <TextBlock Text="延迟" />
+                        <ui:SettingsExpanderItem.Footer>
+                            <Grid>
+                                <ui:ProgressRing
+                                    Width="22"
+                                    Margin="0,-4,0,-10"
+                                    IsVisible="{Binding IsDNSChecking}" />
+                                <SelectableTextBlock Text="{Binding DNSTestDelay}" />
+                            </Grid>
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+
+                    <ui:SettingsExpanderItem Background="Transparent">
+                        <TextBlock Text="解析地址" />
+                        <ui:SettingsExpanderItem.Footer>
+                            <Grid>
+                                <ui:ProgressRing
+                                    Width="22"
+                                    Margin="0,-4,0,-10"
+                                    IsVisible="{Binding IsDNSChecking}" />
+                                <SelectableTextBlock Text="{Binding DNSTestResult}" />
+                            </Grid>
+                        </ui:SettingsExpanderItem.Footer>
+                    </ui:SettingsExpanderItem>
+
+                </StackPanel>
+            </ui:SettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>
