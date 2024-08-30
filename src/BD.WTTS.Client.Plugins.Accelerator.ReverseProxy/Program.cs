@@ -81,6 +81,7 @@ static void ConfigureServices(IServiceCollection services)
 #if DEBUG
         l.AddConsole();
 #endif
+        l.AddProvider(new LogConsoleService.Utf8StringLoggerProvider(moduleName));
     });
 
     // 设置仓储层数据库文件存放路径

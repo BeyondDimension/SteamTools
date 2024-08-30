@@ -449,6 +449,7 @@
                     </Border>
                 </WrapPanel>-->
             </TabStripItem>
+            <TabStripItem Content="{x:Static spp:Strings.CommunityFix_ProxyLog}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_FlowStatistics}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
             <TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}" IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
             <TabStripItem Name="GameAccTab">
@@ -557,6 +558,8 @@
                     </ItemsControl>
                 </spp:ContentLoader>
             </ScrollViewer>
+            <!--  加速日志  -->
+            <spp:ProxyLog Margin="5,0" />
 
             <!--  流量统计  -->
             <spp:ProxyChartView Margin="5,0" />

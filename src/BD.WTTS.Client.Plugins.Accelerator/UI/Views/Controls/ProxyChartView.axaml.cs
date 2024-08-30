@@ -1,14 +1,10 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Data;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using LiveChartsCore;
-using LiveChartsCore.Motion;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Avalonia;
-using LiveChartsCore.SkiaSharpView.Drawing;
-using SkiaSharp;
 
 namespace BD.WTTS.UI.Views.Controls;
 

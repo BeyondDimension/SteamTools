@@ -15,6 +15,12 @@ partial interface IReverseProxyService
     /// </summary>
     /// <returns></returns>
     byte[]? GetFlowStatistics_Bytes();
+
+    /// <summary>
+    /// 获取所有日志信息
+    /// </summary>
+    /// <returns></returns>
+    string? GetLogAllMessage();
 }
 
 public static partial class ReverseProxyServiceExtensions

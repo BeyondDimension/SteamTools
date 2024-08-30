@@ -65,6 +65,8 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                 WebRootPath = RootPath,
             });
 
+            builder.Logging.AddProvider(new LogConsoleService.Utf8StringLoggerProvider(AssemblyInfo.Accelerator));
+
             builder.Services.Configure<HostFilteringOptions>(static o =>
             {
                 o.AllowEmptyHosts = true;
@@ -165,6 +167,12 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         var flowStatistics = flowAnalyzer?.GetFlowStatistics();
         var bytes = Serializable.SMP2(flowStatistics);
         return bytes;
+    }
+
+    public string? GetLogAllMessage()
+    {
+        var result = LogConsoleService.Builder;
+        return result.ToString();
     }
 
     // IDisposable
