@@ -671,7 +671,7 @@
             <!--  网络检测  -->
             <spp:NetworkCheck x:Name="NetworkCheckControl" />
 
-			<TabItem Content="dummy_tab_for_transisit_animation" />
+            <TabItem Content="dummy_tab_for_transisit_animation" />
         </Carousel>
 
         <!--  Side tab of paid game spped up  -->

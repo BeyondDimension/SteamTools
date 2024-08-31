@@ -770,6 +770,11 @@ public sealed partial class GameAcceleratorService
 
     public async Task ShowXunYouWindow(bool showHide)
     {
+        //if (UserService.Current.User?.WattOpenId != null)
+        //    await Ioc.Get<IAcceleratorService>().XY_StartEx2(
+        //                            UserService.Current.User.WattOpenId,
+        //                            UserService.Current.User.NickName, 0, 0, 0);
+
         var result = await Ioc.Get<IAcceleratorService>().XY_ShowWinodw(showHide);
     }
 }

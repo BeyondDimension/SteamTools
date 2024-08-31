@@ -187,7 +187,7 @@
                                 NavigateUri="https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error" />
                             <HyperlinkButton
                                 VerticalAlignment="Center"
-                                Content="Playstation 关于 NAT 文档"
+                                Content="PlayStation 关于 NAT 文档"
                                 NavigateUri="https://manuals.playstation.net/document/ct/ps4/settings/nw_test.html" />
                             <HyperlinkButton
                                 VerticalAlignment="Center"
