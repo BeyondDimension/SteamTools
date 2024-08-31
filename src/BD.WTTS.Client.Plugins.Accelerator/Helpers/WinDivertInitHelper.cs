@@ -46,8 +46,10 @@ static class WinDivertInitHelper
 
         void GetData()
         {
-            if (data != default)
+            if (data == default)
+            {
                 data = GetWinDivertBinRes();
+            }
         }
 
         if (libraryPath != null && libraryDirPath != null)
