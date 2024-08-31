@@ -10,8 +10,5 @@ public partial class NetworkCheck : UserControl
     public NetworkCheck()
     {
         InitializeComponent();
-
-        this.dummy.SelectedItem = ProxySettings.ProxyMasterDns.Value;
-        this.dummy.Text = ProxySettings.ProxyMasterDns.Value;
     }
 }

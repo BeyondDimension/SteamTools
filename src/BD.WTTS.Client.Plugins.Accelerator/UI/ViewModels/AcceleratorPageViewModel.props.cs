@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using System.Reactive;
 
@@ -83,7 +84,7 @@ public class ProxyDomainViewModel : ReactiveObject
                        <= DelayMiddle => Brushes.Green,
                        > DelayMiddle => Brushes.Orange,
                    },
-                _ => (IBrush?)App.Instance.FindResource("TextFillColorPrimaryBrush"),
+                _ => Brushes.Gray,
             })
             .ToPropertyEx(this, x => x.DelayColor);
     }

@@ -234,7 +234,6 @@
                         <TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <ui:SettingsExpanderItem.Footer>
                             <ui:FAComboBox
-                                x:Name="dummy"
                                 Width="200"
                                 IsEditable="True"
                                 IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}"
