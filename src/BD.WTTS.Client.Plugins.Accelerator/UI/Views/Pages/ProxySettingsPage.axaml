@@ -31,6 +31,7 @@
                 <ui:SettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"
+                        IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}"
                         ItemsSource="{Binding ProxyDNSs}"
                         Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
@@ -78,6 +79,7 @@
                 <ui:SettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"
+                        IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}"
                         ItemsSource="{Binding DohAddress}"
                         PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres}, Mode=OneWay}"
                         Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
