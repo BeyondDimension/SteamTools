@@ -49,11 +49,6 @@
                             </ui:SettingsExpander.Footer>
                             <ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
                                 <TreeView ItemsSource="{Binding EnableProxyDomainVMs}" SelectionMode="Single">
-                                    <TreeView.ItemContainerTheme>
-                                        <ControlTheme BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
-                                            <Setter Property="IsExpanded" Value="True" />
-                                        </ControlTheme>
-                                    </TreeView.ItemContainerTheme>
                                     <TreeView.ItemTemplate>
                                         <TreeDataTemplate ItemsSource="{Binding Children}">
                                             <DockPanel Margin="8,0">
