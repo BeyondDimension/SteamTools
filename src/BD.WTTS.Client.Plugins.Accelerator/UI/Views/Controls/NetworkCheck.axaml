@@ -237,7 +237,7 @@
                             <ui:FAComboBox
                                 x:Name="dummy"
                                 Width="200"
-                                IsEditable="False"
+                                IsEditable="True"
                                 IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}"
                                 ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.ProxyDNSs}}"
                                 Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
@@ -256,7 +256,7 @@
                         <ui:SettingsExpanderItem.Footer>
                             <ui:FAComboBox
                                 Width="200"
-                                IsEditable="False"
+                                IsEditable="True"
                                 IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}"
                                 ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.DohAddress}}"
                                 PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres}, Mode=OneWay}"
