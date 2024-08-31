@@ -107,6 +107,7 @@
       "%LocalAppData%\\Riot Games\\Riot Client\\Data\\Cookies": "Cookies",
       "%LocalAppData%\\Riot Games\\Riot Client\\Data\\Sessions": "Sessions",
       "%LocalAppData%\\Riot Games\\Riot Client\\Data\\RiotClientPrivateSettings.yaml": "RiotClientPrivateSettings.yaml",
+      "%LocalAppData%\\Riot Games\\Riot Client\\Data\\RiotGamesPrivateSettings.yaml": "RiotGamesPrivateSettings.yaml",
       "%LocalAppData%\\Riot Games\\Riot Client\\Config\\RiotClientSettings.yaml": "RiotClientSettings.yaml",
       "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id": "WattToolkit.id"
     },
@@ -177,8 +178,7 @@
       "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\Session Storage\\*.log": "ProgramData\\Session Storage\\",
       "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\Session Storage\\*.ldb": "ProgramData\\Session Storage\\",
       "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\Cookies": "ProgramData\\Cookies",
-      "%ProgramData%\\GOG.com\\Galaxy\\storage\\etags.db": "ProgramData\\storage\\etags.db",
-      "%ProgramData%\\GOG.com\\Galaxy\\storage\\galaxy-2.0.db*": "ProgramData\\storage\\",
+      "%ProgramData%\\GOG.com\\Galaxy\\storage\\*": "ProgramData\\storage\\",
       "%ProgramData%\\GOG.com\\Galaxy\\config.json": "ProgramData\\config.json"
     },
     "ProfilePicPath": "%ProgramData%\\GOG.com\\Galaxy\\webcache\\%UniqueId%\\user\\%LARGEST%.jpg",

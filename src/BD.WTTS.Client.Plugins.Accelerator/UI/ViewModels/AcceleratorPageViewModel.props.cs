@@ -105,7 +105,7 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     [Reactive]
     public string SelectedSTUNAddress { get; set; }
 
-    public List<string> STUNAddress { get; } =
+    public string[] STUNAddress { get; } =
     [
         "stun.syncthing.net",
         "stun.hot-chilli.net",

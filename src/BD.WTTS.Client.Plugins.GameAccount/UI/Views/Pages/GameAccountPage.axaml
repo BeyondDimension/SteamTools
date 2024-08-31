@@ -204,7 +204,7 @@
                                 </DataTemplate>
                             </MenuItem.DataTemplates>-->
                         </MenuItem>
-                        <MenuItem Header="-" />
+                        <MenuItem Header="-" IsVisible="{Binding !!AddGamePlatforms.Count}" />
                         <MenuItem Command="{Binding LoginNewCommand}" Header="{Binding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                             <MenuItem.Icon>
                                 <ui:SymbolIcon Symbol="Add" />

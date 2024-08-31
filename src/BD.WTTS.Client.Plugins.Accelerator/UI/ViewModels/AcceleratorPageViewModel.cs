@@ -95,7 +95,7 @@ public sealed partial class AcceleratorPageViewModel
 
         DNSCheckCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            var testDomain = DomainPendingTest == string.Empty ? "steamcommunity.com" : DomainPendingTest;
+            var testDomain = DomainPendingTest == string.Empty ? "store.steampowered.com" : DomainPendingTest;
             try
             {
                 long delayMs;

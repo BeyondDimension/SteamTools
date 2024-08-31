@@ -63,6 +63,12 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
         var client = new HttpClient(handler);
         client.BaseAddress = dohAddresUri;
         var dnsClient = new DnsHttpClient(client);
+        //暂未考虑释放问题 注意！
+        //foreach (var dc in dnsClients.Values)
+        //{
+        //    dc.Dispose();
+        //}
+        //dnsClients.Clear();
         dnsClients.TryAdd(dohAddresUri, dnsClient);
         return dnsClient;
     }

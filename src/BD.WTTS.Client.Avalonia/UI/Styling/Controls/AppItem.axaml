@@ -65,7 +65,7 @@
                 </spp:AppItem>
 
                 <spp:AppItem
-                    Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）"
+                    Title="Wo Long: Fallen Dynasty （卧龙：苍天陨落）（卧龙：苍天陨落）（卧龙：苍天陨落）（卧龙：苍天陨落）"
                     MaxHeight="120"
                     Description="This is a description of whatver this does"
                     Tags="111">
@@ -181,7 +181,7 @@
                                 Grid.Row="2"
                                 Grid.Column="1"
                                 Grid.ColumnSpan="2"
-                                Margin="0,5"
+                                Margin="0,5,12,5"
                                 VerticalAlignment="Top"
                                 Classes="CaptionTextBlockStyle"
                                 FontSize="12"

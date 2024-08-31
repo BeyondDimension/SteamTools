@@ -16,6 +16,11 @@
     Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
+    <spp:PageBase.Styles>
+        <Style Selector="spp|AppItem /template/ TextBlock#HeaderText">
+            <Setter Property="Grid.ColumnSpan" Value="0" />
+        </Style>
+    </spp:PageBase.Styles>
     <spp:PageBase.PreviewImage>
         <ui:ImageIconSource Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico" />
     </spp:PageBase.PreviewImage>

@@ -33,7 +33,7 @@
                 </ui:SettingsExpander.Header>
                 <ui:SettingsExpander.Footer>
                     <WrapPanel>
-						<ui:FAComboBox
+                        <ui:FAComboBox
                             Margin="4"
                             IsEditable="False"
                             IsEnabled="{Binding !IsNATChecking}"
@@ -47,13 +47,13 @@
                             </ui:FAComboBox.ItemTemplate>
                         </ui:FAComboBox>
                         <Button
-							x:Name="NATCheckButton"
-                            x:FieldModifier="public"
+                            x:Name="NATCheckButton"
                             Width="100"
                             Margin="4"
+                            x:FieldModifier="public"
+                            Command="{Binding NATCheckCommand}"
                             Content="检测"
-                            IsEnabled="True" 
-							Command="{Binding NATCheckCommand}"/>
+                            IsEnabled="True" />
                     </WrapPanel>
                 </ui:SettingsExpander.Footer>
 
@@ -101,9 +101,9 @@
                                     HorizontalAlignment="Right"
                                     IsVisible="{Binding IsNATChecking}" />
                                 <SelectableTextBlock
-									Text="{Binding LocalEndPoint}"
                                     Foreground="Gray"
-                                    IsVisible="{Binding !IsNATChecking}" />
+                                    IsVisible="{Binding !IsNATChecking}"
+                                    Text="{Binding LocalEndPoint}" />
                             </Grid>
                         </ui:SettingsExpanderItem.Footer>
                     </ui:SettingsExpanderItem>
@@ -173,16 +173,43 @@
                     <Separator Margin="-64,0" Classes="Horizontal" />
 
                     <ui:SettingsExpanderItem Margin="-28,0,0,-4" Background="Transparent">
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontWeight="Bold"
-                                Text="相关链接" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Text="相关链接" />
+                    </ui:SettingsExpanderItem>
+
+                    <ui:SettingsExpanderItem Margin="-28,-24,0,-4" Background="Transparent">
+                        <WrapPanel Orientation="Horizontal">
                             <HyperlinkButton
                                 VerticalAlignment="Center"
-                                Content="解决NAT错误"
+                                Content="XBOX 关于 NAT 文档"
                                 NavigateUri="https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error" />
-                        </StackPanel>
+                            <HyperlinkButton
+                                VerticalAlignment="Center"
+                                Content="Playstation 关于 NAT 文档"
+                                NavigateUri="https://manuals.playstation.net/document/ct/ps4/settings/nw_test.html" />
+                            <HyperlinkButton
+                                VerticalAlignment="Center"
+                                Content="Nintendo Switch 关于 NAT 文档"
+                                NavigateUri="https://www.nintendoswitch.com.cn/support/faq/373.html" />
+                            <HyperlinkButton
+                                VerticalAlignment="Center"
+                                Content="Bungie 关于 NAT 文档"
+                                NavigateUri="https://help.bungie.net/hc/zh-cn/articles/360049496751-%E9%AB%98%E7%BA%A7%E7%96%91%E9%9A%BE%E6%8E%92%E8%A7%A3-%E9%80%9A%E7%94%A8%E5%8D%B3%E6%8F%92%E5%8D%B3%E7%94%A8-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E9%80%81%E4%B8%8E%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E7%B1%BB%E5%9E%8B" />
+                            <HyperlinkButton
+                                VerticalAlignment="Center"
+                                Content="Activision 关于 NAT 文档"
+                                NavigateUri="https://support.activision.com/tw/zh/articles/port-forward-and-nat-faq" />
+                            <HyperlinkButton
+                                VerticalAlignment="Center"
+                                Content="RockStar Games 关于 NAT 文档"
+                                NavigateUri="https://support.rockstargames.com/tw/articles/206210548/%E5%A6%82%E4%BD%95%E8%A7%A3%E6%B1%BA-GTA-%E7%B7%9A%E4%B8%8A%E6%A8%A1%E5%BC%8F%E4%B8%AD%E8%88%87%E5%9A%B4%E6%A0%BC-Strict-NAT-%E9%A1%9E%E5%9E%8B%E7%9B%B8%E9%97%9C%E7%9A%84%E9%8C%AF%E8%AA%A4" />
+                            <HyperlinkButton
+                                VerticalAlignment="Center"
+                                Content="迅游关于 NAT 文档"
+                                NavigateUri="https://cs.xunyou.com/html/282/15271.shtml" />
+                        </WrapPanel>
                     </ui:SettingsExpanderItem>
                 </StackPanel>
             </ui:SettingsExpander>
@@ -204,9 +231,9 @@
                 <ui:SettingsExpander.Footer>
                     <Button
                         Width="100"
+                        Command="{Binding DNSCheckCommand}"
                         Content="检测"
-                        IsEnabled="True"
-						Command="{Binding DNSCheckCommand}"/>
+                        IsEnabled="True" />
                 </ui:SettingsExpander.Footer>
 
                 <StackPanel Margin="24,0,0,0">
@@ -224,9 +251,9 @@
                         <TextBlock Text="待检测的域名" />
                         <ui:SettingsExpanderItem.Footer>
                             <TextBox
-								Text="{Binding DomainPendingTest, Mode=TwoWay}"
                                 Width="200"
-                                Watermark="steamcommunity.com" />
+                                Text="{Binding DomainPendingTest, Mode=TwoWay}"
+                                Watermark="store.steampowered.com" />
                         </ui:SettingsExpanderItem.Footer>
                     </ui:SettingsExpanderItem>
 

@@ -13,6 +13,11 @@
     x:DataType="spp:AuthenticatorItemModel"
     Classes.IsActive="{Binding IsSelected}"
     mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="spp|AppItem /template/ TextBlock#HeaderText">
+            <Setter Property="Grid.ColumnSpan" Value="0" />
+        </Style>
+    </UserControl.Styles>
     <spp:AppItem
         Title="{Binding AuthName}"
         Description="{Binding AuthData.Created, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"

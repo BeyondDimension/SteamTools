@@ -93,8 +93,14 @@ public sealed partial class GameAccountPageViewModel
     {
         GamePlatforms?[0].LoadUsers();
 
+        if (!OperatingSystem2.IsWindows())
+        {
+            AddGamePlatforms = [];
+            return;
+        }
+
         var temp = GetSupportPlatforms();
-        if (temp != null && OperatingSystem2.IsWindows())
+        if (temp != null)
         {
             if (GameAccountSettings.EnablePlatforms.Any_Nullable())
             {
