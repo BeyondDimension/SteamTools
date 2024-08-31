@@ -1,4 +1,4 @@
-#if WINDOWS
+#if WINDOWS && !REMOVE_DNS_INTERCEPT
 using WinDivertBinRes = BD.WTTS.Properties.WinDivertResource;
 
 namespace Mobius.Helpers;

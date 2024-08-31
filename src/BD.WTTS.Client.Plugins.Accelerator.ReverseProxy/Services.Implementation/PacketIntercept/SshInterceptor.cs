@@ -1,6 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/Tcp/SshInterceptor.cs
 
-#if WINDOWS
+#if WINDOWS && !REMOVE_DNS_INTERCEPT
 
 using static BD.WTTS.Models.Abstractions.IReverseProxyConfig;
 
