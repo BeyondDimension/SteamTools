@@ -33,14 +33,12 @@
                 </ui:SettingsExpander.Header>
                 <ui:SettingsExpander.Footer>
                     <WrapPanel>
-                        <ui:FAComboBox
-                            x:Name="STUNServer"
+						<ui:FAComboBox
                             Margin="4"
-                            x:FieldModifier="public"
                             IsEditable="False"
                             IsEnabled="{Binding !IsNATChecking}"
                             ItemsSource="{Binding STUNAddress}"
-                            SelectedItem="{Binding SelectedSTUNAddress}"
+                            SelectedItem="{Binding SelectedSTUNAddress, Mode=TwoWay}"
                             ToolTip.Tip="STUN 服务器地址">
                             <ui:FAComboBox.ItemTemplate>
                                 <DataTemplate DataType="sys:String">
@@ -49,12 +47,13 @@
                             </ui:FAComboBox.ItemTemplate>
                         </ui:FAComboBox>
                         <Button
-                            x:Name="NATCheckButton"
+							x:Name="NATCheckButton"
+                            x:FieldModifier="public"
                             Width="100"
                             Margin="4"
-                            x:FieldModifier="public"
                             Content="检测"
-                            IsEnabled="True" />
+                            IsEnabled="True" 
+							Command="{Binding NATCheckCommand}"/>
                     </WrapPanel>
                 </ui:SettingsExpander.Footer>
 
@@ -102,7 +101,7 @@
                                     HorizontalAlignment="Right"
                                     IsVisible="{Binding IsNATChecking}" />
                                 <SelectableTextBlock
-                                    x:Name="LocalIPAddress"
+									Text="{Binding LocalEndPoint}"
                                     Foreground="Gray"
                                     IsVisible="{Binding !IsNATChecking}" />
                             </Grid>
@@ -204,10 +203,10 @@
                 </ui:SettingsExpander.Header>
                 <ui:SettingsExpander.Footer>
                     <Button
-                        x:Name="DNSCheckButton"
                         Width="100"
                         Content="检测"
-                        IsEnabled="True" />
+                        IsEnabled="True"
+						Command="{Binding DNSCheckCommand}"/>
                 </ui:SettingsExpander.Footer>
 
                 <StackPanel Margin="24,0,0,0">
@@ -225,7 +224,7 @@
                         <TextBlock Text="待检测的域名" />
                         <ui:SettingsExpanderItem.Footer>
                             <TextBox
-                                x:Name="DomainTextBox"
+								Text="{Binding DomainPendingTest, Mode=TwoWay}"
                                 Width="200"
                                 Watermark="steamcommunity.com" />
                         </ui:SettingsExpanderItem.Footer>
