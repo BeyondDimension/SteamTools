@@ -238,28 +238,7 @@
                 </TabStrip.ItemTemplate>
             </TabStrip>
 
-            <DockPanel>
-                <TextBlock Text="{x:Static spp:Strings.CommunityFix_MenuName}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
-
-                <TextBlock
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Classes.NotSupport="{Binding Source={x:Static s:ProxyService.Current}, Path=IPv6AddresString, Mode=OneWay, Converter={StaticResource IsNullConverter}}"
-                    Classes.Support="{Binding Source={x:Static s:ProxyService.Current}, Path=IPv6AddresString, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
-                    Theme="{StaticResource CaptionTextBlockStyle}"
-                    ToolTip.Tip="{Binding Source={x:Static s:ProxyService.Current}, Path=IPv6AddresString, Mode=OneWay}">
-                    <TextBlock.Styles>
-                        <Style Selector="TextBlock.Support">
-                            <Setter Property="Text" Value="已支持 IPv6 访问" />
-                            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                        </Style>
-                        <Style Selector="TextBlock.NotSupport">
-                            <Setter Property="Text" Value="不支持 IPv6 访问" />
-                            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}" />
-                        </Style>
-                    </TextBlock.Styles>
-                </TextBlock>
-            </DockPanel>
+            <TextBlock Text="{x:Static spp:Strings.CommunityFix_MenuName}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
             <ToggleSwitch
                 VerticalAlignment="Center"

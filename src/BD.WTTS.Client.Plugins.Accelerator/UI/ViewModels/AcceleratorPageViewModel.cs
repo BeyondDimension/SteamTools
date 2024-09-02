@@ -124,6 +124,24 @@ public sealed partial class AcceleratorPageViewModel
             .IsExecuting
             .ToPropertyEx(this, x => x.IsDNSChecking);
 
+        IPv6CheckCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            var result = await IMicroServiceClient.Instance.Accelerate.GetMyIP(ipV6: true);
+            if (result.IsSuccess)
+            {
+                IsSupportIPv6 = true;
+                IPv6Address = result.Content ?? string.Empty;
+            }
+            else
+            {
+                IsSupportIPv6 = false;
+                IPv6Address = string.Empty;
+            }
+        });
+        IPv6CheckCommand
+            .IsExecuting
+            .ToPropertyEx(this, x => x.IsIPv6Checking);
+
         ProxySettingsCommand = ReactiveCommand.Create(() =>
         {
             var vm = new ProxySettingsWindowViewModel();

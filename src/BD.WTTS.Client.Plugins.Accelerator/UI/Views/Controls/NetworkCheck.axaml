@@ -326,6 +326,55 @@
 
                 </StackPanel>
             </ui:SettingsExpander>
+
+            <!--  IPV6  -->
+            <ui:SettingsExpander Header="IPv6 检测" IsExpanded="True">
+                <ui:SettingsExpander.IconSource>
+                    <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE968;" />
+                </ui:SettingsExpander.IconSource>
+                <ui:SettingsExpander.Footer>
+                    <Button
+                        Width="100"
+                        Command="{Binding IPv6CheckCommand}"
+                        Content="检测" />
+                </ui:SettingsExpander.Footer>
+
+                <ui:SettingsExpanderItem Content="支持情况">
+                    <ui:SettingsExpanderItem.Footer>
+                        <Grid>
+                            <ui:ProgressRing
+                                Width="22"
+                                Margin="0,-4,0,-10"
+                                IsVisible="{Binding IsIPv6Checking}" />
+                            <Grid IsVisible="{Binding !IsIPv6Checking}">
+                                <TextBlock
+                                    Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                                    IsVisible="{Binding IsSupportIPv6}"
+                                    Text="已支持 IPv6 访问" />
+                                <TextBlock
+                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                    IsVisible="{Binding !IsSupportIPv6}"
+                                    Text="不支持 IPv6 访问" />
+                            </Grid>
+                        </Grid>
+                    </ui:SettingsExpanderItem.Footer>
+                </ui:SettingsExpanderItem>
+
+                <ui:SettingsExpanderItem Content="IPv6 地址">
+                    <ui:SettingsExpanderItem.Footer>
+                        <Grid>
+                            <ui:ProgressRing
+                                Width="22"
+                                Margin="0,-4,0,-10"
+                                IsVisible="{Binding IsIPv6Checking}" />
+                            <SelectableTextBlock
+                                Foreground="Gray"
+                                IsVisible="{Binding !IsIPv6Checking}"
+                                Text="{Binding IPv6Address}" />
+                        </Grid>
+                    </ui:SettingsExpanderItem.Footer>
+                </ui:SettingsExpanderItem>
+            </ui:SettingsExpander>
         </StackPanel>
     </ScrollViewer>
 

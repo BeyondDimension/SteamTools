@@ -119,6 +119,9 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     [ObservableAsProperty]
     public bool IsDNSChecking { get; }
 
+    [ObservableAsProperty]
+    public bool IsIPv6Checking { get; }
+
     [Reactive]
     public string DomainPendingTest { get; set; } = string.Empty;
 
@@ -137,9 +140,17 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     [Reactive]
     public string DNSTestResult { get; set; } = string.Empty;
 
+    [Reactive]
+    public string IPv6Address { get; set; } = string.Empty;
+
+    [Reactive]
+    public bool IsSupportIPv6 { get; set; }
+
     public ReactiveCommand<Unit, (NatTypeSimple Nat, bool PingSuccess)> NATCheckCommand { get; }
 
     public ReactiveCommand<Unit, Unit> DNSCheckCommand { get; }
+
+    public ReactiveCommand<Unit, Unit> IPv6CheckCommand { get; }
 
     public ICommand StartProxyCommand { get; }
 
