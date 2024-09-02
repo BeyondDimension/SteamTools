@@ -39,7 +39,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
             {
                 if (string.IsNullOrEmpty(UISettings.StartDefaultPageName.Value))
                 {
-                    return s.Id == "Welcome";
+                    return s.Id == "Watt Toolkit-Welcome";
                 }
                 return s.Id == UISettings.StartDefaultPageName.Value;
             });
