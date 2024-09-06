@@ -17,15 +17,9 @@ public sealed partial class AcceleratorPageViewModel
 
     public AcceleratorPageViewModel()
     {
-        StartProxyCommand = ReactiveCommand.CreateFromTask(async _ =>
+        ProxyService.Current.OnStartOrStopProxyService += (_, start) =>
         {
-#if LINUX
-            if (!EnvironmentCheck()) return;
-#endif
-            //ProxyService.Current.ProxyStatus = !ProxyService.Current.ProxyStatus;
-            await ProxyService.Current.StartOrStopProxyService(!ProxyService.Current.ProxyStatus);
-
-            if (ProxyService.Current.ProxyStatus == false)
+            if (start == false)
                 return;
 
             // Create new ProxyEnableDomain for 加速服务 page
@@ -47,6 +41,15 @@ public sealed partial class AcceleratorPageViewModel
                 .ToList();
 
             EnableProxyDomainGroupVMs = enableGroupDomain.AsReadOnly();
+        };
+
+        StartProxyCommand = ReactiveCommand.CreateFromTask(async _ =>
+        {
+#if LINUX
+            if (!EnvironmentCheck()) return;
+#endif
+            //ProxyService.Current.ProxyStatus = !ProxyService.Current.ProxyStatus;
+            await ProxyService.Current.StartOrStopProxyService(!ProxyService.Current.ProxyStatus);
         });
 
         RefreshCommand = ReactiveCommand.Create(async () =>

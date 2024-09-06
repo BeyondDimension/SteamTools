@@ -114,6 +114,8 @@ public sealed partial class ProxyService
 
     public SourceList<ScriptDTO> ProxyScripts { get; }
 
+    public event EventHandler<bool>? OnStartOrStopProxyService;
+
     public async Task StartOrStopProxyService(bool startOrStop)
     {
         if (startOrStop == ProxyStatus)
@@ -153,6 +155,7 @@ public sealed partial class ProxyService
             ProxyStarting = false;
             ProxyStatus = startOrStop;
             IsAnyProxyScripts = ProxyStatus && IsEnableScript;
+            OnStartOrStopProxyService?.Invoke(this, startOrStop);
         }
     }
 
