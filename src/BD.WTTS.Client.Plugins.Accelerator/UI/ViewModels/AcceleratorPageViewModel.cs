@@ -20,7 +20,10 @@ public sealed partial class AcceleratorPageViewModel
         ProxyService.Current.OnStartOrStopProxyService += (_, start) =>
         {
             if (start == false)
+            {
+                EnableProxyDomainGroupVMs = null;
                 return;
+            }
 
             // Create new ProxyEnableDomain for 加速服务 page
             var enableGroupDomain = ProxyService.Current.ProxyDomainsList
@@ -113,8 +116,11 @@ public sealed partial class AcceleratorPageViewModel
                     var configDns = ProxySettings.ProxyMasterDns.Value ?? string.Empty;
                     (delayMs, address) = await networkTestService.TestDNSAsync(testDomain, configDns, 53);
                 }
+                if (address.Length == 0)
+                    throw new Exception("Parsing failed. Return empty ip address.");
+
                 DNSTestDelay = delayMs + "ms ";
-                DNSTestResult = "" + address.FirstOrDefault() ?? "0.0.0.0";
+                DNSTestResult = string.Empty + address.FirstOrDefault();
             }
             catch (Exception ex)
             {
