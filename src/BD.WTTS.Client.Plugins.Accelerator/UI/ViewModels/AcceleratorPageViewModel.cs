@@ -17,34 +17,30 @@ public sealed partial class AcceleratorPageViewModel
 
     public AcceleratorPageViewModel()
     {
-        ProxyService.Current.OnStartOrStopProxyService += (_, start) =>
-        {
-            if (start == false)
+        ProxyService.Current.WhenValueChanged(x => x.ProxyStatus)
+            .Where(x => x == true)
+            .Subscribe(_ =>
             {
-                EnableProxyDomainGroupVMs = null;
-                return;
-            }
+                // Create new ProxyEnableDomain for 加速服务 page
+                var enableGroupDomain = ProxyService.Current.ProxyDomainsList
+                    .Where(list => list.ThreeStateEnable == true || list.ThreeStateEnable == null)
+                    .Select(list => new ProxyDomainGroupViewModel
+                    {
+                        Name = list.Name,
+                        IconUrl = list.IconUrl ?? string.Empty,
+                        EnableProxyDomainVMs = new(
+                            list.Items!
+                                .Where(i => i.ThreeStateEnable == true)
+                                .Select(i => new ProxyDomainViewModel(i.Name, i.ProxyType, "https://" + i.ListenDomainNames.Split(";")[0],
+                                                                    i.Items?
+                                                                        .Select(c => new ProxyDomainViewModel(c.Name, c.ProxyType, "https://" + c.ListenDomainNames.Split(';')[0]))
+                                                                        .ToList()))
+                                .ToList()),
+                    })
+                    .ToList();
 
-            // Create new ProxyEnableDomain for 加速服务 page
-            var enableGroupDomain = ProxyService.Current.ProxyDomainsList
-                .Where(list => list.ThreeStateEnable == true || list.ThreeStateEnable == null)
-                .Select(list => new ProxyDomainGroupViewModel
-                {
-                    Name = list.Name,
-                    IconUrl = list.IconUrl ?? string.Empty,
-                    EnableProxyDomainVMs = new(
-                        list.Items!
-                            .Where(i => i.ThreeStateEnable == true)
-                            .Select(i => new ProxyDomainViewModel(i.Name, i.ProxyType, "https://" + i.ListenDomainNames.Split(";")[0],
-                                                                i.Items?
-                                                                    .Select(c => new ProxyDomainViewModel(c.Name, c.ProxyType, "https://" + c.ListenDomainNames.Split(';')[0]))
-                                                                    .ToList()))
-                            .ToList()),
-                })
-                .ToList();
-
-            EnableProxyDomainGroupVMs = enableGroupDomain.AsReadOnly();
-        };
+                EnableProxyDomainGroupVMs = enableGroupDomain.AsReadOnly();
+            });
 
         StartProxyCommand = ReactiveCommand.CreateFromTask(async _ =>
         {
