@@ -973,7 +973,7 @@
         },
         {
           "TypeName": "string",
-          "PropertyName": "CustomDohAddres",
+          "PropertyName": "CustomDohAddres2",
           "DefaultValue": "null",
           "DefaultValueIsConst": true,
           "Summary": "自定义 DNS over HTTPS 地址",

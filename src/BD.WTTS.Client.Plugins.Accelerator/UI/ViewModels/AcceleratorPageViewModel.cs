@@ -17,6 +17,31 @@ public sealed partial class AcceleratorPageViewModel
 
     public AcceleratorPageViewModel()
     {
+        ProxyService.Current.WhenValueChanged(x => x.ProxyStatus)
+            .Where(x => x == true)
+            .Subscribe(_ =>
+            {
+                // Create new ProxyEnableDomain for 加速服务 page
+                var enableGroupDomain = ProxyService.Current.ProxyDomainsList
+                    .Where(list => list.ThreeStateEnable == true || list.ThreeStateEnable == null)
+                    .Select(list => new ProxyDomainGroupViewModel
+                    {
+                        Name = list.Name,
+                        IconUrl = list.IconUrl ?? string.Empty,
+                        EnableProxyDomainVMs = new(
+                            list.Items!
+                                .Where(i => i.ThreeStateEnable == true)
+                                .Select(i => new ProxyDomainViewModel(i.Name, i.ProxyType, "https://" + i.ListenDomainNames.Split(";")[0],
+                                                                    i.Items?
+                                                                        .Select(c => new ProxyDomainViewModel(c.Name, c.ProxyType, "https://" + c.ListenDomainNames.Split(';')[0]))
+                                                                        .ToList()))
+                                .ToList()),
+                    })
+                    .ToList();
+
+                EnableProxyDomainGroupVMs = enableGroupDomain.AsReadOnly();
+            });
+
         StartProxyCommand = ReactiveCommand.CreateFromTask(async _ =>
         {
 #if LINUX
@@ -24,29 +49,6 @@ public sealed partial class AcceleratorPageViewModel
 #endif
             //ProxyService.Current.ProxyStatus = !ProxyService.Current.ProxyStatus;
             await ProxyService.Current.StartOrStopProxyService(!ProxyService.Current.ProxyStatus);
-
-            if (ProxyService.Current.ProxyStatus == false)
-                return;
-
-            // Create new ProxyEnableDomain for 加速服务 page
-            var enableGroupDomain = ProxyService.Current.ProxyDomainsList
-                .Where(list => list.ThreeStateEnable == true || list.ThreeStateEnable == null)
-                .Select(list => new ProxyDomainGroupViewModel
-                {
-                    Name = list.Name,
-                    IconUrl = list.IconUrl ?? string.Empty,
-                    EnableProxyDomainVMs = new(
-                        list.Items!
-                            .Where(i => i.ThreeStateEnable == true)
-                            .Select(i => new ProxyDomainViewModel(i.Name, i.ProxyType, "https://" + i.ListenDomainNames.Split(";")[0],
-                                                                i.Items?
-                                                                    .Select(c => new ProxyDomainViewModel(c.Name, c.ProxyType, "https://" + c.ListenDomainNames.Split(';')[0]))
-                                                                    .ToList()))
-                            .ToList()),
-                })
-                .ToList();
-
-            EnableProxyDomainGroupVMs = enableGroupDomain.AsReadOnly();
         });
 
         RefreshCommand = ReactiveCommand.Create(async () =>
@@ -102,7 +104,7 @@ public sealed partial class AcceleratorPageViewModel
                 IPAddress[] address;
                 if (ProxySettings.UseDoh)
                 {
-                    var configDoh = ProxySettings.CustomDohAddres.Value ?? ProxySettingsWindowViewModel.DohAddress.FirstOrDefault() ?? string.Empty;
+                    var configDoh = ProxySettings.CustomDohAddres2.Value ?? ProxySettingsWindowViewModel.DohAddress.FirstOrDefault() ?? string.Empty;
                     (delayMs, address) = await networkTestService.TestDNSOverHttpsAsync(testDomain, configDoh);
                 }
                 else
@@ -110,8 +112,11 @@ public sealed partial class AcceleratorPageViewModel
                     var configDns = ProxySettings.ProxyMasterDns.Value ?? string.Empty;
                     (delayMs, address) = await networkTestService.TestDNSAsync(testDomain, configDns, 53);
                 }
+                if (address.Length == 0)
+                    throw new Exception("Parsing failed. Return empty ip address.");
+
                 DNSTestDelay = delayMs + "ms ";
-                DNSTestResult = "" + address.FirstOrDefault() ?? "0.0.0.0";
+                DNSTestResult = string.Empty + address.FirstOrDefault();
             }
             catch (Exception ex)
             {

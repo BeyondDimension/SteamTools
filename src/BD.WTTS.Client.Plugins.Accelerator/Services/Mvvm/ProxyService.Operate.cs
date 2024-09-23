@@ -64,7 +64,7 @@ partial class ProxyService
         string? proxyDNS = ProxySettings.ProxyMasterDns.Value;
         bool isSupportIpv6 = await RefreshIpv6Support();
         bool useDoh = ProxySettings.UseDoh.Value;
-        string? customDohAddres = ProxySettings.CustomDohAddres.Value;
+        string? customDohAddres = ProxySettings.CustomDohAddres2.Value;
 
         Lazy<IPAddress> proxyIp_ = new(() => ReverseProxySettings.GetProxyIp(proxyIp));
         void SetProxyIp(IPAddress proxyIPAddress)
@@ -120,6 +120,9 @@ partial class ProxyService
 
         switch (proxyMode)
         {
+#if REMOVE_DNS_INTERCEPT
+            case ProxyMode.DNSIntercept:
+#endif
             case ProxyMode.Hosts:
                 var inUsePort = SocketHelper.IsUsePort(proxyIp_.Value, httpsPort);
                 if (inUsePort)
@@ -186,7 +189,7 @@ partial class ProxyService
                     return Strings.CommunityFix_SetAsSystemPACProxyFail;
                 }
                 break;
-#if WINDOWS
+#if WINDOWS && !REMOVE_DNS_INTERCEPT
             case ProxyMode.DNSIntercept:
                 {
                     await Mobius.Helpers.WinDivertInitHelper.InitializeAsync();
@@ -315,6 +318,9 @@ partial class ProxyService
 #endif
         switch (proxyMode) // 先停止接入代理流量
         {
+#if REMOVE_DNS_INTERCEPT
+            case ProxyMode.DNSIntercept:
+#endif
             case ProxyMode.Hosts:
                 var needClear = hostsFileService.ContainsHostsByTag();
                 if (needClear)
@@ -351,7 +357,7 @@ partial class ProxyService
                     await platformService.SetAsSystemPACProxyAsync(false);
                 }
                 break;
-#if WINDOWS
+#if WINDOWS && !REMOVE_DNS_INTERCEPT
             case ProxyMode.DNSIntercept:
                 {
                     // 停止时也调用初始化

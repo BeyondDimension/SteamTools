@@ -61,6 +61,10 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
         {
             Install(host);
         }
+        else
+        {
+            Log.Error("SnackbarManager", "Install Faild, host is null");
+        }
 
         UpdatePseudoClasses(Position);
     }

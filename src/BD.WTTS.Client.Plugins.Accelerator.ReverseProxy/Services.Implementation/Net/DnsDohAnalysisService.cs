@@ -24,7 +24,7 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
     {
     }
 
-    public const string DefaultDohAddres = Dnspod_DohAddres;
+    public const string DefaultDohAddres = Dnspod_DohAddres2;
 
     static Uri GetDohAddres(string? dohAddres)
     {
