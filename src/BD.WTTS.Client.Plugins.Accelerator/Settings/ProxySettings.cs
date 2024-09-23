@@ -195,7 +195,7 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     /// 自定义 DNS over HTTPS 地址
     /// </summary>
     [MPKey(22), MP2Key(22), JsonPropertyOrder(22)]
-    public string? CustomDohAddres { get; set; } = IProxySettings.DefaultCustomDohAddres;
+    public string? CustomDohAddres2 { get; set; } = IProxySettings.DefaultCustomDohAddres2;
 
     /// <summary>
     /// 加速页面 Tab 选项卡选中下标
@@ -368,8 +368,8 @@ public static partial class ProxySettings
     /// <summary>
     /// 自定义 DNS over HTTPS 地址
     /// </summary>
-    public static SettingsProperty<string, ProxySettings_> CustomDohAddres { get; }
-        = new(DefaultCustomDohAddres);
+    public static SettingsProperty<string, ProxySettings_> CustomDohAddres2 { get; }
+        = new(DefaultCustomDohAddres2);
 
     /// <summary>
     /// 加速页面 Tab 选项卡选中下标

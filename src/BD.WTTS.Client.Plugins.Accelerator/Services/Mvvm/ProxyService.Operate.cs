@@ -64,7 +64,7 @@ partial class ProxyService
         string? proxyDNS = ProxySettings.ProxyMasterDns.Value;
         bool isSupportIpv6 = await RefreshIpv6Support();
         bool useDoh = ProxySettings.UseDoh.Value;
-        string? customDohAddres = ProxySettings.CustomDohAddres.Value;
+        string? customDohAddres = ProxySettings.CustomDohAddres2.Value;
 
         Lazy<IPAddress> proxyIp_ = new(() => ReverseProxySettings.GetProxyIp(proxyIp));
         void SetProxyIp(IPAddress proxyIPAddress)

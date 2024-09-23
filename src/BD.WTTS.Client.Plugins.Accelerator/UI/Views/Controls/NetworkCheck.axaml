@@ -285,7 +285,7 @@
                                 IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}"
                                 ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.DohAddress}}"
                                 PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres}, Mode=OneWay}"
-                                Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres}, Path=Value, Mode=TwoWay}" />
+                                Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres2}, Path=Value, Mode=TwoWay}" />
                         </ui:SettingsExpanderItem.Footer>
                     </ui:SettingsExpanderItem>
 

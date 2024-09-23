@@ -102,7 +102,7 @@ public sealed partial class AcceleratorPageViewModel
                 IPAddress[] address;
                 if (ProxySettings.UseDoh)
                 {
-                    var configDoh = ProxySettings.CustomDohAddres.Value ?? ProxySettingsWindowViewModel.DohAddress.FirstOrDefault() ?? string.Empty;
+                    var configDoh = ProxySettings.CustomDohAddres2.Value ?? ProxySettingsWindowViewModel.DohAddress.FirstOrDefault() ?? string.Empty;
                     (delayMs, address) = await networkTestService.TestDNSOverHttpsAsync(testDomain, configDoh);
                 }
                 else

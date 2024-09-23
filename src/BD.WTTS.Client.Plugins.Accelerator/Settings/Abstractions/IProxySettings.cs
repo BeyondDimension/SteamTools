@@ -153,7 +153,7 @@ public partial interface IProxySettings
     /// <summary>
     /// 自定义 DNS over HTTPS 地址
     /// </summary>
-    string? CustomDohAddres { get; set; }
+    string? CustomDohAddres2 { get; set; }
 
     /// <summary>
     /// 加速页面 Tab 选项卡选中下标
@@ -278,7 +278,7 @@ public partial interface IProxySettings
     /// <summary>
     /// 自定义 DNS over HTTPS 地址的默认值
     /// </summary>
-    const string? DefaultCustomDohAddres = null;
+    const string? DefaultCustomDohAddres2 = null;
 
     /// <summary>
     /// 加速页面 Tab 选项卡选中下标的默认值
