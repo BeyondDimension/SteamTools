@@ -28,9 +28,9 @@ public sealed class NoticeService : ReactiveObject
     {
         Notices = new ObservableCollection<OfficialMessageItemDTO>();
 
-        _timer = new Timer(async _ =>
+        _timer = new Timer(_ =>
         {
-            await GetNewsAsync();
+            GetNewsAsync().Wait();
         }, null, TimeSpan.FromHours(2), TimeSpan.FromHours(2));
 
         //NoticesSource = new(x => x.Id);
@@ -60,7 +60,6 @@ public sealed class NoticeService : ReactiveObject
                 if (item.PushTime > GeneralSettings.LastLookNoticeDateTime.Value)
                 {
                     item.Unread = true;
-
                     UnreadNotificationsCount++;
                 }
             }
@@ -75,6 +74,7 @@ public sealed class NoticeService : ReactiveObject
                 //}
                 var notice = Notices.First(x => x.Unread == true);
                 INotificationService.Instance.Notify(notice.Content, NotificationType.Announcement, title: notice.Title);
+                GeneralSettings.LastLookNoticeDateTime.Value = DateTimeOffset.Now;
             }
         }
     }
