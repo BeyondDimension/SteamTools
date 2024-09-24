@@ -89,7 +89,7 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
         }
     }
 
-    public override void Reset()
+    public override void Reset(bool save = true)
     {
         var oldValue = value;
         value = Default; // 赋值当前字段
@@ -97,7 +97,7 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
 
         OnValueChanged(oldValue, value); // 调用变更事件
 
-        if (AutoSave) // 自动保存
+        if (save && AutoSave) // 自动保存
         {
             Save();
         }

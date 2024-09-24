@@ -12,7 +12,7 @@ public abstract class SettingsPropertyBase
 
     public abstract void RaiseValueChanged(bool notSave = false);
 
-    public abstract void Reset();
+    public abstract void Reset(bool save = true);
 
     static readonly Dictionary<Type, List<string>> SettingsProperties = new();
     static readonly Dictionary<(Type SettingsType, string PropertyName), bool?> SaveNameStatus = new();

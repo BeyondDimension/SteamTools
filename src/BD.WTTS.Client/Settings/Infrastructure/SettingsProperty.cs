@@ -136,7 +136,7 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
         }
     }
 
-    public override void Reset()
+    public override void Reset(bool save = true)
     {
         var oldValue = value;
         value = Default; // 赋值当前字段
@@ -144,7 +144,7 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
 
         OnValueChanged(oldValue, value); // 调用变更事件
 
-        if (AutoSave) // 自动保存
+        if (save && AutoSave) // 自动保存
         {
             Save();
         }

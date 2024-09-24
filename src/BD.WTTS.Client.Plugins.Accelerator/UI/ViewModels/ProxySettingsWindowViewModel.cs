@@ -47,13 +47,17 @@ public sealed class ProxySettingsWindowViewModel : WindowViewModel
 
     public void ResetSettings()
     {
-        ProxySettings.SystemProxyIp.Reset();
-        ProxySettings.ProxyMasterDns.Reset();
-        ProxySettings.SystemProxyPortId.Reset();
-        ProxySettings.ProgramStartupRunProxy.Reset();
-        ProxySettings.EnableHttpProxyToHttps.Reset();
-        ProxySettings.UseDoh.Reset();
-        ProxySettings.CustomDohAddres2.Reset();
-        ProxySettings.OnlyEnableProxyScript.Reset();
+        // 更改多个设置项不立即保存
+        ProxySettings.SystemProxyIp.Reset(save: false);
+        ProxySettings.ProxyMasterDns.Reset(save: false);
+        ProxySettings.SystemProxyPortId.Reset(save: false);
+        ProxySettings.ProgramStartupRunProxy.Reset(save: false);
+        ProxySettings.EnableHttpProxyToHttps.Reset(save: false);
+        ProxySettings.UseDoh.Reset(save: false);
+        ProxySettings.CustomDohAddres2.Reset(save: false);
+        ProxySettings.OnlyEnableProxyScript.Reset(save: false);
+
+        // 更改完成后保存一次
+        ProxySettings.OnlyEnableProxyScript.Save();
     }
 }
