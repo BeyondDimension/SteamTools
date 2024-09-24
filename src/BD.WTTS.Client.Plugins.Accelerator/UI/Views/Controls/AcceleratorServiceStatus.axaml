@@ -77,7 +77,8 @@
                                                     DockPanel.Dock="Right"
                                                     Foreground="{Binding DelayColor}"
                                                     Text="{Binding DelayMillseconds}"
-                                                    ToolTip.Tip="此数值代表测试网页打开访问所需时间，仅供参考" />
+                                                    ToolTip.ShowDelay="0"
+                                                    ToolTip.Tip="此数值代表测试网页打开访问所需时间，请以实际浏览器访问网页状况为准" />
                                             </DockPanel>
                                         </TreeDataTemplate>
                                     </TreeView.ItemTemplate>

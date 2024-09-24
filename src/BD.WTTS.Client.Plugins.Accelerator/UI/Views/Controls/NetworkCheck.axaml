@@ -67,7 +67,8 @@
                                 <ui:FontIcon
                                     Margin="3,0"
                                     FontSize="20"
-                                    Glyph="&#xE946;">
+                                    Glyph="&#xE946;"
+                                    ToolTip.ShowDelay="0">
                                     <ToolTip.Tip>
                                         <TextBlock x:Name="NATTypeTip" Text="未知类型" />
                                     </ToolTip.Tip>
@@ -210,7 +211,7 @@
                 <ui:SettingsExpanderItem Content="待检测的域名">
                     <ui:SettingsExpanderItem.Footer>
                         <TextBox
-                            Width="200"
+                            Width="220"
                             Text="{Binding DomainPendingTest, Mode=TwoWay}"
                             Watermark="store.steampowered.com" />
                     </ui:SettingsExpanderItem.Footer>
@@ -219,7 +220,7 @@
                 <ui:SettingsExpanderItem Content="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <ui:SettingsExpanderItem.Footer>
                         <ui:FAComboBox
-                            Width="200"
+                            Width="220"
                             IsEditable="True"
                             IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}"
                             ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.ProxyDNSs}}"
@@ -233,18 +234,18 @@
                     </ui:SettingsExpanderItem.Footer>
                 </ui:SettingsExpanderItem>
 
-                    <ui:SettingsExpanderItem Background="Transparent">
-                        <TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:SettingsExpanderItem.Footer>
-                            <ui:FAComboBox
-                                Width="200"
-                                IsEditable="True"
-                                IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}"
-                                ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.DohAddress}}"
-                                PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres}, Mode=OneWay}"
-                                Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres2}, Path=Value, Mode=TwoWay}" />
-                        </ui:SettingsExpanderItem.Footer>
-                    </ui:SettingsExpanderItem>
+                <ui:SettingsExpanderItem>
+                    <TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <ui:SettingsExpanderItem.Footer>
+                        <ui:FAComboBox
+                            Width="220"
+                            IsEditable="True"
+                            IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}"
+                            ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.DohAddress}}"
+                            PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres2}, Mode=OneWay}"
+                            Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres2}, Path=Value, Mode=TwoWay}" />
+                    </ui:SettingsExpanderItem.Footer>
+                </ui:SettingsExpanderItem>
 
                 <TextBlock
                     Margin="-28,0,0,-4"

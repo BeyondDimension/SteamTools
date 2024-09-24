@@ -81,7 +81,7 @@
                         IsEditable="True"
                         IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}"
                         ItemsSource="{Binding DohAddress}"
-                        PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres}, Mode=OneWay}"
+                        PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres2}, Mode=OneWay}"
                         Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres2}, Path=Value, Mode=TwoWay}" />
                 </ui:SettingsExpanderItem.Footer>
             </ui:SettingsExpanderItem>
