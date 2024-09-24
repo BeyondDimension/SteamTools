@@ -97,6 +97,7 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
                         NetworkCheckControl.PingError.IsVisible = true;
                     }
                 }).DisposeWith(disposables);
+            ViewModel.IPv6CheckCommand.Execute().Subscribe();
         });
 
         SearchGameBox.DropDownClosed += SearchGameBox_DropDownClosed;
