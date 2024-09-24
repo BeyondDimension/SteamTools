@@ -15,7 +15,9 @@
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
         <ui:SettingsExpander Header="{Binding Path=Res.CommunityFix_ProxySettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsExpanded="True">
-
+            <ui:SettingsExpander.Footer>
+                <Button Command="{Binding ResetSettings}" Content="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </ui:SettingsExpander.Footer>
             <ui:SettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.Settings_Proxy_SystemProxyIp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <ui:SettingsExpanderItem.Footer>

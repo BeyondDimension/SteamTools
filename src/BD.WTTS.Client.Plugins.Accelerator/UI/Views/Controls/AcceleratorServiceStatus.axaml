@@ -24,7 +24,7 @@
             </ItemsControl.ItemsPanel>
 
             <ItemsControl.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="spp:ProxyDomainGroupViewModel">
                     <Border>
                         <ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
                             <ui:SettingsExpander.Header>

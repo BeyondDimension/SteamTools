@@ -403,7 +403,7 @@
     </spp:PageBase.PaneContent>
     <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,*">
         <Grid.Resources>
-            <sys:Double x:Key="AdaptiveWidth">800</sys:Double>
+            <sys:Double x:Key="AdaptiveWidth">900</sys:Double>
         </Grid.Resources>
         <Grid.Styles>
             <Style Selector="StackPanel.small">
@@ -790,7 +790,7 @@
                         <Run Text="A：可以尝试执行以下操作进行修复，关闭加速，点击加速设置-移除证书再安装证书，重开加速。或者加速设置 - 代理设置- 尝试更换 doh 地址或者关闭 doh 使用 dns 等方案。" />
                         <LineBreak />
                         <LineBreak />
-                        <Run FontSize="16" Text="Q：为什么加速经常不可用？还要自己去改设置安装证书？" />
+                        <Run FontSize="16" Text="Q：为什么加速经常不可用？还要自己去改设置或重新安装证书？" />
                         <LineBreak />
                         <Run Text="A：Steam++ 的加速与游戏加速器的加速功能不同，加速是完全运行于你电脑本地的，所以会受到你电脑本地网络环境，系统环境各种因素影响，也正因如此才有这么多加速相关的选项，请合理根据情况适进行测试以及更改对应的选项以便加速能正常使用。" />
                     </TextBlock>

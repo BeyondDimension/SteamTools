@@ -44,4 +44,16 @@ public sealed class ProxySettingsWindowViewModel : WindowViewModel
             DohAddres_360,
             TUNA_DohAddres,
         };
+
+    public void ResetSettings()
+    {
+        ProxySettings.SystemProxyIp.Reset();
+        ProxySettings.ProxyMasterDns.Reset();
+        ProxySettings.SystemProxyPortId.Reset();
+        ProxySettings.ProgramStartupRunProxy.Reset();
+        ProxySettings.EnableHttpProxyToHttps.Reset();
+        ProxySettings.UseDoh.Reset();
+        ProxySettings.CustomDohAddres2.Reset();
+        ProxySettings.OnlyEnableProxyScript.Reset();
+    }
 }
