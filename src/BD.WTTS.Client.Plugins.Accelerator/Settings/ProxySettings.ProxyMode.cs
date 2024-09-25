@@ -11,9 +11,7 @@ public static partial class ProxySettings
     {
 #if WINDOWS
         yield return EProxyMode.Hosts;
-#if !REMOVE_DNS_INTERCEPT
         yield return EProxyMode.DNSIntercept;
-#endif
         yield return EProxyMode.PAC;
         yield return EProxyMode.System;
 #elif ANDROID

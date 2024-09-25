@@ -1,6 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/Dns/DnsInterceptor.cs
 
-#if WINDOWS && !REMOVE_DNS_INTERCEPT
+#if WINDOWS
 
 using WinDivertSharp;
 using DNS.Protocol;
