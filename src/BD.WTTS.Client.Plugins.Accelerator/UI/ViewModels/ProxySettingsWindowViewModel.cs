@@ -59,5 +59,7 @@ public sealed class ProxySettingsWindowViewModel : WindowViewModel
 
         // 更改完成后保存一次
         ProxySettings.OnlyEnableProxyScript.Save();
+
+        Toast.Show(ToastIcon.Success, "重置成功");
     }
 }
