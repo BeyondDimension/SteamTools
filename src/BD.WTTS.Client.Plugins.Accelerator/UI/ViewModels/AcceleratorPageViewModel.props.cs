@@ -4,6 +4,20 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class AcceleratorPageViewModel : TabItemViewModel
 {
+    [GeneratedRegex(DomainValidationAttribute.RegPattern)]
+    private static partial Regex DomainRegExp();
+
+    public class DomainValidationAttribute : RegularExpressionAttribute
+    {
+        public const string RegPattern = @"^[^/]+\.[^/]{2,}$";
+
+        public override string FormatErrorMessage(string name) => "请填入不带分隔符 \"/\" 的域名";
+
+        public DomainValidationAttribute() : base(RegPattern)
+        {
+        }
+    }
+
     public enum NatTypeSimple
     {
         Unknown,
@@ -13,6 +27,8 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     }
 
     public override string Name => Strings.Welcome;
+
+    public string DefaultTestDomain { get; } = "store.steampowered.com";
 
     [Reactive]
     public string SelectedSTUNAddress { get; set; }
@@ -34,6 +50,7 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     [ObservableAsProperty]
     public bool IsIPv6Checking { get; }
 
+    [DomainValidation]
     [Reactive]
     public string DomainPendingTest { get; set; } = string.Empty;
 

@@ -95,9 +95,11 @@ public sealed partial class AcceleratorPageViewModel
             .IsExecuting
             .ToPropertyEx(this, x => x.IsNATChecking);
 
+        var canDNSCheck = this.WhenAnyValue(x => x.DomainPendingTest)
+            .Select(domain => domain == string.Empty || DomainRegExp().IsMatch(domain));
         DNSCheckCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            var testDomain = DomainPendingTest == string.Empty ? "store.steampowered.com" : DomainPendingTest;
+            var testDomain = DomainPendingTest == string.Empty ? DefaultTestDomain : DomainPendingTest;
             try
             {
                 long delayMs;
@@ -124,7 +126,7 @@ public sealed partial class AcceleratorPageViewModel
                 DNSTestDelay = string.Empty;
                 DNSTestResult = "error";
             }
-        });
+        }, canDNSCheck);
         DNSCheckCommand
             .IsExecuting
             .ToPropertyEx(this, x => x.IsDNSChecking);
