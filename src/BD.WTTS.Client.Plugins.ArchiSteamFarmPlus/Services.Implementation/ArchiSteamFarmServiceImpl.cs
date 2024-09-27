@@ -27,6 +27,8 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
     {
     }
 
+    public static int? ASFProcessId { get; private set; }
+
     public Process? ASFProcess { get; set; }
 
     public event Action<string>? OnConsoleWirteLine;
@@ -89,26 +91,48 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
     {
         var isStartSuccess = false;
         var ipcUrl = string.Empty;
-        try
+
+        if (ASFProcess != null || string.IsNullOrEmpty(SharedInfo.ASFExecuteFilePath))
         {
-            if (ASFProcess != null || string.IsNullOrEmpty(SharedInfo.ASFExecuteFilePath))
-            {
-                Toast.Show(ToastIcon.Error, BDStrings.ASF_SelectASFExePath);
-                return (isStartSuccess, ipcUrl);
-            }
+            Toast.Show(ToastIcon.Error, BDStrings.ASF_SelectASFExePath);
+            return (isStartSuccess, ipcUrl);
+        }
 
-            if (ASFSettings.CheckArchiSteamFarmExe && !await CheckFileConsistence()) // 检查文件是否被篡改
-            {
-                Toast.Show(ToastIcon.Error, BDStrings.ASF_ExecuteFileUnsafe);
-                return (isStartSuccess, ipcUrl);
-            }
+        if (ASFSettings.CheckArchiSteamFarmExe && !await CheckFileConsistence()) // 检查文件是否被篡改
+        {
+            Toast.Show(ToastIcon.Error, BDStrings.ASF_ExecuteFileUnsafe);
+            return (isStartSuccess, ipcUrl);
+        }
 
-            ipcUrl = GetIPCUrl();
-            webApiService.SetIPCUrl(ipcUrl); // 设置 IPC 接口地址
+        ipcUrl = GetIPCUrl();
+        webApiService.SetIPCUrl(ipcUrl); // 设置 IPC 接口地址
 
-            KillASFProcess(); // 杀死未关闭的 ASF 进程
+        KillASFProcess(); // 杀死未关闭的 ASF 进程
 
-            var options = new ProcessStartInfo(SharedInfo.ASFExecuteFilePath);
+        ASFProcess = StartAsync(SharedInfo.ASFExecuteFilePath);
+        ASFProcessId = ASFProcess?.Id;
+
+        ASFService.Current.ConsoleLogText = string.Empty;
+        Task2.InBackground(ReadOutPutData, true);
+        AppDomain.CurrentDomain.ProcessExit += ExitHandler;
+        AppDomain.CurrentDomain.UnhandledException += ExitHandler;
+
+        ASFProcess!.ErrorDataReceived += new DataReceivedEventHandler(ExitHandler);
+        ASFProcess.BeginErrorReadLine();
+
+        using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+        while (
+            !(isStartSuccess = SocketHelper.IsUsePort(CurrentIPCPortValue)) &&
+            !cancellationTokenSource.IsCancellationRequested)
+        {
+            await Task.Delay(1000);
+            continue;
+        }
+        return (isStartSuccess, ipcUrl);
+
+        Process? StartAsync(string fileName)
+        {
+            var options = new ProcessStartInfo(fileName);
             options.CreateNoWindow = true;
             options.UseShellExecute = false;
             options.RedirectStandardOutput = true;
@@ -120,26 +144,8 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
                 options.ArgumentList.Add("--CRYPTKEY");
                 options.ArgumentList.Add(EncryptionKey);
             }
-            ASFProcess = Process.Start(options);
-
-            ASFService.Current.ConsoleLogText = string.Empty;
-            Task2.InBackground(ReadOutPutData, true);
-            AppDomain.CurrentDomain.ProcessExit += ExitHandler;
-            AppDomain.CurrentDomain.UnhandledException += ExitHandler;
-
-            ASFProcess!.ErrorDataReceived += new DataReceivedEventHandler(ExitHandler);
-            ASFProcess.BeginErrorReadLine();
-            while (!SocketHelper.IsUsePort(CurrentIPCPortValue))
-            {
-                Thread.Sleep(1000);
-                continue;
-            }
-            isStartSuccess = true;
+            return Process.Start(options);
         }
-        catch (Exception)
-        {
-        }
-        return (isStartSuccess, ipcUrl);
     }
 
     private void KillASFProcess()

@@ -156,8 +156,20 @@ public sealed class ASFService : ReactiveObject
 
     public void OpenFolder(string tag)
     {
-        if (!Enum.TryParse<EPathFolder>(tag, true, out var folderASFPath)) return;
-        var folderASFPathValue = folderASFPath.GetFolderPath();
+        if (string.IsNullOrEmpty(ASFSettings.ArchiSteamFarmExePath.Value))
+        {
+            Toast.Show(ToastIcon.Error, BDStrings.ASF_SetExePathFirst);
+            return;
+        }
+
+        string folderASFPathValue = string.Empty;
+        if (!Enum.TryParse<EPathFolder>(tag, true, out var folderASFPath) ||
+            !Path.Exists(folderASFPathValue = folderASFPath.GetFolderPath()))
+        {
+            Toast.Show(ToastIcon.Error, BDStrings.ASF_SelectASFExePath);
+            return;
+        }
+
         IPlatformService.Instance.OpenFolder(folderASFPathValue);
     }
 

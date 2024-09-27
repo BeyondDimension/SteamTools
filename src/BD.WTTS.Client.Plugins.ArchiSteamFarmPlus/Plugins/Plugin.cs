@@ -113,4 +113,22 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     {
         yield return GetConfiguration<ASFSettings_>(directoryExists);
     }
+
+    public override async ValueTask OnExit()
+    {
+        if (ArchiSteamFarmServiceImpl.ASFProcessId.HasValue)
+        {
+            try
+            {
+                var process = Process.GetProcessById(ArchiSteamFarmServiceImpl.ASFProcessId.Value);
+                process.Kill();
+                process.Dispose();
+            }
+            catch (ArgumentException)
+            {
+                // 进程已经退出
+            }
+        }
+        await base.OnExit();
+    }
 }

@@ -32,7 +32,9 @@ static class SharedInfo
     {
         get
         {
-            return Path.GetDirectoryName(ASFSettingsExecuteFilePath) ?? string.Empty;
+            return !string.IsNullOrWhiteSpace(ASFSettingsExecuteFilePath)
+                ? Path.GetDirectoryName(ASFSettingsExecuteFilePath) ?? string.Empty
+                : string.Empty;
         }
     }
 
