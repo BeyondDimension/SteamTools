@@ -4,12 +4,13 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class AcceleratorPageViewModel : TabItemViewModel
 {
-    public enum NatTypeSimple
+    public record NATFetchResult(string PublicEndPoint, string LocalEndPoint, string NATLevel, string NATTypeTip, bool PingResult);
+
+    public enum PingStatus
     {
-        Unknown,
-        Open,
-        Moderate,
-        Strict,
+        Blank,
+        Ok,
+        Error,
     }
 
     public override string Name => Strings.Welcome;
@@ -24,6 +25,21 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
         "stun.fitauto.ru",
         "stun.miwifi.com",
     ];
+
+    [ObservableAsProperty]
+    public string NATLevel { get; } = string.Empty;
+
+    [ObservableAsProperty]
+    public string NATTypeTip { get; } = string.Empty;
+
+    [ObservableAsProperty]
+    public string LocalEndPoint { get; set; } = string.Empty;
+
+    [ObservableAsProperty]
+    public string PublicEndPoint { get; set; } = string.Empty;
+
+    [ObservableAsProperty]
+    public PingStatus PingResultStatus { get; }
 
     [ObservableAsProperty]
     public bool IsNATChecking { get; }
@@ -41,12 +57,6 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     public ReadOnlyCollection<ProxyDomainGroupViewModel>? EnableProxyDomainGroupVMs { get; set; }
 
     [Reactive]
-    public string LocalEndPoint { get; set; } = string.Empty;
-
-    [Reactive]
-    public string PublicEndPoint { get; set; } = string.Empty;
-
-    [Reactive]
     public string DNSTestDelay { get; set; } = string.Empty;
 
     [Reactive]
@@ -58,7 +68,7 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     [Reactive]
     public bool IsSupportIPv6 { get; set; }
 
-    public ReactiveCommand<Unit, (NatTypeSimple Nat, bool PingSuccess)> NATCheckCommand { get; }
+    public ReactiveCommand<Unit, NATFetchResult> NATCheckCommand { get; }
 
     public ReactiveCommand<Unit, Unit> DNSCheckCommand { get; }
 

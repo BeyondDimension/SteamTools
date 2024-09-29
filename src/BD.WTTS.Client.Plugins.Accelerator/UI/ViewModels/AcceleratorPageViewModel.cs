@@ -1,8 +1,5 @@
-using AppResources = BD.WTTS.Client.Resources.Strings;
-
 using BD.WTTS.UI.Views.Pages;
-using STUN.StunResult;
-using STUN.Enums;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -78,22 +75,47 @@ public sealed partial class AcceleratorPageViewModel
             var natCheckResult = await networkTestService.TestStunClient3489Async(testServerHostName: SelectedSTUNAddress) ?? new ClassicStunResult { NatType = NatType.Unknown };
             var (netSucc, _) = await networkTestService.TestOpenUrlAsync("https://www.baidu.com");
 
-            var natStatus = natCheckResult.NatType switch
+            var publicEndPoint = natCheckResult.PublicEndPoint?.Address.ToString() ?? "Unknown";
+            var localEndPoint = natCheckResult.LocalEndPoint?.Address.ToString() ?? "Unknown";
+
+            var (natLevel, natTypeTip) = natCheckResult.NatType switch
             {
-                NatType.OpenInternet or NatType.FullCone => NatTypeSimple.Open,
-                NatType.RestrictedCone or NatType.PortRestrictedCone or NatType.SymmetricUdpFirewall => NatTypeSimple.Moderate,
-                NatType.Symmetric or NatType.UdpBlocked => NatTypeSimple.Strict,
-                NatType.Unknown or NatType.UnsupportedServer or _ => NatTypeSimple.Unknown,
+                // Open
+                NatType.OpenInternet or NatType.FullCone => ("开放 NAT", "您可与在其网络上具有任意 NAT 类型的用户玩多人游戏和发起多人游戏。"),
+                // Moderate
+                NatType.RestrictedCone or NatType.PortRestrictedCone or NatType.SymmetricUdpFirewall => ("中等 NAT", "您可与一些用户玩多人游戏；但是，并且通常你将不会被选为比赛的主持人。"),
+                // Strict
+                NatType.Symmetric or NatType.UdpBlocked => ("严格 NAT", "您只能与具有开放 NAT 类型的用户玩多人游戏。您不能被选为比赛的主持人。"),
+                // Unknown
+                NatType.Unknown or NatType.UnsupportedServer or _ => ("不可用 NAT", "如果 NAT 不可用，您将无法使用群聊天或连接到某些 Xbox 游戏的多人游戏。"),
             };
 
-            PublicEndPoint = natCheckResult.PublicEndPoint?.Address.ToString() ?? "Unknown";
-            LocalEndPoint = natCheckResult.LocalEndPoint?.Address.ToString() ?? "Unknown";
-
-            return (natStatus, netSucc);
+            return new NATFetchResult(publicEndPoint, localEndPoint, natLevel, natTypeTip, netSucc);
         });
         NATCheckCommand
             .IsExecuting
             .ToPropertyEx(this, x => x.IsNATChecking);
+        NATCheckCommand
+            .Select(x => x.PublicEndPoint)
+            .ToPropertyEx(this, x => x.PublicEndPoint);
+        NATCheckCommand
+            .Select(x => x.LocalEndPoint)
+            .ToPropertyEx(this, x => x.LocalEndPoint);
+        NATCheckCommand
+            .Select(x => x.NATLevel)
+            .ToPropertyEx(this, x => x.NATLevel);
+        NATCheckCommand
+            .Select(x => x.NATTypeTip)
+            .ToPropertyEx(this, x => x.NATTypeTip);
+
+        var hidePingResultStream = NATCheckCommand
+            .IsExecuting
+            .Where(x => x == true)
+            .Select(x => PingStatus.Blank);
+        NATCheckCommand
+            .Select(x => x.PingResult == true ? PingStatus.Ok : PingStatus.Error)
+            .Merge(hidePingResultStream)
+            .ToPropertyEx(this, x => x.PingResultStatus);
 
         DNSCheckCommand = ReactiveCommand.CreateFromTask(async () =>
         {

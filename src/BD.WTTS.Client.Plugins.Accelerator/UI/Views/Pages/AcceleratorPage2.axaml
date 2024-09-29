@@ -648,7 +648,7 @@
             </Panel>
 
             <!--  网络检测  -->
-            <spp:NetworkCheck x:Name="NetworkCheckControl" />
+            <spp:NetworkCheck DataContext="{Binding NetworkCheckControlViewModel}" />
 
             <TabItem Content="dummy_tab_for_transisit_animation" />
         </Carousel>
