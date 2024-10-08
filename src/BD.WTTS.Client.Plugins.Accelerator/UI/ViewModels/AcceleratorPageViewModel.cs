@@ -5,12 +5,13 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class AcceleratorPageViewModel
 {
+    public NetworkCheckControlViewModel NetworkCheckControlViewModel { get; } = new();
+
     DateTime _initializeTime;
     readonly IHostsFileService? hostsFileService;
     readonly IPlatformService platformService = IPlatformService.Instance;
     readonly IReverseProxyService reverseProxyService = IReverseProxyService.Constants.Instance;
     readonly ICertificateManager certificateManager = ICertificateManager.Constants.Instance;
-    readonly INetworkTestService networkTestService = INetworkTestService.Instance;
 
     public AcceleratorPageViewModel()
     {
@@ -67,107 +68,6 @@ public sealed partial class AcceleratorPageViewModel
             // 刷新时重新加载迅游游戏数据
             GameAcceleratorService.Current.LoadGames();
         });
-
-        SelectedSTUNAddress = STUNAddress[0];
-
-        NATCheckCommand = ReactiveCommand.CreateFromTask(async () =>
-        {
-            var natCheckResult = await networkTestService.TestStunClient3489Async(testServerHostName: SelectedSTUNAddress) ?? new ClassicStunResult { NatType = NatType.Unknown };
-            var (netSucc, _) = await networkTestService.TestOpenUrlAsync("https://www.baidu.com");
-
-            var publicEndPoint = natCheckResult.PublicEndPoint?.Address.ToString() ?? "Unknown";
-            var localEndPoint = natCheckResult.LocalEndPoint?.Address.ToString() ?? "Unknown";
-
-            var (natLevel, natTypeTip) = natCheckResult.NatType switch
-            {
-                // Open
-                NatType.OpenInternet or NatType.FullCone => ("开放 NAT", "您可与在其网络上具有任意 NAT 类型的用户玩多人游戏和发起多人游戏。"),
-                // Moderate
-                NatType.RestrictedCone or NatType.PortRestrictedCone or NatType.SymmetricUdpFirewall => ("中等 NAT", "您可与一些用户玩多人游戏；但是，并且通常你将不会被选为比赛的主持人。"),
-                // Strict
-                NatType.Symmetric or NatType.UdpBlocked => ("严格 NAT", "您只能与具有开放 NAT 类型的用户玩多人游戏。您不能被选为比赛的主持人。"),
-                // Unknown
-                NatType.Unknown or NatType.UnsupportedServer or _ => ("不可用 NAT", "如果 NAT 不可用，您将无法使用群聊天或连接到某些 Xbox 游戏的多人游戏。"),
-            };
-
-            return new NATFetchResult(publicEndPoint, localEndPoint, natLevel, natTypeTip, netSucc);
-        });
-        NATCheckCommand
-            .IsExecuting
-            .ToPropertyEx(this, x => x.IsNATChecking);
-        NATCheckCommand
-            .Select(x => x.PublicEndPoint)
-            .ToPropertyEx(this, x => x.PublicEndPoint);
-        NATCheckCommand
-            .Select(x => x.LocalEndPoint)
-            .ToPropertyEx(this, x => x.LocalEndPoint);
-        NATCheckCommand
-            .Select(x => x.NATLevel)
-            .ToPropertyEx(this, x => x.NATLevel);
-        NATCheckCommand
-            .Select(x => x.NATTypeTip)
-            .ToPropertyEx(this, x => x.NATTypeTip);
-
-        var hidePingResultStream = NATCheckCommand
-            .IsExecuting
-            .Where(x => x == true)
-            .Select(x => PingStatus.Blank);
-        NATCheckCommand
-            .Select(x => x.PingResult == true ? PingStatus.Ok : PingStatus.Error)
-            .Merge(hidePingResultStream)
-            .ToPropertyEx(this, x => x.PingResultStatus);
-
-        DNSCheckCommand = ReactiveCommand.CreateFromTask(async () =>
-        {
-            var testDomain = DomainPendingTest == string.Empty ? "store.steampowered.com" : DomainPendingTest;
-            try
-            {
-                long delayMs;
-                IPAddress[] address;
-                if (ProxySettings.UseDoh)
-                {
-                    var configDoh = ProxySettings.CustomDohAddres2.Value ?? ProxySettingsWindowViewModel.DohAddress.FirstOrDefault() ?? string.Empty;
-                    (delayMs, address) = await networkTestService.TestDNSOverHttpsAsync(testDomain, configDoh);
-                }
-                else
-                {
-                    var configDns = ProxySettings.ProxyMasterDns.Value ?? string.Empty;
-                    (delayMs, address) = await networkTestService.TestDNSAsync(testDomain, configDns, 53);
-                }
-                if (address.Length == 0)
-                    throw new Exception("Parsing failed. Return empty ip address.");
-
-                DNSTestDelay = delayMs + "ms ";
-                DNSTestResult = string.Empty + address.FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(nameof(AcceleratorPageViewModel), ex.ToString());
-                DNSTestDelay = string.Empty;
-                DNSTestResult = "error";
-            }
-        });
-        DNSCheckCommand
-            .IsExecuting
-            .ToPropertyEx(this, x => x.IsDNSChecking);
-
-        IPv6CheckCommand = ReactiveCommand.CreateFromTask(async () =>
-        {
-            var result = await IMicroServiceClient.Instance.Accelerate.GetMyIP(ipV6: true);
-            if (result.IsSuccess)
-            {
-                IsSupportIPv6 = true;
-                IPv6Address = result.Content ?? string.Empty;
-            }
-            else
-            {
-                IsSupportIPv6 = false;
-                IPv6Address = string.Empty;
-            }
-        });
-        IPv6CheckCommand
-            .IsExecuting
-            .ToPropertyEx(this, x => x.IsIPv6Checking);
 
         ProxySettingsCommand = ReactiveCommand.Create(() =>
         {
