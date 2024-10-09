@@ -4,11 +4,27 @@ using System.Reactive;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public class NetworkCheckControlViewModel : ViewModelBase
+public partial class NetworkCheckControlViewModel : ViewModelBase
 {
+    [GeneratedRegex(DomainValidationAttribute.RegPattern)]
+    private static partial Regex DomainRegExp();
+
+    public class DomainValidationAttribute : RegularExpressionAttribute
+    {
+        public const string RegPattern = @"^[^/]+\.[^/]{2,}$";
+
+        public override string FormatErrorMessage(string name) => "请填入不带分隔符 \"/\" 的域名";
+
+        public DomainValidationAttribute() : base(RegPattern)
+        {
+        }
+    }
+
     private readonly INetworkTestService _networkTestService = INetworkTestService.Instance;
 
     public record NATFetchResult(string PublicEndPoint, string LocalEndPoint, string NATLevel, string NATTypeTip, bool PingResult);
+
+    public string DefaultTestDomain { get; } = "store.steampowered.com";
 
     [Reactive]
     public string SelectedSTUNAddress { get; set; }
@@ -48,6 +64,7 @@ public class NetworkCheckControlViewModel : ViewModelBase
     [ObservableAsProperty]
     public bool IsIPv6Checking { get; }
 
+    [DomainValidation]
     [Reactive]
     public string DomainPendingTest { get; set; } = string.Empty;
 
@@ -126,9 +143,11 @@ public class NetworkCheckControlViewModel : ViewModelBase
             .Merge(hidePingResultStream)
             .ToPropertyEx(this, x => x.PingErrorVisible);
 
+        var canDNSCheck = this.WhenAnyValue(x => x.DomainPendingTest)
+            .Select(domain => domain == string.Empty || DomainRegExp().IsMatch(domain));
         DNSCheckCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            var testDomain = DomainPendingTest == string.Empty ? "store.steampowered.com" : DomainPendingTest;
+            var testDomain = DomainPendingTest == string.Empty ? DefaultTestDomain : DomainPendingTest;
             try
             {
                 long delayMs;
@@ -155,7 +174,7 @@ public class NetworkCheckControlViewModel : ViewModelBase
                 DNSTestDelay = string.Empty;
                 DNSTestResult = "error";
             }
-        });
+        }, canDNSCheck);
         DNSCheckCommand
             .IsExecuting
             .ToPropertyEx(this, x => x.IsDNSChecking);

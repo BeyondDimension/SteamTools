@@ -6,8 +6,6 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
 {
     public override string Name => Strings.Welcome;
 
-    public string DefaultTestDomain { get; } = "store.steampowered.com";
-
     [Reactive]
     public ReadOnlyCollection<ProxyDomainGroupViewModel>? EnableProxyDomainGroupVMs { get; set; }
 
