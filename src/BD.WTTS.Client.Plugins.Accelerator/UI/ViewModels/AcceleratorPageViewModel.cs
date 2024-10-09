@@ -1,19 +1,17 @@
-using AppResources = BD.WTTS.Client.Resources.Strings;
-
 using BD.WTTS.UI.Views.Pages;
-using STUN.StunResult;
-using STUN.Enums;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class AcceleratorPageViewModel
 {
+    public NetworkCheckControlViewModel NetworkCheckControlViewModel { get; } = new();
+
     DateTime _initializeTime;
     readonly IHostsFileService? hostsFileService;
     readonly IPlatformService platformService = IPlatformService.Instance;
     readonly IReverseProxyService reverseProxyService = IReverseProxyService.Constants.Instance;
     readonly ICertificateManager certificateManager = ICertificateManager.Constants.Instance;
-    readonly INetworkTestService networkTestService = INetworkTestService.Instance;
 
     public AcceleratorPageViewModel()
     {
@@ -70,84 +68,6 @@ public sealed partial class AcceleratorPageViewModel
             // 刷新时重新加载迅游游戏数据
             GameAcceleratorService.Current.LoadGames();
         });
-
-        SelectedSTUNAddress = STUNAddress[0];
-
-        NATCheckCommand = ReactiveCommand.CreateFromTask(async () =>
-        {
-            var natCheckResult = await networkTestService.TestStunClient3489Async(testServerHostName: SelectedSTUNAddress) ?? new ClassicStunResult { NatType = NatType.Unknown };
-            var (netSucc, _) = await networkTestService.TestOpenUrlAsync("https://www.baidu.com");
-
-            var natStatus = natCheckResult.NatType switch
-            {
-                NatType.OpenInternet or NatType.FullCone => NatTypeSimple.Open,
-                NatType.RestrictedCone or NatType.PortRestrictedCone or NatType.SymmetricUdpFirewall => NatTypeSimple.Moderate,
-                NatType.Symmetric or NatType.UdpBlocked => NatTypeSimple.Strict,
-                NatType.Unknown or NatType.UnsupportedServer or _ => NatTypeSimple.Unknown,
-            };
-
-            PublicEndPoint = natCheckResult.PublicEndPoint?.Address.ToString() ?? "Unknown";
-            LocalEndPoint = natCheckResult.LocalEndPoint?.Address.ToString() ?? "Unknown";
-
-            return (natStatus, netSucc);
-        });
-        NATCheckCommand
-            .IsExecuting
-            .ToPropertyEx(this, x => x.IsNATChecking);
-
-        var canDNSCheck = this.WhenAnyValue(x => x.DomainPendingTest)
-            .Select(domain => domain == string.Empty || DomainRegExp().IsMatch(domain));
-        DNSCheckCommand = ReactiveCommand.CreateFromTask(async () =>
-        {
-            var testDomain = DomainPendingTest == string.Empty ? DefaultTestDomain : DomainPendingTest;
-            try
-            {
-                long delayMs;
-                IPAddress[] address;
-                if (ProxySettings.UseDoh)
-                {
-                    var configDoh = ProxySettings.CustomDohAddres2.Value ?? ProxySettingsWindowViewModel.DohAddress.FirstOrDefault() ?? string.Empty;
-                    (delayMs, address) = await networkTestService.TestDNSOverHttpsAsync(testDomain, configDoh);
-                }
-                else
-                {
-                    var configDns = ProxySettings.ProxyMasterDns.Value ?? string.Empty;
-                    (delayMs, address) = await networkTestService.TestDNSAsync(testDomain, configDns, 53);
-                }
-                if (address.Length == 0)
-                    throw new Exception("Parsing failed. Return empty ip address.");
-
-                DNSTestDelay = delayMs + "ms ";
-                DNSTestResult = string.Empty + address.FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(nameof(AcceleratorPageViewModel), ex.ToString());
-                DNSTestDelay = string.Empty;
-                DNSTestResult = "error";
-            }
-        }, canDNSCheck);
-        DNSCheckCommand
-            .IsExecuting
-            .ToPropertyEx(this, x => x.IsDNSChecking);
-
-        IPv6CheckCommand = ReactiveCommand.CreateFromTask(async () =>
-        {
-            var result = await IMicroServiceClient.Instance.Accelerate.GetMyIP(ipV6: true);
-            if (result.IsSuccess)
-            {
-                IsSupportIPv6 = true;
-                IPv6Address = result.Content ?? string.Empty;
-            }
-            else
-            {
-                IsSupportIPv6 = false;
-                IPv6Address = string.Empty;
-            }
-        });
-        IPv6CheckCommand
-            .IsExecuting
-            .ToPropertyEx(this, x => x.IsIPv6Checking);
 
         ProxySettingsCommand = ReactiveCommand.Create(() =>
         {

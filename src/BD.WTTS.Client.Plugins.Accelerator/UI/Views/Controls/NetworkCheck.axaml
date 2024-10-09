@@ -11,7 +11,7 @@
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    x:DataType="spp:AcceleratorPageViewModel"
+    x:DataType="spp:NetworkCheckControlViewModel"
     mc:Ignorable="d">
     <ScrollViewer
         Padding="0,0,10,0"
@@ -42,7 +42,6 @@
                             x:Name="NATCheckButton"
                             Width="100"
                             Margin="0,0,0,4"
-                            x:FieldModifier="public"
                             Command="{Binding NATCheckCommand}"
                             Content="检测"
                             IsEnabled="True" />
@@ -63,14 +62,14 @@
                                     x:Name="NATTextBlock"
                                     VerticalAlignment="Center"
                                     Foreground="Gray"
-                                    Text="未知" />
+                                    Text="{Binding NATLevel}" />
                                 <ui:FontIcon
                                     Margin="3,0"
                                     FontSize="20"
                                     Glyph="&#xE946;"
                                     ToolTip.ShowDelay="0">
                                     <ToolTip.Tip>
-                                        <TextBlock x:Name="NATTypeTip" Text="未知类型" />
+                                        <TextBlock x:Name="NATTypeTip" Text="{Binding NATTypeTip}" />
                                     </ToolTip.Tip>
                                 </ui:FontIcon>
                             </DockPanel>
@@ -126,13 +125,13 @@
                             <ui:FontIcon
                                 x:Name="PingOK"
                                 HorizontalAlignment="Right"
-                                x:FieldModifier="public"
                                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                                 FontSize="26"
                                 Foreground="Green"
-                                Glyph="&#xe73d;" />
+                                Glyph="&#xe73d;"
+                                IsVisible="{Binding PingOkVisible}" />
 
-                            <Grid x:Name="PingError" x:FieldModifier="public">
+                            <Grid x:Name="PingError" IsVisible="{Binding PingErrorVisible}">
                                 <ui:FontIcon
                                     Margin="3"
                                     HorizontalAlignment="Right"
