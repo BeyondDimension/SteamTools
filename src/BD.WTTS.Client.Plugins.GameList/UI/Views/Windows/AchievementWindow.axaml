@@ -135,7 +135,7 @@
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 IsVisible="{Binding IsProtection}"
-                                                Text="{Binding Path=Res.Achievement_IsProtection, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                                Text="{Binding Path=Res.Achievement_IsProtection, Mode=OneWay, StringFormat={}({0}), Source={x:Static s:ResourceService.Current}}" />
                                             <StackPanel
                                                 VerticalAlignment="Center"
                                                 Orientation="Vertical"
