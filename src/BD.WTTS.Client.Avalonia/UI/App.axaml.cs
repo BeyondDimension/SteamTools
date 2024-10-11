@@ -111,6 +111,12 @@ public sealed partial class App : Application
             {
                 Task2.InBackground(() => appWindow.SplashScreen?.RunTasks(CancellationToken.None));
             }
+
+            IPlatformService.Instance.SetSystemSessionEnding(() =>
+            {
+                Log.Info("System Shutdown", "Application SafeExit...");
+                Shutdown();
+            });
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
         {

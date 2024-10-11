@@ -39,7 +39,7 @@ partial class ProxyService
         IReadOnlyCollection<ScriptIPCDTO>? scripts = default;
         bool isEnableScript = ProxySettings.IsEnableScript.Value;
         bool isOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
-        ushort proxyPort = ProxySettings.SystemProxyPortId.Value;
+        ushort proxyPort = ProxySettings.SystemProxyPortId.Value == 0 ? ProxySettings.SystemProxyPortId.Default : ProxySettings.SystemProxyPortId.Value;
         string? proxyIp = ProxySettings.SystemProxyIp.Value;
         proxyMode = defaultProxyMode;
         bool isProxyGOG = ProxySettings.IsProxyGOG.Value;

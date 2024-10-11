@@ -11,7 +11,10 @@ partial class WindowsPlatformServiceImpl
     {
         SystemEvents.SessionEnding += (sender, e) =>
         {
-            action.Invoke();
+            if (e.Reason == SessionEndReasons.SystemShutdown)
+            {
+                action.Invoke();
+            }
         };
     }
 
