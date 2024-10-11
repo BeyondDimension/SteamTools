@@ -1141,7 +1141,7 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
         yield return AssemblyInfo.Accelerator;
         yield return AssemblyInfo.GameAccount;
         yield return AssemblyInfo.GameList;
-        //yield return AssemblyInfo.ArchiSteamFarmPlus;
+        yield return AssemblyInfo.ArchiSteamFarmPlus;
         yield return AssemblyInfo.Authenticator;
         if (platform == Platform.Windows)
             yield return AssemblyInfo.GameTools;

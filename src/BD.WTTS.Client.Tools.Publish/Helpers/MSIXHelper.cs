@@ -339,6 +339,9 @@ $"""
             string? pfxFilePath = null,
             string? workingDirectory = null)
         {
+            if (pfxFilePath != pfxFilePath_MSStore_CodeSigning)
+                return;
+
             ProcessStartInfo psi;
             switch (pfxFilePath)
             {
