@@ -47,8 +47,40 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             ICertificateManager.Constants.CheckRootCertificate(
                 platformService,
                 CertificateManager);
+
+            X509Certificate2? cer = CertificateManager.RootCertificatePackable;
+            if (cer is not null && DateTime.Now <= cer.NotAfter && cer.NotAfter <= DateTime.Now.AddMonths(1))
+            {
+                var interval = cer.NotAfter - DateTime.Now;
+
+                void StopCertificateTimer()
+                {
+                    _certificateTimer?.Stop();
+                    _certificateTimer?.Dispose();
+                    _certificateTimer = null;
+                }
+                StopCertificateTimer();
+
+                _certificateTimer = new System.Timers.Timer(interval)
+                {
+                    AutoReset = false,
+                };
+
+                _certificateTimer.Elapsed += async (_, _) =>
+                {
+                    ICertificateManager.Constants.CheckRootCertificate(
+                        platformService,
+                        CertificateManager);
+
+                    await StopProxyAsync();
+                    await StartProxyImpl();
+                };
+                _certificateTimer.Start();
+            }
         }
     }
+
+    private System.Timers.Timer? _certificateTimer;
 
     protected override Task<StartProxyResult> StartProxyImpl() => Task.FromResult(StartProxyCore());
 
