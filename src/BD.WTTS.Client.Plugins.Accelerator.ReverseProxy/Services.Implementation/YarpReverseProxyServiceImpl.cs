@@ -53,14 +53,6 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             {
                 var interval = cer.NotAfter - DateTime.Now;
 
-                void StopCertificateTimer()
-                {
-                    _certificateTimer?.Stop();
-                    _certificateTimer?.Dispose();
-                    _certificateTimer = null;
-                }
-                StopCertificateTimer();
-
                 _certificateTimer = new System.Timers.Timer(interval)
                 {
                     AutoReset = false,
@@ -81,6 +73,13 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
     }
 
     private System.Timers.Timer? _certificateTimer;
+
+    private void StopCertificateTimer()
+    {
+        _certificateTimer?.Stop();
+        _certificateTimer?.Dispose();
+        _certificateTimer = null;
+    }
 
     protected override Task<StartProxyResult> StartProxyImpl() => Task.FromResult(StartProxyCore());
 
@@ -185,6 +184,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 
     public async Task StopProxyAsync()
     {
+        StopCertificateTimer();
         Scripts = null;
         if (app == null) return;
         await app.StopAsync();

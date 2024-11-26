@@ -83,7 +83,7 @@ sealed class CertService
             entry.SetAbsoluteExpiration(notAfter);
 
             var subjectName = new X500DistinguishedName($"CN={domain}");
-            using var serverCert = CertGenerator.CreateEndCertificate(caCert, subjectName, GetDomains(), notBefore, notAfter);
+            using var serverCert = CertGenerator.CreateEndCertificate(caCert, subjectName, GetDomains());
             var serverCertPfx = serverCert.Export(X509ContentType.Pfx);
             // 将生成的证书导出后重新创建一个
             return new X509Certificate2(serverCertPfx);
