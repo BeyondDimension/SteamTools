@@ -196,6 +196,11 @@ public interface ICertificateManager
                 // 生成证书
                 certificateManager.GenerateCertificate();
 
+                packable = GetRootCertificatePackable();
+                certificate2 = packable;
+                if (certificate2 == null)
+                    return StartProxyResultCode.GetX509Certificate2Fail;
+
                 // 安装证书
                 ICertificateManager.Constants.TrustRootCertificate(
                     GetCerFilePath, platformService, certificate2);

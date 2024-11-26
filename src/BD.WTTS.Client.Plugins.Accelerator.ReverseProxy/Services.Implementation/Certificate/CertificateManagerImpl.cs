@@ -129,7 +129,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
 
     bool SharedCreateRootCertificate()
     {
-        RootCertificate ??= LoadRootCertificate();
+        RootCertificate = LoadRootCertificate();
 
         if (RootCertificate != null)
         {
