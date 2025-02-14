@@ -82,7 +82,11 @@ partial class ProxyService
             }
             else
             {
-                proxyDNS = await GetFastestDNSAsync(ProxySettingsWindowViewModel.ProxyDNSs.Skip(1));
+                //if(!checkIfNullOrEmpty(proxyDNS)){
+                    proxyDNS = await GetFastestDNSAsync(ProxySettingsWindowViewModel.ProxyDNSs.Skip(1).Append(proxyDNS));
+                //}else{
+                //    proxyDNS = await GetFastestDNSAsync(ProxySettingsWindowViewModel.ProxyDNSs.Skip(1));
+                //}
             }
         }
 
