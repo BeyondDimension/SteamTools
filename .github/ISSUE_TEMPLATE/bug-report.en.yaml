@@ -65,8 +65,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        ### 🚑 Other Information
-    
+        #### 🚑 Other Information
+   
   - type: dropdown
     attributes:
       label: "Processor architecture"
