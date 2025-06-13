@@ -50,7 +50,7 @@ body:
       description: "Your log content"
       render: shell
   - type: markdown
-     attributes:
+    attributes:
       value: |
         **Path to the folder where the log files are located**
           - Microsoft Store: ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalCache\Logs```
