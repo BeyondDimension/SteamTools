@@ -47,18 +47,16 @@ body:
   - type: textarea
     attributes:
       label: "📄 Log Information"
-      description: "Your log content"
-      render: shell
-  - type: markdown
-    attributes:
-      value: |
+      description: |
         **Path to the folder where the log files are located**
           - Microsoft Store: ```%USERPROFILE%\AppData\Local\Packages\4651ED44255E.47979655102CE_k6txddmbb6c52\LocalCache\Logs```
           - Windows: ```\Logs``` or ```%Tmp%\Steam++\Logs```
           - macOS: ```~/Library/Caches/Steam++/Logs```
           - Linux: ```$XDG_CACHE_HOME/Steam++/Logs``` or ```$HOME/.cache/Steam++/Logs```
-          - Android: ```/data/data/net.steampp.app/cache/Logs```  
-          
+          - Android: ```/data/data/net.steampp.app/cache/Logs```render: shell
+    validations:
+      required: true 
+  
   - type: textarea
     attributes:
       label: "🖼 Screenshots"
@@ -82,9 +80,7 @@ body:
   - type: input
     attributes:
       label: "System version number"
-      description: |
-      example: 
-      Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS
+      placeholder: "Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS"
     validations:
       required: true
 
