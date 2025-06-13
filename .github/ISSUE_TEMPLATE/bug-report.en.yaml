@@ -12,27 +12,27 @@ body:
 
   - type: checkboxes
     attributes:
-      label: Please check each item in the following list carefully
+      label: "Please check each item in the following list carefully"
       options:
-        - label: I have searched and found no similar issues
+        - label: "I have searched and found no similar issues"
           required: true
-        - label: Have searched the documentation and found no relevant content
+        - label: "Have searched the documentation and found no relevant content"
           required: true
-        - label: I have tried to use the latest version, but the problem still exists
+        - label: "I have tried to use the latest version, but the problem still exists"
           required: true
-        - label: The official version is used (no replacement and modification of the installation directory program files)
+        - label: "The official version is used (no replacement and modification of the installation directory program files)"
           required: true
  
   - type: textarea
     attributes:
-      label: 🐛 Description
-      description: Describe the problem in detail
+      label: "🐛 Description"
+      description: "Describe the problem in detail"
     validations:
       required: true
 
   - type: textarea
     attributes:
-      label: 📷 Steps to Reproduce
+      label: "📷 Steps to Reproduce"
       description: |
         Clearly describe the reproduction steps so that others can see the problem
         Ensure that the above steps are 100% reproducible on most devices, if possible, to pinpoint the cause of the problem
@@ -46,8 +46,8 @@ body:
 
   - type: textarea
     attributes:
-      label: 📄 Log Information
-      description: Your log content
+      label: "📄 Log Information"
+      description: "Your log content"
       render: shell
       placeholder: |
         Path to the folder where the log files are located
@@ -59,8 +59,8 @@ body:
 
   - type: textarea
     attributes:
-      label: 🖼 Screenshots
-      description: Screenshots can be posted here
+      label: "🖼 Screenshots"
+      description: "Screenshots can be posted here"
     
   - type: markdown
     attributes:
@@ -69,42 +69,42 @@ body:
     
   - type: dropdown
     attributes:
-      label: Processor architecture
+      label: "Processor architecture"
       options:
-        - x64
-        - x86
-        - arm64
+        - "x64"
+        - "x86"
+        - "arm64"
     validations:
       required: true
 
   - type: input
     attributes:
-      label: System version number
-      placeholder: example Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS
+      label: "System version number"
+      placeholder: "example Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS"
     validations:
       required: true
 
   - type: input
     attributes:
-      label: Download channels
-      placeholder: Microsoft Store / Official Website / Github / AppStore / xx netdisk
+      label: "Download channels"
+      placeholder: "Microsoft Store / Official Website / Github / AppStore / xx netdisk"
     validations:
       required: true
     
   - type: input
     attributes:
-      label: Program version
-      placeholder: 2.x.x / 3.x.x
+      label: "Program version"
+      placeholder: "2.x.x / 3.x.x"
     validations:
       required: true
     
   - type: dropdown
     attributes:
-      label: Does it contain a standalone runtime
-      description: with_runtime or without fde in the file name
+      label: "Does it contain a standalone runtime"
+      description: "with_runtime or without fde in the file name"
       options:
-        - yes
-        - no
-        - I don't know
+        - "yes"
+        - "no"
+        - "I don't know"
     validations:
       required: true
