@@ -53,7 +53,7 @@ body:
           - Windows: ```\Logs``` or ```%Tmp%\Steam++\Logs```
           - macOS: ```~/Library/Caches/Steam++/Logs```
           - Linux: ```$XDG_CACHE_HOME/Steam++/Logs``` or ```$HOME/.cache/Steam++/Logs```
-          - Android: ```/data/data/net.steampp.app/cache/Logs```render: shell
+          - Android: ```/data/data/net.steampp.app/cache/Logs```
       render: shell
     validations:
       required: true 
