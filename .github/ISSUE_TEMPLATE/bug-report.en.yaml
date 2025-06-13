@@ -6,9 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        >Before posting, try searching Issues to see if your issue has already been raised,  
-        >Describe the bug in detail so that everyone can understand it, please be sure that what you are posting is a bug, if you are not sure, please post a Question  
-        >Don't forget to fill in the title, which should be a short description of the problem
+        Before posting, try searching Issues to see if your issue has already been raised,  
+        Describe the bug in detail so that everyone can understand it, please be sure that what you are posting is a bug, if you are not sure, please post a Question  
+        Don't forget to fill in the title, which should be a short description of the problem
 
   - type: checkboxes
     attributes:
