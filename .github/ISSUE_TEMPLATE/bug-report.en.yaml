@@ -49,6 +49,7 @@ body:
       label: "📄 Log Information"
       description: "Your log content"
       render: shell
+  
   - type: markdown
     attributes:
       value: |
@@ -120,3 +121,16 @@ body:
         - "I don't know"
     validations:
       required: true
+
+  - type: textarea
+    attributes:
+      label: Environment
+      description: |
+        examples:
+          - **OS**: Ubuntu 20.04
+          - **Node**: 13.14.0
+          - **npm**: 7.6.3
+      value: |
+        - OS:
+        - Node:
+        - npm:
