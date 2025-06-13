@@ -6,13 +6,13 @@ body:
   - type: markdown
     attributes:
       value: |
-        >发布前请先尝试在 Issues 内搜索一下你的问题是否已经被提出过，详细地描述 bug，
-        >让大家都能理解，请一定确定你所要发布的内容是一个 Bug，如果不确定请发 Question  
-        >别忘了填写标题，标题要简短的描述问题  
-        >
-        >Before posting, try searching Issues to see if your issue has already been raised,  
-        >Describe the bug in detail so that everyone can understand it, please be sure that what you are posting is a bug, if you are not sure, please post a Question  
-        >Don't forget to fill in the title, which should be a short description of the problem
+        发布前请先尝试在 Issues 内搜索一下你的问题是否已经被提出过，详细地描述 bug，
+        让大家都能理解，请一定确定你所要发布的内容是一个 Bug，如果不确定请发 Question  
+        别忘了填写标题，标题要简短的描述问题  
+        
+        Before posting, try searching Issues to see if your issue has already been raised,  
+        Describe the bug in detail so that everyone can understand it, please be sure that what you are posting is a bug, if you are not sure, please post a Question  
+        Don't forget to fill in the title, which should be a short description of the problem
 
   - type: checkboxes
     attributes:
