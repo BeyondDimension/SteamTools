@@ -44,7 +44,7 @@ body:
     validations:
       required: true
 
-  - type: shell
+  - type: textarea
     attributes:
       label: "📄 Log Information"
       description: |
@@ -54,6 +54,7 @@ body:
           - macOS: ```~/Library/Caches/Steam++/Logs```
           - Linux: ```$XDG_CACHE_HOME/Steam++/Logs``` or ```$HOME/.cache/Steam++/Logs```
           - Android: ```/data/data/net.steampp.app/cache/Logs```render: shell
+      render: shell
     validations:
       required: true 
   
