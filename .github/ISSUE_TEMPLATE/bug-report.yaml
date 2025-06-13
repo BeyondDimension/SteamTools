@@ -2,7 +2,6 @@ name: "(Simplified Chinese)Bug Report \U0001F41B"
 description: 创建 Bug 报告以帮助我们改进
 title: "\U0001F41B[BUG] 请输入标题"
 labels: bug
-assignees:
 body:
   - type: markdown
     attributes:
