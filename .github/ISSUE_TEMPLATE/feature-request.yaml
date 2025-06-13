@@ -21,7 +21,7 @@ body:
     validations:
       required: true
       
-   - type: textarea
+  - type: textarea
     attributes:
       label: "🧐 解决方案(Solution)"
       description: |
@@ -30,7 +30,7 @@ body:
     validations:
       required: true
 
-- type: textarea
+  - type: textarea
     attributes:
       label: "🚑 其他信息(Other Information)"
       description: |
