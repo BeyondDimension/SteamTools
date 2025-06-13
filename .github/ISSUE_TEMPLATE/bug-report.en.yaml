@@ -44,7 +44,7 @@ body:
     validations:
       required: true
 
-  - type: textarea
+  - type: shell
     attributes:
       label: "📄 Log Information"
       description: |
