@@ -13,28 +13,29 @@ body:
   - type: checkboxes
     attributes:
       label: Please check each item in the following list carefully
-        options:
-          - label: I have searched and found no similar issues
-            required: true
-          - label: Have searched the documentation and found no relevant content
-            required: true
-          - label: I have tried to use the latest version, but the problem still exists
-            required: true
-          - label: The official version is used (no replacement and modification of the installation directory program files)
-            required: true
+      options:
+        - label: I have searched and found no similar issues
+          required: true
+        - label: Have searched the documentation and found no relevant content
+          required: true
+        - label: I have tried to use the latest version, but the problem still exists
+          required: true
+        - label: The official version is used (no replacement and modification of the installation directory program files)
+          required: true
  
   - type: textarea
     attributes:
       label: 🐛 Description
       description: Describe the problem in detail
-      validations:
-        required: true
+    validations:
+      required: true
 
   - type: textarea
     attributes:
       label: 📷 Steps to Reproduce
-      description: Clearly describe the reproduction steps so that others can see the problem
-Ensure that the above steps are 100% reproducible on most devices, if possible, to pinpoint the cause of the problem
+      description: |
+        Clearly describe the reproduction steps so that others can see the problem
+        Ensure that the above steps are 100% reproducible on most devices, if possible, to pinpoint the cause of the problem
       placeholder: |
         1. 
         2. 
@@ -63,16 +64,16 @@ Ensure that the above steps are 100% reproducible on most devices, if possible, 
     
   - type: markdown
     attributes:
-      value:|
+      value: |
         ### 🚑 Other Information
     
   - type: dropdown
     attributes:
       label: Processor architecture
-        options:
-          - x64
-          - x86
-          - arm64
+      options:
+        - x64
+        - x86
+        - arm64
     validations:
       required: true
 
@@ -101,11 +102,9 @@ Ensure that the above steps are 100% reproducible on most devices, if possible, 
     attributes:
       label: Does it contain a standalone runtime
       description: with_runtime or without fde in the file name
-        options:
-          - yes
-          - no
-          - I don't know
+      options:
+        - yes
+        - no
+        - I don't know
     validations:
       required: true
-
-
