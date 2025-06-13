@@ -1,5 +1,5 @@
 name: "(English)Bug Report \U0001F41B"
-about: Create a report to help us improve
+description: Create a report to help us improve
 title: "\U0001F41B[BUG] Please enter a title"
 labels: bug
 body:
