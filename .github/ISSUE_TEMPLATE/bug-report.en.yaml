@@ -114,16 +114,3 @@ body:
         - "I don't know"
     validations:
       required: true
-
-  - type: textarea
-    attributes:
-      label: Environment
-      description: |
-        examples:
-          - **OS**: Ubuntu 20.04
-          - **Node**: 13.14.0
-          - **npm**: 7.6.3
-      value: |
-        - OS:
-        - Node:
-        - npm:
