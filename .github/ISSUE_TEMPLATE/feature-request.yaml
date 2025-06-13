@@ -27,8 +27,6 @@ body:
       description: |
         如果你有解决方案，在这里清晰地阐述  
         If you have a solution, explain it clearly here
-    validations:
-      required: true
 
   - type: textarea
     attributes:
@@ -36,5 +34,3 @@ body:
       description: |
         如截图等其他信息可以贴在这里  
         Other information such as screenshots can be posted here
-    validations:
-      required: true
