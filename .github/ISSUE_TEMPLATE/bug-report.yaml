@@ -30,8 +30,8 @@ body:
     attributes:
       label: "🐛 描述"
       description: |
-      详细的描述该问题  
-      Describe the problem in detail
+        详细的描述该问题  
+        Describe the problem in detail
     validations:
       required: true
 
