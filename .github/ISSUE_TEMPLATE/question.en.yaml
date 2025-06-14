@@ -6,13 +6,13 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before posting, please try searching for your question in Issuse to see if it has already been asked.  
+        Before posting, please try searching for your question in Issues to see if it has already been asked.  
         Don't forget to fill in the title, which should be a short description of the Question
   
   - type: checkboxes
     attributes:
-      label: Please check each item in the following list carefully
-      options:
+        label: Please check each item in the following list carefully
+        options:
         - label: I have searched and found no similar issues
           required: true
         - label: Have searched the documentation and found no relevant content
