@@ -2,7 +2,6 @@ name: "(English)Question \U0001F9D0"
 description: Questions about using the program or need help
 title: "\U0001F9D0[Question] Please enter a title"
 labels: question
-assignees: ''
 body:
   - type: markdown
     attributes:
