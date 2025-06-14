@@ -41,9 +41,9 @@ body:
         - Program version: 2.8.4
         - Does it contain a standalone runtime: with_runtime or without fde in the file name
       value: |
-      - Processor architecture: 
-      - System version number:
-      - Download channels: 
-      - Program version: 
-      - Does it contain a standalone runtime:
+        - Processor architecture: 
+        - System version number:
+        - Download channels: 
+        - Program version: 
+        - Does it contain a standalone runtime:
  
