@@ -32,42 +32,18 @@ body:
   - type: textarea
     attributes:
       label: 🚑 Other Information
-      description: Additional information such as screenshots can be posted here
-      
-  - type: dropdown
-    attributes:
-      label: "Processor architecture"
-      options:
-        - "x64"
-        - "x86"
-        - "arm64"
-
-  - type: input
-    attributes:
-      label: "System version number"
       description: |
+        Additional information such as screenshots can be posted here  
         example:  
-        Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS
-
-  - type: input
-    attributes:
-      label: "Download channels"
-      description: |
-        example:  
-        Microsoft Store / Official Website / Github / AppStore / xx netdisk
-    
-  - type: input
-    attributes:
-      label: "Program version"
-      description: |
-        example:  
-        2.x.x / 3.x.x
-    
-  - type: dropdown
-    attributes:
-      label: "Does it contain a standalone runtime"
-      description: "with_runtime or without fde in the file name"
-      options:
-        - "yes"
-        - "no"
-        - "I don't know"
+          - Processor architecture: x64 / x86 / arm64  
+          - System version number: example Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS  
+          - Download channels: Microsoft Store / Official Website / Github / AppStore / xx netdisk  
+          - Program version: 2.8.4
+          - Does it contain a standalone runtime: with_runtime or without fde in the file name
+      value: |
+      - Processor architecture: 
+      - System version number:
+      - Download channels: 
+      - Program version: 
+      - Does it contain a standalone runtime:
+ 
