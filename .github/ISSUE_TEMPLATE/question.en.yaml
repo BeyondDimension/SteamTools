@@ -1,0 +1,74 @@
+name: "(English)Question \U0001F9D0"
+description: Questions about using the program or need help
+title: "\U0001F9D0[Question] Please enter a title"
+labels: question
+assignees: ''
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before posting, please try searching for your question in Issuse to see if it has already been asked.  
+        Don't forget to fill in the title, which should be a short description of the Question
+  
+  - type: checkboxes
+    attributes:
+      label: Please check each item in the following list carefully
+      options:
+        - label: I have searched and found no similar issues
+          required: true
+        - label: Have searched the documentation and found no relevant content
+          required: true
+        - label: I have tried to use the latest version, but the problem still exists
+          required: true
+        - label: The official version is used (no replacement and modification of the installation directory program files)
+          required: true
+          
+  - type: textarea
+    attributes:
+      label: 🧐 Description
+      description: Describe the Question in detail so that everyone can understand it
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 🚑 Other Information
+      description: Additional information such as screenshots can be posted here
+      
+  - type: dropdown
+    attributes:
+      label: "Processor architecture"
+      options:
+        - "x64"
+        - "x86"
+        - "arm64"
+
+  - type: input
+    attributes:
+      label: "System version number"
+      description: |
+        example:  
+        Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS
+
+  - type: input
+    attributes:
+      label: "Download channels"
+      description: |
+        example:  
+        Microsoft Store / Official Website / Github / AppStore / xx netdisk
+    
+  - type: input
+    attributes:
+      label: "Program version"
+      description: |
+        example:  
+        2.x.x / 3.x.x
+    
+  - type: dropdown
+    attributes:
+      label: "Does it contain a standalone runtime"
+      description: "with_runtime or without fde in the file name"
+      options:
+        - "yes"
+        - "no"
+        - "I don't know"
