@@ -24,14 +24,14 @@ body:
           
   - type: textarea
     attributes:
-      label: 🧐 Description
+      label: "🧐 Description"
       description: Describe the Question in detail so that everyone can understand it
     validations:
       required: true
 
   - type: textarea
     attributes:
-      label: 🚑 Other Information
+      label: "🚑 Other Information"
       description: |
         Additional information such as screenshots can be posted here  
         example:  
