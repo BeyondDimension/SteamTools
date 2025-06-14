@@ -35,11 +35,11 @@ body:
       description: |
         Additional information such as screenshots can be posted here  
         example:  
-          - Processor architecture: x64 / x86 / arm64  
-          - System version number: example Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS  
-          - Download channels: Microsoft Store / Official Website / Github / AppStore / xx netdisk  
-          - Program version: 2.8.4
-          - Does it contain a standalone runtime: with_runtime or without fde in the file name
+        - Processor architecture: x64 / x86 / arm64  
+        - System version number: example Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS  
+        - Download channels: Microsoft Store / Official Website / Github / AppStore / xx netdisk  
+        - Program version: 2.8.4
+        - Does it contain a standalone runtime: with_runtime or without fde in the file name
       value: |
       - Processor architecture: 
       - System version number:
