@@ -10,7 +10,7 @@ if [ -L "$link_exec" ]; then
 else
     rm -rf "$link_exec"  2>/dev/null
     echo "创建符号链接 $dotnet_exec 到 $link_exec"
-    ln -s "$dotnet_exec" "$link_exec"
+    ln -s "dotnet/dotnet" "$link_exec"
     chmod +x "$link_exec"
 fi
 "$link_exec" "$run_path/assemblies/Steam++.dll" "$@"
