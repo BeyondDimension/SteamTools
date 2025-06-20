@@ -8,7 +8,7 @@ body:
       value: |
         发布前请先尝试在 Issuse 内搜索一下你的 Question 是否已经被提出过，  
         别忘了填写标题，标题要简短的描述 Question
-  
+
   - type: checkboxes
     attributes:
       label: 请认真检查以下清单中的每一项
@@ -21,7 +21,7 @@ body:
           required: true
         - label: 使用的是官方版本（未替换及修改过安装目录程序文件）
           required: true
-          
+
   - type: textarea
     attributes:
       label: "🧐 问题描述"

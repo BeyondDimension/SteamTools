@@ -22,7 +22,7 @@ body:
           required: true
         - label: "The official version is used (no replacement and modification of the installation directory program files)"
           required: true
- 
+
   - type: textarea
     attributes:
       label: "🐛 Description"
@@ -56,18 +56,18 @@ body:
           - Android: ```/data/data/net.steampp.app/cache/Logs```
       render: shell
     validations:
-      required: true 
-  
+      required: true
+
   - type: textarea
     attributes:
       label: "🖼 Screenshots"
       placeholder: "Screenshots can be posted here"
-    
+
   - type: markdown
     attributes:
       value: |
         ### 🚑 Other Information
-   
+
   - type: dropdown
     attributes:
       label: "Processor architecture"
@@ -95,7 +95,7 @@ body:
         Microsoft Store / Official Website / Github / AppStore / xx netdisk
     validations:
       required: true
-    
+
   - type: input
     attributes:
       label: "Program version"
@@ -104,7 +104,7 @@ body:
         2.x.x / 3.x.x
     validations:
       required: true
-    
+
   - type: dropdown
     attributes:
       label: "Does it contain a standalone runtime"

@@ -6,10 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        发布前请先尝试在 Issues 内搜索一下你的问题是否已经被提出过，详细地描述 bug，
+        发布前请先尝试在 Issues 内搜索一下你的问题是否已经被提出过，详细地描述 bug，  
         让大家都能理解，请一定确定你所要发布的内容是一个 Bug，如果不确定请发 Question  
         别忘了填写标题，标题要简短的描述问题  
-        
         Before posting, try searching Issues to see if your issue has already been raised,  
         Describe the bug in detail so that everyone can understand it, please be sure that what you are posting is a bug, if you are not sure, please post a Question  
         Don't forget to fill in the title, which should be a short description of the problem
@@ -26,7 +25,7 @@ body:
           required: true
         - label: "使用的是官方版本（未替换及修改过安装目录程序文件）"
           required: true
-          
+
   - type: textarea
     attributes:
       label: "🐛 描述"
@@ -41,8 +40,7 @@ body:
       label: "📷 复现步骤"
       description: |
         清晰描述复现步骤，让别人也能看到问题  
-        确保上述步骤尽可能能够在大多数设备上 100% 复现，以便定位问题原因  
-          
+        确保上述步骤尽可能能够在大多数设备上 100% 复现，以便定位问题原因   
         Clearly describe the reproduction steps so that others can see the problem  
         Ensure that the above steps are 100% reproducible on most devices, if possible, to pinpoint the cause of the problem
       placeholder: |
@@ -65,11 +63,11 @@ body:
           - Android: ```/data/data/net.steampp.app/cache/Logs```render: shell
       placeholder: |
         在程序内 设置 - 通用设置 - 存储空间 - 打开Logs文件夹 找到当天的日志，将文件上传或将关键部分写在此处
-        
+
         Set in the program - General Settings - storage space - open the logs folder to find the log of the day, upload the file or write the key part here
       render: shell
     validations:
-      required: true 
+      required: true
 
   - type: textarea
     attributes:
@@ -108,7 +106,7 @@ body:
         微软商店 / 官网 / Github / AppStore / xx网盘
     validations:
       required: true
-    
+
   - type: input
     attributes:
       label: "程序版本："
@@ -117,7 +115,7 @@ body:
         2.x.x / 3.x.x
     validations:
       required: true
-    
+
   - type: dropdown
     attributes:
       label: "是否包含独立运行时："
