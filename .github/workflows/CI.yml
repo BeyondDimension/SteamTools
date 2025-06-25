@@ -33,7 +33,7 @@ jobs:
 
       - name: Setup .NET
         if: ${{ matrix.os != 'aigio-win10ltsc-vm' }}
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 7.0.x
 
