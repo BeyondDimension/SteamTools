@@ -1,0 +1,41 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.ArchiSteamFarmExePathSettingsPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:ArchiSteamFarmExePathSettingsPageViewModel"
+    mc:Ignorable="d">
+    <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
+        <TextBlock Margin="0,0,0,5" Text="ArchiSteamFarm 启动文件设置" />
+        <ui:SettingsExpander
+            Description="{Binding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath}, Path=Value, Mode=OneWay}"
+            Header="ASF 文件路径"
+            IsClickEnabled="True">
+            <ui:SettingsExpander.IconSource>
+                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
+            </ui:SettingsExpander.IconSource>
+            <ui:SettingsExpander.Footer>
+                <Button Command="{Binding SelectProgramPath}" Content="选择路径" />
+            </ui:SettingsExpander.Footer>
+        </ui:SettingsExpander>
+        <ui:SettingsExpander
+            Description="下载并设置 ASF 路径"
+            Header="还没有下载过ASF？请点击下载"
+            IsClickEnabled="True">
+            <ui:SettingsExpander.IconSource>
+                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE896;" />
+            </ui:SettingsExpander.IconSource>
+            <ui:SettingsExpander.Footer>
+                <Button Command="{Binding DownloadASF}" Content="一键下载" />
+            </ui:SettingsExpander.Footer>
+        </ui:SettingsExpander>
+    </StackPanel>
+</UserControl>

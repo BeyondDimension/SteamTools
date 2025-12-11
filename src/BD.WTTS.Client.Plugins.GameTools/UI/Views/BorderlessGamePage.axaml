@@ -1,0 +1,316 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.BorderlessGamePage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="游戏无边框窗口化"
+    d:DesignHeight="850"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:BorderlessGamePageViewModel"
+    Description="该功能可以获取游戏窗口句柄执行一些对应操作"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
+    mc:Ignorable="d">
+    <spp:PageBase.PreviewImage>
+        <ui:ImageIconSource Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="2">
+            <ToggleButton
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:FontIcon Glyph="&#xE81C;" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="查看捕获窗口记录" />
+                </Panel>
+            </ToggleButton>
+            <DropDownButton
+                Padding="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="{StaticResource More}"
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                FontSize="20"
+                Theme="{StaticResource TransparentButton}">
+                <DropDownButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutSeparator  />-->
+                        <ui:MenuFlyoutItem IsEnabled="False">
+                            <ui:MenuFlyoutItem.Text>
+                                <MultiBinding StringFormat="{}{0}{1}">
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Res.Plugin_Version"
+                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Version"
+                                        Source="{x:Static s:Plugin.Instance}" />
+                                </MultiBinding>
+                            </ui:MenuFlyoutItem.Text>
+                        </ui:MenuFlyoutItem>
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                    </ui:FAMenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+    <spp:PageBase.PaneContent>
+        <StackPanel Margin="15,20" Spacing="10">
+            <TextBlock
+                VerticalAlignment="Center"
+                Text="历史记录"
+                Theme="{StaticResource CaptionTextBlockStyle}" />
+            <ListBox ItemsSource="{ReflectionBinding WindowList, Mode=OneWay}" SelectedItem="{ReflectionBinding SelectWindow}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" Spacing="5" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel VerticalAlignment="Center">
+                            <TextBlock>
+                                <Run Text="{ReflectionBinding Name, Mode=OneWay}" />
+                                <Run Text="(" />
+                                <Run Text="{ReflectionBinding Title, Mode=OneWay}" />
+                                <Run Text=")" />
+                            </TextBlock>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+    </spp:PageBase.PaneContent>
+
+    <ScrollViewer>
+		<StackPanel x:Name="Grid_Menu" MaxWidth="1000" Spacing="8">
+			<Border Padding="20" Classes="paper" 
+                    Height="180">
+				<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<Grid HorizontalAlignment="Center" Grid.Column="0">
+						<Image
+						  Width="64"
+						  HorizontalAlignment="Left"
+						  Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/movecross_hide.png">
+						</Image>
+						<Image
+						  x:Name="move"
+						  Width="64"
+						  HorizontalAlignment="Left"
+						  Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/movecross.png">
+							<i:Interaction.Behaviors>
+								<ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{Binding #move}">
+									<ia:InvokeCommandAction Command="{ReflectionBinding $parent[spp:PageBase].((spp:BorderlessGamePageViewModel)DataContext).Cross_MouseDown}" />
+								</ia:EventTriggerBehavior>
+							</i:Interaction.Behaviors>
+						</Image>
+					</Grid>
+					<TextBlock Grid.Column="1"
+						Margin="10"
+						VerticalAlignment="Center"
+						Text="{Binding Path=Res.GameRelated_Borderless_MoveMouseTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" 
+						TextWrapping="WrapWithOverflow"/>
+				</Grid>
+			</Border>
+
+			<Expander IsExpanded="True">
+				<Expander.Styles>
+					<Style Selector="Expander /template/ ToggleButton#ExpanderHeader">
+						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+					</Style>
+				</Expander.Styles>
+				<Expander.Header>
+					<DockPanel>
+						<StackPanel Orientation="Horizontal" >
+							<ui:FontIcon FontSize="26" Margin="0 0 12 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;" />
+							<TextBlock VerticalAlignment="Center" Text="窗口信息" />
+							<!--<TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.SteamAppType_Game, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+							<!--<TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.Info, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+						</StackPanel>
+						<Button DockPanel.Dock="Right" HorizontalAlignment="Right" 
+								Width="100" Content="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" 
+								Command="{ReflectionBinding CopyGameInfo_Click}"
+								IsEnabled="{ReflectionBinding !!SelectWindow}" />
+					</DockPanel>
+				</Expander.Header>
+				
+				<StackPanel>
+					<Grid
+						HorizontalAlignment="Stretch"
+						ColumnDefinitions="Auto,*"
+						RowDefinitions="Auto,Auto,Auto,Auto">
+						<TextBlock VerticalAlignment="Top" Text="{Binding Path=Res.GameRelated_Borderless_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+						<SelectableTextBlock
+							Grid.Column="1"
+							Margin="4,0,0,10"
+							Text="{ReflectionBinding SelectWindow.Title,
+											 Mode=OneWay}"
+							TextWrapping="WrapWithOverflow" 
+							Foreground="Gray" VerticalAlignment="Top" />
+
+						<TextBlock
+							Grid.Row="1"
+							VerticalAlignment="Top"
+							Text="{Binding Path=Res.GameRelated_Borderless_Process, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+						<SelectableTextBlock
+							Grid.Row="1"
+							Grid.Column="1"
+							Margin="4,0,0,10"
+							Text="{ReflectionBinding SelectWindow.Title,
+											 Mode=OneWay}"
+							TextWrapping="WrapWithOverflow"
+							Foreground="Gray" VerticalAlignment="Top" />
+
+						<TextBlock
+							Grid.Row="2"
+							VerticalAlignment="Top"
+							Text="{Binding Path=Res.GameRelated_Borderless_ClassName, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+						<SelectableTextBlock
+							Grid.Row="2"
+							Grid.Column="1"
+							Margin="4,0,0,10"
+							Text="{ReflectionBinding SelectWindow.Name,
+											 Mode=OneWay}"
+							TextWrapping="WrapWithOverflow" 
+							Foreground="Gray" VerticalAlignment="Top" />
+
+						<TextBlock
+							Grid.Row="3"
+							VerticalAlignment="Top"
+							Text="{Binding Path=Res.GameRelated_Borderless_Path, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}{0}:}" />
+						<SelectableTextBlock
+							Grid.Row="3"
+							Grid.Column="1"
+							Margin="4,0,0,10"
+							Text="{ReflectionBinding SelectWindow.Path,
+											 Mode=OneWay}"
+							TextWrapping="WrapWithOverflow"
+							Foreground="Gray" VerticalAlignment="Top" />
+					</Grid>
+
+					<Border x:Name="ButtonGroup" Padding="4" Classes="paper" Margin="-16 16 -16 -16"
+							Height="200">
+						<WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
+							<WrapPanel.Styles>
+								<Style Selector="Button">
+									<Setter Property="Height" Value="30" />
+									<Setter Property="Margin" Value="8" />
+									<Setter Property="Width" Value="120" />
+								</Style>
+							</WrapPanel.Styles>
+
+							<!--Button Group 1-->
+							<Button Command="{ReflectionBinding BorderlessWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+								<!--<Button.Styles>
+									<Style Selector="Button">
+										<Setter Property="Background" Value="#0071c7" />
+										<Setter Property="Foreground" Value="White" />
+									</Style>
+									<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+										<Setter Property="TextElement.Foreground" Value="White" />
+										<Setter Property="TextElement.Background" Value="#006abb" />
+									</Style>
+									<Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+										<Setter Property="Background" Value="#0062ae" />
+									</Style>
+								</Button.Styles>-->
+
+								<StackPanel Orientation="Horizontal">
+									<ui:FontIcon Glyph="&#xf58a;" FontFamily="Segoe Fluent Icons" />
+									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_BorderlessWindow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
+								</StackPanel>
+							</Button>
+							<Button Command="{ReflectionBinding MaximizeWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+								<StackPanel Orientation="Horizontal">
+									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE922;" />
+									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_Maximize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
+								</StackPanel>
+							</Button>
+							<Button Command="{ReflectionBinding NormalWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+								<StackPanel Orientation="Horizontal">
+									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE923;" />
+									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_Normal, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
+								</StackPanel>
+							</Button>
+
+							<!--Button Group 2-->
+							<Button Command="{ReflectionBinding HideWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+								<StackPanel Orientation="Horizontal">
+									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xed1a;" />
+									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_Hide, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
+								</StackPanel>
+							</Button>
+							<Button Command="{ReflectionBinding ShowWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+								<StackPanel Orientation="Horizontal">
+									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7b3;" />
+									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_Show, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
+								</StackPanel>
+							</Button>
+
+							<!--Button Group 3-->
+							<Button
+								Command="{ReflectionBinding ToWallerpaperWindow_Click}"
+								IsEnabled="{ReflectionBinding !!SelectWindow}"
+								ToolTip.Tip="{Binding Path=Res.GameRelated_Borderless_ToWallerpaperTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+								<StackPanel Orientation="Horizontal">
+									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE718;" />
+									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_ToWallerpaper, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
+								</StackPanel>
+							</Button>
+							<Button Command="{ReflectionBinding ResetWallerpaper_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+								<StackPanel Orientation="Horizontal">
+									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE72C;" />
+									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_ResetWallerpaper, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
+								</StackPanel>
+							</Button>
+
+							<Button Command="{ReflectionBinding WindowKill_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+								<Button.Styles>
+									<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+										<Setter Property="TextElement.Foreground" Value="White" />
+										<Setter Property="TextElement.Background" Value="Red" />
+									</Style>
+									<Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+										<Setter Property="Background" Value="#f1707a" />
+									</Style>
+								</Button.Styles>
+								<StackPanel Orientation="Horizontal">
+									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8BB;" />
+									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_KillProcess, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
+								</StackPanel>
+							</Button>
+
+						</WrapPanel>
+					</Border>
+				</StackPanel>
+			</Expander>
+		</StackPanel>
+
+        <!--<TextBlock Text="{ReflectionBinding Path=Res.GameRelated_Borderless_ToWallerpaperTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat=*{0}}" TextWrapping="WrapWithOverflow" />-->
+    </ScrollViewer>
+</spp:PageBase>

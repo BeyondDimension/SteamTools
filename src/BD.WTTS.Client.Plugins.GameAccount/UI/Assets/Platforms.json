@@ -1,0 +1,234 @@
+[
+  {
+    "FullName": "Epic Games",
+    "Icon": "EpicGames",
+    "Platform": 128,
+    "IsExitBeforeInteract": false,
+    "DefaultExePath": "C:\\Program Files (x86)\\Epic Games\\Launcher\\Portal\\Binaries\\Win32\\EpicGamesLauncher.exe",
+    "ExeExtraArgs": null,
+    "PlatformIds": [ "e", "epg", "epic", "epicgames" ],
+    "ExesToEnd": [ "EpicGamesLauncher.exe" ],
+    "LoginFiles": {
+      "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\Windows\\GameUserSettings.ini": "GameUserSettings.ini",
+      "REG:HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId": "UNIQUE_ID"
+    },
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "CachePaths": [
+      "%LocalAppData%\\Epic Games\\Epic Online Services\\UI Helper\\Cache\\Cache",
+      "%LocalAppData%\\Epic Games\\Epic Online Services\\UI Helper\\Cache\\GPUCache",
+      "%LocalAppData%\\Epic Games\\EOSOverlay\\BrowserCache\\Cache"
+    ],
+    "BackupPaths": [
+      "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\"
+    ],
+    "BackupFileTypesIgnore": null,
+    "BackupFileTypesInclude": null,
+    "UniqueIdPath": "REG:HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId",
+    "UniqueIdType": 2,
+    "AllFilesRequired": true
+  },
+  {
+    "FullName": "Ubisoft",
+    "Icon": "Ubisoft",
+    "Platform": 16,
+    "IsExitBeforeInteract": true,
+    "DefaultExePath": "%ProgramFiles(x86)%\\Ubisoft\\Ubisoft Game launcher\\upc.exe",
+    "ExeExtraArgs": null,
+    "PlatformIds": [ "u", "ubi", "uplay", "ubisoft" ],
+    "ExesToEnd": [ "upc.exe", "UplayService.exe", "UplayWebCore.exe" ],
+    "LoginFiles": {
+      "%Platform_Folder%\\logs\\launcher_log.txt": "logs\\launcher_log.txt",
+      "%LocalAppData%\\Ubisoft Game Launcher\\settings.yaml": "settings.yaml",
+      "%LocalAppData%\\Ubisoft Game Launcher\\user.dat": "user.dat"
+    },
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "ProfilePicPath": "%Platform_Folder%\\cache\\avatars\\%UniqueId%_256.png",
+    "CachePaths": [
+      "%Platform_Folder%\\cache\\achievements",
+      "%Platform_Folder%\\cache\\assets",
+      "%Platform_Folder%\\cache\\download",
+      "%Platform_Folder%\\cache\\http2"
+    ],
+    "BackupPaths": [
+      "%LocalAppData%\\Ubisoft Game Launcher\\settings.yaml",
+      "%Platform_Folder%\\savegames\\"
+    ],
+    "BackupFileTypesIgnore": null,
+    "BackupFileTypesInclude": null,
+    "UniqueIdPath": "%Platform_Folder%\\logs\\launcher_log.txt",
+    "UniqueIdRegex": "(?<=User: ).*",
+    "UniqueIdType": 3
+  },
+  {
+    "FullName": "EA Desktop",
+    "Icon": "EADesktop",
+    "Platform": 8,
+    "IsExitBeforeInteract": true,
+    "DefaultExePath": "%ProgramFiles%\\Electronic Arts\\EA Desktop\\EA Desktop\\EADesktop.exe",
+    "ExeExtraArgs": null,
+    "PlatformIds": [ "ea", "eadesktop" ],
+    "ExesToEnd": [ "EADesktop.exe", "EABackgroundService.exe" ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "%LocalAppData%\\Electronic Arts\\EA Desktop\\": "LocalAppData\\"
+    },
+    "CachePaths": [
+      "%LocalAppData%\\EADesktop\\QtWebEngine\\Default\\GPUCache",
+      "%LocalAppData%\\EADesktop\\cache\\QtWebEngine\\Default\\Cache",
+      "%LocalAppData%\\EADesktop\\cache\\qmlcache"
+    ],
+    "BackupPaths": [
+      "%LocalAppData%\\Electronic Arts\\EA Desktop\\"
+    ],
+    "BackupFileTypesIgnore": [
+      ".log"
+    ],
+    "BackupFileTypesInclude": null,
+    "UniqueIdPath": "%LocalAppData%\\Electronic Arts\\EA Desktop\\telemetry.ini",
+    "UniqueIdRegex": "(?<=\\=).*",
+    "UniqueIdType": 3
+  },
+  {
+    "FullName": "Riot Games",
+    "Icon": "RiotGames",
+    "Platform": 8192,
+    "PlatformIds": [ "r", "riot", "riotgames" ],
+    "DefaultExePath": "C:\\Riot Games\\Riot Client\\RiotClientServices.exe",
+    "ExesToEnd": [
+      "LeagueClient.exe",
+      "LoR.exe",
+      "VALORANT.exe",
+      "RiotClientServices.exe",
+      "RiotClientUx.exe",
+      "RiotClientUxRender.exe"
+    ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "%LocalAppData%\\Riot Games\\Riot Client\\Data\\Cookies": "Cookies",
+      "%LocalAppData%\\Riot Games\\Riot Client\\Data\\Sessions": "Sessions",
+      "%LocalAppData%\\Riot Games\\Riot Client\\Data\\RiotClientPrivateSettings.yaml": "RiotClientPrivateSettings.yaml",
+      "%LocalAppData%\\Riot Games\\Riot Client\\Data\\RiotGamesPrivateSettings.yaml": "RiotGamesPrivateSettings.yaml",
+      "%LocalAppData%\\Riot Games\\Riot Client\\Config\\RiotClientSettings.yaml": "RiotClientSettings.yaml",
+      "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id": "WattToolkit.id"
+    },
+    "UniqueIdPath": "%LocalAppData%\\Riot Games\\Riot Client\\WattToolkit.id",
+    "UniqueIdType": 1
+  },
+  {
+    "FullName": "Rockstar",
+    "Icon": "Rockstar",
+    "Platform": 16384,
+    "PlatformIds": [ "rs", "rockstar", "socialclub" ],
+    "DefaultExePath": "%ProgramFiles%\\Rockstar Games\\Launcher\\LauncherPatcher.exe",
+    "ExesToEnd": [
+      "LauncherPatcher.exe",
+      "Launcher.exe",
+      "RockstarErrorHandler.exe",
+      "RockstarService.exe",
+      "SocialClubHelper.exe"
+    ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "%LocalAppData%\\Rockstar Games\\Launcher\\settings_user.dat": "settings_user.dat",
+      "%ProgramData%\\Rockstar Games\\Launcher\\settings_machine.dat": "settings_machine.dat",
+      "%Documents%\\Rockstar Games\\Social Club\\Profiles\\*": "Profiles\\",
+      "%ProgramData%\\Rockstar Games\\WattToolkit.id": "WattToolkit.id"
+    },
+    "CachePaths": [
+      "%Documents%\\Rockstar Games\\Social Club\\Launcher\\Renderer\\Cache\\f_*"
+    ],
+    "IsExitBeforeInteract": true,
+    "UniqueIdPath": "%ProgramData%\\Rockstar Games\\WattToolkit.id",
+    "UniqueIdType": 1
+  },
+  {
+    "FullName": "BattleNet",
+    "Icon": "BattleNet",
+    "Platform": 2048,
+    "PlatformIds": [ "b", "bnet", "battlenet", "blizzard" ],
+    "DefaultExePath": "%ProgramFiles(x86)%\\Battle.net\\Battle.net.exe",
+    "ExesToEnd": [ "Battle.net" ],
+    "ClearPaths": [
+      "JSON_SELECT_FIRST,::%AppData%\\Battle.net\\Battle.net.config::$.Client.SavedAccountNames",
+      "%AppData%\\Battle.net\\WattToolkit.id"
+    ],
+    "LoginFiles": {
+      "JSON_SELECT_FIRST,::%AppData%\\Battle.net\\Battle.net.config::$.Client.SavedAccountNames": "email.json",
+      "JSON_SELECT_FIRST,::%AppData%\\Battle.net\\Battle.net.config::$..Services.LastLoginRegion": "LastLoginRegion",
+      "JSON_SELECT_FIRST,::%AppData%\\Battle.net\\Battle.net.config::$..Services.LastLoginAddress": "LastLoginAddress",
+      "JSON_SELECT_FIRST,::%AppData%\\Battle.net\\Battle.net.config::$..Services.LastLoginTassadar": "LastLoginTassadar",
+      "%AppData%\\Battle.net\\WattToolkit.id": "WattToolkit.id"
+    },
+    "IsExitBeforeInteract": true,
+    "UniqueIdPath": "%AppData%\\Battle.net\\WattToolkit.id",
+    "UniqueIdType": 1,
+    "AllFilesRequired": true
+  },
+  {
+    "FullName": "GOG Galaxy",
+    "Icon": "GOGGalaxy",
+    "Platform": 64,
+    "PlatformIds": [ "g", "gog", "gog2" ],
+    "DefaultExePath": "%ProgramFiles(x86)%\\GOG Galaxy\\GalaxyClient.exe",
+    "ExesToEnd": [ "GalaxyClient.exe", "GOG Galaxy Notifications Renderer.exe", "GalaxyClientService.exe", "GalaxyCommunication.exe" ],
+    "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "%LocalAppData%\\GOG.com\\Galaxy\\Configuration\\config.json": "LocalAppData\\config.json",
+      "REG:HKCU\\Software\\GOG.com\\Galaxy\\settings:username": "userId",
+      "REG:HKCU\\Software\\GOG.com\\Galaxy:refreshToken": "refreshToken",
+      "REG:HKCU\\Software\\GOG.com\\Galaxy\\settings:userId": "UNIQUE_ID",
+      "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\Cache\\index": "ProgramData\\Cache\\index",
+      "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\Cache\\data_*": "ProgramData\\Cache\\",
+      "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\Code Cache\\js\\index-dir\\the-real-index": "ProgramData\\Code Cache\\js\\index-dir\\the-real-index",
+      "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\GPUCache\\index": "ProgramData\\GPUCache\\index",
+      "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\Local Storage\\leveldb": "ProgramData\\Local Storage\\leveldb\\",
+      "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\Session Storage\\*.log": "ProgramData\\Session Storage\\",
+      "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\Session Storage\\*.ldb": "ProgramData\\Session Storage\\",
+      "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\Cookies": "ProgramData\\Cookies",
+      "%ProgramData%\\GOG.com\\Galaxy\\storage\\*": "ProgramData\\storage\\",
+      "%ProgramData%\\GOG.com\\Galaxy\\config.json": "ProgramData\\config.json"
+    },
+    "ProfilePicPath": "%ProgramData%\\GOG.com\\Galaxy\\webcache\\%UniqueId%\\user\\%LARGEST%.jpg",
+    "CachePaths": [
+      "C:\\Program Files (x86)\\GOG Galaxy\\GPUCache",
+      "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\Cache",
+      "%ProgramData%\\GOG.com\\Galaxy\\webcache\\common\\GPUCache"
+    ],
+    "BackupPaths": [
+      "%LocalAppData%\\GOG.com\\Galaxy\\Configuration\\"
+    ],
+    "UniqueIdFile": "HKCU\\Software\\GOG.com\\Galaxy\\settings:userId",
+    "UniqueIdType": 2
+  },
+  {
+    "FullName": "Discord",
+    "Icon": "Discord",
+    "Platform": 32768,
+    "PlatformIds": [ "d", "discord" ],
+    "DefaultExePath": "%LocalAppData%\\Discord\\Update.exe",
+    "ExeExtraArgs": "--processStart Discord.exe",
+    "ExesToEnd": [ "Discord.exe" ],
+    "PathListToClear": [ "SAME_AS_LOGIN_FILES" ],
+    "LoginFiles": {
+      "%AppData%\\discord\\settings.json": "settings.json",
+      "%AppData%\\discord\\Network Persistent State": "Network Persistent State",
+      "%AppData%\\discord\\Preferences": "Preferences",
+      "%AppData%\\discord\\TransportSecurity": "TransportSecurity",
+      "%AppData%\\discord\\Cache\\index": "Cache\\index",
+      "%AppData%\\discord\\Cache\\data_*": "Cache\\",
+      "%AppData%\\discord\\Code Cache\\js\\index-dir\\the-real-index": "Code Cache\\js\\index-dir\\the-real-index",
+      "%AppData%\\discord\\GPUCache\\index": "GPUCache\\index",
+      "%AppData%\\discord\\Local Storage\\leveldb": "Local Storage\\leveldb\\",
+      "%AppData%\\discord\\Session Storage\\*.log": "Session Storage\\",
+      "%AppData%\\discord\\Session Storage\\*.ldb": "Session Storage\\",
+      "%AppData%\\discord\\blob_storage": "blob_storage\\",
+      "%AppData%\\discord\\WattToolkit.id": "WattToolkit.id"
+    },
+    "IsExitBeforeInteract": true,
+    "CachePaths": [
+      "%AppData%\\discord\\Cache\\f_*"
+    ],
+    "UniqueIdFile": "%AppData%\\discord\\WattToolkit.id",
+    "UniqueIdType": 1
+  }
+]

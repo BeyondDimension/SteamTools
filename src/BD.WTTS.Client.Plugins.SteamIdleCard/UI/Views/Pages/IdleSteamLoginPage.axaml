@@ -1,0 +1,157 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.IdleSteamLoginPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:IdleSteamLoginPageViewModel"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="*,Auto">
+        <Carousel
+            Name="ContentCarousel"
+            Classes="AnimeSlide"
+            SelectedIndex="0">
+            <spp:ContentLoader CustomLoadingText="{Binding Path=Res.EnableAccelerationPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsLoading="{Binding IsLoading}">
+                <Panel IsVisible="{Binding !IsLoading}">
+                    <!--  登录  -->
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="10">
+                        <StackPanel.IsVisible>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <CompiledBinding Path="!Requires2FA" />
+                                <CompiledBinding Path="!RequiresEmailAuth" />
+                                <CompiledBinding Path="!IsLoading" />
+                            </MultiBinding>
+                        </StackPanel.IsVisible>
+                        <PathIcon
+                            Width="88"
+                            Height="88"
+                            Data="{StaticResource Steam}" />
+                        <TextBox
+                            MaxWidth="280"
+                            Text="{Binding UserNameText}"
+                            Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBox
+                            Name="PasswordText"
+                            MaxWidth="280"
+                            Classes="revealPasswordButton"
+                            PasswordChar="{StaticResource PasswordChar}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            Text="{Binding PasswordText}"
+                            Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <CheckBox Content="{Binding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
+
+                        <Button
+                            MinWidth="280"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Command="{Binding Login}"
+                            Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    </StackPanel>
+                    <StackPanel
+                        Margin="20,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="10">
+                        <StackPanel.IsVisible>
+                            <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                                <CompiledBinding Path="Requires2FA" />
+                                <CompiledBinding Path="RequiresEmailAuth" />
+                            </MultiBinding>
+                        </StackPanel.IsVisible>
+                        <TextBlock IsVisible="{Binding Requires2FA}" Text="{Binding Path=Res.LocalAuth_Steam2FACodeTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBlock IsVisible="{Binding RequiresEmailAuth}" Text="{Binding Path=Res.LocalAuth_EmailCodeTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <TextBox
+                            FontSize="22"
+                            Text="{Binding TwofactorCode, Mode=TwoWay}"
+                            TextAlignment="Center" />
+
+                        <Button
+                            MinWidth="280"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Command="{Binding Login}"
+                            Content="{Binding Path=Res.Btn_Text_Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    </StackPanel>
+
+                </Panel>
+
+            </spp:ContentLoader>
+
+            <StackPanel
+                MaxWidth="300"
+                Margin="20,0"
+                VerticalAlignment="Center"
+                Spacing="10">
+                <TextBlock Text="sessionid" />
+                <TextBox Text="{Binding SeesionId}" />
+                <TextBlock Text="steamLoginSecure" />
+                <TextBox
+                    Height="90"
+                    AcceptsReturn="True"
+                    Text="{Binding SteamLoginSecure}" />
+                <!--<TextBlock Text="家庭监护代码" />-->
+                <!--<TextBox Text="{Binding 家庭监护代码}" />-->
+                <CheckBox Content="{Binding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
+                <Button
+                    MinWidth="280"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding CookieLogin}"
+                    Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </StackPanel>
+        </Carousel>
+
+        <StackPanel
+            Grid.Row="2"
+            Margin="0,10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal">
+            <Button
+                HorizontalContentAlignment="Center"
+                Cursor="Hand"
+                Theme="{StaticResource HyperlinkButton}">
+                <i:Interaction.Behaviors>
+                    <ia:EventTriggerBehavior EventName="Click">
+                        <ia:ChangePropertyAction
+                            PropertyName="SelectedIndex"
+                            TargetObject="ContentCarousel"
+                            Value="0" />
+                    </ia:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+                <TextBlock Text="{Binding Path=Res.AccountLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </Button>
+            <Separator
+                Height="18"
+                Margin="10,0"
+                VerticalAlignment="Stretch"
+                Background="{DynamicResource ButtonBorderBrush}"
+                Classes="Vertical"
+                IsHitTestVisible="False" />
+            <Button
+                HorizontalContentAlignment="Center"
+                Cursor="Hand"
+                Theme="{StaticResource HyperlinkButton}">
+                <i:Interaction.Behaviors>
+                    <ia:EventTriggerBehavior EventName="Click">
+                        <ia:ChangePropertyAction
+                            PropertyName="SelectedIndex"
+                            TargetObject="ContentCarousel"
+                            Value="1" />
+                    </ia:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+                <TextBlock Text="{Binding Path=Res.CookieLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

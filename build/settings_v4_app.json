@@ -1,0 +1,1217 @@
+{
+  "Namespace": "BD.WTTS.Settings",
+  "Usings": "",
+  "DictionaryTypes": [
+    "ConcurrentDictionary<",
+    "Dictionary<"
+  ],
+  "CollectionTypes": [
+    "IList<",
+    "List<",
+    "HashSet<"
+  ],
+  "Settings": {
+    "UISettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client\\Settings",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client\\Settings\\Abstractions",
+      "Properties": [
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "主题",
+          "IsRegionOrEndregion": true,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "AppTheme",
+          "PropertyName": "Theme",
+          "DefaultValue": "AppTheme.FollowingSystem",
+          "DefaultValueIsConst": true,
+          "Summary": "主题",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "ThemeAccent",
+          "DefaultValue": "\"#FF0078D7\"",
+          "DefaultValueIsConst": true,
+          "Summary": "主题强调色（16 进制 RGB 字符串）",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "UseSystemThemeAccent",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "从系统中获取主题强调色",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": false,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "Language",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "语言",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "HashSet<MessageBox.DontPromptType>",
+          "PropertyName": "MessageBoxDontPrompts",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "不再提示的消息框",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsShowAdvertisement",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "是否显示广告",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "ConcurrentDictionary<string, SizePosition>",
+          "PropertyName": "WindowSizePositions",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "窗口位置大小",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "FontName",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "字体",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "GameListGridSize",
+          "DefaultValue": "150",
+          "DefaultValueIsConst": true,
+          "Summary": "库存游戏网格布局大小",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "Fillet",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "圆角",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "WindowBackground 窗口背景",
+          "IsRegionOrEndregion": true,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "double",
+          "PropertyName": "WindowBackgroundOpacity",
+          "DefaultValue": "OperatingSystem2.IsWindows11AtLeast() ? .0 : .8",
+          "DefaultValueIsConst": false,
+          "Summary": "窗口背景不透明度",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "WindowBackgroundMaterial",
+          "PropertyName": "WindowBackgroundMaterial",
+          "DefaultValue": "OperatingSystem2.IsWindows11AtLeast() ? Enums.WindowBackgroundMaterial.Mica : Enums.WindowBackgroundMaterial.AcrylicBlur",
+          "DefaultValueIsConst": false,
+          "Summary": "窗口背景材质",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "WindowBackgroundDynamic",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "动态桌面背景",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "WindowBackgroundCustomImage",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "是否打开自定义背景图像",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "WindowBackgroundCustomImagePath",
+          "DefaultValue": "\"avares://BD.WTTS.Client.Avalonia/UI/Assets/back.png\"",
+          "DefaultValueIsConst": true,
+          "Summary": "自定义背景图像路径",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "double",
+          "PropertyName": "WindowBackgroundCustomImageOpacity",
+          "DefaultValue": ".8",
+          "DefaultValueIsConst": true,
+          "Summary": "自定义背景图像不透明度",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "XamlMediaStretch",
+          "PropertyName": "WindowBackgroundCustomImageStretch",
+          "DefaultValue": "XamlMediaStretch.UniformToFill",
+          "DefaultValueIsConst": true,
+          "Summary": "自定义背景图像缩放方式",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": false,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "HashSet<string>",
+          "PropertyName": "SortMenuTabs",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "菜单排序",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "StartDefaultPageName",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "程序启动时默认页",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        }
+      ],
+      "Usings": ""
+    },
+    "GeneralSettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client\\Settings",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client\\Settings\\Abstractions",
+      "Properties": [
+        {
+          "TypeName": "bool",
+          "PropertyName": "AutoCheckAppUpdate",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "自动检查应用更新",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "UpdateChannelType",
+          "PropertyName": "UpdateChannel",
+          "DefaultValue": "UpdateChannelType.Auto",
+          "DefaultValueIsConst": true,
+          "Summary": "选择下载更新渠道",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "AutoRunOnStartup",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "开机自启动",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "MinimizeOnStartup",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "启动时最小化",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "TrayIcon",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "启用托盘图标",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "MessagePopupNotification",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "启用消息推送通知",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "GameListUseLocalCache",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "游戏列表使用本地缓存",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "Dictionary<Platform, string>",
+          "PropertyName": "TextReaderProvider",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "文本阅读器提供商，值为程序路径",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "EncodingType",
+          "PropertyName": "HostsFileEncodingType",
+          "DefaultValue": "EncodingType.Auto",
+          "DefaultValueIsConst": true,
+          "Summary": "Hosts 文件编码类型",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "GPU",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "是否使用硬件加速",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "NativeOpenGL",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "使用本机 OpenGL",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "ScreenCapture",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "屏幕捕获/允许截图，在一些含有机密的页面上是否允许截图，默认为 <see langword=\"false\"/>",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "HashSet<string>",
+          "PropertyName": "DisablePlugins",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "禁用插件",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "PluginSafeMode",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "插件安全模式",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "DateTimeOffset",
+          "PropertyName": "LastLookNoticeDateTime",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": false,
+          "Summary": "最后查看通知时间",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "配置应用程序的 Web 代理",
+          "IsRegionOrEndregion": true,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "AppWebProxyMode",
+          "PropertyName": "WebProxyMode",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 代理模式",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomWebProxyModeHost",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 Host",
+          "IsRegionOrEndregion": null,
+          "IsValueType": false
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "CustomWebProxyModePort",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 Port",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomWebProxyModeAddress",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 Address",
+          "IsRegionOrEndregion": null,
+          "IsValueType": false
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "CustomWebProxyModeBypassOnLocal",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 BypassOnLocal",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomWebProxyModeCredentialUserName",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 NetworkCredential.UserName",
+          "IsRegionOrEndregion": null,
+          "IsValueType": false
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomWebProxyModeCredentialPassword",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 NetworkCredential.Password",
+          "IsRegionOrEndregion": null,
+          "IsValueType": false
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomWebProxyModeCredentialDomain",
+          "DefaultValue": "default",
+          "DefaultValueIsConst": true,
+          "Summary": "Web 自定义代理 NetworkCredential.Domain",
+          "IsRegionOrEndregion": null,
+          "IsValueType": false
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": false,
+          "IsValueType": null
+        }
+      ],
+      "Usings": ""
+    },
+    "GameAccountSettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client.Plugins.GameAccount\\Settings",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client.Plugins.GameAccount\\Settings\\Abstractions",
+      "Properties": [
+        {
+          "TypeName": "ConcurrentDictionary<string, string?>",
+          "PropertyName": "AccountRemarks",
+          "DefaultValue": "new()",
+          "DefaultValueIsConst": false,
+          "Summary": "账号备注字典",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "IReadOnlyCollection<DisableAuthorizedDevice>",
+          "PropertyName": "DisableAuthorizedDevice",
+          "DefaultValue": "Array.Empty<DisableAuthorizedDevice>()",
+          "DefaultValueIsConst": false,
+          "Summary": "Steam 家庭共享临时禁用",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "HashSet<string>",
+          "PropertyName": "EnablePlatforms",
+          "DefaultValue": "new()",
+          "DefaultValueIsConst": false,
+          "Summary": "启用的账号平台集合",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "ConcurrentDictionary<string, PlatformSettings>",
+          "PropertyName": "PlatformSettings",
+          "DefaultValue": "new()",
+          "DefaultValueIsConst": false,
+          "Summary": "账号平台设置集合",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsShowAccountName",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": false,
+          "Summary": "是否显示账号用户名",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        }
+      ],
+      "Usings": ""
+    },
+    "GameLibrarySettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client.Plugins.GameList\\Settings",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client.Plugins.GameList\\Settings\\Abstractions",
+      "Properties": [
+        {
+          "TypeName": "bool",
+          "PropertyName": "GameInstalledFilter",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "已安装游戏筛选",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "GridLayoutType",
+          "PropertyName": "GameLibraryLayoutType",
+          "DefaultValue": "GridLayoutType.Grid",
+          "DefaultValueIsConst": true,
+          "Summary": "库存游戏展示布局",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "GameCloudArchiveFilter",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "支持云存档游戏筛选状态",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "List<SteamAppType>",
+          "PropertyName": "GameTypeFiltres",
+          "DefaultValue": "new List<SteamAppType> { SteamAppType.Game, SteamAppType.Application, SteamAppType.Demo, SteamAppType.Beta }",
+          "DefaultValueIsConst": false,
+          "Summary": "游戏类型筛选状态列表",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "Dictionary<uint, string?>",
+          "PropertyName": "HideGameList",
+          "DefaultValue": "new()",
+          "DefaultValueIsConst": false,
+          "Summary": "隐藏的游戏列表",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "Dictionary<uint, string?>",
+          "PropertyName": "AFKAppList",
+          "DefaultValue": "new()",
+          "DefaultValueIsConst": false,
+          "Summary": "挂时长游戏列表",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsAutoAFKApps",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "启用自动挂机",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        }
+      ],
+      "Usings": ""
+    },
+    "SteamSettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client\\Settings\\Steam",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client\\Settings\\Abstractions",
+      "Properties": [
+        {
+          "TypeName": "string",
+          "PropertyName": "SteamStratParameter",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 启动参数",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "SteamSkin",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 皮肤",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "Sharp": "if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)"
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "SteamProgramPath",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": false,
+          "Summary": "Steam 默认程序路径",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsAutoRunSteam",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "自动运行 Steam",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsRunSteamMinimized",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 启动时最小化到托盘",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsRunSteamNoCheckUpdate",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 启动时不检查更新",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsRunSteamChina",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 启动时模拟为蒸汽平台（Steam 国服）启动",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsRunSteamVGUI",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 以旧版 VGUI 启动",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsEnableSteamLaunchNotification",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 登录时弹出消息通知",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "OSExitMode",
+          "PropertyName": "DownloadCompleteSystemEndMode",
+          "DefaultValue": "OSExitMode.Sleep",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 下载完成执行任务",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsRunSteamAdministrator",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "Steam 以管理员权限运行",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "Sharp": "endif"
+        }
+      ],
+      "Usings": ""
+    },
+    "ProxySettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client.Plugins.Accelerator\\Settings",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client.Plugins.Accelerator\\Settings\\Abstractions",
+      "Properties": [
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsAutoCheckScriptUpdate",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "启用脚本自动检查更新",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsEnableScript",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "启用代理脚本",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "IReadOnlyCollection<string>",
+          "PropertyName": "SupportProxyServicesStatus",
+          "DefaultValue": "Array.Empty<string>()",
+          "DefaultValueIsConst": false,
+          "Summary": "代理服务启用状态",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "IReadOnlyCollection<int>",
+          "PropertyName": "ScriptsStatus",
+          "DefaultValue": "Array.Empty<int>()",
+          "DefaultValueIsConst": false,
+          "Summary": "脚本启用状态",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "代理设置",
+          "IsRegionOrEndregion": true,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "ProgramStartupRunProxy",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "程序启动时自动启动代理",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "ushort",
+          "PropertyName": "SystemProxyPortId",
+          "DefaultValue": "26561",
+          "DefaultValueIsConst": true,
+          "Summary": "系统代理模式端口",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "SystemProxyIp",
+          "DefaultValue": "IPAddress.Any.ToString()",
+          "DefaultValueIsConst": false,
+          "Summary": "系统代理模式IP",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "OnlyEnableProxyScript",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "开启加速后仅代理脚本而不加速",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "ProxyMasterDns",
+          "DefaultValue": "\"223.5.5.5\"",
+          "DefaultValueIsConst": true,
+          "Summary": "代理时使用的解析主DNS",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "EnableHttpProxyToHttps",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "启用 Http 链接转发到 Https",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": false,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "本地代理设置",
+          "IsRegionOrEndregion": true,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "Socks5ProxyEnable",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "Socks5 Enable",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "ushort",
+          "PropertyName": "Socks5ProxyPortId",
+          "DefaultValue": "8868",
+          "DefaultValueIsConst": true,
+          "Summary": "Socks5 监听端口",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": false,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "二级代理设置",
+          "IsRegionOrEndregion": true,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "TwoLevelAgentEnable",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "TwoLevelAgent Enable",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "ExternalProxyType",
+          "PropertyName": "TwoLevelAgentProxyType",
+          "DefaultValue": "IReverseProxyService.Constants.DefaultTwoLevelAgentProxyType",
+          "DefaultValueIsConst": true,
+          "Summary": "TwoLevelAgent ProxyType",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "TwoLevelAgentIp",
+          "DefaultValue": "IPAddress.Loopback.ToString()",
+          "DefaultValueIsConst": false,
+          "Summary": "二级代理 IP",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "ushort",
+          "PropertyName": "TwoLevelAgentPortId",
+          "DefaultValue": "7890",
+          "DefaultValueIsConst": true,
+          "Summary": "二级代理 监听端口",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "TwoLevelAgentUserName",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "TwoLevelAgent UserName",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "TwoLevelAgentPassword",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "TwoLevelAgent Password",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": false,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "代理模式设置",
+          "IsRegionOrEndregion": true,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "ProxyMode",
+          "PropertyName": "ProxyMode",
+          "DefaultValue": "Enums.ProxyMode.Hosts",
+          "DefaultValueIsConst": false,
+          "Summary": "当前代理模式",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "",
+          "PropertyName": "",
+          "DefaultValue": "",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": false,
+          "IsValueType": null
+        },
+        {
+          "Sharp": "if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)"
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsProxyGOG",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "启用 GOG 插件代理",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IsOnlyWorkSteamBrowser",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": true,
+          "Summary": "是否只针对 Steam 内置浏览器启用脚本",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "Sharp": "endif"
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "UseDoh",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "启用 DNS over HTTPS",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "string",
+          "PropertyName": "CustomDohAddres2",
+          "DefaultValue": "null",
+          "DefaultValueIsConst": true,
+          "Summary": "自定义 DNS over HTTPS 地址",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "AcceleratorTabsSelectedIndex",
+          "DefaultValue": "0",
+          "DefaultValueIsConst": false,
+          "Summary": "加速页面 Tab 选项卡选中下标",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "AutoShowWattAcceleratorWindow",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "加速后自动唤起 Watt 加速器界面",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "ProxyBeforeDNSCheck",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": true,
+          "Summary": "加速前进行 DNS 可用性检查",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        }
+      ],
+      "Usings": ""
+    },
+    "SteamIdleSettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client.Plugins.SteamIdleCard\\Settings",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client.Plugins.SteamIdleCard\\Settings\\Abstractions",
+      "Properties": [
+        {
+          "TypeName": "TimeSpan",
+          "PropertyName": "IdleTime",
+          "DefaultValue": "TimeSpan.FromMinutes(6)",
+          "DefaultValueIsConst": false,
+          "Summary": "挂卡状态更新时间",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "IdleRule",
+          "PropertyName": "IdleRule",
+          "DefaultValue": "IdleRule.FastMode",
+          "DefaultValueIsConst": false,
+          "Summary": "运行规则",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "IdleSequentital",
+          "PropertyName": "IdleSequentital",
+          "DefaultValue": "IdleSequentital.Default",
+          "DefaultValueIsConst": false,
+          "Summary": "运行顺序",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "MaxIdleCount",
+          "DefaultValue": "30",
+          "DefaultValueIsConst": false,
+          "Summary": "最大并行运行游戏数量",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "double",
+          "PropertyName": "MinRunTime",
+          "DefaultValue": "2",
+          "DefaultValueIsConst": false,
+          "Summary": "最少游戏时间 hours",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "double",
+          "PropertyName": "SwitchTime",
+          "DefaultValue": "5000",
+          "DefaultValueIsConst": false,
+          "Summary": "自动切换游戏时间间隔 ms",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "double",
+          "PropertyName": "RefreshBadgesTime",
+          "DefaultValue": "6",
+          "DefaultValueIsConst": false,
+          "Summary": "自动刷新徽章数据时间间隔 min",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        }
+      ],
+      "Usings": ""
+    },
+    "ASFSettings": {
+      "ClassFilePath": "..\\src\\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus\\Settings",
+      "InterfaceFilePath": "..\\src\\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus\\Settings\\Abstractions",
+      "Properties": [
+        {
+          "TypeName": "string",
+          "PropertyName": "ArchiSteamFarmExePath",
+          "DefaultValue": "string.Empty",
+          "DefaultValueIsConst": false,
+          "Summary": "ASF 路径",
+          "IsRegionOrEndregion": null,
+          "IsValueType": false
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "AutoRunArchiSteamFarm",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": false,
+          "Summary": "程序启动时自动运行 ASF",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "CheckArchiSteamFarmExe",
+          "DefaultValue": "false",
+          "DefaultValueIsConst": false,
+          "Summary": "检查文件安全性",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "ConsoleMaxLineDefault",
+          "DefaultValue": "200",
+          "DefaultValueIsConst": true,
+          "Summary": "控制台默认最大行数",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "MinRangeConsoleMaxLine",
+          "DefaultValue": "DefaultConsoleMaxLineDefault",
+          "DefaultValueIsConst": true,
+          "Summary": "控制台默认最大行数范围最小值",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "MaxRangeConsoleMaxLine",
+          "DefaultValue": "5000",
+          "DefaultValueIsConst": true,
+          "Summary": "控制台默认最大行数范围最大值",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "ConsoleMaxLine",
+          "DefaultValue": "DefaultConsoleMaxLineDefault",
+          "DefaultValueIsConst": false,
+          "Summary": "控制台最大行数",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "ConsoleFontSizeDefault",
+          "DefaultValue": "14",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "MinRangeConsoleFontSize",
+          "DefaultValue": "8",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "MaxRangeConsoleFontSize",
+          "DefaultValue": "24",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "ConsoleFontSize",
+          "DefaultValue": "DefaultConsoleFontSizeDefault",
+          "DefaultValueIsConst": false,
+          "Summary": "控制台字体大小",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "IPCPortIdValue",
+          "DefaultValue": "6242",
+          "DefaultValueIsConst": true,
+          "Summary": "",
+          "IsRegionOrEndregion": null,
+          "IsValueType": null
+        },
+        {
+          "TypeName": "int",
+          "PropertyName": "IPCPortId",
+          "DefaultValue": "DefaultIPCPortIdValue",
+          "DefaultValueIsConst": false,
+          "Summary": "IPC 端口号，默认值为 <see cref=\"DefaultIPCPortIdValue\" />",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        },
+        {
+          "TypeName": "bool",
+          "PropertyName": "IPCPortOccupiedRandom",
+          "DefaultValue": "true",
+          "DefaultValueIsConst": false,
+          "Summary": "IPC 端口号被占用时是否随机一个未使用的端口号，默认值 <see langword=\"true\" />",
+          "IsRegionOrEndregion": null,
+          "IsValueType": true
+        }
+      ],
+      "Usings": ""
+    }
+  }
+}

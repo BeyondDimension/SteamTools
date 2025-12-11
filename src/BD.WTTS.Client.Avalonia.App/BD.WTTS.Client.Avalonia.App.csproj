@@ -1,0 +1,133 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>Steam++</AssemblyName>
+		<OutputType>Exe</OutputType>
+		<RootNamespace>BD.WTTS</RootNamespace>
+		<DefineConstants>AVALONIA;$(DefineConstants)</DefineConstants>
+		<ApplicationId>net.steampp.app</ApplicationId>
+		<ServerGarbageCollection>false</ServerGarbageCollection>
+		<ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+		<RetainVMGarbageCollection>false</RetainVMGarbageCollection>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<ApplicationIcon Condition="'$(Configuration)'=='Release'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
+		<ApplicationIcon Condition="'$(Configuration)'=='Debug'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release' AND ($(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows')">
+		<OutputType>WinExe</OutputType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos'">
+		<RuntimeIdentifiers>osx-x64;osx-arm64</RuntimeIdentifiers>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<AllowedReferenceRelatedFileExtensions>
+			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
+           		 Only *.allowedextension files will be included, which doesn't exist in my case.
+       		-->
+			.allowedextension
+		</AllowedReferenceRelatedFileExtensions>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\ImplicitUsings.MessagePack.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.JsonProperty.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.SQLite.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Repositories.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Services.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.ReactiveUI.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Models.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.ViewModels.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Settings.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.AutoMapper.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.WTTS.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.MSEX.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Nito.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.NLog.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.Avalonia.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.UI.Views.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
+	</ItemGroup>
+
+	<!--<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND Exists('$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\lib\net9.0\System.Drawing.Common.dll')">
+		--><!-- Windows Only --><!--
+		--><!-- 修复：存在 Microsoft.WindowsDesktop.App 依赖时不会将 System.Drawing.Common.dll 复制到输出目录--><!--
+		<None Include="$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\lib\net9.0\System.Drawing.Common.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<Reference Include="System.Drawing.Common">
+			<HintPath>$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\lib\net9.0\System.Drawing.Common.dll</HintPath>
+		</Reference>
+		<None Include="$(NugetPackageRoot)\microsoft.win32.systemevents\9.0.0\runtimes\win\lib\net9.0\Microsoft.Win32.SystemEvents.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<Reference Include="Microsoft.Win32.SystemEvents">
+			<HintPath>$(NugetPackageRoot)\microsoft.win32.systemevents\9.0.0\runtimes\win\lib\net9.0\Microsoft.Win32.SystemEvents.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND Exists('$(NugetPackageRoot)\splat.drawing\$(Version_Splat_Drawing)\lib\net7.0\Splat.Drawing.dll')">
+		--><!-- Windows Only --><!--
+		--><!-- 修复：Splat.Drawing 包存在 WPF 的依赖项 --><!--
+		<PackageReference Include="Splat.Drawing">
+			<ExcludeAssets>all</ExcludeAssets>
+		</PackageReference>
+		<Reference Include="Splat.Drawing">
+			<HintPath>$(NugetPackageRoot)\splat.drawing\$(Version_Splat_Drawing)\lib\net7.0\Splat.Drawing.dll</HintPath>
+		</Reference>
+		--><!-- 修复：System.Reactive 包存在 System.Windows.Forms 的依赖项 --><!--
+		<Reference Include="System.Reactive">
+			<HintPath>$(NugetPackageRoot)\system.reactive\$(Version_System_Reactive)\lib\net6.0\System.Reactive.dll</HintPath>
+		</Reference>
+	</ItemGroup>-->
+
+	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
+
+</Project>
+

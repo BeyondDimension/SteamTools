@@ -1,0 +1,37 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.PlatformSettingsPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:PlatformSettingsPageViewModel"
+    mc:Ignorable="d">
+    <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
+        <TextBlock Margin="0,0,0,5">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} 平台设置">
+                    <CompiledBinding Mode="OneWay" Path="Platform.FullName" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+        <ui:SettingsExpander Description="{Binding PlatformSettings.PlatformPath}" IsClickEnabled="True">
+            <ui:SettingsExpander.Header>
+                <MultiBinding StringFormat="{}{0} 路径">
+                    <CompiledBinding Mode="OneWay" Path="Platform.FullName" />
+                </MultiBinding>
+            </ui:SettingsExpander.Header>
+            <ui:SettingsExpander.IconSource>
+                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
+            </ui:SettingsExpander.IconSource>
+            <ui:SettingsExpander.Footer>
+                <Button Command="{Binding SelectProgramPath}" Content="选择路径" />
+            </ui:SettingsExpander.Footer>
+        </ui:SettingsExpander>
+    </StackPanel>
+</UserControl>

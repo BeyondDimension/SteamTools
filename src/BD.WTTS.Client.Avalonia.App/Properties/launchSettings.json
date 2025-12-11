@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "BD.WTTS.Client.Avalonia.App": {
+      "commandName": "Project"
+    }
+  }
+}

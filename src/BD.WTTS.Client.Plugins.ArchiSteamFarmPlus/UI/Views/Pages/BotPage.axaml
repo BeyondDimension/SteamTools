@@ -1,0 +1,230 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.BotPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="Bot 账号"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="spp:BotPageViewModel"
+    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
+    mc:Ignorable="d">
+    <spp:PageBase.PreviewImage>
+        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.Resources>
+        <ui:FAMenuFlyout x:Key="SharedMenuFlyout" x:DataType="spp:BotViewModel">
+            <ui:MenuFlyoutItem
+                Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).GoToBotSettings}"
+                CommandParameter="{Binding Bot}"
+                IconSource="Globe"
+                Text="打开 Bot 配置" />
+            <ui:MenuFlyoutSeparator />
+            <ui:MenuFlyoutItem
+                Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).EditBotFile}"
+                CommandParameter="{Binding Bot}"
+                IconSource="Edit"
+                Text="编辑 Json 文件" />
+            <ui:MenuFlyoutSeparator />
+            <ui:MenuFlyoutItem
+                Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).DeleteBot}"
+                CommandParameter="{Binding Bot}"
+                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                IconSource="Delete"
+                Text="删除" />
+        </ui:FAMenuFlyout>
+    </spp:PageBase.Resources>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="2">
+            <Button
+                Padding="8,4"
+                Command="{Binding SelectBotFiles}"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Import" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="导入 Bot" />
+                </Panel>
+            </Button>
+            <Button
+                Padding="8,4"
+                Command="{Binding AddBot}"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Add" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="新增 Bot" />
+                </Panel>
+            </Button>
+            <Button
+                Padding="8,4"
+                Command="{Binding RefreshBots}"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Refresh" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="刷新 Bot" />
+                </Panel>
+            </Button>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+    <spp:ContentLoader
+        CustomLoadingText="请先启动 ArchiSteamFarm"
+        IsLoading="False"
+        IsShowNoResultText="{Binding !!!SteamBots.Count}"
+        NoResultMessage="当前列表没有 Bot 账号">
+        <spp:ContentLoader.GestureRecognizers>
+            <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
+        </spp:ContentLoader.GestureRecognizers>
+        <ItemsRepeater x:Name="BotListRepeater" ItemsSource="{Binding SteamBots}">
+            <ItemsRepeater.Layout>
+                <UniformGridLayout
+                    ItemsJustification="Start"
+                    ItemsStretch="Uniform"
+                    MinColumnSpacing="10"
+                    MinItemHeight="120"
+                    MinItemWidth="300"
+                    MinRowSpacing="10" />
+            </ItemsRepeater.Layout>
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate DataType="spp:BotViewModel">
+                    <!--  Classes.Vertical="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.Grid}}"  -->
+                    <spp:AppItem
+                        Title="{Binding Bot.BotName, Mode=OneWay}"
+                        Classes="Horizontal"
+                        ContextFlyout="{StaticResource SharedMenuFlyout}"
+                        Description="{Binding Tags}"
+                        MoreFlyout="{StaticResource SharedMenuFlyout}">
+                        <spp:AppItem.Tags>
+                            <Panel IsVisible="{Binding !!Bot.SteamID}">
+                                <TextBlock Text="{Binding Bot.SteamID}" />
+                            </Panel>
+                        </spp:AppItem.Tags>
+                        <spp:AppItem.Status>
+                            <Border Classes="Status">
+                                <Panel>
+                                    <WrapPanel IsVisible="{Binding StatusVisible}">
+                                        <Ellipse
+                                            Width="6"
+                                            Height="6"
+                                            Margin="0,0,5,0"
+                                            Fill="#47A42B" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="12"
+                                            Text="{Binding BotStatusText, Mode=OneWay}" />
+                                    </WrapPanel>
+                                    <WrapPanel IsVisible="{Binding !StatusVisible}">
+                                        <Ellipse
+                                            Width="6"
+                                            Height="6"
+                                            Margin="0,0,5,0"
+                                            Fill="#FF4F58" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="12"
+                                            Text="{Binding BotStatusText, Mode=OneWay}" />
+                                    </WrapPanel>
+                                </Panel>
+                            </Border>
+                        </spp:AppItem.Status>
+                        <spp:AppItem.ActionButton>
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <Button
+                                    Margin="5"
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).PauseOrResumeBotFarming}"
+                                    CommandParameter="{Binding Bot}"
+                                    IsVisible="{Binding Bot.KeepRunning}"
+                                    Theme="{StaticResource TransparentButton}">
+                                    <Button.Content>
+                                        <StackPanel>
+                                            <ui:FontIcon
+                                                VerticalAlignment="Center"
+                                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                FontSize="18"
+                                                Glyph="&#xF5B0;"
+                                                IsVisible="{Binding Bot.CardsFarmer.Paused}"
+                                                ToolTip.Tip="恢复挂卡" />
+                                            <ui:FontIcon
+                                                VerticalAlignment="Center"
+                                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                FontSize="18"
+                                                Glyph="&#xE769;"
+                                                IsVisible="{Binding !Bot.CardsFarmer.Paused}"
+                                                ToolTip.Tip="暂停挂卡" />
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <Button
+                                    VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).EnableOrDisableBot}"
+                                    CommandParameter="{Binding Bot}"
+                                    Theme="{StaticResource TransparentButton}"
+                                    ToolTip.Tip="启用或禁用该 Bot">
+                                    <Button.Content>
+                                        <Panel>
+                                            <ui:FontIcon
+                                                VerticalAlignment="Center"
+                                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                FontSize="18"
+                                                Glyph="&#xE7E8;" />
+                                        </Panel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </spp:AppItem.ActionButton>
+                        <spp:AppItem.Image>
+                            <Panel Width="{Binding $parent[spp:AppItem].Bounds.Width}">
+                                <spp:Image2
+                                    Name="AppImage"
+                                    DecodeWidth="169"
+                                    FallbackSource="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+                                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                                    Source="{Binding Bot.AvatarHash, StringFormat={}https://avatars.akamai.steamstatic.com/{0}_full.jpg}"
+                                    Stretch="UniformToFill" />
+                            </Panel>
+                        </spp:AppItem.Image>
+                    </spp:AppItem>
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+    </spp:ContentLoader>
+</spp:PageBase>

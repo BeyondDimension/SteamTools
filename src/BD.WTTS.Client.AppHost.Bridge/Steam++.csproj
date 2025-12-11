@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>Steam++</AssemblyName>
+		<TargetFramework>net472</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<IsTrimmable>false</IsTrimmable>
+		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
+		<OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
+		<Prefer32Bit>false</Prefer32Bit>
+		<ApplicationManifest>..\BD.WTTS.Client.AppHost\Properties\app.manifest</ApplicationManifest>
+		<DefineConstants>APP_HOST;WINDOWS_DEKSTOP_BRIDGE;$(DefineConstants)</DefineConstants>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<RootNamespace>BD.WTTS</RootNamespace>
+		<EnableMsixTooling>true</EnableMsixTooling>
+		<ServerGarbageCollection>false</ServerGarbageCollection>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ApplicationIcon Condition="'$(Configuration)'=='Release'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
+		<ApplicationIcon Condition="'$(Configuration)'=='Debug'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" $(TargetFramework.StartsWith('net4')) OR $(TargetFramework.StartsWith('net3')) ">
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\..\WattToolkit.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) OR $(TargetFramework.StartsWith('net3')) ">
+		<Reference Include="System.Configuration" />
+	</ItemGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<AllowedReferenceRelatedFileExtensions>
+			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
+           		 Only *.allowedextension files will be included, which doesn't exist in my case.
+       		-->
+			.allowedextension
+		</AllowedReferenceRelatedFileExtensions>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="..\ImplicitUsings.Common.cs" />
+		<Compile Include="..\AssemblyInfo.Constants.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client\Startup\Startup.CompatibilityCheck.cs" />
+		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\BD.WTTS.Client.AppHost\**\*.cs" />
+		<Compile Remove="..\BD.WTTS.Client.AppHost\bin\**" />
+		<Compile Remove="..\BD.WTTS.Client.AppHost\obj\**" />
+	</ItemGroup>
+
+</Project>

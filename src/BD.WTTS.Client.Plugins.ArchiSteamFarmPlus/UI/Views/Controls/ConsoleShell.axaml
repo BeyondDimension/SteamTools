@@ -1,0 +1,81 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.ConsoleShell"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:AvaloniaEdit="using:AvaloniaEdit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    x:Name="u"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    FontFamily="{StaticResource UnicodeFont}"
+    FontSize="16"
+    mc:Ignorable="d">
+    <!--<UserControl.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="FontSize" Value="{ReflectionBinding #u.FontSize}" />
+            <Setter Property="FontFamily" Value="{ReflectionBinding #u.FontFamily}" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="(ScrollViewer.HorizontalScrollBarVisibility)" Value="Disabled" />
+            <Setter Property="(ScrollViewer.VerticalScrollBarVisibility)" Value="Disabled" />
+        </Style>
+
+        <Style Selector="TextBox /template/ TextBlock#PART_BorderElement">
+            <Setter Property="Margin" Value="0" />
+        </Style>
+    </UserControl.Styles>-->
+    <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="{DynamicResource ControlCornerRadius}">
+        <Grid RowDefinitions="*,Auto">
+            <AvaloniaEdit:TextEditor
+                x:Name="LogTextbox"
+                HorizontalScrollBarVisibility="Disabled"
+                IsReadOnly="True"
+                ShowLineNumbers="True" />
+            <DockPanel Grid.Row="1">
+                <AutoCompleteBox
+                    x:Name="CommandTextbox"
+                    FilterMode="StartsWithOrdinal"
+                    Focusable="True"
+                    IsTextCompletionEnabled="True"
+                    MaxDropDownHeight="300"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    ValueMemberBinding="{ReflectionBinding Command}">
+                    <AutoCompleteBox.Styles>
+                        <Style Selector="AutoCompleteBox">
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Watermark" Value="输入指令或消息内容" />
+                        </Style>
+                        <Style Selector="AutoCompleteBox /template/ TextBox#PART_TextBox">
+                            <Setter Property="AcceptsReturn" Value="False" />
+                            <Setter Property="IsReadOnly" Value="False" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+                        </Style>
+                        <Style Selector="AutoCompleteBox:password /template/ TextBox#PART_TextBox">
+                            <Setter Property="PasswordChar" Value="{StaticResource PasswordChar}" />
+                        </Style>
+
+                        <Style Selector="AutoCompleteBox /template/ Popup#PART_Popup">
+                            <Setter Property="MaxWidth" Value="{ReflectionBinding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Style>
+                    </AutoCompleteBox.Styles>
+                </AutoCompleteBox>
+                <!--<ui:FontIcon
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                    FontSize="18"
+                    Glyph="&#xEB97;"
+                    ToolTip.Tip="回车键发送" />-->
+            </DockPanel>
+        </Grid>
+
+    </Border>
+</UserControl>

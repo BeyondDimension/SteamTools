@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BD.WTTS.Client.AppHost": {
+      "commandName": "Project",
+      "commandLineArgs": "-clt devtools"
+    }
+  }
+}

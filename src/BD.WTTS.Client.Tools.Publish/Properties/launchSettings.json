@@ -1,0 +1,96 @@
+{
+  "profiles": {
+    "BD.WTTS.Client.Tools.Publish": {
+      "commandName": "Project",
+      "commandLineArgs": "run --rids win-x64 --hsm-sign --stm-upload",
+      "commandLineArgs_release": "run --rids win-x64 --hsm-sign --stm-upload",
+      "commandLineArgs_nsis": "nsis --rids win-x64 --hsm-sign --t 241127_2338153089484 --debug",
+      "commandLineArgs_debug": "run --rids win-x64 --hsm-sign --stm-upload --debug",
+      "commandLineArgs_GenerateBridgeContentXml": "csproj --rids win-x64",
+      "commandLineArgs_TestUploadFile": "bs --type 2 --old \"C:\\Users\\Mossimo\\Desktop\\Steam++\\ms-test.steampp.net\""
+    },
+    "BD.WTTS.Client.Tools.Publish(TestUploadRc1)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 2 --old \"D:\\BuildTest\\rc1\""
+    },
+    "BD.WTTS.Client.Tools.Publish(TestUploadRc2)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 2 --old \"D:\\BuildTest\\rc2\""
+    },
+    "BD.WTTS.Client.Tools.Publish(TestUploadRc4)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 2 --old \"D:\\BuildTest\\rc4\""
+    },
+    "BD.WTTS.Client.Tools.Publish(TestUploadRc5)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 2 --old \"D:\\BuildTest\\rc5\""
+    },
+    "BD.WTTS.Client.Tools.Publish(AppVer.Rc1)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 4 --old 3.0.107.0 --new \"D:\\BuildTest\\rc1.json\" --platform 2"
+    },
+    "BD.WTTS.Client.Tools.Publish(AppVer.Rc2)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 4 --old 3.0.207.0 --new \"D:\\BuildTest\\rc2.json\" --platform 2"
+    },
+    "BD.WTTS.Client.Tools.Publish(AppVer.Rc4)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 4 --old 3.0.407.0 --new \"D:\\BuildTest\\rc4.json\" --platform 2"
+    },
+    "BD.WTTS.Client.Tools.Publish(AppVer.Rc5)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 4 --old 3.0.507.0 --new \"D:\\BuildTest\\rc5.json\" --platform 2"
+    },
+    "GenerateAppPublishPatchBundleInfo(rc1-rc2)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 3 --old 3.0.107.0 --new 3.0.207.0 --platform 2 --path \"D:\\BuildTest\""
+    },
+    "GenerateAppPublishPatchBundleInfo(rc1-rc4)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 3 --old 3.0.107.0 --new 3.0.407.0 --platform 2 --path \"D:\\BuildTest\""
+    },
+    "GenerateAppPublishPatchBundleInfo(rc1-rc5)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 3 --old 3.0.107.0 --new 3.0.507.0 --platform 2 --path \"D:\\BuildTest\""
+    },
+    "GenerateAppPublishPatchBundleInfo(rc2-rc4)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 3 --old 3.0.207.0 --new 3.0.407.0 --platform 2 --path \"D:\\BuildTest\""
+    },
+    "GenerateAppPublishPatchBundleInfo(rc2-rc5)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 3 --old 3.0.207.0 --new 3.0.507.0 --platform 2 --path \"D:\\BuildTest\""
+    },
+    "GenerateAppPublishPatchBundleInfo(rc4-rc5)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 3 --old 3.0.407.0 --new 3.0.507.0 --platform 2 --path \"D:\\BuildTest\""
+    },
+
+    "ApplyPatch(rc1-rc2)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 5 --old  \"D:\\BuildTest\\rc1\" --new \"D:\\BuildTest\\pacth\\rc1-rc2\" --path \"D:\\BuildTest\\3.0.107.0\\3.0.207.0.dat\""
+    },
+    "ApplyPatch(rc1-rc2-rc4)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 5 --old  \"D:\\BuildTest\\pacth\\rc1-rc2\" --new \"D:\\BuildTest\\pacth\\rc1-rc2-rc4\" --path \"D:\\BuildTest\\3.0.207.0\\3.0.407.0.dat\""
+    },
+    "ApplyPatch(rc1-rc2-rc4-rc5)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 5 --old  \"D:\\BuildTest\\pacth\\rc1-rc2-rc4\" --new \"D:\\BuildTest\\pacth\\rc1-rc2-rc4-rc5\" --path \"D:\\BuildTest\\3.0.407.0\\3.0.507.0.dat\""
+    },
+
+
+    "ApplyPatch(rc1-rc5)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 5 --old  \"D:\\BuildTest\\rc1\" --new \"D:\\BuildTest\\pacth\\rc1-rc5\" --path \"D:\\BuildTest\\3.0.107.0\\3.0.507.0.dat\""
+    },
+    "ApplyPatch(rc2-rc5)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 5 --old  \"D:\\BuildTest\\rc2\" --new \"D:\\BuildTest\\pacth\\rc2-rc5\" --path \"D:\\BuildTest\\3.0.207.0\\3.0.507.0.dat\""
+    },
+    "ApplyPatch(rc4-rc5)": {
+      "commandName": "Project",
+      "commandLineArgs": "bs --type 5 --old  \"D:\\BuildTest\\rc4\" --new \"D:\\BuildTest\\pacth\\rc4-rc5\" --path \"D:\\BuildTest\\3.0.407.0\\3.0.507.0.dat\""
+    }
+  }
+}  

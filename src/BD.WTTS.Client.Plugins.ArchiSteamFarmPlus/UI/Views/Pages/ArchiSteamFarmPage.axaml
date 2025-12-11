@@ -1,0 +1,254 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.ArchiSteamFarmPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:ArchiSteamFarmPlusPageViewModel"
+    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
+    mc:Ignorable="d">
+    <spp:PageBase.PreviewImage>
+        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="2">
+            <Button
+                Padding="8,4"
+                Command="{Binding RunOrStop}"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left"
+                        IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
+                                                      Path=!IsASFRuning}">
+                        <ui:SymbolIcon Symbol="Play" />
+                    </Viewbox>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left"
+                        IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
+                                                      Path=IsASFRuning}">
+                        <ui:SymbolIcon Symbol="Pause" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
+                                                      Path=!IsASFRuning}"
+                        Text="{Binding Path=Res.ASF_Start, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
+                                                      Path=IsASFRuning}"
+                        Text="{Binding Path=Res.ASF_Stop, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                </Panel>
+            </Button>
+            <Button
+                Padding="8,4"
+                Command="{Binding OpenWebUIConsole}"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Globe" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="打开 WebUI" />
+                </Panel>
+            </Button>
+            <ToggleButton
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
+                Theme="{StaticResource TransparentToggleButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Settings" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="设置" />
+                </Panel>
+            </ToggleButton>
+            <DropDownButton
+                Padding="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="{StaticResource More}"
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                FontSize="20"
+                Theme="{StaticResource TransparentButton}">
+                <DropDownButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <ui:MenuFlyoutItem
+                            Command="{Binding OpenASFBrowser}"
+                            CommandParameter="Repo"
+                            Text="Repo" />
+                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutItem
+                            Command="{Binding OpenASFBrowser}"
+                            CommandParameter="Wiki"
+                            Text="Wiki" />
+                        <ui:MenuFlyoutSeparator />
+                        <ui:MenuFlyoutItem
+                            Command="{Binding OpenASFBrowser}"
+                            CommandParameter="ConfigGenerator"
+                            Text="ConfigGenerator" />
+                    </ui:FAMenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+
+    <spp:PageBase.PaneContent>
+        <StackPanel Margin="15,20" Spacing="20">
+            <spp:OptionsDisplayItem Header="ASF 文件路径">
+                <spp:OptionsDisplayItem.Description>
+                    <TextBlock
+                        MaxWidth="120"
+                        MaxLines="1"
+                        Text="{Binding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath}, Path=Value, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis" />
+                </spp:OptionsDisplayItem.Description>
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <Button Command="{Binding SelectASFExePath}" Content="选择路径" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+            <spp:OptionsDisplayItem Header="自动启动 ASF">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ASFSettings.AutoRunArchiSteamFarm}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+            <spp:OptionsDisplayItem Header="检查文件安全性">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE83D;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ASFSettings.CheckArchiSteamFarmExe}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+            <spp:OptionsDisplayItem Header="ASF 监听端口">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE704;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ui:NumberBox Minimum="5000" Value="{Binding Source={x:Static ms:ASFSettings.IPCPortId}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+            <spp:OptionsDisplayItem Header="端口被占时随机端口号">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ASFSettings.IPCPortOccupiedRandom}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+            <spp:OptionsDisplayItem Header="控制台最大行数">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ui:NumberBox Minimum="1" Value="{Binding Source={x:Static ms:ASFSettings.ConsoleMaxLine}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+            <spp:OptionsDisplayItem Header="控制台字体大小">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8E9;" />
+                </spp:OptionsDisplayItem.Icon>
+                <spp:OptionsDisplayItem.ActionButton>
+                    <ui:NumberBox Minimum="1" Value="{Binding Source={x:Static ms:ASFSettings.ConsoleFontSize}, Path=Value, Mode=TwoWay}" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+
+
+
+        </StackPanel>
+    </spp:PageBase.PaneContent>
+
+    <spp:ContentLoader IsLoading="False">
+        <!--<StackPanel Orientation="Horizontal" Spacing="2">
+                <Label
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="控制台输入" />
+                <TextBox Width="200" Text="{Binding Source={x:Static s:ASFService.Current}, Path=ConsoleLogInput, Mode=TwoWay}" />
+                <Button
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Command="{Binding ShellMessageInput}"
+                    Content="发送" />
+            </StackPanel>
+
+            <TextBlock Text="{Binding Source={x:Static s:ASFService.Current}, Path=ConsoleLogText, Mode=TwoWay}" />-->
+
+        <spp:ConsoleShell
+            AutoCompleteBoxItems="{ReflectionBinding Path=Value,
+                                                     Source={x:Static spp:ArchiSteamFarmCommand.Commands}}"
+            CommandSubmit="ConsoleShell_CommandSubmit"
+            FontSize="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},
+                                         Path=Value,
+                                         Mode=OneWay}"
+            InputIndicator="用户输入"
+            IsMask="false"
+            LogText="{ReflectionBinding Source={x:Static s:ASFService.Current},
+                                        Path=ConsoleLogText,
+                                        Mode=TwoWay}"
+            MaxLine="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleMaxLine},
+                                        Path=Value,
+                                        Mode=OneWay}">
+            <spp:ConsoleShell.AutoCompleteBoxItemTemplate>
+                <DataTemplate x:DataType="spp:ArchiSteamFarmCommand">
+                    <DockPanel>
+                        <TextBlock VerticalAlignment="Center" Text="{Binding CommandText}" />
+                        <TextBlock
+                            Margin="15,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="{Binding Description}"
+                            TextWrapping="Wrap" />
+                    </DockPanel>
+                </DataTemplate>
+            </spp:ConsoleShell.AutoCompleteBoxItemTemplate>
+        </spp:ConsoleShell>
+    </spp:ContentLoader>
+</spp:PageBase>

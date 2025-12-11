@@ -1,0 +1,205 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.DownloadPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="Steam 下载监控"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:DownloadPageViewModel"
+    Description="监听 Steam 下载任务并提供下载安装完成后执行睡眠、休眠、关机功能"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
+    mc:Ignorable="d">
+    <spp:PageBase.PreviewImage>
+        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="6">
+            <!--<ToggleSwitch
+                IsChecked="{Binding Source={x:Static s:SteamConnectService.Current},
+                                              Path=IsWatchSteamDownloading,
+                                              Mode=TwoWay}"
+                OffContent="{Binding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,
+                                               Mode=OneWay,
+                                               Source={x:Static s:ResourceService.Current}}"
+                OnContent="{Binding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,
+                                              Mode=OneWay,
+                                              Source={x:Static s:ResourceService.Current}}" />-->
+
+            <ToggleSplitButton IsChecked="{Binding Source={x:Static s:SteamConnectService.Current}, Path=IsWatchSteamDownloading, Mode=TwoWay}" ToolTip.Tip="启用此按钮才会启动监听 Steam 下载数据并在下载完时执行对应操作！">
+                <ToggleSplitButton.Content>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                <CompiledBinding
+                                    Mode="OneWay"
+                                    Path="Res.GameList_SteamShutdown_DownloadComplete"
+                                    Source="{x:Static s:ResourceService.Current}}" />
+                                <CompiledBinding
+                                    Converter="{StaticResource EnumLocalizationNameConverter}"
+                                    Mode="OneWay"
+                                    Path="Value"
+                                    Source="{x:Static ms:SteamSettings.DownloadCompleteSystemEndMode}" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </ToggleSplitButton.Content>
+                <ToggleSplitButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <ui:RadioMenuFlyoutItem
+                            GroupName="OSExit"
+                            IsChecked="{Binding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:OSExitMode.Sleep}}"
+                            Text="{Binding Source={x:Static spp:OSExitMode.Sleep}, Converter={StaticResource EnumLocalizationNameConverter}}" />
+                        <ui:RadioMenuFlyoutItem
+                            GroupName="OSExit"
+                            IsChecked="{Binding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:OSExitMode.Hibernate}}"
+                            IsVisible="{OnPlatform True,
+                                                   macOS=False}"
+                            Text="{Binding Source={x:Static spp:OSExitMode.Hibernate}, Converter={StaticResource EnumLocalizationNameConverter}}" />
+                        <ui:RadioMenuFlyoutItem
+                            GroupName="OSExit"
+                            IsChecked="{Binding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:OSExitMode.Shutdown}}"
+                            Text="{Binding Source={x:Static spp:OSExitMode.Shutdown}, Converter={StaticResource EnumLocalizationNameConverter}}" />
+                    </ui:FAMenuFlyout>
+                </ToggleSplitButton.Flyout>
+            </ToggleSplitButton>
+
+            <Separator
+                Height="18"
+                Margin="5,0"
+                VerticalAlignment="Center"
+                Background="{DynamicResource ButtonBorderBrush}"
+                Classes="Vertical"
+                DockPanel.Dock="Right"
+                IsHitTestVisible="False" />
+
+            <CheckBox Content="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding IsAllCheck, Mode=TwoWay}" />
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+    <spp:ContentLoader
+        IsLoading="false"
+        IsShowNoResultText="{Binding !!!DownloadingApps.Count, Mode=OneWay}"
+        NoResultMessage="{Binding Path=Res.GameList_SteamShutdown_AppsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <ItemsControl ItemsSource="{Binding DownloadingApps}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Spacing="8" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="spp:SteamApp">
+                    <spp:AppItem
+                        Name="App"
+                        Title="{Binding DisplayName}"
+                        MaxHeight="116">
+                        <spp:AppItem.Status>
+                            <!--<Border VerticalAlignment="Center" Classes="Status">
+                                <TextBlock Text="正在下载" />
+                            </Border>-->
+                            <CheckBox Name="AppCheckBox" IsChecked="{Binding IsWatchDownloading, Mode=TwoWay}" />
+                        </spp:AppItem.Status>
+                        <spp:AppItem.Tags>
+                            <StackPanel Spacing="8">
+                                <WrapPanel>
+                                    <TextBlock
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding Path=Res.Downloaded, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                        Theme="{StaticResource CaptionTextBlockStyle}" />
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Theme="{StaticResource CaptionTextBlockStyle}">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} / {1}">
+                                                <CompiledBinding
+                                                    Converter="{StaticResource StringFormatConverter}"
+                                                    ConverterParameter="size"
+                                                    Path="BytesDownloaded" />
+                                                <CompiledBinding
+                                                    Converter="{StaticResource StringFormatConverter}"
+                                                    ConverterParameter="size"
+                                                    Path="BytesToDownload" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </WrapPanel>
+
+                                <!--<ProgressBar Value="{Binding DownloadedProgressValue,Mode=OneWay}"
+                                   Classes="Circle"
+                                   Grid.Row="1"
+                                   Grid.ColumnSpan="3"
+                                   HorizontalAlignment="Stretch"
+                                   ToolTip.Tip="{Binding DownloadedProgressValue,Mode=OneWay,StringFormat={}{0}%}"
+                                   Maximum="100"/>-->
+
+                                <WrapPanel>
+                                    <TextBlock
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding Path=Res.Installed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                        Theme="{StaticResource CaptionTextBlockStyle}" />
+                                    <TextBlock
+                                        Margin="5,0,0,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Theme="{StaticResource CaptionTextBlockStyle}">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} / {1}">
+                                                <CompiledBinding
+                                                    Converter="{StaticResource StringFormatConverter}"
+                                                    ConverterParameter="size"
+                                                    Path="BytesStaged" />
+                                                <CompiledBinding
+                                                    Converter="{StaticResource StringFormatConverter}"
+                                                    ConverterParameter="size"
+                                                    Path="BytesToStage" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                        </spp:AppItem.Tags>
+                        <spp:AppItem.Image>
+                            <Panel>
+                                <spp:Image2
+                                    Width="250"
+                                    Height="116"
+                                    DecodeWidth="250"
+                                    Source="{Binding HeaderLogoStream^}"
+                                    Stretch="UniformToFill" />
+
+                                <Border
+                                    Margin="10,0,10,-3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+                                    CornerRadius="3"
+                                    IsVisible="{Binding IsInstalled}">
+                                    <DockPanel Margin="10,3" HorizontalAlignment="Center">
+                                        <TextBlock
+                                            Margin="0,0,5,0"
+                                            VerticalAlignment="Center"
+                                            FontSize="11"
+                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                            IsVisible="{Binding InstalledDrive, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                            Text="{Binding InstalledDrive}" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            FontSize="11"
+                                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                            Text="{Binding SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}"
+                                            TextWrapping="Wrap" />
+                                    </DockPanel>
+                                </Border>
+                            </Panel>
+                        </spp:AppItem.Image>
+                    </spp:AppItem>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </spp:ContentLoader>
+</spp:PageBase>

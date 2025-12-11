@@ -1,0 +1,80 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.SteamDetailPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:SteamDetailPageViewModel"
+    mc:Ignorable="d">
+    <StackPanel Classes="InfoBox">
+        <Border Classes="Item">
+            <StackPanel Spacing="3">
+                <StackPanel Orientation="Horizontal" Spacing="10">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_ShowAuthInfo, Mode=OneWay}"
+                        TextTrimming="CharacterEllipsis" />
+                    <ToggleButton x:Name="ShowDetail" VerticalAlignment="Center">
+                        <ToggleButton.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <ui:FontIcon
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                    FontSize="16"
+                                    Glyph="&#xE18B;" />
+                                <TextBlock Text="{Binding Path=Res.ShowHide, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            </StackPanel>
+                        </ToggleButton.Content>
+                    </ToggleButton>
+                </StackPanel>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_ShowSteamAuthTip2}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+        <Border Classes="Item">
+            <DockPanel>
+                <TextBlock VerticalAlignment="Center" Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_SteamUUID}" />
+                <TextBox
+                    Margin="5,0,0,0"
+                    IsReadOnly="True"
+                    PasswordChar="{StaticResource PasswordChar}"
+                    RevealPassword="{Binding #ShowDetail.IsChecked}"
+                    Text="{Binding DeviceId}" />
+            </DockPanel>
+        </Border>
+        <Border Classes="Item">
+            <DockPanel>
+                <TextBlock VerticalAlignment="Center" Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.RecoveryCode}" />
+                <TextBox
+                    Margin="5,0,0,0"
+                    IsReadOnly="True"
+                    PasswordChar="{StaticResource PasswordChar}"
+                    RevealPassword="{Binding #ShowDetail.IsChecked}"
+                    Text="{Binding RecoverCode}" />
+            </DockPanel>
+        </Border>
+        <Border Classes="Item">
+            <StackPanel Spacing="10">
+                <TextBlock Text="SteamGuard" />
+                <TextBlock Text="{Binding Path=Res.LocalAuth_ShowSteamAuthTip1, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox
+                    Height="250"
+                    IsReadOnly="True"
+                    PasswordChar="{StaticResource PasswordChar}"
+                    RevealPassword="{Binding #ShowDetail.IsChecked}"
+                    Text="{Binding SteamData}" />
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

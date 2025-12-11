@@ -1,0 +1,210 @@
+<Window
+    x:Class="BD.WTTS.UI.Views.Windows.AchievementWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:wnd="using:FluentAvalonia.UI.Windowing"
+    Title="{Binding Title}"
+    Width="750"
+    Height="500"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:AchievementAppPageViewModel"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="Auto, *">
+        <spp:TitleBar
+            Name="TitleBarHost"
+            IsShowSearchBox="True"
+            SearchText="{Binding SearchText, Mode=TwoWay}">
+            <spp:TitleBar.ActionContent>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding RefreshStats_Click}"
+                        Theme="{DynamicResource TransparentButton}"
+                        ToolTip.Tip="{Binding Path=Res.Achievement_RefreshTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <Viewbox
+                            Width="22"
+                            Height="22"
+                            VerticalAlignment="Center">
+                            <ui:SymbolIcon Symbol="Refresh" />
+                        </Viewbox>
+                    </Button>
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding ResetAllStats_Click}"
+                        Theme="{DynamicResource TransparentButton}"
+                        ToolTip.Tip="{Binding Path=Res.Achievement_ResetTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <Viewbox
+                            Width="22"
+                            Height="22"
+                            VerticalAlignment="Center">
+                            <ui:SymbolIcon Symbol="Redo" />
+                        </Viewbox>
+                    </Button>
+                    <Button
+                        Width="40"
+                        Height="40"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding SaveChange_Click}"
+                        Theme="{DynamicResource TransparentButton}"
+                        ToolTip.Tip="{Binding Path=Res.Achievement_StoreTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <Viewbox
+                            Width="22"
+                            Height="22"
+                            VerticalAlignment="Center">
+                            <ui:SymbolIcon Symbol="SaveFilled" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+            </spp:TitleBar.ActionContent>
+        </spp:TitleBar>
+
+        <spp:ContentLoader Grid.Row="1" IsLoading="{Binding !!!Achievements.Count, Mode=OneWay}">
+            <TabControl Padding="0">
+                <TabItem Header="{Binding Path=Res.Achievement_Unlock, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    <DataGrid IsReadOnly="True" ItemsSource="{Binding Achievements}">
+                        <DataGrid.Columns>
+                            <!--  CheckBox  -->
+                            <DataGridTemplateColumn Width="60">
+                                <DataGridTemplateColumn.Header>
+                                    <ToggleSwitch
+                                        VerticalAlignment="Center"
+                                        Classes="OnlySwitch"
+                                        IsChecked="{Binding $parent[Window].((spp:AchievementAppPageViewModel)DataContext).IsCheckAll, Mode=TwoWay}" />
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate x:DataType="spp:AchievementInfo">
+                                        <ToggleSwitch
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            HorizontalContentAlignment="Center"
+                                            Classes="OnlySwitch"
+                                            IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                            IsEnabled="{Binding !IsProtection}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <!--  Image  -->
+                            <DataGridTemplateColumn
+                                Width="84"
+                                CanUserSort="True"
+                                SortMemberPath="IsChecked">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock Text="{Binding Path=Res.Achievement_Icon, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate x:DataType="spp:AchievementInfo">
+                                        <spp:Image2
+                                            Width="64"
+                                            Height="64"
+                                            Margin="-8,0,0,0"
+                                            DecodeWidth="64"
+                                            EnableCache="False"
+                                            Source="{Binding IconUrl}"
+                                            Stretch="UniformToFill" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <!--  Name  -->
+                            <DataGridTemplateColumn
+                                Width="*"
+                                CanUserSort="True"
+                                SortMemberPath="Name">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock Text="{Binding Path=Res.Achievement_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate x:DataType="spp:AchievementInfo">
+                                        <WrapPanel Margin="10,0">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                IsVisible="{Binding IsProtection}"
+                                                Text="{Binding Path=Res.Achievement_IsProtection, Mode=OneWay, StringFormat={}({0}), Source={x:Static s:ResourceService.Current}}" />
+                                            <StackPanel
+                                                VerticalAlignment="Center"
+                                                Orientation="Vertical"
+                                                Spacing="5">
+                                                <TextBlock Text="{Binding Name}" />
+                                                <TextBlock
+                                                    IsVisible="{Binding IsAchieved}"
+                                                    Text="{Binding UnlockTime, StringFormat={x:Static spp:Strings.Achievement_TimeFormat}}"
+                                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <!--  Description  -->
+                            <DataGridTemplateColumn
+                                Width="2*"
+                                CanUserSort="True"
+                                SortMemberPath="Description">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock Text="{Binding Path=Res.Achievement_Description, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate x:DataType="spp:AchievementInfo">
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Text="{Binding Description}"
+                                            TextWrapping="WrapWithOverflow" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="{Binding Path=Res.Achievement_StatsEdit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    <DataGrid IsReadOnly="False" ItemsSource="{Binding Statistics}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="2*"
+                                x:DataType="spp:StatInfo"
+                                Binding="{Binding Id}"
+                                Header="Id"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="2*"
+                                x:DataType="spp:StatInfo"
+                                Binding="{Binding DisplayName}"
+                                Header="Name"
+                                IsReadOnly="True" />
+                            <DataGridTextColumn
+                                Width="*"
+                                x:DataType="spp:StatInfo"
+                                Binding="{Binding Value, Mode=TwoWay}"
+                                Header="Value"
+                                IsReadOnly="False" />
+                            <DataGridTextColumn
+                                Width="*"
+                                x:DataType="spp:StatInfo"
+                                Binding="{Binding Extra}"
+                                CanUserSort="True"
+                                Header="Extra"
+                                IsReadOnly="True"
+                                SortMemberPath="Extra" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+        </spp:ContentLoader>
+    </Grid>
+</Window>

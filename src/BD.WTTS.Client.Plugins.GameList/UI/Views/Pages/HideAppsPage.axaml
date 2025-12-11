@@ -1,0 +1,37 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.HideAppsPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:HideAppsPageViewModel"
+    mc:Ignorable="d">
+    <spp:ContentLoader
+        IsLoading="False"
+        IsShowNoResultText="{Binding IsHideGameListEmpty}"
+        NoResultMessage="{Binding Path=Res.GameList_AddHideAppEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <ItemsControl ItemsSource="{Binding HideGameList}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ui:SettingsExpander Description="{Binding Key}" Header="{Binding Value}">
+                        <ui:SettingsExpander.Footer>
+                            <Button
+                                Command="{Binding $parent[UserControl].((spp:HideAppsPageViewModel)DataContext).RemoveHideAppCommand}"
+                                CommandParameter="{Binding}"
+                                Content="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                Foreground="{DynamicResource SystemFillColorCriticalBrush}" />
+                        </ui:SettingsExpander.Footer>
+                    </ui:SettingsExpander>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </spp:ContentLoader>
+</UserControl>

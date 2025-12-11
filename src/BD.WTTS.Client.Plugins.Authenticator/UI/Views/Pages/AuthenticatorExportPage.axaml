@@ -1,0 +1,57 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorExportPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:AuthenticatorExportViewModel"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="Auto,*">
+        <spp:Snackbar
+            Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Margin="0,0,0,20"
+            VerticalAlignment="Top"
+            IsClosable="False"
+            IsOpen="True"
+            Message="{Binding Path=Res.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip, Source={x:Static s:ResourceService.Current}, Mode=OneWay}"
+            Severity="Warning" />
+
+        <StackPanel Grid.Row="1" Spacing="10">
+            <TextBox
+                Classes="revealPasswordButton"
+                IsEnabled="{Binding HasPasswordProtection}"
+                PasswordChar="{StaticResource PasswordChar}"
+                Text="{Binding Password}"
+                Watermark="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_ProtectionAuth_Password, Mode=OneWay}" />
+            <TextBox
+                Classes="revealPasswordButton"
+                IsEnabled="{Binding HasPasswordProtection}"
+                PasswordChar="{StaticResource PasswordChar}"
+                Text="{Binding VerifyPassword}"
+                Watermark="{Binding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword, Source={x:Static s:ResourceService.Current}, Mode=OneWay}" />
+            <Grid ColumnDefinitions="*,*">
+                <CheckBox
+                    HorizontalAlignment="Center"
+                    Content="{Binding Path=Res.Auth_ExportUsingPassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                    IsChecked="{Binding HasPasswordProtection}" />
+
+                <CheckBox
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Content="{Binding Path=Res.Auth_OnlylocalCanDecrypt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                    IsChecked="{Binding HasLocalProtection}" />
+            </Grid>
+
+            <Button
+                Width="280"
+                HorizontalAlignment="Center"
+                Command="{Binding Export}"
+                Content="{Binding Path=Res.Auth_ExportAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

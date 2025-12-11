@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>Steam++.HostsTest</AssemblyName>
+		<OutputType>Exe</OutputType>
+		<ApplicationIcon>..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DefineConstants>TOOL_HOSTSTEST;__NOT_IMPORT_COMMON__;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<AllowedReferenceRelatedFileExtensions>
+			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
+           		 Only *.allowedextension files will be included, which doesn't exist in my case.
+       		-->
+			.allowedextension
+		</AllowedReferenceRelatedFileExtensions>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\AssemblyInfo.Constants.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- PackageReference -->
+		<PackageReference Include="PInvoke.AdvApi32" />
+		<PackageReference Include="PInvoke.Kernel32" />
+	</ItemGroup>
+
+	<Import Project="..\TFM_NETX_WITH_WINDOWS.props" />
+
+</Project>

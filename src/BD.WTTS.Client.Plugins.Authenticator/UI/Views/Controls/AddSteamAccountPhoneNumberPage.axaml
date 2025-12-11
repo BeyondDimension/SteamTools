@@ -1,0 +1,93 @@
+<UserControl
+			xmlns="https://github.com/avaloniaui"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			xmlns:spp="https://steampp.net/ui"
+			xmlns:s="https://steampp.net/services"
+			d:DesignWidth="400"
+			d:DesignHeight="250"
+			x:DataType="spp:AddSteamAccountPhoneNumberPageViewModel"
+			x:CompileBindings="True"
+      x:Class="BD.WTTS.UI.Views.Controls.AddSteamAccountPhoneNumberPage"
+			mc:Ignorable="d">
+
+	<Grid RowDefinitions="Auto,*">
+
+		<spp:Stepper SelectedIndex="{Binding SelectIndex}">
+			<spp:StepperItem Content="{Binding Path=Res.Steam_BindTel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<spp:StepperItem Content="{Binding Path=Res.Steam_ConfirmEmailLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<spp:StepperItem Content="{Binding Path=Res.TelCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+		</spp:Stepper>
+
+		<spp:ContentLoader
+				Grid.Row="1"
+				MinWidth="400"
+				MinHeight="250"
+				IsLoading="{Binding IsLoading}"
+				IsShowNoResultText="False">
+			<Carousel IsVisible="{Binding !IsLoading}" SelectedIndex="{Binding SelectIndex}">
+				<StackPanel
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									Spacing="10">
+
+					<DockPanel>
+						<TextBlock
+								Margin="0,0,0,6"
+								DockPanel.Dock="Top"
+								Text="{Binding Path=Res.User_Phone, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+						<TextBox
+								Name="PhoneNumberText"
+								MaxWidth="300"
+								Text="{Binding PhoneNumberText}"
+								Watermark="+8601234567890" />
+					</DockPanel>
+
+					<Button
+							MinWidth="280"
+							HorizontalAlignment="Center"
+							HorizontalContentAlignment="Center"
+							Command="{Binding StartBindingAsync}"
+							Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+				</StackPanel>
+
+				<StackPanel
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									Spacing="10">
+					<Button
+							MinWidth="280"
+							HorizontalAlignment="Center"
+							HorizontalContentAlignment="Center"
+							Command="{Binding ConfirmBindingEmailAsync}"
+							Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+				</StackPanel>
+
+				<StackPanel
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									Spacing="10">
+
+					<DockPanel>
+						<TextBlock
+								Margin="0,0,0,6"
+								DockPanel.Dock="Top"
+								Text="{Binding Path=Res.Error_PleaseEnterTelCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+						<TextBox
+								Name="CodeText"
+								MaxWidth="300"
+								Text="{Binding CodeText}" />
+					</DockPanel>
+
+					<Button
+							MinWidth="280"
+							HorizontalAlignment="Center"
+							HorizontalContentAlignment="Center"
+							Command="{Binding VerifyAccountPhoneWithCodeAsync}"
+							Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+				</StackPanel>
+			</Carousel>
+		</spp:ContentLoader>
+	</Grid>
+</UserControl>

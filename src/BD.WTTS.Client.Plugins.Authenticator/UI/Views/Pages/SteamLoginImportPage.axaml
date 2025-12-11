@@ -1,0 +1,235 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.SteamLoginImportPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="300"
+    d:DesignWidth="600"
+    x:CompileBindings="True"
+    x:DataType="spp:SteamLoginImportPageViewModel"
+    mc:Ignorable="d">
+	<Grid RowDefinitions="Auto,*">
+		<spp:Stepper SelectedIndex="{Binding SelectIndex}">
+			<spp:StepperItem Content="{Binding Path=Res.Steam_Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<spp:StepperItem Content="{Binding Path=Res.LoginVerify, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<!--隐藏绑定手机号步骤-->
+			<!--<spp:StepperItem IsVisible="false" Content="{Binding Path=Res.Steam_BindTel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+			<spp:StepperItem Content="{Binding Path=Res.LocalAuth_VerifyCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<spp:StepperItem Content="{Binding Path=Res.Btn_Text_Complete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+		</spp:Stepper>
+
+		<spp:ContentLoader
+				Grid.Row="1"
+				MinWidth="600"
+				MinHeight="400"
+				IsLoading="{Binding IsLoading}"
+				IsShowNoResultText="False">
+			<Carousel IsVisible="{Binding !IsLoading}" SelectedIndex="{Binding SelectIndex}">
+				<!--  登录  -->
+				<StackPanel
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Spacing="10">
+					<PathIcon
+							Width="88"
+							Height="88"
+							Data="{StaticResource Steam}" />
+					<TextBox
+							MaxWidth="280"
+							Text="{Binding UserNameText}"
+							Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					<TextBox
+							Name="PasswordText"
+							MaxWidth="280"
+							Classes="revealPasswordButton"
+							PasswordChar="{StaticResource PasswordChar}"
+							Text="{Binding PasswordText}"
+							Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					<Button
+							MinWidth="280"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Bottom"
+							HorizontalContentAlignment="Center"
+							Command="{Binding LoginSteamImport}"
+							Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+				</StackPanel>
+
+				<!--  邮箱验证  -->
+				<Panel>
+					<spp:Snackbar
+							Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							VerticalAlignment="Top"
+							IsClosable="False"
+							IsOpen="True"
+							IsVisible="{Binding !Requires2FA}"
+							Message="{Binding Path=Res.LocalAuth_EmailCodeTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							Severity="Warning" />
+					<spp:Snackbar
+							Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							VerticalAlignment="Top"
+							IsClosable="False"
+							IsOpen="True"
+							IsVisible="{Binding Requires2FA}"
+							Message="{Binding Path=Res.LocalAuth_Steam2FACodeTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							Severity="Warning" />
+					<StackPanel
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Spacing="10">
+						<TextBlock IsVisible="{Binding !Requires2FA}" Text="{Binding Path=Res.EmailCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+						<TextBlock IsVisible="{Binding Requires2FA}" Text="{Binding Path=Res.Steam2FACode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+						<TextBox
+								Name="EmailAuthText"
+								MinWidth="300"
+								FontSize="24"
+								Text="{Binding EmailAuthText}" />
+						<!--<TextBlock
+                            Margin="10,0"
+                            HorizontalAlignment="Center"
+                            Text="{Binding EmailDomainText}" />-->
+						<!--<TextBlock
+                            Margin="10,0"
+                            HorizontalAlignment="Center"
+                            Text="{Binding Path=Res.LocalAuth_EmailCodeTip,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}"
+                            TextAlignment="Center"
+                            TextWrapping="WrapWithOverflow" />-->
+						<Button
+								MinWidth="280"
+								HorizontalAlignment="Center"
+								HorizontalContentAlignment="Center"
+								Command="{Binding LoginSteamImport}"
+								Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					</StackPanel>
+				</Panel>
+
+				<!--  绑定手机  -->
+				<!--
+				<Panel>
+					<spp:Snackbar
+							Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							VerticalAlignment="Top"
+							IsClosable="False"
+							IsOpen="True"
+							Message="{Binding Path=Res.Warning_SteamAuthPhoneBind, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							Severity="Warning" />
+					<StackPanel
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Spacing="10">
+
+						<DockPanel>
+							<TextBlock
+									Margin="0,0,0,6"
+									DockPanel.Dock="Top"
+									Text="{Binding Path=Res.User_Phone, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							<TextBox
+									Name="PhoneNumberText"
+									MaxWidth="300"
+									Text="{Binding PhoneNumberText}"
+									Watermark="+8601234567890" />
+						</DockPanel>
+
+						<Button
+								MinWidth="280"
+								HorizontalAlignment="Center"
+								HorizontalContentAlignment="Center"
+								Command="{Binding LoginSteamImport}"
+								Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					</StackPanel>
+				</Panel>-->
+
+				<!--  验证手机 或 邮箱 -->
+				<!-- 2024-04-23 Steam绑定令牌不强制手机绑定 可以输入 邮箱者手机验证码 -->
+				<Panel>
+					<spp:Snackbar
+							Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							VerticalAlignment="Top"
+							IsClosable="False"
+							IsVisible="{Binding IsVerifyAccountPhone}"
+							IsOpen="True"
+							Message="{Binding Path=Res.LocalAuth_SMSCodeTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							Severity="Warning" />
+					<spp:Snackbar
+						 Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+						 VerticalAlignment="Top"
+						 IsClosable="False"
+						 IsVisible="{Binding !IsVerifyAccountPhone}"
+						 IsOpen="True"
+						 Message="{Binding Path=Res.LocalAuth_EmailCodeTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+						 Severity="Warning" />
+					<StackPanel
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Spacing="10">
+						<DockPanel IsVisible="{Binding RevocationCodeText, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+							<TextBlock
+									Margin="0,0,0,6"
+									DockPanel.Dock="Top"
+									Text="{Binding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							<TextBox
+									MaxWidth="300"
+									IsReadOnly="True"
+									Text="{Binding RevocationCodeText, Mode=OneWay}" />
+						</DockPanel>
+						<!--<CheckBox Content="{Binding Path=Res.RecoveryCode_Remember, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+						<DockPanel>
+							<TextBlock
+									Margin="0,0,0,6"
+									DockPanel.Dock="Top"
+									IsVisible="{Binding IsVerifyAccountPhone}"
+									Text="{Binding Path=Res.SMSCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							<TextBlock
+									Margin="0,0,0,6"
+									DockPanel.Dock="Top"
+									IsVisible="{Binding !IsVerifyAccountPhone}"
+									Text="{Binding Path=Res.EmailCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							<TextBox
+									Name="PhoneCodeText"
+									MaxWidth="300"
+									Text="{Binding PhoneCodeText}" />
+						</DockPanel>
+						<Button
+								MinWidth="280"
+								HorizontalAlignment="Center"
+								HorizontalContentAlignment="Center"
+								Command="{Binding LoginSteamImport}"
+								Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					</StackPanel>
+				</Panel>
+
+				<!--  完成  -->
+				<Panel>
+					<spp:Snackbar
+							Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							VerticalAlignment="Top"
+							IsClosable="False"
+							IsOpen="True"
+							Message="{Binding Path=Res.RecoveryCode_RememberTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							Severity="Success" />
+					<StackPanel VerticalAlignment="Center" Spacing="10">
+						<DockPanel IsVisible="{Binding RevocationCodeText, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+							<TextBlock
+									Margin="0,0,0,6"
+									DockPanel.Dock="Top"
+									Text="{Binding Path=Res.RecoveryCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							<TextBox
+									MaxWidth="300"
+									IsReadOnly="True"
+									Text="{Binding RevocationCodeText, Mode=OneWay}" />
+						</DockPanel>
+						<Button
+								MinWidth="280"
+								HorizontalAlignment="Center"
+								Command="{Binding Reset}"
+								Content="{Binding Path=Res.Confirm, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					</StackPanel>
+				</Panel>
+			</Carousel>
+		</spp:ContentLoader>
+	</Grid>
+</UserControl>

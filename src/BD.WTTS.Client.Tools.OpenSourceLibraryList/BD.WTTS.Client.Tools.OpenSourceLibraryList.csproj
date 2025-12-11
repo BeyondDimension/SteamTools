@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>pub</AssemblyName>
+		<OutputType>Exe</OutputType>
+		<ApplicationIcon>..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DefineConstants>TOOL_OSL;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<AllowedReferenceRelatedFileExtensions>
+			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
+           		 Only *.allowedextension files will be included, which doesn't exist in my case.
+       		-->
+			.allowedextension
+		</AllowedReferenceRelatedFileExtensions>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\AssemblyInfo.Constants.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Remove="..\ImplicitUsings.Common.cs" />
+		<Compile Include="..\Utils.cs" />
+		<Compile Include="..\ImplicitUsings.MessagePack.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client\Models\HyperlinkModel.cs">
+			<LinkBase>Models</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- PackageReference -->
+		<PackageReference Include="BD.Common" />
+	</ItemGroup>
+
+	<Import Project="..\TFM_NETX.props" />
+
+</Project>

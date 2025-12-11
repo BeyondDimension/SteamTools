@@ -1,0 +1,139 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorGeneralImportPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="450"
+    d:DesignWidth="600"
+    x:CompileBindings="True"
+    x:DataType="spp:AuthenticatorGeneralImportPageViewModel"
+    mc:Ignorable="d">
+    <StackPanel Classes="InfoBox">
+        <Border Classes="Item">
+            <StackPanel Spacing="5">
+                <TextBlock Text="{Binding Path=Res.GeneralAuth_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox
+                    MaxLength="{x:Static spp:IAuthenticatorDTO.MaxLength_Name}"
+                    Text="{Binding AuthenticatorName}"
+                    Watermark="{Binding Path=Res.Warning_PleaseEnterAuthName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </StackPanel>
+        </Border>
+        <Border Classes="Item">
+            <StackPanel Spacing="5">
+                <TextBlock Text="{Binding Path=Res.GeneralAuth_ImportText, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox Text="{Binding SecretCode}" Watermark="{Binding Path=Res.GeneralAuth_EnterkeyOrLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </StackPanel>
+        </Border>
+        <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
+            <DockPanel>
+                <TextBlock Text="加密方式" />
+                <TabStrip
+                    Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                    CornerRadius="{StaticResource ControlCornerRadius}"
+                    ItemContainerTheme="{StaticResource TabItemStyle}"
+                    SelectedValue="{Binding AuthType}"
+                    Theme="{StaticResource TabStripStyle}">
+                    <TabStrip.Items>
+                        <spp:AuthType>TOTP</spp:AuthType>
+                        <spp:AuthType>HOTP</spp:AuthType>
+                    </TabStrip.Items>
+                    <TabStrip.ItemTemplate>
+                        <DataTemplate DataType="spp:AuthType">
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </TabStrip.ItemTemplate>
+                    <!--<TabStripItem Content="HOTP" />
+                    <TabStripItem Content="TOTP" />-->
+                </TabStrip>
+            </DockPanel>
+        </Border>
+        <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
+            <DockPanel>
+                <TextBlock Text="Hash" />
+                <TabStrip
+                    Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                    CornerRadius="{StaticResource ControlCornerRadius}"
+                    ItemContainerTheme="{StaticResource TabItemStyle}"
+                    SelectedValue="{Binding HMACType}"
+                    Theme="{StaticResource TabStripStyle}">
+                    <TabStrip.Items>
+                        <spp:HMACTypes>SHA1</spp:HMACTypes>
+                        <spp:HMACTypes>SHA256</spp:HMACTypes>
+                        <spp:HMACTypes>SHA512</spp:HMACTypes>
+                    </TabStrip.Items>
+                    <TabStrip.ItemTemplate>
+                        <DataTemplate DataType="spp:HMACTypes">
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </TabStrip.ItemTemplate>
+                    <!--<TabStripItem Content="SHA1" />
+                    <TabStripItem Content="SHA256" />
+                    <TabStripItem Content="SHA512" />-->
+                </TabStrip>
+            </DockPanel>
+        </Border>
+        <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
+            <DockPanel>
+                <TextBlock Text="令牌刷新间隔时间" />
+                <NumericUpDown Value="{Binding Period}" />
+            </DockPanel>
+        </Border>
+        <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
+            <DockPanel>
+                <TextBlock Text="令牌位数" />
+                <NumericUpDown Value="{Binding CodeDigits}" />
+            </DockPanel>
+        </Border>
+        <Border Classes="Item">
+            <StackPanel Spacing="10">
+                <Button
+                    MinWidth="280"
+                    HorizontalAlignment="Center"
+                    Command="{Binding GenerateCode}"
+                    Content="{Binding Path=Res.GeneralAuth_Code, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    IsVisible="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.TOTP}}"
+                    Text="{Binding Path=Res.GeneralAuth_VerifySuccessfulImport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    IsVisible="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.HOTP}}"
+                    Text="如果有初始值，请输入到下面Code框内，单击“验证”按钮后会生成上次使用的代码。" />
+
+                <TextBox
+                    HorizontalContentAlignment="Center"
+                    FontSize="24"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    IsReadOnly="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.TOTP}}"
+                    Text="{Binding CurrentCode}" />
+            </StackPanel>
+        </Border>
+        <!--<StackPanel Spacing="5">
+                <TextBlock Text="{Binding Path=Res.GeneralAuth_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox Text="{Binding AuthenticatorName}" Watermark="{Binding Path=Res.Warning_PleaseEnterAuthName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </StackPanel>
+            <StackPanel Spacing="5">
+                <TextBlock Text="{Binding Path=Res.GeneralAuth_ImportText, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox Text="{Binding SecretCode}" Watermark="{Binding Path=Res.GeneralAuth_EnterkeyOrLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </StackPanel>-->
+        <!--<StackPanel Spacing="5">
+                <TextBlock Text="{Binding Path=Res.GeneralAuth_VerifySuccessfulImport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox IsReadOnly="True" Text="{Binding CurrentCode}" />
+                <Button
+                    MinWidth="280"
+                    HorizontalAlignment="Center"
+                    Command="{Binding GenerateCode}"
+                    Content="{Binding Path=Res.GeneralAuth_Code,
+                                                Mode=OneWay,
+                                                Source={x:Static s:ResourceService.Current}}" />
+            </StackPanel>-->
+        <Button
+            MinWidth="280"
+            HorizontalAlignment="Center"
+            Command="{Binding Import}"
+            Content="{Binding Path=Res.ConfirmImport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+    </StackPanel>
+</UserControl>

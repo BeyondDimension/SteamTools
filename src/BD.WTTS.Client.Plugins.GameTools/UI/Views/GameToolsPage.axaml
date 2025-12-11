@@ -1,0 +1,192 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.GameToolsPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
+    mc:Ignorable="d">
+    <spp:PageBase.PreviewImage>
+        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.TabContent>
+        <!--<TabStrip
+            Margin="4"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+            CornerRadius="{StaticResource ControlCornerRadius}"
+            ItemContainerTheme="{StaticResource TabItemStyle}">
+            <TabStripItem Content="多平台账号切换" />
+            <TabStripItem Content="Steam 家庭共享库管理" />
+        </TabStrip>-->
+    </spp:PageBase.TabContent>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="2">
+            <Button
+                Padding="8,4"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Refresh" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                </Panel>
+            </Button>
+            <DropDownButton
+                Padding="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="{StaticResource More}"
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                FontSize="20"
+                Theme="{StaticResource TransparentButton}">
+                <DropDownButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:MenuFlyoutSeparator  />-->
+                        <ui:MenuFlyoutItem IsEnabled="False">
+                            <ui:MenuFlyoutItem.Text>
+                                <MultiBinding StringFormat="{}{0}{1}">
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Res.Plugin_Version"
+                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Version"
+                                        Source="{x:Static s:Plugin.Instance}" />
+                                </MultiBinding>
+                            </ui:MenuFlyoutItem.Text>
+                        </ui:MenuFlyoutItem>
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                    </ui:FAMenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+    <ScrollViewer>
+        <ScrollViewer.Resources>
+            <ControlTheme
+                x:Key="NavButtonStyle"
+                BasedOn="{StaticResource {x:Type Button}}"
+                TargetType="Button">
+                <Setter Property="Width" Value="160" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="6" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+
+                <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="ClipToBounds" Value="True" />
+                </Style>
+            </ControlTheme>
+        </ScrollViewer.Resources>
+        <WrapPanel>
+            <Border spp:Animations.EnableAnimations="True">
+                <Button
+                    Click="GameToolsPage_Click"
+                    IsEnabled="{spp:OnPlatform Windows}"
+                    Theme="{StaticResource NavButtonStyle}">
+                    <Button.Tag>
+                        <x:Type TypeName="spp:BorderlessGamePage" />
+                    </Button.Tag>
+                    <Grid RowDefinitions="3*,*">
+                        <Border
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            CornerRadius="4 4 0 0"
+                            RenderOptions.BitmapInterpolationMode="HighQuality">
+                            <spp:Image2 Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png" Stretch="Uniform" />
+                        </Border>
+                        <StackPanel
+                            Grid.Row="1"
+                            Margin="12"
+                            Spacing="5">
+                            <TextBlock FontWeight="SemiBold" Text="游戏无边框窗口化" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="仅 Windows 可用"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Button>
+            </Border>
+
+            <Border spp:Animations.EnableAnimations="True">
+                <Button
+                    Click="GameToolsPage_Click"
+                    IsEnabled="{spp:OnPlatform Windows}"
+                    Theme="{StaticResource NavButtonStyle}">
+					<Button.Tag>
+						<x:Type TypeName="spp:CsgoVacRepairPage" />
+					</Button.Tag>
+                    <Grid RowDefinitions="3*,*">
+                        <Border
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            CornerRadius="4 4 0 0"
+                            RenderOptions.BitmapInterpolationMode="HighQuality">
+                            <spp:Image2 Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/CounterStrike.png" Stretch="Uniform" />
+                        </Border>
+                        <StackPanel
+                            Grid.Row="1"
+                            Margin="12"
+                            Spacing="5">
+                            <TextBlock FontWeight="SemiBold" Text="CS:GO VAC 修复" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="仅 Windows 可用"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Button>
+            </Border>
+			
+            <Border spp:Animations.EnableAnimations="True">
+                <Button
+                    Click="GameToolsPage_Click"
+                    IsEnabled="{spp:OnPlatform Windows}"
+                    Tag="{x:Null}"
+                    Theme="{StaticResource NavButtonStyle}">
+                    <Grid RowDefinitions="3*,*">
+                        <Border
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            CornerRadius="4 4 0 0"
+                            RenderOptions.BitmapInterpolationMode="HighQuality">
+                            <spp:Image2 Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/CPU.png" Stretch="Uniform" />
+                        </Border>
+                        <StackPanel
+                            Grid.Row="1"
+                            Margin="12"
+                            Spacing="5">
+                            <TextBlock FontWeight="SemiBold" Text="CPU 游戏调度优化" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="仅 Windows 可用"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Button>
+            </Border>
+        </WrapPanel>
+    </ScrollViewer>
+</spp:PageBase>

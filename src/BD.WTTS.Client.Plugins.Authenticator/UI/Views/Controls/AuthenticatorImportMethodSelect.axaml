@@ -1,0 +1,37 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.AuthenticatorImportMethodSelect"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:AuthenticatorImportPageViewModel"
+    mc:Ignorable="d">
+    <ItemsControl ItemsSource="{Binding AuthenticatorImportMethods}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="spp:AuthenticatorImportMethod">
+                <Border
+                    Width="200"
+                    Margin="3"
+                    spp:Animations.EnableAnimations="True">
+                    <spp:AppItem
+                        Title="{Binding Name}"
+                        Classes="Vertical"
+                        ClickCommand="{Binding Command}"
+                        Cursor="Hand"
+                        Description="{Binding Description}"
+                        Tag="{Binding}"
+                        Tapped="AuthenticatorImportPage_Tapped" />
+                </Border>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>

@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>Steam++</AssemblyName>
+		<TargetFrameworks>net$(DotNet_Version)</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net35;net40;net451;net$(DotNet_Version)-windows</TargetFrameworks>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<IsTrimmable>false</IsTrimmable>
+		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
+		<OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
+		<Prefer32Bit>false</Prefer32Bit>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+		<DefineConstants>APP_HOST;$(DefineConstants)</DefineConstants>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<RootNamespace>BD.WTTS</RootNamespace>
+		<EnableMsixTooling>true</EnableMsixTooling>
+		<ServerGarbageCollection>false</ServerGarbageCollection>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ApplicationIcon Condition="'$(Configuration)'=='Release'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
+		<ApplicationIcon Condition="'$(Configuration)'=='Debug'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" $(TargetFramework.StartsWith('net4')) OR $(TargetFramework.StartsWith('net3')) ">
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\..\WattToolkit.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) OR $(TargetFramework.StartsWith('net3')) ">
+		<Reference Include="System.Configuration" />
+	</ItemGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<AllowedReferenceRelatedFileExtensions>
+			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
+           		 Only *.allowedextension files will be included, which doesn't exist in my case.
+       		-->
+			.allowedextension
+		</AllowedReferenceRelatedFileExtensions>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="..\ImplicitUsings.Common.cs" />
+		<Compile Include="..\AssemblyInfo.Constants.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\BD.WTTS.Client\Startup\Startup.CompatibilityCheck.cs" />
+		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
+	</ItemGroup>
+
+	<!--<ItemGroup>
+		<Reference Condition="$(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4'))" Include="PresentationFramework" />
+	</ItemGroup>-->
+
+</Project>

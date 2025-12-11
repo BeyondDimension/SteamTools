@@ -1,0 +1,187 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.EditAppsPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="Steam 游戏修改"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:EditAppsPageViewModel"
+    Description="可以修改 Steam 游戏名称、发行商、封面图片、启动项等信息，并且保存生效至 Steam。"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
+    mc:Ignorable="d">
+    <spp:PageBase.PreviewImage>
+        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+    </spp:PageBase.PreviewImage>
+    <spp:PageBase.ActionContent>
+        <StackPanel Orientation="Horizontal" Spacing="2">
+            <Button
+                Padding="8,4"
+                Command="{Binding SaveSteamEditedApps}"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Save" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{Binding Path=Res.SaveEditedAppInfo_SaveToSteam, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                </Panel>
+            </Button>
+            <Button
+                Padding="8,4"
+                Command="{Binding LoadSteamEditedApps}"
+                DockPanel.Dock="Right"
+                Theme="{StaticResource TransparentButton}">
+                <Panel>
+                    <Viewbox
+                        Width="16"
+                        Height="16"
+                        HorizontalAlignment="Left">
+                        <ui:SymbolIcon Symbol="Refresh" />
+                    </Viewbox>
+                    <TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                </Panel>
+            </Button>
+            <DropDownButton
+                Padding="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="{StaticResource More}"
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                FontSize="20"
+                Theme="{StaticResource TransparentButton}">
+                <DropDownButton.Flyout>
+                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                        <!--<ui:MenuFlyoutItem
+                            Command="{Binding DeleteAllButton_Click}"
+                            IconSource="Delete"
+                            Text="{Binding Path=Res.GameList_RemoveBtn,
+                                                     Mode=OneWay,
+                                                     Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutSeparator />-->
+                        <ui:MenuFlyoutItem IsEnabled="False">
+                            <ui:MenuFlyoutItem.Text>
+                                <MultiBinding StringFormat="{}{0}{1}">
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Res.Plugin_Version"
+                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Version"
+                                        Source="{x:Static s:Plugin.Instance}" />
+                                </MultiBinding>
+                            </ui:MenuFlyoutItem.Text>
+                        </ui:MenuFlyoutItem>
+                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                    </ui:FAMenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+        </StackPanel>
+    </spp:PageBase.ActionContent>
+    <spp:ContentLoader
+        IsLoading="false"
+        IsShowNoResultText="{Binding !!!SteamEditedApps.Count, Mode=OneWay}"
+        NoResultMessage="{Binding Path=Res.SaveEditedAppInfo_AppsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <ItemsControl ItemsSource="{Binding SteamEditedApps}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="spp:SteamApp">
+                    <Border Margin="5" spp:Animations.EnableAnimations="True">
+                        <spp:AppItem
+                            Title="{Binding DisplayName}"
+                            Height="270"
+                            MaxWidth="120"
+                            Classes="Vertical"
+                            ClickCommand="{Binding $parent[spp:PageBase].((spp:EditAppsPageViewModel)DataContext).EditAppInfoClickCommand}"
+                            ClickCommandParameter="{Binding}"
+                            Cursor="Hand">
+                            <spp:AppItem.Status>
+                                <Border Classes="Status">
+                                    <TextBlock Text="{Binding Path=Res.Edit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                </Border>
+                            </spp:AppItem.Status>
+                            <!--<spp:AppItem.ActionButton>
+                                <Button
+                                    Command="{Binding $parent[spp:PageBase].((spp:EditAppsPageViewModel)DataContext).DeleteButtonCommand}"
+                                    CommandParameter="{Binding}"
+                                    Cursor="Hand"
+                                    ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                    <Viewbox>
+                                        <ui:SymbolIcon Symbol="Delete" />
+                                    </Viewbox>
+                                </Button>
+                            </spp:AppItem.ActionButton>-->
+                            <spp:AppItem.Image>
+                                <Panel MinWidth="{Binding $parent[spp:AppItem].MinWidth}" MaxWidth="{Binding $parent[spp:AppItem].MaxWidth}">
+                                    <spp:Image2
+                                        Name="AppImage"
+                                        DecodeWidth="120"
+                                        FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
+                                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                                        Source="{Binding LibraryGridStream^}"
+                                        Stretch="UniformToFill" />
+                                    <TextBlock
+                                        Margin="8,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                        IsVisible="{Binding #AppImage.IsFailed}"
+                                        Text="{Binding DisplayName}"
+                                        TextAlignment="Center"
+                                        TextWrapping="WrapWithOverflow"
+                                        Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+                                    <Border
+                                        Margin="10,0,10,-3"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        Background="#3D4450"
+                                        CornerRadius="3"
+                                        IsVisible="{Binding IsInstalled}">
+                                        <DockPanel Margin="10,3" HorizontalAlignment="Center">
+                                            <TextBlock
+                                                Margin="0,0,5,0"
+                                                VerticalAlignment="Center"
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                IsVisible="{Binding InstalledDrive, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                                Text="{Binding InstalledDrive}" />
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="11"
+                                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                                Text="{Binding SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}"
+                                                TextWrapping="Wrap" />
+                                        </DockPanel>
+                                    </Border>
+                                </Panel>
+                            </spp:AppItem.Image>
+                        </spp:AppItem>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </spp:ContentLoader>
+</spp:PageBase>

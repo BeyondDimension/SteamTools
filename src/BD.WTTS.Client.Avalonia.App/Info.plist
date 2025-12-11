@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleName</key>
+	<string>Watt Toolkit</string>
+	<key>CFBundleDisplayName</key>
+	<string>Watt Toolkit</string>
+	<key>CFBundleShortVersionString</key>
+	<string>3.0.0</string>
+	<key>CFBundleVersion</key>
+	<string>3.0.1219.0</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© 江苏蒸汽凡星科技有限公司. All Rights Reserved.</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.steampp.app</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+	    <dict>
+ 	       <key>CFBundleURLName</key>
+    	   <string>steampp.app</string>
+		   <key>CFBundleURLSchemes</key>
+           <array>
+               <string>spp</string>
+            </array>
+        </dict>
+	</array>
+</dict>
+</plist>

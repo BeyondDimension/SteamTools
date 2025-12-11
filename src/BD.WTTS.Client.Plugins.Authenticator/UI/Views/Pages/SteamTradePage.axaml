@@ -1,0 +1,222 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.SteamTradePage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:SteamTradePageViewModel"
+    mc:Ignorable="d">
+    <spp:ContentLoader CustomLoadingText="{Binding Path=Res.EnableAccelerationPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsLoading="{Binding IsLoading}">
+        <Panel>
+            <!--  登录  -->
+            <StackPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Spacing="10">
+                <StackPanel.IsVisible>
+                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                        <CompiledBinding Path="!IsLogged" />
+                        <CompiledBinding Path="!IsLoading" />
+                    </MultiBinding>
+                </StackPanel.IsVisible>
+                <PathIcon
+                    Width="88"
+                    Height="88"
+                    Data="{StaticResource Steam}" />
+                <TextBox
+                    MaxWidth="280"
+                    Text="{Binding UserNameText}"
+                    Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox
+                    Name="PasswordText"
+                    MaxWidth="280"
+                    Classes="revealPasswordButton"
+                    PasswordChar="{StaticResource PasswordChar}"
+                    Text="{Binding PasswordText}"
+                    Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <CheckBox Content="{Binding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
+                <Button
+                    MinWidth="280"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding Login}"
+                    Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+            </StackPanel>
+
+            <!--  确认交易  -->
+            <Grid RowDefinitions="Auto,*">
+                <Grid.IsVisible>
+                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                        <CompiledBinding Path="!IsLoading" />
+                        <CompiledBinding Path="IsLogged" />
+                    </MultiBinding>
+                </Grid.IsVisible>
+                <DockPanel Margin="10,0" IsVisible="{Binding IsLogged}">
+                    <CheckBox
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Center"
+                        Command="{Binding SelectAllCommand}"
+                        Content="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                        IsChecked="{Binding SelectedAll, Mode=OneWay}" />
+                    <ui:CommandBar
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        DefaultLabelPosition="Right"
+                        DockPanel.Dock="Right"
+                        IsSticky="False">
+                        <ui:CommandBar.PrimaryCommands>
+                            <ui:CommandBarButton Command="{Binding Logout}" Label="{Binding Path=Res.Logout, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                <ui:CommandBarButton.IconSource>
+                                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
+                                </ui:CommandBarButton.IconSource>
+                            </ui:CommandBarButton>
+                            <ui:CommandBarButton
+                                Command="{Binding Refresh}"
+                                IconSource="Refresh"
+                                Label="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            <ui:CommandBarButton
+                                Command="{Binding CancelAllTrade}"
+                                IconSource="Cancel"
+                                Label="{Binding Path=Res.BatchReject, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            <ui:CommandBarButton Command="{Binding ConfirmAllTrade}" Label="{Binding Path=Res.BatchPass, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                <ui:CommandBarButton.IconSource>
+                                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource CheckMark}" />
+                                </ui:CommandBarButton.IconSource>
+                            </ui:CommandBarButton>
+                        </ui:CommandBar.PrimaryCommands>
+                    </ui:CommandBar>
+                </DockPanel>
+                <Panel
+                    Grid.Row="1"
+                    MinWidth="400"
+                    MinHeight="400">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsVisible="{Binding !!!Confirmations.Count}"
+                        Text="{Binding Path=Res.LocalAuth_AuthTrade_Null, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Confirmations}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" Spacing="5" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type spp:SteamTradeConfirmationModel}">
+                                    <ui:SettingsExpander>
+                                        <ui:SettingsExpander.Header>
+                                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}">
+                                                <Grid
+                                                    MaxHeight="128"
+                                                    ColumnDefinitions="Auto,10,*"
+                                                    RowDefinitions="*,*">
+                                                    <spp:Image2
+                                                        Grid.RowSpan="2"
+                                                        Grid.Column="0"
+                                                        Width="128"
+                                                        Height="128"
+                                                        EnableCancelToken="False"
+                                                        Source="{Binding Icon}"
+                                                        Stretch="Uniform" />
+                                                    <TextBlock
+                                                        Grid.Row="0"
+                                                        Grid.Column="2"
+                                                        VerticalAlignment="Center"
+                                                        Text="{Binding TypeNameText}"
+                                                        Theme="{StaticResource SubtitleTextBlockStyle}" />
+                                                    <StackPanel
+                                                        Grid.Row="1"
+                                                        Grid.Column="2"
+                                                        VerticalAlignment="Center">
+                                                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding CreateTime}" />
+                                                        <TextBlock
+                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                            IsVisible="{Binding ReceiveSummary, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                                            Text="{Binding ReceiveSummary}" />
+                                                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding SendSummary}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </CheckBox>
+                                        </ui:SettingsExpander.Header>
+                                        <ui:SettingsExpanderItem Description="{Binding ReceiveSummary}" IsVisible="{Binding IsTrade}">
+                                            <ui:SettingsExpanderItem.Content>
+                                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                                    <ItemsControl ItemsSource="{Binding ReceiveItemImageUrls}">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel Orientation="Horizontal" Spacing="5" />
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate DataType="x:String">
+                                                                <spp:Image2
+                                                                    Width="96"
+                                                                    Height="96"
+                                                                    EnableCancelToken="False"
+                                                                    Source="{Binding}"
+                                                                    Stretch="Uniform" />
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </ScrollViewer>
+                                            </ui:SettingsExpanderItem.Content>
+                                        </ui:SettingsExpanderItem>
+                                        <ui:SettingsExpanderItem Description="{Binding SendSummary}" IsVisible="{Binding IsTrade}">
+                                            <ui:SettingsExpanderItem.Content>
+                                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                                    <ItemsControl ItemsSource="{Binding SendItemImageUrls}">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel Orientation="Horizontal" Spacing="5" />
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate DataType="x:String">
+                                                                <spp:Image2
+                                                                    Width="96"
+                                                                    Height="96"
+                                                                    EnableCancelToken="False"
+                                                                    Source="{Binding}"
+                                                                    Stretch="Uniform" />
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </ScrollViewer>
+                                            </ui:SettingsExpanderItem.Content>
+                                        </ui:SettingsExpanderItem>
+                                        <ui:SettingsExpanderItem>
+                                            <ui:SettingsExpanderItem.Footer>
+                                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                                    <Button
+                                                        HorizontalAlignment="Left"
+                                                        Command="{Binding $parent[spp:SteamTradePage].((spp:SteamTradePageViewModel)DataContext).CancelTradeCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        Content="{Binding Cancel}" />
+                                                    <Button
+                                                        HorizontalAlignment="Right"
+                                                        Command="{Binding $parent[spp:SteamTradePage].((spp:SteamTradePageViewModel)DataContext).ConfirmTradeCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        Content="{Binding Accept}" />
+                                                </StackPanel>
+                                            </ui:SettingsExpanderItem.Footer>
+                                        </ui:SettingsExpanderItem>
+                                        <!--<ui:SettingsExpanderItem
+                                        Content="This one is clickable"
+                                        IsClickEnabled="True" />-->
+                                    </ui:SettingsExpander>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Panel>
+            </Grid>
+        </Panel>
+    </spp:ContentLoader>
+</UserControl>

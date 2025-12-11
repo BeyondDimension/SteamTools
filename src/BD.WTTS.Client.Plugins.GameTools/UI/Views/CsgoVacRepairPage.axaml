@@ -1,0 +1,182 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.CsgoVacRepairPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    Title="CS:GO VAC 修复"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="spp:CsgoVacRepairPageViewModel"
+    Description="该功能可为玩家修复 CS:GO VAC 屏蔽问题"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
+    mc:Ignorable="d">
+	<spp:PageBase.PreviewImage>
+		<ui:ImageIconSource Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/CounterStrike.png" />
+	</spp:PageBase.PreviewImage>
+	<spp:PageBase.ActionContent>
+		<StackPanel Orientation="Horizontal" Spacing="2">
+			<Button
+                Padding="8,4"
+                DockPanel.Dock="Right"
+				IsVisible="{Binding !Repairing}"
+				Command="{ReflectionBinding Repairs_Click}"
+                Theme="{StaticResource TransparentButton}">
+				<Panel>
+					<Viewbox
+						Width="18"
+						Height="18"
+						HorizontalAlignment="Left">
+						<ui:FontIcon Glyph="&#xE90f;"/>
+					</Viewbox>
+					<TextBlock
+						Margin="28,4,0,4"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						Text="修复" />
+				</Panel>
+			</Button>
+			<Button
+                Padding="8,4"
+                DockPanel.Dock="Right"
+				IsVisible="{Binding Repairing}"
+                Theme="{StaticResource TransparentButton}">
+				<Panel>
+					<Viewbox
+						Width="18"
+						Height="18"
+						HorizontalAlignment="Left">
+						<ui:FontIcon Glyph="&#xE895;"/>
+					</Viewbox>
+					<TextBlock
+						Margin="28,4,0,4"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						Text="修复中" />
+				</Panel>
+			</Button>
+			<!--<ToggleButton
+				Padding="8,4"
+				DockPanel.Dock="Right"
+				IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
+				Theme="{StaticResource TransparentButton}">
+				<Panel>
+					<Viewbox
+                        Width="18"
+                        Height="18"
+                        HorizontalAlignment="Left">
+						<ui:FontIcon Glyph="&#xEA80;" />
+					</Viewbox>
+					<TextBlock
+                        Margin="28,4,0,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="帮助" />
+				</Panel>
+			</ToggleButton>-->
+			<DropDownButton
+                Padding="8"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Content="{StaticResource More}"
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                FontSize="20"
+                Theme="{StaticResource TransparentButton}">
+				<DropDownButton.Flyout>
+					<ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+						<!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />
+                        <ui:MenuFlyoutSeparator />-->
+						<ui:MenuFlyoutItem IsEnabled="False">
+							<ui:MenuFlyoutItem.Text>
+								<MultiBinding StringFormat="{}{0}{1}">
+									<CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Res.Plugin_Version"
+                                        Source="{x:Static s:ResourceService.Current}" />
+									<CompiledBinding
+                                        Mode="OneWay"
+                                        Path="Version"
+                                        Source="{x:Static s:Plugin.Instance}" />
+								</MultiBinding>
+							</ui:MenuFlyoutItem.Text>
+						</ui:MenuFlyoutItem>
+						<!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+						<!--<ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+						<!--<ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+					</ui:FAMenuFlyout>
+				</DropDownButton.Flyout>
+			</DropDownButton>
+		</StackPanel>
+	</spp:PageBase.ActionContent>
+	<Panel>
+		<Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="{DynamicResource ControlCornerRadius}">
+			<Grid RowDefinitions="*,Auto">
+				<TextBox
+					HorizontalContentAlignment="Stretch"
+					VerticalContentAlignment="Stretch"
+					Classes="readonlybox"
+					Text="{Binding OutputString}"
+					TextAlignment="Start"
+					TextWrapping="Wrap" />
+			</Grid>
+		</Border>
+	</Panel>
+
+	<!--<spp:PageBase.PaneContent>
+		<StackPanel Margin="10,10" Spacing="10">
+			<TextBlock FontWeight="Bold" FontSize="13" Text ="其他 VAC 修复方式"/>
+			<spp:OptionsDisplayItem Description="" Header="验证游戏完整性">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF156;" />
+                </spp:OptionsDisplayItem.Icon>
+            </spp:OptionsDisplayItem>
+			<spp:OptionsDisplayItem Header="关闭冲突软件">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF167;" />
+                </spp:OptionsDisplayItem.Icon>
+				<spp:OptionsDisplayItem.ActionButton>
+                    <Button Command="{ReflectionBinding CloseConflictApp_Click}" Content="关闭" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+			<spp:OptionsDisplayItem Header="管理员启动Steam">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEF58;" />
+                </spp:OptionsDisplayItem.Icon>
+				<spp:OptionsDisplayItem.ActionButton>
+					<Button Command="{ReflectionBinding AdminStartup_Click}" Content="启动" />
+				</spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+			<spp:OptionsDisplayItem Header="重启电脑">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE7ad;" />
+                </spp:OptionsDisplayItem.Icon>
+				<spp:OptionsDisplayItem.ActionButton>
+					<Button Command="{ReflectionBinding ResetComputer_Click}" Content="重启" />
+				</spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+			<spp:OptionsDisplayItem Header="修复系统文件">
+                <spp:OptionsDisplayItem.Icon>
+                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE705;" />
+                </spp:OptionsDisplayItem.Icon>
+				<spp:OptionsDisplayItem.ActionButton>
+                    <Button Command="{ReflectionBinding RepairSystemFiles_Click}" Content="执行" />
+                </spp:OptionsDisplayItem.ActionButton>
+            </spp:OptionsDisplayItem>
+			<TextBlock FontWeight="Bold" FontSize="13" Text ="其他异常处理"/>
+			<spp:OptionsDisplayItem Header="闪退">
+				<spp:OptionsDisplayItem.Icon>
+					<ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xea91;" />
+				</spp:OptionsDisplayItem.Icon>
+				<spp:OptionsDisplayItem.ActionButton>
+					<Button Content="修复" />
+				</spp:OptionsDisplayItem.ActionButton>
+			</spp:OptionsDisplayItem>
+		</StackPanel>
+	</spp:PageBase.PaneContent>-->
+</spp:PageBase>

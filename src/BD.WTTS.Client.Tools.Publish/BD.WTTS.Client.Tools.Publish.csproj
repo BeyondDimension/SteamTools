@@ -1,0 +1,137 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>pub</AssemblyName>
+		<OutputType>Exe</OutputType>
+		<ApplicationIcon>..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DefineConstants>TOOL_PUBLISH;$(DefineConstants)</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<AllowedReferenceRelatedFileExtensions>
+			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
+           		 Only *.allowedextension files will be included, which doesn't exist in my case.
+       		-->
+			.allowedextension
+		</AllowedReferenceRelatedFileExtensions>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\AssemblyInfo.Constants.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Remove="..\ImplicitUsings.Common.cs" />
+		<Compile Include="..\Utils.cs" />
+		<Compile Include="..\ImplicitUsings.MessagePack.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\ImplicitUsings.JsonProperty.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\Deb\*.cs">
+			<LinkBase>Packaging.Targets\Deb</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\IO\*.cs">
+			<LinkBase>Packaging.Targets\IO</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\Native\*.cs">
+			<LinkBase>Packaging.Targets\Native</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\Rpm\*.cs">
+			<LinkBase>Packaging.Targets\Rpm</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\StreamExtensions.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\ArchiveBuilder.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\TaskItemExtensions.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\CopyToDirectoryValue.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\RpmTask.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\DebTask.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<Compile Include="..\..\ref\dotnet-packaging\Packaging.Targets\RuntimeIdentifiers.cs">
+			<LinkBase>Packaging.Targets</LinkBase>
+		</Compile>
+		<None Include="..\..\ref\dotnet-packaging\Packaging.Targets\runtimes\win7-x64\native\lzma.dll" Link="lzma.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Steam++.desktop">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="..\..\ref\libzstd.dll">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<!--<None Remove="$(NugetPackageRoot)\zstdnet\1.4.5\build\x64\libzstd.dll" />-->
+		<Compile Include="..\BD.WTTS.Client\Helpers\GlobalDllImportResolver.LibraryName.cs">
+			<LinkBase>Helpers</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="PowerShell\System.Management.Automation\resources\Authenticode.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Authenticode.resx</DependentUpon>
+		</Compile>
+		<Compile Update="PowerShell\System.Management.Automation\resources\AutomationExceptions.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>AutomationExceptions.resx</DependentUpon>
+		</Compile>
+		<Compile Update="PowerShell\System.Management.Automation\resources\MshSignature.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>MshSignature.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="PowerShell\System.Management.Automation\resources\Authenticode.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Authenticode.Designer.cs</LastGenOutput>
+			<CustomToolNamespace>System.Management.Automation</CustomToolNamespace>
+		</EmbeddedResource>
+		<EmbeddedResource Update="PowerShell\System.Management.Automation\resources\AutomationExceptions.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>AutomationExceptions.Designer.cs</LastGenOutput>
+			<CustomToolNamespace>System.Management.Automation</CustomToolNamespace>
+		</EmbeddedResource>
+		<EmbeddedResource Update="PowerShell\System.Management.Automation\resources\MshSignature.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>MshSignature.Designer.cs</LastGenOutput>
+			<CustomToolNamespace>System.Management.Automation</CustomToolNamespace>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- PackageReference -->
+		<PackageReference Include="BD.Common" />
+		<PackageReference Include="System.CommandLine" />
+		<PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
+		<PackageReference Include="SharpZipLib" />
+		<PackageReference Include="ZstdNet" />
+		<PackageReference Include="BsDiff" />
+		<PackageReference Include="7-Zip.NativeAssets.Win32" />
+		<PackageReference Include="Portable.BouncyCastle" />
+		<PackageReference Include="System.Security.Cryptography.ProtectedData" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.ClientSDK\BD.WTTS.MicroServices.ClientSDK.csproj" />
+	</ItemGroup>
+
+	<Import Project="..\TFM_NETX.props" />
+
+</Project>
