@@ -1,0 +1,194 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Root", "0.Root", "{46259E8D-32A4-4065-953D-D6F835B57A28}"
+    ProjectSection(SolutionItems) = preProject
+        src\.editorconfig = src\.editorconfig
+        .gitignore = .gitignore
+        .github\workflows\CI.yml = .github\workflows\CI.yml
+        src\Directory.Build.props = src\Directory.Build.props
+        src\Directory.Packages.props = src\Directory.Packages.props
+        nuget.config = nuget.config
+        src\README.md = src\README.md
+        Accelerator.sln.README.md = Accelerator.sln.README.md
+    EndProjectSection
+EndProject
+
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TFM", "TFM", "{3B0CFC2A-F61B-4000-AC12-6E0AFB5C475C}"
+    ProjectSection(SolutionItems) = preProject
+        src\TFM_NETX.props = src\TFM_NETX.props
+        src\TFM_NETX_SINGLE.props = src\TFM_NETX_SINGLE.props
+        src\TFM_NETX_WITH_DESKTOP.props = src\TFM_NETX_WITH_DESKTOP.props
+        src\TFM_NETX_WITH_WINDOWS.props = src\TFM_NETX_WITH_WINDOWS.props
+    EndProjectSection
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client", "src\BD.WTTS.Client\BD.WTTS.Client.csproj", "{125FB003-F154-425F-AD3F-A1D92977D353}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Avalonia", "src\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj", "{C87A1043-C3E2-450A-B2EE-65B54ABFDEFC}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.IPC", "src\BD.WTTS.Client.IPC\BD.WTTS.Client.IPC.csproj", "{407BE171-FB57-4C39-BF26-7FAF4450635F}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Accelerator", "src\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj", "{085B609C-083F-4698-9508-563CD6A8E71D}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "src\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj", "{521D4676-8E8A-4A4C-9835-B09FF4AFFBBC}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Primitives", "ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.Primitives\BD.WTTS.Primitives.csproj", "{0B964416-87C9-48B8-87E8-9DF759122A9B}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Primitives.ViewModels", "ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.Primitives.ViewModels\BD.WTTS.Primitives.ViewModels.csproj", "{2CD594C7-3372-4A13-B063-55A3C1B8976F}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.MicroServices.Primitives", "ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.Primitives\BD.WTTS.MicroServices.Primitives.csproj", "{74F00DD5-A51F-43B5-B0CE-999F31B2D406}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.MicroServices.Primitives.ViewModels", "ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.Primitives.ViewModels\BD.WTTS.MicroServices.Primitives.ViewModels.csproj", "{AC2E9B33-66AB-43EE-B8CB-99F1BAD7842B}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.MicroServices.ClientSDK", "ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.ClientSDK\BD.WTTS.MicroServices.ClientSDK.csproj", "{CB3FCF2C-A8A0-407C-9221-07B52D3F8CEF}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Primitives.Resources", "ref\WTTS.MicroServices.ClientSDK\ref\WTTS.Public\src\BD.WTTS.Primitives.Resources\BD.WTTS.Primitives.Resources.csproj", "{5D32EFA9-21BA-4549-8204-DBA3EC1FBD08}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.MicroServices.Primitives.Resources", "ref\WTTS.MicroServices.ClientSDK\ref\WTTS.Public\src\BD.WTTS.MicroServices.Primitives.Resources\BD.WTTS.MicroServices.Primitives.Resources.csproj", "{E57EB922-240F-4704-80B9-64A2C5B33F66}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.Primitives.Models", "ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.Primitives.Models\BD.WTTS.Primitives.Models.csproj", "{9C148330-3F77-4FDB-BCD1-5E251274A693}"
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.MicroServices.Primitives.Models", "ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.Primitives.Models\BD.WTTS.MicroServices.Primitives.Models.csproj", "{3A790499-6030-48FF-AD0A-934A0B1EE404}"
+EndProject
+
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImplicitUsings", "ImplicitUsings", "{F776BA87-0B9B-4C3C-B04F-688DCC021BF1}"
+    ProjectSection(SolutionItems) = preProject
+        src\ImplicitUsings.ArchiSteamFarm.cs = src\ImplicitUsings.ArchiSteamFarm.cs
+        src\ImplicitUsings.AspNetCore.cs = src\ImplicitUsings.AspNetCore.cs
+        src\ImplicitUsings.AutoMapper.cs = src\ImplicitUsings.AutoMapper.cs
+        src\ImplicitUsings.Avalonia.cs = src\ImplicitUsings.Avalonia.cs
+        src\ImplicitUsings.BCL.cs = src\ImplicitUsings.BCL.cs
+        src\ImplicitUsings.Common.Mvvm.cs = src\ImplicitUsings.Common.Mvvm.cs
+        src\ImplicitUsings.Common.cs = src\ImplicitUsings.Common.cs
+        src\ImplicitUsings.Controllers.cs = src\ImplicitUsings.Controllers.cs
+        src\ImplicitUsings.Data.cs = src\ImplicitUsings.Data.cs
+        src\ImplicitUsings.EntityFrameworkCore.cs = src\ImplicitUsings.EntityFrameworkCore.cs
+        src\ImplicitUsings.JsonProperty.cs = src\ImplicitUsings.JsonProperty.cs
+        src\ImplicitUsings.MessagePack.cs = src\ImplicitUsings.MessagePack.cs
+        src\ImplicitUsings.Models.cs = src\ImplicitUsings.Models.cs
+        src\ImplicitUsings.MSEX.cs = src\ImplicitUsings.MSEX.cs
+        src\ImplicitUsings.Nito.cs = src\ImplicitUsings.Nito.cs
+        src\ImplicitUsings.NLog.cs = src\ImplicitUsings.NLog.cs
+        src\ImplicitUsings.Plugins.cs = src\ImplicitUsings.Plugins.cs
+        src\ImplicitUsings.ReactiveUI.cs = src\ImplicitUsings.ReactiveUI.cs
+        src\ImplicitUsings.Repositories.cs = src\ImplicitUsings.Repositories.cs
+        src\ImplicitUsings.Services.cs = src\ImplicitUsings.Services.cs
+        src\ImplicitUsings.Settings.cs = src\ImplicitUsings.Settings.cs
+        src\ImplicitUsings.SQLite.cs = src\ImplicitUsings.SQLite.cs
+        src\ImplicitUsings.UI.cs = src\ImplicitUsings.UI.cs
+        src\ImplicitUsings.UI.ViewModels.cs = src\ImplicitUsings.UI.ViewModels.cs
+        src\ImplicitUsings.WTTS.cs = src\ImplicitUsings.WTTS.cs
+    EndProjectSection
+EndProject
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BD.WTTS.UnitTest", "src\BD.WTTS.UnitTest\BD.WTTS.UnitTest.csproj", "{B1131172-0748-4003-83ED-71574FD6331A}"
+EndProject
+
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{202026AE-894E-4E18-9846-B0739CDBE3E9}"
+    ProjectSection(SolutionItems) = preProject
+        src\AssemblyInfo.Constants.cs = src\AssemblyInfo.Constants.cs
+        src\AssemblyInfo.cs = src\AssemblyInfo.cs
+        src\AssemblyInfo.Version.Max.cs = src\AssemblyInfo.Version.Max.cs
+        src\AssemblyInfo.Xaml.cs = src\AssemblyInfo.Xaml.cs
+        src\README.md = src\README.md
+        src\Utils.cs = src\Utils.cs
+        src\VisualStudioAppCenterSDK.cs = src\VisualStudioAppCenterSDK.cs
+        src\VisualStudioAppCenterSDK.AppSecret.cs = src\VisualStudioAppCenterSDK.AppSecret.cs
+    EndProjectSection
+EndProject
+
+Global
+    GlobalSection(SolutionConfigurationPlatforms) = preSolution
+        Debug|Any CPU = Debug|Any CPU
+        Debug|ARM = Debug|ARM
+        Debug|ARM64 = Debug|ARM64
+        Debug|x64 = Debug|x64
+        Debug|x86 = Debug|x86
+        Release|Any CPU = Release|Any CPU
+        Release|ARM = Release|ARM
+        Release|ARM64 = Release|ARM64
+        Release|x64 = Release|x64
+        Release|x86 = Release|x86
+    EndGlobalSection
+    GlobalSection(ProjectConfigurationPlatforms) = postSolution
+        {125FB003-F154-425F-AD3F-A1D92977D353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {125FB003-F154-425F-AD3F-A1D92977D353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {125FB003-F154-425F-AD3F-A1D92977D353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {125FB003-F154-425F-AD3F-A1D92977D353}.Release|Any CPU.Build.0 = Release|Any CPU
+        {C87A1043-C3E2-450A-B2EE-65B54ABFDEFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {C87A1043-C3E2-450A-B2EE-65B54ABFDEFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {C87A1043-C3E2-450A-B2EE-65B54ABFDEFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {C87A1043-C3E2-450A-B2EE-65B54ABFDEFC}.Release|Any CPU.Build.0 = Release|Any CPU
+        {407BE171-FB57-4C39-BF26-7FAF4450635F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {407BE171-FB57-4C39-BF26-7FAF4450635F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {407BE171-FB57-4C39-BF26-7FAF4450635F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {407BE171-FB57-4C39-BF26-7FAF4450635F}.Release|Any CPU.Build.0 = Release|Any CPU
+        {085B609C-083F-4698-9508-563CD6A8E71D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {085B609C-083F-4698-9508-563CD6A8E71D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {085B609C-083F-4698-9508-563CD6A8E71D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {085B609C-083F-4698-9508-563CD6A8E71D}.Release|Any CPU.Build.0 = Release|Any CPU
+        {521D4676-8E8A-4A4C-9835-B09FF4AFFBBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {521D4676-8E8A-4A4C-9835-B09FF4AFFBBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {521D4676-8E8A-4A4C-9835-B09FF4AFFBBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {521D4676-8E8A-4A4C-9835-B09FF4AFFBBC}.Release|Any CPU.Build.0 = Release|Any CPU
+        {0B964416-87C9-48B8-87E8-9DF759122A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {0B964416-87C9-48B8-87E8-9DF759122A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {0B964416-87C9-48B8-87E8-9DF759122A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {0B964416-87C9-48B8-87E8-9DF759122A9B}.Release|Any CPU.Build.0 = Release|Any CPU
+        {2CD594C7-3372-4A13-B063-55A3C1B8976F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {2CD594C7-3372-4A13-B063-55A3C1B8976F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {2CD594C7-3372-4A13-B063-55A3C1B8976F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {2CD594C7-3372-4A13-B063-55A3C1B8976F}.Release|Any CPU.Build.0 = Release|Any CPU
+        {74F00DD5-A51F-43B5-B0CE-999F31B2D406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {74F00DD5-A51F-43B5-B0CE-999F31B2D406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {74F00DD5-A51F-43B5-B0CE-999F31B2D406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {74F00DD5-A51F-43B5-B0CE-999F31B2D406}.Release|Any CPU.Build.0 = Release|Any CPU
+        {AC2E9B33-66AB-43EE-B8CB-99F1BAD7842B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {AC2E9B33-66AB-43EE-B8CB-99F1BAD7842B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {AC2E9B33-66AB-43EE-B8CB-99F1BAD7842B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {AC2E9B33-66AB-43EE-B8CB-99F1BAD7842B}.Release|Any CPU.Build.0 = Release|Any CPU
+        {CB3FCF2C-A8A0-407C-9221-07B52D3F8CEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {CB3FCF2C-A8A0-407C-9221-07B52D3F8CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {CB3FCF2C-A8A0-407C-9221-07B52D3F8CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {CB3FCF2C-A8A0-407C-9221-07B52D3F8CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+        {5D32EFA9-21BA-4549-8204-DBA3EC1FBD08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {5D32EFA9-21BA-4549-8204-DBA3EC1FBD08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {5D32EFA9-21BA-4549-8204-DBA3EC1FBD08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {5D32EFA9-21BA-4549-8204-DBA3EC1FBD08}.Release|Any CPU.Build.0 = Release|Any CPU
+        {E57EB922-240F-4704-80B9-64A2C5B33F66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {E57EB922-240F-4704-80B9-64A2C5B33F66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {E57EB922-240F-4704-80B9-64A2C5B33F66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {E57EB922-240F-4704-80B9-64A2C5B33F66}.Release|Any CPU.Build.0 = Release|Any CPU
+        {9C148330-3F77-4FDB-BCD1-5E251274A693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {9C148330-3F77-4FDB-BCD1-5E251274A693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {9C148330-3F77-4FDB-BCD1-5E251274A693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {9C148330-3F77-4FDB-BCD1-5E251274A693}.Release|Any CPU.Build.0 = Release|Any CPU
+        {3A790499-6030-48FF-AD0A-934A0B1EE404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {3A790499-6030-48FF-AD0A-934A0B1EE404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {3A790499-6030-48FF-AD0A-934A0B1EE404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {3A790499-6030-48FF-AD0A-934A0B1EE404}.Release|Any CPU.Build.0 = Release|Any CPU
+        {B1131172-0748-4003-83ED-71574FD6331A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {B1131172-0748-4003-83ED-71574FD6331A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {B1131172-0748-4003-83ED-71574FD6331A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {B1131172-0748-4003-83ED-71574FD6331A}.Release|Any CPU.Build.0 = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(SolutionExtensibilityGlobals) = postSolution
+        SolutionGuid = {A5828819-62AB-4B03-A083-8B6ED4915AA3}
+    EndGlobalSection
+EndGlobal
