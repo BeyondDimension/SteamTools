@@ -1,193 +1,36 @@
-name: Build
-
-env:
-  ProjectName: Steam++
+name: Build macOS
 
 on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
+  workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        configuration: [ Debug, Release ]
-#        os: [ windows-latest, macOS-latest, ubuntu-latest ]
-        os: [ windows-latest, macOS-latest ]
-      # rid: [ fd-win-x64, win-x64, osx-x64, linux-x64,linux-arm64 ]
-
+  build-macos:
+    runs-on: macos-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        submodules: recursive
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
 
-    - name: Setup .NET 6
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'preview'
 
-    - name: Install macOS SDK(macOS)
-      if: matrix.os == 'macOS-latest'
-      run: sudo dotnet workload install macos
-      
-    - name: Install macOS SDK(Windows)
-      if: matrix.os == 'windows-latest'
-      run: dotnet workload install macos
+      - name: Install macOS workload
+        run: sudo dotnet workload install macos
 
-    - name: Install Android SDK(Unix)
-      if: ${{ matrix.os == 'macOS-latest' || matrix.os == 'ubuntu-latest' }}
-      run: sudo dotnet workload install android
-      
-    - name: Install Android SDK(Windows)
-      if: matrix.os == 'windows-latest'
-      run: dotnet workload install android
+      - name: Restore
+        run: dotnet restore WattToolkit.slnx
 
-    - name: Install Maui(Windows)
-      if: matrix.os == 'windows-latest'
-      run: dotnet workload install maui
+      - name: Build main app
+        run: dotnet build src/BD.WTTS.Client.Avalonia.App/BD.WTTS.Client.Avalonia.App.csproj -c Release -f net10.0-macos -p:CreatePackage=false
 
-    - name: Install Maui(Unix)
-#      if: ${{ matrix.os == 'macOS-latest' || matrix.os == 'ubuntu-latest' }}
-      if: matrix.os == 'macOS-latest'
-      run: sudo dotnet workload install maui
-
-    - name: Verify dotnet info
-      run: dotnet --info
-
-    - name: Checkout Credentials repository
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/checkout@v3
-      with:
-        repository: SteamTools-Team/Credentials
-        token: ${{ secrets.REPO_TOKEN }}
-        path: ./Credentials
-
-    - name: Copy pfx and snk To Source
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      run: |
-        copy ".\Credentials\*.pfx" .
-        copy ".\Credentials\*.snk" .
-        dir *.pfx -s
-
-    - name: dotnet restore SteamToolsV2+.sln
-      if: matrix.os == 'windows-latest'
-      run: dotnet restore ./SteamToolsV2+.sln
-      
-    - name: dotnet restore SteamToolsV2+.Linux.sln
-      if: matrix.os == 'ubuntu-latest'
-      run: dotnet restore ./SteamToolsV2+.Linux.slnf
-      
-    - name: dotnet restore SteamToolsV2+.Mac.sln
-      if: matrix.os == 'macOS-latest'
-      run: dotnet restore ./SteamToolsV2+.Mac.slnf
-      
-    - name: Build AvaloniaApp ${{ matrix.configuration }}
-      run: dotnet build ./src/ST.Client.Desktop.Avalonia.App/ST.Client.Avalonia.App.csproj -c "${{ matrix.configuration }}"
-      
-    - name: Run CommonUnit
-      run: dotnet test ./tests/Common.UnitTest/Common.UnitTest.csproj -c "${{ matrix.configuration }}"
-
-    - name: Run ST.Client.UnitTest
-      run: dotnet test ./tests/ST.Client.UnitTest/ST.Client.UnitTest.csproj -c "${{ matrix.configuration }}"
-
-    - name: Run ST.Client.Desktop.UnitTest
-      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj -c "${{ matrix.configuration }}"
-
-    - name: dotnet ST.Client.Desktop.UnitTest test
-      if: matrix.os != 'windows-latest'
-      run: dotnet test ./tests/ST.Client.Desktop.UnitTest/ST.Client.Desktop.UnitTest.csproj
-
-    - name: Get Short CommitId
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      shell: pwsh
-      run: Write-Output "GITHUB_SHA_SHORT=$(${env:GITHUB_SHA}.Substring(0,7))" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-
-    - name: Build ST.Tools.Publish Release
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      run: dotnet build ./src/ST.Tools.Publish/ST.Tools.Publish.csproj -c Release
-
-    - name: Build ${{ matrix.configuration }} & Package All
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      shell: pwsh
-      run: .\packaging\build.ps1 -configuration ${{ matrix.configuration }}
-
-    - name: All Package
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      shell: pwsh
-      run: |
-        $dev = $(if ('${{ matrix.configuration }}' -eq 'Debug') {"-dev"})
-        $pexe=".\src\ST.Tools.Publish\bin\Release\net6.0\p.exe"
-        & $pexe hp $dev
-        & $pexe sta $dev
-        & $pexe 7z -buildpackage ${env:GITHUB_SHA_SHORT} $dev
-
-    - name: Upload fd-win-x64 App ${{ matrix.configuration }}
-      continue-on-error: true
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_win_x64_fde_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_win_x64_fde_${{ env.GITHUB_SHA_SHORT }}.7z
-
-    - name: Upload win-x64 App ${{ matrix.configuration }}
-      continue-on-error: true
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_win_x64_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_win_x64_${{ env.GITHUB_SHA_SHORT }}.7z
-
-    - name: Upload fd-win-x86 App ${{ matrix.configuration }}
-      continue-on-error: true
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_win_x86_fde_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_win_x86_fde_${{ env.GITHUB_SHA_SHORT }}.7z
-
-    - name: Upload win-x86 App ${{ matrix.configuration }}
-      continue-on-error: true
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_win_x86_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_win_x86_${{ env.GITHUB_SHA_SHORT }}.7z
-
-    - name: Upload macos-x64 App ${{ matrix.configuration }}
-      continue-on-error: true
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_macos_x64_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_macos_x64_${{ env.GITHUB_SHA_SHORT }}.7z
-        
-    - name: Upload macos-arm64 App ${{ matrix.configuration }}
-      continue-on-error: true
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_macos_arm64_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_macos_arm64_${{ env.GITHUB_SHA_SHORT }}.7z
-
-    - name: Upload linux-x64 App ${{ matrix.configuration }}
-      continue-on-error: true
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_linux_x64_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_linux_x64_${{ env.GITHUB_SHA_SHORT }}.tar.zst
-
-    - name: Upload linux-arm64 App ${{ matrix.configuration }}
-      continue-on-error: true
-      if: ${{ matrix.os == 'windows-latest' && !startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: '[${{ matrix.configuration }}]${{ env.ProjectName }}_linux_arm64_${{ env.GITHUB_SHA_SHORT }}'
-        path: src\ST.Client.Desktop.Avalonia.App\bin\${{ matrix.configuration }}\Publish\${{ env.ProjectName }}_linux_arm64_${{ env.GITHUB_SHA_SHORT }}.tar.zst
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Steam++-macOS
+          path: src/BD.WTTS.Client.Avalonia.App/bin/Release/net10.0-macos/Steam++.app
+          retention-days: 30
