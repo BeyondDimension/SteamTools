@@ -20,7 +20,7 @@ public sealed partial class App : Application
         var menus = new NativeMenu();
         menus.Add(new NativeMenuItem { Header = Strings.Settings, Command = ReactiveCommand.Create(() => { INavigationService.Instance.Navigate(typeof(SettingsPage)); }) });
         menus.Add(new NativeMenuItemSeparator());
-        menus.Add(new NativeMenuItem { Header = Strings.Exit, Command = ReactiveCommand.Create(() => { Shutdown(); }) });
+        menus.Add(new NativeMenuItem { Header = Strings.Exit, Gesture = "CMD+Q", Command = ReactiveCommand.Create(() => { Shutdown(); }) });
         NativeMenu.SetMenu(this, menus);
 #endif
     }
