@@ -1,0 +1,36 @@
+name: Build macOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'preview'
+
+      - name: Install macOS workload
+        run: sudo dotnet workload install macos
+
+      - name: Restore
+        run: dotnet restore WattToolkit.slnx
+
+      - name: Build main app
+        run: dotnet build src/BD.WTTS.Client.Avalonia.App/BD.WTTS.Client.Avalonia.App.csproj -c Release -f net10.0-macos -p:CreatePackage=false
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Steam++-macOS
+          path: src/BD.WTTS.Client.Avalonia.App/bin/Release/net10.0-macos/Steam++.app
+          retention-days: 30
