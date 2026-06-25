@@ -3140,6 +3140,12 @@ The system will {1} after {0} seconds.</value>
     <value>Close</value>
     <comment>Author=kotovasia5120</comment>
   </data>
+  <data name="HideApp_" xml:space="preserve">
+    <value>Hide {0}</value>
+  </data>
+  <data name="HideWindow" xml:space="preserve">
+    <value>Hide Window</value>
+  </data>
   <data name="Minimize" xml:space="preserve">
     <value>Minimize</value>
     <comment>Author=kotovasia5120</comment>
@@ -3155,6 +3161,9 @@ The system will {1} after {0} seconds.</value>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
     <comment>Author=kotovasia5120</comment>
+  </data>
+  <data name="WindowMenu" xml:space="preserve">
+    <value>Window</value>
   </data>
   <data name="LoginVerify" xml:space="preserve">
     <value>LoginVerify</value>
