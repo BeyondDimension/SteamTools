@@ -13,6 +13,10 @@ public sealed partial class PlatformAccount
     public PlatformAccount(ThirdpartyPlatform platform)
     {
         Accounts = new ObservableCollection<IAccount>();
+        FilteredAccounts = new ObservableCollection<IAccount>();
+
+        this.WhenAnyValue(x => x.SearchText)
+            .Subscribe(_ => ApplySearchFilter());
         var platformSwitchers = Ioc.Get<IEnumerable<IPlatformSwitcher>>();
 
         FullName = platform.ToString();
@@ -37,7 +41,15 @@ public sealed partial class PlatformAccount
         DeleteAccountCommand = ReactiveCommand.Create<IAccount>(async acc =>
         {
             if (await platformSwitcher.DeleteAccountInfo(acc, this))
-                Toast.Show(ToastIcon.Success, Strings.Success_DeletePlatformAccount__.Format(FullName, acc.DisplayName));
+            {
+                ApplySearchFilter();
+
+                Toast.Show(
+                    ToastIcon.Success,
+                    Strings.Success_DeletePlatformAccount__.Format(
+                        FullName,
+                        acc.DisplayName));
+            }
         });
 
         SetAccountAvatarCommand = ReactiveCommand.Create<IAccount>(async acc =>
@@ -66,6 +78,7 @@ public sealed partial class PlatformAccount
                 return;
             acc.AliasName = text;
             platformSwitcher.ChangeUserRemark(acc);
+            ApplySearchFilter();
         });
 
         CopyCommand = ReactiveCommand.Create<string>(async text => await Clipboard2.SetTextAsync(text));
@@ -80,6 +93,35 @@ public sealed partial class PlatformAccount
         //LoadUsers();
     }
 
+    void ApplySearchFilter()
+    {
+        var searchText = SearchText?.Trim();
+
+        IEnumerable<IAccount> accounts = Accounts;
+
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            accounts = Accounts.Where(account =>
+                ContainsIgnoreCase(account.DisplayName, searchText) ||
+                ContainsIgnoreCase(account.AccountName, searchText) ||
+                ContainsIgnoreCase(account.AliasName, searchText));
+        }
+
+        FilteredAccounts.Clear();
+
+        foreach (var account in accounts)
+        {
+            FilteredAccounts.Add(account);
+        }
+    }
+
+    static bool ContainsIgnoreCase(string? value, string searchText)
+    {
+        return value?.Contains(
+            searchText,
+            StringComparison.OrdinalIgnoreCase) == true;
+    }
+
     public void LoadUsers()
     {
         Task2.InBackground(async () =>
@@ -89,6 +131,7 @@ public sealed partial class PlatformAccount
             try
             {
                 Accounts.Clear();
+                ApplySearchFilter();
                 var users = await platformSwitcher.GetUsers(this, () =>
                 {
                     if (Accounts.Any_Nullable())
@@ -103,7 +146,12 @@ public sealed partial class PlatformAccount
                 });
 
                 if (users.Any_Nullable())
-                    Accounts = new ObservableCollection<IAccount>(users.OrderByDescending(x => x.LastLoginTime));
+                {
+                    Accounts = new ObservableCollection<IAccount>(
+                        users.OrderByDescending(x => x.LastLoginTime));
+                }
+
+                ApplySearchFilter();
             }
             catch (Exception ex)
             {

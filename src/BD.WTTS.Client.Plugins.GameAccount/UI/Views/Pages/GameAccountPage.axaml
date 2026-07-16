@@ -165,78 +165,90 @@
         TabWidthMode="Equal"
         VerticalAlignment="Stretch">
         <ui:TabView.TabStripFooter>
-            <Button
-                Content="&#xE710;"
-                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                HorizontalAlignment="Left"
-                Theme="{StaticResource TabViewButtonStyle}"
-                VerticalAlignment="Center">
-                <Button.Flyout>
-                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                        <MenuItem
-                            Header="{Binding Path=Res.AddPlatform, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                            IsVisible="{Binding !!AddGamePlatforms.Count}"
-                            ItemsSource="{Binding AddGamePlatforms}">
-                            <MenuItem.Styles>
-                                <Style Selector="MenuItem" x:DataType="spp:PlatformAccount">
-                                    <Setter Property="Header" Value="{Binding FullName}" />
-                                    <Setter Property="Icon">
-                                        <Setter.Value>
-                                            <Template>
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button
+                    Grid.Column="0"
+                    Content="&#xE710;"
+                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                    HorizontalAlignment="Left"
+                    Theme="{StaticResource TabViewButtonStyle}"
+                    VerticalAlignment="Center">
+                    <Button.Flyout>
+                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                            <MenuItem
+                                Header="{Binding Path=Res.AddPlatform, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                IsVisible="{Binding !!AddGamePlatforms.Count}"
+                                ItemsSource="{Binding AddGamePlatforms}">
+                                <MenuItem.Styles>
+                                    <Style Selector="MenuItem" x:DataType="spp:PlatformAccount">
+                                        <Setter Property="Header" Value="{Binding FullName}" />
+                                        <Setter Property="Icon">
+                                            <Setter.Value>
+                                                <Template>
+                                                    <PathIcon Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}" />
+                                                </Template>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="Command" Value="{Binding $parent[spp:PageBase].((spp:GameAccountPageViewModel)DataContext).AddPlatformCommand}" />
+                                        <Setter Property="CommandParameter" Value="{Binding}" />
+                                    </Style>
+                                </MenuItem.Styles>
+                                <!--<MenuItem.DataTemplates>
+                                    <DataTemplate DataType="{x:Type spp:PlatformAccount}">
+                                        <MenuItem
+                                            Command="{Binding $parent[spp:PageBase].((spp:GameAccountPageViewModel)DataContext).AddPlatformCommand}"
+                                            CommandParameter="{Binding}"
+                                            Header="{Binding FullName}">
+                                            <MenuItem.Icon>
                                                 <PathIcon Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}" />
-                                            </Template>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Command" Value="{Binding $parent[spp:PageBase].((spp:GameAccountPageViewModel)DataContext).AddPlatformCommand}" />
-                                    <Setter Property="CommandParameter" Value="{Binding}" />
-                                </Style>
-                            </MenuItem.Styles>
-                            <!--<MenuItem.DataTemplates>
-                                <DataTemplate DataType="{x:Type spp:PlatformAccount}">
-                                    <MenuItem
-                                        Command="{Binding $parent[spp:PageBase].((spp:GameAccountPageViewModel)DataContext).AddPlatformCommand}"
-                                        CommandParameter="{Binding}"
-                                        Header="{Binding FullName}">
-                                        <MenuItem.Icon>
-                                            <PathIcon Data="{Binding Icon, Converter={StaticResource ResourceKeyValueConverter}}" />
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </DataTemplate>
-                            </MenuItem.DataTemplates>-->
-                        </MenuItem>
-                        <MenuItem Header="-" IsVisible="{Binding !!AddGamePlatforms.Count}" />
-                        <MenuItem Command="{Binding LoginNewCommand}" Header="{Binding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                            <MenuItem.Icon>
-                                <ui:SymbolIcon Symbol="Add" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <!--<ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_EndProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                            <ui:RadioMenuFlyoutItem
-                                GroupName="KillMethond"
-                                IconSource="Games"
-                                Text="TaskKill" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </DataTemplate>
+                                </MenuItem.DataTemplates>-->
+                            </MenuItem>
+                            <MenuItem Header="-" IsVisible="{Binding !!AddGamePlatforms.Count}" />
+                            <MenuItem Command="{Binding LoginNewCommand}" Header="{Binding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                <MenuItem.Icon>
+                                    <ui:SymbolIcon Symbol="Add" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <!--<ui:MenuFlyoutSeparator />
+                            <ui:MenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_EndProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                <ui:RadioMenuFlyoutItem
+                                    GroupName="KillMethond"
+                                    IconSource="Games"
+                                    Text="TaskKill" />
 
-			 <ui:RadioMenuFlyoutItem
-                                GroupName="KillMethond"
-                                IconSource="Icons"
-                                Text="Direct" />
-                        </ui:MenuFlyoutSubItem>
-                        <ui:MenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_StartProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                            <ui:RadioMenuFlyoutItem
-                                GroupName="StartMethond"
-                                IconSource="Games"
-                                Text="Explorer" />
-                            <ui:RadioMenuFlyoutItem
-                                GroupName="Test Group"
-                                IconSource="Icons"
-                                Text="Direct" />
-                        </ui:MenuFlyoutSubItem>
-                        <ui:MenuFlyoutSeparator />
-                        <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="{Binding Path=Res.AdministratorStartup, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
-                    </MenuFlyout>
-                </Button.Flyout>
-            </Button>
+                 <ui:RadioMenuFlyoutItem
+                                    GroupName="KillMethond"
+                                    IconSource="Icons"
+                                    Text="Direct" />
+                            </ui:MenuFlyoutSubItem>
+                            <ui:MenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_StartProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                <ui:RadioMenuFlyoutItem
+                                    GroupName="StartMethond"
+                                    IconSource="Games"
+                                    Text="Explorer" />
+                                <ui:RadioMenuFlyoutItem
+                                    GroupName="Test Group"
+                                    IconSource="Icons"
+                                    Text="Direct" />
+                            </ui:MenuFlyoutSubItem>
+                            <ui:MenuFlyoutSeparator />
+                            <ui:ToggleMenuFlyoutItem IconSource="Safe" Text="{Binding Path=Res.AdministratorStartup, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+                <AutoCompleteBox
+                    Grid.Column="2"
+                    Width="280"
+                    MaxWidth="320"
+                    Margin="12,0,8,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Classes="Search"
+                    Text="{Binding SelectedPlatform.SearchText, Mode=TwoWay}" />
+            </Grid>
         </ui:TabView.TabStripFooter>
         <ui:TabView.Styles>
             <Style Selector="ui|TabViewItem" x:DataType="spp:PlatformAccount">
