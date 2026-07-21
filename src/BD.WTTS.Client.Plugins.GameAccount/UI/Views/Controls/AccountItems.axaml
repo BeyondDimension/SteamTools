@@ -195,15 +195,15 @@
                 Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
         </ui:FAMenuFlyout>
     </UserControl.Resources>
-    <ScrollViewer>
+    <ScrollViewer Margin="0,8,0,0">
         <ScrollViewer.GestureRecognizers>
             <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
         </ScrollViewer.GestureRecognizers>
         <spp:ContentLoader
             IsLoading="{Binding IsLoading}"
-            IsShowNoResultText="{Binding !!!Accounts.Count, Mode=OneWay}"
+            IsShowNoResultText="{Binding !!!FilteredAccounts.Count, Mode=OneWay}"
             NoResultMessage="{Binding Path=Res.UserChange_NoUserTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding Accounts}">
+            <ItemsControl ItemsSource="{Binding FilteredAccounts}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel />
