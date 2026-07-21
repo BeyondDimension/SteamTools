@@ -27,9 +27,9 @@
                         Spacing="10">
                         <StackPanel.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                <CompiledBinding Path="!Requires2FA" />
-                                <CompiledBinding Path="!RequiresEmailAuth" />
-                                <CompiledBinding Path="!IsLoading" />
+                                <ReflectionBinding Path="!Requires2FA" />
+                                <ReflectionBinding Path="!RequiresEmailAuth" />
+                                <ReflectionBinding Path="!IsLoading" />
                             </MultiBinding>
                         </StackPanel.IsVisible>
                         <PathIcon
@@ -64,8 +64,8 @@
                         Spacing="10">
                         <StackPanel.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                                <CompiledBinding Path="Requires2FA" />
-                                <CompiledBinding Path="RequiresEmailAuth" />
+                                <ReflectionBinding Path="Requires2FA" />
+                                <ReflectionBinding Path="RequiresEmailAuth" />
                             </MultiBinding>
                         </StackPanel.IsVisible>
                         <TextBlock IsVisible="{Binding Requires2FA}" Text="{Binding Path=Res.LocalAuth_Steam2FACodeTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />

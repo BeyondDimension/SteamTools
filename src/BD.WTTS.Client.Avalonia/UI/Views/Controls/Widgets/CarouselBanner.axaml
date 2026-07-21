@@ -46,7 +46,7 @@
                 Classes="action"
                 IsVisible="False"
                 Theme="{StaticResource TransparentButton}">
-                <ui:SymbolIcon FontSize="14" Symbol="ChevronLeft" />
+                <ui:FASymbolIcon FontSize="14" Symbol="ChevronLeft" />
             </Button>
             <Button
                 Name="Right"
@@ -54,7 +54,7 @@
                 Classes="action"
                 IsVisible="False"
                 Theme="{StaticResource TransparentButton}">
-                <ui:SymbolIcon FontSize="14" Symbol="ChevronRight" />
+                <ui:FASymbolIcon FontSize="14" Symbol="ChevronRight" />
             </Button>
 
             <Panel

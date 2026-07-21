@@ -46,7 +46,7 @@
                                     Margin="10,5"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center">
-                                    <ui:SymbolIcon FontSize="30" Symbol="Download" />
+                                    <ui:FASymbolIcon FontSize="30" Symbol="Download" />
                                     <TextBlock
                                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                         Text="{Binding Path=Res.CustomFilePicker_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"

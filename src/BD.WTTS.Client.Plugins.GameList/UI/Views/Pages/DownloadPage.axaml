@@ -17,7 +17,7 @@
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:FAImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="6">
@@ -37,11 +37,11 @@
                     <TextBlock>
                         <TextBlock.Text>
                             <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                                <CompiledBinding
+                                <ReflectionBinding
                                     Mode="OneWay"
                                     Path="Res.GameList_SteamShutdown_DownloadComplete"
                                     Source="{x:Static s:ResourceService.Current}}" />
-                                <CompiledBinding
+                                <ReflectionBinding
                                     Converter="{StaticResource EnumLocalizationNameConverter}"
                                     Mode="OneWay"
                                     Path="Value"
@@ -52,17 +52,17 @@
                 </ToggleSplitButton.Content>
                 <ToggleSplitButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:RadioMenuFlyoutItem
+                        <ui:FARadioMenuFlyoutItem
                             GroupName="OSExit"
                             IsChecked="{Binding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:OSExitMode.Sleep}}"
                             Text="{Binding Source={x:Static spp:OSExitMode.Sleep}, Converter={StaticResource EnumLocalizationNameConverter}}" />
-                        <ui:RadioMenuFlyoutItem
+                        <ui:FARadioMenuFlyoutItem
                             GroupName="OSExit"
                             IsChecked="{Binding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:OSExitMode.Hibernate}}"
                             IsVisible="{OnPlatform True,
                                                    macOS=False}"
                             Text="{Binding Source={x:Static spp:OSExitMode.Hibernate}, Converter={StaticResource EnumLocalizationNameConverter}}" />
-                        <ui:RadioMenuFlyoutItem
+                        <ui:FARadioMenuFlyoutItem
                             GroupName="OSExit"
                             IsChecked="{Binding Source={x:Static ms:SteamSettings.DownloadCompleteSystemEndMode}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:OSExitMode.Shutdown}}"
                             Text="{Binding Source={x:Static spp:OSExitMode.Shutdown}, Converter={StaticResource EnumLocalizationNameConverter}}" />
@@ -117,11 +117,11 @@
                                         Theme="{StaticResource CaptionTextBlockStyle}">
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0} / {1}">
-                                                <CompiledBinding
+                                                <ReflectionBinding
                                                     Converter="{StaticResource StringFormatConverter}"
                                                     ConverterParameter="size"
                                                     Path="BytesDownloaded" />
-                                                <CompiledBinding
+                                                <ReflectionBinding
                                                     Converter="{StaticResource StringFormatConverter}"
                                                     ConverterParameter="size"
                                                     Path="BytesToDownload" />
@@ -149,11 +149,11 @@
                                         Theme="{StaticResource CaptionTextBlockStyle}">
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0} / {1}">
-                                                <CompiledBinding
+                                                <ReflectionBinding
                                                     Converter="{StaticResource StringFormatConverter}"
                                                     ConverterParameter="size"
                                                     Path="BytesStaged" />
-                                                <CompiledBinding
+                                                <ReflectionBinding
                                                     Converter="{StaticResource StringFormatConverter}"
                                                     ConverterParameter="size"
                                                     Path="BytesToStage" />

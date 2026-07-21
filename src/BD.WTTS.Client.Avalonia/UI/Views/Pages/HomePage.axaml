@@ -14,7 +14,7 @@
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--<spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{Binding IconKey, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:FAImageIconSource Source="{Binding IconKey, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>-->
     <!--<spp:PageBase.TabContent>
         <TabStrip
@@ -41,7 +41,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:IconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
+                        <ui:FAIconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -58,10 +58,10 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem Text="Test111" />
-                        <ui:MenuFlyoutItem Text="Test111" />
-                        <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem Text="Test111" />
+                        <ui:FAMenuFlyoutItem Text="Test111" />
+                        <ui:FAMenuFlyoutItem Text="Test111" />
+                        <ui:FAMenuFlyoutSeparator />
+                        <ui:FAMenuFlyoutItem Text="Test111" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -200,8 +200,8 @@
                             <Setter Property="ClickCommandParameter">
                                 <Setter.Value>
                                     <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                                        <CompiledBinding Path="." Source="{x:Static spp:HomePageViewModel.OfficialWebsite_Article_Detail_}" />
-                                        <CompiledBinding Path="Id" />
+                                        <ReflectionBinding Path="." Source="{x:Static spp:HomePageViewModel.OfficialWebsite_Article_Detail_}" />
+                                        <ReflectionBinding Path="Id" />
                                     </MultiBinding>
                                 </Setter.Value>
                             </Setter>
@@ -296,8 +296,8 @@
                                 ToolTip.Tip="{Binding Brief}">
                                 <spp:AppItem.ClickCommandParameter>
                                     <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                                        <CompiledBinding Path="." Source="{x:Static spp:HomePageViewModel.WattGame_Goods_Detail_}" />
-                                        <CompiledBinding Path="Id" />
+                                        <ReflectionBinding Path="." Source="{x:Static spp:HomePageViewModel.WattGame_Goods_Detail_}" />
+                                        <ReflectionBinding Path="Id" />
                                     </MultiBinding>
                                 </spp:AppItem.ClickCommandParameter>
                                 <spp:AppItem.Image>

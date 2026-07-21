@@ -96,16 +96,6 @@ namespace Avalonia.Controls.ApplicationLifetimes
         {
             Startup?.Invoke(this, new ControlledApplicationLifetimeStartupEventArgs(args));
 
-            var options = AvaloniaLocator.Current.GetService<ClassicDesktopStyleApplicationLifetimeOptions>();
-
-            if (options != null && options.ProcessUrlActivationCommandLine && args.Length > 0)
-            {
-                if (Application.Current is IApplicationPlatformEvents events)
-                {
-                    events.RaiseUrlsOpened(args);
-                }
-            }
-
             var lifetimeEvents = AvaloniaLocator.Current.GetService<IPlatformLifetimeEventsImpl>();
 
             if (lifetimeEvents != null)

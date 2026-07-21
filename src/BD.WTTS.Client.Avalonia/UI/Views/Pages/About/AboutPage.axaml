@@ -24,7 +24,7 @@
             Header="{Binding AppName}"
             IsExpanded="True">
             <spp:OptionsDisplayItem.Icon>
-                <ui:ImageIcon PointerReleased="EasterEgg_PointerReleased" Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
+                <ui:FAImageIcon PointerReleased="EasterEgg_PointerReleased" Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/ApplicationIcon.ico" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <TextBlock

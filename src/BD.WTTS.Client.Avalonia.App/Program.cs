@@ -119,8 +119,10 @@ partial class Program
                                         .UseX11()
 #endif
                                         .UseSkia()
+                                        .UseHarfBuzz()
+                                        .WithDeveloperTools()
                                         .LogToTrace()
-                                        .UseReactiveUI();
+                                        .UseReactiveUI(reactiveUI => reactiveUI.WithAvalonia());
 
                 builder.With(new FontManagerOptions
                 {

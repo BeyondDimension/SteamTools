@@ -1,4 +1,5 @@
 #if LINUX
+using Avalonia.Input.Platform;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace BD.WTTS.Services.Implementation;
@@ -15,7 +16,7 @@ public sealed class AvaloniaClipboardPlatformService : IClipboardPlatformService
             var clipboard = topLevel.Clipboard;
             if (clipboard != null)
             {
-                var result = await clipboard.GetTextAsync();
+                var result = await clipboard.TryGetTextAsync();
                 return result ?? string.Empty;
             }
         }

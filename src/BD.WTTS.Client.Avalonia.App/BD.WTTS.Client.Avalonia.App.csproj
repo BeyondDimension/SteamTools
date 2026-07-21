@@ -100,6 +100,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Avalonia.HarfBuzz" />
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
@@ -139,4 +140,3 @@
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 </Project>
-

@@ -50,7 +50,6 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
         this.TryFindResource("TitleBarHeight", App.Instance.RequestedThemeVariant, out object? titleBarHeight);
         TitleBar.Height = (double?)titleBarHeight ?? 60;
         TitleBar.ExtendsContentIntoTitleBar = true;
-        TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
 
         //SystemDecorations = SystemDecorations.BorderOnly;
         Background = null;

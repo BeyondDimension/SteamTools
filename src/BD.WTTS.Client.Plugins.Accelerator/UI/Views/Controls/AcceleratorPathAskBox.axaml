@@ -23,19 +23,19 @@
             <Run Text="拒绝游戏延迟，提高稳定性" />
         </TextBlock>
 
-        <ui:SettingsExpander
+        <ui:FASettingsExpander
             x:Name="PathSelect"
             Description="{Binding Source={x:Static ms:GameAcceleratorSettings.WattAcceleratorDirPath}, Path=Value}"
             Header="安装路径"
             IsClickEnabled="True"
             IsVisible="False">
-            <ui:SettingsExpander.IconSource>
-                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
-            </ui:SettingsExpander.IconSource>
-            <ui:SettingsExpander.Footer>
+            <ui:FASettingsExpander.IconSource>
+                <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
+            </ui:FASettingsExpander.IconSource>
+            <ui:FASettingsExpander.Footer>
                 <Button Click="SelectWattAcceleratorInstallPath" Content="选择路径" />
-            </ui:SettingsExpander.Footer>
-        </ui:SettingsExpander>
+            </ui:FASettingsExpander.Footer>
+        </ui:FASettingsExpander>
 
         <!--<TextBlock Text="需要下载 Watt 加速器插件才可使用，确定要下载吗?" />-->
 
@@ -57,8 +57,8 @@
                 Theme="{StaticResource TransparentButton}">
                 <StackPanel Orientation="Horizontal" Spacing="5">
                     <TextBlock Text="自定义安装" />
-                    <ui:FontIcon Glyph="&#xE70D;" IsVisible="{Binding !#PathSelect.IsVisible}" />
-                    <ui:FontIcon Glyph="&#xE70E;" IsVisible="{Binding #PathSelect.IsVisible}" />
+                    <ui:FAFontIcon Glyph="&#xE70D;" IsVisible="{Binding !#PathSelect.IsVisible}" />
+                    <ui:FAFontIcon Glyph="&#xE70E;" IsVisible="{Binding #PathSelect.IsVisible}" />
                 </StackPanel>
             </Button>
         </Panel>

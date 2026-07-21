@@ -18,102 +18,102 @@
     mc:Ignorable="d">
     <spp:PageBase.Resources>
         <ui:FAMenuFlyout x:Key="SharedMenuFlyout" x:DataType="spp:SteamApp">
-            <ui:MenuFlyoutItem
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).InstallOrStartAppCommand}"
                 CommandParameter="{Binding}"
                 IconSource="Play"
                 IsVisible="{Binding IsInstalled}"
                 Text="{Binding Path=Res.GameList_Play, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            <ui:MenuFlyoutItem
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).InstallOrStartAppCommand}"
                 CommandParameter="{Binding}"
                 IconSource="Download"
                 IsVisible="{Binding !IsInstalled}"
                 Text="{Binding Path=Res.GameList_Install, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            <ui:MenuFlyoutItem
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).EditAppInfoClickCommand}"
                 CommandParameter="{Binding}"
                 IconSource="Edit"
                 Text="{Binding Path=Res.GameList_EditAppInfo, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            <ui:MenuFlyoutItem
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).ManageCloudArchive_ClickCommand}"
                 CommandParameter="{Binding}"
                 IconSource="CloudSync"
                 IsVisible="{Binding IsCloudArchive}"
                 Text="{Binding Path=Res.GameList_CloudArchiveManager, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            <ui:MenuFlyoutItem
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).UnlockAchievement_ClickCommand}"
                 CommandParameter="{Binding}"
                 IconSource="Diagnostic"
                 Text="{Binding Path=Res.Achievement_Manage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <ui:MenuFlyoutItem.IconSource>
-                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEB4F;" />
-                </ui:MenuFlyoutItem.IconSource>
-            </ui:MenuFlyoutItem>
-            <ui:MenuFlyoutItem
+                <ui:FAMenuFlyoutItem.IconSource>
+                    <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEB4F;" />
+                </ui:FAMenuFlyoutItem.IconSource>
+            </ui:FAMenuFlyoutItem>
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).AddAFKAppListCommand}"
                 CommandParameter="{Binding}"
                 Text="{Binding Path=Res.GameList_AddAfkGameList, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <ui:MenuFlyoutItem.IconSource>
-                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEC92;" />
-                </ui:MenuFlyoutItem.IconSource>
-            </ui:MenuFlyoutItem>
-            <ui:MenuFlyoutSeparator />
-            <ui:MenuFlyoutItem
+                <ui:FAMenuFlyoutItem.IconSource>
+                    <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEC92;" />
+                </ui:FAMenuFlyoutItem.IconSource>
+            </ui:FAMenuFlyoutItem>
+            <ui:FAMenuFlyoutSeparator />
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).NavAppToSteamViewCommand}"
                 CommandParameter="{Binding}"
                 Text="{Binding Path=Res.GameList_NavToSteamView, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <ui:MenuFlyoutItem.IconSource>
-                    <ui:PathIconSource Data="{StaticResource Steam}" />
-                </ui:MenuFlyoutItem.IconSource>
-            </ui:MenuFlyoutItem>
-            <ui:MenuFlyoutItem
+                <ui:FAMenuFlyoutItem.IconSource>
+                    <ui:FAPathIconSource Data="{StaticResource Steam}" />
+                </ui:FAMenuFlyoutItem.IconSource>
+            </ui:FAMenuFlyoutItem>
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).NavAppScreenshotToSteamViewCommand}"
                 CommandParameter="{Binding}"
                 Text="{Binding Path=Res.GameList_NavScreenshotToSteamView, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <ui:MenuFlyoutItem.IconSource>
-                    <ui:SymbolIconSource Symbol="Image" />
-                </ui:MenuFlyoutItem.IconSource>
-            </ui:MenuFlyoutItem>
-            <ui:MenuFlyoutItem
+                <ui:FAMenuFlyoutItem.IconSource>
+                    <ui:FASymbolIconSource Symbol="Image" />
+                </ui:FAMenuFlyoutItem.IconSource>
+            </ui:FAMenuFlyoutItem>
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).OpenFolderCommand}"
                 CommandParameter="{Binding}"
                 IconSource="OpenFolder"
                 IsVisible="{Binding IsInstalled}"
                 Text="{Binding Path=Res.GameList_OpenFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            <ui:MenuFlyoutSeparator />
-            <ui:MenuFlyoutSubItem Text="{Binding Path=Res.OpenLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <ui:MenuFlyoutItem
+            <ui:FAMenuFlyoutSeparator />
+            <ui:FAMenuFlyoutSubItem Text="{Binding Path=Res.OpenLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                <ui:FAMenuFlyoutItem
                     Click="AppOpenLink_MenuItem_Click"
                     IconSource="Link"
                     Text="{Binding Path=Res.GameList_OpenStoreUrl, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:MenuFlyoutItem
+                <ui:FAMenuFlyoutItem
                     Click="AppOpenLink_MenuItem_Click"
                     IconSource="Link"
                     Tag="steamdb"
                     Text="{Binding Path=Res.GameList_OpenSteamDBUrl, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:MenuFlyoutItem
+                <ui:FAMenuFlyoutItem
                     Click="AppOpenLink_MenuItem_Click"
                     IconSource="Link"
                     Tag="steamcardexchange"
                     Text="{Binding Path=Res.GameList_OpenSteamCardUrl, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            </ui:MenuFlyoutSubItem>
-            <ui:MenuFlyoutSeparator />
-            <ui:MenuFlyoutItem
+            </ui:FAMenuFlyoutSubItem>
+            <ui:FAMenuFlyoutSeparator />
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:GameListPageViewModel)DataContext).AddHideAppListCommand}"
                 CommandParameter="{Binding}"
                 Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                 IconSource="Hide"
                 Text="{Binding Path=Res.GameList_HideTheGame, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <ui:MenuFlyoutItem.IconSource>
-                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Hide}" />
-                </ui:MenuFlyoutItem.IconSource>
-            </ui:MenuFlyoutItem>
+                <ui:FAMenuFlyoutItem.IconSource>
+                    <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Hide}" />
+                </ui:FAMenuFlyoutItem.IconSource>
+            </ui:FAMenuFlyoutItem>
 
         </ui:FAMenuFlyout>
     </spp:PageBase.Resources>
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:FAImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
@@ -127,7 +127,7 @@
                         Width="20"
                         Height="20"
                         HorizontalAlignment="Left">
-						<ui:SymbolIcon Symbol="Save" />
+						<ui:FASymbolIcon Symbol="Save" />
 					</Viewbox>
 				</Panel>
 			</ToggleButton>-->
@@ -141,7 +141,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Filter" />
+                        <ui:FASymbolIcon Symbol="Filter" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -160,7 +160,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="AllApps" />
+                        <ui:FASymbolIcon Symbol="AllApps" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -179,7 +179,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Refresh" />
+                        <ui:FASymbolIcon Symbol="Refresh" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -198,26 +198,26 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem Command="{Binding ShowHideAppCommand}" Text="{Binding Path=Res.Game_Hidden, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
-                        <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem IsEnabled="False">
-                            <ui:MenuFlyoutItem.Text>
+                        <ui:FAMenuFlyoutItem Command="{Binding ShowHideAppCommand}" Text="{Binding Path=Res.Game_Hidden, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <!--<ui:FAMenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <ui:FAMenuFlyoutSeparator />
+                        <ui:FAMenuFlyoutItem IsEnabled="False">
+                            <ui:FAMenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <CompiledBinding
+                                    <ReflectionBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
                                         Source="{x:Static s:ResourceService.Current}" />
-                                    <CompiledBinding
+                                    <ReflectionBinding
                                         Mode="OneWay"
                                         Path="Version"
                                         Source="{x:Static s:Plugin.Instance}" />
                                 </MultiBinding>
-                            </ui:MenuFlyoutItem.Text>
-                        </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                            </ui:FAMenuFlyoutItem.Text>
+                        </ui:FAMenuFlyoutItem>
+                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -325,7 +325,7 @@
                         Theme="{StaticResource TransparentToggleButton}"
                         ToolTip.Tip="{Binding Path=Res.GameList_OnlyInstalled, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                         <Viewbox Width="20" Height="20">
-                            <ui:SymbolIcon Symbol="Play" />
+                            <ui:FASymbolIcon Symbol="Play" />
                         </Viewbox>
                     </ToggleButton>
 
@@ -335,7 +335,7 @@
                         Theme="{StaticResource TransparentToggleButton}"
                         ToolTip.Tip="{Binding Path=Res.GameList_OnlyCloudArchive, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                         <Viewbox Width="20" Height="20">
-                            <ui:SymbolIcon Symbol="CloudSyncComplete" />
+                            <ui:FASymbolIcon Symbol="CloudSyncComplete" />
                         </Viewbox>
                     </ToggleButton>
                 </StackPanel>
@@ -349,17 +349,17 @@
         <spp:ContentLoader.GestureRecognizers>
             <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
         </spp:ContentLoader.GestureRecognizers>
-        <ui:ItemsRepeater ItemsSource="{Binding SteamApps}">
-            <ui:ItemsRepeater.Layout>
-                <ui:UniformGridLayout
+        <ui:FAItemsRepeater ItemsSource="{Binding SteamApps}">
+            <ui:FAItemsRepeater.Layout>
+                <ui:FAUniformGridLayout
                     ItemsJustification="Start"
                     ItemsStretch="Uniform"
                     MinColumnSpacing="10"
                     MinItemHeight="310"
                     MinItemWidth="150"
                     MinRowSpacing="10" />
-            </ui:ItemsRepeater.Layout>
-            <ui:ItemsRepeater.ItemTemplate>
+            </ui:FAItemsRepeater.Layout>
+            <ui:FAItemsRepeater.ItemTemplate>
                 <DataTemplate DataType="spp:SteamApp">
                     <!--  Classes.Vertical="{Binding Path=Value, Mode=OneWay, Source={x:Static ms:GameLibrarySettings.GameLibraryLayoutType}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:GridLayoutType.Grid}}"  -->
                     <spp:AppItem
@@ -419,8 +419,8 @@
                         </spp:AppItem.Image>
                     </spp:AppItem>
                 </DataTemplate>
-            </ui:ItemsRepeater.ItemTemplate>
-        </ui:ItemsRepeater>
+            </ui:FAItemsRepeater.ItemTemplate>
+        </ui:FAItemsRepeater>
 
     </spp:ContentLoader>
 </spp:PageBase>

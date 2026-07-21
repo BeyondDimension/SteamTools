@@ -21,7 +21,7 @@
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:FAImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
@@ -35,14 +35,14 @@
                 Theme="{StaticResource TransparentButton}">
                 <!--<SplitButton.Flyout>
                     <ui:FAMenuFlyout>
-                        <ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
-                            <ui:MenuFlyoutSubItem.ItemTemplate>
+                        <ui:FAMenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
+                            <ui:FAMenuFlyoutSubItem.ItemTemplate>
                                 <DataTemplate>
-                                    <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{Binding}" />
+                                    <ui:FARadioMenuFlyoutItem GroupName="ProxyMode" Text="{Binding}" />
                                 </DataTemplate>
-                            </ui:MenuFlyoutSubItem.ItemTemplate>
-                        </ui:MenuFlyoutSubItem>
-                        <ui:ToggleMenuFlyoutItem Text="启用脚本" />
+                            </ui:FAMenuFlyoutSubItem.ItemTemplate>
+                        </ui:FAMenuFlyoutSubItem>
+                        <ui:FAToggleMenuFlyoutItem Text="启用脚本" />
                     </ui:FAMenuFlyout>
                 </SplitButton.Flyout>-->
                 <Panel>
@@ -50,7 +50,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SpeedHigh}" />
+                        <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SpeedHigh}" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -71,7 +71,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="StopFilled" />
+                        <ui:FASymbolIcon Symbol="StopFilled" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -82,11 +82,11 @@
                         <Run Text="{Binding Path=AccelerateTime,Source={x:Static s:ProxyService.Current}},Mode=OneWay,Converter={StaticResource StringFormatConverter}}" />-->
                         <TextBlock.Text>
                             <MultiBinding StringFormat="{}{0} {1}">
-                                <CompiledBinding
+                                <ReflectionBinding
                                     Mode="OneWay"
                                     Path="Res.CommunityFix_StopProxy"
                                     Source="{x:Static s:ResourceService.Current}}" />
-                                <CompiledBinding
+                                <ReflectionBinding
                                     Converter="{StaticResource StringFormatConverter}"
                                     Mode="OneWay"
                                     Path="AccelerateTime"
@@ -116,7 +116,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Refresh" />
+                        <ui:FASymbolIcon Symbol="Refresh" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -136,7 +136,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Settings" />
+                        <ui:FASymbolIcon Symbol="Settings" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -156,40 +156,40 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!--<ui:MenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
-                            <ui:MenuFlyoutSubItem.ItemTemplate>
+                        <!--<ui:FAMenuFlyoutSubItem ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}" Text="加速模式">
+                            <ui:FAMenuFlyoutSubItem.ItemTemplate>
                                 <DataTemplate>
-                                    <ui:RadioMenuFlyoutItem GroupName="ProxyMode" Text="{Binding}" />
+                                    <ui:FARadioMenuFlyoutItem GroupName="ProxyMode" Text="{Binding}" />
                                 </DataTemplate>
-                            </ui:MenuFlyoutSubItem.ItemTemplate>
-                        </ui:MenuFlyoutSubItem>-->
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
-                        <!--<ui:MenuFlyoutSeparator />-->
-                        <!--<ui:MenuFlyoutItem Text="安装证书" />
-                        <ui:MenuFlyoutItem Text="移除证书" />
-                        <ui:MenuFlyoutItem Text="打开证书文件夹" />
-                        <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem Text="编辑 hosts 文件" />
-                        <ui:MenuFlyoutItem Text="重置 hosts 文件" />
-                        <ui:MenuFlyoutItem Text="打开 hosts 文件夹" />
-                        <ui:MenuFlyoutSeparator />-->
-                        <ui:MenuFlyoutItem IsEnabled="False">
-                            <ui:MenuFlyoutItem.Text>
+                            </ui:FAMenuFlyoutSubItem.ItemTemplate>
+                        </ui:FAMenuFlyoutSubItem>-->
+                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:FAMenuFlyoutSeparator />-->
+                        <!--<ui:FAMenuFlyoutItem Text="安装证书" />
+                        <ui:FAMenuFlyoutItem Text="移除证书" />
+                        <ui:FAMenuFlyoutItem Text="打开证书文件夹" />
+                        <ui:FAMenuFlyoutSeparator />
+                        <ui:FAMenuFlyoutItem Text="编辑 hosts 文件" />
+                        <ui:FAMenuFlyoutItem Text="重置 hosts 文件" />
+                        <ui:FAMenuFlyoutItem Text="打开 hosts 文件夹" />
+                        <ui:FAMenuFlyoutSeparator />-->
+                        <ui:FAMenuFlyoutItem IsEnabled="False">
+                            <ui:FAMenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <CompiledBinding
+                                    <ReflectionBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
                                         Source="{x:Static s:ResourceService.Current}" />
-                                    <CompiledBinding
+                                    <ReflectionBinding
                                         Mode="OneWay"
                                         Path="Version"
                                         Source="{x:Static s:Plugin.Instance}" />
                                 </MultiBinding>
-                            </ui:MenuFlyoutItem.Text>
-                        </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                            </ui:FAMenuFlyoutItem.Text>
+                        </ui:FAMenuFlyoutItem>
+                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -247,7 +247,7 @@
 						Command="{Binding Source={x:Static s:ProxyService.Current}, Path=RefreshIpv6Support, Mode=OneWay}"
 						Theme="{StaticResource TransparentButton}"
 						ToolTip.Tip="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-						<ui:SymbolIcon Symbol="Refresh" />
+						<ui:FASymbolIcon Symbol="Refresh" />
 					</Button>
 				</WrapPanel>-->
             </DockPanel>
@@ -266,7 +266,7 @@
                                                     Mode=OneWay,
                                                     Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20" Height="20">
-                        <ui:SymbolIcon Symbol="Play" />
+                        <ui:FASymbolIcon Symbol="Play" />
                     </Viewbox>
                 </ToggleButton>
 
@@ -277,7 +277,7 @@
                                                     Mode=OneWay,
                                                     Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20" Height="20">
-                        <ui:SymbolIcon Symbol="CloudSyncComplete" />
+                        <ui:FASymbolIcon Symbol="CloudSyncComplete" />
                     </Viewbox>
                 </ToggleButton>
             </StackPanel>-->
@@ -373,9 +373,9 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="spp:AccelerateProjectGroupDTO">
                                     <Border>
-                                        <!--<ui:SettingsExpander ItemsSource="{Binding Items}">-->
-                                        <ui:SettingsExpander IsClickEnabled="False">
-                                            <ui:SettingsExpander.Header>
+                                        <!--<ui:FASettingsExpander ItemsSource="{Binding Items}">-->
+                                        <ui:FASettingsExpander IsClickEnabled="False">
+                                            <ui:FASettingsExpander.Header>
                                                 <StackPanel Orientation="Horizontal" Spacing="10">
                                                     <CheckBox IsChecked="{Binding ThreeStateEnable, Mode=TwoWay}" />
                                                     <spp:Image2
@@ -387,8 +387,8 @@
                                                         Stretch="UniformToFill" />
                                                     <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
                                                 </StackPanel>
-                                            </ui:SettingsExpander.Header>
-                                            <ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+                                            </ui:FASettingsExpander.Header>
+                                            <ui:FASettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
                                                 <TreeView ItemsSource="{Binding ObservableItems}" SelectionMode="Single">
                                                     <TreeView.ItemTemplate>
                                                         <TreeDataTemplate DataType="spp:AccelerateProjectDTO" ItemsSource="{Binding ObservableItems}">
@@ -408,23 +408,23 @@
                                                         </TreeDataTemplate>
                                                     </TreeView.ItemTemplate>
                                                 </TreeView>
-                                            </ui:SettingsExpanderItem>
-                                            <!--<ui:SettingsExpander.ItemTemplate>
+                                            </ui:FASettingsExpanderItem>
+                                            <!--<ui:FASettingsExpander.ItemTemplate>
                                         <DataTemplate DataType="spp:AccelerateProjectDTO">
-                                            <ui:SettingsExpanderItem IsClickEnabled="True">
-                                                <ui:SettingsExpanderItem.Content>
+                                            <ui:FASettingsExpanderItem IsClickEnabled="True">
+                                                <ui:FASettingsExpanderItem.Content>
                                                     <TextBlock Text="{Binding Name}" />
-                                                </ui:SettingsExpanderItem.Content>
-                                                <ui:SettingsExpanderItem.IconSource>
-                                                    <ui:SymbolIconSource Symbol="Accept" />
-                                                </ui:SettingsExpanderItem.IconSource>
-                                                <ui:SettingsExpanderItem.Footer>
+                                                </ui:FASettingsExpanderItem.Content>
+                                                <ui:FASettingsExpanderItem.IconSource>
+                                                    <ui:FASymbolIconSource Symbol="Accept" />
+                                                </ui:FASettingsExpanderItem.IconSource>
+                                                <ui:FASettingsExpanderItem.Footer>
                                                     <TextBlock Text="{Binding DomainNamesArray[0]}" />
-                                                </ui:SettingsExpanderItem.Footer>
-                                            </ui:SettingsExpanderItem>
+                                                </ui:FASettingsExpanderItem.Footer>
+                                            </ui:FASettingsExpanderItem>
                                         </DataTemplate>
-                                    </ui:SettingsExpander.ItemTemplate>-->
-                                        </ui:SettingsExpander>
+                                    </ui:FASettingsExpander.ItemTemplate>-->
+                                        </ui:FASettingsExpander>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

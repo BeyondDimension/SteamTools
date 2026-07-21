@@ -80,7 +80,7 @@
                                 <ia:CallMethodAction MethodName="SwiperPrevious" TargetObject="{Binding #GameCarousel}" />
                             </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
-                        <ui:SymbolIcon FontSize="16" Symbol="ChevronLeft" />
+                        <ui:FASymbolIcon FontSize="16" Symbol="ChevronLeft" />
                     </Button>
                     <Button
                         Name="Right"
@@ -91,7 +91,7 @@
                                 <ia:CallMethodAction MethodName="SwiperNext" TargetObject="{Binding #GameCarousel}" />
                             </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
-                        <ui:SymbolIcon FontSize="16" Symbol="ChevronRight" />
+                        <ui:FASymbolIcon FontSize="16" Symbol="ChevronRight" />
                     </Button>
                 </StackPanel>
                 <spp:CarouselItems

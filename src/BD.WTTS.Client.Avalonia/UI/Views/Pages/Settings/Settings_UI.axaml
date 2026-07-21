@@ -23,11 +23,11 @@
             Theme="{StaticResource SubtitleTextBlockStyle}" />
 
         <Border>
-            <ui:SettingsExpander Header="{Binding Path=Res.Settings_UI_StartDefaultPage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <ui:SettingsExpander.IconSource>
-                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Device}" />
-                </ui:SettingsExpander.IconSource>
-                <ui:SettingsExpander.Footer>
+            <ui:FASettingsExpander Header="{Binding Path=Res.Settings_UI_StartDefaultPage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                <ui:FASettingsExpander.IconSource>
+                    <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Device}" />
+                </ui:FASettingsExpander.IconSource>
+                <ui:FASettingsExpander.Footer>
                     <ComboBox ItemsSource="{Binding Path=MainWindow2.TabItems, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}" SelectedItem="{Binding SelectDefaultPage, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate DataType="spp:TabItemViewModel">
@@ -35,22 +35,22 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                </ui:SettingsExpander.Footer>
-            </ui:SettingsExpander>
+                </ui:FASettingsExpander.Footer>
+            </ui:FASettingsExpander>
         </Border>
 
         <Border IsEnabled="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
-            <ui:SettingsExpander
+            <ui:FASettingsExpander
                 Description="{Binding Path=Res.Advertisement_NoShow_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 Header="{Binding Path=Res.Advertisement_NoShow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 IsEnabled="{Binding Path=User.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">
-                <ui:SettingsExpander.IconSource>
-                    <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource HeartBroken}" />
-                </ui:SettingsExpander.IconSource>
-                <ui:SettingsExpander.Footer>
+                <ui:FASettingsExpander.IconSource>
+                    <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource HeartBroken}" />
+                </ui:FASettingsExpander.IconSource>
+                <ui:FASettingsExpander.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:UISettings.IsShowAdvertisement}, Path=!Value, Mode=TwoWay}" />
-                </ui:SettingsExpander.Footer>
-            </ui:SettingsExpander>
+                </ui:FASettingsExpander.Footer>
+            </ui:FASettingsExpander>
         </Border>
 
         <spp:OptionsDisplayItem
@@ -234,7 +234,7 @@
                                                 Name="Check"
                                                 VerticalAlignment="Top"
                                                 Width="20">
-                                                <ui:SymbolIcon
+                                                <ui:FASymbolIcon
                                                     FontSize="18"
                                                     Foreground="{DynamicResource SystemAccentColor}"
                                                     Symbol="Checkmark" />
@@ -282,7 +282,7 @@
             Header="{Binding Path=Res.Settings_Language, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Navigates="False">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
+                <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <ComboBox ItemsSource="{x:Static s:ResourceService.Languages}" SelectedItem="{Binding SelectLanguage, Mode=TwoWay}">
@@ -326,7 +326,7 @@
             Header="{Binding Path=Res.Settings_UI_WindowTransparencyMaterial, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             Navigates="False">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF4A5;" />
+                <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF4A5;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <ComboBox SelectedItem="{Binding Source={x:Static ms:UISettings.WindowBackgroundMaterial}, Path=Value, Mode=TwoWay}">
@@ -347,7 +347,7 @@
 
         <spp:OptionsDisplayItem Header="{Binding Path=Res.Settings_UI_BackgroundOpacity, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Navigates="False">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE706;" />
+                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE706;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <Slider
@@ -364,7 +364,7 @@
             IsExpanded="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImage}, Path=Value, Mode=OneWay}"
             Navigates="False">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE91B;" />
+                <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE91B;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImage}, Path=Value, Mode=TwoWay}" />
@@ -451,18 +451,18 @@
             </spp:OptionsDisplayItem.Content>
         </spp:OptionsDisplayItem>
 
-        <ui:SettingsExpander Description="拖拽调整所有插件的菜单顺序" Header="功能菜单排序">
-            <ui:SettingsExpander.IconSource>
-                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Sort}" />
-            </ui:SettingsExpander.IconSource>
-            <ui:SettingsExpanderItem IsClickEnabled="False" Theme="{StaticResource SettingsExpanderItem2}">
-                <ui:SettingsExpanderItem.Content>
+        <ui:FASettingsExpander Description="拖拽调整所有插件的菜单顺序" Header="功能菜单排序">
+            <ui:FASettingsExpander.IconSource>
+                <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Sort}" />
+            </ui:FASettingsExpander.IconSource>
+            <ui:FASettingsExpanderItem IsClickEnabled="False" Theme="{StaticResource SettingsExpanderItem2}">
+                <ui:FASettingsExpanderItem.Content>
                     <ItemsControl Classes="DraggableOrder" ItemsSource="{Binding MainWindow2.TabItems, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="spp:TabItemViewModel">
                                 <ListBoxItem>
                                     <Grid ColumnDefinitions="Auto,*,Auto">
-                                        <ui:ImageIcon
+                                        <ui:FAImageIcon
                                             Height="24"
                                             Margin="8"
                                             Source="{Binding IconKey, Converter={StaticResource BitmapAssetValueConverter}}"
@@ -478,15 +478,15 @@
                                             Margin="8,0"
                                             VerticalAlignment="Center"
                                             Width="18">
-                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Move}" />
+                                            <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Move}" />
                                         </Viewbox>
                                     </Grid>
                                 </ListBoxItem>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </ui:SettingsExpanderItem.Content>
-            </ui:SettingsExpanderItem>
-        </ui:SettingsExpander>
+                </ui:FASettingsExpanderItem.Content>
+            </ui:FASettingsExpanderItem>
+        </ui:FASettingsExpander>
     </StackPanel>
 </UserControl>

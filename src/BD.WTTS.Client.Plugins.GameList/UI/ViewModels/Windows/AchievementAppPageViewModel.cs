@@ -92,7 +92,7 @@ public sealed class AchievementAppPageViewModel : WindowViewModel
         _AchievementsSourceList
             .Connect()
             .Filter(nameAchievementsFilter)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Sort(SortExpressionComparer<AchievementInfo>.Descending(x => x.IsAchieved).ThenByAscending(x => x.Name))
             .Bind(out _Achievements)
             .Subscribe();
@@ -100,7 +100,7 @@ public sealed class AchievementAppPageViewModel : WindowViewModel
         _StatisticsSourceList
             .Connect()
             .Filter(nameStatisticsFilter)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Sort(SortExpressionComparer<StatInfo>.Descending(x => x.Id!))
             .Bind(out _Statistics)
             .Subscribe();

@@ -47,7 +47,7 @@
                             Background="#80000000"
                             Classes="action"
                             IsVisible="False">
-                            <ui:SymbolIcon FontSize="18" Symbol="ChevronLeft" />
+                            <ui:FASymbolIcon FontSize="18" Symbol="ChevronLeft" />
                         </Button>
                         <Button
                             Name="Right"
@@ -55,7 +55,7 @@
                             Background="#80000000"
                             Classes="action"
                             IsVisible="False">
-                            <ui:SymbolIcon FontSize="18" Symbol="ChevronRight" />
+                            <ui:FASymbolIcon FontSize="18" Symbol="ChevronRight" />
                         </Button>
 
                         <Panel

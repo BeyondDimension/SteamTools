@@ -73,7 +73,7 @@
                                     CornerRadius="{TemplateBinding CornerRadius}"
                                     UseLayoutRounding="False" />
 
-                                <ui:FontIcon
+                                <ui:FAFontIcon
                                     Name="CheckGlyph"
                                     FlowDirection="LeftToRight"
                                     FontFamily="{StaticResource SymbolThemeFontFamily}"
@@ -110,7 +110,7 @@
                     <Setter Property="Background" Value="{DynamicResource CheckBoxCheckBackgroundFillUncheckedPointerOver}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxCheckBackgroundStrokeUncheckedPointerOver}" />
                 </Style>
-                <Style Selector="^ /template/ ui|FontIcon#CheckGlyph">
+                <Style Selector="^ /template/ ui|FAFontIcon#CheckGlyph">
                     <Setter Property="Foreground" Value="{DynamicResource CheckBoxCheckGlyphForegroundUncheckedPointerOver}" />
                 </Style>
             </Style>
@@ -127,7 +127,7 @@
                     <Setter Property="Background" Value="{DynamicResource CheckBoxCheckBackgroundFillUncheckedPressed}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxCheckBackgroundStrokeUncheckedPressed}" />
                 </Style>
-                <Style Selector="^ /template/ ui|FontIcon#CheckGlyph">
+                <Style Selector="^ /template/ ui|FAFontIcon#CheckGlyph">
                     <Setter Property="Foreground" Value="{DynamicResource CheckBoxCheckGlyphForegroundUncheckedPressed}" />
                 </Style>
             </Style>
@@ -144,7 +144,7 @@
                     <Setter Property="Background" Value="{DynamicResource CheckBoxCheckBackgroundFillUncheckedDisabled}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxCheckBackgroundStrokeUncheckedDisabled}" />
                 </Style>
-                <Style Selector="^ /template/ ui|FontIcon#CheckGlyph">
+                <Style Selector="^ /template/ ui|FAFontIcon#CheckGlyph">
                     <Setter Property="Foreground" Value="{DynamicResource CheckBoxCheckGlyphForegroundUncheckedDisabled}" />
                 </Style>
             </Style>
@@ -162,7 +162,7 @@
                     <Setter Property="Background" Value="{DynamicResource CheckBoxCheckBackgroundFillChecked}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxCheckBackgroundStrokeChecked}" />
                 </Style>
-                <Style Selector="^ /template/ ui|FontIcon#CheckGlyph">
+                <Style Selector="^ /template/ ui|FAFontIcon#CheckGlyph">
                     <Setter Property="Foreground" Value="{DynamicResource CheckBoxCheckGlyphForegroundChecked}" />
                     <Setter Property="Opacity" Value="1" />
                     <Setter Property="Glyph" Value="{DynamicResource CheckBoxCheckedGlyph}" />
@@ -180,7 +180,7 @@
                     <Setter Property="Background" Value="{DynamicResource CheckBoxCheckBackgroundFillCheckedPointerOver}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxCheckBackgroundStrokeCheckedPointerOver}" />
                 </Style>
-                <Style Selector="^:pointerover /template/ ui|FontIcon#CheckGlyph">
+                <Style Selector="^:pointerover /template/ ui|FAFontIcon#CheckGlyph">
                     <Setter Property="Foreground" Value="{DynamicResource CheckBoxCheckGlyphForegroundCheckedPointerOver}" />
                     <Setter Property="Opacity" Value="1" />
                 </Style>
@@ -197,7 +197,7 @@
                     <Setter Property="Background" Value="{DynamicResource CheckBoxCheckBackgroundFillCheckedPressed}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxCheckBackgroundStrokeCheckedPressed}" />
                 </Style>
-                <Style Selector="^:pressed /template/ ui|FontIcon#CheckGlyph">
+                <Style Selector="^:pressed /template/ ui|FAFontIcon#CheckGlyph">
                     <Setter Property="Foreground" Value="{DynamicResource CheckBoxCheckGlyphForegroundCheckedPressed}" />
                     <Setter Property="Opacity" Value="1" />
                 </Style>
@@ -214,7 +214,7 @@
                     <Setter Property="Background" Value="{DynamicResource CheckBoxCheckBackgroundFillCheckedDisabled}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxCheckBackgroundStrokeCheckedDisabled}" />
                 </Style>
-                <Style Selector="^:disabled /template/ ui|FontIcon#CheckGlyph">
+                <Style Selector="^:disabled /template/ ui|FAFontIcon#CheckGlyph">
                     <Setter Property="Foreground" Value="{DynamicResource CheckBoxCheckGlyphForegroundCheckedDisabled}" />
                     <Setter Property="Opacity" Value="1" />
                 </Style>
@@ -232,7 +232,7 @@
                     <Setter Property="Background" Value="{DynamicResource CheckBoxCheckBackgroundFillIndeterminate}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxCheckBackgroundStrokeIndeterminate}" />
                 </Style>
-                <Style Selector="^ /template/ ui|FontIcon#CheckGlyph">
+                <Style Selector="^ /template/ ui|FAFontIcon#CheckGlyph">
                     <Setter Property="Foreground" Value="{DynamicResource CheckBoxCheckGlyphForegroundIndeterminate}" />
                     <Setter Property="Opacity" Value="1" />
                     <Setter Property="Glyph" Value="{DynamicResource CheckBoxIndeterminateGlyph}" />
@@ -250,7 +250,7 @@
                     <Setter Property="Background" Value="{DynamicResource CheckBoxCheckBackgroundFillIndeterminatePointerOver}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxCheckBackgroundStrokeIndeterminatePointerOver}" />
                 </Style>
-                <Style Selector="^:pointerover /template/ ui|FontIcon#CheckGlyph">
+                <Style Selector="^:pointerover /template/ ui|FAFontIcon#CheckGlyph">
                     <Setter Property="Foreground" Value="{DynamicResource CheckBoxCheckGlyphForegroundIndeterminatePointerOver}" />
                     <Setter Property="Opacity" Value="1" />
                     <Setter Property="Glyph" Value="{StaticResource CheckBoxIndeterminateGlyph}" />
@@ -268,7 +268,7 @@
                     <Setter Property="Background" Value="{DynamicResource CheckBoxCheckBackgroundFillIndeterminatePressed}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxCheckBackgroundStrokeIndeterminatePressed}" />
                 </Style>
-                <Style Selector="^:pressed /template/ ui|FontIcon#CheckGlyph">
+                <Style Selector="^:pressed /template/ ui|FAFontIcon#CheckGlyph">
                     <Setter Property="Foreground" Value="{DynamicResource CheckBoxCheckGlyphForegroundIndeterminatePressed}" />
                     <Setter Property="Opacity" Value="1" />
                     <Setter Property="Glyph" Value="{StaticResource CheckBoxIndeterminateGlyph}" />
@@ -286,7 +286,7 @@
                     <Setter Property="Background" Value="{DynamicResource CheckBoxCheckBackgroundFillIndeterminateDisabled}" />
                     <Setter Property="BorderBrush" Value="{DynamicResource CheckBoxCheckBackgroundStrokeIndeterminateDisabled}" />
                 </Style>
-                <Style Selector="^:disabled /template/ ui|FontIcon#CheckGlyph">
+                <Style Selector="^:disabled /template/ ui|FAFontIcon#CheckGlyph">
                     <Setter Property="Foreground" Value="{DynamicResource CheckBoxCheckGlyphForegroundIndeterminateDisabled}" />
                     <Setter Property="Opacity" Value="1" />
                     <Setter Property="Glyph" Value="{StaticResource CheckBoxIndeterminateGlyph}" />

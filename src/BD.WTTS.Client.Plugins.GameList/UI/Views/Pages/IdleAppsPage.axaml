@@ -17,7 +17,7 @@
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:FAImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
@@ -40,7 +40,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Play" />
+                        <ui:FASymbolIcon Symbol="Play" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -60,7 +60,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Pause" />
+                        <ui:FASymbolIcon Symbol="Pause" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -79,7 +79,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Refresh" />
+                        <ui:FASymbolIcon Symbol="Refresh" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -98,30 +98,30 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:ToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps}, Path=Value}" Text="{Binding Path=Res.GameList_AutoAFK, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem
+                        <ui:FAToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:GameLibrarySettings.IsAutoAFKApps}, Path=Value}" Text="{Binding Path=Res.GameList_AutoAFK, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem
                             Command="{Binding DeleteAllButton_Click}"
                             Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                             IconSource="Delete"
                             Text="{Binding Path=Res.GameList_RemoveBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem IsEnabled="False">
-                            <ui:MenuFlyoutItem.Text>
+                        <ui:FAMenuFlyoutSeparator />
+                        <ui:FAMenuFlyoutItem IsEnabled="False">
+                            <ui:FAMenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <CompiledBinding
+                                    <ReflectionBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
                                         Source="{x:Static s:ResourceService.Current}" />
-                                    <CompiledBinding
+                                    <ReflectionBinding
                                         Mode="OneWay"
                                         Path="Version"
                                         Source="{x:Static s:Plugin.Instance}" />
                                 </MultiBinding>
-                            </ui:MenuFlyoutItem.Text>
-                        </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                            </ui:FAMenuFlyoutItem.Text>
+                        </ui:FAMenuFlyoutItem>
+                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -182,7 +182,7 @@
                                                                     Mode=OneWay,
                                                                     Source={x:Static s:ResourceService.Current}}">
                                     <Viewbox>
-                                        <ui:SymbolIcon Symbol="Delete" />
+                                        <ui:FASymbolIcon Symbol="Delete" />
                                     </Viewbox>
                                 </Button>
                             </spp:AppItem.ActionButton>-->
@@ -265,7 +265,7 @@
                                             IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
                                             ToolTip.Tip="{Binding Path=Res.GameList_StopItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                             <Viewbox Width="60" Height="60">
-                                                <ui:SymbolIcon Symbol="Pause" />
+                                                <ui:FASymbolIcon Symbol="Pause" />
                                             </Viewbox>
                                         </Button>
                                         <Button
@@ -279,7 +279,7 @@
                                             IsVisible="{Binding Process, Converter={StaticResource IsNullConverter}}"
                                             ToolTip.Tip="{Binding Path=Res.GameList_RuningItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                             <Viewbox Width="60" Height="60">
-                                                <ui:SymbolIcon Symbol="Play" />
+                                                <ui:FASymbolIcon Symbol="Play" />
                                             </Viewbox>
                                         </Button>
                                         <Button
@@ -292,7 +292,7 @@
                                             Cursor="Hand"
                                             ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                             <Viewbox Width="20" Height="20">
-                                                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Close}" />
+                                                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Close}" />
                                             </Viewbox>
                                         </Button>
                                     </Panel>

@@ -31,7 +31,7 @@ public partial class MainFramePage : UserControl
     {
         if (Tabs.SelectedItem is TabStripItem tab && tab.Tag is Type t)
         {
-            InnerNavFrame.Navigate(t, null, new SlideNavigationTransitionInfo
+            InnerNavFrame.Navigate(t, null, new FASlideNavigationTransitionInfo
             {
                 Effect = FrameEffect.GetEffect(lastIndex, Tabs.SelectedIndex),
                 FromHorizontalOffset = 70,

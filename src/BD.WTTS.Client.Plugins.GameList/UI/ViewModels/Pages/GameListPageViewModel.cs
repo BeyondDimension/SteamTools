@@ -56,7 +56,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
             .Filter(installFilter)
             .Filter(isCloudArchiveFilter)
             .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.DisplayName).ThenByDescending(s => s.SizeOnDisk))
-            .ObserveOn(RxApp.MainThreadScheduler)
+               .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Bind(out _SteamApps)
             .Subscribe(_ =>
             {

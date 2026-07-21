@@ -36,7 +36,7 @@
                         Margin="-5,0,3,0"
                         VerticalAlignment="Center"
                         CornerRadius="2">
-                        <ui:ImageIcon
+                        <ui:FAImageIcon
                             Width="24"
                             Height="24"
                             Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico" />
@@ -58,7 +58,7 @@
                         Margin="-5,0,3,0"
                         VerticalAlignment="Center"
                         CornerRadius="2">
-                        <ui:ImageIcon
+                        <ui:FAImageIcon
                             Width="24"
                             Height="24"
                             Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico" />
@@ -70,6 +70,6 @@
                 </TabStripItem.Tag>
             </TabStripItem>
         </TabStrip>
-        <ui:Frame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
+        <ui:FAFrame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
     </Panel>
 </UserControl>

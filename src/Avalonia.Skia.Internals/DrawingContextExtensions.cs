@@ -20,12 +20,18 @@ public static class DrawingContextExtensions
 
         var paint = SKPaintCache.Shared.Get();
         paint.Color = new SKColor(255, 255, 255, (byte)(255 * opacity * 1));
-        paint.FilterQuality = interpolationMode.ToSKFilterQuality();
         paint.BlendMode = bitmapBlending.ToSKBlendMode();
+        var sampling = interpolationMode switch
+        {
+            BitmapInterpolationMode.None => new SKSamplingOptions(SKFilterMode.Nearest, SKMipmapMode.None),
+            BitmapInterpolationMode.LowQuality => new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.None),
+            BitmapInterpolationMode.MediumQuality => new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Nearest),
+            _ => new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear),
+        };
 
         if (context is DrawingContextImpl c)
         {
-            drawableImage.Draw(c, s, d, paint);
+            drawableImage.Draw(c, s, d, sampling, paint);
         }
         else
         {
@@ -37,7 +43,7 @@ public static class DrawingContextExtensions
                 object? implValue = implField.GetValue(context);
                 if (implValue != null && implValue is IDrawingContextImpl contextImpl)
                 {
-                    drawableImage.Draw((DrawingContextImpl)contextImpl, s, d, paint);
+                    drawableImage.Draw((DrawingContextImpl)contextImpl, s, d, sampling, paint);
                 }
             }
         }

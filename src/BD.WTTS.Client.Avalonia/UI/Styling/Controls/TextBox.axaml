@@ -61,7 +61,7 @@
                         BorderBrush="{DynamicResource TextControlButtonBorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}">
-                        <ui:FontIcon
+                        <ui:FAFontIcon
                             Name="Glyph"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -87,7 +87,7 @@
                 </Style>
             </Style>
 
-            <Style Selector="^:checked /template/ ui|FontIcon#Glyph">
+            <Style Selector="^:checked /template/ ui|FAFontIcon#Glyph">
                 <Setter Property="Glyph" Value="{StaticResource Hide}" />
             </Style>
 

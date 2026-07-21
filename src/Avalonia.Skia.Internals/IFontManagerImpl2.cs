@@ -27,20 +27,25 @@ public interface IFontManagerImpl2 : IFontManagerImpl
         return Impl.GetInstalledFontFamilyNames(checkForUpdates);
     }
 
-    bool IFontManagerImpl.TryMatchCharacter(int codepoint, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch, CultureInfo? culture, out Typeface typeface)
+    bool IFontManagerImpl.TryMatchCharacter(int codepoint, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch, string familyName, CultureInfo? culture, out IPlatformTypeface typeface)
     {
-        return Impl.TryMatchCharacter(codepoint, fontStyle, fontWeight, fontStretch, culture, out typeface);
+        return Impl.TryMatchCharacter(codepoint, fontStyle, fontWeight, fontStretch, familyName, culture, out typeface);
     }
 
-    bool IFontManagerImpl.TryCreateGlyphTypeface(string familyName, FontStyle style, FontWeight weight, FontStretch stretch, [NotNullWhen(returnValue: true)] out IGlyphTypeface? glyphTypeface)
+    bool IFontManagerImpl.TryCreateGlyphTypeface(string familyName, FontStyle style, FontWeight weight, FontStretch stretch, [NotNullWhen(returnValue: true)] out IPlatformTypeface? glyphTypeface)
     {
         familyName = OnCreateGlyphTypeface(familyName);
         return Impl.TryCreateGlyphTypeface(familyName, style, weight, stretch, out glyphTypeface);
     }
 
-    bool IFontManagerImpl.TryCreateGlyphTypeface(Stream stream, FontSimulations fontSimulations, [NotNullWhen(returnValue: true)] out IGlyphTypeface? glyphTypeface)
+    bool IFontManagerImpl.TryCreateGlyphTypeface(Stream stream, FontSimulations fontSimulations, [NotNullWhen(returnValue: true)] out IPlatformTypeface? glyphTypeface)
     {
         return Impl.TryCreateGlyphTypeface(stream, fontSimulations, out glyphTypeface);
+    }
+
+    bool IFontManagerImpl.TryGetFamilyTypefaces(string familyName, [NotNullWhen(returnValue: true)] out IReadOnlyList<Typeface>? typefaces)
+    {
+        return Impl.TryGetFamilyTypefaces(familyName, out typefaces);
     }
 
     //IGlyphTypeface IFontManagerImpl.CreateGlyphTypeface(Typeface typeface)

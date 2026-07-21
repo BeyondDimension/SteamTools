@@ -19,11 +19,11 @@
         VerticalScrollBarVisibility="Auto">
         <StackPanel Spacing="8">
             <!--  NAT  -->
-            <ui:SettingsExpander Header="NAT 类型检测" IsExpanded="True">
-                <ui:SettingsExpander.IconSource>
-                    <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE969;" />
-                </ui:SettingsExpander.IconSource>
-                <ui:SettingsExpander.Footer>
+            <ui:FASettingsExpander Header="NAT 类型检测" IsExpanded="True">
+                <ui:FASettingsExpander.IconSource>
+                    <ui:FAFontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE969;" />
+                </ui:FASettingsExpander.IconSource>
+                <ui:FASettingsExpander.Footer>
                     <WrapPanel>
                         <ui:FAComboBox
                             Margin="0,0,4,4"
@@ -46,12 +46,12 @@
                             Content="检测"
                             IsEnabled="True" />
                     </WrapPanel>
-                </ui:SettingsExpander.Footer>
+                </ui:FASettingsExpander.Footer>
 
-                <ui:SettingsExpanderItem Content="NAT 类型：">
-                    <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem Content="NAT 类型：">
+                    <ui:FASettingsExpanderItem.Footer>
                         <Grid>
-                            <ui:ProgressRing
+                            <ui:FAProgressRing
                                 Width="22"
                                 Margin="0,-4,0,-10"
                                 HorizontalAlignment="Right"
@@ -63,7 +63,7 @@
                                     VerticalAlignment="Center"
                                     Foreground="Gray"
                                     Text="{Binding NATLevel}" />
-                                <ui:FontIcon
+                                <ui:FAFontIcon
                                     Margin="3,0"
                                     FontSize="20"
                                     Glyph="&#xE946;"
@@ -71,16 +71,16 @@
                                     <ToolTip.Tip>
                                         <TextBlock x:Name="NATTypeTip" Text="{Binding NATTypeTip}" />
                                     </ToolTip.Tip>
-                                </ui:FontIcon>
+                                </ui:FAFontIcon>
                             </DockPanel>
                         </Grid>
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="本机IP地址：">
-                    <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem Content="本机IP地址：">
+                    <ui:FASettingsExpanderItem.Footer>
                         <Grid>
-                            <ui:ProgressRing
+                            <ui:FAProgressRing
                                 Width="22"
                                 Margin="0,-4,0,-10"
                                 HorizontalAlignment="Right"
@@ -90,17 +90,17 @@
                                 IsVisible="{Binding !IsNATChecking}"
                                 Text="{Binding LocalEndPoint}" />
                         </Grid>
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
 
-                <ui:SettingsExpanderItem>
+                <ui:FASettingsExpanderItem>
                     <TextBlock
                         VerticalAlignment="Center"
                         Text="对外IP地址："
                         ToolTip.Tip="若与您路由器 WAN IP 地址相同，则为公共网络" />
-                    <ui:SettingsExpanderItem.Footer>
+                    <ui:FASettingsExpanderItem.Footer>
                         <Grid>
-                            <ui:ProgressRing
+                            <ui:FAProgressRing
                                 Width="22"
                                 Margin="0,-4,0,-10"
                                 HorizontalAlignment="Right"
@@ -110,19 +110,19 @@
                                 IsVisible="{Binding !IsNATChecking}"
                                 Text="{Binding PublicEndPoint}" />
                         </Grid>
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="互联网连通情况：">
-                    <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem Content="互联网连通情况：">
+                    <ui:FASettingsExpanderItem.Footer>
                         <Grid>
-                            <ui:ProgressRing
+                            <ui:FAProgressRing
                                 Width="22"
                                 Margin="0,-4,0,-10"
                                 HorizontalAlignment="Right"
                                 IsVisible="{Binding IsNATChecking}" />
 
-                            <ui:FontIcon
+                            <ui:FAFontIcon
                                 x:Name="PingOK"
                                 HorizontalAlignment="Right"
                                 FontFamily="{StaticResource SymbolThemeFontFamily}"
@@ -132,22 +132,22 @@
                                 IsVisible="{Binding PingOkVisible}" />
 
                             <Grid x:Name="PingError" IsVisible="{Binding PingErrorVisible}">
-                                <ui:FontIcon
+                                <ui:FAFontIcon
                                     Margin="3"
                                     HorizontalAlignment="Right"
                                     FontFamily="Segoe Fluent Icons"
                                     FontSize="20"
                                     Foreground="Red"
                                     Glyph="&#xf127;" />
-                                <ui:FontIcon
+                                <ui:FAFontIcon
                                     HorizontalAlignment="Right"
                                     FontSize="26"
                                     Foreground="White"
                                     Glyph="&#xea39;" />
                             </Grid>
                         </Grid>
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
 
                 <StackPanel Spacing="8">
                     <TextBlock
@@ -187,19 +187,19 @@
                             NavigateUri="https://cs.xunyou.com/html/282/15271.shtml" />
                     </WrapPanel>
                 </StackPanel>
-            </ui:SettingsExpander>
+            </ui:FASettingsExpander>
 
             <!--  DNS  -->
-            <ui:SettingsExpander Header="DNS 检测" IsExpanded="True">
-                <ui:SettingsExpander.IconSource>
-                    <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xEDA3;" />
-                </ui:SettingsExpander.IconSource>
-                <ui:SettingsExpander.Footer>
+            <ui:FASettingsExpander Header="DNS 检测" IsExpanded="True">
+                <ui:FASettingsExpander.IconSource>
+                    <ui:FAFontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xEDA3;" />
+                </ui:FASettingsExpander.IconSource>
+                <ui:FASettingsExpander.Footer>
                     <Button
                         Width="100"
                         Command="{Binding DNSCheckCommand}"
                         Content="检测" />
-                </ui:SettingsExpander.Footer>
+                </ui:FASettingsExpander.Footer>
 
                 <TextBlock
                     Margin="-28,0,0,-4"
@@ -207,8 +207,8 @@
                     FontWeight="Bold"
                     Text="检测项目" />
 
-                <ui:SettingsExpanderItem Content="待检测的域名">
-                    <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem Content="待检测的域名">
+                    <ui:FASettingsExpanderItem.Footer>
                         <TextBox
                             Width="220"
                             Text="{Binding DomainPendingTest, Mode=TwoWay}"
@@ -256,29 +256,29 @@
                                 </Style>
                             </TextBox.Styles>
                         </TextBox>
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                    <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem Content="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    <ui:FASettingsExpanderItem.Footer>
                         <ui:FAComboBox
                             Width="220"
                             IsEditable="True"
                             IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}"
                             ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.ProxyDNSs}}"
                             Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                    <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem Content="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                    <ui:FASettingsExpanderItem.Footer>
                         <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value, Mode=TwoWay}" />
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
 
-                <ui:SettingsExpanderItem>
+                <ui:FASettingsExpanderItem>
                     <TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                    <ui:SettingsExpanderItem.Footer>
+                    <ui:FASettingsExpanderItem.Footer>
                         <ui:FAComboBox
                             Width="220"
                             IsEditable="True"
@@ -286,8 +286,8 @@
                             ItemsSource="{Binding Source={x:Static spp:ProxySettingsWindowViewModel.DohAddress}}"
                             PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres2}, Mode=OneWay}"
                             Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres2}, Path=Value, Mode=TwoWay}" />
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
 
                 <TextBlock
                     Margin="-28,0,0,-4"
@@ -295,47 +295,47 @@
                     FontWeight="Bold"
                     Text="测试结果" />
 
-                <ui:SettingsExpanderItem Content="延迟">
-                    <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem Content="延迟">
+                    <ui:FASettingsExpanderItem.Footer>
                         <Grid>
-                            <ui:ProgressRing
+                            <ui:FAProgressRing
                                 Width="22"
                                 Margin="0,-4,0,-10"
                                 IsVisible="{Binding IsDNSChecking}" />
                             <SelectableTextBlock IsVisible="{Binding !IsDNSChecking}" Text="{Binding DNSTestDelay}" />
                         </Grid>
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="解析地址">
-                    <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem Content="解析地址">
+                    <ui:FASettingsExpanderItem.Footer>
                         <Grid>
-                            <ui:ProgressRing
+                            <ui:FAProgressRing
                                 Width="22"
                                 Margin="0,-4,0,-10"
                                 IsVisible="{Binding IsDNSChecking}" />
                             <SelectableTextBlock IsVisible="{Binding !IsDNSChecking}" Text="{Binding DNSTestResult}" />
                         </Grid>
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
-            </ui:SettingsExpander>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
+            </ui:FASettingsExpander>
 
             <!--  IPV6  -->
-            <ui:SettingsExpander Header="IPv6 检测" IsExpanded="True">
-                <ui:SettingsExpander.IconSource>
-                    <ui:FontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE968;" />
-                </ui:SettingsExpander.IconSource>
-                <ui:SettingsExpander.Footer>
+            <ui:FASettingsExpander Header="IPv6 检测" IsExpanded="True">
+                <ui:FASettingsExpander.IconSource>
+                    <ui:FAFontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE968;" />
+                </ui:FASettingsExpander.IconSource>
+                <ui:FASettingsExpander.Footer>
                     <Button
                         Width="100"
                         Command="{Binding IPv6CheckCommand}"
                         Content="检测" />
-                </ui:SettingsExpander.Footer>
+                </ui:FASettingsExpander.Footer>
 
-                <ui:SettingsExpanderItem Content="支持情况">
-                    <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem Content="支持情况">
+                    <ui:FASettingsExpanderItem.Footer>
                         <Grid>
-                            <ui:ProgressRing
+                            <ui:FAProgressRing
                                 Width="22"
                                 Margin="0,-4,0,-10"
                                 IsVisible="{Binding IsIPv6Checking}" />
@@ -350,13 +350,13 @@
                                     Text="不支持 IPv6 访问" />
                             </Grid>
                         </Grid>
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
 
-                <ui:SettingsExpanderItem Content="IPv6 地址">
-                    <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem Content="IPv6 地址">
+                    <ui:FASettingsExpanderItem.Footer>
                         <Grid>
-                            <ui:ProgressRing
+                            <ui:FAProgressRing
                                 Width="22"
                                 Margin="0,-4,0,-10"
                                 IsVisible="{Binding IsIPv6Checking}" />
@@ -365,9 +365,9 @@
                                 IsVisible="{Binding !IsIPv6Checking}"
                                 Text="{Binding IPv6Address}" />
                         </Grid>
-                    </ui:SettingsExpanderItem.Footer>
-                </ui:SettingsExpanderItem>
-            </ui:SettingsExpander>
+                    </ui:FASettingsExpanderItem.Footer>
+                </ui:FASettingsExpanderItem>
+            </ui:FASettingsExpander>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

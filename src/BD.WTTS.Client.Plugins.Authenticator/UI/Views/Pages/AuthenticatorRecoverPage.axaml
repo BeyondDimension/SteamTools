@@ -25,8 +25,8 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="spp:AuthenticatorRecoverModel">
-                        <ui:SettingsExpander MinWidth="400" IsClickEnabled="False">
-                            <ui:SettingsExpander.Header>
+                        <ui:FASettingsExpander MinWidth="400" IsClickEnabled="False">
+                            <ui:FASettingsExpander.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding IsSelected}" />
                                     <StackPanel
@@ -47,8 +47,8 @@
                                             TextWrapping="Wrap" />
                                     </StackPanel>
                                 </StackPanel>
-                            </ui:SettingsExpander.Header>
-                            <ui:SettingsExpander.Footer>
+                            </ui:FASettingsExpander.Header>
+                            <ui:FASettingsExpander.Footer>
                                 <StackPanel
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
@@ -66,8 +66,8 @@
                                         Text="{Binding AuthenticatorDeleteBackup.CreationTime}"
                                         TextWrapping="Wrap" />
                                 </StackPanel>
-                            </ui:SettingsExpander.Footer>
-                        </ui:SettingsExpander>
+                            </ui:FASettingsExpander.Footer>
+                        </ui:FASettingsExpander>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

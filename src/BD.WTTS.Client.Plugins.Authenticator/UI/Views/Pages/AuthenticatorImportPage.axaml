@@ -31,6 +31,6 @@
                 Text="{ReflectionBinding #InnerNavFrame.Content.DataContext.Name}"
                 Theme="{StaticResource BodyStrongTextBlockStyle}" />
         </StackPanel>
-        <ui:Frame x:Name="InnerNavFrame" Grid.Row="1" />
+        <ui:FAFrame x:Name="InnerNavFrame" Grid.Row="1" />
     </Grid>
 </UserControl>

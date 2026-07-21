@@ -59,7 +59,7 @@ public partial class ScriptPageViewModel : TabItemViewModel
         ProxyService.Current.ProxyScripts
             .Connect()
             //.Filter(scriptFilter)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Sort(SortExpressionComparer<ScriptDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
             .Bind(out _ProxyScripts)
             .Subscribe(_ => this.RaisePropertyChanged(nameof(IsProxyScriptsEmpty)));

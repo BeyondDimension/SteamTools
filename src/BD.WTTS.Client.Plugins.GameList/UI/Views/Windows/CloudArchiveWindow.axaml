@@ -34,7 +34,7 @@
                             Width="22"
                             Height="22"
                             VerticalAlignment="Center">
-                            <ui:SymbolIcon Symbol="Refresh" />
+                            <ui:FASymbolIcon Symbol="Refresh" />
                         </Viewbox>
                     </Button>
                     <Button
@@ -49,7 +49,7 @@
                             Width="22"
                             Height="22"
                             VerticalAlignment="Center">
-                            <ui:SymbolIcon Symbol="OpenFile" />
+                            <ui:FASymbolIcon Symbol="OpenFile" />
                         </Viewbox>
                     </Button>
                     <Button
@@ -64,7 +64,7 @@
                             Width="22"
                             Height="22"
                             VerticalAlignment="Center">
-                            <ui:SymbolIcon Symbol="DeleteFilled" />
+                            <ui:FASymbolIcon Symbol="DeleteFilled" />
                         </Viewbox>
                     </Button>
                 </StackPanel>
@@ -87,8 +87,8 @@
                             Theme="{StaticResource CaptionTextBlockStyle}">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} MB/ {1} MB">
-                                    <CompiledBinding Path="UsedQutoa" />
-                                    <CompiledBinding Path="TotalQutoa" />
+                                    <ReflectionBinding Path="UsedQutoa" />
+                                    <ReflectionBinding Path="TotalQutoa" />
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
@@ -190,7 +190,7 @@
               </DataGridTemplateColumn.Header>
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate x:DataType="spp:SteamRemoteFile">
-                  <ui:SymbolIcon Symbol="Checkmark"/>
+                  <ui:FASymbolIcon Symbol="Checkmark"/>
                 </DataTemplate>
               </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
@@ -204,7 +204,7 @@
               </DataGridTemplateColumn.Header>
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate x:DataType="spp:SteamRemoteFile">
-                  <ui:SymbolIcon Symbol="Checkmark"/>
+                  <ui:FASymbolIcon Symbol="Checkmark"/>
                 </DataTemplate>
               </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>-->

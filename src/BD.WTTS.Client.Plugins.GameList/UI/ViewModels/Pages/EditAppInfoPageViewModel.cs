@@ -51,7 +51,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
 
         _SteamGridItemSourceList
           .Connect()
-          .ObserveOn(RxApp.MainThreadScheduler)
+          .ObserveOn(RxSchedulers.MainThreadScheduler)
           .Sort(SortExpressionComparer<SteamGridItem>.Ascending(x => x.Id))
           .Bind(out _SteamGridItems)
           .Subscribe(_ => this.RaisePropertyChanged(nameof(IsSteamGridEmpty)));

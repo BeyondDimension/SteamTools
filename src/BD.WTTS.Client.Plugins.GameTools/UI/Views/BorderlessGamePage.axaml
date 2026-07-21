@@ -18,7 +18,7 @@
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png" />
+        <ui:FAImageIconSource Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
@@ -32,7 +32,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:FontIcon Glyph="&#xE81C;" />
+                        <ui:FAFontIcon Glyph="&#xE81C;" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -51,25 +51,25 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!--<ui:MenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
-                        <!--<ui:MenuFlyoutSeparator  />-->
-                        <ui:MenuFlyoutItem IsEnabled="False">
-                            <ui:MenuFlyoutItem.Text>
+                        <!--<ui:FAMenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:FAMenuFlyoutSeparator  />-->
+                        <ui:FAMenuFlyoutItem IsEnabled="False">
+                            <ui:FAMenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <CompiledBinding
+                                    <ReflectionBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
                                         Source="{x:Static s:ResourceService.Current}" />
-                                    <CompiledBinding
+                                    <ReflectionBinding
                                         Mode="OneWay"
                                         Path="Version"
                                         Source="{x:Static s:Plugin.Instance}" />
                                 </MultiBinding>
-                            </ui:MenuFlyoutItem.Text>
-                        </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                            </ui:FAMenuFlyoutItem.Text>
+                        </ui:FAMenuFlyoutItem>
+                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -147,7 +147,7 @@
 				<Expander.Header>
 					<DockPanel>
 						<StackPanel Orientation="Horizontal" >
-							<ui:FontIcon FontSize="26" Margin="0 0 12 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;" />
+							<ui:FAFontIcon FontSize="26" Margin="0 0 12 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;" />
 							<TextBlock VerticalAlignment="Center" Text="窗口信息" />
 							<!--<TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.SteamAppType_Game, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
 							<!--<TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.Info, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
@@ -241,19 +241,19 @@
 								</Button.Styles>-->
 
 								<StackPanel Orientation="Horizontal">
-									<ui:FontIcon Glyph="&#xf58a;" FontFamily="Segoe Fluent Icons" />
+									<ui:FAFontIcon Glyph="&#xf58a;" FontFamily="Segoe Fluent Icons" />
 									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_BorderlessWindow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
 								</StackPanel>
 							</Button>
 							<Button Command="{ReflectionBinding MaximizeWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
 								<StackPanel Orientation="Horizontal">
-									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE922;" />
+									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE922;" />
 									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_Maximize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
 								</StackPanel>
 							</Button>
 							<Button Command="{ReflectionBinding NormalWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
 								<StackPanel Orientation="Horizontal">
-									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE923;" />
+									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE923;" />
 									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_Normal, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
 								</StackPanel>
 							</Button>
@@ -261,13 +261,13 @@
 							<!--Button Group 2-->
 							<Button Command="{ReflectionBinding HideWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
 								<StackPanel Orientation="Horizontal">
-									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xed1a;" />
+									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xed1a;" />
 									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_Hide, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
 								</StackPanel>
 							</Button>
 							<Button Command="{ReflectionBinding ShowWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
 								<StackPanel Orientation="Horizontal">
-									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7b3;" />
+									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7b3;" />
 									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_Show, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
 								</StackPanel>
 							</Button>
@@ -278,13 +278,13 @@
 								IsEnabled="{ReflectionBinding !!SelectWindow}"
 								ToolTip.Tip="{Binding Path=Res.GameRelated_Borderless_ToWallerpaperTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
 								<StackPanel Orientation="Horizontal">
-									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE718;" />
+									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE718;" />
 									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_ToWallerpaper, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
 								</StackPanel>
 							</Button>
 							<Button Command="{ReflectionBinding ResetWallerpaper_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
 								<StackPanel Orientation="Horizontal">
-									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE72C;" />
+									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE72C;" />
 									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_ResetWallerpaper, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
 								</StackPanel>
 							</Button>
@@ -300,7 +300,7 @@
 									</Style>
 								</Button.Styles>
 								<StackPanel Orientation="Horizontal">
-									<ui:FontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8BB;" />
+									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8BB;" />
 									<TextBlock Text="{Binding Path=Res.GameRelated_Borderless_KillProcess, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"/>
 								</StackPanel>
 							</Button>

@@ -16,7 +16,7 @@
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:FAImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
@@ -30,7 +30,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Add" />
+                        <ui:FASymbolIcon Symbol="Add" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -49,7 +49,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Sync" />
+                        <ui:FASymbolIcon Symbol="Sync" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -68,7 +68,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Refresh" />
+                        <ui:FASymbolIcon Symbol="Refresh" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -87,7 +87,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Settings" />
+                        <ui:FASymbolIcon Symbol="Settings" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -106,53 +106,53 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!-- <ui:MenuFlyoutSubItem Text="令牌加密"> -->
-                        <!--  <ui:MenuFlyoutItem  -->
+                        <!-- <ui:FAMenuFlyoutSubItem Text="令牌加密"> -->
+                        <!--  <ui:FAMenuFlyoutItem  -->
                         <!--  Command="{Binding SetPasswordProtection}"  -->
                         <!--  IsEnabled="{Binding !HasPasswordEncrypt}"  -->
                         <!--  Text="添加密码保护" />  -->
-                        <!--  <ui:MenuFlyoutItem  -->
+                        <!--  <ui:FAMenuFlyoutItem  -->
                         <!--  Command="{Binding RemovePasswordProtection}"  -->
                         <!--  IsEnabled="{Binding HasPasswordEncrypt}"  -->
                         <!--  Text="移除密码保护" />  -->
-                        <!--  <ui:MenuFlyoutItem  -->
+                        <!--  <ui:FAMenuFlyoutItem  -->
                         <!--  Command="{Binding ToggleLocalProtection}"  -->
                         <!--  IsEnabled="{Binding !HasLocalPcEncrypt}"  -->
                         <!--  Text="添加机器验证" />  -->
-                        <!--  <ui:MenuFlyoutItem  -->
+                        <!--  <ui:FAMenuFlyoutItem  -->
                         <!--  Command="{Binding ToggleLocalProtection}"  -->
                         <!--  IsEnabled="{Binding HasLocalPcEncrypt}"  -->
                         <!--  Text="移除机器验证" />  -->
-                        <!--     <ui:MenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" /> -->
-                        <!-- </ui:MenuFlyoutSubItem> -->
-                        <ui:MenuFlyoutItem Command="{Binding OpenExportWindow}" Text="{Binding Path=Res.ExportAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <!--<ui:MenuFlyoutItem
+                        <!--     <ui:FAMenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" /> -->
+                        <!-- </ui:FAMenuFlyoutSubItem> -->
+                        <ui:FAMenuFlyoutItem Command="{Binding OpenExportWindow}" Text="{Binding Path=Res.ExportAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <!--<ui:FAMenuFlyoutItem
                             Command="{Binding ReLockAuthenticator}"
                             IsEnabled="{Binding IsVerificationPass}"
                             Text="{Binding Path=Res.Auth_lock,
                                                      Mode=OneWay,
                                                      Source={x:Static s:ResourceService.Current}}" />-->
-                        <!--<ui:MenuFlyoutItem Command="{Binding ShowRecoverWindow}" Text="{Binding Path=Res.Auth_Sync_Recover, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Command="{Binding ResetIndependentPassword}" Text="{Binding Path=Res.Auth_Sync_ResetPassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
-                        <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem IsEnabled="False">
-                            <ui:MenuFlyoutItem.Text>
+                        <!--<ui:FAMenuFlyoutItem Command="{Binding ShowRecoverWindow}" Text="{Binding Path=Res.Auth_Sync_Recover, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Command="{Binding ResetIndependentPassword}" Text="{Binding Path=Res.Auth_Sync_ResetPassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <ui:FAMenuFlyoutSeparator />
+                        <ui:FAMenuFlyoutItem IsEnabled="False">
+                            <ui:FAMenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <CompiledBinding
+                                    <ReflectionBinding
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
                                         Source="{x:Static s:ResourceService.Current}" />
-                                    <CompiledBinding
+                                    <ReflectionBinding
                                         Mode="OneWay"
                                         Path="Version"
                                         Source="{x:Static s:Plugin.Instance}" />
                                 </MultiBinding>
-                            </ui:MenuFlyoutItem.Text>
-                        </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                            </ui:FAMenuFlyoutItem.Text>
+                        </ui:FAMenuFlyoutItem>
+                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -233,8 +233,8 @@
             Spacing="5">
             <!--<StackPanel.IsVisible>
                 <MultiBinding Converter="{x:Static BoolConverters.And}">
-                    <CompiledBinding Path="!IsVerificationPass" />
-                    <CompiledBinding Path="!!!Auths.Count" />
+                    <ReflectionBinding Path="!IsVerificationPass" />
+                    <ReflectionBinding Path="!!!Auths.Count" />
                 </MultiBinding>
             </StackPanel.IsVisible>-->
             <TextBlock
@@ -256,8 +256,8 @@
             IsVisible="{Binding IsVerificationPass}">
             <!--<spp:ContentLoader.IsVisible>
                 <MultiBinding Converter="{x:Static BoolConverters.And}">
-                    <CompiledBinding Path="!IsVerificationPass" />
-                    <CompiledBinding Path="!!Auths.Count" />
+                    <ReflectionBinding Path="!IsVerificationPass" />
+                    <ReflectionBinding Path="!!Auths.Count" />
                 </MultiBinding>
             </spp:ContentLoader.IsVisible>-->
             <spp:ContentLoader.NoResultMessage>
@@ -292,7 +292,7 @@
                                         Header="{Binding Path=Res.LocalAuth_Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                         ToolTip.Tip="{Binding Path=Res.LocalAuth_Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="Copy" />
+                                            <ui:FASymbolIcon Symbol="Copy" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem Header="-" />
@@ -301,7 +301,7 @@
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.Up, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="ChevronUp" />
+                                            <ui:FASymbolIcon Symbol="ChevronUp" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
@@ -309,7 +309,7 @@
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.MoveDown, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="ChevronDown" />
+                                            <ui:FASymbolIcon Symbol="ChevronDown" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <!--<MenuItem
@@ -317,7 +317,7 @@
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.FixedTop, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="Pin" />
+                                            <ui:FASymbolIcon Symbol="Pin" />
                                         </MenuItem.Icon>
                                     </MenuItem>-->
                                     <MenuItem Header="-" />
@@ -326,7 +326,7 @@
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
+                                            <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
@@ -334,7 +334,7 @@
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.ViewDetailedData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="Calendar" />
+                                            <ui:FASymbolIcon Symbol="Calendar" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
@@ -342,7 +342,7 @@
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.DefaultExport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
+                                            <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
@@ -351,7 +351,7 @@
                                         Header="{Binding Path=Res.Auth_ExportmaFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                         IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}">
                                         <MenuItem.Icon>
-                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
+                                            <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem Header="-" />
@@ -361,7 +361,7 @@
                                         Header="{Binding Path=Res.LocalAuth_RemoveAuth, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                         IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}">
                                         <MenuItem.Icon>
-                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC9;" />
+                                            <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC9;" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
@@ -370,7 +370,7 @@
                                         Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                                         Header="{Binding Path=Res.LocalAuth_Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="Delete" />
+                                            <ui:FASymbolIcon Symbol="Delete" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                 </MenuFlyout>

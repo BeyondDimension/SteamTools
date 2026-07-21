@@ -41,14 +41,14 @@ public partial class ArchiSteamFarmExePathSettingsPageViewModel : ViewModelBase
             // DownloadASFAsync() 无法取消后再次开启下载
             //Buttons = [new TaskDialogButton("取消", TaskDialogStandardResult.Cancel)],
         };
-        downloadDialog.Opened += (_, _) => { downloadDialog.SetProgressBarState(0, TaskDialogProgressState.Normal); };
+        downloadDialog.Opened += (_, _) => { downloadDialog.SetProgressBarState(0, FATaskDialogProgressState.Normal); };
 
         var progress = new Progress<float>();
         progress.ProgressChanged += (_, value) =>
         {
             // Value here report 1-100
             downloadDialog.Content = $"正在下载 {value}%";
-            downloadDialog.SetProgressBarState(value, TaskDialogProgressState.Normal);
+            downloadDialog.SetProgressBarState(value, FATaskDialogProgressState.Normal);
 
             if (value >= 100)
             {

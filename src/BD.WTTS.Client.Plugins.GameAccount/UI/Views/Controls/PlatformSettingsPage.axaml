@@ -16,22 +16,22 @@
         <TextBlock Margin="0,0,0,5">
             <TextBlock.Text>
                 <MultiBinding StringFormat="{}{0} 平台设置">
-                    <CompiledBinding Mode="OneWay" Path="Platform.FullName" />
+                    <ReflectionBinding Mode="OneWay" Path="Platform.FullName" />
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
-        <ui:SettingsExpander Description="{Binding PlatformSettings.PlatformPath}" IsClickEnabled="True">
-            <ui:SettingsExpander.Header>
+        <ui:FASettingsExpander Description="{Binding PlatformSettings.PlatformPath}" IsClickEnabled="True">
+            <ui:FASettingsExpander.Header>
                 <MultiBinding StringFormat="{}{0} 路径">
-                    <CompiledBinding Mode="OneWay" Path="Platform.FullName" />
+                    <ReflectionBinding Mode="OneWay" Path="Platform.FullName" />
                 </MultiBinding>
-            </ui:SettingsExpander.Header>
-            <ui:SettingsExpander.IconSource>
-                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
-            </ui:SettingsExpander.IconSource>
-            <ui:SettingsExpander.Footer>
+            </ui:FASettingsExpander.Header>
+            <ui:FASettingsExpander.IconSource>
+                <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
+            </ui:FASettingsExpander.IconSource>
+            <ui:FASettingsExpander.Footer>
                 <Button Command="{Binding SelectProgramPath}" Content="选择路径" />
-            </ui:SettingsExpander.Footer>
-        </ui:SettingsExpander>
+            </ui:FASettingsExpander.Footer>
+        </ui:FASettingsExpander>
     </StackPanel>
 </UserControl>

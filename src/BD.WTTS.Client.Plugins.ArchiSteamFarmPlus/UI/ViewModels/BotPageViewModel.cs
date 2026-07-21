@@ -26,7 +26,7 @@ public partial class BotPageViewModel : ViewModelBase
 
         ASFService.Current.SteamBotsSourceList
           .Connect()
-          .ObserveOn(RxApp.MainThreadScheduler)
+          .ObserveOn(RxSchedulers.MainThreadScheduler)
           .Sort(SortExpressionComparer<BotViewModel>.Descending(x => x.Bot.BotName))
           .Bind(out _SteamBots)
           .Subscribe();
@@ -34,7 +34,7 @@ public partial class BotPageViewModel : ViewModelBase
 
     public async Task SelectBotFiles_Click()
     {
-        FilePickerFileType? fileTypes;
+        BD.Common.Models.FilePickerFileType? fileTypes;
         if (IApplication.IsDesktop())
         {
             fileTypes = new ValueTuple<string, string[]>[]

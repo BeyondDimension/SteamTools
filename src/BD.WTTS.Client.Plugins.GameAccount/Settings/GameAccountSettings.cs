@@ -99,7 +99,7 @@ public static partial class GameAccountSettings
     /// 账号平台设置集合
     /// </summary>
     public static SettingsProperty<string, PlatformSettings, ConcurrentDictionary<string, PlatformSettings>, GameAccountSettings_> PlatformSettings { get; }
-        = new(DefaultPlatformSettings);
+        = new(IGameAccountSettings.DefaultPlatformSettings);
 
     /// <summary>
     /// 是否显示账号用户名

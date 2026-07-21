@@ -172,7 +172,7 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
     /// <param name="host">The <see cref="Window"/> that will be the host.</param>
     public void Install(TemplatedControl host)
     {
-        var adornerLayer = host.FindDescendantOfType<VisualLayerManager>()?.AdornerLayer;
+        var adornerLayer = AdornerLayer.GetAdornerLayer(host);
 
         if (adornerLayer is not null && !adornerLayer.Children.Contains(this))
         {

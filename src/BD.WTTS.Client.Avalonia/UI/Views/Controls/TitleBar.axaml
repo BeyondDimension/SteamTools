@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    xmlns:wnd="using:FluentAvalonia.UI.Windowing"
+    xmlns:chrome="using:Avalonia.Controls.Chrome"
     d:DesignHeight="{StaticResource TitleBarHeight}"
     d:DesignWidth="1080"
     Background="Transparent"
@@ -53,7 +53,7 @@
                 Name="SearchBox"
                 MaxWidth="500"
                 VerticalAlignment="Center"
-                wnd:AppWindow.AllowInteractionInTitleBar="True"
+                chrome:WindowDecorationProperties.ElementRole="User"
                 Classes="Search"
                 Text="{ReflectionBinding SearchText,
                                          RelativeSource={RelativeSource FindAncestor,

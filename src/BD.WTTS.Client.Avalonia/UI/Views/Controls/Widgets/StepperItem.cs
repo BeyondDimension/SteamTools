@@ -85,7 +85,7 @@ public class StepperItem : ContentControl, ISelectable
         if (e.Handled)
             return;
 
-        if (!e.Handled && ItemsControl.ItemsControlFromItemContaner(this) is Stepper owner)
+        if (!e.Handled && ItemsControl.ItemsControlFromItemContainer(this) is Stepper owner)
         {
             var p = e.GetCurrentPoint(this);
 
@@ -121,14 +121,14 @@ public class StepperItem : ContentControl, ISelectable
             e.InitialPressMouseButton is MouseButton.Left or MouseButton.Right)
         {
             var point = e.GetCurrentPoint(this);
-            var settings = TopLevel.GetTopLevel(e.Source as Visual)?.PlatformSettings;
+            var settings = Avalonia.VisualTree.VisualExtensions.GetPlatformSettings(this);
             var tapSize = settings?.GetTapSize(point.Pointer.Type) ?? new Size(4, 4);
             var tapRect = new Rect(_pointerDownPoint, new Size())
                 .Inflate(new Thickness(tapSize.Width, tapSize.Height));
 
             if (new Rect(Bounds.Size).ContainsExclusive(point.Position) &&
                 tapRect.ContainsExclusive(point.Position) &&
-                ItemsControl.ItemsControlFromItemContaner(this) is Stepper owner)
+                ItemsControl.ItemsControlFromItemContainer(this) is Stepper owner)
             {
                 if (owner.UpdateSelectionFromPointerEvent(this, e))
                     e.Handled = true;

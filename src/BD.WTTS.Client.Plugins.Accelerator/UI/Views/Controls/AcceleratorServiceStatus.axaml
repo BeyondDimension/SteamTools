@@ -26,8 +26,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="spp:ProxyDomainGroupViewModel">
                     <Border>
-                        <ui:SettingsExpander IsClickEnabled="False" IsExpanded="True">
-                            <ui:SettingsExpander.Header>
+                        <ui:FASettingsExpander IsClickEnabled="False" IsExpanded="True">
+                            <ui:FASettingsExpander.Header>
                                 <StackPanel Orientation="Horizontal" Spacing="10">
                                     <spp:Image2
                                         Width="30"
@@ -38,16 +38,16 @@
                                         Stretch="UniformToFill" />
                                     <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
                                 </StackPanel>
-                            </ui:SettingsExpander.Header>
-                            <ui:SettingsExpander.Footer>
+                            </ui:FASettingsExpander.Header>
+                            <ui:FASettingsExpander.Footer>
                                 <Button
                                     HorizontalAlignment="Right"
                                     Click="ConnectTestButtonOnClick"
                                     Command="{Binding ConnectTestCommand}"
                                     Content="连通性测试"
                                     DockPanel.Dock="Right" />
-                            </ui:SettingsExpander.Footer>
-                            <ui:SettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
+                            </ui:FASettingsExpander.Footer>
+                            <ui:FASettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
                                 <TreeView ItemsSource="{Binding EnableProxyDomainVMs}" SelectionMode="Single">
                                     <TreeView.ItemTemplate>
                                         <TreeDataTemplate ItemsSource="{Binding Children}">
@@ -80,21 +80,21 @@
                                                         Foreground="{Binding DelayColor}" VerticalAlignment="Center"
                                                         Text="{Binding DelayMillseconds}" />
                                                     
-                                                    <ui:FontIcon
+                                                    <ui:FAFontIcon
                                                         Margin="3,0"
                                                         FontSize="20"
                                                         Glyph="&#xE946;"
                                                         ToolTip.ShowDelay="0"
                                                         ToolTip.Tip="此数值代表测试网页打开访问所需时间，请以实际浏览器访问网页状况为准"
                                                         IsVisible="{Binding Text, ElementName=DelayValue, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-                                                    </ui:FontIcon>
+                                                    </ui:FAFontIcon>
                                                 </StackPanel>
                                             </DockPanel>
                                         </TreeDataTemplate>
                                     </TreeView.ItemTemplate>
                                 </TreeView>
-                            </ui:SettingsExpanderItem>
-                        </ui:SettingsExpander>
+                            </ui:FASettingsExpanderItem>
+                        </ui:FASettingsExpander>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

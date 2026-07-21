@@ -61,11 +61,6 @@ partial class Startup // 全局异常处理
                     Handler(ex, nameof(AppDomain), e.IsTerminating);
                 }
             };
-            RxApp.DefaultExceptionHandler = Observer.Create<Exception>(ex =>
-            {
-                // https://github.com/AvaloniaUI/Avalonia/issues/5290#issuecomment-760751036
-                Handler(ex, nameof(RxApp));
-            });
         }
 
         public static void Handler(Exception ex, string name, bool? isTerminating = null)

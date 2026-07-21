@@ -184,7 +184,7 @@
                                             Tag="{x:Static spp:SteamGridItemType.Header}"
                                             Theme="{StaticResource TransparentButton}"
                                             ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                            <ui:SymbolIcon FontSize="18" Symbol="CloudDownload" />
+                                            <ui:FASymbolIcon FontSize="18" Symbol="CloudDownload" />
                                         </Button>
                                         <Button
                                             Padding="5"
@@ -193,7 +193,7 @@
                                             Tag="{x:Static spp:SteamGridItemType.Header}"
                                             Theme="{StaticResource TransparentButton}"
                                             ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                            <ui:SymbolIcon FontSize="18" Symbol="Redo" />
+                                            <ui:FASymbolIcon FontSize="18" Symbol="Redo" />
                                         </Button>
                                     </WrapPanel>
 
@@ -240,7 +240,7 @@
                                             Tag="{x:Static spp:SteamGridItemType.Grid}"
                                             Theme="{StaticResource TransparentButton}"
                                             ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                            <ui:SymbolIcon FontSize="18" Symbol="CloudDownload" />
+                                            <ui:FASymbolIcon FontSize="18" Symbol="CloudDownload" />
                                         </Button>
                                         <Button
                                             Padding="5"
@@ -249,7 +249,7 @@
                                             Tag="{x:Static spp:SteamGridItemType.Grid}"
                                             Theme="{StaticResource TransparentButton}"
                                             ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                            <ui:SymbolIcon FontSize="18" Symbol="Redo" />
+                                            <ui:FASymbolIcon FontSize="18" Symbol="Redo" />
                                         </Button>
                                     </WrapPanel>
                                     <!--<TextBlock Text="{Binding Path=Res.VerticalTitlePage,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"/>
@@ -295,7 +295,7 @@
                                             Tag="{x:Static spp:SteamGridItemType.Hero}"
                                             Theme="{StaticResource TransparentButton}"
                                             ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                            <ui:SymbolIcon FontSize="18" Symbol="CloudDownload" />
+                                            <ui:FASymbolIcon FontSize="18" Symbol="CloudDownload" />
                                         </Button>
                                         <Button
                                             Padding="5"
@@ -304,7 +304,7 @@
                                             Tag="{x:Static spp:SteamGridItemType.Hero}"
                                             Theme="{StaticResource TransparentButton}"
                                             ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                            <ui:SymbolIcon FontSize="18" Symbol="Redo" />
+                                            <ui:FASymbolIcon FontSize="18" Symbol="Redo" />
                                         </Button>
                                     </WrapPanel>
                                     <!--<TextBlock Text="{Binding Path=Res.Background,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"/>
@@ -350,7 +350,7 @@
                                             Tag="{x:Static spp:SteamGridItemType.Logo}"
                                             Theme="{StaticResource TransparentButton}"
                                             ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                            <ui:SymbolIcon FontSize="18" Symbol="CloudDownload" />
+                                            <ui:FASymbolIcon FontSize="18" Symbol="CloudDownload" />
                                         </Button>
                                         <Button
                                             Padding="5"
@@ -359,7 +359,7 @@
                                             Tag="{x:Static spp:SteamGridItemType.Logo}"
                                             Theme="{StaticResource TransparentButton}"
                                             ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                            <ui:SymbolIcon FontSize="18" Symbol="Redo" />
+                                            <ui:FASymbolIcon FontSize="18" Symbol="Redo" />
                                         </Button>
                                     </WrapPanel>
                                     <!--<Button Classes="Hyperlink"
@@ -474,7 +474,7 @@
                             VerticalAlignment="Stretch"
                             Command="{Binding AddLaunchItem}"
                             Cursor="Hand">
-                            <ui:SymbolIcon
+                            <ui:FASymbolIcon
                                 Margin="0,20"
                                 FontSize="32"
                                 Symbol="Add" />
@@ -496,7 +496,7 @@
                                         Command="{Binding ManageCloudArchive_Click}"
                                         Cursor="Hand"
                                         ToolTip.Tip="{Binding Path=Res.GameList_CloudArchiveManager, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                        <ui:SymbolIcon FontSize="18" Symbol="CloudBackup" />
+                                        <ui:FASymbolIcon FontSize="18" Symbol="CloudBackup" />
                                     </Button>
                                 </StackPanel>
                                 <TextBlock Classes="right" Text="{Binding App.CloudQuota, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}" />

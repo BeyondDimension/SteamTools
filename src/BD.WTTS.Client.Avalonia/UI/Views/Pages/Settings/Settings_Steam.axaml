@@ -20,7 +20,7 @@
             Theme="{StaticResource SubtitleTextBlockStyle}" />
         <spp:OptionsDisplayItem Description="{Binding Source={x:Static ms:SteamSettings.SteamProgramPath}, Path=Value, Mode=OneWay}" Header="{Binding Path=Res.Settings_Steam_Path, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
+                <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <Button Command="{Binding SelectSteamProgramLocation}" Content="{Binding Path=Res.LocalAuth_ExportAuth_SelectPath, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
@@ -29,7 +29,7 @@
 
         <spp:OptionsDisplayItem Header="{Binding Path=Res.Settings_Steam_AutoRunSteam, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
+                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:SteamSettings.IsAutoRunSteam}, Path=Value, Mode=TwoWay}" />
@@ -41,7 +41,7 @@
             Header="{Binding Path=Res.Settings_Steam_RuningAdmin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             IsVisible="{spp:OnPlatform Windows}">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE7EF;" />
+                <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE7EF;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:SteamSettings.IsRunSteamAdministrator}, Path=Value, Mode=TwoWay}" />
@@ -50,7 +50,7 @@
 
         <spp:OptionsDisplayItem Header="{Binding Path=Res.Settings_Steam_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9E9;" />
+                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9E9;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:SteamSettings.IsRunSteamMinimized}, Path=Value, Mode=TwoWay}" />
@@ -59,7 +59,7 @@
 
         <spp:OptionsDisplayItem Description="{Binding Path=Res.Settings_Steam_NoAutoUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{Binding Path=Res.Settings_Steam_NotCheckUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE895;" />
+                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE895;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:SteamSettings.IsRunSteamNoCheckUpdate}, Path=Value, Mode=TwoWay}" />
@@ -68,7 +68,7 @@
 
         <spp:OptionsDisplayItem Header="{Binding Path=Res.Settings_Steam_RunSteamChina, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9E9;" />
+                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9E9;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:SteamSettings.IsRunSteamChina}, Path=Value, Mode=TwoWay}" />
@@ -77,7 +77,7 @@
 
         <spp:OptionsDisplayItem Description="{Binding Path=Res.Settings_Steam_AutoPopupMessage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{Binding Path=Res.Settings_Steam_CheckSteamRuningNotification, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7E7;" />
+                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7E7;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:SteamSettings.IsEnableSteamLaunchNotification}, Path=Value, Mode=TwoWay}" />
@@ -86,7 +86,7 @@
 
         <spp:OptionsDisplayItem Description="{Binding Source={x:Static ms:SteamSettings.SteamStratParameter}, Path=Value, Mode=OneWay}" Header="{Binding Path=Res.Settings_Steam_SteamStratParameter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
             <spp:OptionsDisplayItem.Icon>
-                <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
+                <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
                 <Button Command="{Binding EditSteamParameter}" Content="{Binding Path=Res.Edit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />

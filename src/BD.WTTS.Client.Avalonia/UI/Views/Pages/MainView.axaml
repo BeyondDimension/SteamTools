@@ -17,20 +17,20 @@
     x:DataType="spp:MainWindowViewModel"
     mc:Ignorable="d">
 	<UserControl.Styles>
-		<Style Selector="ui|NavigationView.AppNav">
+        <Style Selector="ui|FANavigationView.AppNav">
 			<Setter Property="IsPaneToggleButtonVisible" Value="False" />
 			<Setter Property="OpenPaneLength" Value="72" />
 			<Setter Property="IsPaneOpen" Value="True" />
 		</Style>
 
-		<Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
+        <Style Selector="ui|FANavigationView.AppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
 			<Setter Property="Margin" Value="0 42 0 0" />
 		</Style>
-		<Style Selector="ui|NavigationView.AppNav[IsBackButtonVisible=True] SplitView /template/ ContentPresenter#PART_PanePresenter">
+        <Style Selector="ui|FANavigationView.AppNav[IsBackButtonVisible=True] SplitView /template/ ContentPresenter#PART_PanePresenter">
 			<Setter Property="Margin" Value="0 2 0 0" />
 		</Style>
 
-		<Style Selector="ui|NavigationViewItem.AppNav">
+        <Style Selector="ui|FANavigationViewItem.AppNav">
 			<Setter Property="Transitions">
 				<Setter.Value>
 					<Transitions>
@@ -40,7 +40,7 @@
 			</Setter>
 		</Style>
 
-		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter">
+        <Style Selector="ui|FANavigationViewItem.AppNav uip|FANavigationViewItemPresenter">
 			<Setter Property="Width" Value="72" />
 			<Setter Property="MinHeight" Value="75" />
 			<Setter Property="Cursor" Value="Hand" />
@@ -102,26 +102,26 @@
 			</Setter>
 		</Style>
 
-		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#ContentPresenter">
+        <Style Selector="ui|FANavigationViewItem.AppNav uip|FANavigationViewItemPresenter:pointerover /template/ ContentPresenter#ContentPresenter">
 			<Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
 		</Style>
-		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pointerover /template/ ContentPresenter#Icon">
+        <Style Selector="ui|FANavigationViewItem.AppNav uip|FANavigationViewItemPresenter:pointerover /template/ ContentPresenter#Icon">
 			<Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
 		</Style>
 
-		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#ContentPresenter">
+        <Style Selector="ui|FANavigationViewItem.AppNav uip|FANavigationViewItemPresenter:pressed /template/ ContentPresenter#ContentPresenter">
 			<Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
 		</Style>
-		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:pressed /template/ ContentPresenter#Icon">
+        <Style Selector="ui|FANavigationViewItem.AppNav uip|FANavigationViewItemPresenter:pressed /template/ ContentPresenter#Icon">
 			<Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
 		</Style>
 
-		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#ContentPresenter">
+        <Style Selector="ui|FANavigationViewItem.AppNav uip|FANavigationViewItemPresenter:selected /template/ ContentPresenter#ContentPresenter">
 			<Setter Property="IsVisible" Value="False" />
 			<Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
 		</Style>
 
-		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
+        <Style Selector="ui|FANavigationViewItem.AppNav uip|FANavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
 			<Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
 		</Style>
 	</UserControl.Styles>
@@ -138,7 +138,7 @@
                         Command="{Binding Path=MarkNotificationsHasRead, Mode=OneWay, Source={x:Static s:NoticeService.Current}}"
                         Theme="{DynamicResource TransparentButton}">
 						<Panel>
-							<ui:InfoBadge
+                            <ui:FAInfoBadge
                                 Margin="0,-3,-3,0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
@@ -148,7 +148,7 @@
                                 Width="22"
                                 Height="22"
                                 VerticalAlignment="Center">
-								<ui:SymbolIcon Symbol="Alert" />
+                                <ui:FASymbolIcon Symbol="Alert" />
 							</Viewbox>
 						</Panel>
 
@@ -159,7 +159,7 @@
                                 Placement="BottomEdgeAlignedRight">
                                 <ui:FAMenuFlyout.ItemTemplate>
                                     <DataTemplate DataType="spp:OfficialMessageItemDTO">
-                                        <ui:MenuFlyoutItem
+                                        <ui:FAMenuFlyoutItem
                                             Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                                             CommandParameter="{Binding MessageLink}"
                                             Text="{Binding Title}" />
@@ -320,7 +320,7 @@
 			</spp:TitleBar.ActionContent>
 		</spp:TitleBar>
 
-		<ui:NavigationView
+        <ui:FANavigationView
             Name="NavView"
             Grid.RowSpan="2"
             AlwaysShowHeader="False"
@@ -332,11 +332,11 @@
             IsSettingsVisible="False"
             MenuItemsSource="{Binding TabItems}"
             PaneDisplayMode="Left">
-			<ui:NavigationView.Resources>
+            <ui:FANavigationView.Resources>
 				<!--  Override this  -->
 				<Thickness x:Key="NavigationViewContentMargin">0,50,0,0</Thickness>
-			</ui:NavigationView.Resources>
-			<ui:NavigationView.Styles>
+            </ui:FANavigationView.Resources>
+            <ui:FANavigationView.Styles>
 				<Style Selector="Button#NavigationViewBackButton">
 					<Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
 					<Setter Property="Width" Value="36" />
@@ -349,18 +349,18 @@
 					<Setter Property="ToolTip.Tip" Value="{Binding Path=Res.Back, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 					<Setter Property="ToolTip.Placement" Value="Bottom" />
 				</Style>
-			</ui:NavigationView.Styles>
-			<ui:NavigationView.MenuItemTemplate>
+            </ui:FANavigationView.Styles>
+            <ui:FANavigationView.MenuItemTemplate>
 				<DataTemplate DataType="spp:TabItemViewModel">
-					<ui:NavigationViewItem Classes="AppNav" Content="{Binding Name}">
-						<ui:NavigationViewItem.IconSource>
-							<!--<ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{Binding IconKey, Converter={StaticResource ResourceKeyValueConverter}, ConverterParameter=fonticon}" />-->
-							<ui:ImageIconSource Source="{Binding IconKey, Converter={StaticResource BitmapAssetValueConverter}}" />
-						</ui:NavigationViewItem.IconSource>
-					</ui:NavigationViewItem>
+                    <ui:FANavigationViewItem Classes="AppNav" Content="{Binding Name}">
+                        <ui:FANavigationViewItem.IconSource>
+							<!--<ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{Binding IconKey, Converter={StaticResource ResourceKeyValueConverter}, ConverterParameter=fonticon}" />-->
+                            <ui:FAImageIconSource Source="{Binding IconKey, Converter={StaticResource BitmapAssetValueConverter}}" />
+                        </ui:FANavigationViewItem.IconSource>
+                    </ui:FANavigationViewItem>
 				</DataTemplate>
-			</ui:NavigationView.MenuItemTemplate>
-			<ui:Frame Name="FrameView" />
-		</ui:NavigationView>
+            </ui:FANavigationView.MenuItemTemplate>
+            <ui:FAFrame Name="FrameView" />
+        </ui:FANavigationView>
 	</Grid>
 </UserControl>

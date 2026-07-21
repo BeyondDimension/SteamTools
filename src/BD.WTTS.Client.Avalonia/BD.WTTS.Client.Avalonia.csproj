@@ -74,9 +74,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="Avalonia" />
+		<PackageReference Include="DynamicData" />
 		<PackageReference Include="ReactiveUI.Avalonia" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" />
 		<PackageReference Include="Avalonia.Controls.ItemsRepeater" />
+		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" />
 		<PackageReference Include="Xaml.Behaviors.Avalonia" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
 		<PackageReference Include="AvaloniaEdit.TextMate" />
@@ -84,8 +86,6 @@
 		<PackageReference Include="FluentAvaloniaUI" />
 		<PackageReference Include="Avalonia.Controls.ColorPicker" />
 		<PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
-		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" />
 		<!--ProjectReference Include="..\Avalonia.Themes.Default\Avalonia.Themes.Default.csproj" />
 		<ProjectReference Include="..\Avalonia.Themes.Fluent\Avalonia.Themes.Fluent.csproj" />-->
 		<ProjectReference Include="..\Avalonia.Desktop\Avalonia.Desktop.csproj" />

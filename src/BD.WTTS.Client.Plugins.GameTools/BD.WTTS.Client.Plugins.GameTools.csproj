@@ -80,6 +80,9 @@
 		<Compile Include="..\ImplicitUsings.Plugins.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		  <Compile Include="..\ImplicitUsings.Avalonia.cs">
+			  <LinkBase>Properties</LinkBase>
+		  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

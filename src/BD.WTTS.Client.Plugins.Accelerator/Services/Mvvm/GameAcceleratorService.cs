@@ -81,7 +81,7 @@ public sealed partial class GameAcceleratorService
         if (XunYouSDK.IsSupported)
         {
             this.WhenValueChanged(x => x.XYAccelState, false)
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(x =>
                 {
                     if (x == null)
@@ -184,7 +184,7 @@ public sealed partial class GameAcceleratorService
                 });
 
             UserService.Current.WhenAnyValue(static x => x.User)
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(async x =>
                 {
                     string vipEndTimeString = VipEndTimeStringDef;
@@ -618,7 +618,7 @@ public sealed partial class GameAcceleratorService
             {
                 Title = "下载插件",
                 ShowProgressBar = true,
-                IconSource = new SymbolIconSource { Symbol = FluentAvalonia.UI.Controls.Symbol.Download },
+                IconSource = new FASymbolIconSource { Symbol = FluentAvalonia.UI.Controls.FASymbol.Download },
                 SubHeader = "下载 Watt 加速器 插件",
                 Content = "正在初始化，请稍候",
                 XamlRoot = AvaloniaWindowManagerImpl.GetWindowTopLevel(),
@@ -650,10 +650,10 @@ public sealed partial class GameAcceleratorService
                 {
                     case < 100:
                         Dispatcher.UIThread.Post(() => { td.Content = $"正在下载 {item.Content}%"; });
-                        td.SetProgressBarState(item.Content, TaskDialogProgressState.Normal);
+                        td.SetProgressBarState(item.Content, FATaskDialogProgressState.Normal);
                         break;
                     case 100:
-                        td.SetProgressBarState(item.Content, TaskDialogProgressState.Indeterminate);
+                        td.SetProgressBarState(item.Content, FATaskDialogProgressState.Indeterminate);
                         Dispatcher.UIThread.Post(() => { td.Content = $"下载完成，正在安装..."; });
                         break;
                     case (int)XunYouDownLoadCode.安装成功:
@@ -784,13 +784,14 @@ public sealed partial class GameAcceleratorService
         }
     }
 
-    public async Task ShowXunYouWindow(bool showHide)
+    public async Task ShowXunYouWindow(object? showHide)
     {
         //if (UserService.Current.User?.WattOpenId != null)
         //    await Ioc.Get<IAcceleratorService>().XY_StartEx2(
         //                            UserService.Current.User.WattOpenId,
         //                            UserService.Current.User.NickName, 0, 0, 0);
 
-        var result = await Ioc.Get<IAcceleratorService>().XY_ShowWinodw(showHide);
+        var show = bool.TryParse(showHide?.ToString(), out var value) && value;
+        var result = await Ioc.Get<IAcceleratorService>().XY_ShowWinodw(show);
     }
 }
