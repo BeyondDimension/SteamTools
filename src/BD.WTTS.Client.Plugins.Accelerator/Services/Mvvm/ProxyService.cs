@@ -424,6 +424,9 @@ public sealed partial class ProxyService
     public async Task InitializeAccelerateAsync()
     {
         ProxyDomains.Clear();
+        // 先加载本地缓存，避免后端不可达时面板长时间空白
+        LoadOrSaveLocalAccelerate();
+
         // 加载代理服务数据
         var client = IMicroServiceClient.Instance.Accelerate;
 #if DEBUG
@@ -437,9 +440,9 @@ public sealed partial class ProxyService
         if (result.IsSuccess)
         {
             ProxyDomains.AddOrUpdate(result.Content!);
+            // 用最新数据更新本地缓存
+            LoadOrSaveLocalAccelerate();
         }
-
-        LoadOrSaveLocalAccelerate();
 
         if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Items.Any_Nullable())
         {
