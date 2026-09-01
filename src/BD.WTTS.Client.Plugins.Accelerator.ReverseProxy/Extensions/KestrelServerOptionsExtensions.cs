@@ -33,21 +33,23 @@ public static class KestrelServerOptionsExtensions
                 $"TCP port {httpProxyPort} is already occupied by other processes.");
         }
 
-        options.Listen(IReverseProxyService.Constants.Instance.ProxyIp, httpProxyPort, listen =>
-        {
-            listen.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
-            var proxyMiddleware = options.ApplicationServices.GetRequiredService<HttpProxyMiddleware>();
-            var tunnelMiddleware = options.ApplicationServices.GetRequiredService<TunnelMiddleware>();
+        var proxyMiddleware = options.ApplicationServices.GetRequiredService<HttpProxyMiddleware>();
+        var tunnelMiddleware = options.ApplicationServices.GetRequiredService<TunnelMiddleware>();
 
-            listen.UseFlowAnalyze();
-            listen.Use(next => context => proxyMiddleware.InvokeAsync(next, context));
-            listen.UseTls();
-            listen.Use(next => context => tunnelMiddleware.InvokeAsync(next, context));
-        });
-
-        options.GetLogger().LogInformation(
+        options.ListenAndLog(
+            IReverseProxyService.Constants.Instance.ProxyIp,
+            httpProxyPort,
+            listen =>
+            {
+                listen.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
+                listen.UseFlowAnalyze();
+                listen.Use(next => context => proxyMiddleware.InvokeAsync(next, context));
+                listen.UseTls();
+                listen.Use(next => context => tunnelMiddleware.InvokeAsync(next, context));
+            },
             "Listened http://{ProxyIp}:{httpProxyPort}, HTTP proxy service startup completed.",
-            IReverseProxyService.Constants.Instance.ProxyIp, httpProxyPort);
+            IReverseProxyService.Constants.Instance.ProxyIp,
+            httpProxyPort);
     }
 
 #if WINDOWS
@@ -59,15 +61,10 @@ public static class KestrelServerOptionsExtensions
     public static void ListenSshReverseProxy(this KestrelServerOptions options)
     {
         var sshPort = IReverseProxyConfig.SshPort;
-        options.ListenLocalhost(sshPort, listen =>
-        {
-            listen.UseFlowAnalyze();
-            listen.UseConnectionHandler<GithubSshReverseProxyHandler>();
-        });
-
-        var logger = options.GetLogger();
-        logger.LogInformation(
-            "Listened ssh://localhost:{sshPort}, the SSH reverse proxy service of GitHub is started.", sshPort);
+        options.ListenLocalReverseProxy<GithubSshReverseProxyHandler>(
+            sshPort,
+            "Listened ssh://localhost:{sshPort}, the SSH reverse proxy service of GitHub is started.",
+            sshPort);
     }
 #endif
 
@@ -80,15 +77,10 @@ public static class KestrelServerOptionsExtensions
     public static void ListenGitReverseProxy(this KestrelServerOptions options)
     {
         var gitPort = IReverseProxyConfig.GitPort;
-        options.ListenLocalhost(gitPort, listen =>
-        {
-            listen.UseFlowAnalyze();
-            listen.UseConnectionHandler<GithubGitReverseProxyHandler>();
-        });
-
-        var logger = options.GetLogger();
-        logger.LogInformation(
-            "Listened git://localhost:{gitPort}, the Git reverse proxy service of GitHub has been started.", gitPort);
+        options.ListenLocalReverseProxy<GithubGitReverseProxyHandler>(
+            gitPort,
+            "Listened git://localhost:{gitPort}, the Git reverse proxy service of GitHub has been started.",
+            gitPort);
     }
 #endif
 
@@ -100,12 +92,29 @@ public static class KestrelServerOptionsExtensions
     public static void ListenHttpReverseProxy(this KestrelServerOptions options)
     {
         var httpPort = IReverseProxyConfig.HttpPort;
-        options.Listen(IReverseProxyService.Constants.Instance.ProxyIp, httpPort);
-
-        var logger = options.GetLogger();
-        logger.LogInformation(
+        options.ListenAndLog(
+            IReverseProxyService.Constants.Instance.ProxyIp,
+            httpPort,
+            static _ => { },
             "Listened http://{ProxyIp}:{httpPort}, HTTP reverse proxy service startup completed.",
-            IReverseProxyService.Constants.Instance.ProxyIp, httpPort);
+            IReverseProxyService.Constants.Instance.ProxyIp,
+            httpPort);
+    }
+
+    /// <summary>
+    /// 监听 CRL（证书吊销列表）服务，供 Schannel 等客户端完成本地 MITM 证书的吊销检查
+    /// </summary>
+    /// <param name="options"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void ListenCrlReverseProxy(this KestrelServerOptions options)
+    {
+        var crlPort = IReverseProxyConfig.CrlPort;
+        options.ListenAndLog(
+            IPAddress.Loopback,
+            crlPort,
+            static listen => listen.Protocols = HttpProtocols.Http1,
+            "Listened http://127.0.0.1:{crlPort}, CRL service startup completed.",
+            crlPort);
     }
 
     /// <summary>
@@ -122,17 +131,44 @@ public static class KestrelServerOptionsExtensions
         domainResolver.CheckIpv6SupportAsync();
 
         var httpsPort = IReverseProxyConfig.HttpsPort;
-        options.Listen(IReverseProxyService.Constants.Instance.ProxyIp, httpsPort, listen =>
+        options.ListenAndLog(
+            IReverseProxyService.Constants.Instance.ProxyIp,
+            httpsPort,
+            static listen =>
+            {
+                listen.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
+                listen.UseFlowAnalyze();
+                listen.UseTls();
+            },
+            "Listened https://{ProxyIp}:{httpsPort}, HTTPS reverse proxy service startup completed.",
+            IReverseProxyService.Constants.Instance.ProxyIp,
+            httpsPort);
+    }
+
+    /// <summary>
+    /// 监听本地反向代理（SSH / Git 通用）
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static void ListenLocalReverseProxy<TConnectionHandler>(this KestrelServerOptions options, int port, string message, params object[] args)
+        where TConnectionHandler : ConnectionHandler
+    {
+        options.ListenLocalhost(port, listen =>
         {
-            listen.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
             listen.UseFlowAnalyze();
-            listen.UseTls();
+            listen.UseConnectionHandler<TConnectionHandler>();
         });
 
-        var logger = options.GetLogger();
-        logger.LogInformation(
-            "Listened https://{ProxyIp}:{httpsPort}, HTTPS reverse proxy service startup completed.",
-            IReverseProxyService.Constants.Instance.ProxyIp, httpsPort);
+        options.GetLogger().LogInformation(message, args);
+    }
+
+    /// <summary>
+    /// 监听指定地址并记录启动日志
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    static void ListenAndLog(this KestrelServerOptions options, IPAddress ip, int port, Action<ListenOptions> configure, string message, params object[] args)
+    {
+        options.Listen(ip, port, configure);
+        options.GetLogger().LogInformation(message, args);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

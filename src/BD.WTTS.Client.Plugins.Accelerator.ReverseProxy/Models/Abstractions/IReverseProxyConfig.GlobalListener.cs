@@ -39,6 +39,13 @@ partial interface IReverseProxyConfig
     /// </summary>
     static int HttpsPort { get; } = GetAvailableTcpPort(HttpsPortDefault);
 
+    const int CrlPortDefault = 26502;
+
+    /// <summary>
+    /// CRL（证书吊销列表）服务端口，用于为本地 MITM 证书提供吊销分发点
+    /// </summary>
+    static int CrlPort { get; } = GetAvailableTcpPort(CrlPortDefault);
+
     /// <summary>
     /// 获取已监听的端口
     /// </summary>
