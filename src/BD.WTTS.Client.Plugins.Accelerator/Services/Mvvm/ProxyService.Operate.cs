@@ -85,7 +85,11 @@ partial class ProxyService
             }
             else
             {
-                proxyDNS = await GetFastestDNSAsync(ProxySettingsWindowViewModel.ProxyDNSs.Skip(1));
+                if(proxyDNS.compare(ProxySettingsWindowViewModel.ProxyDNSs.ElementAt(0))!=0){//Check if proxyDNS equals "System Default"
+                    proxyDNS = await GetFastestDNSAsync(ProxySettingsWindowViewModel.ProxyDNSs.Skip(1).Append(proxyDNS));
+                }else{
+                    proxyDNS = await GetFastestDNSAsync(ProxySettingsWindowViewModel.ProxyDNSs.Skip(1));
+                }
             }
         }
 
