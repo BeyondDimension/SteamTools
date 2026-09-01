@@ -9,7 +9,7 @@
     "PlatformIds": [ "e", "epg", "epic", "epicgames" ],
     "ExesToEnd": [ "EpicGamesLauncher.exe" ],
     "LoginFiles": {
-      "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\WindowsEditor\\GameUserSettings.ini": "GameUserSettings.ini",
+      "%LocalAppData%\\EpicGamesLauncher\\Saved\\Config\\Windows\\GameUserSettings.ini": "GameUserSettings.ini",
       "REG:HKCU\\Software\\Epic Games\\Unreal Engine\\Identifiers:AccountId": "UNIQUE_ID"
     },
     "ClearPaths": [ "SAME_AS_LOGIN_FILES" ],
