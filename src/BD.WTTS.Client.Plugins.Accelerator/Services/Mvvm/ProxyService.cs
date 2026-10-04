@@ -506,10 +506,9 @@ public sealed partial class ProxyService
                 RestoreAccelerateEnableAllIds(node.Items, enableItems);
                 continue;
             }
-            if (enableItems.Contains(node.Id.ToString()))
-            {
-                node.ThreeStateEnable = true;
-            }
+            // 按本地保存的勾选记录双向恢复：服务端返回的加速项目默认 Checked 为 true，
+            // 此处若只勾选不取消勾选，用户取消过的项目会在下次启动时被默认值重新勾上。
+            node.ThreeStateEnable = enableItems.Contains(node.Id.ToString());
         }
     }
 
