@@ -69,6 +69,14 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
             return true;
         }
 
+        // NixOS immutable system: both processes run as dotnet from /nix/store,
+        // executable path validation always fails. Subprocess is managed by
+        // a systemd service, trust it directly on NixOS.
+        if (OperatingSystem.IsLinux() && File.Exists("/etc/NIXOS"))
+        {
+            return true;
+        }
+
         var thisPath = Environment.ProcessPath;
         ArgumentException.ThrowIfNullOrWhiteSpace(thisPath);
         thisPath = Path.GetFullPath(thisPath);

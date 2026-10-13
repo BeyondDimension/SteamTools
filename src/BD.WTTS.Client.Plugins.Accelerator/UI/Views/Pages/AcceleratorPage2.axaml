@@ -226,7 +226,6 @@
                 Name="ProxyModeTab"
                 Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
                 CornerRadius="{StaticResource ControlCornerRadius}"
-                IsEnabled="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
                 ItemContainerTheme="{StaticResource TabItemStyle}"
                 ItemsSource="{Binding Source={x:Static ms:ProxySettings.ProxyModes}, Path=., Mode=OneWay}"
                 SelectedItem="{Binding Source={x:Static ms:ProxySettings.ProxyMode}, Path=Value, Mode=TwoWay}"

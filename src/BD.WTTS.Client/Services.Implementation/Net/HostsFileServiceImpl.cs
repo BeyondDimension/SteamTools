@@ -825,6 +825,15 @@ internal sealed class HostsFileServiceImpl
 
     public async Task<OperationResult> UpdateHosts(IReadOnlyDictionary<string, string> hosts)
     {
+#if LINUX
+        if (LinuxPlatformServiceImpl.IsNixOS)
+        {
+            // NixOS 不可变系统适配：/etc/hosts 由声明式配置管理（nix store 只读，运行时不可写）。
+            // 将条目写入 AppData/nixos-hosts.conf 供用户参考，合并进系统配置的 system.etc.hosts。
+            WriteNixOSHostsConfig(hosts);
+            return new OperationResult(OperationResultType.Success, "NixOS: hosts 已写入 AppData/nixos-hosts.conf，请将其内容合并到系统声明式配置");
+        }
+#endif
         var privilegedThis = await GetPrivilegedThisAsync();
         if (privilegedThis != null)
         {
@@ -867,6 +876,14 @@ internal sealed class HostsFileServiceImpl
 
     public async Task<OperationResult> RemoveHostsByTag()
     {
+#if LINUX
+        if (LinuxPlatformServiceImpl.IsNixOS)
+        {
+            // NixOS：删除声明式 hosts 参考配置
+            DeleteNixOSHostsConfig();
+            return new OperationResult(OperationResultType.Success, "NixOS: 已删除 AppData/nixos-hosts.conf");
+        }
+#endif
         var privilegedThis = await GetPrivilegedThisAsync();
         if (privilegedThis != null)
         {
@@ -897,6 +914,13 @@ internal sealed class HostsFileServiceImpl
 
     public bool ContainsHostsByTag()
     {
+#if LINUX
+        if (LinuxPlatformServiceImpl.IsNixOS)
+        {
+            // NixOS：检查声明式 hosts 参考配置文件是否存在
+            return File.Exists(GetNixOSHostsConfigPath());
+        }
+#endif
         try
         {
             var filePath = s.HostsFilePath;
@@ -928,6 +952,29 @@ internal sealed class HostsFileServiceImpl
 
     bool mOnExitRestoreHosts;
     readonly AsyncLock mOnExitRestoreHostsLock = new();
+
+#if LINUX
+    // NixOS hosts 参考配置（声明式替代 /etc/hosts 运行时写入）
+    static string GetNixOSHostsConfigPath() => Path.Combine(IOPath.AppDataDirectory, "nixos-hosts.conf");
+
+    void WriteNixOSHostsConfig(IReadOnlyDictionary<string, string> hosts)
+    {
+        var path = GetNixOSHostsConfigPath();
+        var sb = new StringBuilder();
+        sb.AppendLine(MarkStart);
+        foreach (var (domain, ip) in hosts)
+        {
+            sb.AppendLine($"{ip} {domain}");
+        }
+        sb.AppendLine(MarkEnd);
+        File.WriteAllText(path, sb.ToString(), GetEncoding());
+    }
+
+    static void DeleteNixOSHostsConfig()
+    {
+        IOPath.FileTryDelete(GetNixOSHostsConfigPath());
+    }
+#endif
 
     public async Task OnExitRestoreHosts()
     {

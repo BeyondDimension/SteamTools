@@ -223,9 +223,11 @@ public interface ICertificateManager
     #region Path
 
     /// <summary>
-    /// PFX 证书文件路径
+    /// PFX 证书文件路径。
+    /// NixOS 适配：优先取打包证书源（STEAMTOOLS_BUNDLED_PFX，nix store 最新 PFX，
+    /// 与系统 security.pki.certificateFiles 信任的 cer 同构建同源）；未设置时回退 AppData。
     /// </summary>
-    string PfxFilePath => CertificateConstants.DefaultPfxFilePath;
+    string PfxFilePath => BundledCertificateHelper.GetBundledPfxFilePath() ?? CertificateConstants.DefaultPfxFilePath;
 
     /// <summary>
     /// CER 证书文件路径

@@ -1662,6 +1662,9 @@
     <value>僅代理模式</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ProxyMode_DNS" xml:space="preserve">
+    <value>DNS</value>
+  </data>
   <data name="ProxyMode_System" xml:space="preserve">
     <value>系統代理模式</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

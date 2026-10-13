@@ -155,6 +155,22 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             return null;
         }
 
+#if LINUX
+        if (LinuxPlatformServiceImpl.IsNixOS)
+        {
+            // NixOS 不可变系统适配（服务式运行）：
+            // 加速器不以子进程方式直接启动。nix store 只读、file caps 不可用（capset 返回 EPERM），
+            // 且提权启动会丢失 makeWrapper 注入的运行时环境。改为将 IPC 参数写入 EnvironmentFile
+            // （/tmp/steampp-accel.env：pipeName/pid/model）后由 systemd 系统服务 steampp-accelerator
+            // 拉起加速器（服务声明 User=主用户，AmbientCapabilities 由 root systemd 注入，可监听 443）。
+            // 加速器服务进程不继承 GUI 会话环境，先把打包证书源（STEAMTOOLS_BUNDLED_PFX，仅主进程持有）
+            // 同步到共享 AppData，保证服务进程加载的 PFX 与系统信任的 cer 为同一把密钥。
+            BundledCertificateHelper.TrySyncBundledCertificate(CertificateConstants.DefaultPfxFilePath);
+            StartupNixOS.StartAcceleratorService(pipeName, pid, mSubProcessArgumentIndex2Model.Value);
+            return null; // 子进程由 systemd 管理，主进程无直接句柄
+        }
+#endif
+
 #if LINUX 
         // 构建要执行的 shell 命令
         var shellStr =

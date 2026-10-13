@@ -169,6 +169,13 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
         try
         {
             await ProxyService.Current.ExitAsync();
+#if LINUX
+            if (LinuxPlatformServiceImpl.IsNixOS)
+            {
+                // NixOS 服务式运行：停止加速器 systemd 系统服务
+                StartupNixOS.StopAcceleratorService();
+            }
+#endif
             GameAcceleratorSettings.MyGames.Save();
         }
         catch
@@ -228,6 +235,15 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override bool HasValue([NotNullWhen(false)] out string? error)
     {
+#if LINUX
+        if (LinuxPlatformServiceImpl.IsNixOS)
+        {
+            // NixOS 服务式运行：加速器由 systemd 系统服务管理（独立 store 路径），
+            // 不检查主程序目录内的子进程文件。
+            error = default;
+            return true;
+        }
+#endif
         if (!SubProcessExists())
         {
             error = Strings.CommunityFix_SubProcessFileNotExist;

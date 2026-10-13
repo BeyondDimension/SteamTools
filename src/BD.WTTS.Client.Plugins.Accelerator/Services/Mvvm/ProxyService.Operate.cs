@@ -32,6 +32,19 @@ partial class ProxyService
 
     async Task<OperateProxyServiceResult> StartProxyServiceCoreAsync()
     {
+        // NixOS：加速模式由系统配置统一管理（programs.watt-toolkit.proxyMode）
+        // 覆盖持久化的 ProxyMode.Value，确保加速器按系统配置的模式启动。
+        if (OperatingSystem.IsLinux() && System.IO.File.Exists("/etc/watt-toolkit/proxy-mode"))
+        {
+            try
+            {
+                var sysMode = System.IO.File.ReadAllText("/etc/watt-toolkit/proxy-mode").Trim();
+                if (sysMode == "dns") ProxySettings.ProxyMode.Value = ProxyMode.DNS;
+                else if (sysMode == "hosts") ProxySettings.ProxyMode.Value = ProxyMode.Hosts;
+            }
+            catch { }
+        }
+
         IReadOnlyCollection<AccelerateProjectDTO>? proxyDomains = EnableProxyDomains;
 
         if (!proxyDomains.Any_Nullable())
@@ -223,12 +236,23 @@ partial class ProxyService
 
         if (!OperatingSystem.IsWindows())
         {
-            var checkRootCertificateCode = ICertificateManager.Constants.CheckRootCertificate(
-                  platformService,
-                  ICertificateManager.Constants.Instance);
-            if (checkRootCertificateCode != StartProxyResultCode.Ok)
+#if LINUX
+            if (LinuxPlatformServiceImpl.IsNixOS)
             {
-                return Strings.Error_CheckRootCertificateFailed_;
+                // NixOS 不可变系统适配：系统根证书由 security.pki.certificateFiles 声明式安装
+                // （nix store 只读，pkexec/NSS 安装路径在 NixOS 不可用）。AppData 下的 PFX
+                // 由打包证书源（STEAMTOOLS_BUNDLED_PFX）同步，无需在此检查/安装。
+            }
+            else
+#endif
+            {
+                var checkRootCertificateCode = ICertificateManager.Constants.CheckRootCertificate(
+                      platformService,
+                      ICertificateManager.Constants.Instance);
+                if (checkRootCertificateCode != StartProxyResultCode.Ok)
+                {
+                    return Strings.Error_CheckRootCertificateFailed_;
+                }
             }
         }
 
@@ -239,6 +263,35 @@ partial class ProxyService
             twoLevelAgentEnable, twoLevelAgentProxyType, twoLevelAgentIp,
             twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6, useDoh, customDohAddres, proxyToken);
         byte[] reverseProxySettings_ = Serializable.SMP2(reverseProxySettings);
+#if LINUX
+        if (BD.WTTS.Services.Implementation.LinuxPlatformServiceImpl.IsNixOS)
+        {
+            // NixOS DNS 模式：把选中平台的监听域名列表写入 /tmp/steampp-domains.conf，
+            // 由系统服务（dnsmasq 动态劫持，module.nix 的 proxyMode="dns"）消费。
+            var domains = (proxyDomains ?? System.Array.Empty<AccelerateProjectDTO>())
+                .Where(s => s != null)
+                .SelectMany(s => s.ListeningDomainNamesArray)
+                .Where(d => !string.IsNullOrWhiteSpace(d))
+                .Distinct();
+            System.IO.File.WriteAllText("/tmp/steampp-domains.conf",
+                string.Join(Environment.NewLine, domains));
+            // 加速器 systemd 服务的 ExecStartPost 可能在本次写入之前已执行
+            // （服务拉起时机不保证在写文件之后），立即主动触发 dnsmasq 域名
+            // 映射更新，确保动态劫持拿到最新域名列表（polkit 已授权主用户）。
+            try
+            {
+                var psi = new System.Diagnostics.ProcessStartInfo("systemctl")
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                };
+                psi.ArgumentList.Add("start");
+                psi.ArgumentList.Add("watt-toolkit-dns-update.service");
+                System.Diagnostics.Process.Start(psi);
+            }
+            catch { }
+        }
+#endif
         var startProxyResult = await reverseProxyService.StartProxyAsync(reverseProxySettings_);
         if (startProxyResult)
         {
@@ -291,7 +344,17 @@ partial class ProxyService
             {
                 if (!string.IsNullOrWhiteSpace(Plugin.Instance.SubProcessPath))
                 {
-                    Process.Start("pkexec", new string[] { "setcap", "cap_net_bind_service=+eip", Plugin.Instance.SubProcessPath }).WaitForExit();
+#if LINUX
+                    if (LinuxPlatformServiceImpl.IsNixOS)
+                    {
+                        // NixOS：nix store 只读，setcap 无法持久化（capset EPERM），
+                        // 监听特权端口的权限由系统服务 steampp-accelerator 的 AmbientCapabilities 提供。
+                    }
+                    else
+#endif
+                    {
+                        Process.Start("pkexec", new string[] { "setcap", "cap_net_bind_service=+eip", Plugin.Instance.SubProcessPath }).WaitForExit();
+                    }
                 }
                 //新线程等待 IPC 错误返回后 Kill 自己 Linux 修改权限需要重新启动
                 reverseProxyService.Exit();
