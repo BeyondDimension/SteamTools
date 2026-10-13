@@ -439,6 +439,47 @@ public sealed partial class ProxyService
             ProxyDomains.AddOrUpdate(result.Content!);
         }
 
+#if LINUX
+        if (LinuxPlatformServiceImpl.IsNixOS)
+        {
+            // NixOS 不可变系统适配：/etc/hosts 由声明式配置管理，运行时不可写。
+            // 平台加速清单（分组 -> 项目 -> ListenDomainNames）为云端动态下发，
+            // 这里把全部项目 dump 成明文参考（AppData/nixos-hosts.conf），
+            // 供用户合并进 nixos-config 的 networking.hosts 后 rebuild 生效。
+            try
+            {
+                var sb = new System.Text.StringBuilder();
+                sb.AppendLine("# SteamTools (NixOS) 平台加速 hosts 声明式配置（全平台参考）");
+                sb.AppendLine("# 由软件运行时从云端加速清单生成。用法：复制本文件到 nixos-config 仓库，");
+                sb.AppendLine("# 在 network 模块配置 `networking.hosts = (import ./此文件) // install-config.hosts;`");
+                sb.AppendLine("# 本文件独立于 nixos-hosts.conf（后者由加速器启停写入/删除，仅作加速项参考）。");
+                sb.AppendLine("{");
+                sb.AppendLine("  \"127.0.0.1\" = [");
+                foreach (var group in ProxyDomains.Items)
+                {
+                    sb.AppendLine($"    # ==== {group.Name} ====");
+                    if (group.Items != null)
+                    {
+                        foreach (var item in group.Items)
+                        {
+                            DumpNixOSAccelerateItem(sb, item, 3);
+                        }
+                    }
+                    sb.AppendLine();
+                }
+                sb.AppendLine("  ];");
+                sb.AppendLine("}");
+                var confPath = Path.Combine(Plugin.Instance.AppDataDirectory, "nixos-accelerate-hosts.nix");
+                File.WriteAllText(confPath, sb.ToString());
+                Log.Info(nameof(ProxyService), $"NixOS: 已写入平台加速 hosts nix 配置 {confPath}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(ProxyService), ex, nameof(InitializeAccelerateAsync));
+            }
+        }
+#endif
+
         LoadOrSaveLocalAccelerate();
 
         if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Items.Any_Nullable())
@@ -450,6 +491,32 @@ public sealed partial class ProxyService
     }
 
     public static bool IsChangeSupportProxyServicesStatus { get; set; }
+
+#if LINUX
+    /// <summary>
+    /// NixOS：递归输出加速项目的监听域名（ListenDomainNames，即官方写入 /etc/hosts 的域名）
+    /// 与匹配域名（MatchDomainNames，反代匹配用，供参考）。
+    /// </summary>
+    static void DumpNixOSAccelerateItem(System.Text.StringBuilder sb, AccelerateProjectDTO item, int depth)
+    {
+        var indent = new string(' ', depth * 2);
+        sb.AppendLine($"{indent}# [{item.Name}] (proxy:{item.Port})");
+        if (!string.IsNullOrWhiteSpace(item.ListenDomainNames))
+        {
+            foreach (var d in item.ListeningDomainNamesArray)
+                sb.AppendLine($"{indent}\"{d}\"");
+        }
+        if (!string.IsNullOrWhiteSpace(item.MatchDomainNames))
+        {
+            sb.AppendLine($"{indent}# match: {item.MatchDomainNames.Replace(";", " ")}");
+        }
+        if (item.Items != null)
+        {
+            foreach (var sub in item.Items)
+                DumpNixOSAccelerateItem(sb, sub, depth + 1);
+        }
+    }
+#endif
 
     private void LoadOrSaveLocalAccelerate()
     {
