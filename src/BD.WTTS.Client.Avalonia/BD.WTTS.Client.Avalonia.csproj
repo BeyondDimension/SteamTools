@@ -74,6 +74,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Avalonia" />
+		<PackageReference Include="Avalonia.BuildServices" VersionOverride="0.0.29" PrivateAssets="all" />
 		<PackageReference Include="ReactiveUI.Avalonia" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" />
 		<PackageReference Include="Avalonia.Controls.ItemsRepeater" />

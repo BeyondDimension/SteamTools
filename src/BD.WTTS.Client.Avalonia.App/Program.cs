@@ -126,7 +126,7 @@ partial class Program
 
                 builder.With(new FontManagerOptions
                 {
-                    DefaultFamilyName = UI.App.DefaultFontFamilyName,
+                    DefaultFamilyName = OperatingSystem.IsLinux() ? "sans-serif" : UI.App.DefaultFontFamilyName,
                     FontFallbacks = new[]
                     {
                         new FontFallback

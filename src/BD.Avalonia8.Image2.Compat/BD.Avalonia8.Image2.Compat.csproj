@@ -31,6 +31,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Avalonia" />
+		<PackageReference Include="Avalonia.BuildServices" VersionOverride="0.0.29" PrivateAssets="all" />
 		<PackageReference Include="ReactiveUI" />
 		<PackageReference Include="ReactiveUI.Fody" />
 		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" />
