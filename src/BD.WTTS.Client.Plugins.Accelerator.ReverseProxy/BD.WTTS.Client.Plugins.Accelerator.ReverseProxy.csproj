@@ -79,6 +79,9 @@
 		<Compile Include="..\BD.WTTS.Client\Services\Mvvm\LogConsoleService.Logger.cs">
 			<LinkBase>Services\Mvvm</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client\Helpers\BundledCertificateHelper.cs">
+			<LinkBase>Helpers</LinkBase>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>

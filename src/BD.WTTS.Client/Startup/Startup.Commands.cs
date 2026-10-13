@@ -381,6 +381,33 @@ partial class Startup // 自定义控制台命令参数
             return (int)CommandExitCode.HttpStatusBadRequest;
         });
         rootCommand.Subcommands.Add(linux);
+
+        // -clt nixos -gcert [-path <dir>]
+        // NixOS 不可变系统适配：手动生成/导出根证书到指定目录（默认软件执行目录），
+        // 供用户复制到 nixos-config 的 ssl 目录并由 security.pki.certificateFiles 声明式安装。
+        var nixos_gcert = new Option<bool>("-gcert", "生成根证书到指定目录");
+        var nixos_path = new Option<string>("-path", "输出目录（默认：软件执行目录）");
+        var nixos = new Command("nixos", "NixOS 平台操作指令")
+        {
+            nixos_gcert, nixos_path,
+        };
+        nixos.SetAction(parseResult =>
+        {
+            var gcert = parseResult.GetValue(nixos_gcert);
+            var path = parseResult.GetValue(nixos_path);
+            if (!gcert)
+                return (int)CommandExitCode.HttpStatusBadRequest;
+            // 默认输出到软件执行目录（nix 临时安装目录），只读时回退到 AppData
+            var targetDirectory = string.IsNullOrWhiteSpace(path) ? IOPath.BaseDirectory : path;
+            var cerFilePath = LinuxPlatformServiceImpl.GenerateRootCertificateToDirectory(targetDirectory);
+            if (cerFilePath == null)
+                return (int)CommandExitCode.HttpStatusBadRequest;
+            Console.WriteLine($"NixOS: 根证书已生成: {cerFilePath}");
+            Console.WriteLine("请将 SteamTools.Certificate.cer 复制到 nixos-config 仓库的 ssl/ 目录，");
+            Console.WriteLine("并在系统配置中通过 security.pki.certificateFiles 引入。");
+            return (int)CommandExitCode.HttpStatusCodeOk;
+        });
+        rootCommand.Subcommands.Add(nixos);
 #endif
 
         // -clt proxy -on

@@ -5530,6 +5530,15 @@ namespace BD.WTTS.Client.Resources {
                 return ResourceManager.GetString("ProxyMode_ProxyOnly", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   查找类似 DNS 的本地化字符串（NixOS dnsmasq 动态劫持模式）。
+        /// </summary>
+        public static string ProxyMode_DNS {
+            get {
+                return ResourceManager.GetString("ProxyMode_DNS", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   查找类似 系统代理模式 的本地化字符串。

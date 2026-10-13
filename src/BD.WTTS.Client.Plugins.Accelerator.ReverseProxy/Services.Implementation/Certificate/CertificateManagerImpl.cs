@@ -54,13 +54,28 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         try
         {
             ICertificateManager thiz = Interface;
-            if (!File.Exists(thiz.PfxFilePath))
+            // NixOS 适配：证书加载源优先取打包证书源（STEAMTOOLS_BUNDLED_PFX，nix store 最新 PFX）。
+            // store 中 cer/pfx 与系统 security.pki.certificateFiles 为同一构建产物（同源），
+            // 直接加载 store PFX 可保证代理私钥与系统信任严格一致（rebuild 后新 store 路径自动跟随，
+            // 不依赖 AppData 同步时机，也不受残留旧证书影响）。未设置该环境变量时回退原逻辑（AppData）。
+            var bundledPfxFilePath = BundledCertificateHelper.GetBundledPfxFilePath();
+            string pfxFilePath;
+            if (bundledPfxFilePath != null)
+            {
+                pfxFilePath = bundledPfxFilePath;
+            }
+            else
+            {
+                BundledCertificateHelper.TrySyncBundledCertificate(thiz.PfxFilePath);
+                pfxFilePath = thiz.PfxFilePath;
+            }
+            if (!File.Exists(pfxFilePath))
                 return null;
             X509Certificate2 rootCert;
             try
             {
                 RootCertificatePackable = X509CertificatePackable.CreateX509Certificate2(
-                    thiz.PfxFilePath, GetPfxPassword(), X509KeyStorageFlags.Exportable);
+                    pfxFilePath, GetPfxPassword(), X509KeyStorageFlags.Exportable);
                 rootCert = RootCertificatePackable!;
                 rootCert.ThrowIsNull();
             }
@@ -141,13 +156,17 @@ sealed partial class CertificateManagerImpl : ICertificateManager
 
         //var rootCertificateName = CertificateConstants.RootCertificateName;
 
+        // NixOS 适配：生成/续期证书必须写入可写位置（AppData），不能写 nix store（只读）。
+        // 加载源（PfxFilePath）仍优先取打包证书源（store 最新，与系统信任同源）；
+        // 仅当 store 源缺失/过期时兜底生成，此时写入 AppData。
+        var generatedPfxFilePath = CertificateConstants.DefaultPfxFilePath;
         RootCertificate = CertGenerator.GenerateBySelfPfx(
             null,
             validFrom,
             validTo,
-            Interface.PfxFilePath,
+            generatedPfxFilePath,
             GetPfxPassword());
-        RootCertificatePackable = X509CertificatePackable.CreateX509Certificate2(Interface.PfxFilePath, GetPfxPassword(), X509KeyStorageFlags.Exportable);
+        RootCertificatePackable = X509CertificatePackable.CreateX509Certificate2(generatedPfxFilePath, GetPfxPassword(), X509KeyStorageFlags.Exportable);
 
         return RootCertificate != null;
     }

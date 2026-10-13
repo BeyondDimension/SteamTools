@@ -1666,6 +1666,9 @@
     <value>프록시 모드만</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
+  <data name="ProxyMode_DNS" xml:space="preserve">
+    <value>DNS</value>
+  </data>
   <data name="ProxyMode_System" xml:space="preserve">
     <value>시스템 프록시 모드</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>

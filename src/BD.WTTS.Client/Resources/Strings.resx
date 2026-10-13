@@ -1408,6 +1408,9 @@
   <data name="ProxyMode_ProxyOnly" xml:space="preserve">
     <value>仅代理模式</value>
   </data>
+  <data name="ProxyMode_DNS" xml:space="preserve">
+    <value>DNS</value>
+  </data>
   <data name="ProxyMode_System" xml:space="preserve">
     <value>系统代理模式</value>
   </data>
