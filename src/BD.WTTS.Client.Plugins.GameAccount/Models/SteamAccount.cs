@@ -7,6 +7,28 @@ public sealed class SteamAccount : ReactiveObject, IAccount
         Platform = ThirdpartyPlatform.Steam;
         PlatformName = nameof(ThirdpartyPlatform.Steam);
         SteamUser = user;
+        var weakAccount = new WeakReference<SteamAccount>(this);
+        System.ComponentModel.PropertyChangedEventHandler? handler = null;
+        handler = (sender, args) =>
+        {
+            if (!weakAccount.TryGetTarget(out var account))
+            {
+                if (sender is System.ComponentModel.INotifyPropertyChanged source)
+                    source.PropertyChanged -= handler;
+                return;
+            }
+
+            if (args.PropertyName == nameof(SteamUser.AutoLogin))
+            {
+                account.RaisePropertyChanged(nameof(AutoLogin));
+                account.RaisePropertyChanged(nameof(IsRecentLogin));
+            }
+            else if (args.PropertyName == nameof(SteamUser.RememberPassword))
+                account.RaisePropertyChanged(nameof(RememberPassword));
+            else if (args.PropertyName == nameof(SteamUser.MostRecent))
+                account.RaisePropertyChanged(nameof(MostRecent));
+        };
+        user.PropertyChanged += handler;
     }
 
     public SteamUser SteamUser { get; }
@@ -58,6 +80,14 @@ public sealed class SteamAccount : ReactiveObject, IAccount
         get => SteamUser.MostRecent;
         set => SteamUser.MostRecent = value;
     }
+
+    public bool AutoLogin
+    {
+        get => SteamUser.AutoLogin;
+        set => SteamUser.AutoLogin = value;
+    }
+
+    public bool IsRecentLogin => AutoLogin;
 
     public bool WantsOfflineMode
     {

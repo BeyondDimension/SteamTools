@@ -25,7 +25,6 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
                     if (user.AccountName == steamAccount.AccountName)
                     {
                         user.MostRecent = true;
-                        user.RememberPassword = true;
                         user.WantsOfflineMode = steamAccount.WantsOfflineMode;
                         user.SkipOfflineModeWarning = steamAccount.SkipOfflineModeWarning;
 

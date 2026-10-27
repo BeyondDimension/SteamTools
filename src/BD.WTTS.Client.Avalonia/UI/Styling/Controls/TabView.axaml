@@ -1,120 +1,57 @@
 <Styles
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ui="using:FluentAvalonia.UI.Controls"
-    xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
-    x:CompileBindings="True">
-    <Design.PreviewWith>
-        <Border Padding="20">
-            <!--  Add Controls for Previewer Here  -->
-            <ui:FATabView MinHeight="300">
-                <ui:FATabViewItem Header="Hello" IsSelected="True" />
-                <ui:FATabViewItem Header="Hello" />
-                <ui:FATabViewItem Header="Hello" />
-            </ui:FATabView>
-        </Border>
-    </Design.PreviewWith>
-    <Styles.Resources>
-        <ControlTheme x:Key="{x:Type ui:FATabView}" TargetType="ui:FATabView">
-            <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Padding" Value="{DynamicResource TabViewHeaderPadding}" />
-            <Setter Property="KeyboardNavigation.IsTabStop" Value="False" />
-            <Setter Property="Background" Value="{DynamicResource TabViewBackground}" />
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <Grid RowDefinitions="Auto,*">
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:ui="using:FluentAvalonia.UI.Controls"
+	xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+	x:CompileBindings="True">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<!--  Add Controls for Previewer Here  -->
+			<ui:FATabView MinHeight="300">
+				<ui:FATabViewItem Header="Hello" IsSelected="True" />
+				<ui:FATabViewItem Header="Hello" />
+				<ui:FATabViewItem Header="Hello" />
+			</ui:FATabView>
+		</Border>
+	</Design.PreviewWith>
+	<Styles.Resources>
+		<ControlTheme x:Key="TabViewCloseButtonTheme" TargetType="Button">
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
+			<Setter Property="FontSize" Value="{DynamicResource TabViewItemHeaderCloseFontSize}" />
+			<Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+			<Setter Property="Width" Value="{DynamicResource TabViewItemHeaderCloseButtonWidth}" />
+			<Setter Property="Height" Value="{DynamicResource TabViewItemHeaderCloseButtonHeight}" />
+			<Setter Property="Background" Value="{DynamicResource TabViewItemHeaderCloseButtonBackground}" />
+			<Setter Property="Foreground" Value="{DynamicResource TabViewItemHeaderCloseButtonForeground}" />
+			<Setter Property="BorderBrush" Value="{DynamicResource TabViewItemHeaderCloseButtonBorderBrush}" />
+			<Setter Property="BorderThickness" Value="{DynamicResource TabViewItemHeaderCloseButtonBorderThickness}" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<ContentPresenter Name="ContentPresenter"
+					                  Background="{TemplateBinding Background}"
+					                  ContentTemplate="{TemplateBinding ContentTemplate}"
+					                  Content="{TemplateBinding Content}"
+					                  CornerRadius="{TemplateBinding CornerRadius}"
+					                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+					                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+					                  BorderBrush="{TemplateBinding BorderBrush}"
+					                  BorderThickness="{TemplateBinding BorderThickness}"
+					                  AutomationProperties.AccessibilityView="Raw" />
+				</ControlTemplate>
+			</Setter>
 
-                        <Grid Name="TabContainerGrid" Background="{TemplateBinding Background}">
-
-                            <Grid.ColumnDefinitions>
-                                <!--  x:Name="LeftContentColumn  -->
-                                <ColumnDefinition Width="Auto" MinWidth="2" />
-                                <!--  x:Name="TabColumn"  -->
-                                <ColumnDefinition Width="Auto" />
-                                <!--  x:Name="AddButtonColumn"  -->
-                                <ColumnDefinition Width="Auto" />
-                                <!--  x:Name="RightContentColumn"  -->
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
-                            <Border
-                                Name="LeftBottomBorderLine"
-                                Height="1"
-                                VerticalAlignment="Bottom"
-                                BorderBrush="{DynamicResource TabViewBorderBrush}"
-                                BorderThickness="1" />
-
-                            <Border
-                                Name="RightBottomBorderLine"
-                                Grid.Column="2"
-                                Grid.ColumnSpan="2"
-                                Height="1"
-                                VerticalAlignment="Bottom"
-                                BorderBrush="{DynamicResource TabViewBorderBrush}"
-                                BorderThickness="1" />
-
-                            <ContentPresenter
-                                Name="LeftContentPresenter"
-                                Grid.Column="0"
-                                Content="{TemplateBinding TabStripHeader}"
-                                ContentTemplate="{TemplateBinding TabStripHeaderTemplate}" />
-
-                            <uip:FATabViewListView
-                                Name="TabListView"
-                                Grid.Column="1"
-                                Padding="{TemplateBinding Padding}"
-                                CanDragItems="{TemplateBinding CanDragTabs}"
-                                CanReorderItems="{TemplateBinding CanReorderTabs}"
-                                DragDrop.AllowDrop="{TemplateBinding AllowDropTabs}"
-                                ItemTemplate="{TemplateBinding TabItemTemplate}"
-                                ItemsSource="{TemplateBinding TabItems}" />
-
-                            <Border
-                                Grid.Column="2"
-                                Padding="{DynamicResource TabViewItemAddButtonContainerPadding}"
-                                VerticalAlignment="Bottom"
-                                IsVisible="{Binding IsAddTabButtonVisible, RelativeSource={RelativeSource TemplatedParent}}">
-                                <Button
-                                    Name="AddButton"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Command="{TemplateBinding AddTabButtonCommand}"
-                                    CommandParameter="{TemplateBinding AddTabButtonCommandParameter}"
-                                    Content="&#xE710;"
-                                    Theme="{StaticResource TabViewButtonStyle}" />
-                            </Border>
-
-                            <ContentPresenter
-                                Name="RightContentPresenter"
-                                Grid.Column="3"
-                                HorizontalAlignment="Stretch"
-                                Content="{TemplateBinding TabStripFooter}"
-                                ContentTemplate="{TemplateBinding TabStripFooterTemplate}" />
-                        </Grid>
-
-                        <ContentPresenter
-                            Name="TabContentPresenter"
-                            Grid.Row="1"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}" />
-
-                    </Grid>
-                </ControlTemplate>
-            </Setter>
-        </ControlTheme>
-    </Styles.Resources>
-
-    <!--  Add Styles Here  -->
-    <Style Selector="ui|FATabView Button#AddButton">
-        <Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
-    </Style>
-    <Style Selector="ui|FATabView Button#CloseButton">
-        <Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
-    </Style>
-    <Style Selector="ui|FATabView RepeatButton#ScrollDecreaseButton">
-        <Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
-    </Style>
-    <Style Selector="ui|FATabView RepeatButton#ScrollIncreaseButton">
-        <Setter Property="FontFamily" Value="{DynamicResource SymbolThemeFontFamily}" />
-    </Style>
+			<Style Selector="^:pointerover /template/ ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource TabViewItemHeaderCloseButtonBackgroundPointerOver}" />
+				<Setter Property="Foreground" Value="{DynamicResource TabViewItemHeaderCloseButtonForegroundPointerOver}" />
+				<Setter Property="BorderBrush" Value="{DynamicResource TabViewItemHeaderCloseButtonBorderBrushPointerOver}" />
+			</Style>
+			<Style Selector="^:pressed /template/ ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource TabViewItemHeaderCloseButtonBackgroundPressed}" />
+				<Setter Property="Foreground" Value="{DynamicResource TabViewItemHeaderCloseButtonForegroundPressed}" />
+				<Setter Property="BorderBrush" Value="{DynamicResource TabViewItemHeaderCloseButtonBorderBrushPressed}" />
+			</Style>
+		</ControlTheme>
+	</Styles.Resources>
 </Styles>

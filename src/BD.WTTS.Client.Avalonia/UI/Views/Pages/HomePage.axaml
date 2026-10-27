@@ -169,9 +169,8 @@
                     MinHeight="220"
                     Padding="32">
                     <StackPanel Spacing="8" VerticalAlignment="Center">
-                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="WATT TOOLKIT" />
                         <TextBlock Text="欢迎回来" Theme="{StaticResource TitleTextBlockStyle}" />
-                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="精彩内容暂时还没有更新，先从下方的功能开始吧。" TextWrapping="Wrap" />
+                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="加载首页数据失败" TextWrapping="Wrap" />
                     </StackPanel>
                 </Border>
                 <spp:Skeleton

@@ -1580,7 +1580,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserChange_RememberMe" xml:space="preserve">
-    <value>已記住登入狀態</value>
+    <value>已記住密碼</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="UserFastChange" xml:space="preserve">

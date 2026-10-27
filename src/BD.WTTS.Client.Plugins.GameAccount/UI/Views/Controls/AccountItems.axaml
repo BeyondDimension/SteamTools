@@ -219,8 +219,7 @@
                                 Classes="Vertical"
                                 ContextFlyout="{StaticResource SharedMenuFlyout}"
                                 Description="{Binding LastLoginTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
-                                MoreFlyout="{StaticResource SharedMenuFlyout}"
-                                Status="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                MoreFlyout="{StaticResource SharedMenuFlyout}">
                                 <spp:AppItem.Tags>
                                     <WrapPanel>
                                         <TextBlock IsVisible="{Binding Source={x:Static ms:GameAccountSettings.IsShowAccountName}, Path=Value, Mode=OneWay}" Text="{Binding AccountName}" />
@@ -237,14 +236,12 @@
                                     </TextBlock>
                                 </ToolTip.Tip>
                                 <spp:AppItem.Status>
-                                    <Border Classes="Status" IsVisible="{Binding MostRecent}">
-                                        <TextBlock Text="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                                    </Border>
-                                    <!--<Button
-                                        Classes="accent"
-                                        Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).SwapToAccountCommand}"
-                                        CommandParameter="{Binding}"
-                                        Content="一键切换" />-->
+                                    <StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+                                        <Border Background="{DynamicResource AccentFillColorDefaultBrush}" CornerRadius="4" IsVisible="{Binding IsRecentLogin}" Padding="5,3">
+                                            <TextBlock FontSize="11" Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}" Text="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        </Border>
+                                        <ui:FASymbolIcon FontSize="14" Foreground="{DynamicResource SystemFillColorSuccessBrush}" IsVisible="{Binding RememberPassword}" Symbol="Checkmark" ToolTip.Tip="{Binding Path=Res.UserChange_RememberMe, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    </StackPanel>
                                 </spp:AppItem.Status>
                                 <i:Interaction.Behaviors>
                                     <ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="Item">

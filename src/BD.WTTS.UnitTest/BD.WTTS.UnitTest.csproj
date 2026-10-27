@@ -59,6 +59,7 @@
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj" />-->
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameAccount\BD.WTTS.Client.Plugins.GameAccount.csproj" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WINDOWS.props" />
