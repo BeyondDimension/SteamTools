@@ -530,24 +530,11 @@ public sealed partial class GameAcceleratorService
             if (!IsLoadingGames)
             {
                 IsLoadingGames = true;
-                if (GameAcceleratorSettings.MyGames.Any_Nullable())
+                try
                 {
-                    Games.Clear();
-                    var temp = GameAcceleratorSettings.MyGames.Value!.Values.ToArray();
-                    foreach (var item in temp)
-                    {
-                        if (item.PicInfo == null)
-                            item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
-                    }
-                    Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
-                }
-                else
-                {
-                    var games = XunYouSDK.GetHotGames();
-                    if (games != null)
+                    if (GameAcceleratorSettings.MyGames.Any_Nullable())
                     {
                         Games.Clear();
-                        GameAcceleratorSettings.MyGames.AddRange(games.Select(s => new KeyValuePair<int, XunYouGameViewModel>(s.Id, new XunYouGameViewModel(s))));
                         var temp = GameAcceleratorSettings.MyGames.Value!.Values.ToArray();
                         foreach (var item in temp)
                         {
@@ -556,9 +543,31 @@ public sealed partial class GameAcceleratorService
                         }
                         Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
                     }
+                    else
+                    {
+                        var games = XunYouSDK.GetHotGames();
+                        if (games != null)
+                        {
+                            Games.Clear();
+                            GameAcceleratorSettings.MyGames.AddRange(games.Select(s => new KeyValuePair<int, XunYouGameViewModel>(s.Id, new XunYouGameViewModel(s))));
+                            var temp = GameAcceleratorSettings.MyGames.Value!.Values.ToArray();
+                            foreach (var item in temp)
+                            {
+                                if (item.PicInfo == null)
+                                    item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
+                            }
+                            Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
+                        }
+                    }
                 }
-
-                IsLoadingGames = false;
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(GameAcceleratorService), ex, "Could not load accelerator games.");
+                }
+                finally
+                {
+                    IsLoadingGames = false;
+                }
             }
         });
     }

@@ -50,8 +50,9 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
         //};
     }
 
-    readonly TaskCompletionSource<IReverseProxyService> reverseProxyService = new();
-    readonly TaskCompletionSource<ICertificateManager> certificateManager = new();
+    readonly TaskCompletionSource<IReverseProxyService> reverseProxyService = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    readonly TaskCompletionSource<ICertificateManager> certificateManager = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    int proxyInitialized;
     internal Task ServicesReady => Task.WhenAll(reverseProxyService.Task, certificateManager.Task);
     //readonly TaskCompletionSource<IAcceleratorService> acceleratorService = new();
 
@@ -131,13 +132,24 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override async ValueTask OnPeerConnected(bool isReconnected)
     {
-        if (!isReconnected)
+        if (!reverseProxyService.Task.IsCompletedSuccessfully || !certificateManager.Task.IsCompletedSuccessfully)
         {
             var ipc = IPCMainProcessService.Instance;
 
             // 从子进程中获取 IPC 远程服务
-            await GetIpcRemoteServiceAsync(moduleName, ipc, reverseProxyService);
-            await GetIpcRemoteServiceAsync(moduleName, ipc, certificateManager);
+            try
+            {
+                if (!reverseProxyService.Task.IsCompletedSuccessfully)
+                    reverseProxyService.TrySetResult((await ipc.GetServiceAsync<IReverseProxyService>(moduleName)).ThrowIsNull());
+                if (!certificateManager.Task.IsCompletedSuccessfully)
+                    certificateManager.TrySetResult((await ipc.GetServiceAsync<ICertificateManager>(moduleName)).ThrowIsNull());
+            }
+            catch (Exception ex)
+            {
+                // Keep the readiness tasks pending so a later connection can recover.
+                Log.Error(nameof(Plugin), ex, "Accelerator IPC services could not be connected.");
+                return;
+            }
             //await GetIpcRemoteServiceAsync(IPlatformService.IPCRoot.moduleName, ipc, acceleratorService);
 #if DEBUG
             //try
@@ -155,7 +167,8 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
             //if (ResourceService.IsChineseSimplified)
             //{
-            await MainThread2.InvokeOnMainThreadAsync(ProxyService.Current.InitializeAsync);
+            if (Interlocked.CompareExchange(ref proxyInitialized, 1, 0) == 0)
+                await MainThread2.InvokeOnMainThreadAsync(ProxyService.Current.InitializeAsync);
             //}
         }
     }

@@ -27,6 +27,7 @@
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Certificate\CertGenerator.cs">
 			<LinkBase>Services.Implementation\Certificate</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Certificate\CertificateFailureDiagnostics.cs" />
 		<Compile Condition="'$(Configuration)'!='Debug'" Include="..\Utils.cs" />
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Net\DnsDohAnalysisService.cs">
 			<LinkBase>Services.Implementation\Net</LinkBase>
@@ -57,6 +58,7 @@
 		<!--<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj" />-->
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WINDOWS.props" />

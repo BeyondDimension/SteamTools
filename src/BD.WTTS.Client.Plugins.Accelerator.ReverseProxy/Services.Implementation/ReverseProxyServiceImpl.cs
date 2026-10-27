@@ -175,16 +175,24 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
             }
         }
 
-        CheckRootCertificate();
+        var serviceBefore = CertificateFailureDiagnostics.Capture();
+        try
+        {
+            var certificateResult = CheckRootCertificate();
+            if (certificateResult != StartProxyResultCode.Ok)
+                return certificateResult;
+        }
+        catch (Exception ex)
+        {
+            return CertificateManagerImpl.GetCertificateFailureCode(ex, serviceBefore);
+        }
 
         reverseProxySettings.SetValue(this);
 
         return await StartProxyImpl();
     }
 
-    protected virtual void CheckRootCertificate()
-    {
-    }
+    protected virtual StartProxyResultCode CheckRootCertificate() => StartProxyResultCode.Ok;
 
     protected abstract Task<StartProxyResult> StartProxyImpl();
 

@@ -25,13 +25,22 @@ public sealed class HomePageViewModel : TabItemViewModel
     //public ObservableCollection<List<ShopRecommendGoodItem>> Shops { get; set; }
     public ObservableCollection<ShopRecommendGoodItem> Shops { get; set; }
 
+    [Reactive]
+    public bool IsArticlesLoading { get; set; } = true;
+
+    [Reactive]
+    public bool IsShopsLoading { get; set; } = true;
+
+    [Reactive]
+    public bool IsBannersLoading { get; set; } = true;
+
+    bool isLoading;
+
     public ICommand NavgationToMenuPageCommand { get; }
 
     public HomePageViewModel()
     {
-#pragma warning disable CS8625 // 初始化3个null 为解决调试报错中断
-        Articles = new ObservableCollection<ArticleItemDTO>() { null, null, null };
-#pragma warning restore CS8625 // 无法将 null 字面量转换为非 null 的引用类型。
+        Articles = new ObservableCollection<ArticleItemDTO>();
         NavigationBanners = new ObservableCollection<AdvertisementDTO>();
         //Shops = new ObservableCollection<List<ShopRecommendGoodItem>>();
         Shops = new ObservableCollection<ShopRecommendGoodItem>();
@@ -49,21 +58,54 @@ public sealed class HomePageViewModel : TabItemViewModel
 
     public async Task GetServerContent()
     {
+        if (isLoading)
+            return;
+
+        isLoading = true;
+        IsArticlesLoading = IsShopsLoading = IsBannersLoading = true;
+        try
+        {
+            await Task.WhenAll(LoadArticles(), LoadShops(), LoadBanners());
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    async Task LoadArticles()
+    {
         try
         {
             var result = await Instance.Article.Order(null, ArticleOrderBy.DateTime);
             if (result.IsSuccess && result.Content != null)
             {
-                Articles = new ObservableCollection<ArticleItemDTO>(result.Content.DataSource);
+                Articles = new ObservableCollection<ArticleItemDTO>(result.Content.DataSource.Take(3));
             }
+        }
+        catch (Exception ex) { ex.LogAndShowT(); }
+        finally { IsArticlesLoading = false; }
+    }
 
+    async Task LoadShops()
+    {
+        try
+        {
             var result2 = await Instance.Shop.RecommendGoods();
             if (result2.IsSuccess && result2.Content != null)
             {
                 Shops.Clear();
                 Shops.Add(result2.Content);
             }
+        }
+        catch (Exception ex) { ex.LogAndShowT(); }
+        finally { IsShopsLoading = false; }
+    }
 
+    async Task LoadBanners()
+    {
+        try
+        {
             var result3 = await Instance.Advertisement.All(AdvertisementType.DeskTopHomeBanner);
             if (result3.IsSuccess && result3.Content != null)
             {
@@ -71,10 +113,8 @@ public sealed class HomePageViewModel : TabItemViewModel
                 NavigationBanners.Add(result3.Content);
             }
         }
-        catch (Exception ex)
-        {
-            ex.LogAndShowT();
-        }
+        catch (Exception ex) { ex.LogAndShowT(); }
+        finally { IsBannersLoading = false; }
     }
 
     public void NavgationToMenuPage(TabItemViewModel tabItem)

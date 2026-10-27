@@ -119,6 +119,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.Primitives.Models\BD.WTTS.MicroServices.Primitives.Models.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.IPC\BD.WTTS.Client.IPC.csproj" />
+		<ProjectReference Include="..\..\ref\dotnetCampus.Ipc\src\dotnetCampus.Ipc.Analyzers\dotnetCampus.Ipc.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
 	<Import Project="..\OSShuttingDownHelper\OSShuttingDownHelper.projitems" Label="Shared" />

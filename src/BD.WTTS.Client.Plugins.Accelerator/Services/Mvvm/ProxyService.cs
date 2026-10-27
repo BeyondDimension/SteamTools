@@ -105,6 +105,11 @@ public sealed partial class ProxyService
 
     public ReadOnlyObservableCollection<AccelerateProjectGroupDTO> ProxyDomainsList => _ProxyDomainsList;
 
+    [Reactive]
+    public bool IsLoadingAccelerate { get; set; } = true;
+
+    readonly SemaphoreSlim accelerateLoadLock = new(1, 1);
+
     private AccelerateProjectGroupDTO? _SelectGroup;
 
     public AccelerateProjectGroupDTO? SelectGroup
@@ -124,36 +129,30 @@ public sealed partial class ProxyService
         if (!ProxyStarting)
         {
             ProxyStarting = true;
-
-            bool proxyStatusRight;
-            if (startOrStop)
+            try
             {
-                var reuslt = await StartProxyServiceAsync();
-                proxyStatusRight = reuslt.OnStartedShowToastReturnProxyStatus();
+                bool proxyStatusRight;
+                if (startOrStop)
+                {
+                    var result = await StartProxyServiceAsync();
+                    proxyStatusRight = await result.OnStartedShowToastReturnProxyStatus();
+                }
+                else
+                {
+                    var result = await StopProxyServiceAsync();
+                    proxyStatusRight = result.OnStopedShowToastReturnProxyStatus();
+                }
+
+                if (startOrStop != proxyStatusRight)
+                    startOrStop = proxyStatusRight;
+
+                ProxyStatus = startOrStop;
+                IsAnyProxyScripts = ProxyStatus && IsEnableScript;
             }
-            else
+            finally
             {
-                var reuslt = await StopProxyServiceAsync();
-                proxyStatusRight = reuslt.OnStopedShowToastReturnProxyStatus();
+                ProxyStarting = false;
             }
-
-            if (startOrStop != proxyStatusRight)
-            {
-                startOrStop = proxyStatusRight;
-            }
-
-            //UpdateProxyTrayMenuItems();
-            //if (Steamworks.SteamClient.IsValid)
-            //{
-            //    if (startOrStop)
-            //        Steamworks.SteamFriends.SetRichPresence("steam_display", "#Status_Accelerator");
-            //    else
-            //        Steamworks.SteamFriends.ClearRichPresence();
-            //}
-
-            ProxyStarting = false;
-            ProxyStatus = startOrStop;
-            IsAnyProxyScripts = ProxyStatus && IsEnableScript;
         }
     }
 
@@ -423,29 +422,44 @@ public sealed partial class ProxyService
 
     public async Task InitializeAccelerateAsync()
     {
-        ProxyDomains.Clear();
-        // 加载代理服务数据
-        var client = IMicroServiceClient.Instance.Accelerate;
-#if DEBUG
-        var stopwatch = Stopwatch.StartNew();
-#endif
-        var result = await client.All();
-#if DEBUG
-        stopwatch.Stop();
-        Toast.Show(ToastIcon.Info, Strings.Info_LoadingAgentTakesTime____.Format(stopwatch.ElapsedMilliseconds, result.IsSuccess, result.Code, result.Content?.Count));
-#endif
-        if (result.IsSuccess)
+        await accelerateLoadLock.WaitAsync();
+        IsLoadingAccelerate = true;
+        try
         {
-            ProxyDomains.AddOrUpdate(result.Content!);
+            ProxyDomains.Clear();
+            try
+            {
+                // 加载代理服务数据；网络不可用时继续尝试本地缓存。
+                var client = IMicroServiceClient.Instance.Accelerate;
+#if DEBUG
+                var stopwatch = Stopwatch.StartNew();
+#endif
+                var result = await client.All().WaitAsync(TimeSpan.FromSeconds(20));
+#if DEBUG
+                stopwatch.Stop();
+                Toast.Show(ToastIcon.Info, Strings.Info_LoadingAgentTakesTime____.Format(stopwatch.ElapsedMilliseconds, result.IsSuccess, result.Code, result.Content?.Count));
+#endif
+                if (result.IsSuccess && result.Content != null)
+                    ProxyDomains.AddOrUpdate(result.Content);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(ProxyService), ex, "Could not load accelerator projects from the server.");
+            }
+
+            LoadOrSaveLocalAccelerate();
+
+            if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Items.Any_Nullable())
+            {
+                var items = ProxyDomains.Items!.SelectMany(s => s.Items!);
+                var enableItems = ProxySettings.SupportProxyServicesStatus.Value;
+                RestoreAccelerateEnableAllIds(items, enableItems);
+            }
         }
-
-        LoadOrSaveLocalAccelerate();
-
-        if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Items.Any_Nullable())
+        finally
         {
-            var items = ProxyDomains.Items!.SelectMany(s => s.Items!);
-            var enableItems = ProxySettings.SupportProxyServicesStatus.Value;
-            RestoreAccelerateEnableAllIds(items, enableItems);
+            IsLoadingAccelerate = false;
+            accelerateLoadLock.Release();
         }
     }
 

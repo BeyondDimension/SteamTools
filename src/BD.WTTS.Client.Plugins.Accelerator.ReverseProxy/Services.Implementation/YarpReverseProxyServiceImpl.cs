@@ -40,13 +40,15 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 
     public override bool ProxyRunning => app != null;
 
-    protected override void CheckRootCertificate()
+    protected override StartProxyResultCode CheckRootCertificate()
     {
         if (OperatingSystem.IsWindows())
         {
-            ICertificateManager.Constants.CheckRootCertificate(
+            var certificateResult = ICertificateManager.Constants.CheckRootCertificate(
                 platformService,
                 CertificateManager);
+            if (certificateResult != StartProxyResultCode.Ok)
+                return certificateResult;
 
             try
             {
@@ -65,9 +67,12 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                     {
                         try
                         {
-                            ICertificateManager.Constants.CheckRootCertificate(
+                            var result = ICertificateManager.Constants.CheckRootCertificate(
                                 platformService,
                                 CertificateManager);
+
+                            if (result != StartProxyResultCode.Ok)
+                                return;
 
                             await StopProxyAsync();
                             await StartProxyImpl();
@@ -85,6 +90,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                 e.LogAndShowT(TAG, msg: "CheckRootCertificate Error");
             }
         }
+        return StartProxyResultCode.Ok;
     }
 
     private System.Timers.Timer? _certificateTimer;

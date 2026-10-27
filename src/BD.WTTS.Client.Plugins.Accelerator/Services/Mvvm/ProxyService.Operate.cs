@@ -190,13 +190,6 @@ partial class ProxyService
                 {
                     SetProxyIp(IPAddress.Loopback);
                 }
-                var resultSetSystemProxy = await platformService.SetAsSystemProxyAsync(true,
-                    proxyIp_.Value,
-                    proxyPort);
-                if (!resultSetSystemProxy)
-                {
-                    return Strings.CommunityFix_SetAsSystemProxyFail;
-                }
                 break;
 
             case ProxyMode.PAC:
@@ -204,12 +197,6 @@ partial class ProxyService
                     proxyIp_.Value.Equals(IPAddress.Any))
                 {
                     SetProxyIp(IPAddress.Loopback);
-                }
-                var pacUrl = $"http://{proxyIp_.Value}:{proxyPort}/pac";
-                var resultSetSystemPACProxy = await platformService.SetAsSystemPACProxyAsync(true, pacUrl);
-                if (!resultSetSystemPACProxy)
-                {
-                    return Strings.CommunityFix_SetAsSystemPACProxyFail;
                 }
                 break;
 #if WINDOWS && !REMOVE_DNS_INTERCEPT
@@ -244,6 +231,25 @@ partial class ProxyService
         {
             switch (proxyMode)
             {
+                case ProxyMode.System:
+                case ProxyMode.PAC:
+                    try
+                    {
+                        var configured = proxyMode == ProxyMode.System
+                            ? await platformService.SetAsSystemProxyAsync(true, proxyIp_.Value, proxyPort)
+                            : await platformService.SetAsSystemPACProxyAsync(true, $"http://{proxyIp_.Value}:{proxyPort}/pac");
+                        if (!configured)
+                        {
+                            await reverseProxyService.StopProxyAsync();
+                            return proxyMode == ProxyMode.System ? Strings.CommunityFix_SetAsSystemProxyFail : Strings.CommunityFix_SetAsSystemPACProxyFail;
+                        }
+                    }
+                    catch
+                    {
+                        await reverseProxyService.StopProxyAsync();
+                        throw;
+                    }
+                    break;
                 case ProxyMode.Hosts: // 启动加速服务后修改 Hosts 文件
                     if (proxyDomains.Any_Nullable())
                     {
@@ -299,6 +305,8 @@ partial class ProxyService
             }
             else
             {
+                if (CertificateFailurePresenter.IsCertificateFailure(startProxyResult.Code))
+                    return new OperateProxyServiceResult("Certificate operation failed.", CertificateError: startProxyResult.Code);
                 var errorString = startProxyResult.Code switch
                 {
                     StartProxyResultCode.Exception => startProxyResult.Exception?.ToString() ?? nameof(StartProxyResultCode.Exception),
@@ -432,7 +440,7 @@ partial class ProxyService
     /// 操作代理服务返回结果
     /// </summary>
     /// <param name="Error"></param>
-    readonly record struct OperateProxyServiceResult(string? Error, Exception? Exception = null)
+    readonly record struct OperateProxyServiceResult(string? Error, Exception? Exception = null, StartProxyResultCode? CertificateError = null)
     {
         public static implicit operator OperateProxyServiceResult(string error) => new(error);
 
@@ -443,13 +451,18 @@ partial class ProxyService
         /// </summary>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool OnStartedShowToastReturnProxyStatus()
+        public async Task<bool> OnStartedShowToastReturnProxyStatus()
         {
             bool proxyStatus;
             if (string.IsNullOrWhiteSpace(Error))
             {
                 Toast.Show(ToastIcon.Success, Strings.CommunityFix_StartProxySuccess);
                 proxyStatus = true;
+            }
+            else if (CertificateError is { } certificateError)
+            {
+                await CertificateFailurePresenter.ShowAsync(certificateError);
+                proxyStatus = false;
             }
             else if (Exception != null)
             {

@@ -132,6 +132,7 @@
             <Grid Margin="0,-10,0,0" RowDefinitions="Auto,*">
                 <spp:CarouselBanner
                     HorizontalContentAlignment="Stretch"
+                    IsVisible="{Binding !!NavigationBanners.Count}"
                     ItemsSource="{Binding NavigationBanners}"
                     MinHeight="350"
                     VerticalContentAlignment="Stretch">
@@ -161,6 +162,24 @@
                         </DataTemplate>
                     </spp:CarouselBanner.ItemTemplate>
                 </spp:CarouselBanner>
+                <Border
+                    Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                    CornerRadius="12"
+                    IsVisible="{Binding !NavigationBanners.Count}"
+                    MinHeight="220"
+                    Padding="32">
+                    <StackPanel Spacing="8" VerticalAlignment="Center">
+                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="WATT TOOLKIT" />
+                        <TextBlock Text="欢迎回来" Theme="{StaticResource TitleTextBlockStyle}" />
+                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="精彩内容暂时还没有更新，先从下方的功能开始吧。" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+                <spp:Skeleton
+                    CornerRadius="12"
+                    Height="350"
+                    IsActive="True"
+                    IsLoading="True"
+                    IsVisible="{Binding IsBannersLoading}" />
             </Grid>
 
             <!--<Viewbox Stretch="UniformToFill">
@@ -189,8 +208,12 @@
                         VerticalAlignment="Center" />
                 </DockPanel>
 
-                <Grid ColumnDefinitions="*,10,*,10,*" Margin="0,0,0,20">
-                    <Grid.Styles>
+                <Grid Margin="0,0,0,20">
+                    <ItemsControl IsVisible="{Binding !IsArticlesLoading}" ItemsSource="{Binding Articles}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate><UniformGrid Columns="3" /></ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.Styles>
                         <Style Selector="spp|AppItem" x:DataType="spp:ArticleItemDTO">
                             <Setter Property="Cursor" Value="Hand" />
                             <Setter Property="Title" Value="{Binding Title}" />
@@ -222,16 +245,38 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </Grid.Styles>
-                    <spp:AppItem Classes="Vertical Scale" DataContext="{Binding Articles[0]}" />
-                    <spp:AppItem
-                        Classes="Vertical Scale"
-                        DataContext="{Binding Articles[1]}"
-                        Grid.Column="2" />
-                    <spp:AppItem
-                        Classes="Vertical Scale"
-                        DataContext="{Binding Articles[2]}"
-                        Grid.Column="4" />
+                    </ItemsControl.Styles>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="spp:ArticleItemDTO">
+                            <spp:AppItem Classes="Vertical Scale" Margin="0,0,10,0" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Border IsHitTestVisible="False" IsVisible="{Binding !IsArticlesLoading}">
+                        <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8" IsVisible="{Binding !Articles.Count}" Padding="24">
+                            <StackPanel Spacing="6">
+                                <TextBlock FontWeight="SemiBold" Text="暂无最新消息" />
+                                <!-- <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="有新消息时显示在这里。" TextWrapping="Wrap" /> -->
+                            </StackPanel>
+                        </Border>
+                    </Border>
+                    <UniformGrid Columns="3" IsVisible="{Binding IsArticlesLoading}">
+                        <StackPanel Margin="0,0,10,0" Spacing="10">
+                            <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" />
+                            <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" />
+                            <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,45,0" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,10,0" Spacing="10">
+                            <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" />
+                            <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" />
+                            <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,45,0" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,10,0" Spacing="10">
+                            <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" />
+                            <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" />
+                            <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,45,0" />
+                        </StackPanel>
+                    </UniformGrid>
                 </Grid>
 
                 <!--<spp:CarouselItems ItemsPerPage="3" ItemsSource="{Binding Articles}">
@@ -278,7 +323,10 @@
                         VerticalAlignment="Center" />
                 </DockPanel>
 
+                <Grid>
+                <Border IsVisible="{Binding !IsShopsLoading}">
                 <spp:CarouselItems
+                    IsVisible="{Binding !!Shops.Count}"
                     ItemsPerPage="4"
                     ItemsSource="{Binding Shops}"
                     MinHeight="250">
@@ -342,6 +390,38 @@
                         </DataTemplate>
                     </spp:CarouselItems.ItemTemplate>
                 </spp:CarouselItems>
+                </Border>
+                <Border IsHitTestVisible="False" IsVisible="{Binding !IsShopsLoading}">
+                    <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8" IsVisible="{Binding !Shops.Count}" Padding="24">
+                        <StackPanel Spacing="6">
+                            <TextBlock FontWeight="SemiBold" Text="暂无精选商品" />
+                            <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="新的推荐会在这里与您见面。" TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+                </Border>
+                <UniformGrid Columns="4" IsVisible="{Binding IsShopsLoading}">
+                    <StackPanel Margin="0,0,10,0" Spacing="10">
+                        <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" />
+                        <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" />
+                        <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,10,0" Spacing="10">
+                        <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" />
+                        <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" />
+                        <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,10,0" Spacing="10">
+                        <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" />
+                        <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" />
+                        <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,10,0" Spacing="10">
+                        <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" />
+                        <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" />
+                        <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" />
+                    </StackPanel>
+                </UniformGrid>
+                </Grid>
 
                 <!--<spp:CarouselBanner
                     MinHeight="250"

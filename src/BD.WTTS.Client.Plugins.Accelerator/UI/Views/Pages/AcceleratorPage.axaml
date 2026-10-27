@@ -361,7 +361,7 @@
                     </ia:DataTriggerBehavior>
                 </i:Interaction.Behaviors>-->
 
-                <spp:ContentLoader IsLoading="{Binding Source={x:Static s:ProxyService.Current}, Path=!!!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="{Binding Path=Res.CommunityFix_ItemsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                <spp:ContentLoader IsLoading="{Binding Source={x:Static s:ProxyService.Current}, Path=IsLoadingAccelerate, Mode=OneWay}" IsShowNoResultText="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyDomainsList.Count, Mode=OneWay}" NoResultMessage="{Binding Path=Res.CommunityFix_ItemsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Grid ColumnDefinitions="*,Auto">
                         <ItemsControl ItemsSource="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyDomainsList, Mode=OneWay}">
                             <ItemsControl.ItemsPanel>

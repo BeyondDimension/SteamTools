@@ -36,11 +36,15 @@ sealed class LazyCertificateManager : ICertificateManager
         impl().TrustRootCertificate();
     }
 
+    public StartProxyResultCode TrustRootCertificateWithResult() => impl().TrustRootCertificateWithResult();
+
     public bool SetupRootCertificate()
     {
         var r = impl().SetupRootCertificate();
         return r;
     }
+
+    public StartProxyResultCode SetupRootCertificateWithResult() => impl().SetupRootCertificateWithResult();
 
     public bool DeleteRootCertificate()
     {

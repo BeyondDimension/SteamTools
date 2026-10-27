@@ -66,30 +66,43 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
     {
         var procPath = Environment.ProcessPath;
         ArgumentNullException.ThrowIfNullOrWhiteSpace(procPath);
-        procPath = Path.GetFullPath(procPath);
-
         var fn = proc.TryGetMainModule()?.FileName;
-        var fnPath = fn == null ? null : Path.GetFullPath(fn);
+        if (fn == null)
+            return false;
 
-        if (procPath == fnPath)
-        {
-            return true;
-        }
-
-        var accProPath = Path.GetFullPath(Path.Combine(procPath, "..", "modules", "Accelerator",
-#if WINDOWS
-            "Steam++.Accelerator.exe"
-#else
-            "Steam++.Accelerator"
+        string? debugAcceleratorPath = null;
+#if DEBUG
+        // Debug builds load the accelerator from the project output rather than modules/.
+        var mainName = OperatingSystem.IsWindows() ? "Steam++.exe" : "Steam++";
+        var mainPath = string.Equals(Path.GetFileName(procPath), mainName, StringComparison.OrdinalIgnoreCase) ? procPath : fn;
+        var directory = Directory.GetParent(Path.GetFullPath(mainPath));
+        while (directory != null && !File.Exists(Path.Combine(directory.FullName, "WattToolkit.slnx")))
+            directory = directory.Parent;
+        if (directory != null)
+            debugAcceleratorPath = Path.Combine(directory.FullName, "src", "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "bin", "Debug", $"net{Environment.Version.Major}.{Environment.Version.Minor}", OperatingSystem.IsWindows() ? "Steam++.Accelerator.exe" : "Steam++.Accelerator");
 #endif
+        return IsAllowedPeerPath(procPath, fn, debugAcceleratorPath);
+    }
 
-            ));
-        if (procPath == accProPath)
-        {
+    static bool IsAllowedPeerPath(string localPath, string peerPath, string? debugAcceleratorPath)
+    {
+        localPath = Path.GetFullPath(localPath);
+        peerPath = Path.GetFullPath(peerPath);
+        var comparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        if (string.Equals(localPath, peerPath, comparison))
             return true;
-        }
 
-        return false;
+        var mainName = OperatingSystem.IsWindows() ? "Steam++.exe" : "Steam++";
+        var acceleratorName = OperatingSystem.IsWindows() ? "Steam++.Accelerator.exe" : "Steam++.Accelerator";
+        var mainPath = string.Equals(Path.GetFileName(localPath), mainName, comparison) ? localPath : peerPath;
+        var acceleratorPath = mainPath == localPath ? peerPath : localPath;
+        if (!string.Equals(Path.GetFileName(mainPath), mainName, comparison) ||
+            !string.Equals(Path.GetFileName(acceleratorPath), acceleratorName, comparison))
+            return false;
+
+        var packagedPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(mainPath)!, "modules", "Accelerator", acceleratorName));
+        return string.Equals(acceleratorPath, packagedPath, comparison) ||
+            (debugAcceleratorPath != null && string.Equals(acceleratorPath, Path.GetFullPath(debugAcceleratorPath), comparison));
     }
 
     internal static bool CheckBePid(int pid)

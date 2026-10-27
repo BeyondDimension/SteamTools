@@ -124,24 +124,42 @@ public sealed partial class AcceleratorPageViewModel
 
 #endif
 
-    public void TrustCer_OnClick()
+    public async void TrustCer_OnClick()
     {
-        certificateManager.TrustRootCertificate();
+        try
+        {
+            var result = certificateManager.TrustRootCertificateWithResult();
+            if (result != StartProxyResultCode.Ok)
+                await CertificateFailurePresenter.ShowAsync(result);
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT();
+        }
     }
 
-    public void SetupCertificate_OnClick()
+    public async void SetupCertificate_OnClick()
     {
 #if LINUX
         if (!EnvironmentCheck()) return;
 #endif
-        var r = certificateManager.SetupRootCertificate();
-        if (r)
+        StartProxyResultCode result;
+        try
+        {
+            result = certificateManager.SetupRootCertificateWithResult();
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT();
+            return;
+        }
+        if (result == StartProxyResultCode.Ok)
         {
             Toast.Show(ToastIcon.Success, Strings.CommunityFix_SetupCertificate_Success);
         }
         else
         {
-            Toast.Show(ToastIcon.Error, Strings.CommunityFix_SetupCertificate_Fail);
+            await CertificateFailurePresenter.ShowAsync(result);
         }
     }
 
