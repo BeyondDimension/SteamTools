@@ -119,7 +119,12 @@ partial class Program
                                         .UseX11()
 #endif
                                         .UseSkia()
+                                        .UseHarfBuzz()
+#if DEBUG
+                                        .LogToTextWriter(Console.Error)
+#else
                                         .LogToTrace()
+#endif
                                         .UseReactiveUI(_ =>
                                         {
                                         });

@@ -48,6 +48,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
 
         if (Startup.Instance.TryGetPlugins(out var plugins))
         {
+            PluginCount = plugins.Count;
             var tabs = plugins.Select(static x =>
                  {
                      try

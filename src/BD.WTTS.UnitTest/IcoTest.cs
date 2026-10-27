@@ -31,7 +31,7 @@ public sealed class IcoTest
             using var logo512Bitmap = SKBitmap.Decode(logo512Path);
 
             logoBitmaps = new[] { logo512Bitmap }.Concat(new[] { 256, 128, 96, 64, 48, 32, 24, 16 }
-                .Select(x => logo512Bitmap.Resize(new SKSizeI { Height = x, Width = x }, SKFilterQuality.High)))
+                .Select(x => logo512Bitmap.Resize(new SKSizeI { Height = x, Width = x }, SKSamplingOptions.Default)))
                 .ToArray(); // 根据 512 大小生成所有挡位的位图数组
 
             var savePath = Path.Combine(assemblyDir, "EncodeTest.ico");
@@ -79,7 +79,7 @@ public sealed class IcoTest
             var maxSize = allSize.Max();
             using var fBitmap = ResizeImage(imgBitmap, gameBitmap, maxSize);
             bitmaps = new[] { fBitmap }.Concat(allSize.Where(x => x != maxSize)
-                .Select(x => fBitmap.Resize(new SKSizeI { Height = x, Width = x }, SKFilterQuality.High)))
+                .Select(x => fBitmap.Resize(new SKSizeI { Height = x, Width = x }, SKSamplingOptions.Default)))
                 .ToArray();
 
             var savePath = Path.Combine(saveDirPath, $"{img.Name}.ico");
@@ -106,7 +106,7 @@ public sealed class IcoTest
         int watermarkTop = size - icoHeight;
 
         SKBitmap scaledImage = new(size, size);
-        image.ScalePixels(scaledImage, SKFilterQuality.High);
+        image.ScalePixels(scaledImage, SKSamplingOptions.Default);
 
         using SKCanvas canvas = new(scaledImage);
         canvas.DrawBitmap(icoIcon, new SKRect(watermarkLeft, watermarkTop, watermarkLeft + icoWidth, watermarkTop + icoHeight));

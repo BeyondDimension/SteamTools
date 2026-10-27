@@ -14,86 +14,86 @@
     x:DataType="spp:ProxySettingsWindowViewModel"
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
-        <ui:SettingsExpander Header="{Binding Path=Res.CommunityFix_ProxySettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsExpanded="True">
-            <ui:SettingsExpander.Footer>
+        <ui:FASettingsExpander Header="{Binding Path=Res.CommunityFix_ProxySettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsExpanded="True">
+            <ui:FASettingsExpander.Footer>
                 <Button Command="{Binding ResetSettings}" Content="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            </ui:SettingsExpander.Footer>
-            <ui:SettingsExpanderItem>
+            </ui:FASettingsExpander.Footer>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.Settings_Proxy_SystemProxyIp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"
                         ItemsSource="{Binding SystemProxyIps}"
                         Text="{Binding Source={x:Static ms:ProxySettings.SystemProxyIp}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
 
-            <ui:SettingsExpanderItem>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"
                         IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}"
                         ItemsSource="{Binding ProxyDNSs}"
                         Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
 
-            <ui:SettingsExpanderItem Description="{Binding Path=Res.Settings_Proxy_SystemProxyPortId_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <ui:FASettingsExpanderItem Description="{Binding Path=Res.Settings_Proxy_SystemProxyPortId_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                 <TextBlock Text="{Binding Path=Res.Settings_Proxy_SystemProxyPortId, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <NumericUpDown
                         MaxWidth="200"
                         FormatString="0"
                         Maximum="65535"
                         Value="{Binding Source={x:Static ms:ProxySettings.SystemProxyPortId}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
 
             <!--<DockPanel>
                 <TextBlock Text="IPV6支持：" />
                 <TextBlock Text="IPV6地址" ></TextBlock>
                 <Button Content="{Binding Path=Res.Refresh,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"></Button>
               </DockPanel>-->
-            <ui:SettingsExpanderItem>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.CommunityFix_AutoRunProxy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.ProgramStartupRunProxy}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
 
-            <ui:SettingsExpanderItem>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.CommunityFix_EnableHttpProxyToHttps, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableHttpProxyToHttps}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
 
-            <ui:SettingsExpanderItem>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
 
-            <ui:SettingsExpanderItem>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <ui:FAComboBox
                         IsEditable="True"
                         IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}"
                         ItemsSource="{Binding DohAddress}"
                         PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres2}, Mode=OneWay}"
                         Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres2}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
 
-            <ui:SettingsExpanderItem>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="启动加速时检查 DNS 可用性" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.ProxyBeforeDNSCheck}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
             <!--<DockPanel>
                 <Label Content="自定义根证书密码"></Label>
                 <TextBox></TextBox>
@@ -104,26 +104,26 @@
                 <Button Content="选择证书"/>
               </DockPanel>-->
 
-            <ui:SettingsExpanderItem Description="*该选项勾选后会导致程序的加速失效，请确认是配合二级代理实现仅需要脚本功能后再启用">
+            <ui:FASettingsExpanderItem Description="*该选项勾选后会导致程序的加速失效，请确认是配合二级代理实现仅需要脚本功能后再启用">
                 <TextBlock Text="{Binding Path=Res.CommunityFix_ProxyOnlyOnScript, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.OnlyEnableProxyScript}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
-        </ui:SettingsExpander>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
+        </ui:FASettingsExpander>
 
 
-        <ui:SettingsExpander
+        <ui:FASettingsExpander
             Description="*请在有正确二级代理的情况下才考虑启用该选项，否则会导致程序的加速失效，改动后需重启加速才能生效"
             Header="{Binding Path=Res.Settings_Proxy_TwoLevelAgent, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
             IsExpanded="True">
-            <ui:SettingsExpander.Footer>
+            <ui:FASettingsExpander.Footer>
                 <ToggleSwitch IsChecked="{Binding Source={x:Static ms:ProxySettings.TwoLevelAgentEnable}, Path=Value, Mode=TwoWay}" />
-            </ui:SettingsExpander.Footer>
+            </ui:FASettingsExpander.Footer>
 
-            <ui:SettingsExpanderItem>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.Settings_Proxy_ProxyType, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <ui:FAComboBox MinWidth="200" SelectedItem="{Binding Source={x:Static ms:ProxySettings.TwoLevelAgentProxyType}, Path=Value, Mode=TwoWay}">
                         <ui:FAComboBox.Items>
                             <spp:ExternalProxyType>Http</spp:ExternalProxyType>
@@ -131,45 +131,45 @@
                             <spp:ExternalProxyType>Socks5</spp:ExternalProxyType>
                         </ui:FAComboBox.Items>
                     </ui:FAComboBox>
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
 
-            <ui:SettingsExpanderItem>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.Settings_Proxy_IPAddress, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <TextBox MinWidth="200" Text="{Binding Source={x:Static ms:ProxySettings.TwoLevelAgentIp}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
 
-            <ui:SettingsExpanderItem>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.Settings_Proxy_Port, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <NumericUpDown
                         MinWidth="200"
                         FormatString="0"
                         Maximum="65535"
                         Minimum="80"
                         Value="{Binding Source={x:Static ms:ProxySettings.TwoLevelAgentPortId}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
 
-            <ui:SettingsExpanderItem>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.Settings_Proxy_UserName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <TextBox MinWidth="200" Text="{Binding Source={x:Static ms:ProxySettings.TwoLevelAgentUserName}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
 
-            <ui:SettingsExpanderItem>
+            <ui:FASettingsExpanderItem>
                 <TextBlock Text="{Binding Path=Res.Settings_Proxy_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:SettingsExpanderItem.Footer>
+                <ui:FASettingsExpanderItem.Footer>
                     <TextBox
                         MinWidth="200"
                         Classes="revealPasswordButton"
                         PasswordChar="{StaticResource PasswordChar}"
                         Text="{Binding Source={x:Static ms:ProxySettings.TwoLevelAgentPassword}, Path=Value, Mode=TwoWay}" />
-                </ui:SettingsExpanderItem.Footer>
-            </ui:SettingsExpanderItem>
-        </ui:SettingsExpander>
+                </ui:FASettingsExpanderItem.Footer>
+            </ui:FASettingsExpanderItem>
+        </ui:FASettingsExpander>
     </StackPanel>
 </UserControl>

@@ -184,7 +184,7 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         catch (NullReferenceException)
         {
             // 在插件中调用 TaskDialog.ShowAsync(bool showHosted = false) 会抛出此异常
-            // 在 FluentAvalonia.UI.Controls.TaskDialog.<ShowAsync>d__6.MoveNext()
+            // 在 FluentAvalonia.UI.Controls.FATaskDialog.<ShowAsync>d__6.MoveNext()
             // 在 AvaloniaWindowManagerImpl.<>c__DisplayClass8_0`1.<<ShowTaskDialogAsync>b__1>d.MoveNext()
 
             // Visual visual = XamlRoot ?? (base.VisualRoot as Visual);

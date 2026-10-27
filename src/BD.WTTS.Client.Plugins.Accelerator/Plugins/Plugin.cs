@@ -52,6 +52,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     readonly TaskCompletionSource<IReverseProxyService> reverseProxyService = new();
     readonly TaskCompletionSource<ICertificateManager> certificateManager = new();
+    internal Task ServicesReady => Task.WhenAll(reverseProxyService.Task, certificateManager.Task);
     //readonly TaskCompletionSource<IAcceleratorService> acceleratorService = new();
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)

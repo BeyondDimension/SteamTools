@@ -1,0 +1,45 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.WindowCaptionButtons"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    WindowDecorationProperties.ElementRole="User">
+    <UserControl.Resources>
+        <ControlTheme x:Key="CaptionButton" TargetType="Button">
+            <Setter Property="Width" Value="36" />
+            <Setter Property="Height" Value="36" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                        <ui:FAFontIcon FontSize="14" Glyph="{TemplateBinding Content}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="Background" Value="{DynamicResource SubtleFillColorTertiaryBrush}" />
+            </Style>
+            <Style Selector="^.Close:pointerover">
+                <Setter Property="Background" Value="#e81123" />
+                <Setter Property="Foreground" Value="White" />
+            </Style>
+            <Style Selector="^:disabled">
+                <Setter Property="Opacity" Value="0.4" />
+            </Style>
+        </ControlTheme>
+    </UserControl.Resources>
+    <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+        <Button Name="MinimizeButton" Content="&#xE921;" Theme="{StaticResource CaptionButton}"
+                ToolTip.Tip="{Binding Res.Minimize, Source={x:Static s:ResourceService.Current}}" />
+        <Button Name="MaximizeButton" Content="&#xE922;" Theme="{StaticResource CaptionButton}"
+                ToolTip.Tip="{Binding Res.Maximize, Source={x:Static s:ResourceService.Current}}" />
+        <Button Name="CloseButton" Classes="Close" Content="&#xE711;" Theme="{StaticResource CaptionButton}"
+                ToolTip.Tip="{Binding Res.Close, Source={x:Static s:ResourceService.Current}}" />
+    </StackPanel>
+</UserControl>

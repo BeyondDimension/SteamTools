@@ -107,7 +107,7 @@
                         MaxLength="{x:Static com:PhoneNumberHelper.ChineseMainlandPhoneNumberLength}"
                         Text="{Binding PhoneNumber}"
                         TextAlignment="Left"
-                        Watermark="{Binding Path=Res.User_Phone, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        PlaceholderText="{Binding Path=Res.User_Phone, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <Border HorizontalAlignment="Left" Cursor="Hand">
                         <DropDownButton
                             Margin="0"
@@ -139,7 +139,7 @@
                         VerticalContentAlignment="Center"
                         MaxLength="{x:Static columns:MaxLengths.SMS_CAPTCHA}"
                         Text="{Binding SmsCode}"
-                        Watermark="{Binding Path=Res.User_SMSCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        PlaceholderText="{Binding Path=Res.User_SMSCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                     <Border
                         HorizontalAlignment="Right"
                         VerticalAlignment="Stretch"

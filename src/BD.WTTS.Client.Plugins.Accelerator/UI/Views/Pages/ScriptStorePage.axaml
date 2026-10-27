@@ -61,12 +61,12 @@
                                 </spp:AppItem.Status>
                                 <spp:AppItem.MoreFlyout>
                                     <ui:FAMenuFlyout>
-                                        <ui:MenuFlyoutItem
+                                        <ui:FAMenuFlyoutItem
                                             Command="{Binding $parent[UserControl].((spp:ScriptStorePageViewModel)DataContext).DownloadScriptItemCommand}"
                                             CommandParameter="{Binding}"
                                             IsVisible="{Binding IsUpdate}"
                                             Text="更新" />
-                                        <ui:MenuFlyoutItem
+                                        <ui:FAMenuFlyoutItem
                                             Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                                             CommandParameter="{Binding SourceLink}"
                                             Text="{Binding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />

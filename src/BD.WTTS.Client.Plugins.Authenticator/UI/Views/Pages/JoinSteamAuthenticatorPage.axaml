@@ -44,17 +44,17 @@
 						<TextBox
 								MaxWidth="280"
 								Text="{Binding UserNameText}"
-								Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								PlaceholderText="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 						<TextBox
 								Name="PasswordText"
 								MaxWidth="280"
 								Classes="revealPasswordButton"
 								PasswordChar="{StaticResource PasswordChar}"
 								Text="{Binding PasswordText}"
-								Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								PlaceholderText="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 						<TextBox
 							IsVisible="{Binding RequireVerifyCode}"
-							Watermark="{Binding Path=Res.EmailCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+							PlaceholderText="{Binding Path=Res.EmailCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
 							Text="{Binding VerifyCodeText}" />
 						<Button
 								MinWidth="280"
@@ -98,7 +98,7 @@
 									Text="{Binding Path=Res.LocalAuth_JoinSteamAuthenticator_SteamAppAuthenticatorCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 							<TextBox
 									MaxWidth="300"
-									Watermark="{Binding Path=Res.LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+									PlaceholderText="{Binding Path=Res.LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
 									Text="{Binding Code}" />
 						</DockPanel>
 

@@ -45,14 +45,13 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
         this.GetObservable(DataContextProperty).Subscribe(OnDataContextChanged);
         this.GetObservable(ViewModelProperty).Subscribe(OnViewModelChanged);
 
-        //ExtendClientAreaToDecorationsHint = true;
-        //ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
+#if WINDOWS
+        WindowDecorations = WindowDecorations.BorderOnly;
+#endif
         this.TryFindResource("TitleBarHeight", App.Instance.RequestedThemeVariant, out object? titleBarHeight);
         TitleBar.Height = (double?)titleBarHeight ?? 60;
         TitleBar.ExtendsContentIntoTitleBar = true;
-        TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
 
-        //SystemDecorations = SystemDecorations.BorderOnly;
         Background = null;
         TransparencyBackgroundFallback = OperatingSystem2.IsMacOS() ? Brushes.Black : Brushes.Transparent;
         TransparencyLevelHint = new WindowTransparencyLevel[] { UISettings.WindowBackgroundMaterial.Value.ToWindowTransparencyLevel() };
@@ -132,7 +131,6 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
                 if (CanResize && !_isInitialize && !IsVisible)
                 {
                     WindowStartupLocation = WindowStartupLocation.Manual;
-                    var scalingOffset = 31 - ((screen.Scaling - 1) / 0.5); // appwindow偏移量
 
                     if (SizePosition.Width > 0 &&
                         primaryScreenBounds.Width >= SizePosition.Width)
@@ -140,13 +138,11 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
 
                     if (SizePosition.Height > 0 &&
                         primaryScreenBounds.Height >= SizePosition.Height)
-                        Height = SizePosition.Height - scalingOffset;
+                        Height = SizePosition.Height;
 
                     if (SizePosition.X > 0 && SizePosition.Y > 0)
                     {
-                        var offsetY = (int)Math.Round(scalingOffset * screen.Scaling);
-                        //var offsetY = scalingOffset;
-                        var leftTopPoint = new PixelPoint(SizePosition.X, SizePosition.Y + offsetY);
+                        var leftTopPoint = new PixelPoint(SizePosition.X, SizePosition.Y);
                         var rightBottomPoint = new PixelPoint(SizePosition.X + (int)Width, SizePosition.Y + (int)Height);
                         if (primaryScreenBounds.Contains(leftTopPoint) &&
                            primaryScreenBounds.Contains(rightBottomPoint))

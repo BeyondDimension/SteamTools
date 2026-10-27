@@ -36,7 +36,7 @@
                             Width="22"
                             Height="22"
                             VerticalAlignment="Center">
-                            <ui:SymbolIcon Symbol="Refresh" />
+                            <ui:FASymbolIcon Symbol="Refresh" />
                         </Viewbox>
                     </Button>
                     <Button
@@ -51,7 +51,7 @@
                             Width="22"
                             Height="22"
                             VerticalAlignment="Center">
-                            <ui:SymbolIcon Symbol="Redo" />
+                            <ui:FASymbolIcon Symbol="Redo" />
                         </Viewbox>
                     </Button>
                     <Button
@@ -66,7 +66,7 @@
                             Width="22"
                             Height="22"
                             VerticalAlignment="Center">
-                            <ui:SymbolIcon Symbol="SaveFilled" />
+                            <ui:FASymbolIcon Symbol="SaveFilled" />
                         </Viewbox>
                     </Button>
                 </StackPanel>

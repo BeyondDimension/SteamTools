@@ -34,21 +34,21 @@
                             Tags="{Binding TimeusedTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}">
                             <spp:AppItem.MoreFlyout>
                                 <ui:FAMenuFlyout>
-                                    <!--<ui:MenuFlyoutItem
+                                    <!--<ui:FAMenuFlyoutItem
                                             Command="{Binding $parent[UserControl].((spp:SteamFamilyShareManagePageViewModel)DataContext).SetFirstButton_Click}"
                                             CommandParameter="{Binding}"
                                             Text="置顶" />
-                                        <ui:MenuFlyoutItem
+                                        <ui:FAMenuFlyoutItem
                                             Command="{Binding $parent[UserControl].((spp:SteamFamilyShareManagePageViewModel)DataContext).UpButton_Click}"
                                             CommandParameter="{Binding}"
                                             Text="上移" />
-                                        <ui:MenuFlyoutItem
+                                        <ui:FAMenuFlyoutItem
                                             Command="{Binding $parent[UserControl].((spp:SteamFamilyShareManagePageViewModel)DataContext).DownButton_Click}"
                                             CommandParameter="{Binding}"
                                             Text="下移" />-->
-                                    <ui:MenuFlyoutItem IsEnabled="False" Text="拖拽可排序" />
-                                    <ui:MenuFlyoutSeparator />
-                                    <ui:MenuFlyoutItem
+                                    <ui:FAMenuFlyoutItem IsEnabled="False" Text="拖拽可排序" />
+                                    <ui:FAMenuFlyoutSeparator />
+                                    <ui:FAMenuFlyoutItem
                                         Command="{Binding $parent[UserControl].((spp:SteamFamilyShareManagePageViewModel)DataContext).RemoveButton_Click}"
                                         CommandParameter="{Binding}"
                                         Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />

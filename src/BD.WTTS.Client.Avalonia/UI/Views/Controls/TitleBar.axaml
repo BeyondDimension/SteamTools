@@ -10,6 +10,7 @@
     d:DesignHeight="{StaticResource TitleBarHeight}"
     d:DesignWidth="1080"
     Background="Transparent"
+    WindowDecorationProperties.ElementRole="TitleBar"
     mc:Ignorable="d">
     <Grid
         Height="{StaticResource TitleBarHeight}"
@@ -53,14 +54,14 @@
                 Name="SearchBox"
                 MaxWidth="500"
                 VerticalAlignment="Center"
-                wnd:AppWindow.AllowInteractionInTitleBar="True"
+                WindowDecorationProperties.ElementRole="User"
                 Classes="Search"
                 Text="{ReflectionBinding SearchText,
                                          RelativeSource={RelativeSource FindAncestor,
                                                                         AncestorType=UserControl}}" />
         </Border>
 
-        <DockPanel Grid.Column="3" IsVisible="{ReflectionBinding ActionContent, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
+        <DockPanel Grid.Column="3" WindowDecorationProperties.ElementRole="User" IsVisible="{ReflectionBinding ActionContent, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
             <ContentControl Content="{ReflectionBinding ActionContent, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" DockPanel.Dock="Left" />
 
             <Separator

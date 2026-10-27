@@ -35,7 +35,7 @@
                                                     Mode=OneWay,
                                                     Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20">
-                        <ui:SymbolIcon Symbol="Copy" />
+                        <ui:FASymbolIcon Symbol="Copy" />
                     </Viewbox>
                 </Button>-->
                 <Button
@@ -44,7 +44,7 @@
                     Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{Binding Path=Res.Auth_EditName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="16">
-                        <ui:SymbolIcon Symbol="Edit" />
+                        <ui:FASymbolIcon Symbol="Edit" />
                     </Viewbox>
                 </Button>
                 <Button
@@ -54,7 +54,7 @@
                     Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{Binding Path=Res.LocalAuth_AuthTrade, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="16">
-                        <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9D5;" />
+                        <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9D5;" />
                     </Viewbox>
                 </Button>
                 <!--<Button
@@ -62,7 +62,7 @@
                     Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{Binding Path=Res.ViewDetailedData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20">
-                        <ui:SymbolIcon Symbol="Calendar" />
+                        <ui:FASymbolIcon Symbol="Calendar" />
                     </Viewbox>
                 </Button>-->
                 <!--<Button
@@ -70,7 +70,7 @@
                     Theme="{StaticResource TransparentButton}"
                     ToolTip.Tip="{Binding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                     <Viewbox Width="20">
-                        <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
+                        <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
                     </Viewbox>
                 </Button>-->
             </StackPanel>
@@ -82,21 +82,21 @@
                 Cursor="Hand">
                 <!--<TextBlock Text="展示中" />-->
                 <Border.Styles>
-                    <Style Selector="ui|FontIcon.Eye">
+                    <Style Selector="ui|FAFontIcon.Eye">
                         <Setter Property="Glyph" Value="{StaticResource RedEye}" />
                     </Style>
-                    <Style Selector="ui|FontIcon.Hide">
+                    <Style Selector="ui|FAFontIcon.Hide">
                         <Setter Property="Glyph" Value="{StaticResource Hide}" />
                     </Style>
                 </Border.Styles>
-                <ui:FontIcon
+                <ui:FAFontIcon
                     Classes.Eye="{Binding IsSelected}"
                     Classes.Hide="{Binding !IsSelected}"
                     FontFamily="{StaticResource SymbolThemeFontFamily}"
                     FontSize="18" />
             </Border>
             <!--<ToggleButton IsChecked="{Binding IsSelected}">
-                <ui:FontIcon
+                <ui:FAFontIcon
                     Classes.Eye="{Binding IsSelected}"
                     Classes.Hide="{Binding !IsSelected}"
                     FontFamily="{StaticResource SymbolThemeFontFamily}" />
@@ -155,7 +155,7 @@
                         Text="{Binding Code}"
                         Theme="{StaticResource TitleTextBlockStyle}" />
                     <!--<Viewbox Width="12">
-                            <ui:SymbolIcon Symbol="Copy" />
+                            <ui:FASymbolIcon Symbol="Copy" />
                         </Viewbox>
                     </StackPanel>-->
                 </Button>

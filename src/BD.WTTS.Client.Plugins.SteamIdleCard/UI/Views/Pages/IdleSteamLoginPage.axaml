@@ -27,9 +27,9 @@
                         Spacing="10">
                         <StackPanel.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                <CompiledBinding Path="!Requires2FA" />
-                                <CompiledBinding Path="!RequiresEmailAuth" />
-                                <CompiledBinding Path="!IsLoading" />
+                                <CompiledBindingExtension Path="!Requires2FA" />
+                                <CompiledBindingExtension Path="!RequiresEmailAuth" />
+                                <CompiledBindingExtension Path="!IsLoading" />
                             </MultiBinding>
                         </StackPanel.IsVisible>
                         <PathIcon
@@ -39,7 +39,7 @@
                         <TextBox
                             MaxWidth="280"
                             Text="{Binding UserNameText}"
-                            Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            PlaceholderText="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <TextBox
                             Name="PasswordText"
                             MaxWidth="280"
@@ -47,7 +47,7 @@
                             PasswordChar="{StaticResource PasswordChar}"
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                             Text="{Binding PasswordText}"
-                            Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                            PlaceholderText="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                         <CheckBox Content="{Binding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
 
                         <Button
@@ -64,8 +64,8 @@
                         Spacing="10">
                         <StackPanel.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                                <CompiledBinding Path="Requires2FA" />
-                                <CompiledBinding Path="RequiresEmailAuth" />
+                                <CompiledBindingExtension Path="Requires2FA" />
+                                <CompiledBindingExtension Path="RequiresEmailAuth" />
                             </MultiBinding>
                         </StackPanel.IsVisible>
                         <TextBlock IsVisible="{Binding Requires2FA}" Text="{Binding Path=Res.LocalAuth_Steam2FACodeTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />

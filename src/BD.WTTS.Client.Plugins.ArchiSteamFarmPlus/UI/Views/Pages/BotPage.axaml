@@ -16,23 +16,23 @@
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:FAImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.Resources>
         <ui:FAMenuFlyout x:Key="SharedMenuFlyout" x:DataType="spp:BotViewModel">
-            <ui:MenuFlyoutItem
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).GoToBotSettings}"
                 CommandParameter="{Binding Bot}"
                 IconSource="Globe"
                 Text="打开 Bot 配置" />
-            <ui:MenuFlyoutSeparator />
-            <ui:MenuFlyoutItem
+            <ui:FAMenuFlyoutSeparator />
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).EditBotFile}"
                 CommandParameter="{Binding Bot}"
                 IconSource="Edit"
                 Text="编辑 Json 文件" />
-            <ui:MenuFlyoutSeparator />
-            <ui:MenuFlyoutItem
+            <ui:FAMenuFlyoutSeparator />
+            <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).DeleteBot}"
                 CommandParameter="{Binding Bot}"
                 Foreground="{DynamicResource SystemFillColorCriticalBrush}"
@@ -52,7 +52,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Import" />
+                        <ui:FASymbolIcon Symbol="Import" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -71,7 +71,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Add" />
+                        <ui:FASymbolIcon Symbol="Add" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -90,7 +90,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Refresh" />
+                        <ui:FASymbolIcon Symbol="Refresh" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -174,14 +174,14 @@
                                     Theme="{StaticResource TransparentButton}">
                                     <Button.Content>
                                         <StackPanel>
-                                            <ui:FontIcon
+                                            <ui:FAFontIcon
                                                 VerticalAlignment="Center"
                                                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                                                 FontSize="18"
                                                 Glyph="&#xF5B0;"
                                                 IsVisible="{Binding Bot.CardsFarmer.Paused}"
                                                 ToolTip.Tip="恢复挂卡" />
-                                            <ui:FontIcon
+                                            <ui:FAFontIcon
                                                 VerticalAlignment="Center"
                                                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                                                 FontSize="18"
@@ -201,7 +201,7 @@
                                     ToolTip.Tip="启用或禁用该 Bot">
                                     <Button.Content>
                                         <Panel>
-                                            <ui:FontIcon
+                                            <ui:FAFontIcon
                                                 VerticalAlignment="Center"
                                                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                                                 FontSize="18"

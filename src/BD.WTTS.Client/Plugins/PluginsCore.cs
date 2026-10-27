@@ -252,6 +252,11 @@ public static class PluginsCore
                 //}
 
                 var assemblyPath = Path.Combine(projPath, "src", $"BD.WTTS.Client.Plugins.{item}", "bin", "Debug", ProjectUtils.tfm, $"BD.WTTS.Client.Plugins.{item}.dll");
+#if WINDOWS
+                // MSBuild also accepts the Windows platform version with a trailing zero component.
+                if (!File.Exists(assemblyPath))
+                    assemblyPath = Path.Combine(projPath, "src", $"BD.WTTS.Client.Plugins.{item}", "bin", "Debug", ProjectUtils.tfm + ".0", $"BD.WTTS.Client.Plugins.{item}.dll");
+#endif
                 if (File.Exists(assemblyPath))
                 {
                     Assembly assembly;

@@ -42,7 +42,7 @@
                                         Width="16"
                                         Height="16"
                                         HorizontalAlignment="Left">
-                                        <ui:IconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
+                                        <ui:FAIconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
                                     </Viewbox>
                                     <TextBlock
                                         Margin="28,4,0,4"
@@ -61,7 +61,7 @@
                                         Width="16"
                                         Height="16"
                                         HorizontalAlignment="Left">
-                                        <ui:IconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
+                                        <ui:FAIconSourceElement IconSource="{StaticResource SwapThemeIcon}" />
                                     </Viewbox>
                                     <TextBlock
                                         Margin="28,4,0,4"
@@ -78,13 +78,13 @@
                                 Theme="{StaticResource TransparentButton}">
                                 <DropDownButton.Flyout>
                                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                                        <ui:MenuFlyoutItem Text="WinUI Documentation" />
-                                        <ui:MenuFlyoutItem Text="WinUI Guidelines" />
-                                        <ui:MenuFlyoutSeparator />
-                                        <ui:MenuFlyoutItem Text="Page Source (xaml)" />
-                                        <ui:MenuFlyoutItem Text="Page Source (csharp)" />
-                                        <ui:MenuFlyoutSeparator />
-                                        <ui:MenuFlyoutItem Text="Show Control Definition" />
+                                        <ui:FAMenuFlyoutItem Text="WinUI Documentation" />
+                                        <ui:FAMenuFlyoutItem Text="WinUI Guidelines" />
+                                        <ui:FAMenuFlyoutSeparator />
+                                        <ui:FAMenuFlyoutItem Text="Page Source (xaml)" />
+                                        <ui:FAMenuFlyoutItem Text="Page Source (csharp)" />
+                                        <ui:FAMenuFlyoutSeparator />
+                                        <ui:FAMenuFlyoutItem Text="Show Control Definition" />
                                     </ui:FAMenuFlyout>
                                 </DropDownButton.Flyout>
                             </DropDownButton>
@@ -147,7 +147,7 @@
                                         </Transitions>
                                     </Border.Transitions>
                                     <Viewbox Margin="12" ClipToBounds="False">
-                                        <ui:IconSourceElement Name="PreviewImageElement" IconSource="{TemplateBinding PreviewImage}" />
+                                        <ui:FAIconSourceElement Name="PreviewImageElement" IconSource="{TemplateBinding PreviewImage}" />
                                     </Viewbox>
                                 </Border>
                                 <StackPanel

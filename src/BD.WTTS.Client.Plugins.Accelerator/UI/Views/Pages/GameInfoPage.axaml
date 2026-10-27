@@ -65,7 +65,7 @@
                                                 TextAlignment="Center"
                                                 TextWrapping="WrapWithOverflow" />
                                         </Border>
-                                        <!--<ui:SymbolIcon Symbol="Righ"/>-->
+                                        <!--<ui:FASymbolIcon Symbol="Righ"/>-->
                                         <Rectangle
                                             Name="SelectionIndicator"
                                             Width="3"

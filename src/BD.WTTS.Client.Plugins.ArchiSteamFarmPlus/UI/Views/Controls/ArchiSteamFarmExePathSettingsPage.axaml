@@ -15,27 +15,27 @@
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
         <TextBlock Margin="0,0,0,5" Text="ArchiSteamFarm 启动文件设置" />
-        <ui:SettingsExpander
+        <ui:FASettingsExpander
             Description="{Binding Source={x:Static ms:ASFSettings.ArchiSteamFarmExePath}, Path=Value, Mode=OneWay}"
             Header="ASF 文件路径"
             IsClickEnabled="True">
-            <ui:SettingsExpander.IconSource>
-                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
-            </ui:SettingsExpander.IconSource>
-            <ui:SettingsExpander.Footer>
+            <ui:FASettingsExpander.IconSource>
+                <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
+            </ui:FASettingsExpander.IconSource>
+            <ui:FASettingsExpander.Footer>
                 <Button Command="{Binding SelectProgramPath}" Content="选择路径" />
-            </ui:SettingsExpander.Footer>
-        </ui:SettingsExpander>
-        <ui:SettingsExpander
+            </ui:FASettingsExpander.Footer>
+        </ui:FASettingsExpander>
+        <ui:FASettingsExpander
             Description="下载并设置 ASF 路径"
             Header="还没有下载过ASF？请点击下载"
             IsClickEnabled="True">
-            <ui:SettingsExpander.IconSource>
-                <ui:FontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE896;" />
-            </ui:SettingsExpander.IconSource>
-            <ui:SettingsExpander.Footer>
+            <ui:FASettingsExpander.IconSource>
+                <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE896;" />
+            </ui:FASettingsExpander.IconSource>
+            <ui:FASettingsExpander.Footer>
                 <Button Command="{Binding DownloadASF}" Content="一键下载" />
-            </ui:SettingsExpander.Footer>
-        </ui:SettingsExpander>
+            </ui:FASettingsExpander.Footer>
+        </ui:FASettingsExpander>
     </StackPanel>
 </UserControl>

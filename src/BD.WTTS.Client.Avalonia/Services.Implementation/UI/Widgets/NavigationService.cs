@@ -46,7 +46,18 @@ public sealed class NavigationService : INavigationService
 
     public void SetFrame(Frame f)
     {
+        if (_frame != null)
+            _frame.NavigationFailed -= OnNavigationFailed;
         _frame = f;
+        _frame.NavigationFailed += OnNavigationFailed;
+    }
+
+    static void OnNavigationFailed(object? sender, FluentAvalonia.UI.Navigation.FANavigationFailedEventArgs e)
+    {
+        Log.Error(nameof(NavigationService), e.Exception, "Page navigation failed.");
+#if DEBUG
+        Console.Error.WriteLine(e.Exception);
+#endif
     }
 
     public void SetOverlayHost(Panel p)
@@ -126,7 +137,7 @@ public sealed class NavigationService : INavigationService
         if ((_frame?.Content as Control)?.DataContext != dataContext)
         {
             _frame?.NavigateFromObject(dataContext,
-            new FluentAvalonia.UI.Navigation.FrameNavigationOptions
+            new FluentAvalonia.UI.Navigation.FAFrameNavigationOptions
             {
                 IsNavigationStackEnabled = true,
                 TransitionInfoOverride = GetNavigationTransitionInfo(effect)

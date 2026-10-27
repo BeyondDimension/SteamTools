@@ -618,7 +618,7 @@ public sealed partial class GameAcceleratorService
             {
                 Title = "下载插件",
                 ShowProgressBar = true,
-                IconSource = new SymbolIconSource { Symbol = FluentAvalonia.UI.Controls.Symbol.Download },
+                IconSource = new SymbolIconSource { Symbol = FluentAvalonia.UI.Controls.FASymbol.Download },
                 SubHeader = "下载 Watt 加速器 插件",
                 Content = "正在初始化，请稍候",
                 XamlRoot = AvaloniaWindowManagerImpl.GetWindowTopLevel(),

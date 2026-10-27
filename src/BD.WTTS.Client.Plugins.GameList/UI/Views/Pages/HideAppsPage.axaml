@@ -21,15 +21,15 @@
         <ItemsControl ItemsSource="{Binding HideGameList}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ui:SettingsExpander Description="{Binding Key}" Header="{Binding Value}">
-                        <ui:SettingsExpander.Footer>
+                    <ui:FASettingsExpander Description="{Binding Key}" Header="{Binding Value}">
+                        <ui:FASettingsExpander.Footer>
                             <Button
                                 Command="{Binding $parent[UserControl].((spp:HideAppsPageViewModel)DataContext).RemoveHideAppCommand}"
                                 CommandParameter="{Binding}"
                                 Content="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                 Foreground="{DynamicResource SystemFillColorCriticalBrush}" />
-                        </ui:SettingsExpander.Footer>
-                    </ui:SettingsExpander>
+                        </ui:FASettingsExpander.Footer>
+                    </ui:FASettingsExpander>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

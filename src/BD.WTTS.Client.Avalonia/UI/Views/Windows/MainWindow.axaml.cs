@@ -246,7 +246,16 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
                     WatchTrace.Stop();
 #endif
                     s.OnStartup();
-                    await IViewModelManager.Instance.MainWindow.Initialize();
+                    var initialization = IViewModelManager.Instance.MainWindow.Initialize();
+                    if (await Task.WhenAny(initialization, Task.Delay(TimeSpan.FromSeconds(3), token)) == initialization)
+                    {
+                        await initialization;
+                    }
+                    else
+                    {
+                        token.ThrowIfCancellationRequested();
+                        _ = ObserveInitializationAsync(initialization);
+                    }
 
                     App.Instance.CompositeDisposable.Add(IViewModelManager.Instance.MainWindow);
                     App.Instance.CompositeDisposable.Add(SteamConnectService.Current.Dispose);
@@ -254,5 +263,17 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
                     IsInitialized = true;
                 }
             }, cancellationToken: token);
+    }
+
+    static async Task ObserveInitializationAsync(Task initialization)
+    {
+        try
+        {
+            await initialization;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(AppSplashScreen), ex, "Main window initialization failed after the splash screen closed.");
+        }
     }
 }

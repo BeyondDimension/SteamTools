@@ -27,10 +27,30 @@ public partial class MainFramePage : UserControl
         Tabs_SelectionChanged(null, null);
     }
 
-    private void Tabs_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs? e)
+    private async void Tabs_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs? e)
     {
         if (Tabs.SelectedItem is TabStripItem tab && tab.Tag is Type t)
         {
+            if (!Design.IsDesignMode)
+            {
+                WaitingForService.IsVisible = true;
+                try
+                {
+                    await Plugin.Instance.ServicesReady;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(MainFramePage), ex, "Accelerator services could not be initialized.");
+                    return;
+                }
+
+                if (!IsLoaded || Tabs.SelectedItem != tab)
+                    return;
+            }
+
+            WaitingForService.IsVisible = false;
+            if (InnerNavFrame.CurrentSourcePageType == t)
+                return;
             InnerNavFrame.Navigate(t, null, new SlideNavigationTransitionInfo
             {
                 Effect = FrameEffect.GetEffect(lastIndex, Tabs.SelectedIndex),

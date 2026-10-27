@@ -26,7 +26,7 @@
                     </spp:AppItem.Status>
                     <spp:AppItem.MoreFlyout>
                         <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                            <ui:MenuFlyoutItem Text="112323" />
+                            <ui:FAMenuFlyoutItem Text="112323" />
                         </ui:FAMenuFlyout>
                     </spp:AppItem.MoreFlyout>
                     <spp:AppItem.Image>
@@ -53,7 +53,7 @@
                     </spp:AppItem.Status>
                     <spp:AppItem.MoreFlyout>
                         <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                            <ui:MenuFlyoutItem Text="112323" />
+                            <ui:FAMenuFlyoutItem Text="112323" />
                         </ui:FAMenuFlyout>
                     </spp:AppItem.MoreFlyout>
                     <spp:AppItem.Image>
@@ -83,7 +83,7 @@
                     </spp:AppItem.Status>
                     <spp:AppItem.MoreFlyout>
                         <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                            <ui:MenuFlyoutItem Text="112323" />
+                            <ui:FAMenuFlyoutItem Text="112323" />
                         </ui:FAMenuFlyout>
                     </spp:AppItem.MoreFlyout>
                     <spp:AppItem.Image>
@@ -107,7 +107,7 @@
                     </spp:AppItem.Status>
                     <spp:AppItem.MoreFlyout>
                         <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                            <ui:MenuFlyoutItem Text="112323" />
+                            <ui:FAMenuFlyoutItem Text="112323" />
                         </ui:FAMenuFlyout>
                     </spp:AppItem.MoreFlyout>
                     <spp:AppItem.Image>

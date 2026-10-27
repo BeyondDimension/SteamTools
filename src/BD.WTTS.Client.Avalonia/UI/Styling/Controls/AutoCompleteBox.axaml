@@ -10,21 +10,21 @@
                 Width="300"
                 VerticalAlignment="Center"
                 Classes="Search"
-                Watermark="Search" />
+                PlaceholderText="Search" />
         </Border>
     </Design.PreviewWith>
 
     <!--  AutoCompleteBox  -->
     <Style Selector="AutoCompleteBox.Search /template/ TextBox#PART_TextBox">
-        <Setter Property="Watermark" Value="{Binding Path=Res.Search, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Setter Property="PlaceholderText" Value="{Binding Path=Res.Search, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
         <Setter Property="InnerRightContent">
             <Template>
                 <StackPanel Orientation="Horizontal">
                     <Button
+                        Classes="SearchClear"
                         Command="{Binding $parent[TextBox].Clear}"
                         Content="&#xE8BB;"
                         FontFamily="{StaticResource SymbolThemeFontFamily}"
-                        IsVisible="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                         Theme="{StaticResource TransparentButton}" />
                     <Button
                         Command="{Binding $parent[TextBox].Clear}"
@@ -35,5 +35,8 @@
                 </StackPanel>
             </Template>
         </Setter>
+    </Style>
+    <Style Selector="AutoCompleteBox.Search /template/ TextBox#PART_TextBox:empty Button.SearchClear">
+        <Setter Property="IsVisible" Value="False" />
     </Style>
 </Styles>

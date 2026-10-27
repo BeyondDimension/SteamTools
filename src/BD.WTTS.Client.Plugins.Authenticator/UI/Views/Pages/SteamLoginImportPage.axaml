@@ -40,14 +40,14 @@
 					<TextBox
 							MaxWidth="280"
 							Text="{Binding UserNameText}"
-							Watermark="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							PlaceholderText="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 					<TextBox
 							Name="PasswordText"
 							MaxWidth="280"
 							Classes="revealPasswordButton"
 							PasswordChar="{StaticResource PasswordChar}"
 							Text="{Binding PasswordText}"
-							Watermark="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							PlaceholderText="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
 					<Button
 							MinWidth="280"
 							HorizontalAlignment="Center"
@@ -131,7 +131,7 @@
 									Name="PhoneNumberText"
 									MaxWidth="300"
 									Text="{Binding PhoneNumberText}"
-									Watermark="+8601234567890" />
+									PlaceholderText="+8601234567890" />
 						</DockPanel>
 
 						<Button
