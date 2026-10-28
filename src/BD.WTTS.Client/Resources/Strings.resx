@@ -3030,4 +3030,10 @@
 	<data name="LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCodeTips" xml:space="preserve">
     <value>打开 Steam App 绑定令牌后在此页面输入验证</value>
   </data>
+	<data name="Error_BindPortError_" xml:space="preserve">
+    <value>权限不足或端口{0}被占用，请手动授权或更换端口。</value>
+  </data>
+	<data name="Error_CheckRootCertificateFailed_" xml:space="preserve">
+    <value>证书格式不正确或版本过旧，请在加速设置中删除并重新生成。</value>
+  </data>
 </root>
