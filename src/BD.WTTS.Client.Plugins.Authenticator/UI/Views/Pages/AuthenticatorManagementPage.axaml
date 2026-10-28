@@ -1,0 +1,37 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.AuthenticatorManagementPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    x:CompileBindings="True"
+    x:DataType="spp:AuthenticatorManagementPageViewModel">
+    <StackPanel Spacing="12">
+        <StackPanel Spacing="4">
+            <TextBlock FontWeight="SemiBold" Text="{Binding Item.AuthName}" TextWrapping="Wrap" />
+            <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Platform}" />
+            <TextBlock
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                IsVisible="{Binding HasAccountName}"
+                Text="{Binding AccountName}"
+                TextWrapping="Wrap" />
+        </StackPanel>
+        <Button
+            HorizontalAlignment="Stretch"
+            Command="{Binding ShowDetailsCommand}"
+            Content="{Binding Path=Res.ViewDetailedData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Button
+            HorizontalAlignment="Stretch"
+            Command="{Binding ExportTokenCommand}"
+            Content="{Binding Path=Res.DefaultExport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Button
+            HorizontalAlignment="Stretch"
+            Command="{Binding ExportMaFileCommand}"
+            Content="{Binding Path=Res.Auth_ExportmaFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            IsVisible="{Binding Item.IsSteamAuthenticator}" />
+        <Button
+            HorizontalAlignment="Stretch"
+            Command="{Binding ShowQrCodeCommand}"
+            Content="{Binding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+    </StackPanel>
+</UserControl>

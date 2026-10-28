@@ -1,0 +1,124 @@
+<UserControl
+	x:Class="BD.WTTS.UI.Views.Controls.SteamLoginView"
+	x:Name="Root"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:s="https://steampp.net/services"
+	xmlns:spp="https://steampp.net/ui"
+	x:DataType="spp:SteamLoginViewModel"
+	x:CompileBindings="True">
+	<UserControl.Styles>
+		<Style Selector="TextBox">
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="MinHeight" Value="36" />
+		</Style>
+		<Style Selector="Button.primary">
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="MinHeight" Value="36" />
+		</Style>
+	</UserControl.Styles>
+	<Grid RowDefinitions="*,Auto">
+		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+		              HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+			<StackPanel MaxWidth="760" Margin="12" Spacing="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<Grid x:Name="FormsLayout" ColumnDefinitions="*,*" RowDefinitions="Auto,Auto"
+				      ColumnSpacing="16" RowSpacing="16">
+					<Border x:Name="AccountPanel" Grid.Column="0" Padding="18" MinWidth="300"
+					        Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+					        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+					        BorderThickness="1" CornerRadius="8">
+						<Grid RowDefinitions="Auto,*,Auto" RowSpacing="12">
+							<StackPanel Orientation="Horizontal" Spacing="10">
+								<PathIcon Width="26" Height="26" Data="{StaticResource Steam}" />
+								<TextBlock FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center" TextWrapping="Wrap"
+								           Text="{Binding Res.AccountLogin, Source={x:Static s:ResourceService.Current}}" />
+							</StackPanel>
+							<StackPanel Grid.Row="1" VerticalAlignment="Center" Spacing="10" IsEnabled="{Binding !IsBusy}"
+							            IsVisible="{Binding !RequiresManualGuardCode}">
+								<TextBlock Text="{Binding Res.Steam_User, Source={x:Static s:ResourceService.Current}}" />
+								<TextBox Text="{Binding UserName}" KeyUp="OnCredentialKeyUp"
+								         PlaceholderText="{Binding Res.Steam_User, Source={x:Static s:ResourceService.Current}}" />
+								<TextBlock Text="{Binding Res.Steam_Password, Source={x:Static s:ResourceService.Current}}" />
+								<TextBox Text="{Binding Password}" KeyUp="OnCredentialKeyUp"
+								         Classes="revealPasswordButton" PasswordChar="●"
+								         PlaceholderText="{Binding Res.Steam_Password, Source={x:Static s:ResourceService.Current}}" />
+								<CheckBox IsVisible="{Binding #Root.ShowRememberLogin}" IsChecked="{Binding #Root.RememberLogin, Mode=TwoWay}"
+								          Content="{Binding Res.User_Rememberme, Source={x:Static s:ResourceService.Current}}" />
+							</StackPanel>
+							<StackPanel Grid.Row="1" VerticalAlignment="Center" Spacing="10" IsEnabled="{Binding !IsBusy}"
+							            IsVisible="{Binding RequiresManualGuardCode}">
+								<TextBlock Text="{Binding UserName}" FontWeight="SemiBold" TextWrapping="Wrap" />
+								<TextBlock IsVisible="{Binding Requires2FA}" TextWrapping="Wrap"
+								           Text="{Binding Res.LocalAuth_Steam2FACodeTip, Source={x:Static s:ResourceService.Current}}" />
+								<TextBlock IsVisible="{Binding RequiresEmailAuth}" TextWrapping="Wrap"
+								           Text="{Binding Res.LocalAuth_EmailCodeTip, Source={x:Static s:ResourceService.Current}}" />
+								<TextBox Text="{Binding GuardCode}" KeyUp="OnCredentialKeyUp" FontSize="22" TextAlignment="Center" />
+								<Button Command="{Binding CancelCommand}"
+								        Content="{Binding Res.Back, Source={x:Static s:ResourceService.Current}}" />
+							</StackPanel>
+							<Button Grid.Row="2" Classes="primary" Command="{Binding LoginCommand}" IsEnabled="{Binding !IsBusy}"
+							        Content="{Binding Res.Login, Source={x:Static s:ResourceService.Current}}" />
+						</Grid>
+					</Border>
+					<Border x:Name="QrPanel" Grid.Column="1" MinWidth="250" MinHeight="250" Padding="18"
+					        Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+					        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+					        BorderThickness="1" CornerRadius="8">
+						<StackPanel Spacing="12">
+							<TextBlock FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap" TextAlignment="Center"
+							           Text="{Binding Res.ScanQRCode, Source={x:Static s:ResourceService.Current}}" />
+							<Border Width="200" Height="200" Padding="8" Background="White" CornerRadius="8"
+							        HorizontalAlignment="Center"
+							        IsVisible="{Binding QrCodeImage, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+								<spp:Image2 Source="{Binding QrCodeImage}" KeepSourceStreamOpen="True" Stretch="Uniform" />
+							</Border>
+							<ProgressBar IsIndeterminate="True" Height="3">
+								<ProgressBar.IsVisible>
+									<MultiBinding Converter="{x:Static BoolConverters.And}">
+										<CompiledBindingExtension Path="IsQrBusy" />
+										<CompiledBindingExtension Path="QrCodeImage" Converter="{StaticResource IsNullConverter}" />
+									</MultiBinding>
+								</ProgressBar.IsVisible>
+							</ProgressBar>
+							<TextBlock Text="{Binding QrStatusMessage}" TextWrapping="Wrap" TextAlignment="Center"
+							           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+							<Button Command="{Binding QrLoginCommand}" IsVisible="{Binding HasQrError}"
+							        IsEnabled="{Binding !IsBusy}" HorizontalAlignment="Center"
+							        Content="{Binding Res.Retry, Source={x:Static s:ResourceService.Current}}" />
+						</StackPanel>
+					</Border>
+				</Grid>
+				<Border x:Name="CookiePanel" IsVisible="False" Padding="18" MinWidth="300" MaxWidth="400"
+				        HorizontalAlignment="Stretch" Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+				        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+					<StackPanel Spacing="10" IsEnabled="{Binding !IsBusy}">
+						<TextBlock FontSize="18" FontWeight="SemiBold"
+						           Text="{Binding Res.CookieLogin, Source={x:Static s:ResourceService.Current}}" />
+						<TextBlock Text="sessionid" />
+						<TextBox Text="{Binding SessionId}" KeyUp="OnCookieKeyUp" PasswordChar="●" />
+						<TextBlock Text="steamLoginSecure" />
+						<TextBox Text="{Binding SteamLoginSecure}" KeyUp="OnCookieKeyUp" PasswordChar="●" />
+						<CheckBox IsVisible="{Binding #Root.ShowRememberLogin}" IsChecked="{Binding #Root.RememberLogin, Mode=TwoWay}"
+						          Content="{Binding Res.User_Rememberme, Source={x:Static s:ResourceService.Current}}" />
+						<Button Classes="primary" Command="{Binding CookieLoginCommand}"
+						        Content="{Binding Res.Login, Source={x:Static s:ResourceService.Current}}" />
+					</StackPanel>
+				</Border>
+				<ProgressBar IsVisible="{Binding IsBusy}" IsIndeterminate="True" Height="3" />
+				<TextBlock Text="{Binding StatusMessage}" TextWrapping="Wrap" TextAlignment="Center"
+				           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+				<Button Command="{Binding CancelCommand}" IsVisible="{Binding IsBusy}" HorizontalAlignment="Center"
+				        Content="{Binding Res.Cancel, Source={x:Static s:ResourceService.Current}}" />
+			</StackPanel>
+		</ScrollViewer>
+		<Panel Grid.Row="1" IsVisible="{Binding AllowCookieLogin}">
+			<Button x:Name="CookieSwitch" Theme="{StaticResource HyperlinkButton}" HorizontalAlignment="Center"
+			        IsEnabled="{Binding !IsBusy}" Click="OnSwitchLoginMode"
+			        Content="{Binding Res.CookieLogin, Source={x:Static s:ResourceService.Current}}" />
+			<Button x:Name="AccountSwitch" Theme="{StaticResource HyperlinkButton}" HorizontalAlignment="Center"
+			        IsVisible="False" IsEnabled="{Binding !IsBusy}" Click="OnSwitchLoginMode"
+			        Content="{Binding Res.AccountLogin, Source={x:Static s:ResourceService.Current}}" />
+		</Panel>
+	</Grid>
+</UserControl>

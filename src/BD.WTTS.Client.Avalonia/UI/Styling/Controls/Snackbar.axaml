@@ -200,7 +200,7 @@
                                             Height="{StaticResource InfoBarCloseButtonGlyphSize}"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center">
-                                            <ui:FASymbolIcon Symbol="{StaticResource InfoBarCloseButtonSymbol}" />
+                                            <PathIcon Classes="CloseIcon" />
                                         </Viewbox>
                                     </Button>
                                 </Grid>

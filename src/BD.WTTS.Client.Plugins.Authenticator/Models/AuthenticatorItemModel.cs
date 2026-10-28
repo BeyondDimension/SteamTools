@@ -1,4 +1,5 @@
 using BD.Avalonia8.Image2;
+using BD.WTTS.Helpers;
 using BD.WTTS.UI.Views.Pages;
 using System.Threading;
 
@@ -9,6 +10,18 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
     public IAuthenticatorDTO AuthData { get; set; }
 
     Timer? _progressTimer;
+    readonly IDisposable selectionSubscription;
+    bool isVisible;
+    bool disposed;
+
+    public void SetIsVisible(bool visible)
+    {
+        isVisible = visible;
+        if (visible && IsSelected && !disposed)
+            EnableShowCode();
+        else
+            DisableShowCode();
+    }
 
     public void Tapped()
     {
@@ -29,10 +42,10 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
         AuthData = authenticatorDto;
         AuthName = AuthData.Name;
 
-        this.WhenValueChanged(x => x.IsSelected)
+        selectionSubscription = this.WhenValueChanged(x => x.IsSelected)
             .Subscribe(x =>
         {
-            if (x)
+            if (x && isVisible && !disposed)
             {
                 EnableShowCode();
             }
@@ -47,42 +60,40 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
     {
         try
         {
-            Value = AuthData.Value.Period -
-                        (int)((AuthData.Value.ServerTime - (AuthData.Value.CodeInterval * 30000L)) / 1000L);
-            Code = AuthData.Value.CurrentCode;
+            var period = AuthData.Value.Period;
+            var remaining = period - (int)((AuthData.Value.ServerTime % (period * 1000L)) / 1000L);
+            var code = AuthData.Value.CurrentCode;
+            MainThread2.BeginInvokeOnMainThread(() =>
+            {
+                if (!disposed && isVisible && IsSelected)
+                {
+                    Value = remaining;
+                    Code = code;
+                }
+            });
         }
         catch (Exception ex)
         {
-            Code = null;
+            MainThread2.BeginInvokeOnMainThread(DisableShowCode);
             Toast.Show(ToastIcon.Error, Strings.Error_AuthSynchronizationFailed_.Format(ex.Message));
             Log.Error(nameof(AuthenticatorItemModel), ex, nameof(ShowCode));
-        }
-
-        if (string.IsNullOrEmpty(Code))
-        {
-            DisableShowCode();
         }
     }
 
     void EnableShowCode()
     {
-        if (AuthData.Value == null) return;
+        if (AuthData.Value == null || disposed || !isVisible) return;
         IsShowCode = true;
-
-        if (string.IsNullOrEmpty(Code)) return;
 
         _progressTimer ??= new Timer(ShowCode, AuthData.Id, 0, 1000);
     }
 
     void DisableShowCode()
     {
-        if (_progressTimer != null)
-        {
-            _progressTimer.Dispose();
-            _progressTimer = null;
-            Code = DefaultCode;
-            IsShowCode = false;
-        }
+        _progressTimer?.Dispose();
+        _progressTimer = null;
+        Code = DefaultCode;
+        IsShowCode = false;
     }
 
     public async void EditAuthNameAsync()
@@ -143,9 +154,25 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
         }
         var authData = AuthData;
 
-        await IWindowManager.Instance.ShowTaskDialogAsync(new SteamTradePageViewModel(ref authData),
+        using var viewModel = new SteamTradePageViewModel(ref authData);
+        await IWindowManager.Instance.ShowTaskDialogAsync(viewModel,
             Strings.ConfirmTransaction, pageContent: new SteamTradePage(), isOkButton: false);
         AuthData = authData;
+    }
+
+    public async Task ShowSteamQrLoginWindow()
+    {
+        if (!IsSteamAuthenticator)
+            return;
+        if (AuthData.Value is not WinAuth.SteamAuthenticator authenticator || !SteamQrLoginSession.CanUse(authenticator))
+        {
+            Toast.Show(ToastIcon.Warning, SteamQrLoginSession.LoginRequiredMessage);
+            return;
+        }
+
+        using var viewModel = new SteamQrLoginPageViewModel(this);
+        await IWindowManager.Instance.ShowTaskDialogAsync(viewModel, "扫描二维码登录 Steam",
+            pageContent: new SteamQrLoginPage(), isOkButton: false);
     }
 
     public async Task ShowDetailData()
@@ -196,6 +223,8 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
 
     public void Dispose()
     {
+        disposed = true;
+        selectionSubscription.Dispose();
         DisableShowCode();
     }
 }

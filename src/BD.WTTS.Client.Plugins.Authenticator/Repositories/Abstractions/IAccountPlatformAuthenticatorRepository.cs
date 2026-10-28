@@ -197,34 +197,7 @@ public interface IAccountPlatformAuthenticatorRepository
     /// <returns></returns>
     Task<(ImportResultCode resultCode, IReadOnlyList<IAuthenticatorDTO> result, int sourcesCount)> ImportAsync(string? secondaryPassword, byte[] content);
 
-    /// <summary>
-    /// 移动排序值，上移或下移，返回受影响的行数
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="convert"></param>
-    /// <param name="items"></param>
-    /// <param name="index"></param>
-    /// <param name="upOrDown"></param>
-    /// <returns></returns>
-    Task<int> MoveOrderByIndexAsync<T>(Func<T, IAuthenticatorDTO> convert, IReadOnlyList<T> items, int index, bool upOrDown);
-
-    /// <inheritdoc cref="MoveOrderByIndexAsync{T}(Func{T, IAuthenticatorDTO}, IReadOnlyList{T}, int, bool)"/>
-    async Task<int> MoveOrderByItemAsync<T>(Func<T, IAuthenticatorDTO> convert, IReadOnlyList<T> items, T item, bool upOrDown)
-    {
-        var index = items.IndexOf(item);
-        if (index > -1)
-        {
-            return await MoveOrderByIndexAsync<T>(convert, items, index, upOrDown);
-        }
-        return 0;
-    }
-
-    /// <summary>
-    /// 指定改变IAuthenticatorDTO的排序指
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns>受影响的行数</returns>
-    Task<int> UpdateIndexByItemAsync(IAuthenticatorDTO item);
+    Task UpdateOrderAsync(IReadOnlyList<(ushort Id, int Index)> order);
 
     public enum ImportResultCode
     {

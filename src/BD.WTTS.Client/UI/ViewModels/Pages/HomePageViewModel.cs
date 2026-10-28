@@ -91,12 +91,13 @@ public sealed class HomePageViewModel : TabItemViewModel
     {
         try
         {
-            var result2 = await Instance.Shop.RecommendGoods();
-            if (result2.IsSuccess && result2.Content != null)
-            {
-                Shops.Clear();
-                Shops.Add(result2.Content);
-            }
+            // var result2 = await Instance.Shop.RecommendGoods();
+            // if (result2.IsSuccess && result2.Content != null)
+            // {
+            //     Shops.Clear();
+            //     Shops.Add(result2.Content);
+            // }
+            await Task.CompletedTask;
         }
         catch (Exception ex) { ex.LogAndShowT(); }
         finally { IsShopsLoading = false; }

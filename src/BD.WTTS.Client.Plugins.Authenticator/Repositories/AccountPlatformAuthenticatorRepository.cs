@@ -373,54 +373,23 @@ internal sealed class AccountPlatformAuthenticatorRepository : Repository<Accoun
         return (resultCode, result, sourcesCount);
     }
 
-    public async Task<int> UpdateIndexByItemAsync(IAuthenticatorDTO item)
+    public async Task UpdateOrderAsync(IReadOnlyList<(ushort Id, int Index)> order)
     {
         var dbConnection = await GetDbConnection().ConfigureAwait(false);
-        return await AttemptAndRetry(async t =>
+        await dbConnection.RunInTransactionAsync(connection =>
         {
-            t.ThrowIfCancellationRequested();
-            const string sql_ =
-                SQLStrings.Update +
-                "[" + AccountPlatformAuthenticator.TableName + "]" +
-                " set " +
-                "[" + AccountPlatformAuthenticator.ColumnName_Index + "]" +
-                $" = {{0}}" +
-                " where " +
-                "[" + AccountPlatformAuthenticator.ColumnName_Id + "]" +
-                $" = {{1}}";
-            var sql = string.Format(sql_, item.Index, item.Id);
-            var r = await dbConnection.ExecuteAsync(sql);
-            return r;
-        }, cancellationToken: CancellationToken.None).ConfigureAwait(false);
-
-        //var source = await FindAsync(item.Id);
-        //if (source != null)
-        //{
-        //    source.Index = item.Index;
-        //    var r = await UpdateAsync(source);
-        //    return r;
-        //}
-        //return 0;
+            var count = connection.ExecuteScalar<int>($"SELECT COUNT(*) FROM [{AccountPlatformAuthenticator.TableName}]");
+            if (count != order.Count)
+                throw new InvalidOperationException("Authenticator list changed while saving its order.");
+            foreach (var (id, index) in order)
+            {
+                var changed = connection.Execute(
+                    $"UPDATE [{AccountPlatformAuthenticator.TableName}] SET [{AccountPlatformAuthenticator.ColumnName_Index}] = ? WHERE [{AccountPlatformAuthenticator.ColumnName_Id}] = ?",
+                    index, id);
+                if (changed != 1)
+                    throw new InvalidOperationException("Authenticator order could not be saved.");
+            }
+        }).ConfigureAwait(false);
     }
 
-    public async Task<int> MoveOrderByIndexAsync<T>(Func<T, IAuthenticatorDTO> convert, IReadOnlyList<T> items, int index, bool upOrDown)
-    {
-        var item = items[index];
-        var item2Index = upOrDown ? index - 1 : index + 1;
-        if (item2Index > -1 && item2Index < items.Count)
-        {
-            var item2 = items[item2Index];
-            var itemC = convert(item);
-            var itemC2 = convert(item2);
-            var orderIndex = GetOrder(itemC);
-            var orderIndex2 = GetOrder(itemC2);
-            itemC.Index = orderIndex2;
-            itemC2.Index = orderIndex;
-            var r = await Task.WhenAll(
-                UpdateIndexByItemAsync(itemC),
-                UpdateIndexByItemAsync(itemC2));
-            return r.Sum();
-        }
-        return 0;
-    }
 }

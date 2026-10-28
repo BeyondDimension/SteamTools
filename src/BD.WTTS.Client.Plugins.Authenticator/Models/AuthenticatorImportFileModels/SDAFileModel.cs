@@ -24,6 +24,10 @@ public class SdaFileModel
     [JsonPropertyName("account_name")]
     public string AccountName { get; set; } = string.Empty;
 
+    [SJsonConverter(typeof(SteamDataLongConverter))]
+    [JsonPropertyName("steamid")]
+    public long SteamId { get; set; }
+
     [JsonPropertyName("token_gid")]
     public string TokenGid { get; set; } = string.Empty;
 
@@ -68,6 +72,10 @@ public class SdaFileConvertToSteamDataModel
     [JsonPropertyName("account_name")]
     public string AccountName { get; set; } = string.Empty;
 
+    [SJsonConverter(typeof(SteamDataLongConverter))]
+    [JsonPropertyName("steamid")]
+    public long SteamId { get; set; }
+
     [JsonPropertyName("token_gid")]
     public string TokenGid { get; set; } = string.Empty;
 
@@ -89,6 +97,7 @@ public class SdaFileConvertToSteamDataModel
         Uri = sdaFileModel.Uri;
         ServerTime = sdaFileModel.ServerTime;
         AccountName = sdaFileModel.AccountName;
+        SteamId = sdaFileModel.SteamId > 0 ? sdaFileModel.SteamId : sdaFileModel.Session?.SteamId ?? 0;
         TokenGid = sdaFileModel.TokenGid;
         IdentitySecret = sdaFileModel.IdentitySecret;
         Secret1 = sdaFileModel.Secret1;

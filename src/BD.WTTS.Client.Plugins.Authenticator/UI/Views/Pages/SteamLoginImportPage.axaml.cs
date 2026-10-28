@@ -1,7 +1,5 @@
-using Avalonia.Controls;
 using Avalonia.Input;
 using ReactiveUI.Avalonia;
-using BD.WTTS.UI.Views.Controls;
 using KeyEventArgs = Avalonia.Input.KeyEventArgs;
 
 namespace BD.WTTS.UI.Views.Pages;
@@ -12,20 +10,16 @@ public partial class SteamLoginImportPage : ReactiveUserControl<SteamLoginImport
     {
         InitializeComponent();
         DataContext ??= new SteamLoginImportPageViewModel();
-        PasswordText.KeyUp += PasswordTextOnKeyUp;
-        EmailAuthText.KeyUp += PasswordTextOnKeyUp;
-        //PhoneNumberText.KeyUp += PasswordTextOnKeyUp;
-        PhoneCodeText.KeyUp += PasswordTextOnKeyUp;
-        EmailAuthText.TextInput += EmailAuthText_TextInput;
-        PhoneCodeText.TextInput += EmailAuthText_TextInput;
+        PhoneCodeText.KeyUp += PhoneCodeTextOnKeyUp;
+        PhoneCodeText.TextInput += PhoneCodeTextOnTextInput;
     }
 
-    void EmailAuthText_TextInput(object? sender, TextInputEventArgs e)
+    void PhoneCodeTextOnTextInput(object? sender, TextInputEventArgs e)
     {
         e.Text = e.Text?.ToUpper();
     }
 
-    void PasswordTextOnKeyUp(object? sender, KeyEventArgs e)
+    void PhoneCodeTextOnKeyUp(object? sender, KeyEventArgs e)
     {
         if (e.Key == Avalonia.Input.Key.Return)
         {

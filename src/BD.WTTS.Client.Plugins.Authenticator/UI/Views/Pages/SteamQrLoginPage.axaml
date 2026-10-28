@@ -1,0 +1,111 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Pages.SteamQrLoginPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:steam="clr-namespace:BD.SteamClient.Models;assembly=BD.SteamClient"
+    x:CompileBindings="True"
+    x:DataType="spp:SteamQrLoginPageViewModel"
+    MaxWidth="540">
+    <UserControl.Styles>
+        <Style Selector="TextBlock.DetailLabel">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0,2,12,2" />
+        </Style>
+        <Style Selector="SelectableTextBlock.DetailValue">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="0,2" />
+        </Style>
+        <Style Selector="TextBlock.SecurityRisk.warning">
+            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+        </Style>
+    </UserControl.Styles>
+    <StackPanel Spacing="8">
+        <Border Padding="10,8" Background="{DynamicResource LayerFillColorDefaultBrush}" CornerRadius="6">
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <TextBlock FontWeight="SemiBold" Text="{Binding AuthenticatorName}" TextWrapping="Wrap" />
+                <TextBlock Grid.Column="1" Text="{Binding AccountName, StringFormat=确认账号：{0}}" TextWrapping="Wrap" />
+            </Grid>
+        </Border>
+        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="12"
+                   IsVisible="{Binding RequestDetails, Converter={StaticResource IsNullConverter}}"
+                   Text="请完整显示本人发起的 Steam 登录二维码，截图仅在本机识别，不保存、不上传。"
+                   TextWrapping="Wrap" />
+        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                Command="{Binding ScanScreenCommand}" Content="扫描屏幕二维码"
+                IsEnabled="{Binding CanScan}" IsVisible="{Binding IsScreenCaptureSupported}" />
+        <TextBlock IsVisible="{Binding !IsScreenCaptureSupported}" Text="当前屏幕扫码仅支持 Windows。" TextWrapping="Wrap" />
+        <ComboBox HorizontalAlignment="Stretch" IsEnabled="{Binding !IsBusy}"
+                  IsVisible="{Binding HasMultipleChallenges}" ItemsSource="{Binding Challenges}"
+                  PlaceholderText="选择已识别的登录请求" SelectedItem="{Binding SelectedChallenge}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="steam:SteamLoginQrChallenge">
+                    <TextBlock Text="{Binding ClientId, StringFormat=登录请求 {0}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                Command="{Binding ReviewCommand}" Content="读取所选请求的设备信息"
+                IsEnabled="{Binding CanScan}" IsVisible="{Binding NeedsReview}" />
+        <ProgressBar Height="3" IsIndeterminate="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <TextBlock Text="{Binding Status}" TextWrapping="Wrap">
+            <TextBlock.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                    <CompiledBindingExtension Path="RequestDetails" Converter="{StaticResource IsNullConverter}" />
+                    <CompiledBindingExtension Path="IsApproved" />
+                </MultiBinding>
+            </TextBlock.IsVisible>
+        </TextBlock>
+        <Border Padding="10" Background="{DynamicResource LayerFillColorDefaultBrush}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6"
+                IsVisible="{Binding RequestDetails, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+            <StackPanel Spacing="6">
+                <TextBlock FontWeight="SemiBold" Text="{Binding RequestDetails.RiskSummary}" TextWrapping="Wrap" />
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="{Binding RequestDetails.DeviceName}" TextWrapping="Wrap" IsVisible="{Binding RequestDetails.HasDeviceName}" />
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               Text="{Binding RequestDetails.Platform}" IsVisible="{Binding RequestDetails.HasPlatform}" />
+                </Grid>
+                <Grid ColumnDefinitions="Auto,*,Auto,*" ColumnSpacing="4">
+                    <TextBlock Classes="DetailLabel" Text="地区" IsVisible="{Binding RequestDetails.HasLocation}" />
+                    <SelectableTextBlock Grid.Column="1" Classes="DetailValue" Text="{Binding RequestDetails.Location}" IsVisible="{Binding RequestDetails.HasLocation}" />
+                    <TextBlock Grid.Column="2" Classes="DetailLabel" Text="IP" IsVisible="{Binding RequestDetails.HasIpAddress}" />
+                    <SelectableTextBlock Grid.Column="3" Classes="DetailValue" Text="{Binding RequestDetails.IpAddress}" IsVisible="{Binding RequestDetails.HasIpAddress}" />
+                </Grid>
+                <TextBlock Classes="SecurityRisk" Classes.warning="{Binding RequestDetails.IsRiskReported}"
+                           IsVisible="{Binding RequestDetails.HasSecuritySummary}"
+                           Text="{Binding RequestDetails.SecuritySummary}" TextWrapping="Wrap" />
+                <spp:Snackbar IsOpen="True" IsClosable="False" Severity="Warning"
+                              Message="请确认在安全环境登录，Steam 提示不代表安全保证。" />
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" IsVisible="{Binding !IsApproved}">
+                    <CheckBox VerticalAlignment="Center" Content="目标设备保持登录" IsChecked="{Binding PersistentLogin}" IsEnabled="{Binding CanApprove}" />
+                    <Button Grid.Column="1" Classes="accent" HorizontalContentAlignment="Center"
+                            Command="{Binding ApproveCommand}" Content="确认登录 Steam" IsEnabled="{Binding CanApprove}" />
+                </Grid>
+                <Expander Header="更多请求详情" IsExpanded="False">
+                    <Grid Margin="0,4,0,0" ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                        <TextBlock Classes="DetailLabel" Text="SteamID" />
+                        <SelectableTextBlock Grid.Column="1" Classes="DetailValue" Text="{Binding SteamId}" />
+                        <TextBlock Grid.Row="1" Classes="DetailLabel" Text="登录历史" IsVisible="{Binding RequestDetails.HasLoginHistory}" />
+                        <SelectableTextBlock Grid.Row="1" Grid.Column="1" Classes="DetailValue" Text="{Binding RequestDetails.LoginHistory}" IsVisible="{Binding RequestDetails.HasLoginHistory}" />
+                        <TextBlock Grid.Row="2" Classes="DetailLabel" Text="位置核对" IsVisible="{Binding RequestDetails.HasLocationAssessment}" />
+                        <SelectableTextBlock Grid.Row="2" Grid.Column="1" Classes="DetailValue" Text="{Binding RequestDetails.LocationAssessment}" IsVisible="{Binding RequestDetails.HasLocationAssessment}" />
+                        <TextBlock Grid.Row="3" Classes="DetailLabel" Text="请求频率" IsVisible="{Binding RequestDetails.HasUsageAssessment}" />
+                        <SelectableTextBlock Grid.Row="3" Grid.Column="1" Classes="DetailValue" Text="{Binding RequestDetails.UsageAssessment}" IsVisible="{Binding RequestDetails.HasUsageAssessment}" />
+                        <TextBlock Grid.Row="4" Classes="DetailLabel" Text="登录偏好" IsVisible="{Binding RequestDetails.HasRequestedPersistence}" />
+                        <SelectableTextBlock Grid.Row="4" Grid.Column="1" Classes="DetailValue" Text="{Binding RequestDetails.RequestedPersistence}" IsVisible="{Binding RequestDetails.HasRequestedPersistence}" />
+                        <TextBlock Grid.Row="5" Classes="DetailLabel" Text="位置数据" IsVisible="{Binding RequestDetails.HasGeolocation}" />
+                        <SelectableTextBlock Grid.Row="5" Grid.Column="1" Classes="DetailValue" Text="{Binding RequestDetails.Geolocation}" IsVisible="{Binding RequestDetails.HasGeolocation}" />
+                        <TextBlock Grid.Row="6" Classes="DetailLabel" Text="请求编号" />
+                        <SelectableTextBlock Grid.Row="6" Grid.Column="1" Classes="DetailValue" Text="{Binding RequestDetails.RequestId}" />
+                        <TextBlock Grid.Row="7" Classes="DetailLabel" Text="协议版本" />
+                        <SelectableTextBlock Grid.Row="7" Grid.Column="1" Classes="DetailValue" Text="{Binding RequestDetails.ProtocolVersion}" />
+                        <TextBlock Grid.Row="8" Classes="DetailLabel" Text="信息读取时间" />
+                        <SelectableTextBlock Grid.Row="8" Grid.Column="1" Classes="DetailValue" Text="{Binding RequestDetails.ReadAt}" />
+                    </Grid>
+                </Expander>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

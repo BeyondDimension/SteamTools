@@ -17,4 +17,10 @@
     <Style Selector="ui|FAFontIconSource">
         <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}" />
     </Style>
+
+    <Style Selector="PathIcon.CloseIcon">
+        <Setter Property="Data" Value="{StaticResource CloseIconGeometry}" />
+        <Setter Property="Width" Value="12" />
+        <Setter Property="Height" Value="12" />
+    </Style>
 </Styles>

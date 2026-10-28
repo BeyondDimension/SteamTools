@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<IsPackable>false</IsPackable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<DefineConstants>UNIT_TEST;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
 
@@ -38,6 +39,11 @@
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Net\IDnsAnalysisService.Constants.cs">
 			<LinkBase>Services\Net</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Authenticator\Helpers\SteamLoginQrScreenScanner.cs" Link="Helpers\SteamLoginQrScreenScanner.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.Authenticator\Helpers\SteamQrLoginSession.cs" Link="Helpers\SteamQrLoginSession.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.Authenticator\Helpers\SteamAuthenticatorIdentity.cs" Link="Helpers\SteamAuthenticatorIdentity.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.Authenticator\Models\AuthenticatorImportFileModels\SDAFileModel.cs" Link="Models\SDAFileModel.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.Authenticator\Models\SteamQrLoginRequestDetails.cs" Link="Models\SteamQrLoginRequestDetails.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -54,8 +54,8 @@
         </Border>
     </Design.PreviewWith>
 
-    <Thickness x:Key="TaskDialogHeaderPadding">60 18 12 9</Thickness>
-    <Thickness x:Key="TaskDialogHeaderPaddingNoIcon">18 18 12 9</Thickness>
+    <Thickness x:Key="TaskDialogHeaderPadding">60 18 52 9</Thickness>
+    <Thickness x:Key="TaskDialogHeaderPaddingNoIcon">18 18 52 9</Thickness>
 
     <ControlTheme x:Key="TaskDialogMoreDetailsButton" TargetType="Button">
         <Setter Property="Foreground" Value="{DynamicResource TaskDialogFooterButtonForeground}" />
@@ -118,14 +118,20 @@
 
                                 <Button
                                     Name="CloseButton"
+                                    Width="32"
+                                    Height="32"
+                                    Padding="8"
                                     Margin="0,0,12,0"
                                     HorizontalAlignment="Right"
                                     Classes="Close"
-                                    Content="{StaticResource Close}"
                                     Focusable="True"
                                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                     IsTabStop="True"
-                                    Theme="{StaticResource TransparentButton}" />
+                                    Theme="{StaticResource TransparentButton}"
+                                    AutomationProperties.Name="{x:Static spp:Strings.Close}"
+                                    ToolTip.Tip="{x:Static spp:Strings.Close}">
+                                    <PathIcon Classes="CloseIcon" />
+                                </Button>
                             </Panel>
 
                             <TextBlock
@@ -427,14 +433,20 @@
 
                                     <Button
                                         Name="CloseButton"
+                                        Width="32"
+                                        Height="32"
+                                        Padding="8"
                                         Margin="0,0,12,0"
                                         HorizontalAlignment="Right"
                                         Classes="Close"
-                                        Content="{StaticResource Close}"
                                         Focusable="True"
                                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                         IsTabStop="True"
-                                        Theme="{StaticResource TransparentButton}" />
+                                        Theme="{StaticResource TransparentButton}"
+                                        AutomationProperties.Name="{x:Static spp:Strings.Close}"
+                                        ToolTip.Tip="{x:Static spp:Strings.Close}">
+                                        <PathIcon Classes="CloseIcon" />
+                                    </Button>
                                 </Panel>
 
                                 <TextBlock

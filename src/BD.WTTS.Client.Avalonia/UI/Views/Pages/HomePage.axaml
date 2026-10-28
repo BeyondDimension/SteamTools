@@ -307,120 +307,120 @@
                     </spp:CarouselItems.ItemTemplate>
                 </spp:CarouselItems>-->
 
-                <DockPanel>
-                    <TextBlock
-                        Text="精选"
-                        Theme="{StaticResource TitleTextBlockStyle}"
-                        VerticalAlignment="Center" />
-                    <Button
-                        Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
-                        CommandParameter="{x:Static spp:HomePageViewModel.WattGameUrl}"
-                        Content="访问 WattGame 商城"
-                        DockPanel.Dock="Right"
-                        HorizontalAlignment="Right"
-                        Theme="{StaticResource HyperlinkButton}"
-                        VerticalAlignment="Center" />
-                </DockPanel>
-
-                <Grid>
-                <Border IsVisible="{Binding !IsShopsLoading}">
-                <spp:CarouselItems
-                    IsVisible="{Binding !!Shops.Count}"
-                    ItemsPerPage="4"
-                    ItemsSource="{Binding Shops}"
-                    MinHeight="250">
-                    <spp:CarouselItems.ItemTemplate>
-                        <DataTemplate x:DataType="spp:ShopRecommendGoodItem">
-                            <!--<Border spp:Animations.EnableAnimations="True">-->
-                            <spp:AppItem
-                                Classes="Vertical Scale"
-                                ClickCommand="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
-                                Cursor="Hand"
-                                MaxWidth="260"
-                                MinHeight="250"
-                                Tags="{Binding GoodsAllCategorysText}"
-                                Title="{Binding Name}"
-                                ToolTip.Tip="{Binding Brief}">
-                                <spp:AppItem.ClickCommandParameter>
-                                    <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                                        <CompiledBindingExtension Path="." Source="{x:Static spp:HomePageViewModel.WattGame_Goods_Detail_}" />
-                                        <CompiledBindingExtension Path="Id" />
-                                    </MultiBinding>
-                                </spp:AppItem.ClickCommandParameter>
-                                <spp:AppItem.Image>
-                                    <spp:Image2
-                                        EnableCancelToken="False"
-                                        RenderOptions.BitmapInterpolationMode="HighQuality"
-                                        Source="{Binding Image}" />
-                                </spp:AppItem.Image>
-                                <spp:AppItem.Status>
-                                    <Border Classes="Status">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock
-                                                FontSize="12"
-                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                IsVisible="{Binding !!DiscountValue}"
-                                                Text="{Binding Mktprice, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Static spp:CurrencyCode.CNY}}"
-                                                TextDecorations="Strikethrough"
-                                                VerticalAlignment="Center" />
-                                            <TextBlock
-                                                FontSize="14"
-                                                Text="{Binding Price, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Static spp:CurrencyCode.CNY}}"
-                                                VerticalAlignment="Center" />
-                                        </StackPanel>
-                                    </Border>
-                                </spp:AppItem.Status>
-                                <spp:AppItem.ActionButton>
-                                    <Border
-                                        Background="#4c6b22"
-                                        ClipToBounds="True"
-                                        CornerRadius="4"
-                                        Height="24"
-                                        IsVisible="{Binding !!DiscountValue}"
-                                        Padding="8,0">
-                                        <TextBlock
-                                            Foreground="#beee11"
-                                            Text="{Binding DiscountValue, StringFormat={}-{0}%}"
-                                            VerticalAlignment="Center" />
-                                    </Border>
-                                </spp:AppItem.ActionButton>
-                            </spp:AppItem>
-                            <!--</Border>-->
-                        </DataTemplate>
-                    </spp:CarouselItems.ItemTemplate>
-                </spp:CarouselItems>
-                </Border>
-                <Border IsHitTestVisible="False" IsVisible="{Binding !IsShopsLoading}">
-                    <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8" IsVisible="{Binding !Shops.Count}" Padding="24">
-                        <StackPanel Spacing="6">
-                            <TextBlock FontWeight="SemiBold" Text="暂无精选商品" />
-                            <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="新的推荐会在这里与您见面。" TextWrapping="Wrap" />
-                        </StackPanel>
-                    </Border>
-                </Border>
-                <UniformGrid Columns="4" IsVisible="{Binding IsShopsLoading}">
-                    <StackPanel Margin="0,0,10,0" Spacing="10">
-                        <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" />
-                        <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" />
-                        <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" />
-                    </StackPanel>
-                    <StackPanel Margin="0,0,10,0" Spacing="10">
-                        <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" />
-                        <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" />
-                        <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" />
-                    </StackPanel>
-                    <StackPanel Margin="0,0,10,0" Spacing="10">
-                        <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" />
-                        <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" />
-                        <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" />
-                    </StackPanel>
-                    <StackPanel Margin="0,0,10,0" Spacing="10">
-                        <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" />
-                        <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" />
-                        <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" />
-                    </StackPanel>
-                </UniformGrid>
-                </Grid>
+                <!-- <DockPanel> -->
+                <!--     <TextBlock -->
+                <!--         Text="精选" -->
+                <!--         Theme="{StaticResource TitleTextBlockStyle}" -->
+                <!--         VerticalAlignment="Center" /> -->
+                <!--     <Button -->
+                <!--         Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" -->
+                <!--         CommandParameter="{x:Static spp:HomePageViewModel.WattGameUrl}" -->
+                <!--         Content="访问 WattGame 商城" -->
+                <!--         DockPanel.Dock="Right" -->
+                <!--         HorizontalAlignment="Right" -->
+                <!--         Theme="{StaticResource HyperlinkButton}" -->
+                <!--         VerticalAlignment="Center" /> -->
+                <!-- </DockPanel> -->
+                <!-- -->
+                <!-- <Grid> -->
+                <!-- <Border IsVisible="{Binding !IsShopsLoading}"> -->
+                <!-- <spp:CarouselItems -->
+                <!--     IsVisible="{Binding !!Shops.Count}" -->
+                <!--     ItemsPerPage="4" -->
+                <!--     ItemsSource="{Binding Shops}" -->
+                <!--     MinHeight="250"> -->
+                <!--     <spp:CarouselItems.ItemTemplate> -->
+                <!--         <DataTemplate x:DataType="spp:ShopRecommendGoodItem"> -->
+                <!--             ~1~<Border spp:Animations.EnableAnimations="True">@1@ -->
+                <!--             <spp:AppItem -->
+                <!--                 Classes="Vertical Scale" -->
+                <!--                 ClickCommand="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" -->
+                <!--                 Cursor="Hand" -->
+                <!--                 MaxWidth="260" -->
+                <!--                 MinHeight="250" -->
+                <!--                 Tags="{Binding GoodsAllCategorysText}" -->
+                <!--                 Title="{Binding Name}" -->
+                <!--                 ToolTip.Tip="{Binding Brief}"> -->
+                <!--                 <spp:AppItem.ClickCommandParameter> -->
+                <!--                     <MultiBinding Converter="{StaticResource StringFormatConverter}"> -->
+                <!--                         <CompiledBindingExtension Path="." Source="{x:Static spp:HomePageViewModel.WattGame_Goods_Detail_}" /> -->
+                <!--                         <CompiledBindingExtension Path="Id" /> -->
+                <!--                     </MultiBinding> -->
+                <!--                 </spp:AppItem.ClickCommandParameter> -->
+                <!--                 <spp:AppItem.Image> -->
+                <!--                     <spp:Image2 -->
+                <!--                         EnableCancelToken="False" -->
+                <!--                         RenderOptions.BitmapInterpolationMode="HighQuality" -->
+                <!--                         Source="{Binding Image}" /> -->
+                <!--                 </spp:AppItem.Image> -->
+                <!--                 <spp:AppItem.Status> -->
+                <!--                     <Border Classes="Status"> -->
+                <!--                         <StackPanel Orientation="Horizontal"> -->
+                <!--                             <TextBlock -->
+                <!--                                 FontSize="12" -->
+                <!--                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}" -->
+                <!--                                 IsVisible="{Binding !!DiscountValue}" -->
+                <!--                                 Text="{Binding Mktprice, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Static spp:CurrencyCode.CNY}}" -->
+                <!--                                 TextDecorations="Strikethrough" -->
+                <!--                                 VerticalAlignment="Center" /> -->
+                <!--                             <TextBlock -->
+                <!--                                 FontSize="14" -->
+                <!--                                 Text="{Binding Price, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Static spp:CurrencyCode.CNY}}" -->
+                <!--                                 VerticalAlignment="Center" /> -->
+                <!--                         </StackPanel> -->
+                <!--                     </Border> -->
+                <!--                 </spp:AppItem.Status> -->
+                <!--                 <spp:AppItem.ActionButton> -->
+                <!--                     <Border -->
+                <!--                         Background="#4c6b22" -->
+                <!--                         ClipToBounds="True" -->
+                <!--                         CornerRadius="4" -->
+                <!--                         Height="24" -->
+                <!--                         IsVisible="{Binding !!DiscountValue}" -->
+                <!--                         Padding="8,0"> -->
+                <!--                         <TextBlock -->
+                <!--                             Foreground="#beee11" -->
+                <!--                             Text="{Binding DiscountValue, StringFormat={}-{0}%}" -->
+                <!--                             VerticalAlignment="Center" /> -->
+                <!--                     </Border> -->
+                <!--                 </spp:AppItem.ActionButton> -->
+                <!--             </spp:AppItem> -->
+                <!--             ~1~</Border>@1@ -->
+                <!--         </DataTemplate> -->
+                <!--     </spp:CarouselItems.ItemTemplate> -->
+                <!-- </spp:CarouselItems> -->
+                <!-- </Border> -->
+                <!-- <Border IsHitTestVisible="False" IsVisible="{Binding !IsShopsLoading}"> -->
+                <!--     <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8" IsVisible="{Binding !Shops.Count}" Padding="24"> -->
+                <!--         <StackPanel Spacing="6"> -->
+                <!--             <TextBlock FontWeight="SemiBold" Text="暂无精选商品" /> -->
+                <!--             <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="新的推荐会在这里与您见面。" TextWrapping="Wrap" /> -->
+                <!--         </StackPanel> -->
+                <!--     </Border> -->
+                <!-- </Border> -->
+                <!-- <UniformGrid Columns="4" IsVisible="{Binding IsShopsLoading}"> -->
+                <!--     <StackPanel Margin="0,0,10,0" Spacing="10"> -->
+                <!--         <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" /> -->
+                <!--         <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" /> -->
+                <!--         <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" /> -->
+                <!--     </StackPanel> -->
+                <!--     <StackPanel Margin="0,0,10,0" Spacing="10"> -->
+                <!--         <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" /> -->
+                <!--         <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" /> -->
+                <!--         <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" /> -->
+                <!--     </StackPanel> -->
+                <!--     <StackPanel Margin="0,0,10,0" Spacing="10"> -->
+                <!--         <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" /> -->
+                <!--         <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" /> -->
+                <!--         <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" /> -->
+                <!--     </StackPanel> -->
+                <!--     <StackPanel Margin="0,0,10,0" Spacing="10"> -->
+                <!--         <spp:Skeleton CornerRadius="8" Height="150" IsActive="True" IsLoading="True" /> -->
+                <!--         <spp:Skeleton CornerRadius="4" Height="16" IsActive="True" IsLoading="True" /> -->
+                <!--         <spp:Skeleton CornerRadius="4" Height="12" IsActive="True" IsLoading="True" Margin="0,0,35,0" /> -->
+                <!--     </StackPanel> -->
+                <!-- </UniformGrid> -->
+                <!-- </Grid> -->
 
                 <!--<spp:CarouselBanner
                     MinHeight="250"

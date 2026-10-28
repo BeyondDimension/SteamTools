@@ -8,14 +8,13 @@ public sealed partial class SteamTradePageViewModel
     [Reactive]
     public ObservableCollection<SteamTradeConfirmationModel> Confirmations { get; set; } = new();
 
-    [Reactive]
-    public string? UserNameText { get; set; }
+    public SteamLoginViewModel Login { get; }
 
     [Reactive]
-    public string? PasswordText { get; set; }
+    public bool RememberLogin { get; set; } = true;
 
     [Reactive]
-    public bool RemenberLogin { get; set; } = true;
+    public string? LoginStatus { get; set; }
 
     [Reactive]
     public bool IsLogged { get; set; }

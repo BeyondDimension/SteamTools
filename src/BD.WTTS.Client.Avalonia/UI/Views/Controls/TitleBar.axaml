@@ -21,6 +21,8 @@
                 <On Content="0,0,140,0" Options="Windows" />
             </OnPlatform>
         </Grid.Margin>
+        <Border Name="DragRegion" Grid.ColumnSpan="2" IsHitTestVisible="False" />
+
         <Image
             Name="BarIcon"
             Grid.Column="0"

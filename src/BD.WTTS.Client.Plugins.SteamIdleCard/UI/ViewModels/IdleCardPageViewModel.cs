@@ -273,6 +273,7 @@ public sealed partial class IdleCardPageViewModel
 
         if (!SteamLoginState.Success)
         {
+            LoginViewModel?.Dispose();
             LoginViewModel = new IdleSteamLoginPageViewModel(ref SteamLoginState);
             LoginViewModel.Close += async _ =>
             {
@@ -922,7 +923,7 @@ public sealed partial class IdleCardPageViewModel
         var sessionService = Ioc.Get<ISteamSessionService>();
         sessionService.AddOrSetSeesion(session);
 
-        if (LoginViewModel is null || LoginViewModel.RemenberLogin)
+        if (LoginViewModel is null || LoginViewModel.Login.RememberLogin)
             await sessionService.SaveSession(session);
     }
     #endregion

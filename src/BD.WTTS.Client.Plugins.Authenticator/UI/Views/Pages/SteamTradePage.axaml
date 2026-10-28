@@ -15,87 +15,46 @@
     <spp:ContentLoader CustomLoadingText="{Binding Path=Res.EnableAccelerationPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsLoading="{Binding IsLoading}">
         <Panel>
             <!--  登录  -->
-            <StackPanel
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Spacing="10">
-                <StackPanel.IsVisible>
+            <Grid RowDefinitions="*,Auto" RowSpacing="10">
+                <Grid.IsVisible>
                     <MultiBinding Converter="{x:Static BoolConverters.And}">
                         <CompiledBindingExtension Path="!IsLogged" />
                         <CompiledBindingExtension Path="!IsLoading" />
                     </MultiBinding>
-                </StackPanel.IsVisible>
-                <PathIcon
-                    Width="88"
-                    Height="88"
-                    Data="{StaticResource Steam}" />
-                <TextBox
-                    MaxWidth="280"
-                    Text="{Binding UserNameText}"
-                    PlaceholderText="{Binding Path=Res.Steam_User, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <TextBox
-                    Name="PasswordText"
-                    MaxWidth="280"
-                    Classes="revealPasswordButton"
-                    PasswordChar="{StaticResource PasswordChar}"
-                    Text="{Binding PasswordText}"
-                    PlaceholderText="{Binding Path=Res.Steam_Password, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <CheckBox Content="{Binding Path=Res.User_Rememberme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding RemenberLogin}" />
-                <Button
-                    MinWidth="280"
-                    HorizontalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    Command="{Binding Login}"
-                    Content="{Binding Path=Res.Login, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            </StackPanel>
+                </Grid.IsVisible>
+                <spp:SteamLoginView DataContext="{Binding Login}" ShowRememberLogin="True"
+                                    RememberLogin="{Binding $parent[spp:SteamTradePage].((spp:SteamTradePageViewModel)DataContext).RememberLogin, Mode=TwoWay}" />
+                <TextBlock Grid.Row="1" Text="{Binding LoginStatus}" TextWrapping="Wrap" HorizontalAlignment="Center" />
+            </Grid>
 
             <!--  确认交易  -->
-            <Grid RowDefinitions="Auto,*">
+            <Grid RowDefinitions="Auto,Auto,*">
                 <Grid.IsVisible>
                     <MultiBinding Converter="{x:Static BoolConverters.And}">
                         <CompiledBindingExtension Path="!IsLoading" />
                         <CompiledBindingExtension Path="IsLogged" />
                     </MultiBinding>
                 </Grid.IsVisible>
-                <DockPanel Margin="10,0" IsVisible="{Binding IsLogged}">
-                    <CheckBox
-                        Margin="8,0,0,0"
-                        VerticalAlignment="Center"
-                        Command="{Binding SelectAllCommand}"
-                        Content="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                        IsChecked="{Binding SelectedAll, Mode=OneWay}" />
-                    <ui:FACommandBar
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        DefaultLabelPosition="Right"
-                        DockPanel.Dock="Right"
-                        IsSticky="False">
-                        <ui:FACommandBar.PrimaryCommands>
-                            <ui:FACommandBarButton Command="{Binding Logout}" Label="{Binding Path=Res.Logout, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                <ui:FACommandBarButton.IconSource>
-                                    <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
-                                </ui:FACommandBarButton.IconSource>
-                            </ui:FACommandBarButton>
-                            <ui:FACommandBarButton
-                                Command="{Binding Refresh}"
-                                IconSource="Refresh"
-                                Label="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                            <ui:FACommandBarButton
-                                Command="{Binding CancelAllTrade}"
-                                IconSource="Cancel"
-                                Label="{Binding Path=Res.BatchReject, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                            <ui:FACommandBarButton Command="{Binding ConfirmAllTrade}" Label="{Binding Path=Res.BatchPass, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                <ui:FACommandBarButton.IconSource>
-                                    <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource CheckMark}" />
-                                </ui:FACommandBarButton.IconSource>
-                            </ui:FACommandBarButton>
-                        </ui:FACommandBar.PrimaryCommands>
-                    </ui:FACommandBar>
-                </DockPanel>
-                <Panel
-                    Grid.Row="1"
-                    MinWidth="400"
-                    MinHeight="400">
+                <Grid Margin="0,4,0,8" RowDefinitions="Auto,Auto" RowSpacing="8">
+                    <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                        <CheckBox VerticalAlignment="Center" Command="{Binding SelectAllCommand}"
+                                  Content="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                  IsChecked="{Binding SelectedAll, Mode=OneWay}" />
+                        <Button Grid.Column="1" Command="{Binding Refresh}"
+                                Content="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <Button Grid.Column="2" Command="{Binding Logout}"
+                                Content="{Binding Path=Res.Logout, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    </Grid>
+                    <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="8">
+                        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding CancelAllTrade}"
+                                Content="{Binding Path=Res.BatchReject, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <Button Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding ConfirmAllTrade}"
+                                Content="{Binding Path=Res.BatchPass, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    </Grid>
+                </Grid>
+                <TextBlock Grid.Row="1" Margin="0,0,0,8" Text="{Binding LoginStatus}" TextWrapping="Wrap"
+                           IsVisible="{Binding LoginStatus, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+                <Panel Grid.Row="2" MaxHeight="300">
                     <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -105,45 +64,40 @@
                         <ItemsControl ItemsSource="{Binding Confirmations}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Vertical" Spacing="5" />
+                                    <StackPanel Orientation="Vertical" Spacing="8" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type spp:SteamTradeConfirmationModel}">
                                     <ui:FASettingsExpander>
                                         <ui:FASettingsExpander.Header>
-                                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}">
-                                                <Grid
-                                                    MaxHeight="128"
-                                                    ColumnDefinitions="Auto,10,*"
-                                                    RowDefinitions="*,*">
-                                                    <spp:Image2
-                                                        Grid.RowSpan="2"
-                                                        Grid.Column="0"
-                                                        Width="128"
-                                                        Height="128"
-                                                        EnableCancelToken="False"
-                                                        Source="{Binding Icon}"
-                                                        Stretch="Uniform" />
+                                            <Grid ColumnDefinitions="Auto,40,*,Auto" ColumnSpacing="8">
+                                                <CheckBox VerticalAlignment="Top" Margin="0,4,0,0"
+                                                          IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                                                <spp:Image2 Grid.Column="1" Width="40" Height="40" VerticalAlignment="Top"
+                                                            EnableCancelToken="False" Source="{Binding Icon}" Stretch="Uniform" />
+                                                <StackPanel Grid.Column="2" Spacing="2">
+                                                    <TextBlock FontWeight="SemiBold" Text="{Binding TypeNameText}" TextWrapping="Wrap" />
+                                                    <TextBlock FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding CreateTime}" />
                                                     <TextBlock
-                                                        Grid.Row="0"
-                                                        Grid.Column="2"
-                                                        VerticalAlignment="Center"
-                                                        Text="{Binding TypeNameText}"
-                                                        Theme="{StaticResource SubtitleTextBlockStyle}" />
-                                                    <StackPanel
-                                                        Grid.Row="1"
-                                                        Grid.Column="2"
-                                                        VerticalAlignment="Center">
-                                                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding CreateTime}" />
-                                                        <TextBlock
-                                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                            IsVisible="{Binding ReceiveSummary, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
-                                                            Text="{Binding ReceiveSummary}" />
-                                                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding SendSummary}" />
-                                                    </StackPanel>
-                                                </Grid>
-                                            </CheckBox>
+                                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                        IsVisible="{Binding ReceiveSummary, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                                        Text="{Binding ReceiveSummary}"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding SendSummary}" TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                                        IsVisible="{Binding Warn, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}"
+                                                        Text="{Binding Warn}"
+                                                        TextWrapping="Wrap" />
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="3" VerticalAlignment="Center" Spacing="4">
+                                                    <Button Command="{Binding $parent[spp:SteamTradePage].((spp:SteamTradePageViewModel)DataContext).CancelTradeCommand}"
+                                                            CommandParameter="{Binding}" Content="{Binding Cancel}" />
+                                                    <Button Command="{Binding $parent[spp:SteamTradePage].((spp:SteamTradePageViewModel)DataContext).ConfirmTradeCommand}"
+                                                            CommandParameter="{Binding}" Content="{Binding Accept}" />
+                                                </StackPanel>
+                                            </Grid>
                                         </ui:FASettingsExpander.Header>
                                         <ui:FASettingsExpanderItem Description="{Binding ReceiveSummary}" IsVisible="{Binding IsTrade}">
                                             <ui:FASettingsExpanderItem.Content>
@@ -157,8 +111,8 @@
                                                         <ItemsControl.ItemTemplate>
                                                             <DataTemplate DataType="x:String">
                                                                 <spp:Image2
-                                                                    Width="96"
-                                                                    Height="96"
+                                                                    Width="64"
+                                                                    Height="64"
                                                                     EnableCancelToken="False"
                                                                     Source="{Binding}"
                                                                     Stretch="Uniform" />
@@ -180,8 +134,8 @@
                                                         <ItemsControl.ItemTemplate>
                                                             <DataTemplate DataType="x:String">
                                                                 <spp:Image2
-                                                                    Width="96"
-                                                                    Height="96"
+                                                                    Width="64"
+                                                                    Height="64"
                                                                     EnableCancelToken="False"
                                                                     Source="{Binding}"
                                                                     Stretch="Uniform" />
@@ -191,25 +145,6 @@
                                                 </ScrollViewer>
                                             </ui:FASettingsExpanderItem.Content>
                                         </ui:FASettingsExpanderItem>
-                                        <ui:FASettingsExpanderItem>
-                                            <ui:FASettingsExpanderItem.Footer>
-                                                <StackPanel Orientation="Horizontal" Spacing="5">
-                                                    <Button
-                                                        HorizontalAlignment="Left"
-                                                        Command="{Binding $parent[spp:SteamTradePage].((spp:SteamTradePageViewModel)DataContext).CancelTradeCommand}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="{Binding Cancel}" />
-                                                    <Button
-                                                        HorizontalAlignment="Right"
-                                                        Command="{Binding $parent[spp:SteamTradePage].((spp:SteamTradePageViewModel)DataContext).ConfirmTradeCommand}"
-                                                        CommandParameter="{Binding}"
-                                                        Content="{Binding Accept}" />
-                                                </StackPanel>
-                                            </ui:FASettingsExpanderItem.Footer>
-                                        </ui:FASettingsExpanderItem>
-                                        <!--<ui:FASettingsExpanderItem
-                                        Content="This one is clickable"
-                                        IsClickEnabled="True" />-->
                                     </ui:FASettingsExpander>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

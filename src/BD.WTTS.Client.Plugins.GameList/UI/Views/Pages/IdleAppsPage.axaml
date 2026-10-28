@@ -292,7 +292,7 @@
                                             Cursor="Hand"
                                             ToolTip.Tip="{Binding Path=Res.GameList_RemoveItemBtn, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                             <Viewbox Width="20" Height="20">
-                                                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Close}" />
+                                                <PathIcon Classes="CloseIcon" />
                                             </Viewbox>
                                         </Button>
                                     </Panel>

@@ -142,10 +142,9 @@
                         IsVisible="{Binding !IsAccelerating}"
                         ToolTip.Tip="{x:Static spp:Strings.Delete}">
                         <Viewbox Width="20" Height="20">
-                            <ui:FAFontIcon
-                                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                Foreground="White"
-                                Glyph="{StaticResource Close}" />
+                            <PathIcon
+                                Classes="CloseIcon"
+                                Foreground="White" />
                         </Viewbox>
                     </Button>
                     <!--</StackPanel>-->

@@ -33,13 +33,22 @@
                 <Setter Property="Opacity" Value="0.4" />
             </Style>
         </ControlTheme>
+        <ControlTheme x:Key="CaptionCloseButton" BasedOn="{StaticResource CaptionButton}" TargetType="Button">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                        <PathIcon Classes="CloseIcon" Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </ControlTheme>
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
         <Button Name="MinimizeButton" Content="&#xE921;" Theme="{StaticResource CaptionButton}"
                 ToolTip.Tip="{Binding Res.Minimize, Source={x:Static s:ResourceService.Current}}" />
         <Button Name="MaximizeButton" Content="&#xE922;" Theme="{StaticResource CaptionButton}"
                 ToolTip.Tip="{Binding Res.Maximize, Source={x:Static s:ResourceService.Current}}" />
-        <Button Name="CloseButton" Classes="Close" Content="&#xE711;" Theme="{StaticResource CaptionButton}"
+        <Button Name="CloseButton" Classes="Close" Theme="{StaticResource CaptionCloseButton}"
                 ToolTip.Tip="{Binding Res.Close, Source={x:Static s:ResourceService.Current}}" />
     </StackPanel>
 </UserControl>

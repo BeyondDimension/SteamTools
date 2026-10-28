@@ -11,6 +11,9 @@ public partial class AuthenticatorItemModel
 
     public bool IsSteamAuthenticator => AuthData.Platform == AuthenticatorPlatform.Steam;
 
+    public AuthenticatorPlatform DisplayPlatform => AuthData.Value is HOTPAuthenticator
+        ? AuthenticatorPlatform.HOTP : AuthData.Platform;
+
     [Reactive]
     public bool IsSelected { get; set; }
 

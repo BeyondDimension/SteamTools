@@ -20,6 +20,8 @@ public sealed partial class AuthenticatorHomePageViewModel
 
     string? _currentPassword;
 
+    readonly System.Threading.SemaphoreSlim reorderLock = new(1, 1);
+
     //DateTime _initializeTime;
     readonly Dictionary<string, string[]> dictPinYinArray = new();
 
@@ -64,20 +66,26 @@ public sealed partial class AuthenticatorHomePageViewModel
 
         var textFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
 
-        this.AuthSource
+        AuthSource
             .Connect()
+            .DisposeMany()
             .Filter(textFilter)
+            .Sort(SortExpressionComparer<AuthenticatorItemModel>.Ascending(x => x.AuthData.Index).ThenBy(x => x.AuthName).ThenBy(x => x.AuthData.Id))
             .ObserveOn(RxSchedulers.MainThreadScheduler)
-            .Sort(SortExpressionComparer<AuthenticatorItemModel>.Ascending(x => x.AuthData.Index).ThenBy(x => x.AuthName))
             .Bind(out _Auths)
-            .Subscribe();
+            .Subscribe()
+            .AddTo(this);
     }
 
     public async void Initialize()
     {
-        if (IsLoading) return;
+        if (IsLoading || Disposed) return;
 
         IsLoading = true;
+        await reorderLock.WaitAsync();
+        try
+        {
+            if (Disposed) return;
         //await AuthenticatorService.DeleteAllAuthenticatorsAsync();
         //if (_initializeTime > DateTime.Now.AddSeconds(-1))
         //{
@@ -97,10 +105,7 @@ public sealed partial class AuthenticatorHomePageViewModel
             if (HasPasswordEncrypt && IsVerificationPass == false)
             {
                 if (!await EnterPassword(sourceList[0]))
-                {
-                    IsLoading = false;
                     return;
-                }
             }
             else
             {
@@ -113,10 +118,7 @@ public sealed partial class AuthenticatorHomePageViewModel
             var list = (await AuthenticatorHelper.GetAllAuthenticatorsAsync(sourceList,
                 _currentPassword)).OrderBy(i => i.Index);
 
-            foreach (var item in list)
-            {
-                AuthSource.AddOrUpdate(new AuthenticatorItemModel(item));
-            }
+            AuthSource.AddOrUpdate(list.Select(item => new AuthenticatorItemModel(item)));
 
             var trayMenus = AuthSource.Items.Select(s => new TrayMenuItem
             {
@@ -147,7 +149,12 @@ public sealed partial class AuthenticatorHomePageViewModel
             IsVerificationPass = true;
         }
 
-        IsLoading = false;
+        }
+        finally
+        {
+            IsLoading = false;
+            reorderLock.Release();
+        }
     }
 
     public async Task<bool> EnterPassword(AccountPlatformAuthenticator sourceData)
@@ -274,7 +281,7 @@ public sealed partial class AuthenticatorHomePageViewModel
         await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, AppResources.Title_AuthEncryption);
     }
 
-    public void ReLockAuthenticator()
+    public async Task ReLockAuthenticator()
     {
         if (!HasPasswordEncrypt)
         {
@@ -282,12 +289,22 @@ public sealed partial class AuthenticatorHomePageViewModel
             return;
         }
 
-        AuthSource.Clear();
-        IsVerificationPass = false;
+        await reorderLock.WaitAsync();
+        try
+        {
+            if (Disposed) return;
+            AuthSource.Clear();
+            IsVerificationPass = false;
+        }
+        finally { reorderLock.Release(); }
     }
 
     public async Task SyncAuthenticators()
     {
+        await reorderLock.WaitAsync();
+        try
+        {
+        if (Disposed) return;
         var response = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
         if (response.Code != ApiRspCode.OK)
         {
@@ -425,6 +442,8 @@ public sealed partial class AuthenticatorHomePageViewModel
 
         Initialize();
         Toast.Show(ToastIcon.Success, AppResources.Success_AuthUpload__.Format(syncResponse.Content?.Message, pushItems.Length));
+        }
+        finally { reorderLock.Release(); }
     }
 
     public async Task ResetIndependentPassword()
@@ -469,6 +488,10 @@ public sealed partial class AuthenticatorHomePageViewModel
         if (await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, AppResources.Title_DeleteAuth, isDialog: false,
                 isCancelButton: true))
         {
+            await reorderLock.WaitAsync();
+            try
+            {
+            if (Disposed) return;
             if (authenticatorItemModel.AuthData.ServerId != null)
             {
                 if (string.IsNullOrEmpty(_currentAnswer))
@@ -493,9 +516,11 @@ public sealed partial class AuthenticatorHomePageViewModel
                 else
                     Toast.Show(ToastIcon.Warning, AppResources.Error_DelCloudData);
             }
-            AuthenticatorHelper.DeleteAuth(authenticatorItemModel.AuthData);
+            await AuthenticatorHelper.DeleteAuth(authenticatorItemModel.AuthData);
             AuthSource.Remove(authenticatorItemModel);
             Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthDelSuccessful);
+            }
+            finally { reorderLock.Release(); }
         }
     }
 
@@ -528,7 +553,15 @@ public sealed partial class AuthenticatorHomePageViewModel
             pageContent: new AuthenticatorRecoverPage(), isOkButton: false);
     }
 
-    public async void ExportAuthWithSdaFile(object sender)
+    public async Task ShowAuthenticatorManagement(object sender)
+    {
+        if (sender is not AuthenticatorItemModel item) return;
+        using var viewModel = new AuthenticatorManagementPageViewModel(item, DefaultExport, ExportAuthWithSdaFile);
+        await IWindowManager.Instance.ShowTaskDialogAsync(viewModel, Strings.ViewDetailedData,
+            pageContent: new AuthenticatorManagementPage(), isOkButton: false);
+    }
+
+    public async Task ExportAuthWithSdaFile(object sender)
     {
         if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
 
@@ -599,69 +632,62 @@ public sealed partial class AuthenticatorHomePageViewModel
         }
     }
 
-    public async Task AuthenticatorIndexMoveUp(object sender)
+    public Task AuthenticatorIndexMoveUp(object sender) => MoveRelative(sender, -1);
+
+    public Task AuthenticatorIndexMoveDown(object sender) => MoveRelative(sender, 1);
+
+    public Task AuthenticatorIndexSticky(object sender) => sender is AuthenticatorItemModel item && Auths.Count > 0
+        ? ReorderAuthenticator(item, Auths[0], false) : Task.CompletedTask;
+
+    Task MoveRelative(object sender, int direction)
     {
-        if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
-        var index = Auths.IndexOf(authenticatorItemModel);
-        if (index == 0)
-            return;
-        if (authenticatorItemModel.AuthData.ServerId != null)
+        if (sender is not AuthenticatorItemModel item) return Task.CompletedTask;
+        var targetIndex = Auths.IndexOf(item) + direction;
+        return targetIndex >= 0 && targetIndex < Auths.Count
+            ? ReorderAuthenticator(item, Auths[targetIndex], direction > 0) : Task.CompletedTask;
+    }
+    public async Task ReorderAuthenticator(AuthenticatorItemModel item, AuthenticatorItemModel target, bool after)
+    {
+        if (IsLoading || Disposed || ReferenceEquals(item, target) || !await reorderLock.WaitAsync(0)) return;
+        try
         {
-            if (string.IsNullOrEmpty(_currentAnswer))
+            var ordered = AuthSource.Items.OrderBy(x => x.AuthData.Index).ThenBy(x => x.AuthName)
+                .ThenBy(x => x.AuthData.Id).ToList();
+            var sourceIndex = ordered.IndexOf(item);
+            if (sourceIndex < 0 || !ordered.Contains(target)) return;
+            ordered.RemoveAt(sourceIndex);
+            var targetIndex = ordered.IndexOf(target) + (after ? 1 : 0);
+            if (targetIndex == sourceIndex) return;
+            ordered.Insert(targetIndex, item);
+            if (ordered.Any(x => x.AuthData.ServerId != null) && string.IsNullOrEmpty(_currentAnswer))
+            {
                 _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
+                if (string.IsNullOrEmpty(_currentAnswer)) return;
+            }
+            if (Disposed || AuthSource.Count != ordered.Count || ordered.Any(x =>
+                {
+                    var cached = AuthSource.Lookup(x.AuthData.Id);
+                    return !cached.HasValue || !ReferenceEquals(cached.Value, x);
+                })) return;
+            await AuthenticatorHelper.SaveOrderAsync(ordered.Select(x => x.AuthData).ToArray(), _currentAnswer);
+            if (Disposed) return;
+            AuthSource.Edit(updater =>
+            {
+                for (var i = 0; i < ordered.Count; i++)
+                    ordered[i].AuthData.Index = i + 1;
+                updater.Refresh(ordered);
+            });
         }
-        var result = await AuthenticatorHelper.MoveAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData, Auths, index, true,
-            _currentAnswer);
-        if (result <= 1)
+        catch (Exception ex)
         {
-            Toast.Show(ToastIcon.Error, AppResources.Auth_Sync_MoveError);
-            return;
+            Toast.Show(ToastIcon.Error, $"{AppResources.Auth_Sync_MoveError}: {ex.Message}");
         }
-        //Auths.Move(index, index - 1);
+        finally
+        {
+            reorderLock.Release();
+        }
     }
 
-    public async Task AuthenticatorIndexMoveDown(object sender)
-    {
-        if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
-        var index = Auths.IndexOf(authenticatorItemModel);
-        if (index >= Auths.Count - 1)
-            return;
-        if (authenticatorItemModel.AuthData.ServerId != null)
-        {
-            if (string.IsNullOrEmpty(_currentAnswer))
-                _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
-        }
-        var result = await AuthenticatorHelper.MoveAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData, Auths, index, false,
-            _currentAnswer);
-        if (result <= 1)
-        {
-            Toast.Show(ToastIcon.Error, AppResources.Auth_Sync_MoveError);
-            return;
-        }
-        //Auths.Move(index, index + 1);
-    }
-
-    public async Task AuthenticatorIndexSticky(object sender)
-    {
-        if (sender is not AuthenticatorItemModel authenticatorItemModel) return;
-        var index = Auths.IndexOf(authenticatorItemModel);
-        if (authenticatorItemModel.AuthData.ServerId != null)
-        {
-            if (string.IsNullOrEmpty(_currentAnswer))
-                _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
-        }
-        var result = await AuthenticatorHelper.ChangeAuthenticatorIndex<AuthenticatorItemModel>((a) => a.AuthData,
-            Auths, index, 0,
-            _currentAnswer);
-        if (result <= 1)
-        {
-            Toast.Show(ToastIcon.Error, AppResources.Auth_Sync_MoveError);
-            return;
-        }
-        var tmp = Auths.OrderBy(a => a.AuthData.Index).ToList();
-        AuthSource.Clear();
-        AuthSource.AddOrUpdate(tmp);
-    }
 
     public async Task DefaultExport(object sender)
     {
@@ -736,6 +762,8 @@ public sealed partial class AuthenticatorHomePageViewModel
 
     protected override void Dispose(bool disposing)
     {
+        if (disposing && !Disposed)
+            AuthSource.Dispose();
         base.Dispose(disposing);
     }
 }
