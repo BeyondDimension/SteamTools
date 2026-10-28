@@ -107,6 +107,45 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         }
     }
 
+    static async Task<bool> IsImageUnchangedAsync(Stream? edited, Task<Stream?> originalTask)
+    {
+        var original = await originalTask;
+        try
+        {
+            if (ReferenceEquals(edited, original))
+                return true;
+            if (edited is FileStream e && original is FileStream o)
+                return e.Name == o.Name;
+            if (edited is MemoryStream me && original is MemoryStream mo &&
+                me.TryGetBuffer(out var a) && mo.TryGetBuffer(out var b))
+                return a.AsSpan().SequenceEqual(b.AsSpan());
+            return false;
+        }
+        finally
+        {
+            if (!ReferenceEquals(edited, original))
+                original?.Dispose();
+        }
+    }
+
+    void ReleaseEditImages()
+    {
+        var streams = new[] { App.EditHeaderLogoStream, App.EditLibraryLogoStream, App.EditLibraryHeroStream, App.EditLibraryGridStream };
+        App.EditHeaderLogoStream = null;
+        App.EditLibraryLogoStream = null;
+        App.EditLibraryHeroStream = null;
+        App.EditLibraryGridStream = null;
+        foreach (var s in streams)
+            s?.Dispose();
+    }
+
+    static SteamUser? GetCurrentSteamUser()
+    {
+        var users = SteamConnectService.Current.SteamUsers.Items;
+        // 新版 Steam 无 MostRecent，回退使用 AutoLogin
+        return users.FirstOrDefault(s => s.MostRecent) ?? users.FirstOrDefault(s => s.AutoLogin);
+    }
+
     static bool CheckCurrentSteamUserStats(in SteamUser? user)
     {
         if (user == null)
@@ -119,10 +158,22 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
 
     public async void SaveEditAppInfo()
     {
+        try
+        {
+            await SaveEditAppInfoCore();
+        }
+        finally
+        {
+            ReleaseEditImages();
+        }
+    }
+
+    async Task SaveEditAppInfoCore()
+    {
         #region 自定义图片保存
         //var mostRecentUser = ISteamService.Instance.GetRememberUserList().Where(s => s.MostRecent).FirstOrDefault();
-        var mostRecentUser = SteamConnectService.Current.SteamUsers.Items.Where(s => s.MostRecent).FirstOrDefault();
-        if (!(App.EditHeaderLogoStream is FileStream fs3 && (await App.HeaderLogoStream) is FileStream headerLogoStream && fs3.Name == headerLogoStream.Name))
+        var mostRecentUser = GetCurrentSteamUser();
+        if (!await IsImageUnchangedAsync(App.EditHeaderLogoStream, App.HeaderLogoStream))
         {
             if (!CheckCurrentSteamUserStats(mostRecentUser))
                 return;
@@ -135,7 +186,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
             else
                 this.RaisePropertyChanged(nameof(App.HeaderLogoStream));
         }
-        if (!(App.EditLibraryLogoStream is FileStream fs && (await App.LibraryLogoStream) is FileStream libraryLogoStream && fs.Name == libraryLogoStream.Name))
+        if (!await IsImageUnchangedAsync(App.EditLibraryLogoStream, App.LibraryLogoStream))
         {
             if (!CheckCurrentSteamUserStats(mostRecentUser))
                 return;
@@ -148,7 +199,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
             else
                 this.RaisePropertyChanged(nameof(App.LibraryLogoStream));
         }
-        if (!(App.EditLibraryHeroStream is FileStream fs1 && (await App.LibraryHeroStream) is FileStream libraryHeroStream && fs1.Name == libraryHeroStream.Name))
+        if (!await IsImageUnchangedAsync(App.EditLibraryHeroStream, App.LibraryHeroStream))
         {
             if (!CheckCurrentSteamUserStats(mostRecentUser))
                 return;
@@ -161,7 +212,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
             else
                 this.RaisePropertyChanged(nameof(App.LibraryHeroStream));
         }
-        if (!(App.EditLibraryGridStream is FileStream fs2 && (await App.LibraryGridStream) is FileStream libraryGridStream && fs2.Name == libraryGridStream.Name))
+        if (!await IsImageUnchangedAsync(App.EditLibraryGridStream, App.LibraryGridStream))
         {
             if (!CheckCurrentSteamUserStats(mostRecentUser))
                 return;
@@ -190,7 +241,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
 
     public void CancelEditAppInfo()
     {
-        App.RefreshEditImage();
+        ReleaseEditImages();
         this.Close?.Invoke(false);
     }
 
@@ -238,7 +289,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         if (SelectGrid == null)
         {
             //Toast.Show(ToastIcon.Warning, Strings.SaveEditedAppInfo_SelectImageFailed);
-            var mostRecentUser = SteamConnectService.Current.SteamUsers.Items.Where(s => s.MostRecent).FirstOrDefault();
+            var mostRecentUser = GetCurrentSteamUser();
             if (!CheckCurrentSteamUserStats(mostRecentUser))
                 return;
             await ISteamService.Instance.SaveAppImageToSteamFile(null, mostRecentUser!, App.AppId, type);

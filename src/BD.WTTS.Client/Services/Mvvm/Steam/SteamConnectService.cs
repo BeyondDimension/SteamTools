@@ -379,12 +379,15 @@ public sealed class SteamConnectService
 
     void LoadGames(IEnumerable<SteamApp>? apps)
     {
-        SteamApps.Clear();
-        if (apps.Any_Nullable())
+        // 合并为一次变更通知，避免列表逐项刷新
+        SteamApps.Edit(updater =>
         {
-            SteamApps.AddOrUpdate(apps);
+            updater.Clear();
+            if (apps.Any_Nullable())
+                updater.AddOrUpdate(apps);
+        });
+        if (apps.Any_Nullable())
             ApplyModifiedApps(ISteamService.Instance.GetModifiedApps());
-        }
     }
 
     public int ApplyModifiedApps(IEnumerable<ModifiedApp>? modifiedApps)
@@ -395,28 +398,27 @@ public sealed class SteamConnectService
             return appliedCount;
         }
 
-        foreach (var modifiedApp in modifiedApps)
+        SteamApps.Edit(updater =>
         {
-            modifiedApp.ReadChanges();
-
-            if (modifiedApp.Changes == null)
+            foreach (var modifiedApp in modifiedApps)
             {
-                continue;
-            }
+                modifiedApp.ReadChanges();
 
-            var optional = SteamApps.Lookup(modifiedApp.AppId);
-            if (!optional.HasValue)
-            {
-                continue;
-            }
+                if (modifiedApp.Changes == null)
+                    continue;
 
-            var value = optional.Value;
-            value.ExtractReaderProperty(modifiedApp.Changes);
-            value.OriginalData = modifiedApp.OriginalData;
-            value.IsEdited = true;
-            SteamApps.Refresh(value);
-            appliedCount++;
-        }
+                var optional = updater.Lookup(modifiedApp.AppId);
+                if (!optional.HasValue)
+                    continue;
+
+                var value = optional.Value;
+                value.ExtractReaderProperty(modifiedApp.Changes);
+                value.OriginalData = modifiedApp.OriginalData;
+                value.IsEdited = true;
+                updater.Refresh(value);
+                appliedCount++;
+            }
+        });
 
         return appliedCount;
     }

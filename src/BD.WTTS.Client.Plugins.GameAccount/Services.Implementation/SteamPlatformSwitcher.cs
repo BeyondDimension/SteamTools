@@ -24,6 +24,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
                 {
                     if (user.AccountName == steamAccount.AccountName)
                     {
+                        user.AutoLogin = true;
                         user.MostRecent = true;
                         user.WantsOfflineMode = steamAccount.WantsOfflineMode;
                         user.SkipOfflineModeWarning = steamAccount.SkipOfflineModeWarning;
@@ -34,12 +35,14 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
                     else
                     {
                         user.MostRecent = false;
+                        user.AutoLogin = false;
                     }
 
                     var optional = SteamConnectService.Current.SteamUsers.Lookup(user.SteamId64);
                     if (optional.HasValue)
                     {
                         optional.Value.MostRecent = user.MostRecent;
+                        optional.Value.AutoLogin = user.AutoLogin;
                     }
                 }
             }

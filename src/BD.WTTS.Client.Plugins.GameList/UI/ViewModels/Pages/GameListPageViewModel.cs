@@ -30,7 +30,11 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
         this.WhenValueChanged(x => x.IsInstalledFilter, false)
             .Subscribe(s => GameLibrarySettings.GameInstalledFilter.Value = s);
 
-        var nameFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
+        var searchText = this.WhenAnyValue(x => x.SearchText);
+        var nameFilter = searchText.Take(1)
+            .Concat(searchText.Skip(1).Throttle(TimeSpan.FromMilliseconds(250), RxSchedulers.TaskpoolScheduler))
+            .DistinctUntilChanged()
+            .Select(PredicateName);
 
         var installFilter = this.WhenAnyValue(x => x.IsInstalledFilter).Select(PredicateInstalled);
 
@@ -170,11 +174,20 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
 
     public void CalcTypeCount()
     {
-        if (SteamConnectService.Current.SteamApps.Items.Any() && AppTypeFiltres != null)
+        var apps = SteamConnectService.Current.SteamApps.Items;
+        if (AppTypeFiltres != null && apps.Any())
+        {
+            var counts = new Dictionary<SteamAppType, int>();
+            foreach (var app in apps)
+            {
+                counts.TryGetValue(app.Type, out var n);
+                counts[app.Type] = n + 1;
+            }
             foreach (var item in AppTypeFiltres)
             {
-                item.Count = SteamConnectService.Current.SteamApps.Items.Count(s => s.Type == item.Value);
+                item.Count = counts.GetValueOrDefault(item.Value);
             }
+        }
     }
 
     public static void InstallOrStartApp(SteamApp app)
