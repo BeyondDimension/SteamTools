@@ -20,7 +20,7 @@ static unsafe partial class Program
         dotnet_version_major = "11";
         dotnet_version_minor = "0";
         dotnet_version_build = "0";
-        dotnet_version_preOrRcString = "-preview.7.26381.103"; // -字符开头！
+        dotnet_version_preOrRcString = "-rc.3.26522.148"; // -字符开头！
         dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}{dotnet_version_preOrRcString}";
     }
 
