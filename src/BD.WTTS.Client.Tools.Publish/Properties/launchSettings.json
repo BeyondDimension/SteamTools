@@ -21,6 +21,10 @@
       "commandName": "Project",
       "commandLineArgs": "run --rids osx-arm64"
     },
+    "Publish(linux-x64)": {
+      "commandName": "Project",
+      "commandLineArgs": "run --rids linux-x64"
+    },
     "Publish Setup(win-x64 hsm-sign)": {
       "commandName": "Project",
       "commandLineArgs": "nsis --rids win-x64 --hsm-sign --t latest"

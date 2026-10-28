@@ -27,7 +27,7 @@ using AssemblyInfo = BD.WTTS.AssemblyInfo;
 [assembly: AssemblyTrademark(AssemblyInfo.Trademark)]
 [assembly: AssemblyDescription(AssemblyInfo.Description)]
 #if APP_REVERSE_PROXY
-[assembly: AssemblyProduct($"{AssemblyInfo.Product} - Accelerator and script module sub-process")]
+[assembly: AssemblyProduct(AssemblyInfo.Product_APP_REVERSE_PROXY)]
 #else
 [assembly: AssemblyProduct(AssemblyInfo.Product)]
 #endif

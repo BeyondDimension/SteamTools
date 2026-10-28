@@ -5,6 +5,7 @@
 
 #if NETFRAMEWORK
 using System.Configuration;
+using System.Diagnostics;
 #endif
 using static BD.WTTS.AssemblyInfo;
 using static BD.WTTS.Client.Resources.Strings;
@@ -19,11 +20,12 @@ static unsafe partial class Program
         dotnet_version_major = "11";
         dotnet_version_minor = "0";
         dotnet_version_build = "0";
-        dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}";
+        dotnet_version_preOrRcString = "-preview.7.26381.103"; // -字符开头！
+        dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}{dotnet_version_preOrRcString}";
     }
 
     //#if NETFRAMEWORK
-    public static string dotnet_version_major, dotnet_version_minor, dotnet_version_build, dotnet_version;
+    public static string dotnet_version_major, dotnet_version_minor, dotnet_version_build, dotnet_version, dotnet_version_preOrRcString;
     //#else
     //    public const string dotnet_version_major = "7";
     //    public const string dotnet_version_minor = "0";
@@ -239,7 +241,7 @@ static unsafe partial class Program
 #if NETFRAMEWORK
         try
         {
-            var dotnet_version_ = ConfigurationManager.AppSettings["d"];
+            var dotnet_version_ = ConfigurationManager.AppSettings["d"]; // 由 App.config 中的配置键控制加载运行时版本
             if (!
 #if !NET35
                 string.
@@ -248,7 +250,7 @@ static unsafe partial class Program
                 dotnet_version_.Length < sbyte.MaxValue)
             {
                 var dotnet_version__ = dotnet_version_.Split('.');
-                int major, minor, build;
+                int major, minor;
                 switch (dotnet_version__.Length)
                 {
                     case 1:
@@ -265,8 +267,17 @@ static unsafe partial class Program
                     case 3:
                         dotnet_version_major = (int.TryParse(dotnet_version__[0], out major) ? major : 0).ToString();
                         dotnet_version_minor = (int.TryParse(dotnet_version__[1], out minor) ? minor : 0).ToString();
-                        dotnet_version_build = (int.TryParse(dotnet_version__[2], out build) ? build : 0).ToString();
-                        dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}";
+                        // 支持 PRE/RC 版本号
+                        string? preOrRcString = null;
+                        var buildString = dotnet_version__[2];
+                        var index = buildString.IndexOf('-');
+                        if (index > 0)
+                        {
+                            preOrRcString = buildString.Substring(index);
+                            buildString = buildString.Substring(0, index);
+                        }
+                        dotnet_version_build = (int.TryParse(buildString, out var build) ? build : 0).ToString();
+                        dotnet_version = $"{dotnet_version_major}.{dotnet_version_minor}.{dotnet_version_build}{preOrRcString}";
                         break;
                 }
             }

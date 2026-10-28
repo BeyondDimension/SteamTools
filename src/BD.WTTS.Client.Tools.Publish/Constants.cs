@@ -6,7 +6,7 @@ interface Constants
 {
     const string ProjectDir_AvaloniaApp = "BD.WTTS.Client.Avalonia.App";
     const string ProjectDir_AppHost = "BD.WTTS.Client.AppHost";
-    const string windowssdkver = "10.0.19041";
+    const string windowssdkver = "10.0.19041.0";
 
     static string DebugRuntimeConfigPath => Path.Combine(ProjectUtils.ProjPath, "src", ProjectDir_AvaloniaApp, "bin", "Debug", $"net{Environment.Version.Major}.{Environment.Version.Minor}-windows{windowssdkver}", runtimeconfigjsonfilename);
 

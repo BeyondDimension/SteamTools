@@ -624,6 +624,27 @@ $"""
     /// <param name="architecture"></param>
     static void CopyRuntime(string rootPublishDir, Platform platform, bool isCopyRuntime, Architecture architecture)
     {
+        string? preOrRcString = null;
+        var infoVer = typeof(object).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+        if (!string.IsNullOrWhiteSpace(infoVer))
+        {
+            var index = infoVer.IndexOf('-');
+            if (index > 4) // x.y.z-abc
+            {
+                var index2 = infoVer.IndexOf('+');
+                if (index2 > 0)
+                {
+                    preOrRcString = infoVer.Substring(index + 1, index2 - index - 1);
+                }
+                else
+                {
+                    preOrRcString = infoVer[(index + 1)..];
+                }
+            }
+        }
+
+        var specific_version = $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}{(preOrRcString == null ? null : $"-{preOrRcString}")}";
+
         switch (platform)
         {
             case Platform.UWP:
@@ -643,36 +664,36 @@ $"""
                         Environment.SpecialFolder.ProgramFilesX86 :
                         Environment.SpecialFolder.ProgramFiles);
 
-                    static string get_hostfxr_path(string rootPath) => Path.Combine(rootPath,
+                    string get_hostfxr_path(string rootPath) => Path.Combine(rootPath,
                         "dotnet",
                         "host",
                         "fxr",
-                        $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}",
+                        specific_version,
                         "hostfxr.dll");
 
                     var hostfxr_path = get_hostfxr_path(programFiles);
 
-                    static string get_aspnetcore_path(string rootPath) => Path.Combine(rootPath,
+                    string get_aspnetcore_path(string rootPath) => Path.Combine(rootPath,
                         "dotnet",
                         "shared",
                         "Microsoft.AspNetCore.App",
-                        $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}");
+                        specific_version);
 
                     var aspnetcore_path = get_aspnetcore_path(programFiles);
 
-                    static string get_win_desktop_path(string rootPath) => Path.Combine(rootPath,
+                    string get_win_desktop_path(string rootPath) => Path.Combine(rootPath,
                         "dotnet",
                         "shared",
                         "Microsoft.WindowsDesktop.App",
-                        $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}");
+                        specific_version);
 
                     var win_desktop_path = get_win_desktop_path(programFiles);
 
-                    static string get_netcore_path(string rootPath) => Path.Combine(rootPath,
+                    string get_netcore_path(string rootPath) => Path.Combine(rootPath,
                         "dotnet",
                         "shared",
                         "Microsoft.NETCore.App",
-                        $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}");
+                        specific_version);
 
                     var netcore_path = get_netcore_path(programFiles);
 

@@ -13,7 +13,9 @@ public static partial class AssemblyInfo
     /// </summary>
     public const string Version = $"{Version2}.{VersionBuild}";
 
-    const string VersionBuild = "1";
+    const string VersionBuild = "1"; // 1~99
+
+    const string VersionBuild2 = $"{VersionBuild}0"; // VersionBuild为1位时，补0，两位
 
     /// <summary>
     /// 预览版本号，范围 1~9，只增不减
@@ -25,7 +27,7 @@ public static partial class AssemblyInfo
     /// </summary>
     const string ver_for_rc = "0";
 
-    public const string FileVersion = $"{Version2}.2{ver_for_rc}2{ver_for_preview}.0"; // msix 需要保持第四位为0
+    public const string FileVersion = $"{Version2}.{VersionBuild2}{ver_for_rc}0{ver_for_preview}.0"; // msix 需要保持第四位为0
 
     public const string InformationalVersion = Version;
     //public const string InformationalVersion = $"{Version}-preview.{ver_for_preview}";
@@ -64,6 +66,8 @@ public static partial class AssemblyInfo
     /// 与应用程序关联的产品名称。
     /// </summary>
     public const string Product = Trademark;
+
+    public const string Product_APP_REVERSE_PROXY = $"{Product} - Accelerator and script module sub-process";
 
     /// <summary>
     /// 与该应用程序关联的公司名称。
@@ -147,5 +151,38 @@ false
     #endregion
 
 #endif
+
+    /// <summary>
+    /// 验证程序集是否为合法程序集
+    /// </summary>
+    /// <param name="assemblyPath"></param>
+    /// <returns></returns>
+    public static bool ValidateAssembly(string assemblyPath)
+    {
+        var fvi = FileVersionInfo.GetVersionInfo(assemblyPath);
+        if (fvi.Comments != Description)
+        {
+            return false;
+        }
+        else if (fvi.CompanyName != Company)
+        {
+            return false;
+        }
+        else if (fvi.LegalCopyright != Copyright)
+        {
+            return false;
+        }
+        else if (fvi.LegalTrademarks != Trademark)
+        {
+            return false;
+        }
+        else if (fvi.ProductName != Product && fvi.ProductName != Product_APP_REVERSE_PROXY)
+        {
+            return false;
+        }
+
+        // TODO: Digital signature verification
+        return true;
+    }
 
 }

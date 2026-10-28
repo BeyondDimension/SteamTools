@@ -64,8 +64,13 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
 
     internal static bool CheckBePid(Process proc)
     {
+        if (proc.Id == Environment.ProcessId)
+        {
+            return true;
+        }
+
         var procPath = Environment.ProcessPath;
-        ArgumentNullException.ThrowIfNullOrWhiteSpace(procPath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(procPath);
         var fn = proc.TryGetMainModule()?.FileName;
         if (fn == null)
             return false;
@@ -81,7 +86,8 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
         if (directory != null)
             debugAcceleratorPath = Path.Combine(directory.FullName, "src", "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "bin", "Debug", $"net{Environment.Version.Major}.{Environment.Version.Minor}", OperatingSystem.IsWindows() ? "Steam++.Accelerator.exe" : "Steam++.Accelerator");
 #endif
-        return IsAllowedPeerPath(procPath, fn, debugAcceleratorPath);
+        return IsAllowedPeerPath(procPath, fn, debugAcceleratorPath) ||
+            AssemblyInfo.ValidateAssembly(fn);
     }
 
     static bool IsAllowedPeerPath(string localPath, string peerPath, string? debugAcceleratorPath)
@@ -107,6 +113,10 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
 
     internal static bool CheckBePid(int pid)
     {
+        if (pid == Environment.ProcessId)
+        {
+            return true;
+        }
         if (!TryGetProcessById(pid, out var proc))
         {
             return false;

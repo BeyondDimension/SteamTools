@@ -96,6 +96,8 @@
 		<PackageReference Include="BD.Common.Repositories.SQLitePCL" />-->
 		<ProjectReference Include="..\..\ref\Common\src\BD.Common.Repositories.SQLitePCL\BD.Common.Repositories.SQLitePCL.csproj" />
 		<ProjectReference Include="..\..\ref\Common\src\BD.Common\BD.Common.csproj" />
+		<ProjectReference Include="..\..\ref\dotnetCampus.Ipc\src\dotnetCampus.Ipc.Analyzers\dotnetCampus.Ipc.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\ref\dotnetCampus.Ipc\src\dotnetCampus.Ipc\dotnetCampus.Ipc.csproj" />
 		<PackageReference Include="NLog" />
 		<PackageReference Include="System.Linq.Async" />
 		<PackageReference Include="Ae.DNS.Client" />
