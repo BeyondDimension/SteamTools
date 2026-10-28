@@ -7,6 +7,8 @@
 using System.Configuration;
 using System.Diagnostics;
 #endif
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using static BD.WTTS.AssemblyInfo;
 using static BD.WTTS.Client.Resources.Strings;
 
@@ -145,6 +147,8 @@ static unsafe partial class Program
         Architecture.X64 => "x64",
         Architecture.Arm => "Arm32",
         Architecture.Arm64 => "Arm64",
+        Architecture.LoongArch64 => "LoongArch64",
+        Architecture.RiscV64 => "RiscV64",
 #if !NETFRAMEWORK
         Architecture.Armv6 => "Armv6",
 #endif
@@ -189,13 +193,79 @@ static unsafe partial class Program
         OpenCoreByProcess(url);
     }
 
+    /// <summary>
+    /// 尝试通过 dotnet 命令获取 dotnet 根目录
+    /// </summary>
+    static string GetDotNetRootFromCommand()
+    {
+        try
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = "dotnet",
+                Arguments = "--list-runtimes",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+            };
+
+            using (var process = Process.Start(psi))
+            {
+                if (process == null)
+                    return null;
+
+                // 读取第一行输出
+                var output = process.StandardOutput.ReadLine();
+                process.WaitForExit(5000);
+
+                if (string.IsNullOrEmpty(output))
+                    return null;
+
+                // 提取路径，格式为 [...]
+                var startIndex = output.LastIndexOf('[');
+                var endIndex = output.LastIndexOf(']');
+                if (startIndex >= 0 && endIndex > startIndex)
+                {
+                    var sharedPath = output.Substring(startIndex + 1, endIndex - startIndex - 1);
+                    // 从 shared/Microsoft.NETCore.App 向上两级得到 dotnet 根目录
+                    var dotnetRoot = Path.GetDirectoryName(Path.GetDirectoryName(sharedPath));
+                    return dotnetRoot;
+                }
+            }
+        }
+        catch
+        {
+            // 忽略所有异常，返回 null 让调用方尝试其他方式
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 获取当前操作系统的 hostfxr 库文件名
+    /// </summary>
+    static string GetHostFxrLibName()
+    {
+#if NET35 || NET40 || NET451
+        // .NET 3.5/4.0/4.5.1 只能运行在 Windows 上
+        return "hostfxr.dll";
+#else
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            return "hostfxr.dll";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            return "libhostfxr.dylib";
+        return "libhostfxr.so";
+#endif
+    }
+
     enum DotNetRootType : byte
     {
         BaseDir,
-#if NETFRAMEWORK || WINDOWS
+#if WINDOWS || NETFRAMEWORK || _WINDOWS
         ProgramFiles,
 #endif
         EnvironmentVariable,
+        DotNetCommand,
     }
 
 #if NET40_OR_GREATER
@@ -304,6 +374,7 @@ static unsafe partial class Program
         //var requireAspNetCore = RequireAspNetCore(baseDirectory);
         const bool requireAspNetCore = true;
         string hostfxr_path, dotnet_runtime_path, aspnetcore_runtime_path, config_path, dotnetlib_path;
+        string selected_dotnet_root = string.Empty;
 
         // STEP 0: Search HostFxr
         for (byte i = 0; true; i++)
@@ -311,10 +382,11 @@ static unsafe partial class Program
             var dotnet_root = i switch
             {
                 (byte)DotNetRootType.BaseDir => Path.Combine(baseDirectory, "dotnet"), // 优先使用根目录上的运行时
-#if NETFRAMEWORK || WINDOWS
+#if WINDOWS || NETFRAMEWORK || _WINDOWS
                 (byte)DotNetRootType.ProgramFiles => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "dotnet"), // 查找已安装的运行时
 #endif
                 (byte)DotNetRootType.EnvironmentVariable => Environment.GetEnvironmentVariable("DOTNET_ROOT") ?? string.Empty, // 检查环境变量中设定的路径
+                (byte)DotNetRootType.DotNetCommand => GetDotNetRootFromCommand(), // 通过 dotnet 命令获取路径
                 _ => null,
             };
             if (dotnet_root == null)
@@ -357,60 +429,225 @@ static unsafe partial class Program
                         Path.Combine
 #endif
                         (dotnet_root, "host", "fxr");
-                    string usable_dotnet_version = dotnet_version;
-                    var dotnet_version_max = Directory.GetDirectories(dir_hostfxr_path, $"{dotnet_version_major}.*").Select(x =>
-                      {
-                          try
-                          {
-                              return new Version(Path.GetFileName(x));
-                          }
-                          catch
-                          {
-                              return null;
-                          }
-                      }).Where(x => x != null).Max();
-                    if (dotnet_version_max != null)
+
+#if DEBUG
+                    Console.WriteLine($"Checking dotnet_root: {dotnet_root}");
+                    Console.WriteLine($"hostfxr_path: {dir_hostfxr_path}");
+                    Console.WriteLine($"Directory exists: {Directory.Exists(dir_hostfxr_path)}");
+#endif
+
+                    // 获取 hostfxr 的所有可用版本（只考虑与目标版本相同主版本的）
+                    var hostfxr_versions = new List<Version>();
+                    if (Directory.Exists(dir_hostfxr_path))
                     {
-                        usable_dotnet_version = dotnet_version_max.ToString();
+                        foreach (var dir in Directory.GetDirectories(dir_hostfxr_path, "*.*"))
+                        {
+                            try
+                            {
+                                var ver = new Version(Path.GetFileName(dir));
+#if DEBUG
+                                Console.WriteLine($"Found hostfxr version: {ver}");
+#endif
+                                if (ver.Major == int.Parse(dotnet_version_major))
+                                    hostfxr_versions.Add(ver);
+                            }
+                            catch { }
+                        }
+                    }
+#if DEBUG
+                    Console.WriteLine($"hostfxr_versions count: {hostfxr_versions.Count}");
+#endif
+                    if (hostfxr_versions.Count == 0)
+                        continue;
+                    hostfxr_versions.Sort((a, b) => b.CompareTo(a)); // 降序排序
+
+                    // 获取 .NET Runtime 的所有可用版本
+                    var dotnet_runtime_dir =
+#if NET35
+                        PathCombine
+#else
+                        Path.Combine
+#endif
+                        (dotnet_root, "shared", dotnet_runtime);
+                    var dotnet_runtime_versions = new List<Version>();
+                    if (Directory.Exists(dotnet_runtime_dir))
+                    {
+                        foreach (var dir in Directory.GetDirectories(dotnet_runtime_dir, "*.*"))
+                        {
+                            try
+                            {
+                                var ver = new Version(Path.GetFileName(dir));
+                                dotnet_runtime_versions.Add(ver);
+                            }
+                            catch { }
+                        }
+                        dotnet_runtime_versions.Sort((a, b) => b.CompareTo(a)); // 降序排序
+                    }
+#if DEBUG
+                    Console.WriteLine($"dotnet_runtime_dir: {dotnet_runtime_dir}");
+                    Console.WriteLine($"dotnet_runtime_versions count: {dotnet_runtime_versions.Count}");
+                    foreach (var v in dotnet_runtime_versions)
+                        Console.WriteLine($"  - {v}");
+#endif
+
+                    // 获取 ASP.NET Core Runtime 的所有可用版本（如果需要）
+                    var aspnetcore_runtime_dir =
+#if NET35
+                        PathCombine
+#else
+                        Path.Combine
+#endif
+                        (dotnet_root, "shared", aspnetcore_runtime);
+                    var aspnetcore_runtime_versions = new List<Version>();
+                    if (requireAspNetCore && Directory.Exists(aspnetcore_runtime_dir))
+                    {
+                        foreach (var dir in Directory.GetDirectories(aspnetcore_runtime_dir, "*.*"))
+                        {
+                            try
+                            {
+                                var ver = new Version(Path.GetFileName(dir));
+                                aspnetcore_runtime_versions.Add(ver);
+                            }
+                            catch { }
+                        }
+                        aspnetcore_runtime_versions.Sort((a, b) => b.CompareTo(a)); // 降序排序
+                    }
+#if DEBUG
+                    Console.WriteLine($"aspnetcore_runtime_dir: {aspnetcore_runtime_dir}");
+                    Console.WriteLine($"aspnetcore_runtime_versions count: {aspnetcore_runtime_versions.Count}");
+                    foreach (var v in aspnetcore_runtime_versions)
+                        Console.WriteLine($"  - {v}");
+#endif
+
+                    // 查找最佳匹配的版本组合
+                    string usable_dotnet_version = null;
+                    var target_version = new Version(dotnet_version);
+#if DEBUG
+                    Console.WriteLine($"target_version: {target_version}");
+#endif
+
+                    foreach (var hostfxr_ver in hostfxr_versions)
+                    {
+                        // 检查是否存在兼容的 runtime 版本（相同或更高）
+                        Version matching_runtime = null;
+                        foreach (var r in dotnet_runtime_versions)
+                        {
+                            if (r >= target_version)
+                            {
+                                matching_runtime = r;
+                                break;
+                            }
+                        }
+                        if (matching_runtime == null)
+                            continue;
+
+                        // 如果需要 ASP.NET Core，检查是否存在兼容版本
+                        if (requireAspNetCore)
+                        {
+                            Version matching_aspnetcore = null;
+                            foreach (var r in aspnetcore_runtime_versions)
+                            {
+                                if (r >= target_version)
+                                {
+                                    matching_aspnetcore = r;
+                                    break;
+                                }
+                            }
+                            if (matching_aspnetcore == null)
+                                continue;
+                        }
+
+                        // 找到可用的版本组合
+                        usable_dotnet_version = hostfxr_ver.ToString();
+                        break;
                     }
 
+                    if (usable_dotnet_version == null)
+                    {
+#if DEBUG
+                        Console.WriteLine("usable_dotnet_version is null, continuing...");
+#endif
+                        continue;
+                    }
+
+#if DEBUG
+                    Console.WriteLine($"Selected usable_dotnet_version: {usable_dotnet_version}");
+#endif
+
+                    // 根据操作系统选择正确的 hostfxr 库文件名
+                    string hostfxr_lib_name = GetHostFxrLibName();
                     hostfxr_path =
 #if NET35
                         PathCombine
 #else
                         Path.Combine
 #endif
-                        (dir_hostfxr_path, usable_dotnet_version,
-#if NETFRAMEWORK || WINDOWS
-                        "hostfxr.dll"
-#elif MACOS || MACCATALYST
-                        "libhostfxr.dylib"
-#else
-                        "libhostfxr.so"
-#endif
-                        );
+                        (dir_hostfxr_path, usable_dotnet_version, hostfxr_lib_name);
 
+                    // 使用实际存在的 runtime 版本路径（可能与 hostfxr 版本不同）
+                    string actual_runtime_version = usable_dotnet_version;
+                    foreach (var v in dotnet_runtime_versions)
+                    {
+                        if (v >= target_version)
+                        {
+                            actual_runtime_version = v.ToString();
+                            break;
+                        }
+                    }
                     dotnet_runtime_path =
 #if NET35
                         PathCombine
 #else
                         Path.Combine
 #endif
-                        (dotnet_root, "shared", dotnet_runtime, usable_dotnet_version);
+                        (dotnet_root, "shared", dotnet_runtime, actual_runtime_version);
 
+                    string actual_aspnetcore_version = null;
+                    if (requireAspNetCore)
+                    {
+                        actual_aspnetcore_version = usable_dotnet_version;
+                        foreach (var v in aspnetcore_runtime_versions)
+                        {
+                            if (v >= target_version)
+                            {
+                                actual_aspnetcore_version = v.ToString();
+                                break;
+                            }
+                        }
+                    }
                     aspnetcore_runtime_path = requireAspNetCore ?
 #if NET35
                         PathCombine
 #else
                         Path.Combine
 #endif
-                        (dotnet_root, "shared", aspnetcore_runtime, usable_dotnet_version) : null!;
+                        (dotnet_root, "shared", aspnetcore_runtime, actual_aspnetcore_version) : null;
+
+#if DEBUG
+                    Console.WriteLine($"hostfxr_path: {hostfxr_path}");
+                    Console.WriteLine($"hostfxr exists: {File.Exists(hostfxr_path)}");
+                    Console.WriteLine($"dotnet_runtime_path: {dotnet_runtime_path}");
+                    Console.WriteLine($"dotnet_runtime exists: {Directory.Exists(dotnet_runtime_path)}");
+                    Console.WriteLine($"dotnet_runtime empty: {PathIsDirectoryEmpty(dotnet_runtime_path)}");
+                    Console.WriteLine($"aspnetcore_runtime_path: {aspnetcore_runtime_path}");
+                    Console.WriteLine($"aspnetcore_runtime exists: {Directory.Exists(aspnetcore_runtime_path)}");
+                    if (Directory.Exists(aspnetcore_runtime_path))
+                        Console.WriteLine($"aspnetcore_runtime empty: {PathIsDirectoryEmpty(aspnetcore_runtime_path)}");
+#endif
+
                     if (File.Exists(hostfxr_path) &&
                         Directory.Exists(dotnet_runtime_path) && !PathIsDirectoryEmpty(dotnet_runtime_path) &&
                         (!requireAspNetCore || (Directory.Exists(aspnetcore_runtime_path) && !PathIsDirectoryEmpty(aspnetcore_runtime_path))))
                     {
+#if DEBUG
+                        Console.WriteLine("All checks passed, breaking loop");
+#endif
+                        selected_dotnet_root = dotnet_root;
                         break;
                     }
+#if DEBUG
+                    Console.WriteLine("Checks failed, continuing to next dotnet_root...");
+#endif
 
                 }
             }
@@ -437,8 +674,30 @@ static unsafe partial class Program
         if (!File.Exists(config_path) || !File.Exists(dotnetlib_path))
         {
 #if DEBUG
-            config_path = string.Join(Path.DirectorySeparatorChar.ToString(), new[] { ProjectUtils.ProjPath, "src", "BD.WTTS.Client.Avalonia.App", "bin", "Debug", $"net{dotnet_version_major}.{dotnet_version_minor}-windows10.0.19041", $"{dotnet_dll_name}.runtimeconfig.json" });
-            dotnetlib_path = string.Join(Path.DirectorySeparatorChar.ToString(), new[] { ProjectUtils.ProjPath, "src", "BD.WTTS.Client.Avalonia.App", "bin", "Debug", $"net{dotnet_version_major}.{dotnet_version_minor}-windows10.0.19041", $"{dotnet_dll_name}.dll" });
+            // 根据操作系统选择不同的路径
+            string tfmPath;
+#if NET35 || NET40 || NET451
+            // .NET 3.5/4.0/4.5.1 只能是 Windows
+            tfmPath = $"net{dotnet_version_major}.{dotnet_version_minor}-windows10.0.19041";
+#else
+            // .NET Core/.NET 5+ 使用 RuntimeInformation
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                tfmPath = $"net{dotnet_version_major}.{dotnet_version_minor}-windows10.0.19041";
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                tfmPath = $"net{dotnet_version_major}.{dotnet_version_minor}";
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                tfmPath = $"net{dotnet_version_major}.{dotnet_version_minor}-macos";
+            else
+                tfmPath = $"net{dotnet_version_major}.{dotnet_version_minor}";
+#endif
+            config_path = string.Join(Path.DirectorySeparatorChar.ToString(), new[] { ProjectUtils.ProjPath, "src", "BD.WTTS.Client.Avalonia.App", "bin", "Debug", tfmPath, $"{dotnet_dll_name}.runtimeconfig.json" });
+            dotnetlib_path = string.Join(Path.DirectorySeparatorChar.ToString(), new[] { ProjectUtils.ProjPath, "src", "BD.WTTS.Client.Avalonia.App", "bin", "Debug", tfmPath, $"{dotnet_dll_name}.dll" });
+            Debug.WriteLine($"DEBUG: Using path for current OS:");
+            Debug.WriteLine($"  tfmPath: {tfmPath}");
+            Debug.WriteLine($"  config_path: {config_path}");
+            Debug.WriteLine($"  config_path exists: {File.Exists(config_path)}");
+            Debug.WriteLine($"  dotnetlib_path: {dotnetlib_path}");
+            Debug.WriteLine($"  dotnetlib_path exists: {File.Exists(dotnetlib_path)}");
 #else
             ShowErrMessageBox($"Loading assembly failed \"{dotnetlib_path}\"");
             return (int)ExitCode.EntryPointFileNotFound;
@@ -490,6 +749,7 @@ static unsafe partial class Program
             load_assembly_and_get_function_pointer = default;
 
         // Load .NET Core
+        // Windows 上使用 UTF-16 (wchar_t*)
         var config_path_ = Marshal.StringToHGlobalUni(config_path);
         int rc = default;
         nint cxt = default;
@@ -509,6 +769,8 @@ static unsafe partial class Program
             Debug.WriteLine
 #endif
                 ("Init failed: 0x{0}", new object[] { Convert.ToString(rc, 16), });
+            Debug.WriteLine($"  config_path used: {config_path}");
+            Debug.WriteLine($"  hostfxr_path: {hostfxr_path}");
             close_fptr(cxt);
         }
         else
@@ -539,6 +801,7 @@ static unsafe partial class Program
         }
 
         // STEP 3: Load managed assembly and get function pointer to a managed method
+        // Windows 上使用 UTF-16 (wchar_t*)
         var dotnetlib_path_ = Marshal.StringToHGlobalUni(dotnetlib_path);
         var dotnet_type_ = Marshal.StringToHGlobalUni(dotnet_type);
         var dotnet_type_method_ = Marshal.StringToHGlobalUni(dotnet_type_method);
@@ -616,9 +879,10 @@ static unsafe partial class Program
         Arm64 = 3,
         //Wasm = 4,
         //S390x = 5,
-        //LoongArch64 = 6, // SkiaSharp incompatibility.
+        LoongArch64 = 6,
         Armv6 = 7,
         //Ppc64le = 8,
+        RiscV64 = 9,
     }
 #endif
 #endif

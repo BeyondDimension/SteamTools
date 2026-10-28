@@ -76,3 +76,6 @@
 * [.NET Runtime](https://github.com/dotnet/runtime)
 * [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons)
 * [Material design icons](https://github.com/google/material-design-icons)
+
+For LoongArch64, it also included:
+* [libpng](https://github.com/winlibs/libpng)

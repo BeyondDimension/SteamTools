@@ -10,33 +10,117 @@ tar_path="$base_path/$tar_name"
 app_name="Watt Toolkit"
 PROCESS_NAMES=("$exec_name" "$app_name")
 export LC_ALL=en_US.UTF-8
-Install_certutil() {
+Determine_distribution() {
     # 判断发行版类型
+    # 由于Linux发行版包管理器可以混装，如Debian安装Arch Linux的pacman，此处采用/etc/os-release的形式进行一次判断。
+    # 读取 /etc/os-release 文件并提取 ID 字段，转换为小写
+    # $installprefix是该发行版包管理器安装软件前缀
+    # $nssvar是该发行版certutil包名称
+    os_id=$(grep "^ID=" /etc/os-release | cut -d'=' -f2 | tr -d '"' | tr '[:upper:]' '[:lower:]')
+    # 输出 ID
+    echo "OS ID: $os_id"
+
+    case "$os_id" in
+    "ubuntu" | "debian" | "kali" | "mx" | "devuan" | "pureos" | "parrot" | "trisquel" | "bunsenlabs" | "deepin" | "antix" | "uos" | "kylin" | "openkylin" | "loongnix" | "gxde" | "nfsdesktop")
+        echo 默认包管理器：apt
+        sudo apt update
+        installprefix="sudo apt install -y"
+        nssvar="libnss3-tools"
+        ;;
+    "fedora" | "neokylin")
+        echo 默认包管理器：dnf
+        installprefix="sudo dnf install -y"
+        nssvar="nss-tools"
+        ;;
+    "centos" | "rhel" | "rocky" | "alma" | "amzn" | "alt")
+        echo 默认包管理器：yum
+        installprefix="sudo yum install -y"
+        nssvar="nss-tools"
+        ;;
+    "opensuse")
+        echo 默认包管理器：zypper
+        sudo zypper refresh
+        installprefix="sudo zypper install"
+        nssvar="mozilla-nss-tools"
+        ;;
+    "arch" | "manjaro" | "artix" | "chakra" | "blackarch" | "frugalware")
+        echo 默认包管理器：pacman
+        installprefix="sudo pacman -Sy"
+        nssvar="nss"
+        ;;
+    "mageia" | "pclinuxos" | "openmandriva" | "rosa" | "vectorlinux")
+        echo 默认包管理器：urpmi
+        sudo urpmi.update -a
+        installprefix="sudo urpmi"
+        nssvar="nss-tools"
+        ;;
+    "slackware" | "salix" | "porteus" | "slacko")
+        echo 默认包管理器：slackpkg
+        sudo slackpkg update gpg
+        sudo slackpkg update
+        installprefix="sudo slackpkg install"
+        nssvar="nss"
+        ;;
+    "aosc")
+        echo 默认包管理器：oma
+        installprefix="sudo oma install -y"
+        nssvar="nss"
+        ;;
+    "gentoo")
+        echo 默认包管理器：emerge
+        sudo emerge --sync
+        installprefix="sudo emerge -av"
+        nssvar="nss"
+        ;;
+    "solus")
+        echo 默认包管理器：eopkg
+        sudo eopkg update-repo
+        installprefix="sudo eopkg install"
+        nssvar="nss-tools"
+        ;;
+    "clearlinux" | "nixos" | "void" | "puppy" | "tinycore" | "yongbao")
+        # 冷门发行版，手动安装判断变量
+        manualins="1"
+        ;;
+    *)
+        echo 未知发行版
+        manualins="1"
+        ;;
+    esac
+}
+Determine_distribution
+Install_wget() {
+    if command -v wget &>/dev/null; then
+        echo "wget 工具已安装。"
+    elif [ "$manualins" == "1" ]; then
+        echo "请手动安装 wget 工具。"
+    else
+        echo "安装包网上下载需要使用 wget 工具。"
+        # Gentoo特殊情况与一般情况
+        if [ "$os_id" == "gentoo" ]; then
+            $installprefix net-misc/wget
+        else
+            $installprefix wget
+        fi
+        echo "wget 工具已安装。"
+    fi
+}
+Install_certutil() {
     if command -v certutil &>/dev/null; then
         echo "certutil 工具已安装。"
+    elif [ "$manualins" == "1" ]; then
+        echo "请手动安装 certutil 工具。"
     else
         echo "证书导入以及验证需要使用 certutil 工具。"
-        # 判断包管理器
-        if command -v apt &>/dev/null; then
-            # 使用 apt (Debian/Ubuntu)
+        $installprefix $nssvar
+        # Loongnix 25特殊情况
+        if [ "$os_id" == "loongnix" ]; then
+            sudo ln -s /usr/sbin/setcap /usr/bin/setcap
             sudo apt update
-            sudo apt install -y libnss3-tools
-        elif command -v dnf &>/dev/null; then
-            # 使用 dnf (Fedora)
-            sudo dnf install -y nss-tools
-        elif command -v yum &>/dev/null; then
-            # 使用 yum (CentOS/Red Hat)
-            sudo yum install -y nss-tools
-        elif command -v pacman &>/dev/null; then
-            # 使用 pacman (Arch Linux)
-            # sudo pacman -S nss
-            echo "请手动安装 certutil 工具。"
-            exit 1
+            # sudo apt dist-upgrade
         else
-            echo "请手动安装 certutil 工具。"
-            exit 1
+            echo "certutil 工具已安装。"
         fi
-        echo "certutil 工具已安装。"
     fi
 }
 certutil_Init() {
@@ -56,55 +140,22 @@ Install_jq() {
     # Check if jq is already installed
     if command -v jq &>/dev/null; then
         echo "jq 工具已安装。"
+    elif [ "$manualins" == "1" ]; then
+        echo "请手动安装 jq 工具。"
     else
         echo "jq 用来解析版本更新。"
-        # Check the package manager
-        if command -v apt &>/dev/null; then
-            # Using apt (Debian/Ubuntu)
-            sudo apt update
-            sudo apt install -y jq
-        elif command -v dnf &>/dev/null; then
-            # Using dnf (Fedora)
-            sudo dnf install -y jq
-        elif command -v yum &>/dev/null; then
-            # Using yum (CentOS/Red Hat)
-            sudo yum install -y jq
-        elif command -v pacman &>/dev/null; then
-            # Using pacman (Arch Linux)
-            sudo pacman -S jq
-        else
-            echo "请手动安装 jq 工具。"
-            exit 1
-        fi
-        echo "请手动安装 jq 工具。"
+        $installprefix jq
+        echo "jq 工具已安装。"
     fi
 }
 Install_zenity() {
-    # 判断发行版类型
     if command -v zenity &>/dev/null; then
         echo "zenity 工具已安装。"
+    elif [ "$manualins" == "1" ]; then
+        echo "请手动安装 zenity 工具。"
     else
         echo "安装过程需要 zenity 工具。"
-        # 判断包管理器
-        if command -v apt &>/dev/null; then
-            # 使用 apt (Debian/Ubuntu)
-            sudo apt update
-            sudo apt install -y zenity
-        elif command -v dnf &>/dev/null; then
-            # 使用 dnf (Fedora)
-            sudo dnf install -y zenity
-        elif command -v yum &>/dev/null; then
-            # 使用 yum (CentOS/Red Hat)
-            sudo yum install -y zenity
-        elif command -v pacman &>/dev/null; then
-            # 使用 pacman (Arch Linux)
-            # sudo pacman -S zenity
-            echo "请手动安装 zenity 工具。"
-            exit 1
-        else
-            echo "请手动安装 zenity 工具。"
-            exit 1
-        fi
+        $installprefix zenity
         echo "zenity 工具已安装。"
     fi
 }
@@ -158,8 +209,9 @@ Kill_Process() {
     done
 
 }
+Install_wget
 Install_certutil
-Install_zenity
+[ "$os_id" != "yongbao" ] && Install_zenity || echo 勇豹没有包管理器，不能安装zenity，此处以whiptail代替
 Install_jq
 certutil_Init
 Kill_Process
@@ -173,16 +225,23 @@ fi
 chmod +x "$base_path/$exec_name.sh"
 # xdg-icon-resource install "$base_path/Icons/Watt-Toolkit.png" --size 128 Watt-Toolkit
 InitDesktop() {
+    # 检查XDG_DESKTOP_DIR环境变量，如果未设置则使用默认值，支持KDE的中文桌面路径
+    if command -v xdg-user-dir &>/dev/null; then
+        XDG_DESKTOP_DIR=$(xdg-user-dir DESKTOP)
+    else
+        XDG_DESKTOP_DIR="$HOME/Desktop"
+    fi
+
     while true; do
         # 使用 zenity 提示用户选择安装路径或使用默认路径
-        choice=$(zenity --list --radiolist --title="请选择要添加到的位置" --column="选择" --column="路径" TRUE "$HOME/.local/share/applications/" FALSE "$HOME/Desktop")
+        choice=$(zenity --list --radiolist --title="请选择要添加到的位置" --column="选择" --column="路径" TRUE "$HOME/.local/share/applications/" FALSE "$XDG_DESKTOP_DIR")
 
         # 检查用户输入
         if [ "$choice" == "$HOME/.local/share/applications/" ]; then
             target_dir="$HOME/.local/share/applications/"
             break
-        elif [ "$choice" == "$HOME/Desktop" ]; then
-            target_dir="$HOME/Desktop/"
+        elif [ "$choice" == "$XDG_DESKTOP_DIR" ]; then
+            target_dir="$XDG_DESKTOP_DIR"
             break
         else
             echo "无效选项，请输入 1 或 2。"
