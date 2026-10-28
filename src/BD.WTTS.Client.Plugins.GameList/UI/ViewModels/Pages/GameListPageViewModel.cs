@@ -28,51 +28,55 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
         IsCloudArchiveFilter = GameLibrarySettings.GameCloudArchiveFilter.Value;
 
         this.WhenValueChanged(x => x.IsInstalledFilter, false)
-            .Subscribe(s => GameLibrarySettings.GameInstalledFilter.Value = s);
+            .Subscribe(s => GameLibrarySettings.GameInstalledFilter.Value = s)
+            .AddTo(this);
 
         var searchText = this.WhenAnyValue(x => x.SearchText);
         var nameFilter = searchText.Take(1)
             .Concat(searchText.Skip(1).Throttle(TimeSpan.FromMilliseconds(250), RxSchedulers.TaskpoolScheduler))
             .DistinctUntilChanged()
+            .ObserveOn(RxSchedulers.TaskpoolScheduler)
             .Select(PredicateName);
 
-        var installFilter = this.WhenAnyValue(x => x.IsInstalledFilter).Select(PredicateInstalled);
+        var installFilter = this.WhenAnyValue(x => x.IsInstalledFilter)
+            .ObserveOn(RxSchedulers.TaskpoolScheduler)
+            .Select(PredicateInstalled);
 
-        var isCloudArchiveFilter = this.WhenAnyValue(x => x.IsCloudArchiveFilter).Select(PredicateCloudArchive);
+        var isCloudArchiveFilter = this.WhenAnyValue(x => x.IsCloudArchiveFilter)
+            .ObserveOn(RxSchedulers.TaskpoolScheduler)
+            .Select(PredicateCloudArchive);
 
-        var typeFilter = this.WhenAnyValue(x => x.EnableAppTypeFiltres).Select(PredicateType);
+        var typeFilter = this.WhenAnyValue(x => x.EnableAppTypeFiltres)
+            .ObserveOn(RxSchedulers.TaskpoolScheduler)
+            .Select(PredicateType);
+
+        var filter = Observable.CombineLatest(nameFilter, typeFilter, installFilter, isCloudArchiveFilter,
+            (name, type, installed, cloud) => new Func<SteamApp, bool>(app =>
+                type(app) && installed(app) && cloud(app) && name(app)));
 
         this.WhenAnyValue(x => x.AppTypeFiltres)
-            .Subscribe(type => type?
-                  .ToObservableChangeSet()
-                  .AutoRefresh(x => x.Enable)
-                  .Subscribe(_ =>
-                  {
-                      EnableAppTypeFiltres = AppTypeFiltres.Where(s => s.Enable).ToList();
-                      GameLibrarySettings.GameTypeFiltres.Value = EnableAppTypeFiltres.Select(s => s.Value).ToList();
-                      this.RaisePropertyChanged(nameof(TypeFilterString));
-                  }));
+            .Select(type => type == null
+                ? Observable.Empty<IChangeSet<EnumModel<SteamAppType>>>()
+                : type.ToObservableChangeSet().AutoRefresh(x => x.Enable))
+            .Switch()
+            .Subscribe(_ =>
+            {
+                EnableAppTypeFiltres = AppTypeFiltres?.Where(s => s.Enable).ToArray();
+                GameLibrarySettings.GameTypeFiltres.Value = EnableAppTypeFiltres?.Select(s => s.Value).ToList();
+                this.RaisePropertyChanged(nameof(TypeFilterString));
+            })
+            .AddTo(this);
 
         SteamConnectService.Current.SteamApps
             .Connect()
-            .Filter(nameFilter)
-            .Filter(typeFilter)
-            .Filter(installFilter)
-            .Filter(isCloudArchiveFilter)
+            .ObserveOn(RxSchedulers.TaskpoolScheduler)
+            .Do(_ => CalcTypeCount())
+            .Filter(filter)
             .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.DisplayName).ThenByDescending(s => s.SizeOnDisk))
             .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Bind(out _SteamApps)
-            .Subscribe(_ =>
-            {
-                ////无已安装游戏时，显示提示
-                //if (SteamConnectService.Current.SteamApps.Keys.Any() &&
-                //    IsInstalledFilter && !_SteamApps.Any_Nullable())
-                //{
-                //    IsInstalledFilter = false;
-                //    Toast.Show(ToastIcon.Info, "没有检测到已安装游戏，自动切换全部游戏");
-                //}
-                CalcTypeCount();
-            });
+            .Subscribe()
+            .AddTo(this);
 
         ShowHideAppCommand = ReactiveCommand.Create(() =>
         {
@@ -131,20 +135,8 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
 
     Func<SteamApp, bool> PredicateType(IEnumerable<EnumModel<SteamAppType>>? types)
     {
-        //var types = AppTypeFiltres.Where(x => x.Enable);
-        return (s) =>
-        {
-            if (types == null)
-                return false;
-            if (types.Any())
-            {
-                if (types.Any(x => x.Value == s.Type))
-                {
-                    return true;
-                }
-            }
-            return false;
-        };
+        var enabledTypes = types?.Select(x => x.Value).ToHashSet();
+        return s => enabledTypes?.Contains(s.Type) == true;
     }
 
     Func<SteamApp, bool> PredicateInstalled(bool isInstalledFilter)
@@ -174,20 +166,21 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
 
     public void CalcTypeCount()
     {
-        var apps = SteamConnectService.Current.SteamApps.Items;
-        if (AppTypeFiltres != null && apps.Any())
+        var counts = new Dictionary<SteamAppType, int>();
+        foreach (var app in SteamConnectService.Current.SteamApps.Items)
         {
-            var counts = new Dictionary<SteamAppType, int>();
-            foreach (var app in apps)
-            {
-                counts.TryGetValue(app.Type, out var n);
-                counts[app.Type] = n + 1;
-            }
-            foreach (var item in AppTypeFiltres)
-            {
-                item.Count = counts.GetValueOrDefault(item.Value);
-            }
+            counts.TryGetValue(app.Type, out var count);
+            counts[app.Type] = count + 1;
         }
+
+        MainThread2.BeginInvokeOnMainThread(() =>
+        {
+            if (Disposed || AppTypeFiltres == null)
+                return;
+
+            foreach (var item in AppTypeFiltres)
+                item.Count = counts.GetValueOrDefault(item.Value);
+        });
     }
 
     public static void InstallOrStartApp(SteamApp app)

@@ -33,28 +33,19 @@ public sealed class SteamConnectService
 
         DownloadApps
             .Connect()
-            .Subscribe(_ =>
+            .Subscribe(changes => SteamApps.Edit(updater =>
             {
-                foreach (var app in DownloadApps.Items)
+                // Refresh only affected games, once per download changeset.
+                foreach (var change in changes)
                 {
-                    var optional = SteamApps.Lookup(app.AppId);
-                    if (optional.HasValue)
-                    {
-                        var value = optional.Value;
-                        value.InstalledDir = app.InstalledDir;
-                        value.State = app.State;
-                        value.SizeOnDisk = app.SizeOnDisk;
-                        value.LastOwner = app.LastOwner;
-                        value.BytesToDownload = app.BytesToDownload;
-                        value.BytesDownloaded = app.BytesDownloaded;
-                        value.BytesToStage = app.BytesToStage;
-                        value.BytesStaged = app.BytesStaged;
-                        value.LastUpdated = app.LastUpdated;
+                    if (change.Reason == ChangeReason.Remove)
+                        continue;
 
-                        SteamApps.Refresh(app);
-                    }
+                    var optional = updater.Lookup(change.Key);
+                    if (optional.HasValue && CopyDownloadState(optional.Value, change.Current))
+                        updater.Refresh(optional.Value);
                 }
-            });
+            }));
 
         this.WhenValueChanged(x => x.IsWatchSteamDownloading, false)
             .Subscribe(x =>
@@ -75,15 +66,8 @@ public sealed class SteamConnectService
                         else
                         {
                             var current = optional.Value;
-                            current.InstalledDir = app.InstalledDir;
-                            current.State = app.State;
-                            current.SizeOnDisk = app.SizeOnDisk;
-                            current.LastOwner = app.LastOwner;
-                            current.BytesToDownload = app.BytesToDownload;
-                            current.BytesDownloaded = app.BytesDownloaded;
-                            current.BytesToStage = app.BytesToStage;
-                            current.BytesStaged = app.BytesStaged;
-                            current.LastUpdated = app.LastUpdated;
+                            if (CopyDownloadState(current, app))
+                                DownloadApps.Refresh(current);
                         }
 
                         if (WatchDownloadingSteamAppIds.Contains(app.AppId))
@@ -111,6 +95,27 @@ public sealed class SteamConnectService
                     stmService.StopWatchSteamDownloading();
                 }
             });
+    }
+
+    static bool CopyDownloadState(SteamApp target, SteamApp source)
+    {
+        if (target.InstalledDir == source.InstalledDir && target.State == source.State &&
+            target.SizeOnDisk == source.SizeOnDisk && target.LastOwner == source.LastOwner &&
+            target.BytesToDownload == source.BytesToDownload && target.BytesDownloaded == source.BytesDownloaded &&
+            target.BytesToStage == source.BytesToStage && target.BytesStaged == source.BytesStaged &&
+            target.LastUpdated == source.LastUpdated)
+            return false;
+
+        target.InstalledDir = source.InstalledDir;
+        target.State = source.State;
+        target.SizeOnDisk = source.SizeOnDisk;
+        target.LastOwner = source.LastOwner;
+        target.BytesToDownload = source.BytesToDownload;
+        target.BytesDownloaded = source.BytesDownloaded;
+        target.BytesToStage = source.BytesToStage;
+        target.BytesStaged = source.BytesStaged;
+        target.LastUpdated = source.LastUpdated;
+        return true;
     }
 
     #region Steam 游戏列表
@@ -423,11 +428,9 @@ public sealed class SteamConnectService
         return appliedCount;
     }
 
-    public async void InitializeGameList()
+    public async Task InitializeGameList()
     {
-        SteamApps.Clear();
         LoadGames(await ISteamService.Instance.GetAppInfos());
-        //UpdateGamesImage();
         InitializeDownloadGameList();
         IsLoadingGameList = false;
     }
@@ -435,18 +438,14 @@ public sealed class SteamConnectService
     public void InitializeDownloadGameList()
     {
         var apps = ISteamService.Instance.GetDownloadingAppList();
-        if (apps.Any_Nullable())
+        foreach (var app in apps)
+            app.IsWatchDownloading = WatchDownloadingSteamAppIds.Contains(app.AppId);
+
+        DownloadApps.Edit(updater =>
         {
-            DownloadApps.Clear();
-
-            if (WatchDownloadingSteamAppIds.Any())
-                foreach (var app in apps)
-                {
-                    app.IsWatchDownloading = WatchDownloadingSteamAppIds.Contains(app.AppId);
-                }
-
-            DownloadApps.AddOrUpdate(apps);
-        }
+            updater.Clear();
+            updater.AddOrUpdate(apps);
+        });
     }
 
     static void WatchDownloadingComplete()
@@ -482,7 +481,7 @@ public sealed class SteamConnectService
             IsLoadingGameList = true;
             if (stmService.IsRunningSteamProcess)
             {
-                await Task.Factory.StartNew(async () =>
+                await Task.Run(async () =>
                 {
                     try
                     {
@@ -493,7 +492,6 @@ public sealed class SteamConnectService
                                 if (swLocalService.Initialize())
                                 {
                                     IsDisposedClient = false;
-                                    SteamApps.Clear();
                                     var apps = await ISteamService.Instance.GetAppInfos();
                                     if (apps != null)
                                     {
@@ -516,7 +514,7 @@ public sealed class SteamConnectService
                         IsLoadingGameList = false;
                         DisposeSteamClient();
                     }
-                }, TaskCreationOptions.DenyChildAttach).ConfigureAwait(false);
+                }).ConfigureAwait(false);
             }
             else
             {

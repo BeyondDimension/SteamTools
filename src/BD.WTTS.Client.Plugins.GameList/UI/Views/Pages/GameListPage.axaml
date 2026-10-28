@@ -349,7 +349,10 @@
         <spp:ContentLoader.GestureRecognizers>
             <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
         </spp:ContentLoader.GestureRecognizers>
-        <ui:FAItemsRepeater ItemsSource="{Binding SteamApps}">
+        <ui:FAItemsRepeater
+            HorizontalCacheLength="0"
+            ItemsSource="{Binding SteamApps}"
+            VerticalCacheLength="1">
             <ui:FAItemsRepeater.Layout>
                 <ui:FAUniformGridLayout
                     ItemsJustification="Start"

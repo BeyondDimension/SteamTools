@@ -604,7 +604,10 @@
                         IsVisible="{Binding !!Games.Count}"
                         VerticalScrollBarVisibility="Auto">
                         <StackPanel>
-                            <ItemsRepeater ItemsSource="{Binding Games}" VerticalCacheLength="30">
+                            <ItemsRepeater
+                                HorizontalCacheLength="0"
+                                ItemsSource="{Binding Games}"
+                                VerticalCacheLength="1">
                                 <ItemsRepeater.Layout>
                                     <UniformGridLayout
                                         ItemsJustification="Start"

@@ -104,8 +104,7 @@
 		<TabItem Header="{Binding Path=Res.Info, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
 			<ScrollViewer Classes="page-scroll">
 				<StackPanel Margin="0,12,12,16" Spacing="12">
-
-					<Border Classes="card">
+					<Border Classes="card" MinWidth="400">
 						<StackPanel Spacing="12">
 							<Grid Classes="field" RowDefinitions="Auto,Auto">
 								<TextBlock Classes="label"

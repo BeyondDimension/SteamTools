@@ -544,8 +544,9 @@
                             </StackPanel>
                             <ui:FAItemsRepeater
                                 DockPanel.Dock="Bottom"
+                                HorizontalCacheLength="0"
                                 ItemsSource="{Binding IdleGameList}"
-                                VerticalCacheLength="50">
+                                VerticalCacheLength="1">
                                 <ui:FAItemsRepeater.Layout>
                                     <ui:FAUniformGridLayout
                                         ItemsJustification="Start"
