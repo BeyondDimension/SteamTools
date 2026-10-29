@@ -34,7 +34,16 @@ public sealed partial class IdleCardPageViewModel : TabItemViewModel
     public bool IsLogin { get; set; }
 
     [Reactive]
-    public bool IsLoaing { get; set; }
+    public bool IsCheckingLogin { get; set; } = true;
+
+    [Reactive]
+    public bool IsLoadingBadges { get; set; }
+
+    public bool IsPageLoading => IsCheckingLogin || IsLoadingBadges;
+
+    public bool CanStartIdle => !IsPageLoading && ViewState != 0;
+
+    public string PageLoadingText => IsCheckingLogin ? "正在检测 Steam 登录状态…" : "正在加载徽章数据…";
 
     [Reactive]
     public bool RunLoaingState { get; set; }

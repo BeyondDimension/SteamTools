@@ -31,6 +31,8 @@ public sealed class SteamLoginViewModel : ViewModelBase
         LoginCommand = Register(LoginAsync);
         QrLoginCommand = Register(LoginWithQrCodeAsync);
         CookieLoginCommand = Register(CookieLoginAsync);
+        SavedAccountLoginCommand = Register(SavedAccountLoginAsync);
+        LoadSavedAccountsCommand = Register(LoadSavedAccountsAsync);
         var cancel = ReactiveCommand.Create(Cancel);
         CompositeDisposable.Add(cancel);
         CancelCommand = cancel;
@@ -50,6 +52,12 @@ public sealed class SteamLoginViewModel : ViewModelBase
 
     public SteamLoginState State { get; }
     public bool AllowCookieLogin { get; }
+    public Func<CancellationToken, Task<IReadOnlyList<SteamSavedLoginAccount>>>? SavedAccountsProvider { get; set; }
+    public bool AllowSavedAccountLogin => SavedAccountsProvider != null;
+    [Reactive] public IReadOnlyList<SteamSavedLoginAccount> SavedAccounts { get; private set; } = Array.Empty<SteamSavedLoginAccount>();
+    [Reactive] public SteamSavedLoginAccount? SelectedSavedAccount { get; set; }
+    public ICommand LoadSavedAccountsCommand { get; }
+    public ICommand SavedAccountLoginCommand { get; }
     public Func<SteamLoginState, Task>? LoginSucceededAsync { get; set; }
     public Func<SteamLoginState, string?>? AutomaticTwoFactorCode
     {
@@ -274,6 +282,50 @@ public sealed class SteamLoginViewModel : ViewModelBase
         }
     }
 
+    public void ClearSavedAccounts()
+    {
+        SelectedSavedAccount = null;
+        SavedAccounts = Array.Empty<SteamSavedLoginAccount>();
+    }
+
+    public async Task LoadSavedAccountsAsync()
+    {
+        if (IsBusy || Disposed || SavedAccountsProvider == null) return;
+        await RunAsync(async token =>
+        {
+            SelectedSavedAccount = null;
+            SavedAccounts = Array.Empty<SteamSavedLoginAccount>();
+            var accounts = await SavedAccountsProvider(token);
+            token.ThrowIfCancellationRequested();
+            SavedAccounts = accounts;
+            if (SavedAccounts.Count == 0)
+                StatusMessage = "没有可用的交易确认登录状态。请先在令牌插件的“确认交易”中登录，然后重新读取令牌。";
+        });
+    }
+
+    public async Task SavedAccountLoginAsync()
+    {
+        if (IsBusy || Disposed || SelectedSavedAccount == null) return;
+        var selected = SelectedSavedAccount;
+        await RunAsync(async token =>
+        {
+            var session = await selected.CreateSessionAsync(token);
+            token.ThrowIfCancellationRequested();
+            if (session.SteamId != selected.SteamId.ToString(CultureInfo.InvariantCulture) || string.IsNullOrWhiteSpace(session.AccessToken))
+                throw new InvalidOperationException("返回的 Steam 登录状态与所选账号不匹配，请重新读取令牌。");
+            if (!sessions.AddOrSetSeesion(session))
+                throw new InvalidOperationException("无法创建 Steam 登录会话。");
+            UsedQrCode = HadTwoFactorChallenge = UsedAutomaticTwoFactor = false;
+            await CompleteAsync(new SteamLoginState
+            {
+                Success = true, SteamId = selected.SteamId, Username = selected.AccountName,
+                AccessToken = session.AccessToken, RefreshToken = session.RefreshToken,
+                Cookies = session.CookieContainer.GetAllCookies(),
+                SeesionId = session.CookieContainer.GetCookies(new Uri("https://steamcommunity.com/"))["sessionid"]?.Value,
+            }, token);
+        });
+    }
+
     public async Task CookieLoginAsync()
     {
         if (IsBusy || Disposed || !AllowCookieLogin) return;
@@ -420,7 +472,24 @@ public sealed class SteamLoginViewModel : ViewModelBase
 
     protected override void Dispose(bool disposing)
     {
-        if (disposing) { qrVisible = false; Cancel(); Password = null; LoginSucceededAsync = null; AutomaticTwoFactorCode = null; }
+        if (disposing) { qrVisible = false; Cancel(); Password = null; LoginSucceededAsync = null; AutomaticTwoFactorCode = null; SavedAccountsProvider = null; SavedAccounts = Array.Empty<SteamSavedLoginAccount>(); SelectedSavedAccount = null; }
         base.Dispose(disposing);
     }
+}
+
+/// <summary>Optional provider supplied by the authenticator plugin.</summary>
+public interface ISteamSavedAccountProvider
+{
+    Task<IReadOnlyList<SteamSavedLoginAccount>> LoadAsync(CancellationToken cancellationToken);
+}
+
+/// <summary>A selectable saved account; secrets remain inside its session factory.</summary>
+public sealed class SteamSavedLoginAccount
+{
+    public SteamSavedLoginAccount(string accountName, ulong steamId, Func<CancellationToken, Task<SteamSession>> createSessionAsync)
+        => (AccountName, SteamId, CreateSessionAsync) = (accountName, steamId, createSessionAsync);
+    public string AccountName { get; }
+    public ulong SteamId { get; }
+    public string DisplayName => $"{AccountName} ({SteamId})";
+    internal Func<CancellationToken, Task<SteamSession>> CreateSessionAsync { get; }
 }

@@ -5,6 +5,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:s="https://steampp.net/services"
 	xmlns:spp="https://steampp.net/ui"
+	xmlns:ui="using:FluentAvalonia.UI.Controls"
 	x:DataType="spp:SteamLoginViewModel"
 	x:CompileBindings="True">
 	<UserControl.Styles>
@@ -16,6 +17,13 @@
 			<Setter Property="HorizontalAlignment" Value="Stretch" />
 			<Setter Property="HorizontalContentAlignment" Value="Center" />
 			<Setter Property="MinHeight" Value="36" />
+		</Style>
+		<Style Selector="Button.loginModeSelected">
+			<Setter Property="FontWeight" Value="SemiBold" />
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+			<Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+			<Setter Property="BorderThickness" Value="0,0,0,2" />
+			<Setter Property="CornerRadius" Value="0,0,0,0" />
 		</Style>
 	</UserControl.Styles>
 	<Grid RowDefinitions="*,Auto">
@@ -105,6 +113,36 @@
 						        Content="{Binding Res.Login, Source={x:Static s:ResourceService.Current}}" />
 					</StackPanel>
 				</Border>
+				<Border x:Name="SavedAccountPanel" IsVisible="False" Padding="18" MinWidth="300" MaxWidth="400"
+				        HorizontalAlignment="Stretch" Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+				        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
+					<StackPanel Spacing="10" IsEnabled="{Binding !IsBusy}">
+						<TextBlock FontSize="18" FontWeight="SemiBold" Text="使用令牌交易确认登录" />
+						<TextBlock Text="选择已登录交易确认的 Steam 令牌账号。" TextWrapping="Wrap" />
+						<Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+							<ComboBox HorizontalAlignment="Stretch" MinWidth="0" MinHeight="36" VerticalAlignment="Center"
+							          VerticalContentAlignment="Center"
+							          ItemsSource="{Binding SavedAccounts}" SelectedItem="{Binding SelectedSavedAccount, Mode=TwoWay}"
+							          PlaceholderText="选择 Steam 令牌账号">
+								<ComboBox.ItemTemplate>
+									<DataTemplate x:DataType="spp:SteamSavedLoginAccount">
+										<TextBlock Text="{Binding DisplayName}" />
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+							<Button Grid.Column="1" Width="36" MinHeight="36" Padding="0"
+							        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+							        Command="{Binding LoadSavedAccountsCommand}" AutomationProperties.Name="刷新令牌账号"
+							        ToolTip.Tip="刷新令牌账号" Theme="{StaticResource TransparentButton}">
+								<ui:FASymbolIcon Symbol="Refresh" />
+							</Button>
+						</Grid>
+						<CheckBox IsVisible="{Binding #Root.ShowRememberLogin}" IsChecked="{Binding #Root.RememberLogin, Mode=TwoWay}"
+						          Content="{Binding Res.User_Rememberme, Source={x:Static s:ResourceService.Current}}" />
+						<Button Classes="primary" Command="{Binding SavedAccountLoginCommand}" Content="使用所选账号登录"
+						        IsEnabled="{Binding SelectedSavedAccount, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
+					</StackPanel>
+				</Border>
 				<ProgressBar IsVisible="{Binding IsBusy}" IsIndeterminate="True" Height="3" />
 				<TextBlock Text="{Binding StatusMessage}" TextWrapping="Wrap" TextAlignment="Center"
 				           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
@@ -112,13 +150,20 @@
 				        Content="{Binding Res.Cancel, Source={x:Static s:ResourceService.Current}}" />
 			</StackPanel>
 		</ScrollViewer>
-		<Panel Grid.Row="1" IsVisible="{Binding AllowCookieLogin}">
-			<Button x:Name="CookieSwitch" Theme="{StaticResource HyperlinkButton}" HorizontalAlignment="Center"
-			        IsEnabled="{Binding !IsBusy}" Click="OnSwitchLoginMode"
-			        Content="{Binding Res.CookieLogin, Source={x:Static s:ResourceService.Current}}" />
-			<Button x:Name="AccountSwitch" Theme="{StaticResource HyperlinkButton}" HorizontalAlignment="Center"
-			        IsVisible="False" IsEnabled="{Binding !IsBusy}" Click="OnSwitchLoginMode"
+		<StackPanel Grid.Row="1" Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Center"
+		            VerticalAlignment="Bottom" IsVisible="{Binding AllowCookieLogin}">
+			<Button x:Name="AccountSwitch" Classes="loginModeSelected" Theme="{StaticResource HyperlinkButton}"
+			        IsEnabled="{Binding !IsBusy}" Click="OnAccountMode"
 			        Content="{Binding Res.AccountLogin, Source={x:Static s:ResourceService.Current}}" />
-		</Panel>
+			<Separator Height="18" Margin="10,0" VerticalAlignment="Stretch" Classes="Vertical"
+			           Background="{DynamicResource ButtonBorderBrush}" IsHitTestVisible="False" />
+			<Button x:Name="CookieSwitch" Theme="{StaticResource HyperlinkButton}"
+			        IsEnabled="{Binding !IsBusy}" Click="OnCookieMode"
+			        Content="{Binding Res.CookieLogin, Source={x:Static s:ResourceService.Current}}" />
+			<Separator x:Name="SavedAccountSeparator" Height="18" Margin="10,0" VerticalAlignment="Stretch" Classes="Vertical"
+			           Background="{DynamicResource ButtonBorderBrush}" IsHitTestVisible="False" />
+			<Button x:Name="SavedAccountSwitch" Theme="{StaticResource HyperlinkButton}"
+			        IsEnabled="{Binding !IsBusy}" Click="OnSavedAccountMode" Content="令牌登录" />
+		</StackPanel>
 	</Grid>
 </UserControl>

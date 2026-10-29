@@ -89,6 +89,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Command="{Binding IdleRunStartOrStop}"
+                IsEnabled="{Binding CanStartIdle}"
                 Theme="{StaticResource TransparentButton}">
                 <Button.Content>
                     <Panel>
@@ -232,11 +233,10 @@
     <Carousel Classes="AnimeSlide" SelectedIndex="{Binding ViewState}">
         <spp:IdleSteamLoginPage DataContext="{Binding LoginViewModel}" />
 
-        <spp:ContentLoader CustomLoadingText="{Binding Path=Res.EnableAccelerationPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsLoading="{Binding IsLoaing}">
-            <!--  IsVisible="{Binding !IsLoaing}"  -->
+        <spp:ContentLoader CustomLoadingText="{Binding PageLoadingText}" IsLoading="{Binding IsPageLoading}">
             <Grid
                 ColumnDefinitions="*,240"
-                IsVisible="{Binding !IsLoaing}"
+                IsVisible="{Binding !IsPageLoading}"
                 RowDefinitions="Auto,Auto,*">
                 <spp:OptionsDisplayItem Expands="True" IsExpanded="True">
                     <spp:OptionsDisplayItem.Header>

@@ -22,7 +22,7 @@ public partial class SteamLoginView : ReactiveUserControl<SteamLoginViewModel>
         set => SetValue(RememberLoginProperty, value);
     }
 
-    bool cookieMode;
+    int loginMode;
     readonly List<Visual> visibilityAncestors = new();
     SteamLoginViewModel? currentModel;
     bool isAttached;
@@ -57,22 +57,20 @@ public partial class SteamLoginView : ReactiveUserControl<SteamLoginViewModel>
     {
         if (ReferenceEquals(currentModel, model)) return;
         currentModel?.SetQrLoginVisible(false);
-        if (cookieMode)
-        {
-            cookieMode = false;
-            FormsLayout.IsVisible = true;
-            CookiePanel.IsVisible = false;
-            CookieSwitch.IsVisible = true;
-            AccountSwitch.IsVisible = false;
-        }
+        currentModel?.Cancel();
+        currentModel?.ClearSavedAccounts();
+        currentModel = null;
+        if (loginMode != 0) SetLoginMode(0);
         currentModel = model;
+        SavedAccountSwitch.IsVisible = model?.AllowSavedAccountLogin == true;
+        SavedAccountSeparator.IsVisible = model?.AllowSavedAccountLogin == true;
         qrVisible = false;
         UpdateQrVisibility();
     }
 
     void UpdateQrVisibility()
     {
-        var visible = !cookieMode && isAttached && inViewport && IsVisible && visibilityAncestors.All(x =>
+        var visible = loginMode == 0 && isAttached && inViewport && IsVisible && visibilityAncestors.All(x =>
             x.IsVisible && (x is not Avalonia.Controls.Window window || window.WindowState != Avalonia.Controls.WindowState.Minimized));
         if (qrVisible == visible) return;
         qrVisible = visible;
@@ -123,17 +121,31 @@ public partial class SteamLoginView : ReactiveUserControl<SteamLoginViewModel>
         base.OnDetachedFromVisualTree(e);
     }
 
-    void OnSwitchLoginMode(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    void SetLoginMode(int mode)
     {
-        cookieMode = !cookieMode;
-        if (cookieMode) UpdateQrVisibility();
+        if (loginMode == mode) return;
+        loginMode = mode;
+        UpdateQrVisibility();
         currentModel?.Cancel();
-        FormsLayout.IsVisible = !cookieMode;
-        CookiePanel.IsVisible = cookieMode;
-        CookieSwitch.IsVisible = !cookieMode;
-        AccountSwitch.IsVisible = cookieMode;
-        if (!cookieMode) UpdateQrVisibility();
+        if (mode != 2) currentModel?.ClearSavedAccounts();
+        FormsLayout.IsVisible = mode == 0;
+        CookiePanel.IsVisible = mode == 1;
+        SavedAccountPanel.IsVisible = mode == 2;
+        AccountSwitch.Classes.Set("loginModeSelected", mode == 0);
+        CookieSwitch.Classes.Set("loginModeSelected", mode == 1);
+        SavedAccountSwitch.Classes.Set("loginModeSelected", mode == 2);
+        UpdateQrVisibility();
     }
+
+    void OnCookieMode(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => SetLoginMode(1);
+    void OnAccountMode(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => SetLoginMode(0);
+    async void OnSavedAccountMode(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (loginMode == 2) return;
+        SetLoginMode(2);
+        if (currentModel != null) await currentModel.LoadSavedAccountsAsync();
+    }
+
 
     async void OnCredentialKeyUp(object? sender, Avalonia.Input.KeyEventArgs e)
     {

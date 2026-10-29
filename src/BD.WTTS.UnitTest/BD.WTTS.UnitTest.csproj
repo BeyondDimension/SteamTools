@@ -39,11 +39,6 @@
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Net\IDnsAnalysisService.Constants.cs">
 			<LinkBase>Services\Net</LinkBase>
 		</Compile>
-		<Compile Include="..\BD.WTTS.Client.Plugins.Authenticator\Helpers\SteamLoginQrScreenScanner.cs" Link="Helpers\SteamLoginQrScreenScanner.cs" />
-		<Compile Include="..\BD.WTTS.Client.Plugins.Authenticator\Helpers\SteamQrLoginSession.cs" Link="Helpers\SteamQrLoginSession.cs" />
-		<Compile Include="..\BD.WTTS.Client.Plugins.Authenticator\Helpers\SteamAuthenticatorIdentity.cs" Link="Helpers\SteamAuthenticatorIdentity.cs" />
-		<Compile Include="..\BD.WTTS.Client.Plugins.Authenticator\Models\AuthenticatorImportFileModels\SDAFileModel.cs" Link="Models\SDAFileModel.cs" />
-		<Compile Include="..\BD.WTTS.Client.Plugins.Authenticator\Models\SteamQrLoginRequestDetails.cs" Link="Models\SteamQrLoginRequestDetails.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -65,6 +60,7 @@
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj" />-->
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Authenticator\BD.WTTS.Client.Plugins.Authenticator.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameAccount\BD.WTTS.Client.Plugins.GameAccount.csproj" />
 	</ItemGroup>
 

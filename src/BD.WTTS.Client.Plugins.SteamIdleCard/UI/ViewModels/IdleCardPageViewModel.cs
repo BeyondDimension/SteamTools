@@ -18,6 +18,8 @@ public sealed partial class IdleCardPageViewModel
 
     private readonly AsyncLock asyncLock = new AsyncLock();
 
+    private bool loginOperationInProgress;
+
     public IdleCardPageViewModel()
     {
         SteamIdleSettings.IdleRule.Subscribe(async _ => { await IdleRuleChange(); }, false);
@@ -29,38 +31,19 @@ public sealed partial class IdleCardPageViewModel
                 this.RaisePropertyChanged(nameof(DropCardsCount));
             });
 
+        this.WhenAnyValue(x => x.IsCheckingLogin, x => x.IsLoadingBadges, x => x.ViewState)
+            .Subscribe(_ =>
+            {
+                this.RaisePropertyChanged(nameof(IsPageLoading));
+                this.RaisePropertyChanged(nameof(CanStartIdle));
+                this.RaisePropertyChanged(nameof(PageLoadingText));
+            }).AddTo(this);
+
         this.PriorityRunIdle = ReactiveCommand.CreateFromTask<IdleApp>(PriorityRunIdleGame);
         this.ToggleBlacklistIdle = ReactiveCommand.CreateFromTask<IdleApp>(ToggleBlacklistIdleGame);
         this.IdleRunStartOrStop = ReactiveCommand.Create(IdleRunStartOrStop_Click);
         this.IdleManualRunNext = ReactiveCommand.CreateFromTask(ManualRunNext);
-        this.LoginSteamCommand = ReactiveCommand.Create(async () =>
-        {
-            if (!IsLogin)
-            {
-                if (!IsLoaing)
-                {
-                    IsLoaing = true;
-                    if (await LoginSteam())
-                    {
-                        await LoadBadges();
-                        SteamAppsSort();
-                    }
-                    else
-                    {
-                        Toast.Show(ToastIcon.Warning, Strings.Idle_NeedLoginSteam);
-                    }
-                    IsLoaing = false;
-                }
-            }
-            else //注销登录
-            {
-
-                await ISecureStorage.Instance.RemoveAsync(ISteamSessionService.CurrentSteamUserKey);
-                steamSession.RemoveSession(SteamLoginState.SteamId.ToString());
-                SteamLoginState = new();
-                IsLogin = false;
-            }
-        });
+        this.LoginSteamCommand = ReactiveCommand.CreateFromTask(LoginOrLogoutAsync);
 
         NavAppToSteamViewCommand = ReactiveCommand.Create<uint>((appid) =>
         {
@@ -73,7 +56,7 @@ public sealed partial class IdleCardPageViewModel
     public override void Activation()
     {
         if (IsFirstActivation)
-            LoginSteamCommand.Execute(null);
+            _ = CheckLoginAndLoadAsync();
         base.Activation();
     }
 
@@ -82,68 +65,64 @@ public sealed partial class IdleCardPageViewModel
     /// </summary>
     public async Task IdleRunStartOrStop_Click()
     {
-        if (!SteamTool.IsRunningSteamProcess)
-        {
-            Toast.Show(ToastIcon.Warning, Strings.SteamNotRuning);
-            //await MessageBox.ShowAsync(Strings.SteamNotRuning, button: MessageBox.Button.OK);
+        if (RunLoaingState || loginOperationInProgress || IsPageLoading || ViewState == 0)
             return;
-        }
 
-        if (!SteamConnectService.Current.IsConnectToSteam) // 是否登录 Steam 客户端
+        RunLoaingState = true;
+        try
         {
-            Toast.Show(ToastIcon.Warning, Strings.Idle_NeedLoginSteam);
-            //await MessageBox.ShowAsync(Strings.Idle_NeedLoginSteam, button: MessageBox.Button.OK);
-            return;
-        }
-
-        if (!IsLogin)
-        {
-            IsLoaing = true;
-            if (!await LoginSteam()) // 登录 Steam Web
+            if (!SteamTool.IsRunningSteamProcess)
             {
-                IsLoaing = false;
+                Toast.Show(ToastIcon.Warning, Strings.SteamNotRuning);
+                return;
+            }
+
+            if (!SteamConnectService.Current.IsConnectToSteam)
+            {
                 Toast.Show(ToastIcon.Warning, Strings.Idle_NeedLoginSteam);
                 return;
             }
-            else
-                IsLoaing = false;
-        }
+            var alreadyLoggedIn = IsLogin;
 
-        if (!RunLoaingState)
-        {
-            RunLoaingState = true;
+            if (!IsLogin && !await CheckLoginAsync())
+                return;
 
             if (!RunState)
             {
                 TracepointHelper.TrackEvent("IdleCardRun");
 
-                if (SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
-                {
+                if (alreadyLoggedIn && SteamLoginState.Success && SteamLoginState.SteamId != (ulong?)SteamConnectService.Current.CurrentSteamUser?.SteamId64)
                     Toast.Show(ToastIcon.Warning, Strings.SteamIdle_LoginSteamUserError);
-                    //RunState = false;
-                    //RunLoaingState = false;
-                    //return;
-                }
 
-                if (RunState = await ReadyToGoIdle(true))
+                IsLoadingBadges = true;
+                try
                 {
-                    RunOrStopAutoNext(true);
-                    RunOrStopAutoCardDropCheck(true);
+                    if (RunState = await ReadyToGoIdle(true))
+                    {
+                        RunOrStopAutoNext(true);
+                        RunOrStopAutoCardDropCheck(true);
+                    }
                 }
-                else
-                    Toast.Show(ToastIcon.Error, Strings.Idle_StartError);
+                finally
+                {
+                    IsLoadingBadges = false;
+                }
             }
             else
             {
                 StopIdleRun();
             }
-
-            RunLoaingState = false;
-            //Toast.Show(ToastIcon.Success, Strings.Idle_OperationSuccess);
         }
-        else
+        catch (OperationCanceledException)
         {
-            Toast.Show(ToastIcon.Warning, Strings.Idle_LoaingTips);
+        }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex);
+        }
+        finally
+        {
+            RunLoaingState = false;
         }
     }
 
@@ -255,47 +234,151 @@ public sealed partial class IdleCardPageViewModel
 
     #region Private Method
 
-    private async Task<bool> LoginSteam()
+    private async Task LoginOrLogoutAsync()
     {
-        var seesion = await Ioc.Get<ISteamSessionService>().LoadSession();
+        if (loginOperationInProgress || IsPageLoading || RunLoaingState || ViewState == 0)
+            return;
 
-        if (seesion != null && ulong.TryParse(seesion.SteamId, out var steamid))
+        if (!IsLogin)
         {
-            SteamLoginState.SteamId = steamid;
-            SteamLoginState.AccessToken = seesion.AccessToken;
-            SteamLoginState.RefreshToken = seesion.RefreshToken;
-            SteamLoginState.Cookies = seesion.CookieContainer.GetAllCookies();
-
-            //var success = await Ioc.Get<ISteamAccountService>().CheckAccessTokenValidation(SteamLoginState.AccessToken);
-            IsLogin = SteamLoginState.Success = true;
-            //SteamLoginState.SteamId = success ? steamid : 0;
+            await CheckLoginAndLoadAsync();
+            return;
         }
 
-        if (!SteamLoginState.Success)
+        loginOperationInProgress = true;
+        try
         {
-            LoginViewModel?.Dispose();
-            LoginViewModel = new IdleSteamLoginPageViewModel(ref SteamLoginState);
-            LoginViewModel.Close += async _ =>
+            using (await asyncLock.LockAsync())
             {
-                IsLogin = SteamLoginState.Success;
-                ViewState = 1;
-                await LoadBadges();
-                SteamAppsSort();
-            };
-            ViewState = 0;
-            //var vm = new IdleSteamLoginPageViewModel(ref SteamLoginState);
-            //await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.Steam_Login,
-            //    pageContent: new IdleSteamLoginPage(), okButtonText: Strings.Confirm, isOkButton: false);
-            //IsLogin = SteamLoginState.Success;
+                await ISecureStorage.Instance.RemoveAsync(ISteamSessionService.CurrentSteamUserKey);
+                if (RunState)
+                    StopIdleRun();
+                steamSession.RemoveSession(SteamLoginState.SteamId.ToString());
+                SteamLoginState = new();
+                UserIdleInfo = null;
+                Badges.Clear();
+                IdleGameList.Clear();
+                PrivateGameAppIds.Clear();
+                DroppedCardsCount = TotalCardsRemaining = 0;
+                TotalCardsAvgPrice = 0;
+                HasPrivateGameExcluded = false;
+                ExcludedPrivateGameCount = ExcludedBlacklistGameCount = 0;
+                PrivateGameExcludeTip = string.Empty;
+                IsReloaded = false;
+                ShowLoginForm();
+            }
         }
-
-        var sid = SteamConnectService.Current.CurrentSteamUser?.SteamId64;
-        if (SteamLoginState.Success && sid.HasValue && SteamLoginState.SteamId != (ulong)sid.Value)
+        catch (OperationCanceledException)
         {
-            Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
         }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex);
+        }
+        finally
+        {
+            loginOperationInProgress = false;
+        }
+    }
 
-        return IsLogin;
+    private async Task CheckLoginAndLoadAsync()
+    {
+        if (await CheckLoginAsync())
+            await LoadBadgesForPageAsync();
+    }
+
+    private async Task<bool> CheckLoginAsync()
+    {
+        if (loginOperationInProgress || ViewState == 0)
+            return false;
+
+        loginOperationInProgress = true;
+        IsCheckingLogin = true;
+        try
+        {
+            var session = await steamSession.LoadSession();
+            if (session != null && ulong.TryParse(session.SteamId, out var steamId))
+            {
+                SteamLoginState.SteamId = steamId;
+                SteamLoginState.AccessToken = session.AccessToken;
+                SteamLoginState.RefreshToken = session.RefreshToken;
+                SteamLoginState.Cookies = session.CookieContainer.GetAllCookies();
+                IsLogin = SteamLoginState.Success = true;
+            }
+
+            if (!SteamLoginState.Success)
+            {
+                ShowLoginForm();
+                return false;
+            }
+
+            var sid = SteamConnectService.Current.CurrentSteamUser?.SteamId64;
+            if (sid.HasValue && SteamLoginState.SteamId != (ulong)sid.Value)
+                Toast.Show(ToastIcon.Error, Strings.SteamIdle_LoginSteamUserError);
+            return true;
+        }
+        catch (OperationCanceledException)
+        {
+            ShowLoginForm();
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Toast.LogAndShowT(ex);
+            ShowLoginForm();
+            return false;
+        }
+        finally
+        {
+            IsCheckingLogin = false;
+            loginOperationInProgress = false;
+        }
+    }
+
+    private void ShowLoginForm()
+    {
+        if (ViewState == 0 && LoginViewModel != null)
+            return;
+
+        IsLogin = false;
+        LoginViewModel?.Dispose();
+        LoginViewModel = new IdleSteamLoginPageViewModel(ref SteamLoginState);
+        LoginViewModel.Close += async _ =>
+        {
+            if (!SteamLoginState.Success || IsLoadingBadges)
+                return;
+
+            IsLogin = true;
+            IsLoadingBadges = true;
+            ViewState = 1;
+            try
+            {
+                if (await LoadBadges())
+                    SteamAppsSort();
+            }
+            finally
+            {
+                IsLoadingBadges = false;
+            }
+        };
+        ViewState = 0;
+    }
+
+    private async Task LoadBadgesForPageAsync()
+    {
+        if (IsLoadingBadges)
+            return;
+
+        IsLoadingBadges = true;
+        try
+        {
+            if (await LoadBadges())
+                SteamAppsSort();
+        }
+        finally
+        {
+            IsLoadingBadges = false;
+        }
     }
 
     private void ChangeRunTxt()
@@ -357,35 +440,34 @@ public sealed partial class IdleCardPageViewModel
     {
         try
         {
-            var isTokenAccess = Ioc.Get<ISteamAccountService>().IsAccessTokenValid(SteamLoginState.AccessToken!);
-            if (isTokenAccess)
+            if (!Ioc.Get<ISteamAccountService>().IsAccessTokenValid(SteamLoginState.AccessToken!))
             {
-                await RunLoadBadges();
-            }
-            else
-            {
-                var new_accessToken = await Ioc.Get<ISteamAccountService>().RefreshAccessToken(SteamLoginState.SteamId, SteamLoginState.RefreshToken!);
-                if (new_accessToken is not null) // 刷新Token
-                {
-                    await RefreshAccessTokenAsync(new_accessToken);
-                    await RunLoadBadges();
-                }
-                else // 重新登录
+                var newAccessToken = string.IsNullOrWhiteSpace(SteamLoginState.RefreshToken)
+                    ? null
+                    : await Ioc.Get<ISteamAccountService>().RefreshAccessToken(SteamLoginState.SteamId, SteamLoginState.RefreshToken);
+                if (string.IsNullOrWhiteSpace(newAccessToken))
                 {
                     await ISecureStorage.Instance.RemoveAsync(ISteamSessionService.CurrentSteamUserKey);
+                    steamSession.RemoveSession(SteamLoginState.SteamId.ToString());
                     SteamLoginState = new();
-                    await LoginSteam();
-                    await RunLoadBadges();
+                    await Dispatcher.UIThread.InvokeAsync(ShowLoginForm);
+                    return false;
                 }
+                await RefreshAccessTokenAsync(newAccessToken);
             }
-            return true;
+
+            return await RunLoadBadges();
+        }
+        catch (OperationCanceledException)
+        {
+            return false;
         }
         catch (Exception ex)
         {
             Toast.LogAndShowT(ex);
             return false;
         }
-        async Task RunLoadBadges()
+        async Task<bool> RunLoadBadges()
         {
             IEnumerable<Badge>? badges;
             HttpStatusCode status;
@@ -406,7 +488,7 @@ public sealed partial class IdleCardPageViewModel
                     await steamSession.UnlockParental(steam_id, result);
                     goto GetBadges;
                 }
-                throw new ArgumentNullException(Strings.Idle_PIN_NotBeNull);
+                return false;
             }
             else if (status != HttpStatusCode.OK)
                 throw new HttpRequestException($"{Strings.Idle_GetBadgesError} status code: {status}");
@@ -429,6 +511,7 @@ public sealed partial class IdleCardPageViewModel
                 TotalCardsAvgPrice += badge.RegularAvgPrice * badge.CardsRemaining;
                 TotalCardsRemaining += badge.CardsRemaining;
             }
+            return true;
         }
     }
 
@@ -687,13 +770,8 @@ public sealed partial class IdleCardPageViewModel
             {
                 runState.Process?.KillEntireProcessTree();
                 SteamConnectService.Current.RuningSteamApps.TryRemove(item.AppId, out var remove);
-                item.App.Process = null;
             }
-            else
-            {
-                item.App.Process = null;
-                SteamConnectService.Current.RuningSteamApps.TryAdd(item.AppId, item.App);
-            }
+            item.App.Process = null;
         }
     }
 
@@ -792,7 +870,8 @@ public sealed partial class IdleCardPageViewModel
                     if (IsReloaded == false)
                     {
                         IsReloaded = true;
-                        await ReadyToGoIdle();
+                        if (!await ReadyToGoIdle() && !IsLogin)
+                            StopIdleRun();
                     }
                     else
                     {
@@ -869,6 +948,11 @@ public sealed partial class IdleCardPageViewModel
                 StopIdle();
                 if (await LoadBadges())
                     SteamAppsSort();
+                else if (!IsLogin)
+                {
+                    StopIdleRun();
+                    return;
+                }
                 ResetCurrentIdle();
 
                 IdleApp? idleApp = null;

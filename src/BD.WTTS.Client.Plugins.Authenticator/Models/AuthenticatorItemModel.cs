@@ -11,6 +11,8 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
 
     Timer? _progressTimer;
     readonly IDisposable selectionSubscription;
+    readonly WinAuth.SteamAuthenticator? liveSteamAuthenticator;
+    readonly ushort liveAuthenticatorId;
     bool isVisible;
     bool disposed;
 
@@ -41,6 +43,12 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
     {
         AuthData = authenticatorDto;
         AuthName = AuthData.Name;
+        if (authenticatorDto.Value is WinAuth.SteamAuthenticator authenticator)
+        {
+            liveSteamAuthenticator = authenticator;
+            liveAuthenticatorId = authenticatorDto.Id;
+            AuthenticatorSavedSteamAccounts.TrackLiveAuthenticator(liveAuthenticatorId, authenticator);
+        }
 
         selectionSubscription = this.WhenValueChanged(x => x.IsSelected)
             .Subscribe(x =>
@@ -224,6 +232,8 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
     public void Dispose()
     {
         disposed = true;
+        if (liveSteamAuthenticator != null)
+            AuthenticatorSavedSteamAccounts.UntrackLiveAuthenticator(liveAuthenticatorId, liveSteamAuthenticator);
         selectionSubscription.Dispose();
         DisableShowCode();
     }
