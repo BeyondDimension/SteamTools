@@ -11,6 +11,7 @@ Exec=$base_path/$exec_name.sh
 Icon=$base_path/Icons/Watt-Toolkit.png
 Terminal=false
 Type=Application
+StartupWMClass=Steam++
 StartupNotify=false" >"$HOME/Desktop/Watt Toolkit.desktop"
 chmod +x "$HOME/Desktop/Watt Toolkit.desktop"
 exit 0
