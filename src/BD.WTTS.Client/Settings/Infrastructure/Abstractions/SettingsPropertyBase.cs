@@ -14,16 +14,28 @@ public abstract class SettingsPropertyBase
 
     public abstract void Reset(bool save = true);
 
+    /// <summary>Serializes changes and file reloads for a settings model.</summary>
+    public static object GetSynchronizationRoot<TSettings>() => SynchronizationRoot<TSettings>.Instance;
+
+    static class SynchronizationRoot<TSettings>
+    {
+        internal static readonly object Instance = new();
+    }
+
     static readonly Dictionary<Type, List<string>> SettingsProperties = new();
     static readonly Dictionary<(Type SettingsType, string PropertyName), bool?> SaveNameStatus = new();
+    static readonly object settingsStateLock = new();
 
     protected internal static void SetProperties(Type settingsType, string propertyName)
     {
-        if (SettingsProperties.TryGetValue(settingsType, out var propertyNames))
-            propertyNames.Add(propertyName);
-        else
-            SettingsProperties[settingsType] = new() { propertyName };
-        SaveNameStatus.TryAdd((settingsType, propertyName), null);
+        lock (settingsStateLock)
+        {
+            if (SettingsProperties.TryGetValue(settingsType, out var propertyNames))
+                propertyNames.Add(propertyName);
+            else
+                SettingsProperties[settingsType] = new() { propertyName };
+            SaveNameStatus.TryAdd((settingsType, propertyName), null);
+        }
     }
 
     protected internal static bool CanOnChange<TSettings>(TSettings settings, string propertyName) where TSettings : new()
@@ -36,22 +48,26 @@ public abstract class SettingsPropertyBase
                 break;
         }
 #endif
-        var key = (settingsType, propertyName);
-        if (SaveNameStatus.TryGetValue(key, out var saveStatus) && saveStatus.HasValue)
+        lock (settingsStateLock)
         {
-            // 调用 Save 保存文件后，会触发两次监听的 OnChange
-            // 保存时候设为 true，第一次设为 fasle，第二次设为 null，为 null 时候 return true
-            SaveNameStatus[key] = saveStatus.Value ? false : null;
-            return false;
+            var key = (settingsType, propertyName);
+            if (SaveNameStatus.TryGetValue(key, out var saveStatus) && saveStatus.HasValue)
+            {
+                // 保存后可能收到两次文件监听事件。
+                SaveNameStatus[key] = saveStatus.Value ? false : null;
+                return false;
+            }
+            return true;
         }
-
-        return true;
     }
 
     internal static void SetSaveStatus(Type settingsType)
     {
-        foreach (string item in SettingsProperties[settingsType])
-            SaveNameStatus[(settingsType, item)] = true;
+        lock (settingsStateLock)
+        {
+            foreach (string item in SettingsProperties[settingsType])
+                SaveNameStatus[(settingsType, item)] = true;
+        }
     }
 }
 

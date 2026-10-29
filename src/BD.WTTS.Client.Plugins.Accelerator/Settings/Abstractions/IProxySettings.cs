@@ -170,6 +170,9 @@ public partial interface IProxySettings
     /// </summary>
     bool ProxyBeforeDNSCheck { get; set; }
 
+    /// <summary>是否已迁移为混合解析服务器列表。</summary>
+    bool ResolverServersMigrated { get; set; }
+
     /// <summary>
     /// 启用脚本自动检查更新的默认值
     /// </summary>
@@ -213,7 +216,7 @@ public partial interface IProxySettings
     /// <summary>
     /// 代理时使用的解析主DNS的默认值
     /// </summary>
-    const string DefaultProxyMasterDns = "223.5.5.5";
+    const string DefaultProxyMasterDns = BD.WTTS.Services.IDnsAnalysisService.DefaultResolverServerList;
 
     /// <summary>
     /// 启用 Http 链接转发到 Https的默认值
@@ -283,7 +286,7 @@ public partial interface IProxySettings
     /// <summary>
     /// 自定义 DNS over HTTPS 地址的默认值
     /// </summary>
-    const string? DefaultCustomDohAddres2 = null;
+    const string DefaultCustomDohAddres2 = BD.WTTS.Services.IDnsAnalysisService.DefaultDohServerList;
 
     /// <summary>
     /// 加速页面 Tab 选项卡选中下标的默认值

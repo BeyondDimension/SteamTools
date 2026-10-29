@@ -7,14 +7,14 @@ using DnsQueryType = Ae.Dns.Protocol.Enums.DnsQueryType;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
 
-sealed class DnsDohAnalysisService : GeneralHttpClientFactory
+sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDisposable
 {
     const string TAG = "DnsDohAnalysisS";
 
     protected override string? DefaultClientName => TAG;
 
-    readonly ConcurrentDictionary<(Uri dohAddresUri, string hostNameOrAddressWithQueryType), IPAddressResult> Cache = new();
-    readonly ConcurrentDictionary<Uri, DnsHttpClient> dnsClients = new();
+    readonly ConcurrentDictionary<(Uri Server, string Host, DnsQueryType Type), IPAddressResult> Cache = new();
+    readonly ConcurrentDictionary<Uri, Lazy<DnsHttpClient>> dnsClients = new();
 
     public DnsDohAnalysisService(
             ILoggerFactory loggerFactory,
@@ -24,54 +24,39 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
     {
     }
 
-    public const string DefaultDohAddres = Dnspod_DohAddres2;
+    public void Dispose()
+    {
+        foreach (var client in dnsClients.Values)
+            if (client.IsValueCreated)
+                client.Value.Dispose();
+        dnsClients.Clear();
+        Cache.Clear();
+    }
+
+    public const string DefaultDohAddres = "https://doh.pub/dns-query";
 
     static Uri GetDohAddres(string? dohAddres)
     {
-        if (string.IsNullOrWhiteSpace(dohAddres))
-            return new Uri(DefaultDohAddres);
-
-        Uri dohAddresUri;
-        try
-        {
-            dohAddresUri = new Uri(dohAddres);
-        }
-        catch
-        {
-            dohAddresUri = new Uri(DefaultDohAddres);
-        }
-        return dohAddresUri;
+        var uri = new Uri(string.IsNullOrWhiteSpace(dohAddres) ? DefaultDohAddres : dohAddres);
+        if (uri.Scheme != Uri.UriSchemeHttps)
+            throw new ArgumentException("DoH endpoint must use HTTPS.", nameof(dohAddres));
+        return uri;
     }
 
-    DnsHttpClient GetDnsHttpClient(string? dohAddres)
-    {
-        var dohAddresUri = GetDohAddres(dohAddres);
-        return GetDnsHttpClient(dohAddresUri);
-    }
+    DnsHttpClient GetDnsHttpClient(string? dohAddres) => GetDnsHttpClient(GetDohAddres(dohAddres));
 
-    DnsHttpClient GetDnsHttpClient(Uri dohAddresUri)
-    {
-        if (dnsClients.TryGetValue(dohAddresUri, out var value))
-            return value;
-        //var client = CreateClient($"{TAG}_{dohAddresUri}", HttpHandlerCategory.Default);
-        var handler = new HttpClientHandler
+    DnsHttpClient GetDnsHttpClient(Uri dohAddresUri) => dnsClients.GetOrAdd(dohAddresUri, static uri =>
+        new Lazy<DnsHttpClient>(() =>
         {
-            UseCookies = false,
-            UseProxy = false,
-            Proxy = HttpNoProxy.Instance,
-        };
-        var client = new HttpClient(handler);
-        client.BaseAddress = dohAddresUri;
-        var dnsClient = new DnsHttpClient(client);
-        //暂未考虑释放问题 注意！
-        //foreach (var dc in dnsClients.Values)
-        //{
-        //    dc.Dispose();
-        //}
-        //dnsClients.Clear();
-        dnsClients.TryAdd(dohAddresUri, dnsClient);
-        return dnsClient;
-    }
+            var handler = new HttpClientHandler
+            {
+                UseCookies = false,
+                UseProxy = false,
+                Proxy = HttpNoProxy.Instance,
+            };
+            var client = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(3), BaseAddress = uri };
+            return new DnsHttpClient(new DnsHttpClientOptions { Path = uri.PathAndQuery }, client);
+        })).Value;
 
     public async Task<int> DohAnalysisHostnameTimeAsync(string? dohAddres, string url, CancellationToken cancellationToken = default)
     {
@@ -83,16 +68,13 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
             var query = DnsQueryFactory.CreateQuery(url, queryType);
 
             var answer = await dnsClient.Query(query, cancellationToken);
-            var value = answer.Answers.FirstOrDefault()?.TimeToLive;
+            var value = answer.Answers.FirstOrDefault(x => x.Resource is DnsIpAddressResource)?.TimeToLive;
             return (int)(value ?? 0);
         }
         return 0;
     }
 
-    ///// <summary>
-    ///// DNS 解析查询最大递归查询次数
-    ///// </summary>
-    //const byte max_recursion_dns_query = 20;
+    // Cache successful answers only; empty answers and failures must be retried.
 
     static readonly TimeSpan TTL = TimeSpan.FromMinutes(9.9D);
 
@@ -102,54 +84,36 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
     /// <param name="dohAddresUri">DoH 地址</param>
     /// <param name="hostNameOrAddress">解析的地址</param>
     /// <param name="queryType">查询类型</param>
-    /// <param name="count">当前递归的次数</param>
-    /// <param name="domainHistory">返回的历史域名，避免死循环</param>
     /// <param name="cancellationToken">取消标记</param>
     /// <returns></returns>
-    async Task<IPAddress[]> Query(
-        Uri dohAddresUri,
-        string hostNameOrAddress,
-        DnsQueryType queryType = DnsQueryType.A,
-        //byte count = 1,
-        //HashSet<string>? domainHistory = null,
-        CancellationToken cancellationToken = default)
+    async Task<IPAddress[]> Query(Uri server, string host, DnsQueryType queryType, bool useCache, CancellationToken cancellationToken)
     {
-        //if (count <= max_recursion_dns_query)
-        //{
-        //    domainHistory ??= new();
-        var query = DnsQueryFactory.CreateQuery(hostNameOrAddress, queryType);
-        var dnsClient = GetDnsHttpClient(dohAddresUri);
-        var answer = await dnsClient.Query(query, cancellationToken);
+        cancellationToken.ThrowIfCancellationRequested();
+        var key = (server, host, queryType);
+        if (useCache && Cache.TryGetValue(key, out var cached) && DateTimeOffset.UtcNow < cached.ExpiresAt)
+            return cached.IPAddresses;
 
-        var dnsResources = answer.Answers.Select(x => x.Resource);
-
-        var iPAddresses = dnsResources.OfType<DnsIpAddressResource>().Select(x => x.IPAddress).ToArray();
-        if (iPAddresses.Any())
-            return iPAddresses;
-
-        //var domainRes = dnsResources.OfType<DnsDomainResource>().FirstOrDefault();
-        //if (domainRes != null)
-        //{
-        //    var domain = domainRes.Domain;
-        //    if (!string.IsNullOrWhiteSpace(domain))
-        //    {
-        //        //if (domainHistory.Add(domain))
-        //        //{
-        //        // CNAME 递归解析
-        //        iPAddresses = await Query(dohAddresUri, domain, queryType,/* ++count, domainHistory,*/ cancellationToken);
-        //        //}
-        //    }
-        //}
-        ////}
-
-        return Array.Empty<IPAddress>();
+        var query = DnsQueryFactory.CreateQuery(host, queryType);
+        var answer = await GetDnsHttpClient(server).Query(query, cancellationToken);
+        var addresses = answer.Answers.Select(x => x.Resource).OfType<DnsIpAddressResource>().Select(x => x.IPAddress).ToArray();
+        if (useCache && addresses.Length > 0)
+        {
+            var seconds = Math.Min((double)answer.Answers.Min(static record => record.TimeToLive), TTL.TotalSeconds);
+            if (seconds > 0)
+            {
+                if (Cache.Count >= 4096)
+                    Cache.Clear();
+                Cache[key] = new() { IPAddresses = addresses, ExpiresAt = DateTimeOffset.UtcNow.AddSeconds(seconds) };
+            }
+        }
+        return addresses;
     }
 
     readonly record struct IPAddressResult
     {
         public IPAddress[] IPAddresses { get; init; }
 
-        public DateTimeOffset CreationTime { get; init; }
+        public DateTimeOffset ExpiresAt { get; init; }
     }
 
     /// <summary>
@@ -161,51 +125,20 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory
     /// <returns></returns>
     public async IAsyncEnumerable<IPAddress> DohAnalysisDomainIpAsync(string? dohAddres, string hostNameOrAddress, bool isIPv6, bool useCache = true, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var queryType = isIPv6 ? DnsQueryType.AAAA : DnsQueryType.A;
-        var dohAddresUri = GetDohAddres(dohAddres);
-
-        (Uri dohAddresUri, string hostNameOrAddressWithQueryType) cacheKey = useCache ? GetCacheKey() : default;
-        (Uri dohAddresUri, string hostNameOrAddressWithQueryType) GetCacheKey()
+        var server = GetDohAddres(dohAddres);
+        IPAddress[] result = Array.Empty<IPAddress>();
+        if (isIPv6)
         {
-            var hostNameOrAddressWithQueryType = string.Concat(hostNameOrAddress, ":", (short)queryType);
-            var cacheKey = (dohAddresUri, hostNameOrAddressWithQueryType);
-            return cacheKey;
-        }
-
-        if (useCache)
-        {
-            if (Cache.TryGetValue(cacheKey, out var dns_list))
+            try
             {
-                if ((DateTimeOffset.Now - dns_list.CreationTime) <= TTL)
-                {
-                    foreach (var item in dns_list.IPAddresses)
-                    {
-                        yield return item;
-                    }
-                }
+                result = await Query(server, hostNameOrAddress, DnsQueryType.AAAA, useCache, cancellationToken);
             }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
+            catch (Exception) { }
         }
-
-        var result = await Query(dohAddresUri, hostNameOrAddress, queryType, cancellationToken: cancellationToken);
-
-        if (isIPv6 && !result.Any())
-        {
-            // IPv6 返回空时使用 IPv4 解析
-            result = await Query(dohAddresUri, hostNameOrAddress, DnsQueryType.A, cancellationToken: cancellationToken);
-        }
-
-        if (useCache)
-        {
-            Cache[cacheKey] = new()
-            {
-                IPAddresses = result,
-                CreationTime = DateTimeOffset.Now,
-            };
-        }
-
+        if (result.Length == 0)
+            result = await Query(server, hostNameOrAddress, DnsQueryType.A, useCache, cancellationToken);
         foreach (var item in result)
-        {
             yield return item;
-        }
     }
 }

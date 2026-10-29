@@ -101,7 +101,7 @@ Actual value was {actualValue}.
             !reverseProxyConfig.Service.OnlyEnableProxyScript)
         {
             // 部分运营商将奇怪的域名解析到 127.0.0.1 再此排除这些不支持的代理域名
-            var ip = await reverseProxyConfig.DnsAnalysis.AnalysisDomainIpAsync(context.Request.Host.Value!, IDnsAnalysisService.DNS_Dnspods).FirstOrDefaultAsync();
+            var ip = await reverseProxyConfig.DnsAnalysis.AnalysisDomainIpAsync(context.Request.Host.Host, IDnsAnalysisService.DNS_Dnspods, context.RequestAborted).FirstOrDefaultAsync(context.RequestAborted);
             if (ip == null || IPAddress.IsLoopback(ip))
             {
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;

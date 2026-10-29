@@ -167,16 +167,12 @@ public partial interface IReverseProxySettings
 
     #endregion TwoLevelAgent(二级代理)
 
-    IPAddress? ProxyDNS { get; set; }
+    string? ProxyDNSAddresses { get; set; }
 
     /// <summary>
     /// 是否支持 IPv6
     /// </summary>
     bool IsSupportIpv6 { get; set; }
-
-    bool UseDoh { get; set; }
-
-    string? CustomDohAddres { get; set; }
 
     /// <summary>
     /// 服务端代理令牌
@@ -226,22 +222,12 @@ public readonly partial record struct ReverseProxySettings(
     string? ProxyDNS,
     [property:MP2Key(19)]
     bool IsSupportIpv6,
-    [property:MP2Key(20)]
-    bool UseDoh,
-    [property:MP2Key(21)]
-    string? CustomDohAddres,
     [property:MP2Key(22)]
     string? ServerSideProxyToken)
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal IPAddress GetProxyIp() => GetProxyIp(ProxyIp);
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal IPAddress? GetProxyDNS()
-    {
-        var result = IPAddress2.TryParse(ProxyDNS, out var proxyDNS) ? proxyDNS : null;
-        return result;
-    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static string GetTwoLevelAgentIp(string? twoLevelAgentIp)
@@ -280,10 +266,8 @@ public readonly partial record struct ReverseProxySettings(
         settings.TwoLevelAgentPortId = TwoLevelAgentPortId;
         settings.TwoLevelAgentUserName = TwoLevelAgentUserName;
         settings.TwoLevelAgentPassword = TwoLevelAgentPassword;
-        settings.ProxyDNS = GetProxyDNS();
+        settings.ProxyDNSAddresses = ProxyDNS;
         settings.IsSupportIpv6 = IsSupportIpv6;
-        settings.UseDoh = UseDoh;
-        settings.CustomDohAddres = CustomDohAddres;
         settings.ServerSideProxyToken = ServerSideProxyToken;
     }
 #endif

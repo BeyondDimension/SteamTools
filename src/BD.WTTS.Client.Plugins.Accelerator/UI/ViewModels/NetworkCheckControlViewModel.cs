@@ -187,31 +187,48 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
     async Task DNSCheckAsync()
     {
         var testDomain = DomainPendingTest == string.Empty ? DefaultTestDomain : DomainPendingTest;
-        try
-        {
-            long delayMs;
-            IPAddress[] address;
-            if (ProxySettings.UseDoh)
-            {
-                var configDoh = ProxySettings.CustomDohAddres2.Value ?? ProxySettingsWindowViewModel.DohAddress.FirstOrDefault() ?? string.Empty;
-                (delayMs, address) = await _networkTestService.TestDNSOverHttpsAsync(testDomain, configDoh);
-            }
-            else
-            {
-                var configDns = ProxySettings.ProxyMasterDns.Value ?? string.Empty;
-                (delayMs, address) = await _networkTestService.TestDNSAsync(testDomain, configDns, 53);
-            }
-            if (address.Length == 0)
-                throw new Exception("Parsing failed. Return empty ip address.");
+        ProxySettings.MigrateDnsServerList();
+        var configured = ProxySettings.ProxyMasterDns.Value;
+        var servers = (configured ?? string.Empty).Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
+        if (servers.Length == 0)
+            servers = IDnsAnalysisService.DefaultResolverServerList
+                .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-            DNSTestDelay = delayMs + "ms ";
-            DNSTestResult = string.Empty + address.FirstOrDefault();
-        }
-        catch (Exception ex)
+        DNSTestDelay = string.Empty;
+        DNSTestResult = string.Empty;
+        using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+        var hadTimeout = false;
+        foreach (var server in servers)
         {
-            Log.Error(nameof(AcceleratorPageViewModel), ex.ToString());
-            DNSTestDelay = string.Empty;
-            DNSTestResult = "error";
+            try
+            {
+                var (delayMs, address) = server.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
+                    ? await _networkTestService.TestDNSOverHttpsAsync(testDomain, server, cancellationToken: timeout.Token)
+                    : await _networkTestService.TestDNSAsync(testDomain,
+                        string.Equals(server, "System Default", StringComparison.OrdinalIgnoreCase) ? "System Default" : server,
+                        53, cancellationToken: timeout.Token);
+                if (address.Length > 0)
+                {
+                    DNSTestDelay = delayMs + "ms ";
+                    DNSTestResult = $"{address[0]}（服务器：{server}）";
+                    return;
+                }
+            }
+            catch (OperationCanceledException) when (timeout.IsCancellationRequested)
+            {
+                DNSTestResult = $"DNS 检测总超时（正在检测：{server}）";
+                return;
+            }
+            catch (OperationCanceledException)
+            {
+                hadTimeout = true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(AcceleratorPageViewModel), ex.ToString());
+            }
         }
+        DNSTestResult = hadTimeout ? "所有 DNS 服务器检测失败或超时" : "所有 DNS 服务器检测失败";
     }
 }

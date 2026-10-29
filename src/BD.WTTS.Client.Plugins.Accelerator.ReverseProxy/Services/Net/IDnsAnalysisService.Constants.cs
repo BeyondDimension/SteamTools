@@ -7,6 +7,10 @@ namespace BD.WTTS.Services;
 public partial interface IDnsAnalysisService // 公共常量定义
 {
     #region DNS 常量
+    const string DefaultDnsServerList = "223.5.5.5\n119.29.29.29\n114.114.114.114";
+    const string DefaultDohServerList = "https://doh.pub/dns-query\nhttps://dns.alidns.com/dns-query\nhttps://dns.google/dns-query";
+    const string DefaultResolverServerList = DefaultDohServerList + "\n" + DefaultDnsServerList;
+
 
     const string DNS_Ali_DohAddres = "https://dns.alidns.com/resolve";
     const string DNS_Ali_DohAddres2 = "https://223.6.6.6/resolve";
@@ -20,6 +24,24 @@ public partial interface IDnsAnalysisService // 公共常量定义
     const string Cloudflare_DohAddres = "https://cloudflare-dns.com/resolve";
     const string DohAddres_360 = "https://doh.360.cn/resolve";
     const string TUNA_DohAddres = "https://101.6.6.6:8443/resolve";
+
+    // These presets previously stored the JSON endpoint while the client always sent
+    // RFC 8484 requests to /dns-query. Preserve that behavior for existing settings.
+    static string NormalizeLegacyDohEndpoint(string address)
+    {
+        if (address.Equals(DNS_Ali_DohAddres, StringComparison.OrdinalIgnoreCase) ||
+            address.Equals(DNS_Ali_DohAddres2, StringComparison.OrdinalIgnoreCase) ||
+            address.Equals(DNS_Ali_DohAddres3, StringComparison.OrdinalIgnoreCase) ||
+            address.Equals(Dnspod_DohAddres, StringComparison.OrdinalIgnoreCase) ||
+            address.Equals(Dnspod_DohAddres2, StringComparison.OrdinalIgnoreCase) ||
+            address.Equals(Dnspod_DohAddres3, StringComparison.OrdinalIgnoreCase) ||
+            address.Equals(Google_DohAddres, StringComparison.OrdinalIgnoreCase) ||
+            address.Equals(Cloudflare_DohAddres, StringComparison.OrdinalIgnoreCase) ||
+            address.Equals(DohAddres_360, StringComparison.OrdinalIgnoreCase) ||
+            address.Equals(TUNA_DohAddres, StringComparison.OrdinalIgnoreCase))
+            return string.Concat(address.AsSpan(0, address.Length - "resolve".Length), "dns-query");
+        return address;
+    }
 
     const string PrimaryDNS_IPV6_Ali = "2400:3200::1";
 

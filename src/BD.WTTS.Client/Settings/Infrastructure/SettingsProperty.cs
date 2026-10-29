@@ -97,24 +97,18 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     void SetValue(TValue? value, bool save = true)
     {
-        if (Equals(value, this.value))
-            return; // 值相同无变化
-
-        var oldValue = this.value;
-        this.value = value; // 赋值当前字段
-
-        var setter_value = value;
-        if (EqualityComparer<TValue?>.Default.Equals(value, Default))
+        lock (GetSynchronizationRoot<TSettings>())
         {
-            setter_value = default;
-        }
-        SetModelValue(setter_value); // 赋值模型类属性
+            if (Equals(value, this.value))
+                return; // 值相同无变化
 
-        OnValueChanged(oldValue, value); // 调用变更事件
-
-        if (save && AutoSave) // 自动保存
-        {
-            Save();
+            var oldValue = this.value;
+            this.value = value;
+            var setterValue = EqualityComparer<TValue?>.Default.Equals(value, Default) ? default : value;
+            SetModelValue(setterValue);
+            OnValueChanged(oldValue, value);
+            if (save && AutoSave)
+                Save();
         }
     }
 
@@ -123,29 +117,25 @@ public class SettingsProperty<TValue, [DynamicallyAccessedMembers(DynamicallyAcc
 
     public override void RaiseValueChanged(bool notSave = false)
     {
-        var setter_value = value;
-        if (EqualityComparer<TValue?>.Default.Equals(value, Default))
+        lock (GetSynchronizationRoot<TSettings>())
         {
-            setter_value = default;
-        }
-        SetModelValue(setter_value); // 赋值模型类属性
-        OnValueChanged(value, value); // 调用变更事件
-        if (!notSave && AutoSave) // 自动保存
-        {
-            Save();
+            var setterValue = EqualityComparer<TValue?>.Default.Equals(value, Default) ? default : value;
+            SetModelValue(setterValue);
+            OnValueChanged(value, value);
+            if (!notSave && AutoSave)
+                Save();
         }
     }
 
     public override void Reset(bool save = true)
     {
-        var oldValue = value;
-        SetModelValue(value = Default); // 赋值模型类属性
-
-        OnValueChanged(oldValue, value); // 调用变更事件
-
-        if (save && AutoSave) // 自动保存
+        lock (GetSynchronizationRoot<TSettings>())
         {
-            Save();
+            var oldValue = value;
+            SetModelValue(value = Default);
+            OnValueChanged(oldValue, value);
+            if (save && AutoSave)
+                Save();
         }
     }
 

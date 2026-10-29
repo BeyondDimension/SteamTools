@@ -8,6 +8,8 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:dns="using:BD.WTTS.UI.Views.Controls"
+    xmlns:vm="using:BD.WTTS.UI.ViewModels"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
@@ -29,14 +31,7 @@
             </ui:FASettingsExpanderItem>
 
             <ui:FASettingsExpanderItem>
-                <TextBlock Text="{Binding Path=Res.Settings_Proxy_CustomDNS, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:FASettingsExpanderItem.Footer>
-                    <ui:FAComboBox
-                        IsEditable="True"
-                        IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=!Value}"
-                        ItemsSource="{Binding ProxyDNSs}"
-                        Text="{Binding Source={x:Static ms:ProxySettings.ProxyMasterDns}, Path=Value, Mode=TwoWay}" />
-                </ui:FASettingsExpanderItem.Footer>
+                <dns:DnsListEditor DataContext="{x:Static vm:DnsListEditorViewModel.ServerList}" />
             </ui:FASettingsExpanderItem>
 
             <ui:FASettingsExpanderItem Description="{Binding Path=Res.Settings_Proxy_SystemProxyPortId_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
@@ -66,25 +61,6 @@
                 <TextBlock Text="{Binding Path=Res.CommunityFix_EnableHttpProxyToHttps, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
                 <ui:FASettingsExpanderItem.Footer>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.EnableHttpProxyToHttps}, Path=Value, Mode=TwoWay}" />
-                </ui:FASettingsExpanderItem.Footer>
-            </ui:FASettingsExpanderItem>
-
-            <ui:FASettingsExpanderItem>
-                <TextBlock Text="{Binding Path=Res.CommunityFix_EnableUseDoh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:FASettingsExpanderItem.Footer>
-                    <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value, Mode=TwoWay}" />
-                </ui:FASettingsExpanderItem.Footer>
-            </ui:FASettingsExpanderItem>
-
-            <ui:FASettingsExpanderItem>
-                <TextBlock Text="{Binding Path=Res.CommunityFix_CustomDohAddres, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <ui:FASettingsExpanderItem.Footer>
-                    <ui:FAComboBox
-                        IsEditable="True"
-                        IsEnabled="{Binding Source={x:Static ms:ProxySettings.UseDoh}, Path=Value}"
-                        ItemsSource="{Binding DohAddress}"
-                        PlaceholderText="{Binding Source={x:Static s:IDnsAnalysisService.Dnspod_DohAddres2}, Mode=OneWay}"
-                        Text="{Binding Source={x:Static ms:ProxySettings.CustomDohAddres2}, Path=Value, Mode=TwoWay}" />
                 </ui:FASettingsExpanderItem.Footer>
             </ui:FASettingsExpanderItem>
 

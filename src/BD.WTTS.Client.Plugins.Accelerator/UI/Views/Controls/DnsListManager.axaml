@@ -1,0 +1,70 @@
+<UserControl
+	x:Class="BD.WTTS.UI.Views.Controls.DnsListManager"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:vm="using:BD.WTTS.UI.ViewModels"
+	x:DataType="vm:DnsListEditorViewModel"
+	x:CompileBindings="True">
+	<StackPanel MinWidth="280" MaxWidth="520" Spacing="12">
+		<TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="从上到下依次尝试。修改会立即保存，重启加速后生效。"
+		           TextWrapping="Wrap" />
+
+		<Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+			<TextBox
+				x:Name="ServerAddress"
+				Text="{Binding Input, Mode=TwoWay}"
+				PlaceholderText="IPv4、IPv6 或 HTTPS DoH 地址"
+				AutomationProperties.Name="服务器地址">
+				<TextBox.KeyBindings>
+					<KeyBinding Gesture="Enter" Command="{Binding AddCommand}" />
+				</TextBox.KeyBindings>
+			</TextBox>
+			<Button Grid.Column="1" Classes="accent" Command="{Binding AddCommand}" Content="添加" />
+		</Grid>
+
+		<Button HorizontalAlignment="Left" Command="{Binding AddSystemDefaultCommand}" Content="添加系统默认地址" />
+		<TextBlock
+			Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+			IsVisible="{Binding Error, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+			Text="{Binding Error}"
+			TextWrapping="Wrap" />
+
+		<TextBlock FontWeight="SemiBold" Text="服务器顺序" />
+		<Border
+			Grid.Row="1"
+			Padding="8,4"
+			Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+			BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+			BorderThickness="1"
+			CornerRadius="6">
+			<ListBox
+				MinHeight="140"
+				MaxHeight="240"
+				AutoScrollToSelectedItem="True"
+				ItemsSource="{Binding Servers}"
+				SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+				ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+				ScrollViewer.VerticalScrollBarVisibility="Auto"
+				AutomationProperties.Name="服务器顺序">
+				<ListBox.Styles>
+					<Style Selector="ListBoxItem">
+						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+					</Style>
+				</ListBox.Styles>
+				<ListBox.ItemTemplate>
+					<DataTemplate x:DataType="x:String">
+						<TextBlock Margin="4,3" Text="{Binding}" TextWrapping="Wrap" />
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</Border>
+		<WrapPanel>
+			<Button Margin="0,0,8,4" Command="{Binding MoveUpCommand}" Content="上移" />
+			<Button Margin="0,0,8,4" Command="{Binding MoveDownCommand}" Content="下移" />
+			<Button Margin="0,0,8,4" Command="{Binding RemoveCommand}" Content="删除" />
+		</WrapPanel>
+
+		<TextBlock FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+		           Text="删除全部时恢复默认列表。DoH 请使用 RFC 8484 二进制端点（通常为 /dns-query）" TextWrapping="Wrap" />
+	</StackPanel>
+</UserControl>

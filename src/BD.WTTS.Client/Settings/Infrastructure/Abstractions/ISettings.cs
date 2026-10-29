@@ -231,18 +231,20 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
         IDisposable? IOptionsMonitor<TSettings>.OnChange(Action<TSettings, string?> listener)
             => ChangeToken.OnChange(() => fileProvider.Watch(settingsFileName), () =>
         {
-            var settings_ = AllowNullDeserialize();
-            if (settings_ != null)
+            lock (SettingsPropertyBase.GetSynchronizationRoot<TSettings>())
             {
-                // 监听到的设置模型实例，如果和 new 一个空的数据一样的，就是默认值则忽略
-                var newSettingsData = Serializable.SMP2(settings);
-                var emptySettingsData = Serializable.SMP2(new TSettings());
-                if (newSettingsData.SequenceEqual(emptySettingsData))
-                    return;
+                var settings_ = AllowNullDeserialize();
+                if (settings_ != null)
+                {
+                    // 监听到的设置模型实例，如果和 new 一个空的数据一样的，就是默认值则忽略
+                    var newSettingsData = Serializable.SMP2(settings);
+                    var emptySettingsData = Serializable.SMP2(new TSettings());
+                    if (newSettingsData.SequenceEqual(emptySettingsData))
+                        return;
 
-                settings = settings_;
-
-                listener.Invoke(settings, TSettings.Name);
+                    settings = settings_;
+                    listener.Invoke(settings, TSettings.Name);
+                }
             }
         });
     }
@@ -388,11 +390,11 @@ internal static class SettingsExtensions
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static void TrySave_____<TSettings>(IOptionsMonitor<TSettings> optionsMonitor, string? notRead = null) where TSettings : class, ISettings
     {
-        var settings = optionsMonitor.CurrentValue;
         var settingsFilePath = ISettings.GetFilePath(typeof(TSettings), TSettings.Name);
 
-        lock (TSettings.Name)
+        lock (SettingsPropertyBase.GetSynchronizationRoot<TSettings>())
         {
+            var settings = optionsMonitor.CurrentValue;
             var settingsType = typeof(TSettings);
             SettingsPropertyBase.SetSaveStatus(settingsType);
 

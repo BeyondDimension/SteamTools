@@ -81,13 +81,9 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
 
     public string? TwoLevelAgentPassword { get; set; }
 
-    public IPAddress? ProxyDNS { get; set; }
+    public string? ProxyDNSAddresses { get; set; }
 
     public bool IsSupportIpv6 { get; set; }
-
-    public bool UseDoh { get; set; }
-
-    public string? CustomDohAddres { get; set; }
 
     public string? ServerSideProxyToken { get; set; }
 

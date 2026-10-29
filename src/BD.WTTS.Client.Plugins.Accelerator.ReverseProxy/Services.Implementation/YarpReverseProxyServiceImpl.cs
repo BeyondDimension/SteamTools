@@ -102,7 +102,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         _certificateTimer = null;
     }
 
-    protected override Task<StartProxyResult> StartProxyImpl() => Task.FromResult(StartProxyCore());
+    protected override Task<StartProxyResult> StartProxyImpl() => StartProxyCoreAsync();
 
     readonly string[] allowedHosts = ["*",];
 
@@ -148,7 +148,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
     }
 #endif
 
-    StartProxyResult StartProxyCore()
+    async Task<StartProxyResult> StartProxyCoreAsync()
     {
 #if WINDOWS
         if (!IcuTest(allowedHosts))
@@ -215,32 +215,26 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             app.UseHostFiltering();
             StartupConfigure(app);
 
-            Exception? exception = null;
-            const int timeout_ms = 650;
-            var waitTask = Task.Factory.StartNew(() =>
-            {
-                Thread.Sleep(timeout_ms);
-            });
-            var appTask = Task.Factory.StartNew(() =>
-            {
-                try
-                {
-                    app.Run();
-                }
-                catch (Exception ex)
-                {
-                    app = null;
-                    exception = ex;
-                    OnException(ex);
-                    //toast.ShowAppend(IPCToastService.ToastText.CommunityFix_OnRunCatch, Environment.NewLine + "ExceptionMessage: " + ex.Message);
-                }
-            }, TaskCreationOptions.LongRunning);
-            Task.WaitAny(waitTask, appTask);
-            return exception;
+            await app.StartAsync();
+            return StartProxyResultCode.Ok;
         }
         catch (Exception ex)
         {
             OnException(ex);
+            StopCertificateTimer();
+            var failedApp = app;
+            app = null;
+            if (failedApp != null)
+            {
+                try
+                {
+                    await failedApp.DisposeAsync();
+                }
+                catch (Exception disposeException)
+                {
+                    OnException(disposeException);
+                }
+            }
             return ex;
         }
     }
