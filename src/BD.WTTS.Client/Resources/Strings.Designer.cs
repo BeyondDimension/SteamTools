@@ -1538,6 +1538,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 正在准备网络与代理服务，请稍候。.
+        /// </summary>
+        public static string CommunityFix_StartingHint {
+            get {
+                return ResourceManager.GetString("CommunityFix_StartingHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 一键加速.
         /// </summary>
         public static string CommunityFix_StartProxy {
@@ -1579,6 +1588,15 @@ namespace BD.WTTS.Client.Resources {
         public static string CommunityFix_StopProxy {
             get {
                 return ResourceManager.GetString("CommunityFix_StopProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 正在停止加速....
+        /// </summary>
+        public static string CommunityFix_Stopping {
+            get {
+                return ResourceManager.GetString("CommunityFix_Stopping", resourceCulture);
             }
         }
         

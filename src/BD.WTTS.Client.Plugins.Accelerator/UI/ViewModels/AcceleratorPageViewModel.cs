@@ -41,13 +41,9 @@ public sealed partial class AcceleratorPageViewModel
                 EnableProxyDomainGroupVMs = enableGroupDomain.AsReadOnly();
             });
 
-        StartProxyCommand = ReactiveCommand.CreateFromTask(async _ =>
+        StartProxyCommand = ReactiveCommand.Create(() =>
         {
-#if LINUX
-            if (!EnvironmentCheck()) return;
-#endif
-            //ProxyService.Current.ProxyStatus = !ProxyService.Current.ProxyStatus;
-            await ProxyService.Current.StartOrStopProxyService(!ProxyService.Current.ProxyStatus);
+            _ = StartOrStopProxyAsync();
         });
 
         RefreshCommand = ReactiveCommand.Create(async () =>
@@ -99,21 +95,64 @@ public sealed partial class AcceleratorPageViewModel
         }
     }
 
+    async Task StartOrStopProxyAsync()
+    {
+        try
+        {
+            var service = ProxyService.Current;
 #if LINUX
+            await service.StartOrStopProxyService(!service.ProxyStatus, EnvironmentCheckAsync);
+#else
+            await service.StartOrStopProxyService(!service.ProxyStatus);
+#endif
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT(nameof(ProxyService));
+        }
+    }
+
+#if LINUX
+
+    static Process StartEnvironmentCheck()
+    {
+        var path = Path.Combine(IOPath.BaseDirectory!, "script", "environment_check.sh");
+        var shellStr = $"if [ -x \"{path}\" ]; then '{path}' -c; else chmod +x '{path}'; '{path}' -c; fi";
+        return Process.Start(Process2.BinBash, new string[] { "-c", shellStr })
+            ?? throw new InvalidOperationException("Unable to start environment_check.sh.");
+    }
+
+    bool EnvironmentCheckResult(int exitCode)
+    {
+        if (exitCode == 200)
+            return true;
+        platformService.OpenFolder(Path.Combine(IOPath.BaseDirectory, "script"));
+        MessageBox.Show("请在终端手动运行:environment_check.sh 安装依赖环境");
+        return false;
+    }
 
     public bool EnvironmentCheck()
     {
         try
         {
-            var path = Path.Combine(IOPath.BaseDirectory!, "script", "environment_check.sh");
-            var shellStr = $"if [ -x \"{path}\" ]; then '{path}' -c; else chmod +x '{path}'; '{path}' -c; fi";
-            var p = Process.Start(Process2.BinBash, new string[] { "-c", shellStr });
-            p.WaitForExit();
-            if (p.ExitCode == 200)
-                return true;
-            platformService.OpenFolder(Path.Combine(IOPath.BaseDirectory, "script"));
-            MessageBox.Show($"请在终端手动运行:environment_check.sh 安装依赖环境");
+            using var process = StartEnvironmentCheck();
+            process.WaitForExit();
+            return EnvironmentCheckResult(process.ExitCode);
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show($"环境检查错误:{e}");
             return false;
+        }
+    }
+
+    async Task<bool> EnvironmentCheckAsync()
+    {
+        try
+        {
+            using var process = StartEnvironmentCheck();
+            await process.WaitForExitAsync();
+            return EnvironmentCheckResult(process.ExitCode);
         }
         catch (Exception e)
         {

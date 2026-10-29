@@ -2994,6 +2994,12 @@
 	<data name="CommunityFix_Starting" xml:space="preserve">
     <value>正在启动加速...</value>
   </data>
+	<data name="CommunityFix_StartingHint" xml:space="preserve">
+    <value>正在准备网络与代理服务，请稍候。</value>
+  </data>
+	<data name="CommunityFix_Stopping" xml:space="preserve">
+    <value>正在停止加速...</value>
+  </data>
 	<data name="LocalAuth_JoinSteamAuthenticator_InitLocalAuthenticatorError" xml:space="preserve">
     <value>初始化本地令牌错误</value>
   </data>

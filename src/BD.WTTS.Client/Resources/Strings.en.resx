@@ -3877,6 +3877,12 @@ or switch the Steam client login account to the same as the card hanging account
     <value>Starting acceleration...</value>
     <comment>Author=kotovasia5120</comment>
   </data>
+  <data name="CommunityFix_StartingHint" xml:space="preserve">
+    <value>Preparing the network and proxy service. Please wait.</value>
+  </data>
+  <data name="CommunityFix_Stopping" xml:space="preserve">
+    <value>Stopping acceleration...</value>
+  </data>
   <data name="LocalAuth_JoinSteamAuthenticator_InitLocalAuthenticatorError" xml:space="preserve">
     <value>Error initializing local token</value>
     <comment>Author=kotovasia5120</comment>

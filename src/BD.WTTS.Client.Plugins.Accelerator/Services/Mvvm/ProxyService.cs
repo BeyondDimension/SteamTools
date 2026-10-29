@@ -120,7 +120,9 @@ public sealed partial class ProxyService
 
     public SourceList<ScriptDTO> ProxyScripts { get; }
 
-    public async Task StartOrStopProxyService(bool startOrStop)
+    public Task StartOrStopProxyService(bool startOrStop) => StartOrStopProxyService(startOrStop, null);
+
+    internal async Task StartOrStopProxyService(bool startOrStop, Func<Task<bool>>? beforeOperation)
     {
         if (startOrStop == ProxyStatus)
         {
@@ -128,9 +130,13 @@ public sealed partial class ProxyService
         }
         if (!ProxyStarting)
         {
+            ProxyStopping = !startOrStop;
             ProxyStarting = true;
             try
             {
+                if (beforeOperation != null && !await beforeOperation())
+                    return;
+
                 bool proxyStatusRight;
                 if (startOrStop)
                 {
@@ -152,6 +158,7 @@ public sealed partial class ProxyService
             finally
             {
                 ProxyStarting = false;
+                ProxyStopping = false;
             }
         }
     }
@@ -281,10 +288,16 @@ public sealed partial class ProxyService
     #region 代理状态启动退出
 
     /// <summary>
-    /// 代理启动中
+    /// 代理启动或停止操作进行中
     /// </summary>
     [Reactive]
     public bool ProxyStarting { get; set; }
+
+    /// <summary>
+    /// 当前操作是否为停止代理。
+    /// </summary>
+    [Reactive]
+    public bool ProxyStopping { get; private set; }
 
     [Reactive]
     public bool ProxyStatus { get; set; }
