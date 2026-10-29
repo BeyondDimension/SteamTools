@@ -39,9 +39,13 @@ public sealed class SteamConnectService
     long gameListSteamId;
     int steamPathGeneration;
 
-    SteamConnectService() : this(ISteamService.Instance, ISteamworksLocalApiService.Instance, ISteamworksWebApiService.Instance) { }
+    SteamConnectService() : this(ISteamService.Instance, ISteamworksLocalApiService.Instance,
+        ISteamworksWebApiService.Instance)
+    {
+    }
 
-    internal SteamConnectService(ISteamService steamService, ISteamworksLocalApiService localService, ISteamworksWebApiService webService)
+    internal SteamConnectService(ISteamService steamService, ISteamworksLocalApiService localService,
+        ISteamworksWebApiService webService)
     {
         stmService = steamService;
         swLocalService = localService;
@@ -120,6 +124,7 @@ public sealed class SteamConnectService
             SteamUsers.Clear();
             SteamApps.Clear();
         }
+
         WatchDownloadingSteamAppIds.Clear();
         DownloadApps.Clear();
         CurrentSteamUser = null;
@@ -139,6 +144,7 @@ public sealed class SteamConnectService
                 ex.LogAndShowT(nameof(SteamConnectService));
             }
         }
+
         if (refresh)
             _ = Task.Run(() => RefreshGamesListAsync(showToast: false));
     }
@@ -299,12 +305,10 @@ public sealed class SteamConnectService
             {
                 RuningSteamApps.TryGetValue(item.Key, out var runState);
                 if (runState == null)
-                    RuningSteamApps.TryAdd(item.Key, new SteamApp
-                    {
-                        AppId = item.Key,
-                        Name = item.Value,
-                    });
+                    RuningSteamApps.TryAdd(item.Key, new SteamApp { AppId = item.Key, Name = item.Value, });
             }
+
+            Toast.Show(ToastIcon.Success, $"已自动后台运行挂时长 {aFKAppList.Count} 个游戏");
             Task2.InBackground(() =>
             {
                 foreach (var item in RuningSteamApps.Values)
@@ -347,7 +351,6 @@ public sealed class SteamConnectService
 
                     try
                     {
-
                         if (!IsDisposedClient) DisposeSteamClient();
                         if (!swLocalService.Initialize()) continue;
                         IsDisposedClient = false;
@@ -362,22 +365,28 @@ public sealed class SteamConnectService
                         finally { steamClientGate.Release(); }
                     }
 
-                    if (pathGeneration != Volatile.Read(ref steamPathGeneration) || processId != stmService.GetSteamProcessPid()) continue;
+                    if (pathGeneration != Volatile.Read(ref steamPathGeneration) ||
+                        processId != stmService.GetSteamProcessPid()) continue;
                     if (ShouldRefreshGameList(processId, id))
                         _ = RefreshGamesListAsync(showToast: false);
 
                     var user = swWebService.GetUserInfo(id).GetAwaiter().GetResult();
-                    if (pathGeneration != Volatile.Read(ref steamPathGeneration) || processId != stmService.GetSteamProcessPid()) continue;
+                    if (pathGeneration != Volatile.Read(ref steamPathGeneration) ||
+                        processId != stmService.GetSteamProcessPid()) continue;
                     user.IPCountry = country;
                     CurrentSteamUser = user;
                     IsSteamChinaLauncher = stmService.IsSteamChinaLauncher();
                     IsConnectToSteam = true;
 
                     if (SteamSettings.IsEnableSteamLaunchNotification.Value)
-                        INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{user.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{country}{Environment.NewLine}{AppResources.Steam_ServerTime}{serverTime:yyyy-MM-dd HH:mm:ss}", NotificationType.Message);
+                        INotificationService.Instance.Notify(
+                            $"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{user.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{country}{Environment.NewLine}{AppResources.Steam_ServerTime}{serverTime:yyyy-MM-dd HH:mm:ss}",
+                            NotificationType.Message);
 
                     if (Ioc.Get_Nullable<IPartialGameLibrarySettings>()?.IsAutoAFKApps == true)
+                    {
                         RunAFKApps();
+                    }
 
                     if (!SteamUsers.Lookup(id).HasValue)
                     {
@@ -403,6 +412,7 @@ public sealed class SteamConnectService
         {
             return IsConnectToSteam = swLocalService.Initialize(appid);
         }
+
         return false;
     }
 
@@ -483,7 +493,8 @@ public sealed class SteamConnectService
         if (endModeName != null)
             AppResources.ResourceManager.GetString(endModeName);
 
-        INotificationService.Instance.Notify(AppResources.GameList_SteamShutdown_DownloadCompleteTip.Format(30, endModeName), NotificationType.Message);
+        INotificationService.Instance.Notify(
+            AppResources.GameList_SteamShutdown_DownloadCompleteTip.Format(30, endModeName), NotificationType.Message);
 
         switch (endMode)
         {
@@ -514,6 +525,7 @@ public sealed class SteamConnectService
                 cancellation.Dispose();
                 return;
             }
+
             gameListRequested = true;
             gameListCancellation?.Cancel();
             gameListCancellation = cancellation;
@@ -544,6 +556,7 @@ public sealed class SteamConnectService
                     sessionChanged = true;
                 }
             }
+
             if (sessionChanged)
             {
                 IsConnectToSteam = false;
@@ -565,6 +578,7 @@ public sealed class SteamConnectService
                     IsLoadingGameList = false;
                 }
             }
+
             cancellation.Dispose();
         }
     }
@@ -617,6 +631,7 @@ public sealed class SteamConnectService
             }
 
             long nextSessionCheck = 0;
+
             void CheckSession(bool force = false)
             {
                 token.ThrowIfCancellationRequested();
@@ -640,12 +655,15 @@ public sealed class SteamConnectService
                         app.OriginalData = modified.OriginalData;
                         app.IsEdited = true;
                     }
+
                     visible.Add(app);
                 }
+
                 lock (gameListSync)
                 {
                     token.ThrowIfCancellationRequested();
-                    if (!ReferenceEquals(gameListCancellation, cancellation)) throw new OperationCanceledException(token);
+                    if (!ReferenceEquals(gameListCancellation, cancellation))
+                        throw new OperationCanceledException(token);
                     SteamApps.AddOrUpdate(visible);
                 }
             }, token).ConfigureAwait(false);
@@ -688,7 +706,8 @@ public sealed class SteamConnectService
         var accountRemarks = Ioc.Get_Nullable<IPartialGameAccountSettings>()?.AccountRemarks;
 
 #if WINDOWS
-        List<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)>? jumplistData = new();
+        List<(string title, string applicationPath, string iconResourcePath, string arguments, string description,
+            string customCategory)>? jumplistData = new();
 #endif
         foreach (var user in SteamUsers.Items)
         {
@@ -819,6 +838,7 @@ public sealed class SteamConnectService
                 //}
             }
         }
+
         SteamUsers.Refresh();
 
         #endregion
@@ -842,6 +862,7 @@ public sealed class SteamConnectService
                 if (app.Process != null && !app.Process.HasExited)
                     app.Process.KillEntireProcessTree();
             }
+
             steamClientGate.Wait();
             try
             {
