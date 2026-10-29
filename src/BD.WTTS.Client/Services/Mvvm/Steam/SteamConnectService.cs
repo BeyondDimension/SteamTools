@@ -13,7 +13,7 @@ public sealed class SteamConnectService
 {
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 
-    bool disposedValue;
+    volatile bool disposedValue;
 
     public const int SteamAFKMaxCount = 32;
 
@@ -21,12 +21,31 @@ public sealed class SteamConnectService
 
     public static SteamConnectService Current => mCurrent.Value;
 
-    readonly ISteamworksLocalApiService swLocalService = ISteamworksLocalApiService.Instance;
-    readonly ISteamService stmService = ISteamService.Instance;
-    readonly ISteamworksWebApiService swWebService = ISteamworksWebApiService.Instance;
-
-    SteamConnectService()
+    internal static void NotifySteamProgramPathChanged()
     {
+        if (mCurrent.IsValueCreated)
+            mCurrent.Value.OnSteamProgramPathChanged();
+    }
+
+    readonly ISteamworksLocalApiService swLocalService;
+    readonly ISteamService stmService;
+    readonly ISteamworksWebApiService swWebService;
+    readonly SemaphoreSlim steamClientGate = new(1, 1);
+    readonly SemaphoreSlim gameListGate = new(1, 1);
+    readonly object gameListSync = new();
+    CancellationTokenSource? gameListCancellation;
+    bool gameListRequested;
+    int gameListProcessId;
+    long gameListSteamId;
+    int steamPathGeneration;
+
+    SteamConnectService() : this(ISteamService.Instance, ISteamworksLocalApiService.Instance, ISteamworksWebApiService.Instance) { }
+
+    internal SteamConnectService(ISteamService steamService, ISteamworksLocalApiService localService, ISteamworksWebApiService webService)
+    {
+        stmService = steamService;
+        swLocalService = localService;
+        swWebService = webService;
         SteamApps = new(t => t.AppId);
         DownloadApps = new(t => t.AppId);
         SteamUsers = new(t => t.SteamId64);
@@ -56,45 +75,72 @@ public sealed class SteamConnectService
 #if LINUX
                     IPlatformService.Instance.GetSystemUserPassword();
 #endif
-                    stmService.StartWatchSteamDownloading(app =>
-                    {
-                        var optional = DownloadApps.Lookup(app.AppId);
-                        if (!optional.HasValue)
-                        {
-                            DownloadApps.AddOrUpdate(app);
-                        }
-                        else
-                        {
-                            var current = optional.Value;
-                            if (CopyDownloadState(current, app))
-                                DownloadApps.Refresh(current);
-                        }
-
-                        if (WatchDownloadingSteamAppIds.Contains(app.AppId))
-                        {
-                            if (app.IsDownloading)
-                            {
-                                app.IsWatchDownloading = true;
-                            }
-                            else
-                            {
-                                WatchDownloadingSteamAppIds.Remove(app.AppId);
-                                if (!WatchDownloadingSteamAppIds.Any())
-                                {
-                                    WatchDownloadingComplete();
-                                }
-                            }
-                        }
-                    }, appid =>
-                    {
-                        DownloadApps.RemoveKey(appid);
-                    });
+                    stmService.StartWatchSteamDownloading(OnDownloadingAppChanged, OnDownloadingAppRemoved);
                 }
                 else
                 {
                     stmService.StopWatchSteamDownloading();
                 }
             });
+    }
+
+    void OnDownloadingAppChanged(SteamApp app)
+    {
+        var optional = DownloadApps.Lookup(app.AppId);
+        if (!optional.HasValue)
+            DownloadApps.AddOrUpdate(app);
+        else if (CopyDownloadState(optional.Value, app))
+            DownloadApps.Refresh(optional.Value);
+
+        if (WatchDownloadingSteamAppIds.Contains(app.AppId))
+        {
+            if (app.IsDownloading)
+                app.IsWatchDownloading = true;
+            else
+            {
+                WatchDownloadingSteamAppIds.Remove(app.AppId);
+                if (!WatchDownloadingSteamAppIds.Any()) WatchDownloadingComplete();
+            }
+        }
+    }
+
+    void OnDownloadingAppRemoved(uint appId) => DownloadApps.RemoveKey(appId);
+
+    internal void OnSteamProgramPathChanged()
+    {
+        if (disposedValue) return;
+        Interlocked.Increment(ref steamPathGeneration);
+        bool refresh;
+        lock (gameListSync)
+        {
+            refresh = gameListRequested;
+            gameListProcessId = -1;
+            gameListSteamId = -1;
+            gameListCancellation?.Cancel();
+            SteamUsers.Clear();
+            SteamApps.Clear();
+        }
+        WatchDownloadingSteamAppIds.Clear();
+        DownloadApps.Clear();
+        CurrentSteamUser = null;
+        IsConnectToSteam = false;
+
+        if (IsWatchSteamDownloading)
+        {
+            try
+            {
+                stmService.StopWatchSteamDownloading();
+                InitializeDownloadGameList();
+                stmService.StartWatchSteamDownloading(OnDownloadingAppChanged, OnDownloadingAppRemoved);
+            }
+            catch (Exception ex)
+            {
+                IsWatchSteamDownloading = false;
+                ex.LogAndShowT(nameof(SteamConnectService));
+            }
+        }
+        if (refresh)
+            _ = Task.Run(() => RefreshGamesListAsync(showToast: false));
     }
 
     static bool CopyDownloadState(SteamApp target, SteamApp source)
@@ -277,88 +323,66 @@ public sealed class SteamConnectService
 
         Task2.InBackground(() =>
         {
-            while (true)
+            var observedProcessId = stmService.GetSteamProcessPid();
+            while (!disposedValue)
             {
                 try
                 {
-                    IsRunningSteamProcess = stmService.IsRunningSteamProcess;
-                    if (IsRunningSteamProcess)
+                    var pathGeneration = Volatile.Read(ref steamPathGeneration);
+                    var processId = stmService.GetSteamProcessPid();
+                    IsRunningSteamProcess = processId != 0;
+                    if (processId != observedProcessId)
                     {
-                        if (!IsConnectToSteam && IsDisposedClient)
-                        {
-                            if (swLocalService.Initialize())
-                            {
-                                IsDisposedClient = false;
-                                var id = swLocalService.GetSteamId64();
-                                if (id <= 0 || id == SteamIdConvert.UndefinedId)
-                                {
-                                    // 该 64 位 id 的 steamID3 等于0，是 steam 未获取到当前登录用户的默认返回值，所以直接重新获取
-                                    DisposeSteamClient();
-                                    continue;
-                                }
-                                IsConnectToSteam = true;
-
-                                var taskUser = swWebService.GetUserInfo(id);
-                                taskUser.Wait();
-                                CurrentSteamUser = taskUser.Result;
-                                //CurrentSteamUser.AvatarStream = ImageChannelType.SteamAvatars.GetImageAsync(CurrentSteamUser.AvatarFull);
-                                //AvatarPath = ImageSouce.TryParse(await CurrentSteamUser.AvatarStream, isCircle: true);
-                                CurrentSteamUser.IPCountry = swLocalService.GetIPCountry();
-
-                                IsSteamChinaLauncher = stmService.IsSteamChinaLauncher();
-                                var steamServerTime = ((long)swLocalService.GetServerRealTime()).ToDateTimeOffsetS();
-                                //var steamRunTime = swLocalService.GetSecondsSinceAppActive();
-
-                                #region 初始化需要 Steam 启动才能使用的功能
-
-                                if (SteamSettings.IsEnableSteamLaunchNotification.Value)
-                                {
-                                    INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{CurrentSteamUser.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{CurrentSteamUser.IPCountry}{Environment.NewLine}{AppResources.Steam_ServerTime}{steamServerTime:yyyy-MM-dd HH:mm:ss}", NotificationType.Message);
-                                }
-
-                                var isAutoAFKApps = Ioc.Get_Nullable<IPartialGameLibrarySettings>()?.IsAutoAFKApps ?? default;
-                                if (isAutoAFKApps)
-                                {
-                                    RunAFKApps();
-                                }
-
-                                // 仅在有游戏数据情况下加载登录用户的游戏
-                                if (SteamApps.Items.Any())
-                                {
-                                    var taskAppinfo = ISteamService.Instance.GetAppInfos();
-                                    taskAppinfo.Wait();
-                                    var applist = swLocalService.OwnsApps(taskAppinfo.Result);
-                                    if (!applist.Any_Nullable())
-                                    {
-                                        if (!IsDisposedClient)
-                                            DisposeSteamClient();
-                                        continue;
-                                    }
-                                    LoadGames(applist);
-                                    InitializeDownloadGameList();
-                                }
-
-                                if (!SteamUsers.Lookup(id).HasValue)
-                                {
-                                    RefreshSteamUsers();
-                                    _ = RefreshSteamUsersInfo();
-                                }
-
-                                //var mainViewModel = (IWindowService.Instance.MainWindow as WindowViewModel);
-                                //await mainViewModel.SteamAppPage.Initialize();
-                                //await mainViewModel.AccountPage.Initialize(id);
-
-                                #endregion
-
-                                if (!IsDisposedClient)
-                                    DisposeSteamClient();
-                            }
-                        }
-                    }
-                    else
-                    {
+                        observedProcessId = processId;
                         IsConnectToSteam = false;
                         CurrentSteamUser = null;
+                        InvalidateGameList(clear: processId != 0);
+                    }
+
+                    if (processId == 0 || IsConnectToSteam || !steamClientGate.Wait(0))
+                        continue;
+                    long id = 0;
+                    string country = string.Empty;
+                    DateTimeOffset serverTime = default;
+
+                    try
+                    {
+
+                        if (!IsDisposedClient) DisposeSteamClient();
+                        if (!swLocalService.Initialize()) continue;
+                        IsDisposedClient = false;
+                        id = swLocalService.GetSteamId64();
+                        if (id <= 0 || id == SteamIdConvert.UndefinedId) continue;
+                        country = swLocalService.GetIPCountry();
+                        serverTime = ((long)swLocalService.GetServerRealTime()).ToDateTimeOffsetS();
+                    }
+                    finally
+                    {
+                        try { DisposeSteamClient(); }
+                        finally { steamClientGate.Release(); }
+                    }
+
+                    if (pathGeneration != Volatile.Read(ref steamPathGeneration) || processId != stmService.GetSteamProcessPid()) continue;
+                    if (ShouldRefreshGameList(processId, id))
+                        _ = RefreshGamesListAsync(showToast: false);
+
+                    var user = swWebService.GetUserInfo(id).GetAwaiter().GetResult();
+                    if (pathGeneration != Volatile.Read(ref steamPathGeneration) || processId != stmService.GetSteamProcessPid()) continue;
+                    user.IPCountry = country;
+                    CurrentSteamUser = user;
+                    IsSteamChinaLauncher = stmService.IsSteamChinaLauncher();
+                    IsConnectToSteam = true;
+
+                    if (SteamSettings.IsEnableSteamLaunchNotification.Value)
+                        INotificationService.Instance.Notify($"{AppResources.Steam_CheckStarted}{(IsSteamChinaLauncher ? AppResources.Steam_SteamChina : AppResources.Steam_SteamWorld)}{Environment.NewLine}{AppResources.Steam_CurrentUser}{user.SteamNickName}{Environment.NewLine}{AppResources.Steam_CurrentIPCountry}{country}{Environment.NewLine}{AppResources.Steam_ServerTime}{serverTime:yyyy-MM-dd HH:mm:ss}", NotificationType.Message);
+
+                    if (Ioc.Get_Nullable<IPartialGameLibrarySettings>()?.IsAutoAFKApps == true)
+                        RunAFKApps();
+
+                    if (!SteamUsers.Lookup(id).HasValue)
+                    {
+                        RefreshSteamUsers();
+                        _ = RefreshSteamUsersInfo();
                     }
                 }
                 catch (Exception ex)
@@ -382,17 +406,27 @@ public sealed class SteamConnectService
         return false;
     }
 
-    void LoadGames(IEnumerable<SteamApp>? apps)
+    // Steam 退出时保留缓存，启动新进程时清除旧账号的游戏。
+    void InvalidateGameList(bool clear)
     {
-        // 合并为一次变更通知，避免列表逐项刷新
-        SteamApps.Edit(updater =>
+        lock (gameListSync)
         {
-            updater.Clear();
-            if (apps.Any_Nullable())
-                updater.AddOrUpdate(apps);
-        });
-        if (apps.Any_Nullable())
-            ApplyModifiedApps(ISteamService.Instance.GetModifiedApps());
+            if (!gameListRequested) return;
+            gameListProcessId = -1;
+            gameListSteamId = -1;
+            gameListCancellation?.Cancel();
+            if (clear) SteamApps.Clear();
+        }
+    }
+
+    // 仅在已经加载过列表时，新的 Steam 会话才需要重新读取；未加载过则由页面激活负责首次加载。
+    bool ShouldRefreshGameList(int processId, long steamId)
+    {
+        lock (gameListSync)
+        {
+            if (!gameListRequested || gameListCancellation is { IsCancellationRequested: false }) return false;
+            return gameListProcessId != processId || gameListSteamId != steamId;
+        }
     }
 
     public int ApplyModifiedApps(IEnumerable<ModifiedApp>? modifiedApps)
@@ -428,16 +462,10 @@ public sealed class SteamConnectService
         return appliedCount;
     }
 
-    public async Task InitializeGameList()
-    {
-        LoadGames(await ISteamService.Instance.GetAppInfos());
-        InitializeDownloadGameList();
-        IsLoadingGameList = false;
-    }
 
     public void InitializeDownloadGameList()
     {
-        var apps = ISteamService.Instance.GetDownloadingAppList();
+        var apps = stmService.GetDownloadingAppList();
         foreach (var app in apps)
             app.IsWatchDownloading = WatchDownloadingSteamAppIds.Contains(app.AppId);
 
@@ -474,66 +502,186 @@ public sealed class SteamConnectService
         }
     }
 
-    public async Task RefreshGamesListAsync()
+    public Task RefreshGamesListAsync() => RefreshGamesListAsync(showToast: true);
+
+    internal async Task RefreshGamesListAsync(bool showToast)
     {
-        if (IsLoadingGameList == false)
+        var cancellation = new CancellationTokenSource();
+        lock (gameListSync)
         {
-            IsLoadingGameList = true;
-            if (stmService.IsRunningSteamProcess)
+            if (disposedValue)
             {
-                await Task.Run(async () =>
-                {
-                    try
-                    {
-                        while (true)
-                        {
-                            if (stmService.IsRunningSteamProcess && IsDisposedClient)
-                            {
-                                if (swLocalService.Initialize())
-                                {
-                                    IsDisposedClient = false;
-                                    var apps = await ISteamService.Instance.GetAppInfos();
-                                    if (apps != null)
-                                    {
-                                        var temps = swLocalService.OwnsApps(apps);
-                                        LoadGames(temps);
-                                        InitializeDownloadGameList();
-                                        Toast.Show(ToastIcon.Success, AppResources.GameList_RefreshGamesListSucess);
-                                        DisposeSteamClient();
-                                        IsLoadingGameList = false;
-                                        return;
-                                    }
-                                }
-                            }
-                            await Task.Delay(2000);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        ex.LogAndShowT(nameof(SteamConnectService));
-                        IsLoadingGameList = false;
-                        DisposeSteamClient();
-                    }
-                }).ConfigureAwait(false);
+                cancellation.Dispose();
+                return;
             }
-            else
+            gameListRequested = true;
+            gameListCancellation?.Cancel();
+            gameListCancellation = cancellation;
+            IsLoadingGameList = true;
+        }
+
+        var acquired = false;
+        try
+        {
+            await gameListGate.WaitAsync(cancellation.Token).ConfigureAwait(false);
+            acquired = true;
+            await LoadGameListAsync(cancellation).ConfigureAwait(false);
+            if (showToast) Toast.Show(ToastIcon.Success, AppResources.GameList_RefreshGamesListSucess);
+        }
+        catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
+        {
+        }
+        catch (OperationCanceledException)
+        {
+            var sessionChanged = false;
+            lock (gameListSync)
             {
-                await Task.Run(InitializeGameList);
-                Toast.Show(ToastIcon.Success, AppResources.GameList_RefreshGamesListSucess);
+                if (ReferenceEquals(gameListCancellation, cancellation))
+                {
+                    gameListProcessId = -1;
+                    gameListSteamId = -1;
+                    SteamApps.Clear();
+                    sessionChanged = true;
+                }
+            }
+            if (sessionChanged)
+            {
+                IsConnectToSteam = false;
+                CurrentSteamUser = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT(nameof(SteamConnectService));
+        }
+        finally
+        {
+            if (acquired) gameListGate.Release();
+            lock (gameListSync)
+            {
+                if (ReferenceEquals(gameListCancellation, cancellation))
+                {
+                    gameListCancellation = null;
+                    IsLoadingGameList = false;
+                }
+            }
+            cancellation.Dispose();
+        }
+    }
+
+    async Task LoadGameListAsync(CancellationTokenSource cancellation)
+    {
+        var token = cancellation.Token;
+        var processId = stmService.IsRunningSteamProcess ? stmService.GetSteamProcessPid() : 0;
+        var clientAcquired = false;
+        var attemptedInitialize = false;
+        long steamId = 0;
+        try
+        {
+            if (processId != 0)
+            {
+                await steamClientGate.WaitAsync(token).ConfigureAwait(false);
+                clientAcquired = true;
+                if (!IsDisposedClient) DisposeSteamClient();
+                attemptedInitialize = true;
+                if (!swLocalService.Initialize())
+                    throw new InvalidOperationException(AppResources.Error_SteamGetUserInfo);
+                IsDisposedClient = false;
+                steamId = swLocalService.GetSteamId64();
+                if (steamId <= 0 || steamId == SteamIdConvert.UndefinedId)
+                    throw new OperationCanceledException();
+                if (CurrentSteamUser is { } current && current.SteamId64 != steamId)
+                {
+                    CurrentSteamUser = null;
+                    IsConnectToSteam = false;
+                }
+            }
+
+            lock (gameListSync)
+            {
+                token.ThrowIfCancellationRequested();
+                if (!ReferenceEquals(gameListCancellation, cancellation)) throw new OperationCanceledException(token);
+                gameListProcessId = processId;
+                gameListSteamId = steamId;
+                SteamApps.Clear();
+            }
+
+            var modifications = new Dictionary<uint, ModifiedApp>();
+            if (stmService.GetModifiedApps() is { } modifiedApps)
+            {
+                foreach (var modified in modifiedApps)
+                {
+                    modified.ReadChanges();
+                    if (modified.Changes != null) modifications[modified.AppId] = modified;
+                }
+            }
+
+            long nextSessionCheck = 0;
+            void CheckSession(bool force = false)
+            {
+                token.ThrowIfCancellationRequested();
+                var now = Environment.TickCount64;
+                if (!force && now < nextSessionCheck) return;
+                nextSessionCheck = now + 500;
+                if (stmService.GetSteamProcessPid() != processId ||
+                    (processId != 0 && swLocalService.GetSteamId64() != steamId))
+                    throw new OperationCanceledException();
+            }
+
+            await stmService.ReadAppInfosInBatchesAsync(batch =>
+            {
+                CheckSession();
+                var visible = new List<SteamApp>(batch.Count);
+                foreach (var app in processId != 0 ? swLocalService.OwnsApps(batch) : batch)
+                {
+                    if (modifications.TryGetValue(app.AppId, out var modified))
+                    {
+                        app.ExtractReaderProperty(modified.Changes!);
+                        app.OriginalData = modified.OriginalData;
+                        app.IsEdited = true;
+                    }
+                    visible.Add(app);
+                }
+                lock (gameListSync)
+                {
+                    token.ThrowIfCancellationRequested();
+                    if (!ReferenceEquals(gameListCancellation, cancellation)) throw new OperationCanceledException(token);
+                    SteamApps.AddOrUpdate(visible);
+                }
+            }, token).ConfigureAwait(false);
+
+            CheckSession(force: true);
+            lock (gameListSync)
+            {
+                token.ThrowIfCancellationRequested();
+                if (!ReferenceEquals(gameListCancellation, cancellation)) throw new OperationCanceledException(token);
+                InitializeDownloadGameList();
+            }
+        }
+        finally
+        {
+            if (clientAcquired)
+            {
+                try
+                {
+                    if (attemptedInitialize) DisposeSteamClient();
+                }
+                finally { steamClientGate.Release(); }
             }
         }
     }
 
     public void RefreshSteamUsers()
     {
+        var generation = Volatile.Read(ref steamPathGeneration);
         var list = stmService.GetRememberUserList();
-
-        if (!list.Any_Nullable())
+        lock (gameListSync)
         {
-            return;
+            if (generation != Volatile.Read(ref steamPathGeneration)) return;
+            SteamUsers.Clear();
+            if (!list.Any_Nullable()) return;
+            SteamUsers.AddOrUpdate(list);
         }
-        SteamUsers.Clear();
-        SteamUsers.AddOrUpdate(list);
 
         #region 加载备注信息和 JumpList
 
@@ -684,22 +832,22 @@ public sealed class SteamConnectService
 
     void Dispose(bool disposing)
     {
-        if (!disposedValue)
+        if (disposedValue) return;
+        disposedValue = true;
+        if (disposing)
         {
-            if (disposing)
+            lock (gameListSync) gameListCancellation?.Cancel();
+            foreach (var app in RuningSteamApps.Values)
             {
-                // 释放托管状态(托管对象)
-                foreach (var app in Current.RuningSteamApps.Values)
-                {
-                    if (app.Process != null && !app.Process.HasExited)
-                        app.Process.KillEntireProcessTree();
-                }
-                DisposeSteamClient();
+                if (app.Process != null && !app.Process.HasExited)
+                    app.Process.KillEntireProcessTree();
             }
-
-            // 释放未托管的资源(未托管的对象)并重写终结器
-            // 将大型字段设置为 null
-            disposedValue = true;
+            steamClientGate.Wait();
+            try
+            {
+                if (!IsDisposedClient) DisposeSteamClient();
+            }
+            finally { steamClientGate.Release(); }
         }
     }
 

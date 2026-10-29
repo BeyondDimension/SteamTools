@@ -3139,4 +3139,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Error_CheckRootCertificateFailed_" xml:space="preserve">
     <value>証明書の形式が不正か古いです。加速設定で削除し再生成してください。</value>
   </data>
+  <data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
+    <value>Steam のパスを更新しました。Steam ネイティブコンポーネントが読み込み済みの場合は、Watt Toolkit を再起動してパスを切り替えてください。</value>
+  </data>
 </root>

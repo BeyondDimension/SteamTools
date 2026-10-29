@@ -6,6 +6,8 @@ namespace BD.WTTS.UI.ViewModels;
 public sealed partial class GameListPageViewModel : TabItemViewModel
 {
     readonly Dictionary<string, string[]> dictPinYinArray = new();
+    // Above the 128-game read batch; larger filter changes can still reset efficiently.
+    const int ListResetThreshold = 256;
 
     public GameListPageViewModel()
     {
@@ -69,12 +71,18 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
 
         SteamConnectService.Current.SteamApps
             .Connect()
+            .Throttle(TimeSpan.FromMilliseconds(250), RxSchedulers.TaskpoolScheduler)
+            .Subscribe(_ => CalcTypeCount())
+            .AddTo(this);
+
+        SteamConnectService.Current.SteamApps
+            .Connect()
             .ObserveOn(RxSchedulers.TaskpoolScheduler)
-            .Do(_ => CalcTypeCount())
             .Filter(filter)
-            .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.DisplayName).ThenByDescending(s => s.SizeOnDisk))
+            // Keep realized covers when a normal inventory batch arrives.
+            .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.DisplayName).ThenByDescending(s => s.SizeOnDisk), resetThreshold: ListResetThreshold)
             .ObserveOn(RxSchedulers.MainThreadScheduler)
-            .Bind(out _SteamApps)
+            .Bind(out _SteamApps, resetThreshold: ListResetThreshold)
             .Subscribe()
             .AddTo(this);
 

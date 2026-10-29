@@ -13,6 +13,7 @@ public static partial class SteamSettings
         IsRunSteamNoCheckUpdate.ValueChanged += IsRunSteamNoCheckUpdate_ValueChanged;
         IsRunSteamChina.ValueChanged += IsRunSteamChina_ValueChanged;
         IsRunSteamVGUI.ValueChanged += IsRunSteamVGUI_ValueChanged;
+        SteamProgramPath.ValueChanged += (_, _) => SteamConnectService.NotifySteamProgramPathChanged();
     }
 
     private static void SetRunSteamParameter(string parameter, bool isSet)

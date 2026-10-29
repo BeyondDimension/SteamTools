@@ -184,7 +184,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
                 Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Header)));
             }
             else
-                this.RaisePropertyChanged(nameof(App.HeaderLogoStream));
+                App.RaisePropertyChanged(nameof(App.HeaderLogoStream));
         }
         if (!await IsImageUnchangedAsync(App.EditLibraryLogoStream, App.LibraryLogoStream))
         {
@@ -197,7 +197,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
                 Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Logo)));
             }
             else
-                this.RaisePropertyChanged(nameof(App.LibraryLogoStream));
+                App.RaisePropertyChanged(nameof(App.LibraryLogoStream));
         }
         if (!await IsImageUnchangedAsync(App.EditLibraryHeroStream, App.LibraryHeroStream))
         {
@@ -210,7 +210,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
                 Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Hero)));
             }
             else
-                this.RaisePropertyChanged(nameof(App.LibraryHeroStream));
+                App.RaisePropertyChanged(nameof(App.LibraryHeroStream));
         }
         if (!await IsImageUnchangedAsync(App.EditLibraryGridStream, App.LibraryGridStream))
         {
@@ -223,7 +223,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
                 Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Grid)));
             }
             else
-                this.RaisePropertyChanged(nameof(App.LibraryGridStream));
+                App.RaisePropertyChanged(nameof(App.LibraryGridStream));
         }
         #endregion
 

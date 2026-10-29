@@ -117,6 +117,13 @@
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
+            <ui:FAProgressRing
+                Width="20"
+                Height="20"
+                Margin="4,0"
+                VerticalAlignment="Center"
+                IsVisible="{Binding Source={x:Static s:SteamConnectService.Current}, Path=IsLoadingGameList, Mode=OneWay}"
+                ToolTip.Tip="{Binding Path=Res.GameList_IsLoading, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             <!--<ToggleButton
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
@@ -343,9 +350,14 @@
         </StackPanel>
     </spp:PageBase.PaneContent>
     <spp:ContentLoader
-        IsLoading="{Binding Source={x:Static s:SteamConnectService.Current}, Path=IsLoadingGameList, Mode=OneWay}"
         IsShowNoResultText="{Binding !!!SteamApps.Count}"
         NoResultMessage="{Binding Path=Res.GameList_IsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:ContentLoader.IsLoading>
+            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                <Binding Path="IsLoadingGameList" Source="{x:Static s:SteamConnectService.Current}" />
+                <Binding Path="!!!SteamApps.Count" />
+            </MultiBinding>
+        </spp:ContentLoader.IsLoading>
         <spp:ContentLoader.GestureRecognizers>
             <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
         </spp:ContentLoader.GestureRecognizers>

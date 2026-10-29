@@ -141,6 +141,9 @@
 	<data name="Achievement_LoadSucces" xml:space="preserve">
     <value>获取到 {0} 个成就和 {1} 条统计信息</value>
   </data>
+	<data name="Achievement_LockWarning" xml:space="preserve">
+    <value>注意：检测到有反选的成就项，保存将把 {0} 个已解锁成就重新上锁，确定继续吗？如果只想解锁单个成就请不要取消掉已解锁成就的开关。</value>
+  </data>
 	<data name="Achievement_Manage" xml:space="preserve">
     <value>管理成就</value>
   </data>
@@ -3035,5 +3038,8 @@
   </data>
 	<data name="Error_CheckRootCertificateFailed_" xml:space="preserve">
     <value>证书格式不正确或版本过旧，请在加速设置中删除并重新生成。</value>
+  </data>
+	<data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
+    <value>Steam 路径已更新。如果本地 Steam 插件已加载，请重启 Watt Toolkit 以生效更改。</value>
   </data>
 </root>

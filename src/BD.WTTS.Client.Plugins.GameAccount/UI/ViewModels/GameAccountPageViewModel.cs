@@ -16,10 +16,18 @@ public sealed partial class GameAccountPageViewModel
             {
                 FullName = "Steam",
                 Icon = "Steam",
-                DefaultExePath = SteamSettings.SteamProgramPath.Value,
             },
         };
 
+        SteamSettings.SteamProgramPath.Subscribe(_ =>
+        {
+            var steam = GamePlatforms?.FirstOrDefault(x => x.Platform == ThirdpartyPlatform.Steam);
+            if (steam == null) return;
+            steam.RaisePropertyChanged(nameof(steam.ExePath));
+            steam.RaisePropertyChanged(nameof(steam.ExeName));
+            steam.RaisePropertyChanged(nameof(steam.FolderPath));
+            steam.LoadUsers();
+        }, notifyOnInitialValue: false).AddTo(this);
         AddPlatformCommand = ReactiveCommand.Create<PlatformAccount>(AddPlatform);
         LoginNewCommand = ReactiveCommand.Create(LoginNewUser);
         SaveCurrentUserCommand = ReactiveCommand.Create(SaveCurrentUser);

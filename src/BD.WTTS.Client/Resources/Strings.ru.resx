@@ -4834,4 +4834,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Error_CheckRootCertificateFailed_" xml:space="preserve">
     <value>Неверный формат или устаревшая версия. Удалите и создайте заново в настройках ускорения.</value>
   </data>
+  <data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
+    <value>Путь Steam обновлён. Если компонент Steam уже загружен, перезапустите Watt Toolkit, чтобы изменить путь к нему.</value>
+  </data>
 </root>

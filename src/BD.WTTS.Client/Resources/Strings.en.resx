@@ -4829,4 +4829,7 @@ This feature can set the wallpaper of Wallpaper Engine and other wallpaper softw
   <data name="Error_CheckRootCertificateFailed_" xml:space="preserve">
     <value>Certificate format invalid or outdated. Delete &amp; regenerate in acceleration settings.</value>
   </data>
+  <data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
+    <value>Steam path updated. If the native Steam component is already loaded, restart Watt Toolkit to switch its path.</value>
+  </data>
 </root>

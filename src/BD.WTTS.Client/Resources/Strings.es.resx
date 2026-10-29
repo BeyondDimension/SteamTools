@@ -3135,4 +3135,7 @@ Recuerda tener el UID de tu cuenta de Watt Toolkit en el mensaje de notas al hac
   <data name="Error_CheckRootCertificateFailed_" xml:space="preserve">
     <value>Formato inválido o versión obsoleta. Elimine y regenere en ajustes de aceleración.</value>
   </data>
+  <data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
+    <value>Se actualizó la ruta de Steam. Si el componente nativo de Steam ya está cargado, reinicie Watt Toolkit para cambiar su ruta.</value>
+  </data>
 </root>

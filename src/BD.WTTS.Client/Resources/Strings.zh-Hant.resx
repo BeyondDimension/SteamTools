@@ -3133,4 +3133,7 @@ AAAAA-BBBBB-CCCC3</value>
     <value>錯誤</value>
     <comment>Comment=;Author=baidu</comment>
   </data>
+  <data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
+    <value>Steam 路徑已更新。如果本機 Steam 元件已載入，請重新啟動 Watt Toolkit 以切換元件路徑。</value>
+  </data>
 </root>
