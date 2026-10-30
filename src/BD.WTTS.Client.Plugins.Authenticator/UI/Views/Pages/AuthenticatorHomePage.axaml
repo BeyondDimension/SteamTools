@@ -310,6 +310,14 @@
                                             <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9D5;" />
                                         </MenuItem.Icon>
                                     </MenuItem>
+	                                <MenuItem
+		                                Command="{Binding ShowSteamQrLoginWindow}"
+		                                Header="扫描屏幕二维码登录 Steam"
+		                                IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}">
+		                                <MenuItem.Icon>
+			                                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
+		                                </MenuItem.Icon>
+	                                </MenuItem>
                                     <MenuItem Header="-" />
                                     <MenuItem
                                         Click="OnMoveAuthenticatorUp"
@@ -340,14 +348,6 @@
                                         Header="详情与导出">
                                         <MenuItem.Icon>
                                             <ui:FASymbolIcon Symbol="Calendar" />
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                    <MenuItem
-                                        Command="{Binding ShowSteamQrLoginWindow}"
-                                        Header="扫描屏幕二维码登录 Steam"
-                                        IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}">
-                                        <MenuItem.Icon>
-                                            <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem Header="-" />

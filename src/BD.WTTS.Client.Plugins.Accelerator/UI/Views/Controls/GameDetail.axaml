@@ -182,9 +182,12 @@
                                 Height="42"
                                 Classes="accent"
                                 Command="{Binding ShowXunYouWindow, Source={x:Static s:GameAcceleratorService.Current}}"
-                                CommandParameter="True"
                                 Content="{x:Static spp:Strings.GameAccelerator_ShowWattAccelerator}"
-                                FontSize="18" />
+                                FontSize="18">
+                                <Button.CommandParameter>
+                                    <x:Boolean>True</x:Boolean>
+                                </Button.CommandParameter>
+                            </Button>
 
                             <Button
                                 Width="150"

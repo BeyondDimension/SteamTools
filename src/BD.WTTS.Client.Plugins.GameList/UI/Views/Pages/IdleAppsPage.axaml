@@ -216,7 +216,7 @@
                                             DecodeWidth="120"
                                             FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
                                             RenderOptions.BitmapInterpolationMode="HighQuality"
-                                            Source="{Binding LibraryGridStream^}"
+                                            spp:SteamAppImageSource.App="{Binding}"
                                             Stretch="UniformToFill" />
                                         <TextBlock
                                             Margin="8,0"

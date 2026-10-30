@@ -74,6 +74,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
     public bool Requires2FA => pendingState.Requires2FA;
     public bool RequiresEmailAuth => pendingState.RequiresEmailAuth;
     public bool RequiresGuardCode => Requires2FA || RequiresEmailAuth;
+    internal bool HasPendingLogin => IsBusy || pendingState.ClientId.HasValue || RequiresGuardCode || !string.IsNullOrEmpty(pendingState.RefreshToken);
     public bool RequiresManualGuardCode => RequiresEmailAuth || (Requires2FA && AutomaticTwoFactorCode is null);
     public ICommand LoginCommand { get; }
     public ICommand QrLoginCommand { get; }

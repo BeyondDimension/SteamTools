@@ -646,7 +646,7 @@ public sealed class SteamConnectService
             await stmService.ReadAppInfosInBatchesAsync(batch =>
             {
                 CheckSession();
-                var visible = new List<SteamApp>(batch.Count);
+                var owned = processId != 0 ? new List<SteamApp>(batch.Count) : null;
                 foreach (var app in processId != 0 ? swLocalService.OwnsApps(batch) : batch)
                 {
                     if (modifications.TryGetValue(app.AppId, out var modified))
@@ -655,8 +655,7 @@ public sealed class SteamConnectService
                         app.OriginalData = modified.OriginalData;
                         app.IsEdited = true;
                     }
-
-                    visible.Add(app);
+                    owned?.Add(app);
                 }
 
                 lock (gameListSync)
@@ -664,7 +663,7 @@ public sealed class SteamConnectService
                     token.ThrowIfCancellationRequested();
                     if (!ReferenceEquals(gameListCancellation, cancellation))
                         throw new OperationCanceledException(token);
-                    SteamApps.AddOrUpdate(visible);
+                    SteamApps.AddOrUpdate((IReadOnlyList<SteamApp>?)owned ?? batch);
                 }
             }, token).ConfigureAwait(false);
 

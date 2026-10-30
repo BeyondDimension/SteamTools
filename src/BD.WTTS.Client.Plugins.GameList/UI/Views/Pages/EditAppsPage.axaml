@@ -126,6 +126,7 @@
                     MinRowSpacing="10" />
             </ui:FAItemsRepeater.Layout>
             <ui:FAItemsRepeater.ItemTemplate>
+                <spp:ScopedRecycleTemplate>
                 <DataTemplate DataType="spp:SteamApp">
                     <spp:AppItem
                         Title="{Binding DisplayName}"
@@ -145,7 +146,7 @@
                                     DecodeWidth="120"
                                     FallbackSource="avares://BD.WTTS.Client.Plugins.GameList/UI/Assets/defaultappimage.png"
                                     RenderOptions.BitmapInterpolationMode="HighQuality"
-                                    Source="{Binding LibraryGridStream^}"
+                                    spp:SteamAppImageSource.App="{Binding}"
                                     Stretch="UniformToFill" />
                                 <TextBlock
                                     Margin="8,0"
@@ -184,6 +185,7 @@
                         </spp:AppItem.Image>
                     </spp:AppItem>
                 </DataTemplate>
+                </spp:ScopedRecycleTemplate>
             </ui:FAItemsRepeater.ItemTemplate>
         </ui:FAItemsRepeater>
     </spp:ContentLoader>

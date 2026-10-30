@@ -1,6 +1,7 @@
 #if IOS || MACOS || MACCATALYST
 using MobileCoreServices;
 #endif
+using BD.WTTS.UI.Views.Windows;
 using APS_FilePickerFileType = Avalonia.Platform.Storage.FilePickerFileType;
 using BaseService = BD.Common.Services.IFilePickerPlatformService;
 using FilePickerFileType = BD.Common.Models.FilePickerFileType;
@@ -252,8 +253,14 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
 
     async Task<IEnumerable<IFileResult>> IOpenFileDialogService.PlatformPickAsync(PickOptions? options, bool allowMultiple)
     {
-        var storageProvider = App.Instance.MainWindow?.StorageProvider;
-        if (storageProvider == null || !storageProvider.CanOpen)
+        using var activity = MainWindowUiActivity.Enter();
+        return await MainThread2.InvokeOnMainThreadAsync(() => PickOnUiThreadAsync(options, allowMultiple));
+    }
+
+    static async Task<IEnumerable<IFileResult>> PickOnUiThreadAsync(PickOptions? options, bool allowMultiple)
+    {
+        var storageProvider = AvaloniaWindowManagerImpl.GetOrRestoreWindowTopLevel().StorageProvider;
+        if (!storageProvider.CanOpen)
             return Array.Empty<IFileResult>();
 
         FilePickerOpenOptions options_ = new()
@@ -287,8 +294,14 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
 
     async Task<SaveFileResult?> ISaveFileDialogService.PlatformSaveAsync(PickOptions? options)
     {
-        var storageProvider = App.Instance.MainWindow?.StorageProvider;
-        if (storageProvider == null || !storageProvider.CanSave)
+        using var activity = MainWindowUiActivity.Enter();
+        return await MainThread2.InvokeOnMainThreadAsync(() => SaveOnUiThreadAsync(options));
+    }
+
+    static async Task<SaveFileResult?> SaveOnUiThreadAsync(PickOptions? options)
+    {
+        var storageProvider = AvaloniaWindowManagerImpl.GetOrRestoreWindowTopLevel().StorageProvider;
+        if (!storageProvider.CanSave)
             return null;
 
         FilePickerSaveOptions options_ = new();

@@ -11,14 +11,13 @@ public sealed class AvaloniaClipboardPlatformService : IClipboardPlatformService
     public async Task<string> PlatformGetTextAsync()
     {
         TopLevel? topLevel = App.Instance.MainWindow;
-        if (topLevel != null)
+        var clipboard = topLevel != null
+            ? topLevel.Clipboard
+            : AvaloniaLocator.Current.GetService<IClipboard>();
+        if (clipboard != null)
         {
-            var clipboard = topLevel.Clipboard;
-            if (clipboard != null)
-            {
-                var result = await clipboard.TryGetTextAsync();
-                return result ?? string.Empty;
-            }
+            var result = await clipboard.TryGetTextAsync();
+            return result ?? string.Empty;
         }
         return string.Empty;
     }
@@ -26,15 +25,14 @@ public sealed class AvaloniaClipboardPlatformService : IClipboardPlatformService
     public async Task PlatformSetTextAsync(string text)
     {
         TopLevel? topLevel = App.Instance.MainWindow;
-        if (topLevel != null)
+        var clipboard = topLevel != null
+            ? topLevel.Clipboard
+            : AvaloniaLocator.Current.GetService<IClipboard>();
+        if (clipboard != null)
         {
-            var clipboard = topLevel.Clipboard;
-            if (clipboard != null)
-            {
-                //不能用 await 等待 Linux 上不知啥原因导致卡死
-                clipboard.SetTextAsync(text).GetAwaiter();
-                await Task.CompletedTask;
-            }
+            //不能用 await 等待 Linux 上不知啥原因导致卡死
+            clipboard.SetTextAsync(text).GetAwaiter();
+            await Task.CompletedTask;
         }
     }
 }

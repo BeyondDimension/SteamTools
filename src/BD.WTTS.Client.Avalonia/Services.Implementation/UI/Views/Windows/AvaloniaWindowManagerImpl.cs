@@ -1,4 +1,5 @@
 using BD.WTTS.Client.Resources;
+using BD.WTTS.UI.Views.Windows;
 using System.Collections.Immutable;
 
 namespace BD.WTTS.Services.Implementation;
@@ -27,6 +28,19 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             }
         }
         return null;
+    }
+
+    // Must be called on the UI thread while an activity scope is held.
+    internal static TopLevel GetOrRestoreWindowTopLevel()
+    {
+        if (App.Instance.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop &&
+            (desktop.MainWindow == null || desktop.MainWindow.PlatformImpl == null ||
+             !desktop.MainWindow.IsVisible || desktop.MainWindow.WindowState == WindowState.Minimized))
+        {
+            App.Instance.RestoreMainWindow();
+        }
+
+        return GetWindowTopLevel() ?? throw new InvalidOperationException("No main window is available for user interaction.");
     }
 
     Type GetWindowType(AppEndPoint customWindow)
@@ -95,7 +109,10 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         Func<bool>? cancelCloseAction = null,
         bool disableScroll = false)
         where TPageViewModel : ViewModelBase
-  {
+    {
+        using var activity = MainWindowUiActivity.Enter();
+        return await MainThread2.InvokeOnMainThreadAsync(async () =>
+        {
         var td = new TaskDialogEx
         {
             Title = title,
@@ -108,14 +125,8 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             FooterVisibility = TaskDialogFooterVisibility.Never,
             //IsFooterExpanded = isFooterExpanded,
             //Footer = new CheckBox { Content = Strings.RememberChooseNotToAskAgain, },
-            XamlRoot = GetWindowTopLevel(),
+            XamlRoot = GetOrRestoreWindowTopLevel(),
         };
-
-        if (td.XamlRoot == null)
-        {
-            Toast.LogAndShowT(new Exception("在 AppWindow 为 Null 时，无法弹出 Taskdialog."));
-            return false;
-        }
 
         if (viewModel != null)
         {
@@ -175,13 +186,9 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         try
         {
             td.Closing += OnClosing;
-            result = await MainThread2.InvokeOnMainThreadAsync(async () =>
-            {
-                var result = await td.ShowAsync(!isDialog);
-                return result;
-            });
+            result = await td.ShowAsync(!isDialog);
         }
-        catch (NullReferenceException)
+        catch (NullReferenceException) when (result != null)
         {
             // 在插件中调用 TaskDialog.ShowAsync(bool showHosted = false) 会抛出此异常
             // 在 FluentAvalonia.UI.Controls.FATaskDialog.<ShowAsync>d__6.MoveNext()
@@ -191,10 +198,13 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             // _previousFocus = TopLevel.GetTopLevel(visual)!.FocusManager!.GetFocusedElement(); is null!
             // _previousFocus.Focus(); !!!!!!!!!! NullReferenceException !!!!!!!!!!
         }
-        td.Closing -= OnClosing;
-        td = null;
+        finally
+        {
+            td.Closing -= OnClosing;
+        }
 
         return result is TaskDialogStandardResult.OK;
+        });
     }
 
     Task ShowAsync(Type typeWindowViewModel,

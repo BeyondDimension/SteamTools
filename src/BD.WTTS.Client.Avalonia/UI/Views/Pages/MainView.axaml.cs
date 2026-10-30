@@ -61,6 +61,11 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
         if (page.GetType() == typeof(ErrorPage))
             return;
 
+        if (TopLevel.GetTopLevel(this) is MainWindow window)
+            window.TrackPage(page);
+        if (page is not PageBase)
+            TrayPageState.Restore(page);
+
         var dc = page.DataContext;
 
         ViewModelBase? mainPage = dc switch
@@ -117,7 +122,11 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
         if (top != null)
             AvaloniaToastServiceImpl.Instance.SetSnackbarManager(top);
         NavigationService.Instance.SetFrame(FrameView);
+        NavView.IsBackButtonVisible = FrameView.BackStackDepth > 0;
     }
+
+    internal void SaveFrameState(MainWindowViewState state) =>
+        NavigationService.Instance.SaveFrameState(FrameView, state);
 
     private void OnNavigationViewBackRequested(object? sender, NavigationViewBackRequestedEventArgs e)
     {

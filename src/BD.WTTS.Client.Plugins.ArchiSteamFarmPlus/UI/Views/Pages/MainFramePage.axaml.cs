@@ -27,6 +27,9 @@ public partial class MainFramePage : UserControl
     {
         if (Tabs.SelectedItem is TabStripItem tab && tab.Tag is Type t)
         {
+            if (InnerNavFrame.CurrentSourcePageType == t)
+                return;
+
             InnerNavFrame.Navigate(t, null, new SlideNavigationTransitionInfo
             {
                 Effect = FrameEffect.GetEffect(lastIndex, Tabs.SelectedIndex),

@@ -23,13 +23,12 @@ public partial class AuthenticatorHomePage : PageBase<AuthenticatorHomePageViewM
     bool dragAfter;
     bool dragging;
     bool dragMoved;
-    readonly DispatcherTimer holdTimer = new() { Interval = TimeSpan.FromMilliseconds(100) };
     readonly DispatcherTimer dragTimer = new() { Interval = TimeSpan.FromMilliseconds(40) };
 
     public AuthenticatorHomePage()
     {
         InitializeComponent();
-        DataContext ??= new AuthenticatorHomePageViewModel();
+        DataContext ??= IViewModelManager.Instance.Get<AuthenticatorHomePageViewModel>();
         PointerCaptureLost += TokenPointerCaptureLost;
         KeyDown += (_, e) =>
         {
@@ -40,7 +39,6 @@ public partial class AuthenticatorHomePage : PageBase<AuthenticatorHomePageViewM
             }
         };
         DetachedFromVisualTree += (_, _) => CancelTokenDrag();
-        holdTimer.Tick += (_, _) => StartTokenDrag();
         dragTimer.Tick += (_, _) => UpdateTokenDrag();
     }
 
@@ -85,12 +83,10 @@ public partial class AuthenticatorHomePage : PageBase<AuthenticatorHomePageViewM
         root.AddHandler(PointerMovedEvent, TokenPointerMoved, RoutingStrategies.Tunnel, handledEventsToo: true);
         root.AddHandler(PointerReleasedEvent, TokenPointerReleased, RoutingStrategies.Tunnel, handledEventsToo: true);
         root.PointerExited += TokenRootPointerExited;
-        holdTimer.Start();
     }
 
     void StartTokenDrag()
     {
-        holdTimer.Stop();
         if (dragPointer is not { } pointer || dragSource is not { } source || dragItem is not { } item ||
             !ReferenceEquals(source.DataContext, item) || PageScroller == null ||
             DataContext is not AuthenticatorHomePageViewModel { Disposed: false, IsLoading: false })
@@ -99,7 +95,6 @@ public partial class AuthenticatorHomePage : PageBase<AuthenticatorHomePageViewM
             return;
         }
 
-        // A scroll gesture or another control may have taken capture during the hold.
         if (pointer.Captured is Visual captured && !ReferenceEquals(captured, source) &&
             !captured.GetVisualAncestors().Contains(source))
         {
@@ -132,9 +127,9 @@ public partial class AuthenticatorHomePage : PageBase<AuthenticatorHomePageViewM
         var dy = Math.Abs(dragPosition.Y - dragStart.Y);
         if (!dragging)
         {
-            // Moving before the hold completes belongs to scrolling, not reordering.
-            if (dx > 8 || dy > 8) CancelTokenDrag();
-            return;
+            if (dx <= 8 && dy <= 8) return;
+            StartTokenDrag();
+            if (!dragging) return;
         }
         if (!dragMoved && (dx > 4 || dy > 4))
         {
@@ -220,7 +215,6 @@ public partial class AuthenticatorHomePage : PageBase<AuthenticatorHomePageViewM
 
     void CancelTokenDrag()
     {
-        holdTimer.Stop();
         dragTimer.Stop();
         dragTarget?.Classes.Remove("DropBefore");
         dragTarget?.Classes.Remove("DropAfter");

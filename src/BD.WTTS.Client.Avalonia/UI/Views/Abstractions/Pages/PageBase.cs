@@ -9,16 +9,12 @@ public class PageBase : UserControl
 {
     public PageBase() : base()
     {
-        _disposables = new();
-
         SizeChanged += PageBaseSizeChanged;
 
         if (HeaderBackground == null)
         {
             this[!HeaderBackgroundProperty] = new DynamicResourceExtension("PageHeaderBackgroundBrush");
         }
-
-        _disposables.Add(UISettings.WindowBackgroundCustomImage.Subscribe(x => IsShowBackgroundImage = !x));
 
         //AddHandler(Frame.NavigatingFromEvent, FrameNavigatingFrom, RoutingStrategies.Direct);
         //AddHandler(Frame.NavigatedToEvent, FrameNavigatedTo, RoutingStrategies.Direct);
@@ -151,20 +147,31 @@ public class PageBase : UserControl
         _detailsPanel = e.NameScope.Find<Panel>("PageDetails");
         _scroller = e.NameScope.Find<ScrollViewer>("PageScroller");
     }
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        if (TopLevel.GetTopLevel(this) is MainWindow window &&
+            this.GetVisualAncestors().OfType<MainView>().Any())
+            window.TrackPage(this);
+    }
+
 
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
+        _backgroundSubscription ??= UISettings.WindowBackgroundCustomImage.Subscribe(x => IsShowBackgroundImage = !x);
         _hasLoaded = true;
         SetDetailsAnimation();
         SetTabsAnimation();
+        TrayPageState.Restore(this);
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)
     {
         base.OnUnloaded(e);
         _hasLoaded = false;
-        _disposables.Dispose();
+        _backgroundSubscription?.Dispose();
+        _backgroundSubscription = null;
     }
 
     private void PageBaseSizeChanged(object? sender, SizeChangedEventArgs e)
@@ -318,7 +325,7 @@ public class PageBase : UserControl
     //private IconSourceElement? _previewImageHost;
     //private StackPanel? _detailsHost;
     private ScrollViewer? _scroller;
-    private CompositeDisposable _disposables;
+    private IDisposable? _backgroundSubscription;
 }
 
 public class PageBase<TViewModel> : PageBase, IViewFor<TViewModel> where TViewModel : class
@@ -330,6 +337,9 @@ public class PageBase<TViewModel> : PageBase, IViewFor<TViewModel> where TViewMo
     /// </summary>
     public PageBase() : base()
     {
+        if (TrayPageState.GetViewModel<TViewModel>(GetType()) is { } savedViewModel)
+            DataContext = savedViewModel;
+
         // This WhenActivated block calls ViewModel's WhenActivated
         // block if the ViewModel implements IActivatableViewModel.
 

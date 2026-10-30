@@ -21,6 +21,7 @@ public sealed partial class AuthenticatorHomePageViewModel
     string? _currentPassword;
 
     readonly System.Threading.SemaphoreSlim reorderLock = new(1, 1);
+    AccountPlatformAuthenticator[]? loadedSources;
 
     //DateTime _initializeTime;
     readonly Dictionary<string, string[]> dictPinYinArray = new();
@@ -77,7 +78,9 @@ public sealed partial class AuthenticatorHomePageViewModel
             .AddTo(this);
     }
 
-    public async void Initialize()
+    public void Initialize() => Initialize(checkCache: false);
+
+    async void Initialize(bool checkCache)
     {
         if (IsLoading || Disposed) return;
 
@@ -86,18 +89,8 @@ public sealed partial class AuthenticatorHomePageViewModel
         try
         {
             if (Disposed) return;
-        //await AuthenticatorService.DeleteAllAuthenticatorsAsync();
-        //if (_initializeTime > DateTime.Now.AddSeconds(-1))
-        //{
-        //    Toast.Show(ToastIcon.Warning, AppResources.Warning_DoNotOperateFrequently);
-        //    return;
-        //}
-
-        //_initializeTime = DateTime.Now;
-
-        AuthSource.Clear();
-
         var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
+        if (checkCache && loadedSources != null && SourcesEqual(loadedSources, sourceList)) return;
         if (sourceList.Any_Nullable())
         {
             (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorHelper.HasEncrypt(sourceList);
@@ -118,36 +111,24 @@ public sealed partial class AuthenticatorHomePageViewModel
             var list = (await AuthenticatorHelper.GetAllAuthenticatorsAsync(sourceList,
                 _currentPassword)).OrderBy(i => i.Index);
 
-            AuthSource.AddOrUpdate(list.Select(item => new AuthenticatorItemModel(item)));
-
-            var trayMenus = AuthSource.Items.Select(s => new TrayMenuItem
+            var items = list.Select(item => new AuthenticatorItemModel(item)).ToArray();
+            AuthSource.Edit(updater =>
             {
-                Name = s.AuthName,
-                Command = ReactiveCommand.Create(async () =>
-                {
-                    if (IsVerificationPass)
-                    {
-                        await s.CopyCode();
-                        INotificationService.Instance.Notify(Strings.LocalAuth_CopyAuthTip + s.AuthName, NotificationType.Message);
-                    }
-                    else
-                    {
-                        INotificationService.Instance.Notify(Strings.Auth_PasswordProtectedVerifyFirst, NotificationType.Message);
-                    }
-                })
-            }).ToList();
-
-            IApplication.Instance.UpdateMenuItems(Plugin.Instance.UniqueEnglishName, new TrayMenuItem
-            {
-                Name = Plugin.Instance.Name,
-                Items = trayMenus,
+                updater.Clear();
+                updater.AddOrUpdate(items);
             });
+
+            UpdateTrayMenu();
+
             //Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
         }
         else
         {
+            AuthSource.Clear();
+            UpdateTrayMenu();
             IsVerificationPass = true;
         }
+        loadedSources = sourceList;
 
         }
         finally
@@ -155,6 +136,47 @@ public sealed partial class AuthenticatorHomePageViewModel
             IsLoading = false;
             reorderLock.Release();
         }
+    }
+
+    static bool SourcesEqual(AccountPlatformAuthenticator[] left, AccountPlatformAuthenticator[] right)
+    {
+        if (left.Length != right.Length) return false;
+        var byId = left.ToDictionary(x => x.Id);
+        return right.All(x => byId.TryGetValue(x.Id, out var old) &&
+            old.Index == x.Index && old.IsNotLocal == x.IsNotLocal &&
+            old.IsNeedSecondaryPassword == x.IsNeedSecondaryPassword && old.Created == x.Created &&
+            old.LastUpdate == x.LastUpdate && old.ServerId == x.ServerId &&
+            ((old.Name == null && x.Name == null) || (old.Name != null && x.Name != null && old.Name.SequenceEqual(x.Name))) &&
+            ((old.Value == null && x.Value == null) || (old.Value != null && x.Value != null && old.Value.SequenceEqual(x.Value))));
+    }
+
+    void UpdateTrayMenu()
+    {
+        var trayMenus = AuthSource.Items.Select(item =>
+        {
+            var id = item.AuthData.Id;
+            return new TrayMenuItem
+            {
+                Name = item.AuthName,
+                Command = ReactiveCommand.Create(async () =>
+                {
+                    if (!IsVerificationPass)
+                    {
+                        INotificationService.Instance.Notify(Strings.Auth_PasswordProtectedVerifyFirst, NotificationType.Message);
+                        return;
+                    }
+                    var current = AuthSource.Lookup(id);
+                    if (!current.HasValue) return;
+                    await current.Value.CopyCode();
+                    INotificationService.Instance.Notify(Strings.LocalAuth_CopyAuthTip + current.Value.AuthName, NotificationType.Message);
+                })
+            };
+        }).ToList();
+        IApplication.Instance.UpdateMenuItems(Plugin.Instance.UniqueEnglishName, new TrayMenuItem
+        {
+            Name = Plugin.Instance.Name,
+            Items = trayMenus,
+        });
     }
 
     public async Task<bool> EnterPassword(AccountPlatformAuthenticator sourceData)
@@ -294,6 +316,7 @@ public sealed partial class AuthenticatorHomePageViewModel
         {
             if (Disposed) return;
             AuthSource.Clear();
+            loadedSources = null;
             IsVerificationPass = false;
         }
         finally { reorderLock.Release(); }
@@ -518,6 +541,7 @@ public sealed partial class AuthenticatorHomePageViewModel
             }
             await AuthenticatorHelper.DeleteAuth(authenticatorItemModel.AuthData);
             AuthSource.Remove(authenticatorItemModel);
+            UpdateTrayMenu();
             Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthDelSuccessful);
             }
             finally { reorderLock.Release(); }
@@ -757,7 +781,7 @@ public sealed partial class AuthenticatorHomePageViewModel
     public override void Activation()
     {
         base.Activation();
-        Initialize();
+        Initialize(checkCache: true);
     }
 
     protected override void Dispose(bool disposing)

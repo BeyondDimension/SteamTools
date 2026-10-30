@@ -385,8 +385,11 @@
 				<Button
 					HorizontalAlignment="Stretch"
 					Command="{Binding ShowXunYouWindow, Source={x:Static s:GameAcceleratorService.Current}}"
-					CommandParameter="True"
-					Content="{x:Static spp:Strings.GameAccelerator_ShowWattAccelerator}" />
+					Content="{x:Static spp:Strings.GameAccelerator_ShowWattAccelerator}">
+					<Button.CommandParameter>
+						<x:Boolean>True</x:Boolean>
+					</Button.CommandParameter>
+				</Button>
 				<Button
 					HorizontalAlignment="Stretch"
 					Command="{Binding InstallAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"

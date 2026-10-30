@@ -181,11 +181,13 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
             }
         }
     }
+    protected virtual bool DisposeViewModelOnClose => true;
+
 
     protected override void OnClosed(EventArgs e)
     {
         base.OnClosed(e);
-        if (DataContext is IDisposable disposable)
+        if (DisposeViewModelOnClose && DataContext is IDisposable disposable)
             disposable.Dispose();
     }
 }

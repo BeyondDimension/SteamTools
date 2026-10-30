@@ -1,16 +1,17 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using Avalonia.VisualTree;
 using AvaloniaEdit;
 using AvaloniaEdit.TextMate;
-using Org.BouncyCastle.Math;
 using TextMateSharp.Grammars;
 
 namespace BD.WTTS.UI.Views.Controls;
 
 public partial class ProxyLog : UserControl
 {
-    CancellationTokenSource cancellation = new();
+    CancellationTokenSource? cancellation;
+    Task? refreshTask;
+    IDisposable? statusSubscription;
 
     public ProxyLog()
     {
@@ -33,23 +34,50 @@ public partial class ProxyLog : UserControl
 
         logTextbox.TextChanged += LogTextbox_TextChanged;
 
-        ProxyService.Current.WhenAnyValue(x => x.ProxyStatus)
-                    .Subscribe(x =>
-                    {
-                        if (x)
-                        {
-                            cancellation = new CancellationTokenSource();
-                            Task2.InBackground(FlushLogsAsync, true);
-                        }
-                        else
-                        {
-                            if (cancellation != null)
-                            {
-                                cancellation.Cancel();
-                                cancellation.Dispose();
-                            }
-                        }
-                    });
+    }
+
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        statusSubscription = ProxyService.Current.WhenAnyValue(x => x.ProxyStatus)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
+            .Subscribe(UpdateProxyStatus);
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        statusSubscription?.Dispose();
+        statusSubscription = null;
+        StopRefreshing();
+        base.OnDetachedFromVisualTree(e);
+    }
+
+    void UpdateProxyStatus(bool running)
+    {
+        if (!running)
+        {
+            StopRefreshing();
+        }
+        else if (cancellation == null)
+        {
+            var source = cancellation = new CancellationTokenSource();
+            var token = source.Token;
+            refreshTask = Task.Run(() => FlushLogsAsync(token));
+        }
+    }
+
+    void StopRefreshing()
+    {
+        var source = cancellation;
+        var task = refreshTask;
+        cancellation = null;
+        refreshTask = null;
+        if (source == null)
+            return;
+
+        source.Cancel();
+        _ = task!.ContinueWith(static (_, state) => ((CancellationTokenSource)state!).Dispose(),
+            source, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
     }
 
     private void LogTextbox_TextChanged(object? sender, EventArgs e)
@@ -57,25 +85,18 @@ public partial class ProxyLog : UserControl
         LogTextbox.ScrollToLine(LogTextbox.Document.LineCount);
     }
 
-    void FlushLogsAsync()
+    async Task FlushLogsAsync(CancellationToken token)
     {
-        while (!cancellation.IsCancellationRequested)
+        while (!token.IsCancellationRequested)
         {
             try
             {
-                var isAttachedToVisualTree = this.IsAttachedToVisualTree();
-                if (isAttachedToVisualTree)
+                var logtext = IReverseProxyService.Constants.Instance.GetLogAllMessage();
+                if (!string.IsNullOrEmpty(logtext))
                 {
-                    var logtext = IReverseProxyService.Constants.Instance.GetLogAllMessage();
-                    if (string.IsNullOrEmpty(logtext))
-                    {
-                        Thread.Sleep(1000);
-                        continue;
-                    }
-
                     Dispatcher.UIThread.Post(() =>
                     {
-                        if (LogTextbox.Text.Length != logtext.Length)
+                        if (!token.IsCancellationRequested && LogTextbox.Text.Length != logtext.Length)
                             LogTextbox.Text = logtext;
                     });
                 }
@@ -83,9 +104,14 @@ public partial class ProxyLog : UserControl
             catch
             {
             }
-            finally
+
+            try
             {
-                Thread.Sleep(1000);
+                await Task.Delay(1000, token).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException) when (token.IsCancellationRequested)
+            {
+                break;
             }
         }
     }

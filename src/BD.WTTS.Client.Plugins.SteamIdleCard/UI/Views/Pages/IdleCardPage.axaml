@@ -557,6 +557,7 @@
                                         MinRowSpacing="5" />
                                 </ui:FAItemsRepeater.Layout>
                                 <ui:FAItemsRepeater.ItemTemplate>
+                                    <spp:ScopedRecycleTemplate>
                                     <DataTemplate DataType="spp:IdleApp">
                                         <spp:AppItem
                                             Title="{Binding App.DisplayName}"
@@ -728,6 +729,7 @@
                                             </spp:AppItem.Image>
                                         </spp:AppItem>
                                     </DataTemplate>
+                                    </spp:ScopedRecycleTemplate>
                                 </ui:FAItemsRepeater.ItemTemplate>
                             </ui:FAItemsRepeater>
                             <TextBlock

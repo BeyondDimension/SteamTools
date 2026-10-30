@@ -80,7 +80,8 @@ namespace BD.WTTS.UI.Views.Controls
         //    set => SetValue(GroupViewProperty, value);
         //}
 
-        private Timer? _timer;
+        private DispatcherTimer? _timer;
+        private bool _isAttached;
 
         public CarouselBanner()
         {
@@ -98,63 +99,59 @@ namespace BD.WTTS.UI.Views.Controls
             CarouselControl.GetObservable(Carousel.SelectedIndexProperty)
                     .Subscribe(_ => SwipersLoad());
 
-            this.GetObservable(AutoScrollProperty)
-                .Subscribe(x =>
-                {
-                    if (x && _timer == null)
-                    {
-                        _timer = new Timer(_ =>
-                        {
-                            if (!this.IsPointerOver)
-                            {
-                                Dispatcher.UIThread.Post(SwiperNext, DispatcherPriority.Background);
-                            }
-                        }, nameof(AutoScroll), AutoScrollInterval, AutoScrollInterval);
-                    }
-                    else
-                    {
-                        if (_timer != null)
-                        {
-                            _timer.Dispose();
-                            _timer = null;
-                        }
-                    }
-                });
         }
 
-        //protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
-        //{
-        //    if (change.Property == ItemsSourceProperty)
-        //    {
-        //        SwipersLoad();
-        //    }
-        //    else if (change.Property == AutoScrollProperty)
-        //    {
-        //        if (change.NewValue is bool x)
-        //        {
-        //            if (x && _timer == null)
-        //            {
-        //                _timer = new Timer(_ =>
-        //                {
-        //                    if (!this.IsPointerOver)
-        //                    {
-        //                        Dispatcher.UIThread.Post(SwiperNext, DispatcherPriority.Background);
-        //                    }
-        //                }, nameof(AutoScroll), AutoScrollInterval, AutoScrollInterval);
-        //            }
-        //            else
-        //            {
-        //                if (_timer != null)
-        //                {
-        //                    _timer.Dispose();
-        //                    _timer = null;
-        //                }
-        //            }
-        //        }
-        //    }
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToVisualTree(e);
+            _isAttached = true;
+            UpdateTimer();
+        }
 
-        //    base.OnPropertyChanged(change);
-        //}
+        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+        {
+            _isAttached = false;
+            StopTimer();
+            base.OnDetachedFromVisualTree(e);
+        }
+
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+        {
+            base.OnPropertyChanged(change);
+            if (change.Property == AutoScrollProperty || change.Property == AutoScrollIntervalProperty)
+                UpdateTimer();
+        }
+
+        private void UpdateTimer()
+        {
+            StopTimer();
+            if (!_isAttached || !AutoScroll || AutoScrollInterval == -1)
+                return;
+
+            _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(AutoScrollInterval) };
+            _timer.Tick += OnTimerTick;
+            _timer.Start();
+        }
+
+        private void StopTimer()
+        {
+            if (_timer == null)
+                return;
+
+            _timer.Stop();
+            _timer.Tick -= OnTimerTick;
+            _timer = null;
+        }
+
+        private void OnTimerTick(object? sender, EventArgs e)
+        {
+            if (sender != _timer || !_isAttached || !AutoScroll)
+                return;
+            if (AutoScrollInterval == 0)
+                StopTimer();
+            if (!IsPointerOver)
+                SwiperNext();
+        }
 
         private void CarouselBannerIndexButton_Click(object? sender, RoutedEventArgs e)
         {

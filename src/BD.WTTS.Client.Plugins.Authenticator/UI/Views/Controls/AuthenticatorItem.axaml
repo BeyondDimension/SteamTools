@@ -1,122 +1,122 @@
 <UserControl
-    x:Class="BD.WTTS.UI.Views.Controls.AuthenticatorItem"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:s="https://steampp.net/services"
-    xmlns:spp="https://steampp.net/ui"
-    xmlns:ui="using:FluentAvalonia.UI.Controls"
-    d:DesignHeight="108"
-    d:DesignWidth="300"
-    x:CompileBindings="True"
-    x:DataType="spp:AuthenticatorItemModel"
-    Classes.IsActive="{Binding IsSelected}"
-    mc:Ignorable="d">
-    <UserControl.Styles>
-        <Style Selector="Button.TokenAction, DropDownButton.TokenAction">
-            <Setter Property="Width" Value="28" />
-            <Setter Property="Height" Value="28" />
-            <Setter Property="MinWidth" Value="0" />
-            <Setter Property="MinHeight" Value="0" />
-            <Setter Property="Padding" Value="5" />
-        </Style>
-        <Style Selector="spp|AuthenticatorItem.IsActive > Border">
-            <Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
-        </Style>
-        <Style Selector="spp|AuthenticatorItem.Dragging > Border">
-            <Setter Property="Opacity" Value="0.4" />
-        </Style>
-        <Style Selector="spp|AuthenticatorItem.DropBefore > Border">
-            <Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="4,1,1,1" />
-        </Style>
-        <Style Selector="spp|AuthenticatorItem.DropAfter > Border">
-            <Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
-            <Setter Property="BorderThickness" Value="1,1,4,1" />
-        </Style>
-    </UserControl.Styles>
-    <Border
-        MinHeight="108"
-        Padding="10,8"
-        Background="{DynamicResource ControlFillColorDefaultBrush}"
-        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-        BorderThickness="1"
-        CornerRadius="6"
-        ToolTip.Tip="{Binding AuthData.Created, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss} · 长按拖拽排序'}">
-        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,*,3">
-            <TextBlock
-                Grid.ColumnSpan="2"
-                Margin="24,0,32,0"
-                VerticalAlignment="Center"
-                FontSize="14"
-                FontWeight="SemiBold"
-                Text="{Binding AuthName}"
-                TextTrimming="CharacterEllipsis"
-                ToolTip.Tip="{Binding AuthName}" />
-            <PathIcon
-                x:Name="PlatformIcon"
-                Width="18"
-                Height="18"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-            <DropDownButton
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                Classes="TokenAction"
-                Content="{StaticResource More}"
-                Flyout="{Binding $parent[spp:AuthenticatorItem].ContextFlyout}"
-                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                FontSize="16"
-                Theme="{StaticResource TransparentButton}"
-                ToolTip.Tip="{Binding Path=Res.More, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-            <TextBlock
-                Grid.Row="1"
-                FontSize="11"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                Text="{Binding DisplayPlatform}" />
-            <Button
-                Grid.Row="2"
-                MinWidth="0"
-                MinHeight="32"
-                Padding="0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Classes="Plain"
-                Command="{Binding CopyCode}"
-                ToolTip.Tip="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <TextBlock
-                    FontSize="23"
-                    FontWeight="SemiBold"
-                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                    Text="{Binding Code}" />
-            </Button>
-            <StackPanel
-                Grid.Row="2"
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                Orientation="Horizontal"
-                Spacing="1">
-                <Button
-                    x:Name="ToggleEye"
-                    Classes="TokenAction"
-                    Theme="{StaticResource TransparentButton}"
-                    ToolTip.Tip="显示或隐藏验证码">
-                    <Panel>
-                        <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="{StaticResource RedEye}" IsVisible="{Binding IsSelected}" />
-                        <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="{StaticResource Hide}" IsVisible="{Binding !IsSelected}" />
-                    </Panel>
-                </Button>
-            </StackPanel>
-            <ProgressBar
-                Grid.Row="3"
-                Grid.ColumnSpan="2"
-                Height="3"
-                MinHeight="0"
-                IsVisible="{Binding IsShowCode}"
-                Maximum="{Binding AuthData.Value.Period, Mode=OneTime}"
-                Value="{Binding Value, Mode=OneWay}" />
-        </Grid>
-    </Border>
+	x:Class="BD.WTTS.UI.Views.Controls.AuthenticatorItem"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:s="https://steampp.net/services"
+	xmlns:spp="https://steampp.net/ui"
+	xmlns:ui="using:FluentAvalonia.UI.Controls"
+	d:DesignHeight="108"
+	d:DesignWidth="300"
+	x:CompileBindings="True"
+	x:DataType="spp:AuthenticatorItemModel"
+	Classes.IsActive="{Binding IsSelected}"
+	mc:Ignorable="d">
+	<UserControl.Styles>
+		<Style Selector="Button.TokenAction, DropDownButton.TokenAction">
+			<Setter Property="Width" Value="28" />
+			<Setter Property="Height" Value="28" />
+			<Setter Property="MinWidth" Value="0" />
+			<Setter Property="MinHeight" Value="0" />
+			<Setter Property="Padding" Value="5" />
+		</Style>
+		<Style Selector="spp|AuthenticatorItem.IsActive > Border">
+			<Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+		</Style>
+		<Style Selector="spp|AuthenticatorItem.Dragging > Border">
+			<Setter Property="Opacity" Value="0.4" />
+		</Style>
+		<Style Selector="spp|AuthenticatorItem.DropBefore > Border">
+			<Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+			<Setter Property="BorderThickness" Value="4,1,1,1" />
+		</Style>
+		<Style Selector="spp|AuthenticatorItem.DropAfter > Border">
+			<Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+			<Setter Property="BorderThickness" Value="1,1,4,1" />
+		</Style>
+	</UserControl.Styles>
+	<Border
+		MinHeight="108"
+		Padding="10,8"
+		Background="{DynamicResource ControlFillColorDefaultBrush}"
+		BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+		BorderThickness="1"
+		CornerRadius="6"
+		ToolTip.Tip="{Binding AuthData.Created, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss} · 长按拖拽排序'}">
+		<Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,*,3">
+			<TextBlock
+				Grid.ColumnSpan="2"
+				Margin="24,0,32,0"
+				VerticalAlignment="Center"
+				FontSize="14"
+				FontWeight="SemiBold"
+				Text="{Binding AuthName}"
+				TextTrimming="CharacterEllipsis"
+				ToolTip.Tip="{Binding AuthName}" />
+			<PathIcon
+				x:Name="PlatformIcon"
+				Width="18"
+				Height="18"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+			<DropDownButton
+				Grid.Column="1"
+				HorizontalAlignment="Right"
+				Classes="TokenAction"
+				Content="{StaticResource More}"
+				Flyout="{Binding $parent[spp:AuthenticatorItem].ContextFlyout}"
+				FontFamily="{StaticResource SymbolThemeFontFamily}"
+				FontSize="16"
+				Theme="{StaticResource TransparentButton}"
+				ToolTip.Tip="{Binding Path=Res.More, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<TextBlock
+				Grid.Row="1"
+				FontSize="11"
+				Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+				Text="{Binding DisplayPlatform}" />
+			<Button
+				Grid.Row="2"
+				MinWidth="0"
+				MinHeight="32"
+				Padding="0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Classes="Plain"
+				Command="{Binding CopyCode}"
+				ToolTip.Tip="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+				<TextBlock
+					FontSize="23"
+					FontWeight="SemiBold"
+					Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+					Text="{Binding Code}" />
+			</Button>
+			<Panel
+				Grid.Row="2"
+				Grid.Column="1"
+				VerticalAlignment="Center">
+				<Button
+					x:Name="ToggleEye"
+					Classes="TokenAction"
+					Theme="{StaticResource TransparentButton}"
+					ToolTip.Tip="显示或隐藏验证码">
+					<Panel>
+						<ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="{StaticResource RedEye}"
+						               IsVisible="{Binding IsSelected}" />
+						<ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="{StaticResource Hide}"
+						               IsVisible="{Binding !IsSelected}" />
+					</Panel>
+				</Button>
+			</Panel>
+			<ProgressBar
+				Grid.Row="3"
+				Grid.ColumnSpan="2"
+				Height="3"
+				MinHeight="0"
+				IsVisible="{Binding IsShowCode}"
+				Maximum="{Binding AuthData.Value.Period, Mode=OneTime}"
+				Value="{Binding Value, Mode=OneWay}" />
+		</Grid>
+	</Border>
 </UserControl>

@@ -19,7 +19,7 @@ public sealed partial class App : Application
 #if MACOS
         var menus = new NativeMenu();
         menus.Add(new NativeMenuItem { Header = Strings.Settings, Command =
- ReactiveCommand.Create(() => { INavigationService.Instance.Navigate(typeof(SettingsPage)); }) });
+ ReactiveCommand.Create(() => { RestoreMainWindow(); INavigationService.Instance.Navigate(typeof(SettingsPage)); }) });
         menus.Add(new NativeMenuItemSeparator());
         menus.Add(new NativeMenuItem { Header = Strings.Exit, Command =
  ReactiveCommand.Create(() => { Shutdown(); }) });

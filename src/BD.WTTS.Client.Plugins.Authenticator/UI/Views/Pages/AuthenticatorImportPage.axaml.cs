@@ -8,7 +8,7 @@ namespace BD.WTTS.UI.Views.Pages;
 
 public partial class AuthenticatorImportPage : ReactiveUserControl<AuthenticatorImportPageViewModel>
 {
-    public static Frame? InnerFrame { get; set; }
+    internal Frame InnerFrame => InnerNavFrame;
 
     public AuthenticatorImportPage()
     {
@@ -16,6 +16,5 @@ public partial class AuthenticatorImportPage : ReactiveUserControl<Authenticator
         DataContext ??= new AuthenticatorImportPageViewModel();
 
         InnerNavFrame.Navigate(typeof(AuthenticatorImportMethodSelect));
-        InnerFrame = InnerNavFrame;
     }
 }

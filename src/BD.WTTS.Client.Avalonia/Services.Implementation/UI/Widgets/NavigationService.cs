@@ -47,9 +47,79 @@ public sealed class NavigationService : INavigationService
     public void SetFrame(Frame f)
     {
         if (_frame != null)
+        {
             _frame.NavigationFailed -= OnNavigationFailed;
+            _frame.Navigated -= OnFrameNavigated;
+        }
         _frame = f;
         _frame.NavigationFailed += OnNavigationFailed;
+        _frame.Navigated += OnFrameNavigated;
+
+        if (savedNavigation is { } state)
+        {
+            savedNavigation = null;
+            if (state.CurrentPage != null)
+                _frame.NavigateToType(state.CurrentPage, state.CurrentParameter!, new FrameNavigationOptions
+                {
+                    IsNavigationStackEnabled = false,
+                    TransitionInfoOverride = new SuppressNavigationTransitionInfo(),
+                });
+            foreach (var item in state.BackStack)
+                _frame.BackStack.Add(item.ToEntry());
+            foreach (var item in state.ForwardStack)
+                _frame.ForwardStack.Add(item.ToEntry());
+        }
+
+        if (pendingNavigation is { } pending)
+        {
+            pendingNavigation = null;
+            Navigate(pending.Page, pending.Effect, pending.UseCache);
+        }
+    }
+
+    void OnFrameNavigated(object? sender, FANavigationEventArgs e)
+    {
+        currentParameter = e.Parameter;
+        currentHasContext = e.Content is Control page && e.SourcePageType != page.GetType();
+    }
+
+    internal MainWindowViewState? CaptureFrameState()
+    {
+        if (_frame == null)
+            return new MainWindowViewState();
+        if (currentHasContext || !CanSaveParameter(currentParameter) ||
+            _frame.BackStack.Any(x => x.Context != null || !CanSaveParameter(x.Parameter)) ||
+            _frame.ForwardStack.Any(x => x.Context != null || !CanSaveParameter(x.Parameter)))
+            return null;
+
+        return new MainWindowViewState
+        {
+            CurrentPage = _frame.CurrentSourcePageType,
+            CurrentParameter = currentParameter,
+            BackStack = _frame.BackStack.Select(x => new MainWindowViewState.NavigationEntry(x.SourcePageType, x.Parameter)).ToArray(),
+            ForwardStack = _frame.ForwardStack.Select(x => new MainWindowViewState.NavigationEntry(x.SourcePageType, x.Parameter)).ToArray(),
+        };
+    }
+
+    static bool CanSaveParameter(object? value) => value == null || value is string or Guid ||
+        value.GetType().IsPrimitive || value.GetType().IsEnum;
+
+    internal void SaveFrameState(Frame frame, MainWindowViewState state)
+    {
+        if (!ReferenceEquals(_frame, frame))
+            return;
+        savedNavigation = state;
+        ClearFrame(frame);
+    }
+
+    internal void ClearFrame(Frame frame)
+    {
+        if (!ReferenceEquals(_frame, frame))
+            return;
+        _frame.NavigationFailed -= OnNavigationFailed;
+        _frame.Navigated -= OnFrameNavigated;
+        _frame = null;
+        _overlayHost = null;
     }
 
     static void OnNavigationFailed(object? sender, FluentAvalonia.UI.Navigation.FANavigationFailedEventArgs e)
@@ -68,7 +138,10 @@ public sealed class NavigationService : INavigationService
     public void Navigate(Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None, bool useCache = true)
     {
         if (_frame == null)
+        {
+            pendingNavigation = (t, effect, useCache);
             return;
+        }
 
         var navOptions = new FrameNavigationOptions
         {
@@ -188,6 +261,10 @@ public sealed class NavigationService : INavigationService
 
     private Frame? _frame;
     private Panel? _overlayHost;
+    private MainWindowViewState? savedNavigation;
+    private (Type? Page, NavigationTransitionEffect Effect, bool UseCache)? pendingNavigation;
+    private object? currentParameter;
+    private bool currentHasContext;
 }
 
 

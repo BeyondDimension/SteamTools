@@ -9,7 +9,7 @@ public partial class IdleCardPage : PageBase<IdleCardPageViewModel>
     public IdleCardPage()
     {
         InitializeComponent();
-        DataContext ??= new IdleCardPageViewModel();
+        DataContext ??= IViewModelManager.Instance.Get<IdleCardPageViewModel>();
     }
 
     private void AppOpenLink_MenuItem_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

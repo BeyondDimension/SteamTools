@@ -169,7 +169,8 @@
                                     Width="250"
                                     Height="116"
                                     DecodeWidth="250"
-                                    Source="{Binding HeaderLogoStream^}"
+                                    spp:SteamAppImageSource.IsHeader="True"
+                                    spp:SteamAppImageSource.App="{Binding}"
                                     Stretch="UniformToFill" />
 
                                 <Border

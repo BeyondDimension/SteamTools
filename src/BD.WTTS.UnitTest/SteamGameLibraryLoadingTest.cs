@@ -90,7 +90,13 @@ public sealed class SteamGameLibraryLoadingTest
             {
                 if (++readCount == 1) publish([new SteamApp(20) { Name = "Account B" }]);
                 else if (readCount == 2) publish([new SteamApp(30) { Name = "Account C" }]);
-                else if (readCount == 3) publish([new SteamApp(40) { Name = "Offline" }]);
+                else if (readCount == 3)
+                {
+                    // The Steam parser reuses and clears its batch after the callback returns.
+                    var batch = new List<SteamApp> { new(40) { Name = "Offline" } };
+                    publish(batch);
+                    batch.Clear();
+                }
                 return Task.CompletedTask;
             });
         local.Setup(x => x.Initialize()).Returns(true);
