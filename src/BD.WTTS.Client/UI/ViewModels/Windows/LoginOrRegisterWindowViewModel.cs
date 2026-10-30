@@ -76,7 +76,7 @@ public partial class LoginOrRegisterWindowViewModel : WindowViewModel, SendSmsUI
         }
         catch (Exception ex)
         {
-            Toast.Show(ToastIcon.Error, ex.GetAllMessage());
+            ex.LogAndShowT(nameof(LoginOrRegisterWindowViewModel));
         }
         finally
         {
