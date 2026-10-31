@@ -303,6 +303,13 @@ partial class ProxyService
             }
             else
             {
+                if (startProxyResult.Code == StartProxyResultCode.ListenerBindFailed)
+                {
+                    var ports = proxyMode == ProxyMode.Hosts
+                        ? (enableHttpProxyToHttps ? "443、80" : "443")
+                        : proxyPort.ToString();
+                    return $"无法监听代理端口（{ports}）。请检查端口是否被其他程序占用或被系统保留，以及安全软件是否阻止监听。";
+                }
                 if (CertificateFailurePresenter.IsCertificateFailure(startProxyResult.Code))
                     return new OperateProxyServiceResult("Certificate operation failed.", CertificateError: startProxyResult.Code);
                 var errorString = startProxyResult.Code switch

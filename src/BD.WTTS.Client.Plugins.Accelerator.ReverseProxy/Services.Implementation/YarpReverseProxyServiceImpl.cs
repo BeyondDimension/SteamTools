@@ -235,8 +235,21 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                     OnException(disposeException);
                 }
             }
-            return ex;
+            return IsListenerBindFailure(ex)
+                ? new StartProxyResult(StartProxyResultCode.ListenerBindFailed, ex.ToString())
+                : ex;
         }
+    }
+
+    static bool IsListenerBindFailure(Exception exception)
+    {
+        for (Exception? current = exception; current != null; current = current.InnerException)
+        {
+            if (current is System.Net.Sockets.SocketException socketException &&
+                socketException.SocketErrorCode is System.Net.Sockets.SocketError.AccessDenied or System.Net.Sockets.SocketError.AddressAlreadyInUse)
+                return true;
+        }
+        return false;
     }
 
     public void Exit()

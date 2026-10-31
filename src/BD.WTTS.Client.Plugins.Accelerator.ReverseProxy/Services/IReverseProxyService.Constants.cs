@@ -75,7 +75,7 @@ public partial interface IReverseProxyService : IDisposable
 
     Task<StartProxyResult> GetDebugString2()
     {
-        StartProxyResult r = new(StartProxyResultCode.Exception, new Exception("aaaa"));
+        StartProxyResult r = new(StartProxyResultCode.Exception, new Exception("aaaa").ToString());
         return Task.FromResult(r);
     }
 
@@ -340,6 +340,9 @@ public enum StartProxyResultCode : byte
     /// <summary>Certificate generation, loading, or trust failed.</summary>
     CertificateOperationFailed = 130,
 
+    /// <summary>Socket listener access was denied or its address is already in use.</summary>
+    ListenerBindFailed = 131,
+
     /// <summary>
     /// 早期 Windows 版本且缺少 Windows 更新补丁，Icu 存在 Bug 导致，要么更新操作系统，要么更改配置使用 NLS 重启程序
     /// <para>https://learn.microsoft.com/zh-cn/dotnet/core/extensions/globalization-icu#use-nls-instead-of-icu</para>
@@ -352,11 +355,11 @@ public enum StartProxyResultCode : byte
 /// </summary>
 /// <param name="Code">状态码</param>
 /// <param name="Exception">未处理的异常</param>
-public readonly record struct StartProxyResult(StartProxyResultCode Code, Exception? Exception)
+public readonly record struct StartProxyResult(StartProxyResultCode Code, string? Exception)
 {
     public static implicit operator bool(StartProxyResult result) => result.Code == StartProxyResultCode.Ok;
 
     public static implicit operator StartProxyResult(StartProxyResultCode code) => new(code, default);
 
-    public static implicit operator StartProxyResult(Exception? exception) => exception == null ? new(StartProxyResultCode.Ok, default) : new(StartProxyResultCode.Exception, exception);
+    public static implicit operator StartProxyResult(Exception? exception) => exception == null ? new(StartProxyResultCode.Ok, default) : new(StartProxyResultCode.Exception, exception.ToString());
 }
