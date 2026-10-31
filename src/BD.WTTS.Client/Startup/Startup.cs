@@ -368,6 +368,7 @@ public abstract partial class Startup
             HashSet<Type> types = new();
             MemoryPackFormatters.OnRegister = type => types.Add(type);
             MemoryPackFormatterProvider.Register<MemoryPackFormatters>();
+            MemoryPackFormatterProvider.Register(new PortableDateTimeOffsetFormatter());
             MemoryPackFormatters.OnRegister = null;
             InitNJsonSerializer(types);
 
@@ -579,4 +580,23 @@ Failed to initialize FileSystem, access denied.
         }
     }
 #endif
+}
+
+public sealed class PortableDateTimeOffsetFormatter : MemoryPackFormatter<DateTimeOffset>
+{
+    // https://github.com/dotnet/runtime/blob/release/9.0/src/libraries/System.Private.CoreLib/src/System/DateTimeOffset.cs#L65
+    // https://github.com/dotnet/runtime/blob/release/10.0/src/libraries/System.Private.CoreLib/src/System/DateTimeOffset.cs#L67
+
+    public override void Serialize<TBufferWriter>(ref MemoryPackWriter<TBufferWriter> writer, scoped ref DateTimeOffset value)
+    {
+        writer.WriteUnmanaged(value.Ticks);
+        writer.WriteUnmanaged((int)value.Offset.TotalMinutes);
+    }
+
+    public override void Deserialize(ref MemoryPackReader reader, scoped ref DateTimeOffset value)
+    {
+        var ticks = reader.ReadUnmanaged<long>();
+        var offsetMinutes = reader.ReadUnmanaged<int>();
+        value = new DateTimeOffset(ticks, TimeSpan.FromMinutes(offsetMinutes));
+    }
 }
