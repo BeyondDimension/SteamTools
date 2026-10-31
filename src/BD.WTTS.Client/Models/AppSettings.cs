@@ -135,20 +135,20 @@ public sealed partial class AppSettings : IMicroServiceClient.ISettings
         {
             AesSecret = Res.aes_key,
             RSASecret = Res.
-#if DEBUG
-            rsa_public_key_debug,
-#else
+            //#if DEBUG
+            //            rsa_public_key_debug,
+            //#else
             rsa_public_key_release,
-#endif
+            //#endif
         };
         var apiBaseUrl =
-#if DEBUG
-            UseLocalhostApiBaseUrl ?
-            Constants.Urls.BaseUrl_API_Debug :
-            Constants.Urls.BaseUrl_API_Development;
-#else
+            //#if DEBUG
+            //            UseLocalhostApiBaseUrl ?
+            //            Constants.Urls.BaseUrl_API_Debug :
+            //            Constants.Urls.BaseUrl_API_Development;
+            //#else
             Constants.Urls.BaseUrl_API_Production;
-#endif
+        //#endif
         s.ApiBaseUrl = Constants.Urls.ApiBaseUrl = apiBaseUrl;
         return s;
     }
