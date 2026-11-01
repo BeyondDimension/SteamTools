@@ -106,7 +106,17 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
             !string.Equals(Path.GetFileName(acceleratorPath), acceleratorName, comparison))
             return false;
 
-        var packagedPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(mainPath)!, "modules", "Accelerator", acceleratorName));
+        var mainDirectory = Path.GetDirectoryName(mainPath)!;
+        var contentsDirectory = Directory.GetParent(mainDirectory);
+        var modulesDirectory = Path.Combine(mainDirectory, "modules");
+        if (OperatingSystem.IsMacOS() &&
+            string.Equals(Path.GetFileName(mainDirectory), "MacOS", comparison) &&
+            contentsDirectory != null &&
+            string.Equals(contentsDirectory.Name, "Contents", comparison))
+        {
+            modulesDirectory = Path.Combine(contentsDirectory.FullName, "MonoBundle", "modules");
+        }
+        var packagedPath = Path.GetFullPath(Path.Combine(modulesDirectory, "Accelerator", acceleratorName));
         return string.Equals(acceleratorPath, packagedPath, comparison) ||
             (debugAcceleratorPath != null && string.Equals(acceleratorPath, Path.GetFullPath(debugAcceleratorPath), comparison));
     }
