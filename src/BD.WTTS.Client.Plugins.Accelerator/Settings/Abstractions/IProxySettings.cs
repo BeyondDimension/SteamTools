@@ -219,9 +219,9 @@ public partial interface IProxySettings
     const string DefaultProxyMasterDns = BD.WTTS.Services.IDnsAnalysisService.DefaultResolverServerList;
 
     /// <summary>
-    /// 启用 Http 链接转发到 Https的默认值
+    /// 启用 Http 链接转发到 Https 的默认值
     /// </summary>
-    const bool DefaultEnableHttpProxyToHttps = true;
+    const bool DefaultEnableHttpProxyToHttps = false;
 
     /// <summary>
     /// Socks5 Enable的默认值

@@ -102,7 +102,7 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     /// <summary>
     /// 启用 Http 链接转发到 Https
     /// </summary>
-    [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
+    [MPKey(9), MP2Key(9), JsonPropertyOrder(9), JsonPropertyName("EnableHttpProxyToHttps2")]
     public bool EnableHttpProxyToHttps { get; set; } = IProxySettings.DefaultEnableHttpProxyToHttps;
 
     #endregion
