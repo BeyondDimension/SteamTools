@@ -62,6 +62,56 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
         }
     }
 
+#if LINUX
+
+    static bool IsAllowedLinuxBundledHost(string localPath, string peerPath, int peerPid)
+    {
+        if (!OperatingSystem.IsLinux())
+            return false;
+
+        var hostIsLocal = string.Equals(Path.GetFileName(localPath), "dotnet", StringComparison.Ordinal);
+        var hostPath = hostIsLocal ? localPath : peerPath;
+        var acceleratorPath = hostIsLocal ? peerPath : localPath;
+        if (!string.Equals(Path.GetFileName(hostPath), "dotnet", StringComparison.Ordinal) ||
+            !string.Equals(Path.GetFileName(acceleratorPath), "Steam++.Accelerator", StringComparison.Ordinal))
+            return false;
+
+        var hostPid = hostIsLocal ? Environment.ProcessId : peerPid;
+        try
+        {
+            var args = File.ReadAllText($"/proc/{hostPid}/cmdline").Split('\0');
+            if (args.Length < 2 || string.IsNullOrWhiteSpace(args[1]))
+                return false;
+            var workingDirectory = Directory.ResolveLinkTarget($"/proc/{hostPid}/cwd", true)?.FullName;
+            if (workingDirectory == null)
+                return false;
+            return IsAllowedLinuxBundledHostPath(hostPath, acceleratorPath, args[1], workingDirectory);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            Console.Error.WriteLine($"[IPC startup] Could not inspect bundled host PID {hostPid}: {ex.Message}");
+            return false;
+        }
+    }
+
+    static bool IsAllowedLinuxBundledHostPath(string hostPath, string acceleratorPath, string assemblyPath, string workingDirectory)
+    {
+        hostPath = Path.GetFullPath(hostPath);
+        acceleratorPath = Path.GetFullPath(acceleratorPath);
+        var runtimeDirectory = Path.GetDirectoryName(hostPath);
+        if (runtimeDirectory == null || !string.Equals(Path.GetFileName(runtimeDirectory), "dotnet", StringComparison.Ordinal))
+            return false;
+        var appDirectory = Path.GetDirectoryName(runtimeDirectory);
+        if (appDirectory == null)
+            return false;
+
+        return string.Equals(hostPath, Path.Combine(appDirectory, "dotnet", "dotnet"), StringComparison.Ordinal) &&
+            string.Equals(acceleratorPath, Path.Combine(appDirectory, "modules", "Accelerator", "Steam++.Accelerator"), StringComparison.Ordinal) &&
+            string.Equals(Path.GetFullPath(assemblyPath, workingDirectory), Path.Combine(appDirectory, "assemblies", "Steam++.dll"), StringComparison.Ordinal);
+    }
+    
+#endif
+
     internal static bool CheckBePid(Process proc)
     {
         if (proc.Id == Environment.ProcessId)
@@ -87,6 +137,9 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
             debugAcceleratorPath = Path.Combine(directory.FullName, "src", "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "bin", "Debug", $"net{Environment.Version.Major}.{Environment.Version.Minor}", OperatingSystem.IsWindows() ? "Steam++.Accelerator.exe" : "Steam++.Accelerator");
 #endif
         return IsAllowedPeerPath(procPath, fn, debugAcceleratorPath) ||
+#if LINUX
+            IsAllowedLinuxBundledHost(procPath, fn, proc.Id) ||
+#endif
             AssemblyInfo.ValidateAssembly(fn);
     }
 

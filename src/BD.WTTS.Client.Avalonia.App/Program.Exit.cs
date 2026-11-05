@@ -2,7 +2,7 @@ namespace BD.WTTS;
 
 partial class Program
 {
-#if MACOS
+#if MACOS || LINUX
     static bool nativeUiInitialized;
 
     [System.Runtime.InteropServices.DllImport("/usr/lib/libSystem.B.dylib", EntryPoint = "_exit")]
@@ -11,7 +11,7 @@ partial class Program
 
     static int CompleteExit(int exitCode)
     {
-#if MACOS
+#if MACOS || LINUX
         if (nativeUiInitialized)
         {
             System.Console.Out.Flush();
