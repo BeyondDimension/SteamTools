@@ -62,8 +62,6 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
         }
     }
 
-#if LINUX
-
     static bool IsAllowedLinuxBundledHost(string localPath, string peerPath, int peerPid)
     {
         if (!OperatingSystem.IsLinux())
@@ -109,8 +107,6 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
             string.Equals(acceleratorPath, Path.Combine(appDirectory, "modules", "Accelerator", "Steam++.Accelerator"), StringComparison.Ordinal) &&
             string.Equals(Path.GetFullPath(assemblyPath, workingDirectory), Path.Combine(appDirectory, "assemblies", "Steam++.dll"), StringComparison.Ordinal);
     }
-    
-#endif
 
     internal static bool CheckBePid(Process proc)
     {
@@ -137,9 +133,7 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
             debugAcceleratorPath = Path.Combine(directory.FullName, "src", "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "bin", "Debug", $"net{Environment.Version.Major}.{Environment.Version.Minor}", OperatingSystem.IsWindows() ? "Steam++.Accelerator.exe" : "Steam++.Accelerator");
 #endif
         return IsAllowedPeerPath(procPath, fn, debugAcceleratorPath) ||
-#if LINUX
             IsAllowedLinuxBundledHost(procPath, fn, proc.Id) ||
-#endif
             AssemblyInfo.ValidateAssembly(fn);
     }
 
