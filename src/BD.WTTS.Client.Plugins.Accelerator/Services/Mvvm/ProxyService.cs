@@ -440,6 +440,14 @@ public sealed partial class ProxyService
         try
         {
             ProxyDomains.Clear();
+            // 先渲染本地缓存，避免拉取服务端数据期间面板空白
+            LoadOrSaveLocalAccelerate();
+            if (ProxyDomains.Items.Any_Nullable())
+            {
+                // 已有可展示的内容，不再用加载遮罩遮挡列表
+                IsLoadingAccelerate = false;
+            }
+
             try
             {
                 // 加载代理服务数据；网络不可用时继续尝试本地缓存。
@@ -453,14 +461,18 @@ public sealed partial class ProxyService
                 Toast.Show(ToastIcon.Info, Strings.Info_LoadingAgentTakesTime____.Format(stopwatch.ElapsedMilliseconds, result.IsSuccess, result.Code, result.Content?.Count));
 #endif
                 if (result.IsSuccess && result.Content != null)
+                {
+                    // 以服务端数据为准，避免本地缓存中已下线的项目残留
+                    ProxyDomains.Clear();
                     ProxyDomains.AddOrUpdate(result.Content);
+                    // 用最新数据更新本地缓存
+                    LoadOrSaveLocalAccelerate();
+                }
             }
             catch (Exception ex)
             {
                 Log.Error(nameof(ProxyService), ex, "Could not load accelerator projects from the server.");
             }
-
-            LoadOrSaveLocalAccelerate();
 
             if (ProxySettings.SupportProxyServicesStatus.Value.Any_Nullable() && ProxyDomains.Items.Any_Nullable())
             {
