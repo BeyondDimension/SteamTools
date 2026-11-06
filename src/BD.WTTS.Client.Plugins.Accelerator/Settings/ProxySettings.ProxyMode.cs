@@ -26,6 +26,7 @@ public static partial class ProxySettings
         {
             yield return EProxyMode.Hosts;
             yield return EProxyMode.System;
+            yield return EProxyMode.DNS;
         }
 #else
         return Array.Empty<EProxyMode>();
@@ -55,6 +56,7 @@ public static partial class ProxySettings
         EProxyMode.System => AppResources.ProxyMode_System,
         EProxyMode.VPN => AppResources.ProxyMode_VPN,
         EProxyMode.ProxyOnly => AppResources.ProxyMode_ProxyOnly,
+        EProxyMode.DNS => AppResources.ProxyMode_DNS,
         _ => string.Empty,
     };
 

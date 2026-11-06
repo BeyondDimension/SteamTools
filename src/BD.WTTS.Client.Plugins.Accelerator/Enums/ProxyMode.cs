@@ -22,6 +22,11 @@ public enum ProxyMode : byte
     System,
 
     /// <summary>
+    /// NixOS DNS 动态劫持模式（由系统配置 programs.watt-toolkit.proxyMode 统一控制，UI 不可选）
+    /// </summary>
+    DNS,
+
+    /// <summary>
     /// VPN 代理模式(虚拟网卡)
     /// </summary>
     VPN,

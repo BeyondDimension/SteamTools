@@ -133,6 +133,12 @@ public sealed partial class AcceleratorPageViewModel
 
     public bool EnvironmentCheck()
     {
+#if LINUX
+        // NixOS：证书由 security.pki.certificateFiles 声明式信任，加速器权限由系统服务
+        // AmbientCapabilities 提供，无需 certutil 导入 NSS，直接放行。
+        if (LinuxPlatformServiceImpl.IsNixOS)
+            return true;
+#endif
         try
         {
             using var process = StartEnvironmentCheck();

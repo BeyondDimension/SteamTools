@@ -42,6 +42,12 @@ namespace BD.WTTS.Services.Implementation
                         "-c",
                         $"{Certutil} -A -d $HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\" -t C,, -i \"{cerPath}\""
                     }).WaitForExit();
+            if (IsNixOS)
+            {
+                // NixOS 不可变系统适配：系统证书由 security.pki.certificateFiles 声明式安装，
+                // nix store 只读，pkexec 提权安装路径不可用（应用目录无写权限）。
+                return null;
+            }
             return RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "linux", "-ceri", CertificateConstants.AppDataDirectory }) == 0;
         }
 
@@ -52,6 +58,11 @@ namespace BD.WTTS.Services.Implementation
                         "-c",
                         $"{Certutil} -D -d $HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\""
                     }).WaitForExit();
+            if (IsNixOS)
+            {
+                // NixOS：系统证书由声明式配置管理，不执行 pkexec 删除
+                return;
+            }
             RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "linux", "-cerd", CertificateConstants.AppDataDirectory });
         }
 
@@ -96,6 +107,11 @@ namespace BD.WTTS.Services.Implementation
                 return false;
             try
             {
+                if (IsNixOS)
+                {
+                    // NixOS：/etc/ssl/certs 只读，系统证书由 security.pki.certificateFiles 声明式安装
+                    return null;
+                }
                 var path = GetCertStore();
                 var destCertFilePath = Path.Combine(path.CaCertStorePath, CertificateConstants.CerFileName);
                 if (File.Exists(destCertFilePath) && File.ReadAllBytes(cerPath).SequenceEqual(File.ReadAllBytes(destCertFilePath)))
@@ -103,7 +119,7 @@ namespace BD.WTTS.Services.Implementation
                     return true;
                 }
                 var sslCertFilePath = Path.Combine("/etc/ssl/certs", CertificateConstants.CerFileName);
-                if (!Directory.Exists(sslCertFilePath))
+                if (!File.Exists(sslCertFilePath))
                     File.Copy(cerPath, sslCertFilePath, overwrite: true);
                 if (!Directory.Exists(path.CaCertStorePath))
                     return null;
@@ -136,6 +152,11 @@ namespace BD.WTTS.Services.Implementation
                 return;
             try
             {
+                if (IsNixOS)
+                {
+                    // NixOS：/etc/ssl/certs 只读，系统证书由声明式配置管理
+                    return;
+                }
                 var path = GetCertStore();
                 var destCertFilePath = Path.Combine(path.CaCertStorePath, CertificateConstants.CerFileName);
                 if (File.Exists(destCertFilePath) && File.ReadAllBytes(cerPath).SequenceEqual(File.ReadAllBytes(destCertFilePath)))

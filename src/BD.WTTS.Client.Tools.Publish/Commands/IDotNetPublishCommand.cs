@@ -47,11 +47,12 @@ interface IDotNetPublishCommand : ICommand
         var sha256 = CommandCompat.GetOption<bool>("--sha256", () => true, "Calculate file hash value");
         var sha384 = CommandCompat.GetOption<bool>("--sha384", () => true, "Calculate file hash value");
         var stm_upload = CommandCompat.GetOption<bool>("--stm-upload", "Steam upload zip file");
+        var nixos = CommandCompat.GetOption<bool>("--nixos", "", "Publish for NixOS (no bundled runtime, directory publish)");
         var command = new Command(commandName, "DotNet publish app")
         {
-           debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign,
+           debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign, nixos,
         };
-        command.SetHandler(Handler, debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign);
+        command.SetHandler(Handler, debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign, nixos);
         return command;
     }
 
@@ -152,7 +153,7 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
-    internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload, bool hsm_sign)
+    internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload, bool hsm_sign, bool nixos)
     {
         if (ProjectUtils.ProjPath.Contains("actions-runner"))
         {
@@ -191,7 +192,10 @@ interface IDotNetPublishCommand : ICommand
                         isCopyRuntime = true;
                         break;
                     case Platform.Linux:
-                        isCopyRuntime = true;
+                        // NixOS 发布机：dotnet-Runtime/Linux-{arch} 来自 nix 环境（含 nix store 绝对路径依赖），
+                        // 复制进发布包会导致运行时在其他机器不可用；Nix 打包用 makeWrapper 直接调用系统 dotnet，
+                        // 无需随包发布运行时。
+                        isCopyRuntime = !(nixos || File.Exists("/etc/NIXOS"));
                         break;
                 }
 
@@ -1293,7 +1297,9 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                     {
                         case Platform.Linux:
                             arg.UseAppHost = true;
-                            arg.SingleFile = true;
+                            // NixOS 适配：SingleFile apphost 在 NixOS 上加载运行时失败（宿主退出码 203）。
+                            // NixOS 构建时改为目录发布，由 dotnet 直接运行 Steam++.Accelerator.dll（与主程序目录发布一致）。
+                            arg.SingleFile = !(nixos || File.Exists("/etc/NIXOS"));
                             arg.SelfContained = false;
                             arg.RuntimeIdentifier = $"linux-{ArchToString(architecture)}";
                             break;
@@ -1337,8 +1343,17 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 }
                 else
                 {
-                    var startName = $"Steam++.{pluginName}";
-                    File.Copy(Path.Combine(publishDir, startName), Path.Combine(destinationDir, startName));
+                    if (nixos || File.Exists("/etc/NIXOS"))
+                    {
+                        // NixOS 适配：SingleFile=false（目录发布），必须复制整个 publishDir，
+                        // 否则缺 Steam++.Accelerator.dll 主程序集与依赖（SingleFile 时代只复制 apphost）。
+                        CopyDirectory(publishDir, destinationDir, true);
+                    }
+                    else
+                    {
+                        var startName = $"Steam++.{pluginName}";
+                        File.Copy(Path.Combine(publishDir, startName), Path.Combine(destinationDir, startName));
+                    }
                 }
             }
         }
