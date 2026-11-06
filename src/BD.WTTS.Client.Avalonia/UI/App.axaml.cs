@@ -35,11 +35,10 @@ public sealed partial class App : Application
                 INavigationService.Instance.Navigate(typeof(SettingsPage));
             }),
         });
-        appMenu.Add(new NativeMenuItemSeparator());
         appMenu.Add(new NativeMenuItem
         {
             Header = string.Format(GetMacMenuString("HideApp_", "Hide {0}"), Name),
-            Gesture = KeyGesture.Parse("CMD+H"),
+            Gesture = KeyGesture.Parse("CMD+W"),
             Command = ReactiveCommand.Create(HideAllWindows),
         });
         appMenu.Add(new NativeMenuItem
@@ -49,27 +48,7 @@ public sealed partial class App : Application
             Command = ReactiveCommand.Create(() => Shutdown()),
         });
 
-        var windowMenu = new NativeMenu();
-        windowMenu.Add(new NativeMenuItem
-        {
-            Header = GetMacMenuString("HideWindow", "Hide Window"),
-            Gesture = KeyGesture.Parse("CMD+W"),
-            Command = ReactiveCommand.Create(HideActiveWindow),
-        });
-
-        var menus = new NativeMenu();
-        menus.Add(new NativeMenuItem
-        {
-            Header = Name,
-            Menu = appMenu,
-        });
-        menus.Add(new NativeMenuItem
-        {
-            Header = GetMacMenuString("WindowMenu", "Window"),
-            Menu = windowMenu,
-        });
-
-        NativeMenu.SetMenu(this, menus);
+        NativeMenu.SetMenu(this, appMenu);
     }
 
     static string GetMacMenuString(string key, string fallback)
@@ -85,23 +64,6 @@ public sealed partial class App : Application
                 {
                     window.Hide();
                 }
-                return;
-            }
-
-            MainWindow?.Hide();
-        });
-    }
-
-    void HideActiveWindow()
-    {
-        MainThread2.BeginInvokeOnMainThread(() =>
-        {
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                var window = desktop.Windows.FirstOrDefault(x => x.IsActive) ??
-                             MainWindow ??
-                             desktop.Windows.FirstOrDefault();
-                window?.Hide();
                 return;
             }
 
