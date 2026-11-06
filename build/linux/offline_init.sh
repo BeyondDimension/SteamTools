@@ -9,7 +9,34 @@ tar_name="WattToolkit.tgz"
 tar_path="$base_path/$tar_name"
 app_name="Watt Toolkit"
 PROCESS_NAMES=("$exec_name" "$app_name")
-export LC_ALL=en_US.UTF-8
+Configure_Locale() {
+    local available_locales locale_name
+
+    available_locales=$(locale -a 2>/dev/null) || {
+        echo "无法获取系统支持的语言环境列表。"
+        return 1
+    }
+
+    for locale_name in en_US.UTF-8 en_US.utf8; do
+        if printf '%s\n' "$available_locales" | grep -Fxq "$locale_name"; then
+            export LC_ALL="$locale_name"
+            echo "已设置语言环境：$LC_ALL"
+            return 0
+        fi
+    done
+
+    locale_name=$(printf '%s\n' "$available_locales" |
+        awk '$0 != "C" && $0 != "C.UTF-8" && $0 != "C.utf8" { print; exit }')
+    if [ -n "$locale_name" ]; then
+        export LC_ALL="$locale_name"
+        echo "en_US.UTF-8 不可用，已设置可用语言环境：$LC_ALL"
+        return 0
+    fi
+
+    echo "未找到可用的非 C 语言环境，请安装 en_US.UTF-8 后重试。"
+    return 1
+}
+
 Install_certutil() {
     # 判断发行版类型
     if command -v certutil &>/dev/null; then
@@ -135,7 +162,7 @@ Kill_Process() {
     for process_name in "${PROCESS_NAMES[@]}"; do
         kill_retry=1
         while [ $kill_retry -le $Kill_MAX_RETRIES ]; do
-            pid=$(pgrep "$process_name")
+            pid=$(pgrep -x -- "$process_name")
             if [ -n "$pid" ]; then
                 echo "尝试 $kill_retry: 进程 $process_name 正在运行中。正在终止..."
                 kill $pid
@@ -149,7 +176,7 @@ Kill_Process() {
 
     for process_name in "${PROCESS_NAMES[@]}"; do
         # 检查是否成功终止进程
-        if pgrep -x "$process_name" >/dev/null; then
+        if pgrep -x -- "$process_name" >/dev/null; then
             echo "无法终止程序 $process_name。尝试次数已达上限。"
             exit 1
         else
@@ -158,6 +185,7 @@ Kill_Process() {
     done
 
 }
+Configure_Locale || exit 1
 Install_certutil
 Install_zenity
 Install_jq
@@ -175,7 +203,10 @@ chmod +x "$base_path/$exec_name.sh"
 InitDesktop() {
     while true; do
         # 使用 zenity 提示用户选择安装路径或使用默认路径
-        choice=$(zenity --list --radiolist --title="请选择要添加到的位置" --column="选择" --column="路径" TRUE "$HOME/.local/share/applications/" FALSE "$HOME/Desktop")
+        if ! choice=$(zenity --list --radiolist --title="请选择要添加到的位置" --column="选择" --column="路径" TRUE "$HOME/.local/share/applications/" FALSE "$HOME/Desktop"); then
+            echo "已取消创建桌面快捷方式。"
+            exit 0
+        fi
 
         # 检查用户输入
         if [ "$choice" == "$HOME/.local/share/applications/" ]; then
@@ -189,7 +220,11 @@ InitDesktop() {
         fi
     done
     #添加桌面文件
-    rm -rf "$target_dir/Watt Toolkit.desktop" 2>/dev/null
+    mkdir -p "$target_dir" || {
+        zenity --error --text="无法创建桌面快捷方式目录：$target_dir" --width=400
+        exit 1
+    }
+    rm -f "$target_dir/Watt Toolkit.desktop"
     echo "#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=Watt Toolkit
