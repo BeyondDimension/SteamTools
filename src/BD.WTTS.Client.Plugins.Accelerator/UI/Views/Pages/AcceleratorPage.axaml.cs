@@ -20,7 +20,9 @@ public partial class AcceleratorPage : PageBase<AcceleratorPageViewModel>
             bool nixosMode = false;
             try
             {
+#if LINUX
                 nixosMode = BD.WTTS.Services.Implementation.LinuxPlatformServiceImpl.IsNixOS;
+#endif
             }
             catch (Exception __ex)
             {

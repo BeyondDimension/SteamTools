@@ -121,6 +121,8 @@
 		<PackageReference Include="NLog" />
 		<PackageReference Include="NLog.Extensions.Logging" />
 		<PackageReference Include="Net.Codecrete.QrCodeGenerator" />
+		<!-- Official plugins are loaded dynamically; their shared runtime dependencies ship with the host. -->
+		<PackageReference Include="ZXing.Net" />
 		<PackageReference Include="Fleck" />
 		<PackageReference Include="Stun.Net" />
 		<PackageReference Include="System.Linq.Async" />
@@ -210,7 +212,7 @@
 		<!--<PackageReference Include="Microsoft.Extensions.DependencyModel" />-->
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 		<PackageReference Include="Avalonia" />
-		<PackageReference Include="Avalonia.BuildServices" VersionOverride="0.0.29" PrivateAssets="all" />
+		<PackageReference Include="Avalonia.BuildServices" VersionOverride="11.3.2" PrivateAssets="all" />
 		<!--<PackageReference Include="Facepunch.Steamworks" />-->
 		<!--<PackageReference Include="Avalonia.Desktop" />
 		<PackageReference Include="Avalonia.ReactiveUI" />

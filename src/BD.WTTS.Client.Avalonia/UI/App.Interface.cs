@@ -11,6 +11,19 @@ partial class App : IApplication
 
     public static App Instance => instance.Value;
 
+    MainWindowViewState? releasedMainWindowState;
+
+    internal void ReleaseMainWindow(Window window, MainWindowViewState state)
+    {
+        if (!ReferenceEquals(MainWindow, window))
+            return;
+        releasedMainWindowState = state;
+        MainWindow = null;
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop &&
+            ReferenceEquals(desktop.MainWindow, window))
+            desktop.MainWindow = null;
+    }
+
     public void RestoreMainWindow()
     {
         Window? mainWindow = null;
@@ -18,22 +31,40 @@ partial class App : IApplication
     ReTry:
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            mainWindow = desktop.MainWindow;
+            mainWindow = desktop.MainWindow ?? MainWindow;
             if (mainWindow == null || mainWindow.PlatformImpl == null)
             {
                 if (mainWindow != null)
                 {
-                    (mainWindow.DataContext as IDisposable)?.Dispose();
+                    if (!ReferenceEquals(mainWindow.DataContext, IViewModelManager.Instance.MainWindow))
+                        (mainWindow.DataContext as IDisposable)?.Dispose();
                     (mainWindow as IDisposable)?.Dispose();
-                    MainWindow = desktop.MainWindow = null;
                 }
-                mainWindow = MainWindow = desktop.MainWindow = new MainWindow();
+                mainWindow = new MainWindow();
             }
+            MainWindow = desktop.MainWindow = mainWindow;
         }
 
         if (mainWindow == null)
         {
             throw new ArgumentNullException(nameof(mainWindow));
+        }
+
+        var state = releasedMainWindowState;
+        var restoredWindow = state != null ? mainWindow as MainWindow : null;
+        if (restoredWindow != null)
+        {
+            restoredWindow.IsSaveWindowSize = false;
+            var screen = restoredWindow.Screens.ScreenFromPoint(state!.Position);
+            if (screen != null && screen.WorkingArea.Contains(state.Position))
+            {
+                restoredWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+                restoredWindow.Position = state.Position;
+                if (state.Width > 0 && state.Width <= screen.Bounds.Width)
+                    restoredWindow.Width = state.Width;
+                if (state.Height > 0 && state.Height <= screen.Bounds.Height)
+                    restoredWindow.Height = state.Height;
+            }
         }
 
         try
@@ -42,8 +73,21 @@ partial class App : IApplication
         }
         catch (InvalidOperationException)
         {
+            if (restoredWindow != null)
+                restoredWindow.IsSaveWindowSize = true;
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime retryDesktop)
+                retryDesktop.MainWindow = null;
+            MainWindow = null;
             mainWindow = null;
             goto ReTry;
+        }
+
+        if (restoredWindow != null)
+        {
+            restoredWindow.IsSaveWindowSize = true;
+            if (state!.WindowState is WindowState.Maximized or WindowState.FullScreen)
+                restoredWindow.WindowState = state.WindowState;
+            releasedMainWindowState = null;
         }
 
         if (mainWindow.WindowState == WindowState.Minimized)

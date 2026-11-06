@@ -28,8 +28,21 @@ public sealed class BasicAccount : ReactiveObject, IAccount
 
     public string? PlatformName { get; init; }
 
-    [Reactive]
-    public bool MostRecent { get; set; }
+    bool mostRecent;
+
+    public bool MostRecent
+    {
+        get => mostRecent;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref mostRecent, value);
+            this.RaisePropertyChanged(nameof(IsRecentLogin));
+        }
+    }
+
+    public bool IsRecentLogin => MostRecent;
+
+    public bool RememberPassword => false;
 
     public string? AvatarMedium { get; set; }
 }

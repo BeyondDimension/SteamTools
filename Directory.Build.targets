@@ -1,0 +1,19 @@
+<Project>
+  <!-- Windows development does not require the Apple workloads. Opt in for cross-platform builds. -->
+  <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows')) AND '$(BuildAllTargetFrameworks)' != 'true' AND '$(WttsDesktopTargetFrameworks)' == '' AND $(TargetFrameworks.Contains('-windows')) AND $(TargetFrameworks.Contains('-macos'))">
+    <TargetFrameworks>$([MSBuild]::Unescape($([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', 'net[0-9.]+-(macos|maccatalyst)[0-9.]*;?', '').TrimEnd(';'))))</TargetFrameworks>
+  </PropertyGroup>
+  <!-- Limit platform projects when validating one desktop without changing plain .NET/resource projects. -->
+  <PropertyGroup Condition="'$(WttsDesktopTargetFrameworks)' != '' AND $(TargetFrameworks.Contains('-windows')) AND $(TargetFrameworks.Contains('-macos'))">
+    <TargetFrameworks>$([System.Text.RegularExpressions.Regex]::Replace('$(WttsDesktopTargetFrameworks)', '-.*', ''));$(WttsDesktopTargetFrameworks)</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'BD.WTTS.Client.Avalonia' OR ($([System.String]::Copy('$(MSBuildProjectName)').StartsWith('BD.WTTS.Client.Plugins.')) AND '$(MSBuildProjectName)' != 'BD.WTTS.Client.Plugins.Accelerator.ReverseProxy' AND '$(MSBuildProjectName)' != 'BD.WTTS.Client.Plugins.Update')">
+    <Compile Include="$(MSBuildThisFileDirectory)src\FluentAvaloniaAliases.cs" Link="Properties\FluentAvaloniaAliases.cs" />
+  </ItemGroup>
+  <!-- SteamClient and the application must compile against the same formatter types. -->
+  <ItemGroup Condition="'$(MSBuildProjectFullPath)' == '$(MSBuildThisFileDirectory)ref\SteamClient\src\BD.SteamClient\BD.SteamClient.csproj'">
+    <PackageReference Remove="BD.Common" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)ref\Common\src\BD.Common\BD.Common.csproj" />
+  </ItemGroup>
+</Project>

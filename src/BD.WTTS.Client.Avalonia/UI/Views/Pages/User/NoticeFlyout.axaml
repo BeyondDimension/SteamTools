@@ -42,7 +42,7 @@
                             Theme="{StaticResource TransparentButton}">
                             <Grid RowDefinitions="Auto,Auto,*">
                                 <DockPanel>
-                                    <ui:InfoBadge
+                                    <ui:FAInfoBadge
                                         Margin="0,0,3,0"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"

@@ -74,13 +74,14 @@
 
 	<ItemGroup>
 		<PackageReference Include="Avalonia" />
-		<PackageReference Include="Avalonia.BuildServices" VersionOverride="0.0.29" PrivateAssets="all" />
+		<PackageReference Include="Avalonia.BuildServices" VersionOverride="11.3.2" PrivateAssets="all" />
 		<PackageReference Include="ReactiveUI.Avalonia" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" />
 		<PackageReference Include="Avalonia.Controls.ItemsRepeater" />
 		<PackageReference Include="Xaml.Behaviors.Avalonia" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
 		<PackageReference Include="AvaloniaEdit.TextMate" />
+		<PackageReference Include="Onigwrap" />
 		<!--<PackageReference Include="Markdown.Avalonia" />-->
 		<PackageReference Include="FluentAvaloniaUI" />
 		<PackageReference Include="Avalonia.Controls.ColorPicker" />
@@ -137,4 +138,3 @@
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 </Project>
-

@@ -16,7 +16,7 @@
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:FAImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
@@ -30,7 +30,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Add" />
+                        <ui:FASymbolIcon Symbol="Add" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -49,7 +49,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Sync" />
+                        <ui:FASymbolIcon Symbol="Sync" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -68,7 +68,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Refresh" />
+                        <ui:FASymbolIcon Symbol="Refresh" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -87,7 +87,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Settings" />
+                        <ui:FASymbolIcon Symbol="Settings" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -106,53 +106,53 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!-- <ui:MenuFlyoutSubItem Text="令牌加密"> -->
-                        <!--  <ui:MenuFlyoutItem  -->
+                        <!-- <ui:FAMenuFlyoutSubItem Text="令牌加密"> -->
+                        <!--  <ui:FAMenuFlyoutItem  -->
                         <!--  Command="{Binding SetPasswordProtection}"  -->
                         <!--  IsEnabled="{Binding !HasPasswordEncrypt}"  -->
                         <!--  Text="添加密码保护" />  -->
-                        <!--  <ui:MenuFlyoutItem  -->
+                        <!--  <ui:FAMenuFlyoutItem  -->
                         <!--  Command="{Binding RemovePasswordProtection}"  -->
                         <!--  IsEnabled="{Binding HasPasswordEncrypt}"  -->
                         <!--  Text="移除密码保护" />  -->
-                        <!--  <ui:MenuFlyoutItem  -->
+                        <!--  <ui:FAMenuFlyoutItem  -->
                         <!--  Command="{Binding ToggleLocalProtection}"  -->
                         <!--  IsEnabled="{Binding !HasLocalPcEncrypt}"  -->
                         <!--  Text="添加机器验证" />  -->
-                        <!--  <ui:MenuFlyoutItem  -->
+                        <!--  <ui:FAMenuFlyoutItem  -->
                         <!--  Command="{Binding ToggleLocalProtection}"  -->
                         <!--  IsEnabled="{Binding HasLocalPcEncrypt}"  -->
                         <!--  Text="移除机器验证" />  -->
-                        <!--     <ui:MenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" /> -->
-                        <!-- </ui:MenuFlyoutSubItem> -->
-                        <ui:MenuFlyoutItem Command="{Binding OpenExportWindow}" Text="{Binding Path=Res.ExportAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <!--<ui:MenuFlyoutItem
+                        <!--     <ui:FAMenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" /> -->
+                        <!-- </ui:FAMenuFlyoutSubItem> -->
+                        <ui:FAMenuFlyoutItem Command="{Binding OpenExportWindow}" Text="{Binding Path=Res.ExportAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <!--<ui:FAMenuFlyoutItem
                             Command="{Binding ReLockAuthenticator}"
                             IsEnabled="{Binding IsVerificationPass}"
                             Text="{Binding Path=Res.Auth_lock,
                                                      Mode=OneWay,
                                                      Source={x:Static s:ResourceService.Current}}" />-->
-                        <!--<ui:MenuFlyoutItem Command="{Binding ShowRecoverWindow}" Text="{Binding Path=Res.Auth_Sync_Recover, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Command="{Binding ResetIndependentPassword}" Text="{Binding Path=Res.Auth_Sync_ResetPassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
-                        <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem IsEnabled="False">
-                            <ui:MenuFlyoutItem.Text>
+                        <!--<ui:FAMenuFlyoutItem Command="{Binding ShowRecoverWindow}" Text="{Binding Path=Res.Auth_Sync_Recover, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Command="{Binding ResetIndependentPassword}" Text="{Binding Path=Res.Auth_Sync_ResetPassword, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <ui:FAMenuFlyoutSeparator />
+                        <ui:FAMenuFlyoutItem IsEnabled="False">
+                            <ui:FAMenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <CompiledBinding
+                                    <CompiledBindingExtension
                                         Mode="OneWay"
                                         Path="Res.Plugin_Version"
                                         Source="{x:Static s:ResourceService.Current}" />
-                                    <CompiledBinding
+                                    <CompiledBindingExtension
                                         Mode="OneWay"
                                         Path="Version"
                                         Source="{x:Static s:Plugin.Instance}" />
                                 </MultiBinding>
-                            </ui:MenuFlyoutItem.Text>
-                        </ui:MenuFlyoutItem>
-                        <!--<ui:MenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:MenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                            </ui:FAMenuFlyoutItem.Text>
+                        </ui:FAMenuFlyoutItem>
+                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -162,16 +162,15 @@
     <spp:PageBase.PaneContent>
         <StackPanel Margin="15,20" Spacing="10">
             <TextBlock
-                Grid.Row="2"
                 VerticalAlignment="Center"
                 Text="{Binding Path=Res.Filter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                 Theme="{StaticResource CaptionTextBlockStyle}" />
-
             <AutoCompleteBox
                 MinWidth="280"
-                VerticalAlignment="Center"
                 Classes="Search"
-                Text="{Binding SearchText}" />
+                Text="{Binding SearchText}"
+                PlaceholderText="搜索令牌" />
+            <TextBlock Text="{Binding Auths.Count, StringFormat=共 {0} 个令牌}" />
 
             <TextBlock
                 Text="{Binding Path=Res.EncryptSettings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
@@ -233,8 +232,8 @@
             Spacing="5">
             <!--<StackPanel.IsVisible>
                 <MultiBinding Converter="{x:Static BoolConverters.And}">
-                    <CompiledBinding Path="!IsVerificationPass" />
-                    <CompiledBinding Path="!!!Auths.Count" />
+                    <CompiledBindingExtension Path="!IsVerificationPass" />
+                    <CompiledBindingExtension Path="!!!Auths.Count" />
                 </MultiBinding>
             </StackPanel.IsVisible>-->
             <TextBlock
@@ -256,8 +255,8 @@
             IsVisible="{Binding IsVerificationPass}">
             <!--<spp:ContentLoader.IsVisible>
                 <MultiBinding Converter="{x:Static BoolConverters.And}">
-                    <CompiledBinding Path="!IsVerificationPass" />
-                    <CompiledBinding Path="!!Auths.Count" />
+                    <CompiledBindingExtension Path="!IsVerificationPass" />
+                    <CompiledBindingExtension Path="!!Auths.Count" />
                 </MultiBinding>
             </spp:ContentLoader.IsVisible>-->
             <spp:ContentLoader.NoResultMessage>
@@ -273,14 +272,15 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
             </spp:ContentLoader.NoResultMessage>
-            <ItemsRepeater ItemsSource="{Binding Auths}">
+            <ItemsRepeater x:Name="AuthRepeater" HorizontalCacheLength="0" ItemsSource="{Binding Auths}" VerticalCacheLength="1">
                 <ItemsRepeater.Layout>
                     <UniformGridLayout
                         ItemsJustification="Start"
-                        ItemsStretch="Uniform"
-                        MinColumnSpacing="10"
-                        MinItemWidth="362"
-                        MinRowSpacing="10" />
+                        ItemsStretch="Fill"
+                        MinColumnSpacing="8"
+                        MinItemHeight="108"
+                        MinItemWidth="280"
+                        MinRowSpacing="8" />
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate DataType="{x:Type spp:AuthenticatorItemModel}">
@@ -292,24 +292,45 @@
                                         Header="{Binding Path=Res.LocalAuth_Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                         ToolTip.Tip="{Binding Path=Res.LocalAuth_Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="Copy" />
+                                            <ui:FASymbolIcon Symbol="Copy" />
                                         </MenuItem.Icon>
                                     </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding EditAuthNameAsync}"
+                                        Header="{Binding Path=Res.Auth_EditName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        <MenuItem.Icon>
+                                            <ui:FASymbolIcon Symbol="Edit" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem
+                                        Command="{Binding ShowSteamTradeWindow}"
+                                        Header="{Binding Path=Res.LocalAuth_AuthTrade, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                        IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}">
+                                        <MenuItem.Icon>
+                                            <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9D5;" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+	                                <MenuItem
+		                                Command="{Binding ShowSteamQrLoginWindow}"
+		                                Header="扫描屏幕二维码登录 Steam"
+		                                IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}">
+		                                <MenuItem.Icon>
+			                                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
+		                                </MenuItem.Icon>
+	                                </MenuItem>
                                     <MenuItem Header="-" />
                                     <MenuItem
-                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexMoveUp}"
-                                        CommandParameter="{Binding}"
+                                        Click="OnMoveAuthenticatorUp"
                                         Header="{Binding Path=Res.Up, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="ChevronUp" />
+                                            <ui:FASymbolIcon Symbol="ChevronUp" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
-                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).AuthenticatorIndexMoveDown}"
-                                        CommandParameter="{Binding}"
+                                        Click="OnMoveAuthenticatorDown"
                                         Header="{Binding Path=Res.MoveDown, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="ChevronDown" />
+                                            <ui:FASymbolIcon Symbol="ChevronDown" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <!--<MenuItem
@@ -317,41 +338,16 @@
                                         CommandParameter="{Binding}"
                                         Header="{Binding Path=Res.FixedTop, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="Pin" />
+                                            <ui:FASymbolIcon Symbol="Pin" />
                                         </MenuItem.Icon>
                                     </MenuItem>-->
                                     <MenuItem Header="-" />
                                     <MenuItem
-                                        Command="{Binding ShowQrCode}"
+                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).ShowAuthenticatorManagement}"
                                         CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.DisplayQRCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                        Header="详情与导出">
                                         <MenuItem.Icon>
-                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                    <MenuItem
-                                        Command="{Binding ShowDetailData}"
-                                        CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.ViewDetailedData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                        <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="Calendar" />
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                    <MenuItem
-                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).DefaultExport}"
-                                        CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.DefaultExport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                                        <MenuItem.Icon>
-                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                    <MenuItem
-                                        Command="{Binding $parent[spp:PageBase].((spp:AuthenticatorHomePageViewModel)DataContext).ExportAuthWithSdaFile}"
-                                        CommandParameter="{Binding}"
-                                        Header="{Binding Path=Res.Auth_ExportmaFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                                        IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}">
-                                        <MenuItem.Icon>
-                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xEDE1;" />
+                                            <ui:FASymbolIcon Symbol="Calendar" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem Header="-" />
@@ -361,7 +357,7 @@
                                         Header="{Binding Path=Res.LocalAuth_RemoveAuth, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
                                         IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}">
                                         <MenuItem.Icon>
-                                            <ui:FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC9;" />
+                                            <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC9;" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem
@@ -370,7 +366,7 @@
                                         Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                                         Header="{Binding Path=Res.LocalAuth_Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
                                         <MenuItem.Icon>
-                                            <ui:SymbolIcon Symbol="Delete" />
+                                            <ui:FASymbolIcon Symbol="Delete" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                 </MenuFlyout>
@@ -380,5 +376,27 @@
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
         </spp:ContentLoader>
+        <Canvas x:Name="DragOverlay" ClipToBounds="False" IsHitTestVisible="False">
+            <Border
+                x:Name="DragPreview"
+                x:DataType="spp:AuthenticatorItemModel"
+                Padding="12"
+                Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+                BorderBrush="{DynamicResource AccentFillColorDefaultBrush}"
+                BorderThickness="2"
+                BoxShadow="{StaticResource InfoBoxShadow}"
+                CornerRadius="6"
+                IsVisible="False"
+                Opacity="0.96">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                    <PathIcon x:Name="DragPreviewIcon" Width="20" Height="20" VerticalAlignment="Top" />
+                    <StackPanel Grid.Column="1" Spacing="4">
+                        <TextBlock FontWeight="SemiBold" Text="{Binding AuthName}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding DisplayPlatform}" />
+                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="松开放置" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Canvas>
     </Panel>
 </spp:PageBase>

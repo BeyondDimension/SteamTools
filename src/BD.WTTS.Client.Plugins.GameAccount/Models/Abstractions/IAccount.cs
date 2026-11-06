@@ -14,6 +14,12 @@ public interface IAccount : IReactiveObject
 
     bool MostRecent { get; set; }
 
+    /// <summary>Whether the account should show the recent-login badge.</summary>
+    bool IsRecentLogin { get; }
+
+    /// <summary>Whether Steam reports that the account credentials are remembered.</summary>
+    bool RememberPassword { get; }
+
     string? ImagePath { get; set; }
 
     string? AvatarFramePath { get; set; }

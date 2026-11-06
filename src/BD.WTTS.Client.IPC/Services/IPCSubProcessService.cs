@@ -90,7 +90,8 @@ public interface IPCSubProcessService : IDisposable
             return (int)CommandExitCode.NotFoundMainProcessId;
 
 #if DEBUG
-        Log.Info(nameof(IPCSubProcessServiceImpl), "客户端正在校验服务端进程，{pid}", pid);
+        // Logging is configured below, after the process arguments are validated.
+        Console.WriteLine($"客户端正在校验服务端进程，{pid}");
 #endif
         // 验证要连接的服务端进程是否为自己的程序
         var ckPid = IPCSubProcessServiceImpl.CheckBePid(mainProcess);
@@ -227,6 +228,7 @@ public interface IPCSubProcessService : IDisposable
         }
         catch (Exception ex)
         {
+            NLog.LogManager.GetLogger(nameof(IPCSubProcessServiceImpl)).Error(ex, "IPC subprocess startup failed.");
             tcs.TrySetException(ex);
         }
 

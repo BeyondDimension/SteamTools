@@ -86,6 +86,7 @@ public sealed partial class PlatformAccount
         {
             if (IsLoading) return;
             IsLoading = true;
+            var loadedSteamPath = IsSteamPlatform ? ExePath : null;
             try
             {
                 Accounts.Clear();
@@ -102,7 +103,7 @@ public sealed partial class PlatformAccount
                         }
                 });
 
-                if (users.Any_Nullable())
+                if ((!IsSteamPlatform || string.Equals(loadedSteamPath, ExePath, StringComparison.Ordinal)) && users.Any_Nullable())
                     Accounts = new ObservableCollection<IAccount>(users.OrderByDescending(x => x.LastLoginTime));
             }
             catch (Exception ex)
@@ -112,6 +113,8 @@ public sealed partial class PlatformAccount
             finally
             {
                 IsLoading = false;
+                if (IsSteamPlatform && !string.Equals(loadedSteamPath, ExePath, StringComparison.Ordinal))
+                    LoadUsers();
             }
         });
     }

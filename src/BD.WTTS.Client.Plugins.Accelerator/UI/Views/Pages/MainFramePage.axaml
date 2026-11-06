@@ -11,6 +11,12 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Panel>
+        <StackPanel Name="WaitingForService" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12" ZIndex="1" MaxWidth="420" Margin="20">
+            <ProgressBar Name="ServiceProgress" Width="45" Height="45" Classes="Circle" IsIndeterminate="True" />
+            <TextBlock Name="ServiceLoadingText" HorizontalAlignment="Center" Text="{Binding Path=Res.Loading, Source={x:Static s:ResourceService.Current}}" />
+            <TextBlock Name="ServiceErrorText" IsVisible="False" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="无法连接加速服务。请检查加速组件是否正常启动，并允许管理员权限，然后重试。" />
+            <Button Name="RetryServiceButton" IsVisible="False" HorizontalAlignment="Center" Content="重试连接" Click="RetryServiceButton_Click" />
+        </StackPanel>
         <TabStrip
             Name="Tabs"
             Margin="9"
@@ -36,7 +42,7 @@
                         Margin="-5,0,3,0"
                         VerticalAlignment="Center"
                         CornerRadius="2">
-                        <ui:ImageIcon
+                        <ui:FAImageIcon
                             Width="24"
                             Height="24"
                             Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico" />
@@ -58,7 +64,7 @@
                         Margin="-5,0,3,0"
                         VerticalAlignment="Center"
                         CornerRadius="2">
-                        <ui:ImageIcon
+                        <ui:FAImageIcon
                             Width="24"
                             Height="24"
                             Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico" />
@@ -70,6 +76,6 @@
                 </TabStripItem.Tag>
             </TabStripItem>
         </TabStrip>
-        <ui:Frame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
+        <ui:FAFrame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
     </Panel>
 </UserControl>
