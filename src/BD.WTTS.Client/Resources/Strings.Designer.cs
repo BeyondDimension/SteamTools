@@ -5531,15 +5531,6 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DNS 驱动拦截模式.
-        /// </summary>
-        public static string ProxyMode_DNSIntercept {
-            get {
-                return ResourceManager.GetString("ProxyMode_DNSIntercept", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hosts 代理模式.
         /// </summary>
         public static string ProxyMode_Hosts {
@@ -5554,15 +5545,6 @@ namespace BD.WTTS.Client.Resources {
         public static string ProxyMode_ProxyOnly {
             get {
                 return ResourceManager.GetString("ProxyMode_ProxyOnly", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   查找类似 DNS 的本地化字符串（NixOS dnsmasq 动态劫持模式）。
-        /// </summary>
-        public static string ProxyMode_DNS {
-            get {
-                return ResourceManager.GetString("ProxyMode_DNS", resourceCulture);
             }
         }
         

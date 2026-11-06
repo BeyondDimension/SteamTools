@@ -3136,9 +3136,6 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
     <value>Steam 路徑已更新。如果本機 Steam 元件已載入，請重新啟動 Watt Toolkit 以切換元件路徑。</value>
   </data>
-  <data name="ProxyMode_DNS" xml:space="preserve">
-    <value>DNS</value>
-  </data>
   <data name="Error_BindPortError_" xml:space="preserve">
     <value>權限不足或連接埠{0}被佔用，請手動授權或更換連接埠。</value>
   </data>

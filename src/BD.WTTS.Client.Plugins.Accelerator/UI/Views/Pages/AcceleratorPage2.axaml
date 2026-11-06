@@ -217,6 +217,7 @@
 
 			<TabStrip
 				Name="ProxyModeTab"
+				IsEnabled="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}"
 				Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
 				CornerRadius="{StaticResource ControlCornerRadius}"
 				ItemContainerTheme="{StaticResource TabItemStyle}"
