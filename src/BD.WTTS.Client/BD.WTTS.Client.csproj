@@ -212,7 +212,6 @@
 		<!--<PackageReference Include="Microsoft.Extensions.DependencyModel" />-->
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
 		<PackageReference Include="Avalonia" />
-		<PackageReference Include="Avalonia.BuildServices" VersionOverride="11.3.2" PrivateAssets="all" />
 		<!--<PackageReference Include="Facepunch.Steamworks" />-->
 		<!--<PackageReference Include="Avalonia.Desktop" />
 		<PackageReference Include="Avalonia.ReactiveUI" />

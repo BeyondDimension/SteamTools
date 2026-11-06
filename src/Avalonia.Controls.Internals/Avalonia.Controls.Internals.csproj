@@ -17,7 +17,6 @@
 	<ItemGroup>
 		<PackageReference Include="BD.Common" />
 		<PackageReference Include="Avalonia" />
-		<PackageReference Include="Avalonia.BuildServices" VersionOverride="11.3.2" PrivateAssets="all" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX.props" />
