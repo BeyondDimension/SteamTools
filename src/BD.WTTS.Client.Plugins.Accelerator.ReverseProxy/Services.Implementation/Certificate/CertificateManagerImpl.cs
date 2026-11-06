@@ -81,6 +81,11 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             }
             return rootCert;
         }
+        catch (CryptographicException ex)
+        {
+            Log.Error(TAG, ex, nameof(LoadRootCertificate));
+            throw;
+        }
         catch (Exception ex)
         {
             Log.Error(TAG, ex, nameof(LoadRootCertificate));
@@ -301,37 +306,51 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         ICertificateManager.Constants.TrustRootCertificate(GetCerFilePathGeneratedWhenNoFileExists, platformService, RootCertificate);
     }
 
-    [Obsolete("use ICertificateManager.Constants.TrustRootCertificate")]
-    [SupportedOSPlatform("macOS")]
-    void TrustRootCertificateMacOS()
+    public StartProxyResultCode TrustRootCertificateWithResult()
     {
-        var filePath = GetCerFilePathGeneratedWhenNoFileExists();
-        if (filePath == null) return;
-        var state = platformService.TrustRootCertificateAsync(filePath);
-        //await platformService.RunShellAsync($"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"", true);
-        if (state.HasValue && !state.Value)
-            TrustRootCertificateMacOS();
+        var serviceBefore = CertificateFailureDiagnostics.Capture();
+        try
+        {
+            TrustRootCertificate();
+            return IsRootCertificateInstalled ? StartProxyResultCode.Ok : StartProxyResultCode.TrustRootCertificateFail;
+        }
+        catch (Exception ex)
+        {
+            return GetCertificateFailureCode(ex, serviceBefore);
+        }
     }
 
-    [Obsolete("use ICertificateManager.Constants.TrustRootCertificate")]
-    [SupportedOSPlatform("Linux")]
-    void TrustRootCertificateLinux()
-    {
-        var filePath = GetCerFilePathGeneratedWhenNoFileExists();
-        if (filePath == null) return;
-        var state = platformService.TrustRootCertificateAsync(filePath);
-        //部分系统还是只能手动导入浏览器
-        Browser2.Open(Constants.Urls.OfficialWebsite_LiunxSetupCer);
-        if (state.HasValue && !state.Value)
-            GetCerFilePathGeneratedWhenNoFileExists();
-        //全部屏蔽 Linux 浏览器全部不信任系统证书 只能手动导入 如需导入请手动操作
-        //var crtFile = $"{Path.Combine(IOPath.AppDataDirectory, $@"{ICertificateManager.CertificateName}.Certificate.crt")}";
-        ////复制一份Crt导入系统用 ca-certificates 只识别Crt后缀 
-        //platformService.RunShell($"cp -f \"{filePath}\" \"{crtFile}\"", false);
-        //platformService.RunShell($"cp -f \"{crtFile}\" \"/usr/local/share/ca-certificates\" && sudo update-ca-certificates", true);
-        //浏览器不信任系统证书列表
-        //Browser2.Open(Constants.Urls.OfficialWebsite_LiunxSetupCer);
-    }
+    //[Obsolete("use ICertificateManager.Constants.TrustRootCertificate")]
+    //[SupportedOSPlatform("macOS")]
+    //void TrustRootCertificateMacOS()
+    //{
+    //    var filePath = GetCerFilePathGeneratedWhenNoFileExists();
+    //    if (filePath == null) return;
+    //    var state = platformService.TrustRootCertificateAsync(filePath);
+    //    //await platformService.RunShellAsync($"security add-trusted-cert -d -r trustRoot -k /Users/{Environment.UserName}/Library/Keychains/login.keychain-db \\\"{filePath}\\\"", true);
+    //    if (state.HasValue && !state.Value)
+    //        TrustRootCertificateMacOS();
+    //}
+
+    //[Obsolete("use ICertificateManager.Constants.TrustRootCertificate")]
+    //[SupportedOSPlatform("Linux")]
+    //void TrustRootCertificateLinux()
+    //{
+    //    var filePath = GetCerFilePathGeneratedWhenNoFileExists();
+    //    if (filePath == null) return;
+    //    var state = platformService.TrustRootCertificateAsync(filePath);
+    //    //部分系统还是只能手动导入浏览器
+    //    Browser2.Open(Constants.Urls.OfficialWebsite_LiunxSetupCer);
+    //    if (state.HasValue && !state.Value)
+    //        GetCerFilePathGeneratedWhenNoFileExists();
+    //    //全部屏蔽 Linux 浏览器全部不信任系统证书 只能手动导入 如需导入请手动操作
+    //    //var crtFile = $"{Path.Combine(IOPath.AppDataDirectory, $@"{ICertificateManager.CertificateName}.Certificate.crt")}";
+    //    ////复制一份Crt导入系统用 ca-certificates 只识别Crt后缀 
+    //    //platformService.RunShell($"cp -f \"{filePath}\" \"{crtFile}\"", false);
+    //    //platformService.RunShell($"cp -f \"{crtFile}\" \"/usr/local/share/ca-certificates\" && sudo update-ca-certificates", true);
+    //    //浏览器不信任系统证书列表
+    //    //Browser2.Open(Constants.Urls.OfficialWebsite_LiunxSetupCer);
+    //}
 
     /// <inheritdoc cref="ICertificateManager.SetupRootCertificate"/>
     public bool SetupRootCertificate()
@@ -346,6 +365,30 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             return isRootCertificateInstalled;
         }
         return true;
+    }
+
+    internal static StartProxyResultCode GetCertificateFailureCode(Exception exception, KeyIsolationSnapshot serviceBefore)
+    {
+        Log.Error(TAG, exception, "Certificate operation failed.");
+        return CertificateFailureDiagnostics.Diagnose(exception, serviceBefore) switch
+        {
+            CertificateFailureReason.KeyIsolationDisabled => StartProxyResultCode.KeyIsolationServiceDisabled,
+            CertificateFailureReason.KeyIsolationStopped => StartProxyResultCode.KeyIsolationServiceStopped,
+            _ => StartProxyResultCode.CertificateOperationFailed,
+        };
+    }
+
+    public StartProxyResultCode SetupRootCertificateWithResult()
+    {
+        var serviceBefore = CertificateFailureDiagnostics.Capture();
+        try
+        {
+            return SetupRootCertificate() ? StartProxyResultCode.Ok : StartProxyResultCode.CertificateOperationFailed;
+        }
+        catch (Exception ex)
+        {
+            return GetCertificateFailureCode(ex, serviceBefore);
+        }
     }
 
     /// <inheritdoc cref="ICertificateManager.DeleteRootCertificate"/>

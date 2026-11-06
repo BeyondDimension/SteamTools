@@ -340,21 +340,44 @@ internal partial class NetworkTestService : INetworkTestService
             CancellationToken cancellationToken = default
         )
     {
-        using UdpClient udpClient = new UdpClient(dnsServerIp, dnsServerPort);
-        udpClient.Client.SendTimeout = 3000;
-        udpClient.Client.ReceiveTimeout = 3000;
-        var query = new DnsQueryUdpRequest(testDomain, dnsRecordType);
+        if (string.Equals(dnsServerIp, "System Default", StringComparison.OrdinalIgnoreCase) &&
+            ProxySettings.ProxyModeValue is ProxyMode.Hosts or ProxyMode.DNSIntercept)
+        {
+            // In these modes the proxy itself must avoid system hosts/interception.
+            foreach (var safeServer in IDnsAnalysisService.DNS_Dnspods)
+            {
+                try
+                {
+                    var result = await TestDNSAsync(testDomain, safeServer.ToString(), dnsServerPort, dnsRecordType, cancellationToken);
+                    if (result.Address.Length > 0)
+                        return result;
+                }
+                catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
+                catch (Exception) { }
+            }
+            return (0, Array.Empty<IPAddress>());
+        }
 
+        using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        timeout.CancelAfter(TimeSpan.FromSeconds(3));
         Stopwatch watch = Stopwatch.StartNew();
+        if (dnsServerIp == "System Default")
+        {
+            var addresses = await Dns.GetHostAddressesAsync(testDomain, timeout.Token).WaitAsync(timeout.Token);
+            return (watch.ElapsedMilliseconds, addresses);
+        }
 
-        await udpClient.SendAsync(query, cancellationToken);
-
-        var receivedData = await udpClient.ReceiveAsync(cancellationToken);
+        var server = IPAddress.Parse(dnsServerIp);
+        using UdpClient udpClient = new UdpClient(server.AddressFamily);
+        udpClient.Connect(new IPEndPoint(server, dnsServerPort));
+        var query = new DnsQueryUdpRequest(testDomain, dnsRecordType);
+        await udpClient.SendAsync(query, timeout.Token);
+        var receivedData = await udpClient.ReceiveAsync(timeout.Token);
 
         watch.Stop();
 
         var dnsQueryResponse = new DnsQueryUdpResponse(receivedData.Buffer);
-
+        ValidateDnsResponse(dnsQueryResponse, query.QueryId);
         return (watch.ElapsedMilliseconds, dnsQueryResponse.GetAddresses().ToArray());
     }
 
@@ -372,33 +395,38 @@ internal partial class NetworkTestService : INetworkTestService
         DnsQueryAnswerRecord.DnsRecordType dnsRecordType = DnsQueryAnswerRecord.DnsRecordType.A,
         CancellationToken cancellationToken = default)
     {
-        var handler = new HttpClientHandler
+        if (!Uri.TryCreate(dohServer, UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps)
+            throw new ArgumentException("DoH server must be an HTTPS URI.", nameof(dohServer));
+
+        using var handler = new HttpClientHandler
         {
             UseCookies = false,
             UseProxy = false,
             Proxy = HttpNoProxy.Instance,
         };
         using HttpClient client = new HttpClient(handler);
-        client.Timeout = TimeSpan.FromSeconds(3);
-        string queryUrl = $"{dohServer}?name={testDomain}&type={dnsRecordType}";
+        using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        timeout.CancelAfter(TimeSpan.FromSeconds(3));
+        using var request = new HttpRequestMessage(HttpMethod.Post, uri);
+        request.Headers.TryAddWithoutValidation("Accept", "application/dns-message");
+        var query = new DnsQueryUdpRequest(testDomain, dnsRecordType);
+        request.Content = new ByteArrayContent(query);
+        request.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/dns-message");
 
         Stopwatch watch = Stopwatch.StartNew();
+        using var response = await client.SendAsync(request, HttpCompletionOption.ResponseContentRead, timeout.Token);
+        response.EnsureSuccessStatusCode();
+        var bytes = await response.Content.ReadAsByteArrayAsync(timeout.Token);
+        watch.Stop();
+        var dnsResponse = new DnsQueryUdpResponse(bytes);
+        ValidateDnsResponse(dnsResponse, query.QueryId);
+        return (watch.ElapsedMilliseconds, dnsResponse.GetAddresses().ToArray());
+    }
 
-        HttpResponseMessage? resp = null;
-        try
-        {
-            resp = await client.GetAsync(queryUrl, HttpCompletionOption.ResponseContentRead, cancellationToken);
-
-            resp.EnsureSuccessStatusCode();
-        }
-        finally
-        {
-            watch.Stop();
-        }
-
-        var queryResp = await resp.Content.ReadFromJsonAsync<DnsQueryJsonResponse>();
-
-        return (watch.ElapsedMilliseconds, queryResp?.GetAddresses().ToArray() ?? Array.Empty<IPAddress>());
+    static void ValidateDnsResponse(DnsQueryUdpResponse response, ushort queryId)
+    {
+        if (response.QueryId != queryId || (response.Flags & 0x8000) == 0 || (response.Flags & 0x000f) != 0)
+            throw new IOException("DNS response does not match the query or indicates an error.");
     }
 
     #region DNS 解析定义
@@ -440,8 +468,6 @@ internal partial class NetworkTestService : INetworkTestService
             Answers = new List<DnsQueryAnswerRecord>();
 
             Position = ParseRecords(origin, Position, AnswerCount, Answers);
-            Position = ParseRecords(origin, Position, AuthorityCount, Answers);
-            Position = ParseRecords(origin, Position, AdditionalCount, Answers);
         }
 
         private static int ParseRecords(byte[] response, int position, int recordCount, List<DnsQueryAnswerRecord> answers)
@@ -490,6 +516,7 @@ internal partial class NetworkTestService : INetworkTestService
                     if (string.IsNullOrEmpty(parsedCName))
                     {
                         Log.Error(nameof(NetworkTestService), $"解析 DNS CName字段异常 name :{parsedName}, data length :{dataLength}");
+                        position += dataLength;
                         continue;
                     }
 
@@ -505,6 +532,7 @@ internal partial class NetworkTestService : INetworkTestService
                 else
                 {
                     Log.Error(nameof(NetworkTestService), $"未支持的 DNS响应记录 type :{@type} ,class :{@class} name :{parsedName}, data length :{dataLength}");
+                    position += dataLength;
                     continue;
                 }
 
@@ -519,10 +547,13 @@ internal partial class NetworkTestService : INetworkTestService
             StringBuilder nameBuilder = new StringBuilder();
             int originalPosition = position;
             bool isPointer = false;
+            int steps = 0;
 
             // 0表示结束
             while (response[position] != 0)
             {
+                if (++steps > response.Length)
+                    throw new FormatException("Invalid DNS name compression.");
                 // dns 协议 名称可能是 指针 或者 直接表示
                 // 如果大于等于 192 表示是指针开始
                 if (response[position] >= 192)

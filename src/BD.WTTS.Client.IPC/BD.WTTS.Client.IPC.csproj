@@ -49,7 +49,8 @@
 	<ItemGroup>
 		<!-- PackageReference -->
 		<ProjectReference Include="..\..\ref\Common\src\BD.Common\BD.Common.csproj" />
-		<PackageReference Include="dotnetCampus.Ipc" />
+		<ProjectReference Include="..\..\ref\dotnetCampus.Ipc\src\dotnetCampus.Ipc.Analyzers\dotnetCampus.Ipc.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\ref\dotnetCampus.Ipc\src\dotnetCampus.Ipc\dotnetCampus.Ipc.csproj" />
 		<PackageReference Include="NLog" />
 		<PackageReference Include="NLog.Extensions.Logging" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" />

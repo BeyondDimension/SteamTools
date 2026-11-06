@@ -40,13 +40,15 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
 
     public override bool ProxyRunning => app != null;
 
-    protected override void CheckRootCertificate()
+    protected override StartProxyResultCode CheckRootCertificate()
     {
         if (OperatingSystem.IsWindows())
         {
-            ICertificateManager.Constants.CheckRootCertificate(
+            var certificateResult = ICertificateManager.Constants.CheckRootCertificate(
                 platformService,
                 CertificateManager);
+            if (certificateResult != StartProxyResultCode.Ok)
+                return certificateResult;
 
             try
             {
@@ -65,9 +67,12 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                     {
                         try
                         {
-                            ICertificateManager.Constants.CheckRootCertificate(
+                            var result = ICertificateManager.Constants.CheckRootCertificate(
                                 platformService,
                                 CertificateManager);
+
+                            if (result != StartProxyResultCode.Ok)
+                                return;
 
                             await StopProxyAsync();
                             await StartProxyImpl();
@@ -85,6 +90,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                 e.LogAndShowT(TAG, msg: "CheckRootCertificate Error");
             }
         }
+        return StartProxyResultCode.Ok;
     }
 
     private System.Timers.Timer? _certificateTimer;
@@ -96,7 +102,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         _certificateTimer = null;
     }
 
-    protected override Task<StartProxyResult> StartProxyImpl() => Task.FromResult(StartProxyCore());
+    protected override Task<StartProxyResult> StartProxyImpl() => StartProxyCoreAsync();
 
     readonly string[] allowedHosts = ["*",];
 
@@ -142,7 +148,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
     }
 #endif
 
-    StartProxyResult StartProxyCore()
+    async Task<StartProxyResult> StartProxyCoreAsync()
     {
 #if WINDOWS
         if (!IcuTest(allowedHosts))
@@ -161,6 +167,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                 WebRootPath = RootPath,
             });
 
+            builder.Logging.ClearProviders();
             builder.Logging.AddProvider(new LogConsoleService.Utf8StringLoggerProvider(AssemblyInfo.Accelerator));
 
             builder.Services.Configure<HostFilteringOptions>(o =>
@@ -209,34 +216,41 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
             app.UseHostFiltering();
             StartupConfigure(app);
 
-            Exception? exception = null;
-            const int timeout_ms = 650;
-            var waitTask = Task.Factory.StartNew(() =>
-            {
-                Thread.Sleep(timeout_ms);
-            });
-            var appTask = Task.Factory.StartNew(() =>
-            {
-                try
-                {
-                    app.Run();
-                }
-                catch (Exception ex)
-                {
-                    app = null;
-                    exception = ex;
-                    OnException(ex);
-                    //toast.ShowAppend(IPCToastService.ToastText.CommunityFix_OnRunCatch, Environment.NewLine + "ExceptionMessage: " + ex.Message);
-                }
-            }, TaskCreationOptions.LongRunning);
-            Task.WaitAny(waitTask, appTask);
-            return exception;
+            await app.StartAsync();
+            return StartProxyResultCode.Ok;
         }
         catch (Exception ex)
         {
             OnException(ex);
-            return ex;
+            StopCertificateTimer();
+            var failedApp = app;
+            app = null;
+            if (failedApp != null)
+            {
+                try
+                {
+                    await failedApp.DisposeAsync();
+                }
+                catch (Exception disposeException)
+                {
+                    OnException(disposeException);
+                }
+            }
+            return IsListenerBindFailure(ex)
+                ? new StartProxyResult(StartProxyResultCode.ListenerBindFailed, ex.ToString())
+                : ex;
         }
+    }
+
+    static bool IsListenerBindFailure(Exception exception)
+    {
+        for (Exception? current = exception; current != null; current = current.InnerException)
+        {
+            if (current is System.Net.Sockets.SocketException socketException &&
+                socketException.SocketErrorCode is System.Net.Sockets.SocketError.AccessDenied or System.Net.Sockets.SocketError.AddressAlreadyInUse)
+                return true;
+        }
+        return false;
     }
 
     public void Exit()

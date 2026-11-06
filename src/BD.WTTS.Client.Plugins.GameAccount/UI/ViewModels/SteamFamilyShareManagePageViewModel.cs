@@ -16,7 +16,7 @@ public sealed partial class SteamFamilyShareManagePageViewModel : WindowViewMode
         //_AuthorizedSourceList = new SourceCache<AuthorizedDevice, long>(t => t.SteamId3_Int);
         //_AuthorizedSourceList
         // .Connect()
-        // .ObserveOn(RxApp.MainThreadScheduler)
+        // .ObserveOn(RxSchedulers.MainThreadScheduler)
         // .Sort(SortExpressionComparer<AuthorizedDevice>.Ascending(x => x.Index))
         // .Bind(out _AuthorizedList)
         // .Subscribe(_ => this.RaisePropertyChanged(nameof(IsAuthorizedListEmpty)));

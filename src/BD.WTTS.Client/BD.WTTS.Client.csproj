@@ -121,12 +121,13 @@
 		<PackageReference Include="NLog" />
 		<PackageReference Include="NLog.Extensions.Logging" />
 		<PackageReference Include="Net.Codecrete.QrCodeGenerator" />
+		<!-- Official plugins are loaded dynamically; their shared runtime dependencies ship with the host. -->
+		<PackageReference Include="ZXing.Net" />
 		<PackageReference Include="Fleck" />
 		<PackageReference Include="Stun.Net" />
 		<PackageReference Include="System.Linq.Async" />
 		<!--<PackageReference Include="Portable.BouncyCastle" />-->
 		<PackageReference Include="ReactiveUI.Fody" />
-		<PackageReference Include="dotnetCampus.Ipc" />
 		<PackageReference Include="fusillade" />
 		<PackageReference Include="Splat.Drawing" />
 		<PackageReference Include="System.Drawing.Common" />
@@ -140,6 +141,8 @@
 		<PackageReference Include="BD.Any.AppCenter.Analytics" />-->
 		<ProjectReference Include="..\..\ref\appcenter-sdk-dotnet\SDK\AppCenterAnalytics\BD.AppCenter.Analytics.Any\BD.AppCenter.Analytics.Any.csproj" />
 		<ProjectReference Include="..\..\ref\appcenter-sdk-dotnet\SDK\AppCenter\BD.AppCenter.Any\BD.AppCenter.Any.csproj" />
+		<ProjectReference Include="..\..\ref\dotnetCampus.Ipc\src\dotnetCampus.Ipc.Analyzers\dotnetCampus.Ipc.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\ref\dotnetCampus.Ipc\src\dotnetCampus.Ipc\dotnetCampus.Ipc.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">

@@ -167,6 +167,8 @@ partial class Startup // 配置 Host
 #if WINDOWS
                         // 在 Windows 上还原 .NET Framework 中网络请求跟随系统网络代理变化而动态切换代理行为
                         HttpClient.DefaultProxy = DynamicHttpWindowsProxy.Instance;
+#elif LINUX
+                        HttpClient.DefaultProxy = new LinuxAcceleratorWebProxy(HttpClient.DefaultProxy);
 #endif
                         break;
                 }

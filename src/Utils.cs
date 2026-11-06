@@ -78,7 +78,7 @@ public static partial class ProjectUtils
     /// </summary>
     public const string tfm_ =
 #if WINDOWS
-    "-windows10.0.19041";
+    "-windows10.0.19041.0";
 #elif LINUX
     "";
 #elif MACCATALYST

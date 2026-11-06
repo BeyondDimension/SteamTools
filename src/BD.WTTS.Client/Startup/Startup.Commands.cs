@@ -169,6 +169,7 @@ partial class Startup // 自定义控制台命令参数
                 if (currentuser != null)
                 {
                     currentuser.MostRecent = true;
+                    currentuser.AutoLogin = true;
                     steamService.UpdateLocalUserData(users);
                     await steamService.SetSteamCurrentUserAsync(account);
                 }
@@ -413,58 +414,6 @@ partial class Startup // 自定义控制台命令参数
         });
         rootCommand.Subcommands.Add(proxy);
 
-        // -clt ayaneo -path
-        var ayaneo_path = new Option<string>("-path")
-        {
-            Description = "json 生成路径",
-        };
-        var ayaneo = new Command("ayaneo", "生成 ayaneo 数据在指定位置")
-        {
-            ayaneo_path,
-        };
-        ayaneo.SetAction(async parseResult =>
-        {
-            var path = parseResult.GetValue(ayaneo_path);
-
-            RunUIApplication(AppServicesLevel.Steam);
-            await WaitConfiguredServices;
-
-            var steamService = ISteamService.Instance;
-            var users = steamService.GetRememberUserList();
-
-            var accountRemarks =
-                Ioc.Get_Nullable<IPartialGameAccountSettings>()?.AccountRemarks;
-
-            var sUsers = users.Select(s =>
-            {
-                if (accountRemarks?.TryGetValue("Steam-" + s.SteamId64, out var remark) == true &&
-                   !string.IsNullOrEmpty(remark))
-                    s.Remark = remark;
-
-                var title = s.SteamNickName ?? s.SteamId64.ToString(CultureInfo.InvariantCulture);
-                if (!string.IsNullOrEmpty(s.Remark))
-                    title = s.SteamNickName + "(" + s.Remark + ")";
-
-                return new
-                {
-                    Name = title,
-                    Account = s.AccountName,
-                };
-            });
-
-            var content = new
-            {
-                steamppPath = Environment.ProcessPath,
-                steamUsers = sUsers,
-            };
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                path = Path.Combine(IOPath.BaseDirectory, "steampp.json");
-            }
-            File.WriteAllText(path, Serializable.SJSON(content, writeIndented: true));
-        });
-        rootCommand.Subcommands.Add(ayaneo);
-
         // -clt shutdown
         var shutdown = new Command(key_shutdown, "安全结束正在运行的程序")
         {
@@ -500,6 +449,18 @@ partial class Startup // 自定义控制台命令参数
                 return 401;
             if (ModuleName != IPlatformService.IPCRoot.moduleName)
                 return 402;
+
+            if (!int.TryParse(p, out var pid) || pid <= 0)
+                return (int)CommandExitCode.NotFoundMainProcessId;
+
+#if DEBUG
+            Log.Info(nameof(IPCSubProcessServiceImpl), "客户端正在校验服务端进程，{pid}", pid);
+#endif
+            // 验证要连接的服务端进程是否为自己的程序
+            var ckPid = IPCSubProcessServiceImpl.CheckBePid(pid);
+            if (!ckPid)
+                return (int)CommandExitCode.MainProcessIdIncorrect;
+
 
             RunUIApplication(AppServicesLevel.IPCRoot | AppServicesLevel.Hosts);
             await WaitConfiguredServices;

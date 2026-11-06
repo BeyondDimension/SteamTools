@@ -1,5 +1,6 @@
 using BD.WTTS.Properties;
 using BD.WTTS.UI.Views.Pages;
+using BD.WTTS.UI.ViewModels;
 
 namespace BD.WTTS.Plugins;
 
@@ -44,6 +45,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
         if (startup.HasServerApiClient)
         {
             services.AddSingleton<IAccountPlatformAuthenticatorRepository, AccountPlatformAuthenticatorRepository>();
+            services.AddSingleton<ISteamSavedAccountProvider, AuthenticatorSavedSteamAccounts>();
             services.AddSteamAccountService(c => new SocketsHttpHandler() { CookieContainer = c });
         }
     }

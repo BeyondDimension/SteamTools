@@ -20,5 +20,5 @@
         MaxLength="{Binding MaxLength}"
         PasswordChar="{StaticResource PasswordChar}"
         Text="{Binding Value}"
-        Watermark="{Binding Placeholder}" />
+        PlaceholderText="{Binding Placeholder}" />
 </UserControl>

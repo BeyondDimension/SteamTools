@@ -111,7 +111,7 @@ partial class WindowsPlatformServiceImpl
     /// <param name="fileName"></param>
     /// <param name="arguments"></param>
     /// <returns></returns>
-    internal static /*async*/ ValueTask<Process?> StartAsAdministrator(string fileName, string? arguments = null)
+    internal static /*async*/ ValueTask<Process?> StartAsAdministrator(string fileName, string? arguments = null/*, IReadOnlyDictionary<string, string>? environment = null*/)
     {
 #if !DEBUG
         if (IsPrivilegedProcess)
@@ -133,6 +133,14 @@ partial class WindowsPlatformServiceImpl
                 UseShellExecute = true,
                 Verb = "runas",
             };
+            // runas 不起作用
+            //if (environment != null)
+            //{
+            //    foreach (var it in environment)
+            //    {
+            //        psi.Environment[it.Key] = it.Value;
+            //    }
+            //}
             var process_runas = Process.Start(psi);
             return ValueTask.FromResult(process_runas);
         }

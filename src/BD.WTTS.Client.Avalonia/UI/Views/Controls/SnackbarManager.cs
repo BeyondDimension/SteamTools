@@ -11,6 +11,7 @@ namespace BD.WTTS.UI.Views.Controls;
 public class SnackbarManager : TemplatedControl, IManagedNotificationManager
 {
     private IList? _items;
+    private AdornerLayer? _adornerLayer;
 
     /// <summary>
     /// Defines the <see cref="Position"/> property.
@@ -172,22 +173,25 @@ public class SnackbarManager : TemplatedControl, IManagedNotificationManager
     /// <param name="host">The <see cref="Window"/> that will be the host.</param>
     public void Install(TemplatedControl host)
     {
-        var adornerLayer = host.FindDescendantOfType<VisualLayerManager>()?.AdornerLayer;
+        var adornerLayer = AdornerLayer.GetAdornerLayer(host);
 
         if (adornerLayer is not null && !adornerLayer.Children.Contains(this))
         {
-            adornerLayer.ZIndex = int.MaxValue;
+            _adornerLayer = adornerLayer;
+            ZIndex = int.MaxValue;
             adornerLayer.Children.Add(this);
             AdornerLayer.SetAdornedElement(this, adornerLayer);
-
-            var overlayLayer = OverlayLayer.GetOverlayLayer(host);
-            //if (overlayLayer is not null && !overlayLayer.Children.Contains(this))
-            if (overlayLayer is not null)
-            {
-                overlayLayer.ZIndex = adornerLayer.ZIndex - 1;
-                //overlayLayer.Children.Add(this);
-            }
         }
+    }
+
+    internal void Uninstall()
+    {
+        if (_adornerLayer is not { } adornerLayer)
+            return;
+
+        AdornerLayer.SetAdornedElement(this, null);
+        adornerLayer.Children.Remove(this);
+        _adornerLayer = null;
     }
 
     public void UpdatePseudoClasses(NotificationPosition position)

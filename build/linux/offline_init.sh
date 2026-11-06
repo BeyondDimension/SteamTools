@@ -163,7 +163,7 @@ Install_zenity
 Install_jq
 certutil_Init
 Kill_Process
-
+dotnet_path="$base_path/dotnet"
 dotnet_exec="$dotnet_path/dotnet/dotnet"
 if [ -x "$dotnet_exec" ]; then
     echo "文件具有执行权限。"

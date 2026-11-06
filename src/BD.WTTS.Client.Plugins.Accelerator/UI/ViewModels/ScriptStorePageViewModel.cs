@@ -11,7 +11,7 @@ public partial class ScriptStorePageViewModel : ViewModelBase
         _ScriptsSourceList
             .Connect()
             //.Filter(scriptFilter)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Sort(SortExpressionComparer<ScriptDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
             .Bind(out _Scripts)
             .Subscribe(_ => this.RaisePropertyChanged(nameof(IsScriptsEmpty)));

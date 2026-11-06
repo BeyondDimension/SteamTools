@@ -86,6 +86,7 @@ public sealed partial class PlatformAccount
         {
             if (IsLoading) return;
             IsLoading = true;
+            var loadedSteamPath = IsSteamPlatform ? ExePath : null;
             try
             {
                 Accounts.Clear();
@@ -102,7 +103,7 @@ public sealed partial class PlatformAccount
                         }
                 });
 
-                if (users.Any_Nullable())
+                if ((!IsSteamPlatform || string.Equals(loadedSteamPath, ExePath, StringComparison.Ordinal)) && users.Any_Nullable())
                     Accounts = new ObservableCollection<IAccount>(users.OrderByDescending(x => x.LastLoginTime));
             }
             catch (Exception ex)
@@ -112,6 +113,8 @@ public sealed partial class PlatformAccount
             finally
             {
                 IsLoading = false;
+                if (IsSteamPlatform && !string.Equals(loadedSteamPath, ExePath, StringComparison.Ordinal))
+                    LoadUsers();
             }
         });
     }
@@ -134,7 +137,7 @@ public sealed partial class PlatformAccount
         var iconSize = GetImgResolutionPower(Math.Min(avatarImgBitmap.Width, avatarImgBitmap.Height), gear);
         using var fBitmap = DrawIcon(avatarImgBitmap, SKBitmap.Decode(IApplication.Login_512), iconSize.Max());
         SKBitmap[]? bitmaps = new[] { fBitmap }.Concat(iconSize.Where(x => x != iconSize.Max())
-            .Select(x => fBitmap.Resize(new SKSizeI { Height = x, Width = x }, SKFilterQuality.High)))
+            .Select(x => fBitmap.Resize(new SKSizeI { Height = x, Width = x }, SKSamplingOptions.Default)))
             .ToArray();
         try
         {
@@ -192,13 +195,13 @@ public sealed partial class PlatformAccount
 
     SKBitmap DrawIcon(SKBitmap originalBitmap, SKBitmap loginIcon, int iconSize)
     {
-        loginIcon = loginIcon.Resize(new SKSizeI(iconSize / 3, iconSize / 3), SKFilterQuality.High);
+        loginIcon = loginIcon.Resize(new SKSizeI(iconSize / 3, iconSize / 3), SKSamplingOptions.Default);
         SKBitmap avatarImgBitmap = new(iconSize, iconSize);
 
         using SKCanvas canvas = new(avatarImgBitmap);
         SKPaint paint = new SKPaint();
-        paint.FilterQuality = SKFilterQuality.High;
-        canvas.DrawBitmap(originalBitmap.Resize(new SKSizeI(iconSize, iconSize), SKFilterQuality.High),
+        // paint.FilterQuality = SKSamplingOptions.Default;
+        canvas.DrawBitmap(originalBitmap.Resize(new SKSizeI(iconSize, iconSize), SKSamplingOptions.Default),
             new SKRect(0, 0, iconSize, iconSize), paint);
 
         canvas.DrawBitmap(loginIcon, new SKRect(0, 0, loginIcon.Width, loginIcon.Height));

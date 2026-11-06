@@ -6,7 +6,7 @@ namespace BD.WTTS.Services.Implementation;
 
 partial class MacCatalystPlatformServiceImpl
 {
-    static async ValueTask RunShellCoreAsync(string script, bool requiredAdministrator)
+    internal static async ValueTask RunShellCoreAsync(string script, bool requiredAdministrator)
     {
         var scriptContent = new StringBuilder();
         if (requiredAdministrator)
@@ -32,7 +32,18 @@ partial class MacCatalystPlatformServiceImpl
         }
     }
 
-    public ValueTask RunShellAsync(string script, bool requiredAdministrator)
-        => RunShellCoreAsync(script, requiredAdministrator);
+    /// <summary>
+    /// 运行 Shell 脚本
+    /// </summary>
+    /// <param name="script">要运行的脚本字符串</param>
+    /// <param name="requiredAdministrator">是否以管理员或 Root 权限运行</param>
+    public static async void RunShell(string script, bool requiredAdministrator = false)
+         => await RunShellAsync(script, requiredAdministrator);
+
+    /// <inheritdoc cref="RunShell(string, bool)"/>
+    public static ValueTask RunShellAsync(string script, bool requiredAdministrator = false)
+    {
+        return MacCatalystPlatformServiceImpl.RunShellCoreAsync(script, requiredAdministrator);
+    }
 }
 #endif

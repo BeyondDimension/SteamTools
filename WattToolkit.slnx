@@ -111,8 +111,11 @@
     <Project Path="ref/Common/src/BD.Common.Settings/BD.Common.Settings.csproj" />
     <Project Path="ref/Common/src/BD.Common/BD.Common.csproj" />
   </Folder>
+  <Folder Name="/2.Reference/Ipc/">
+    <Project Path="ref/dotnetCampus.Ipc/src/dotnetCampus.Ipc.Analyzers/dotnetCampus.Ipc.Analyzers.csproj" />
+    <Project Path="ref/dotnetCampus.Ipc/src/dotnetCampus.Ipc/dotnetCampus.Ipc.csproj" />
+  </Folder>
   <Folder Name="/2.Reference/Steam/">
-    <Project Path="ref/ArchiSteamFarm/ArchiSteamFarm/ArchiSteamFarm.csproj" />
     <Project Path="ref/Facepunch.Steamworks/Facepunch.Steamworks/Facepunch.Steamworks.Posix.csproj" />
     <Project Path="ref/Facepunch.Steamworks/Facepunch.Steamworks/Facepunch.Steamworks.Win64.csproj" />
     <Project Path="ref/Gameloop.Vdf/Gameloop.Vdf/Gameloop.Vdf.csproj" />

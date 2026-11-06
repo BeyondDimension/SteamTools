@@ -28,7 +28,7 @@ public sealed class AdvertiseService : ReactiveObject
     {
         //AdvertisementsSource
         //    .Connect()
-        //    .ObserveOn(RxApp.MainThreadScheduler)
+        //    .ObserveOn(RxSchedulers.MainThreadScheduler)
         //    .Filter(x => x.Standard == AdvertisementOrientation.Horizontal)
         //    .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
         //    .Bind(out _HorizontalBannerAdvertisements)
@@ -36,7 +36,7 @@ public sealed class AdvertiseService : ReactiveObject
 
         //AdvertisementsSource
         //    .Connect()
-        //    .ObserveOn(RxApp.MainThreadScheduler)
+        //    .ObserveOn(RxSchedulers.MainThreadScheduler)
         //    .Filter(x => x.Standard == AdvertisementOrientation.Vertical)
         //    .Sort(SortExpressionComparer<AdvertisementDTO>.Ascending(x => x.Order))
         //    .Bind(out _VerticalBannerAdvertisements)

@@ -9,7 +9,7 @@ public sealed partial class GameAcceleratorPageViewModel
         GameAcceleratorService.Current.Games
               .Connect()
               .Sort(new LastAccelerateTimeComparer())
-              .ObserveOn(RxApp.MainThreadScheduler)
+              .ObserveOn(RxSchedulers.MainThreadScheduler)
               .Bind(out _Games)
               .Subscribe();
     }

@@ -57,5 +57,10 @@ public enum CommandExitCode
     /// </summary>
     GetSubProcessBootConfigurationFail = 4042,
 
+    /// <summary>
+    /// 主进程 Id 不正确
+    /// </summary>
+    MainProcessIdIncorrect = 4043,
+
     #endregion
 }

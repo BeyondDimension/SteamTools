@@ -6,9 +6,8 @@ namespace BD.WTTS;
 
 partial class QRCodeHelper
 {
-    public static (QRCodeCreateResult result, Stream? stream, Exception? exception) Create(byte[] bytes, QrCode.Ecc? level = null)
+    public static (QRCodeCreateResult result, Stream? stream, Exception? exception) Create(byte[] bytes, QrCode.Ecc level = QrCode.Ecc.Low)
     {
-        level ??= QrCode.Ecc.Low;
         try
         {
             var qrCode = QrCode.EncodeBinary(bytes, level); // Make the QR code symbol

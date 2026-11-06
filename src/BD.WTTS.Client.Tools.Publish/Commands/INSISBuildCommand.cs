@@ -48,10 +48,11 @@ interface INSISBuildCommand : ICommand
                             tN,
                             dN,
                             p,
+                            t,
                         };
             var latest = query.OrderByDescending(x => x.tN).ThenByDescending(x => x.dN).FirstOrDefault();
             ArgumentNullException.ThrowIfNull(latest);
-            timestamp = $"{latest.dN}_{latest.tN}";
+            timestamp = $"{latest.dN}_{latest.t}";
         }
 
         releaseTimestamp = timestamp;

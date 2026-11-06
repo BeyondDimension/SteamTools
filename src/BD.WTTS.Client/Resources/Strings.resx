@@ -141,6 +141,9 @@
 	<data name="Achievement_LoadSucces" xml:space="preserve">
     <value>获取到 {0} 个成就和 {1} 条统计信息</value>
   </data>
+	<data name="Achievement_LockWarning" xml:space="preserve">
+    <value>注意：检测到有反选的成就项，保存将把 {0} 个已解锁成就重新上锁，确定继续吗？如果只想解锁单个成就请不要取消掉已解锁成就的开关。</value>
+  </data>
 	<data name="Achievement_Manage" xml:space="preserve">
     <value>管理成就</value>
   </data>
@@ -3000,6 +3003,12 @@
 	<data name="CommunityFix_Starting" xml:space="preserve">
     <value>正在启动加速...</value>
   </data>
+	<data name="CommunityFix_StartingHint" xml:space="preserve">
+    <value>正在准备网络与代理服务，请稍候。</value>
+  </data>
+	<data name="CommunityFix_Stopping" xml:space="preserve">
+    <value>正在停止加速...</value>
+  </data>
 	<data name="LocalAuth_JoinSteamAuthenticator_InitLocalAuthenticatorError" xml:space="preserve">
     <value>初始化本地令牌错误</value>
   </data>
@@ -3038,5 +3047,14 @@
   </data>
 	<data name="LocalAuth_JoinSteamAuthenticator_InputSteamAppAuthenticatorCodeTips" xml:space="preserve">
     <value>打开 Steam App 绑定令牌后在此页面输入验证</value>
+  </data>
+	<data name="Error_BindPortError_" xml:space="preserve">
+    <value>权限不足或端口{0}被占用，请手动授权或更换端口。</value>
+  </data>
+	<data name="Error_CheckRootCertificateFailed_" xml:space="preserve">
+    <value>证书格式不正确或版本过旧，请在加速设置中删除并重新生成。</value>
+  </data>
+	<data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
+    <value>Steam 路径已更新。如果本地 Steam 插件已加载，请重启 Watt Toolkit 以生效更改。</value>
   </data>
 </root>

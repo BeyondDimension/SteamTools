@@ -250,11 +250,17 @@ public interface ICertificateManager
     /// </summary>
     void TrustRootCertificate();
 
+    /// <summary>Trust the root certificate and return a recoverable failure code.</summary>
+    StartProxyResultCode TrustRootCertificateWithResult();
+
     /// <summary>
     /// 安装根证书，如果没有证书将生成一个新的
     /// </summary>
     /// <returns>返回根证书是否受信任</returns>
     bool SetupRootCertificate();
+
+    /// <summary>Install the root certificate and return a recoverable failure code.</summary>
+    StartProxyResultCode SetupRootCertificateWithResult();
 
     /// <summary>
     /// 删除根证书，如果没有证书将返回 <see langword="true"/>

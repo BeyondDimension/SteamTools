@@ -18,4 +18,8 @@
 
 	<Import Project="..\TFM_NETX.props" />
 
+	<PropertyGroup>
+		<TargetFrameworks>net10.0;net11.0</TargetFrameworks>
+	</PropertyGroup>
+
 </Project>

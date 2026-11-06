@@ -38,7 +38,7 @@ partial class MacCatalystPlatformServiceImpl
                 }
             }
         }
-        @this.RunShell(shellContent.ToString(), false);
+        RunShell(shellContent.ToString(), false);
         return Task.FromResult(true);
 #else
         throw new PlatformNotSupportedException();

@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<IsPackable>false</IsPackable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<DefineConstants>UNIT_TEST;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
 
@@ -27,10 +28,19 @@
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Certificate\CertGenerator.cs">
 			<LinkBase>Services.Implementation\Certificate</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Certificate\CertificateFailureDiagnostics.cs" />
 		<Compile Condition="'$(Configuration)'!='Debug'" Include="..\Utils.cs" />
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Net\DnsDohAnalysisService.cs">
 			<LinkBase>Services.Implementation\Net</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Net\DnsAnalysisServiceImpl.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Net\DnsAnalysisServiceSwitchImpl.cs" />
+		<Compile Include="..\ImplicitUsings.Enums.cs" />
+		<Compile Include="..\ImplicitUsings.Models.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Http\ReverseProxyHttpClientHandler.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Http\RequestContext.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Http\RequestContextExtensions.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\IDomainResolver.cs" />
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Net\IDnsAnalysisService.cs">
 			<LinkBase>Services\Net</LinkBase>
 		</Compile>
@@ -46,6 +56,7 @@
 		<PackageReference Include="NUnit.Analyzers" />
 		<PackageReference Include="Moq" />
 		<PackageReference Include="Ae.DNS.Client" />
+		<PackageReference Include="DnsClient" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
@@ -54,9 +65,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!--<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj" />
-		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj" />-->
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Authenticator\BD.WTTS.Client.Plugins.Authenticator.csproj" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameAccount\BD.WTTS.Client.Plugins.GameAccount.csproj" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX_WINDOWS.props" />

@@ -18,13 +18,13 @@
                 <TextBox
                     MaxLength="{x:Static spp:IAuthenticatorDTO.MaxLength_Name}"
                     Text="{Binding AuthenticatorName}"
-                    Watermark="{Binding Path=Res.Warning_PleaseEnterAuthName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    PlaceholderText="{Binding Path=Res.Warning_PleaseEnterAuthName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             </StackPanel>
         </Border>
         <Border Classes="Item">
             <StackPanel Spacing="5">
                 <TextBlock Text="{Binding Path=Res.GeneralAuth_ImportText, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <TextBox Text="{Binding SecretCode}" Watermark="{Binding Path=Res.GeneralAuth_EnterkeyOrLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox Text="{Binding SecretCode}" PlaceholderText="{Binding Path=Res.GeneralAuth_EnterkeyOrLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             </StackPanel>
         </Border>
         <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
@@ -113,11 +113,11 @@
         </Border>
         <!--<StackPanel Spacing="5">
                 <TextBlock Text="{Binding Path=Res.GeneralAuth_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <TextBox Text="{Binding AuthenticatorName}" Watermark="{Binding Path=Res.Warning_PleaseEnterAuthName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox Text="{Binding AuthenticatorName}" PlaceholderText="{Binding Path=Res.Warning_PleaseEnterAuthName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             </StackPanel>
             <StackPanel Spacing="5">
                 <TextBlock Text="{Binding Path=Res.GeneralAuth_ImportText, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <TextBox Text="{Binding SecretCode}" Watermark="{Binding Path=Res.GeneralAuth_EnterkeyOrLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBox Text="{Binding SecretCode}" PlaceholderText="{Binding Path=Res.GeneralAuth_EnterkeyOrLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
             </StackPanel>-->
         <!--<StackPanel Spacing="5">
                 <TextBlock Text="{Binding Path=Res.GeneralAuth_VerifySuccessfulImport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />

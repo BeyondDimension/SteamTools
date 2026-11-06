@@ -1,5 +1,6 @@
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
+using BD.WTTS.Helpers;
 using WinAuth;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 using WSteamClient = WinAuth.SteamClient;
@@ -12,10 +13,16 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
     WSteamClient? _steamClient;
     readonly SteamAuthenticator? _steamAuthenticator;
     readonly ISteamAccountService _steamAccountService = Ioc.Get<ISteamAccountService>();
+    readonly CancellationTokenSource lifetime = new();
+    readonly CancellationToken lifetimeToken;
 
     public SteamTradePageViewModel(ref IAuthenticatorDTO authenticatorDto)
     {
         _authenticatorDto = authenticatorDto;
+        lifetimeToken = lifetime.Token;
+        Login = new SteamLoginViewModel(accountService: _steamAccountService, requireMobileSession: true);
+        Login.LoginSucceededAsync = CompleteLoginAsync;
+        Login.AddTo(this);
 
         ConfirmTradeCommand = ReactiveCommand.Create<SteamTradeConfirmationModel>(ConfirmTrade);
         CancelTradeCommand = ReactiveCommand.Create<SteamTradeConfirmationModel>(CancelTrade);
@@ -26,29 +33,35 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
             {
                 _steamAuthenticator = steamAuthenticator;
                 _steamClient = _steamAuthenticator.GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
-                UserNameText = _steamAuthenticator.AccountName ?? "";
+                Login.UserName = _steamAuthenticator.AccountName ?? string.Empty;
                 authenticatorDto.Value = _steamAuthenticator;
                 _ = Initialize();
+                Login.AutomaticTwoFactorCode = state =>
+                {
+                    SteamAuthenticatorIdentity.ValidateCredentialAccount(_steamAuthenticator, state);
+
+                    string? code;
+                    try { code = _steamAuthenticator.CurrentCode; }
+                    catch (Exception ex)
+                    {
+                        throw new InvalidOperationException("无法获取此令牌的 Steam 验证码，请检查令牌后重试。", ex);
+                    }
+                    if (string.IsNullOrWhiteSpace(code))
+                        throw new InvalidOperationException("此令牌的 Steam 验证码不可用，请检查令牌后重试。");
+                    return code;
+                };
 
                 this.WhenAnyValue(v => v.Confirmations)
-                    .Subscribe(items => items?
-                    .ToObservableChangeSet()
-                    .AutoRefresh(x => x.IsSelected)
-                    .WhenValueChanged(x => x.IsSelected)
+                    .Select(items => items == null
+                        ? Observable.Empty<IChangeSet<SteamTradeConfirmationModel>>()
+                        : items.ToObservableChangeSet().AutoRefresh(x => x.IsSelected))
+                    .Switch()
                     .Subscribe(_ =>
                     {
-                        bool? b = null;
-                        var count = items.Count(s => s.IsSelected);
-                        if (!items.Any_Nullable() || count == 0)
-                            b = false;
-                        else if (count == items.Count)
-                            b = true;
-
-                        if (SelectedAll != b)
-                        {
-                            SelectedAll = b;
-                        }
-                    }));
+                        var count = Confirmations.Count(x => x.IsSelected);
+                        SelectedAll = count == 0 ? false : count == Confirmations.Count ? true : null;
+                    })
+                    .AddTo(this);
             }
             else
             {
@@ -63,68 +76,51 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
 
     public override async Task Initialize()
     {
-        await base.Initialize();
-
-        if (_steamClient!.IsLoggedIn() == false)
+        if (IsLoading || Disposed)
+            return;
+        IsLoading = true;
+        try
         {
-            IsLoading = false;
+            await base.Initialize();
+            IsLogged = _steamClient?.IsLoggedIn() == true && await CheckAndRefreshToken();
+            if (IsLogged && _steamClient != null)
+                await GetConfirmations(_steamClient);
+        }
+        catch (OperationCanceledException) when (lifetimeToken.IsCancellationRequested) { }
+        catch
+        {
             IsLogged = false;
+            LoginStatus = "检查交易确认登录状态失败，请检查网络或重新登录。";
         }
-        else
-        {
-            IsLogged = await CheckAndRefreshToken();
-
-            await GetConfirmations(_steamClient);
-        }
+        finally { IsLoading = false; }
     }
 
     public async ValueTask<bool> CheckAndRefreshToken()
     {
-        IsLoading = true;
-
-        // 不具备检查条件 没有保持的会话信息
-        if (_steamClient == null)
+        if (_steamClient?.Session == null || _steamAuthenticator == null)
             return false;
-
-        if (_steamClient.Session == null || _steamAuthenticator == null)
+        var session = _steamClient.Session;
+        if (_steamAuthenticator.SteamId64 is not > 0 || session.SteamID != (ulong)_steamAuthenticator.SteamId64.Value)
             return false;
-
-        try
-        {
-            // token 依旧有效 直接返回
-            if (!_steamClient.Session.IsAccessTokenExpired())
-                return true;
-
-            // 是否有 refresh token
-            string? refreshToken = _steamClient.Session?.RefreshToken;
-
-            if (string.IsNullOrWhiteSpace(refreshToken))
-                return false;
-
-            var session = _steamClient.Session;
-
-            // 刷新 access token (有效时间同样为一天)
-            await session!.RefreshAccessToken(_steamClient);
-
-            // 使用原先获取的具体派生类型 修改数据
-            _steamAuthenticator.SessionData = session.ToString();
-
-            // 重置当前 client
-            if (!ResetCurrentClient())
-            {
-                return false;
-            }
-
-            // 通过原始令牌引用保存信息
-            await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto)
-                .ConfigureAwait(false);
-
+        if (!session.IsAccessTokenExpired())
             return true;
-        }
-        finally
+        if (string.IsNullOrWhiteSpace(session.RefreshToken) || session.IsRefreshTokenExpired())
+            return false;
+
+        var wasRemembered = !string.IsNullOrWhiteSpace(_steamAuthenticator.SessionData);
+        var token = await _steamAccountService.RefreshAccessToken(session.SteamID, session.RefreshToken).WaitAsync(lifetimeToken);
+        lifetimeToken.ThrowIfCancellationRequested();
+        if (string.IsNullOrWhiteSpace(token))
+            return false;
+        session.AccessToken = token;
+        _steamClient.SessionSet(session.ToString(), ResourceService.GetCurrentCultureSteamLanguageName());
+        if (wasRemembered)
         {
-            IsLoading = false;
+            _steamAuthenticator.SessionData = _steamClient.Session!.ToString();
+            if (!await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto))
+                LoginStatus = "登录状态已续期，但保存失败；本次仍可使用。";
         }
+        return true;
     }
 
     public async Task Refresh()
@@ -144,94 +140,59 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         }
     }
 
-    public async Task Login()
+    async Task CompleteLoginAsync(SteamLoginState state)
     {
-        if (string.IsNullOrEmpty(UserNameText) || string.IsNullOrEmpty(PasswordText))
-        {
-            Toast.Show(ToastIcon.Warning, Strings.User_LoginError_Null);
-            return;
-        }
-        if (IsLoading || IsLogged || _steamAuthenticator == null)
-        {
-            return;
-        }
-        if (!string.IsNullOrEmpty(_steamAuthenticator.AccountName) && UserNameText != _steamAuthenticator.AccountName)
-        {
-            Toast.Show(ToastIcon.Warning, "请确保登录的账号与令牌内的账号一致");
-            return;
-        }
-        _steamClient ??= _steamAuthenticator.GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
-        if (_steamClient == null)
-        {
-            return;
-        }
+        lifetimeToken.ThrowIfCancellationRequested();
+        if (_steamAuthenticator is null)
+            throw new InvalidOperationException("此令牌不可用，未保存任何登录状态。");
+        if (!Login.UsedQrCode)
+            SteamAuthenticatorIdentity.ValidateCredentialAccount(_steamAuthenticator, state);
+        SteamAuthenticatorIdentity.ConfirmAuthenticatedAccount(_steamAuthenticator, state, Login.UsedAutomaticTwoFactor);
 
         IsLoading = true;
-
-        var loginstate = new SteamLoginState()
-        {
-            Username = UserNameText,
-            Password = PasswordText,
-            Language = ResourceService.GetCurrentCultureSteamLanguageName(),
-        };
-
-        await _steamAccountService.DoLoginV2Async(loginstate);
-
-        if (loginstate.Requires2FA)
-        {
-            loginstate.TwofactorCode = _steamAuthenticator.CurrentCode;
-            await _steamAccountService.DoLoginV2Async(loginstate);
-        }
-
-        IsLogged = loginstate.Success;
-
-        if (IsLogged)
-        {
-            _steamClient.Session = new WSteamClient.SteamSession
-            {
-                AccessToken = loginstate.AccessToken,
-                RefreshToken = loginstate.RefreshToken,
-                SessionID = loginstate.SeesionId,
-                SteamID = loginstate.SteamId,
-            };
-
-            Toast.Show(ToastIcon.Success, string.Format(Strings.Success_, Strings.User_Login));
-            _steamAuthenticator.SessionData = RemenberLogin ? _steamClient.Session.ToString() : null;
-            await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto!);
-            _steamClient = _steamAuthenticator.GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
-            await GetConfirmations(_steamClient);
-        }
-        else
-        {
-            Toast.Show(ToastIcon.Error, AppResources.Error_UnknownLogin_.Format(loginstate.Message));
-            _steamClient.Logout();
-        }
-
-        IsLoading = false;
-    }
-
-    bool ResetCurrentClient()
-    {
+        LoginStatus = null;
         try
         {
-            if (_steamAuthenticator == null)
-                return false;
-
-            _steamClient?.Dispose();
-
-            // 重新生成 client
-            _steamClient = _steamAuthenticator
-                .GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
-
-            if (_steamClient == null)
-                return false;
+            var session = new WSteamClient.SteamSession
+            {
+                AccessToken = state.AccessToken,
+                RefreshToken = state.RefreshToken,
+                SessionID = state.SeesionId,
+                SteamID = state.SteamId,
+            };
+            _steamClient = _steamAuthenticator.GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
+            // Install cookies from the live session even when the user does not persist it.
+            _steamClient.SessionSet(session.ToString(), ResourceService.GetCurrentCultureSteamLanguageName());
+            _steamAuthenticator.SessionData = RememberLogin ? _steamClient.Session!.ToString() : null;
+            if (!await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto))
+                LoginStatus = "Steam 已登录，但登录状态保存失败。请重试保存后再使用扫码。";
+            lifetimeToken.ThrowIfCancellationRequested();
+            IsLogged = true;
+            await GetConfirmations(_steamClient);
         }
-        catch (Exception)
+        finally { IsLoading = false; }
+    }
+
+    public override void OnClosing(object? sender, CancelEventArgs e)
+    {
+        base.OnClosing(sender, e);
+        if (!e.Cancel)
         {
-            return false;
+            Login.Cancel();
+            lifetime.Cancel();
         }
+    }
 
-        return true;
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && !Disposed)
+        {
+            lifetime.Cancel();
+            lifetime.Dispose();
+            Login.LoginSucceededAsync = null;
+            Login.AutomaticTwoFactorCode = null;
+        }
+        base.Dispose(disposing);
     }
 
     async Task<IEnumerable<SteamTradeConfirmationModel>?> GetConfirmations(WSteamClient steamClient)
@@ -240,26 +201,27 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
 
         try
         {
-            var result = await steamClient.GetConfirmations();
-
+            var result = await steamClient.GetConfirmations().WaitAsync(lifetimeToken);
+            lifetimeToken.ThrowIfCancellationRequested();
+            Confirmations.Clear();
             if (result != null)
-            {
-                Confirmations.Clear();
                 Confirmations.Add(result.Select(item => new SteamTradeConfirmationModel(_steamAuthenticator!, item)));
-            }
         }
+        catch (OperationCanceledException) when (lifetimeToken.IsCancellationRequested) { }
         catch (WinAuthUnauthorisedSteamRequestException)
         {
-            Toast.Show(ToastIcon.Error, AppResources.LocalAuth_AuthTrade_GetError3);
             _steamClient?.Logout();
+            if (_steamAuthenticator != null)
+                _steamAuthenticator.SessionData = null;
+            Confirmations.Clear();
             IsLogged = false;
+            LoginStatus = AppResources.LocalAuth_AuthTrade_GetError3;
         }
-        catch (Exception ex)
+        catch
         {
-            ex.LogAndShowT();
+            LoginStatus = "Steam 已登录，但读取交易确认失败。请检查网络并刷新，不要反复重新登录。";
         }
-
-        IsLoading = false;
+        finally { IsLoading = false; }
 
         return Confirmations;
     }
@@ -275,6 +237,8 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
             _steamAuthenticator.SessionData = null;
             await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto!);
             IsLogged = false;
+            Confirmations.Clear();
+            Login.Cancel();
         }
     }
 

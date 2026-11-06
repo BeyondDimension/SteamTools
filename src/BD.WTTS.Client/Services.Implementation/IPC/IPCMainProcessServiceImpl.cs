@@ -241,13 +241,13 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
     {
         var tickCount64 = Environment.TickCount64;
         var pid = Environment.ProcessId;
-        ipcProvider = new IpcProvider(
-            $"ipc_{_()}{tickCount64}{pid / 3}{pid % 3}",
-            new IpcConfiguration
-            {
-                AutoReconnectPeers = true, // 允许重连
-                IpcLoggerProvider = _ => new IpcLogger_(loggerFactory, nameof(IPCMainProcessServiceImpl)),
-            });
+        var ipcCfg = new IpcConfiguration
+        {
+            AutoReconnectPeers = true, // 允许重连
+            IpcLoggerProvider = _ => new IpcLogger_(loggerFactory, nameof(IPCMainProcessServiceImpl)),
+        };
+        ipcCfg.NamedPipeClientConnecting += IPCSubProcessServiceImpl.ValidateNamedPipeClientConnection;
+        ipcProvider = new IpcProvider($"ipc_{_()}{tickCount64}{pid / 3}{pid % 3}", ipcCfg);
         ConfigureServices();
         ipcProvider.StartServer();
         ipcProvider.PeerConnected += IpcProvider_PeerConnected;

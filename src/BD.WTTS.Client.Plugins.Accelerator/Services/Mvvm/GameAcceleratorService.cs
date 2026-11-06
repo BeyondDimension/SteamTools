@@ -81,7 +81,7 @@ public sealed partial class GameAcceleratorService
         if (XunYouSDK.IsSupported)
         {
             this.WhenValueChanged(x => x.XYAccelState, false)
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(x =>
                 {
                     if (x == null)
@@ -184,7 +184,7 @@ public sealed partial class GameAcceleratorService
                 });
 
             UserService.Current.WhenAnyValue(static x => x.User)
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(async x =>
                 {
                     string vipEndTimeString = VipEndTimeStringDef;
@@ -530,24 +530,11 @@ public sealed partial class GameAcceleratorService
             if (!IsLoadingGames)
             {
                 IsLoadingGames = true;
-                if (GameAcceleratorSettings.MyGames.Any_Nullable())
+                try
                 {
-                    Games.Clear();
-                    var temp = GameAcceleratorSettings.MyGames.Value!.Values.ToArray();
-                    foreach (var item in temp)
-                    {
-                        if (item.PicInfo == null)
-                            item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
-                    }
-                    Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
-                }
-                else
-                {
-                    var games = XunYouSDK.GetHotGames();
-                    if (games != null)
+                    if (GameAcceleratorSettings.MyGames.Any_Nullable())
                     {
                         Games.Clear();
-                        GameAcceleratorSettings.MyGames.AddRange(games.Select(s => new KeyValuePair<int, XunYouGameViewModel>(s.Id, new XunYouGameViewModel(s))));
                         var temp = GameAcceleratorSettings.MyGames.Value!.Values.ToArray();
                         foreach (var item in temp)
                         {
@@ -556,9 +543,31 @@ public sealed partial class GameAcceleratorService
                         }
                         Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
                     }
+                    else
+                    {
+                        var games = XunYouSDK.GetHotGames();
+                        if (games != null)
+                        {
+                            Games.Clear();
+                            GameAcceleratorSettings.MyGames.AddRange(games.Select(s => new KeyValuePair<int, XunYouGameViewModel>(s.Id, new XunYouGameViewModel(s))));
+                            var temp = GameAcceleratorSettings.MyGames.Value!.Values.ToArray();
+                            foreach (var item in temp)
+                            {
+                                if (item.PicInfo == null)
+                                    item.PicInfo = XunYouSDK.GetPicInfo(item.Id);
+                            }
+                            Games.AddOrUpdate(GameAcceleratorSettings.MyGames.Value!.Values);
+                        }
+                    }
                 }
-
-                IsLoadingGames = false;
+                catch (Exception ex)
+                {
+                    Log.Error(nameof(GameAcceleratorService), ex, "Could not load accelerator games.");
+                }
+                finally
+                {
+                    IsLoadingGames = false;
+                }
             }
         });
     }
@@ -618,7 +627,7 @@ public sealed partial class GameAcceleratorService
             {
                 Title = "下载插件",
                 ShowProgressBar = true,
-                IconSource = new SymbolIconSource { Symbol = FluentAvalonia.UI.Controls.Symbol.Download },
+                IconSource = new SymbolIconSource { Symbol = FluentAvalonia.UI.Controls.FASymbol.Download },
                 SubHeader = "下载 Watt 加速器 插件",
                 Content = "正在初始化，请稍候",
                 XamlRoot = AvaloniaWindowManagerImpl.GetWindowTopLevel(),

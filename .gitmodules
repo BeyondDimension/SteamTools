@@ -46,3 +46,6 @@
 [submodule "ref/Avalonia8"]
 	path = ref/Avalonia8
 	url = https://github.com/BeyondDimension/Avalonia8
+[submodule "ref/dotnetCampus.Ipc"]
+	path = ref/dotnetCampus.Ipc
+	url = https://github.com/BeyondDimension/dotnetCampus.Ipc
