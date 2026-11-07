@@ -1,4 +1,5 @@
 using AngleSharp.Dom;
+using Avalonia.Input;
 using BD.WTTS.Client.Resources;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
@@ -17,15 +18,59 @@ public sealed partial class App : Application
         OpenBrowserCommand = ReactiveCommand.Create<object?>(OpenBrowserCommandCore);
         CopyToClipboardCommand = ReactiveCommand.Create<object?>(CopyToClipboardCommandCore);
 #if MACOS
-        var menus = new NativeMenu();
-        menus.Add(new NativeMenuItem { Header = Strings.Settings, Command =
- ReactiveCommand.Create(() => { RestoreMainWindow(); INavigationService.Instance.Navigate(typeof(SettingsPage)); }) });
-        menus.Add(new NativeMenuItemSeparator());
-        menus.Add(new NativeMenuItem { Header = Strings.Exit, Command =
- ReactiveCommand.Create(() => { Shutdown(); }) });
-        NativeMenu.SetMenu(this, menus);
+        InitializeMacOSNativeMenu();
 #endif
     }
+
+#if MACOS
+    void InitializeMacOSNativeMenu()
+    {
+        var appMenu = new NativeMenu();
+        appMenu.Add(new NativeMenuItem
+        {
+            Header = Strings.Settings,
+            Command = ReactiveCommand.Create(() =>
+            {
+                RestoreMainWindow();
+                INavigationService.Instance.Navigate(typeof(SettingsPage));
+            }),
+        });
+        appMenu.Add(new NativeMenuItem
+        {
+            Header = string.Format(GetMacMenuString("HideApp_", "Hide {0}"), Name),
+            Gesture = KeyGesture.Parse("CMD+W"),
+            Command = ReactiveCommand.Create(HideAllWindows),
+        });
+        appMenu.Add(new NativeMenuItem
+        {
+            Header = Strings.Exit,
+            Gesture = KeyGesture.Parse("CMD+Q"),
+            Command = ReactiveCommand.Create(() => Shutdown()),
+        });
+
+        NativeMenu.SetMenu(this, appMenu);
+    }
+
+    static string GetMacMenuString(string key, string fallback)
+        => Strings.ResourceManager.GetString(key, Strings.Culture) ?? fallback;
+
+    void HideAllWindows()
+    {
+        MainThread2.BeginInvokeOnMainThread(() =>
+        {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                foreach (var window in desktop.Windows.Where(x => x.IsVisible))
+                {
+                    window.Hide();
+                }
+                return;
+            }
+
+            MainWindow?.Hide();
+        });
+    }
+#endif
 
     /// <summary>
     /// 获取当前主窗口

@@ -302,6 +302,12 @@
 	<data name="Close" xml:space="preserve">
     <value>关闭</value>
   </data>
+	<data name="HideApp_" xml:space="preserve">
+    <value>隐藏 {0}</value>
+  </data>
+	<data name="HideWindow" xml:space="preserve">
+    <value>隐藏窗口</value>
+  </data>
 	<data name="Minimize" xml:space="preserve">
     <value>最小化</value>
   </data>
@@ -313,6 +319,9 @@
   </data>
 	<data name="Back" xml:space="preserve">
     <value>返回</value>
+  </data>
+	<data name="WindowMenu" xml:space="preserve">
+    <value>窗口</value>
   </data>
 	<data name="Confirm" xml:space="preserve">
     <value>确定</value>

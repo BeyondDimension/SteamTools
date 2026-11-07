@@ -4838,4 +4838,13 @@ This feature can set the wallpaper of Wallpaper Engine and other wallpaper softw
   <data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
     <value>Steam path updated. If the native Steam component is already loaded, restart Watt Toolkit to switch its path.</value>
   </data>
+  <data name="HideApp_" xml:space="preserve">
+    <value>Hide {0}</value>
+  </data>
+  <data name="HideWindow" xml:space="preserve">
+    <value>Hide Window</value>
+  </data>
+  <data name="WindowMenu" xml:space="preserve">
+    <value>Window</value>
+  </data>
 </root>
