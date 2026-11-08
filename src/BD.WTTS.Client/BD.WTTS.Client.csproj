@@ -121,6 +121,8 @@
 		<PackageReference Include="NLog" />
 		<PackageReference Include="NLog.Extensions.Logging" />
 		<PackageReference Include="Net.Codecrete.QrCodeGenerator" />
+		<!-- Official plugins are loaded dynamically; their shared runtime dependencies ship with the host. -->
+		<PackageReference Include="ZXing.Net" />
 		<PackageReference Include="Fleck" />
 		<PackageReference Include="Stun.Net" />
 		<PackageReference Include="System.Linq.Async" />

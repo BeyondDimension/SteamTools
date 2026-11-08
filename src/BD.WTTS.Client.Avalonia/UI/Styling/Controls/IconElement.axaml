@@ -10,11 +10,17 @@
     </Design.PreviewWith>
 
     <!--  Add Styles Here  -->
-    <Style Selector="ui|FontIcon">
+    <Style Selector="ui|FAFontIcon">
         <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}" />
     </Style>
 
-    <Style Selector="ui|FontIconSource">
+    <Style Selector="ui|FAFontIconSource">
         <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}" />
+    </Style>
+
+    <Style Selector="PathIcon.CloseIcon">
+        <Setter Property="Data" Value="{StaticResource CloseIconGeometry}" />
+        <Setter Property="Width" Value="12" />
+        <Setter Property="Height" Value="12" />
     </Style>
 </Styles>

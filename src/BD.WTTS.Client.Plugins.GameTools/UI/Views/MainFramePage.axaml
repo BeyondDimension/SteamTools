@@ -36,6 +36,6 @@
                 </TabStripItem.Tag>
             </TabStripItem>
         </TabStrip>
-        <ui:Frame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
+        <ui:FAFrame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
     </Panel>
 </UserControl>

@@ -823,6 +823,30 @@ internal sealed class HostsFileServiceImpl
         return new OperationResult(result);
     }
 
+#if LINUX
+    public void WriteNixOSHostsConfig(IReadOnlyDictionary<string, string> hosts)
+    {
+        var path = GetNixOSHostsConfigPath();
+        var sb = new StringBuilder();
+        sb.AppendLine(HostsFileServiceImpl.MarkStart);
+        foreach (var (domain, ip) in hosts)
+        {
+            sb.AppendLine($"{ip} {domain}");
+        }
+        sb.AppendLine(HostsFileServiceImpl.MarkEnd);
+        File.WriteAllText(path, sb.ToString(), GetEncoding());
+    }
+
+    // NixOS hosts 参考配置（声明式替代 /etc/hosts 运行时写入）
+    static string GetNixOSHostsConfigPath() => Path.Combine(IOPath.AppDataDirectory, "nixos-hosts.conf");
+
+
+    static void DeleteNixOSHostsConfig()
+    {
+        IOPath.FileTryDelete(GetNixOSHostsConfigPath());
+    }
+#endif
+
     public async Task<OperationResult> UpdateHosts(IReadOnlyDictionary<string, string> hosts)
     {
 #if LINUX

@@ -3135,4 +3135,7 @@ Ricorda di avere l'UID del tuo account Watt Toolkit nel messaggio delle note qua
   <data name="Error_CheckRootCertificateFailed_" xml:space="preserve">
     <value>Formato certificato non valido o versione vecchia. Elimina e rigenera in impostazioni accelerazione.</value>
   </data>
+  <data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
+    <value>Percorso di Steam aggiornato. Se il componente nativo di Steam è già caricato, riavvia Watt Toolkit per cambiarne il percorso.</value>
+  </data>
 </root>

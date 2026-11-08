@@ -105,7 +105,7 @@
                                 VerticalAlignment="Center"
                                 Content="{TemplateBinding ActionButton}" />
 
-                            <ui:SymbolIcon
+                            <ui:FASymbolIcon
                                 Name="Chevron"
                                 Grid.RowSpan="2"
                                 Grid.Column="3"
@@ -137,7 +137,7 @@
     <Style Selector="spp|OptionsDisplayItem /template/ Viewbox#IconHost">
         <Setter Property="IsVisible" Value="False" />
     </Style>
-    <Style Selector="spp|OptionsDisplayItem /template/ ui|SymbolIcon#Chevron">
+    <Style Selector="spp|OptionsDisplayItem /template/ ui|FASymbolIcon#Chevron">
         <Setter Property="IsVisible" Value="False" />
     </Style>
     <Style Selector="spp|OptionsDisplayItem /template/ ContentPresenter#ExpandedContentPresenter">
@@ -155,7 +155,7 @@
         <Setter Property="IsVisible" Value="True" />
     </Style>
 
-    <Style Selector="spp|OptionsDisplayItem:navigates /template/ ui|SymbolIcon#Chevron">
+    <Style Selector="spp|OptionsDisplayItem:navigates /template/ ui|FASymbolIcon#Chevron">
         <Setter Property="IsVisible" Value="True" />
         <Setter Property="Symbol" Value="ChevronRight" />
     </Style>
@@ -165,12 +165,12 @@
         <Setter Property="Grid.RowSpan" Value="1" />
     </Style>
 
-    <Style Selector="spp|OptionsDisplayItem:expands /template/ ui|SymbolIcon#Chevron">
+    <Style Selector="spp|OptionsDisplayItem:expands /template/ ui|FASymbolIcon#Chevron">
         <Setter Property="IsVisible" Value="True" />
         <Setter Property="Symbol" Value="ChevronDown" />
     </Style>
 
-    <Style Selector="spp|OptionsDisplayItem:expanded /template/ ui|SymbolIcon#Chevron">
+    <Style Selector="spp|OptionsDisplayItem:expanded /template/ ui|FASymbolIcon#Chevron">
         <Setter Property="Symbol" Value="ChevronUp" />
     </Style>
 

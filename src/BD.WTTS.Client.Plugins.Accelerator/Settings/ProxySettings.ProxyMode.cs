@@ -19,7 +19,11 @@ public static partial class ProxySettings
 #elif ANDROID
             yield return EProxyMode.VPN;
             yield return EProxyMode.ProxyOnly;
-#elif LINUX || MACOS || MACCATALYST
+#elif LINUX
+        if (LinuxPlatformServiceImpl.IsNixOS)
+        {
+            yield return EProxyMode.DNSIntercept;
+        }
 #if MACCATALYST
             if (OperatingSystem.IsMacOS())
 #endif

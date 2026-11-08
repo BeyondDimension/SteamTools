@@ -44,9 +44,8 @@ namespace BD.WTTS.Services.Implementation
                     }).WaitForExit();
             if (IsNixOS)
             {
-                // NixOS 不可变系统适配：系统证书由 security.pki.certificateFiles 声明式安装，
-                // nix store 只读，pkexec 提权安装路径不可用（应用目录无写权限）。
-                return null;
+                // 去打包证书源确认证书是否存在
+                return TrySyncBundledCertificate(cerPath);
             }
             return RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "linux", "-ceri", CertificateConstants.AppDataDirectory }) == 0;
         }
@@ -60,7 +59,11 @@ namespace BD.WTTS.Services.Implementation
                     }).WaitForExit();
             if (IsNixOS)
             {
-                // NixOS：系统证书由声明式配置管理，不执行 pkexec 删除
+                var nixosCerPath = GetBundledCerFilePath();
+                if (nixosCerPath != null && File.Exists(nixosCerPath))
+                {
+                    File.Delete(nixosCerPath);
+                }
                 return;
             }
             RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "linux", "-cerd", CertificateConstants.AppDataDirectory });
@@ -109,8 +112,8 @@ namespace BD.WTTS.Services.Implementation
             {
                 if (IsNixOS)
                 {
-                    // NixOS：/etc/ssl/certs 只读，系统证书由 security.pki.certificateFiles 声明式安装
-                    return null;
+                    // 去打包证书源确认证书是否存在
+                    return TrySyncBundledCertificate(cerPath);
                 }
                 var path = GetCertStore();
                 var destCertFilePath = Path.Combine(path.CaCertStorePath, CertificateConstants.CerFileName);
@@ -154,7 +157,11 @@ namespace BD.WTTS.Services.Implementation
             {
                 if (IsNixOS)
                 {
-                    // NixOS：/etc/ssl/certs 只读，系统证书由声明式配置管理
+                    var nixosPfxPath = GetBundledCerFilePath();
+                    if (nixosPfxPath != null && File.Exists(nixosPfxPath))
+                    {
+                        File.Delete(nixosPfxPath);
+                    }
                     return;
                 }
                 var path = GetCertStore();

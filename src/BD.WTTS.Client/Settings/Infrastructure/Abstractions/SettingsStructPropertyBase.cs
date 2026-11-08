@@ -59,20 +59,17 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     void SetValue(TValue value, bool save = true)
     {
-        if (Equals(value, this.value))
-            return; // 值相同无变化
-
-        var oldValue = this.value;
-        this.value = value; // 赋值当前字段
-
-        var setter_value = value;
-        setter(monitor.CurrentValue, setter_value); // 赋值模型类属性
-
-        OnValueChanged(oldValue, value); // 调用变更事件
-
-        if (save && AutoSave) // 自动保存
+        lock (GetSynchronizationRoot<TSettings>())
         {
-            Save();
+            if (Equals(value, this.value))
+                return; // 值相同无变化
+
+            var oldValue = this.value;
+            this.value = value;
+            setter(monitor.CurrentValue, value);
+            OnValueChanged(oldValue, value);
+            if (save && AutoSave)
+                Save();
         }
     }
 
@@ -81,24 +78,24 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
 
     public override void RaiseValueChanged(bool notSave = false)
     {
-        setter(monitor.CurrentValue, value); // 赋值模型类属性
-        OnValueChanged(value, value); // 调用变更事件
-        if (!notSave && AutoSave) // 自动保存
+        lock (GetSynchronizationRoot<TSettings>())
         {
-            Save();
+            setter(monitor.CurrentValue, value);
+            OnValueChanged(value, value);
+            if (!notSave && AutoSave)
+                Save();
         }
     }
 
     public override void Reset(bool save = true)
     {
-        var oldValue = value;
-        setter(monitor.CurrentValue, value = Default); // 赋值模型类属性
-
-        OnValueChanged(oldValue, value); // 调用变更事件
-
-        if (save && AutoSave) // 自动保存
+        lock (GetSynchronizationRoot<TSettings>())
         {
-            Save();
+            var oldValue = value;
+            setter(monitor.CurrentValue, value = Default);
+            OnValueChanged(oldValue, value);
+            if (save && AutoSave)
+                Save();
         }
     }
 

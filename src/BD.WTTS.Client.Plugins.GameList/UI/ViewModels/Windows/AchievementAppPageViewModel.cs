@@ -8,6 +8,8 @@ public sealed class AchievementAppPageViewModel : WindowViewModel
 
     int AppId { get; }
 
+    bool isSaving;
+
     #region 成就列表
     private readonly ReadOnlyObservableCollection<AchievementInfo>? _Achievements;
     private readonly SourceList<AchievementInfo> _AchievementsSourceList;
@@ -399,32 +401,12 @@ public sealed class AchievementAppPageViewModel : WindowViewModel
         //_BackAchievements = Achievements;
     }
 
-    int StoreAchievements()
+    int StoreAchievements(List<(AchievementInfo Info, bool IsChecked)> achievements)
     {
-        if (Achievements == null || Achievements.Count == 0)
+        foreach (var (info, isChecked) in achievements)
         {
-            return 0;
-        }
-
-        var achievements = new List<AchievementInfo>();
-        foreach (var achievementInfo in Achievements)
-        {
-            if (achievementInfo != null &&
-                achievementInfo.IsAchieved != achievementInfo.IsChecked)
-            {
-                achievementInfo.IsAchieved = achievementInfo.IsChecked;
-                achievements.Add(achievementInfo);
-            }
-        }
-
-        if (achievements.Count == 0)
-        {
-            return 0;
-        }
-
-        foreach (AchievementInfo info in achievements)
-        {
-            if (ISteamworksLocalApiService.Instance.SetAchievement(info.Id!, info.IsAchieved) == false)
+            info.IsAchieved = isChecked;
+            if (ISteamworksLocalApiService.Instance.SetAchievement(info.Id!, isChecked) == false)
             {
                 MessageBox.ShowAsync(Strings.Achievement_Warning_3.Format(info.Name), DisplayName, MessageBox.Button.OK).ContinueWith(s =>
                 {
@@ -556,28 +538,52 @@ public sealed class AchievementAppPageViewModel : WindowViewModel
         }
     }
 
-    public void SaveChange_Click()
+    public async void SaveChange_Click()
     {
-        int achievements = StoreAchievements();
-        if (achievements < 0)
-        {
-            RefreshStats_Click();
+        if (isSaving)
             return;
-        }
 
-        int stats = StoreStatistics();
-        if (stats < 0)
+        isSaving = true;
+        try
         {
-            RefreshStats_Click();
-            return;
-        }
+            // Save the same filtered set and checked values that were presented for confirmation.
+            var changes = (Achievements ?? Enumerable.Empty<AchievementInfo>())
+                .Where(info => info.IsAchieved != info.IsChecked)
+                .Select(info => (Info: info, IsChecked: info.IsChecked))
+                .ToList();
+            int lockCount = changes.Count(change => change.Info.IsAchieved && !change.IsChecked);
+            if (lockCount > 0)
+            {
+                var result = await MessageBox.ShowAsync(Strings.Achievement_LockWarning.Format(lockCount), DisplayName, MessageBox.Button.OKCancel, MessageBox.Image.Warning);
+                if (!result.IsOK())
+                    return;
+            }
 
-        if (ISteamworksLocalApiService.Instance.StoreStats() == false)
-        {
-            ResetAllStats_Click();
-            return;
+            int achievements = StoreAchievements(changes);
+            if (achievements < 0)
+            {
+                RefreshStats_Click();
+                return;
+            }
+
+            int stats = StoreStatistics();
+            if (stats < 0)
+            {
+                RefreshStats_Click();
+                return;
+            }
+
+            if (ISteamworksLocalApiService.Instance.StoreStats() == false)
+            {
+                ResetAllStats_Click();
+                return;
+            }
+            Toast.Show(ToastIcon.Success, Strings.Achievement_EditSucces.Format(achievements, stats));
+            RefreshStats_Click();
         }
-        Toast.Show(ToastIcon.Success, Strings.Achievement_EditSucces.Format(achievements, stats));
-        RefreshStats_Click();
+        finally
+        {
+            isSaving = false;
+        }
     }
 }

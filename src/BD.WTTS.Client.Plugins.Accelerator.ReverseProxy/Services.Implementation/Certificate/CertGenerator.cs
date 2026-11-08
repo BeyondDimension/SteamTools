@@ -72,7 +72,11 @@ public static class CertGenerator
         request.CertificateExtensions.Add(enhancedKeyUsage);
 
         var dnsBuilder = new SubjectAlternativeNameBuilder();
-        dnsBuilder.Add(CertificateConstants.RootCertificateName);
+        try
+        {
+            dnsBuilder.Add(CertificateConstants.RootCertificateName);
+        }
+        catch { }
         request.CertificateExtensions.Add(dnsBuilder.Build());
 
         var subjectKeyId = new X509SubjectKeyIdentifierExtension(request.PublicKey, false);

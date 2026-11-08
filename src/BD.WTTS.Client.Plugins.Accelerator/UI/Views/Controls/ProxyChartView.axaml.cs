@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using Avalonia.VisualTree;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Avalonia;
@@ -55,7 +54,9 @@ public partial class ProxyChartView : UserControl
 
     public Func<double, string> YFormatter { get; } = value => $"{IOPath.GetDisplayFileSizeString(value)}/s";
 
-    CancellationTokenSource cancellation = new();
+    CancellationTokenSource? cancellation;
+    Task? refreshTask;
+    IDisposable? statusSubscription;
 
     public static readonly AvaloniaProperty<IEnumerable<ISeries>> SeriesProperty =
         AvaloniaProperty.Register<CartesianChart, IEnumerable<ISeries>>("Series", Enumerable.Empty<ISeries>(), inherits: true);
@@ -90,25 +91,52 @@ public partial class ProxyChartView : UserControl
             Chart.YAxes = new Axis[] { new Axis { Labeler = YFormatter, MinLimit = 0 } };
         }
 
-        ProxyService.Current.WhenAnyValue(x => x.ProxyStatus)
-            .Subscribe(x =>
-            {
-                if (x)
-                {
-                    cancellation = new CancellationTokenSource();
-                    Task2.InBackground(FlushFlowChartAsync, true);
-                }
-                else
-                {
-                    if (cancellation != null)
-                    {
-                        cancellation.Cancel();
-                        cancellation.Dispose();
-                    }
-                    reads.Clear();
-                    writes.Clear();
-                }
-            });
+    }
+
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        statusSubscription = ProxyService.Current.WhenAnyValue(x => x.ProxyStatus)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
+            .Subscribe(UpdateProxyStatus);
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        statusSubscription?.Dispose();
+        statusSubscription = null;
+        StopRefreshing();
+        base.OnDetachedFromVisualTree(e);
+    }
+
+    void UpdateProxyStatus(bool running)
+    {
+        if (!running)
+        {
+            StopRefreshing();
+            reads.Clear();
+            writes.Clear();
+        }
+        else if (cancellation == null)
+        {
+            var source = cancellation = new CancellationTokenSource();
+            var token = source.Token;
+            refreshTask = Task.Run(() => FlushFlowChartAsync(token));
+        }
+    }
+
+    void StopRefreshing()
+    {
+        var source = cancellation;
+        var task = refreshTask;
+        cancellation = null;
+        refreshTask = null;
+        if (source == null)
+            return;
+
+        source.Cancel();
+        _ = task!.ContinueWith(static (_, state) => ((CancellationTokenSource)state!).Dispose(),
+            source, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
     }
 
     private struct RateTick
@@ -124,55 +152,45 @@ public partial class ProxyChartView : UserControl
         }
     }
 
-    private void FlushFlowChartAsync()
+    async Task FlushFlowChartAsync(CancellationToken token)
     {
-        while (!cancellation.IsCancellationRequested)
+        while (!token.IsCancellationRequested)
         {
             try
             {
                 var flowStatistics = IReverseProxyService.Constants.Instance.GetFlowStatistics();
-                if (flowStatistics == null)
+                if (flowStatistics != null)
                 {
-                    Thread.Sleep(1000);
-                    continue;
-                }
-
-                var isAttachedToVisualTree = this.IsAttachedToVisualTree();
-
-                if (isAttachedToVisualTree)
-                {
+                    var timestamp = DateTime.Now.ToUnixTimeSeconds();
                     Dispatcher.UIThread.Post(() =>
                     {
+                        if (token.IsCancellationRequested)
+                            return;
+
                         textBlockRead.Text = IOPath.GetDisplayFileSizeString(flowStatistics.TotalRead);
                         textBlockWrite.Text = IOPath.GetDisplayFileSizeString(flowStatistics.TotalWrite);
+                        reads.Add(new RateTick(flowStatistics.ReadRate, timestamp));
+                        writes.Add(new RateTick(flowStatistics.WriteRate, timestamp));
+
+                        if (reads.Count > 60)
+                        {
+                            reads.RemoveAt(0);
+                            writes.RemoveAt(0);
+                        }
                     });
                 }
-
-                var timestamp = DateTime.Now.ToUnixTimeSeconds();
-
-                reads.Add(new RateTick(flowStatistics.ReadRate, timestamp));
-                writes.Add(new RateTick(flowStatistics.WriteRate, timestamp));
-
-                if (this.reads.Count > 60)
-                {
-                    this.reads.RemoveAt(0);
-                    this.writes.RemoveAt(0);
-                }
-
-                //if (Chart != null && isAttachedToVisualTree)
-                //{
-                //    Dispatcher.UIThread.Post(() =>
-                //    {
-                //        Chart.Series = new ISeries[] { readSeries, writeSeries };
-                //    });
-                //}
             }
             catch
             {
             }
-            finally
+
+            try
             {
-                Thread.Sleep(1000);
+                await Task.Delay(1000, token).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException) when (token.IsCancellationRequested)
+            {
+                break;
             }
         }
     }

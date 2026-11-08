@@ -7,6 +7,8 @@ public partial class TitleBar : UserControl
 {
     public Image WindowIcon => BarIcon;
 
+    internal Control WindowDragRegion => DragRegion;
+
     /// <summary>
     /// Defines the <see cref="Icon"/> property.
     /// </summary>

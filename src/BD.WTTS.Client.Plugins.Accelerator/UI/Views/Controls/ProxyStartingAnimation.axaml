@@ -1,0 +1,91 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.ProxyStartingAnimation"
+    x:Name="Root"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    x:CompileBindings="True"
+    x:DataType="spp:AcceleratorPageViewModel">
+    <UserControl.Styles>
+        <Style Selector="Border.StartPulse.Active">
+            <Style.Animations>
+                <Animation Easing="CubicEaseOut" IterationCount="Infinite" Duration="0:0:2.2">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0.55" />
+                        <Setter Property="ScaleTransform.ScaleX" Value="0.74" />
+                        <Setter Property="ScaleTransform.ScaleY" Value="0.74" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="ScaleTransform.ScaleX" Value="1.45" />
+                        <Setter Property="ScaleTransform.ScaleY" Value="1.45" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid>
+        <Border Background="{DynamicResource SolidBackgroundFillColorBaseBrush}" CornerRadius="12" Opacity="0.72" />
+        <Border
+            MaxWidth="360"
+            Margin="16"
+            Padding="30,24"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            BoxShadow="{DynamicResource LowShadow}"
+            CornerRadius="16">
+            <StackPanel HorizontalAlignment="Center" Spacing="12">
+                <Grid Width="128" Height="128" HorizontalAlignment="Center">
+                    <Border
+                        Width="78"
+                        Height="78"
+                        Background="{DynamicResource AccentFillColorDefaultBrush}"
+                        CornerRadius="39"
+                        Opacity="0.12" />
+                    <Border
+                        Width="86"
+                        Height="86"
+                        BorderBrush="{DynamicResource AccentFillColorDefaultBrush}"
+                        BorderThickness="2"
+                        Classes="StartPulse"
+                        Classes.Active="{Binding #Root.IsEffectivelyVisible}"
+                        CornerRadius="43">
+                        <Border.RenderTransform>
+                            <ScaleTransform />
+                        </Border.RenderTransform>
+                    </Border>
+                    <ProgressBar
+                        Width="88"
+                        Height="88"
+                        Classes="Circle"
+                        Foreground="{DynamicResource AccentFillColorDefaultBrush}"
+                        IsIndeterminate="{Binding #Root.IsEffectivelyVisible}" />
+                    <Viewbox Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}" Glyph="{StaticResource SpeedHigh}" />
+                    </Viewbox>
+                </Grid>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Text="{Binding Path=Res.CommunityFix_Starting, Source={x:Static s:ResourceService.Current}, Mode=OneWay}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    MaxWidth="280"
+                    HorizontalAlignment="Center"
+                    FontSize="12"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{Binding Path=Res.CommunityFix_StartingHint, Source={x:Static s:ResourceService.Current}, Mode=OneWay}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

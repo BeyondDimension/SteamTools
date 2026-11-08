@@ -57,7 +57,6 @@
     <StyleInclude Source="/UI/Styling/Controls/TextBox.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/Snackbar.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/Button.axaml" />
-    <StyleInclude Source="/UI/Styling/Controls/TabView.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/TabStrip.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/TabControl.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/DataGrid.axaml" />

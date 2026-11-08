@@ -41,7 +41,7 @@
 								Name="PhoneNumberText"
 								MaxWidth="300"
 								Text="{Binding PhoneNumberText}"
-								Watermark="+8601234567890" />
+								PlaceholderText="+8601234567890" />
 					</DockPanel>
 
 					<Button

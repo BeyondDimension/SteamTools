@@ -224,10 +224,8 @@ public interface ICertificateManager
 
     /// <summary>
     /// PFX 证书文件路径。
-    /// NixOS 适配：优先取打包证书源（STEAMTOOLS_BUNDLED_PFX，nix store 最新 PFX，
-    /// 与系统 security.pki.certificateFiles 信任的 cer 同构建同源）；未设置时回退 AppData。
     /// </summary>
-    string PfxFilePath => BundledCertificateHelper.GetBundledPfxFilePath() ?? CertificateConstants.DefaultPfxFilePath;
+    string PfxFilePath => CertificateConstants.DefaultPfxFilePath;
 
     /// <summary>
     /// CER 证书文件路径
@@ -252,11 +250,17 @@ public interface ICertificateManager
     /// </summary>
     void TrustRootCertificate();
 
+    /// <summary>Trust the root certificate and return a recoverable failure code.</summary>
+    StartProxyResultCode TrustRootCertificateWithResult();
+
     /// <summary>
     /// 安装根证书，如果没有证书将生成一个新的
     /// </summary>
     /// <returns>返回根证书是否受信任</returns>
     bool SetupRootCertificate();
+
+    /// <summary>Install the root certificate and return a recoverable failure code.</summary>
+    StartProxyResultCode SetupRootCertificateWithResult();
 
     /// <summary>
     /// 删除根证书，如果没有证书将返回 <see langword="true"/>

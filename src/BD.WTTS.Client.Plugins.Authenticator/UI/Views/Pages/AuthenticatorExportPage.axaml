@@ -27,13 +27,13 @@
                 IsEnabled="{Binding HasPasswordProtection}"
                 PasswordChar="{StaticResource PasswordChar}"
                 Text="{Binding Password}"
-                Watermark="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_ProtectionAuth_Password, Mode=OneWay}" />
+                PlaceholderText="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_ProtectionAuth_Password, Mode=OneWay}" />
             <TextBox
                 Classes="revealPasswordButton"
                 IsEnabled="{Binding HasPasswordProtection}"
                 PasswordChar="{StaticResource PasswordChar}"
                 Text="{Binding VerifyPassword}"
-                Watermark="{Binding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword, Source={x:Static s:ResourceService.Current}, Mode=OneWay}" />
+                PlaceholderText="{Binding Path=Res.LocalAuth_ProtectionAuth_VerifyPassword, Source={x:Static s:ResourceService.Current}, Mode=OneWay}" />
             <Grid ColumnDefinitions="*,*">
                 <CheckBox
                     HorizontalAlignment="Center"

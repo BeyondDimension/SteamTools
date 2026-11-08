@@ -11,7 +11,8 @@ sealed class AvaloniaToastServiceImpl : IToastService
 {
     public static AvaloniaToastServiceImpl Instance { get; } = (AvaloniaToastServiceImpl)Ioc.Get<IToastService>();
 
-    public SnackbarManager? NotificationManager { get; set; }
+    public SnackbarManager? NotificationManager { get; private set; }
+    TopLevel? notificationHost;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static AvaNotificationType GetNotificationType(ToastIcon icon) => icon switch
@@ -25,13 +26,26 @@ sealed class AvaloniaToastServiceImpl : IToastService
 
     public void SetSnackbarManager(TopLevel host)
     {
-        NotificationManager ??= new SnackbarManager(host)
+        if (ReferenceEquals(notificationHost, host))
+            return;
+
+        NotificationManager?.Uninstall();
+        notificationHost = host;
+        NotificationManager = new SnackbarManager(host)
         {
             Position = NotificationPosition.BottomRight,
             MaxItems = 5,
         };
+    }
 
-        //NotificationManager.ApplyTemplate();
+    internal void ReleaseSnackbarManager(TopLevel host)
+    {
+        if (!ReferenceEquals(notificationHost, host))
+            return;
+
+        NotificationManager?.Uninstall();
+        NotificationManager = null;
+        notificationHost = null;
     }
 
     /// <summary>
@@ -45,13 +59,7 @@ sealed class AvaloniaToastServiceImpl : IToastService
         {
             var host = AvaloniaWindowManagerImpl.GetWindowTopLevel();
             if (host != null)
-            {
-                NotificationManager = new SnackbarManager(host)
-                {
-                    Position = NotificationPosition.BottomRight,
-                    MaxItems = 5,
-                };
-            }
+                SetSnackbarManager(host);
         }
 
         if (NotificationManager != null)

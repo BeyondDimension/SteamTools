@@ -64,10 +64,10 @@ public sealed partial class PlatformAccount : ReactiveObject
     public string IdsJsonPath => Path.Combine(PlatformLoginCache, "ids.json");
 
     [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
-    public string? ExeName => Path.GetFileName(DefaultExePath);
+    public string? ExeName => Path.GetFileName(IsSteamPlatform ? ExePath : DefaultExePath);
 
     [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
-    public string? ExePath => PlatformSetting?.PlatformPath ?? DefaultExePath;
+    public string? ExePath => IsSteamPlatform ? ISteamService.Instance.SteamProgramPath : PlatformSetting?.PlatformPath ?? DefaultExePath;
 
     [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public string? FolderPath => Path.GetDirectoryName(ExePath);

@@ -32,18 +32,6 @@ partial class ProxyService
 
     async Task<OperateProxyServiceResult> StartProxyServiceCoreAsync()
     {
-        // NixOS：加速模式由系统配置统一管理（programs.watt-toolkit.proxyMode）
-        // 覆盖持久化的 ProxyMode.Value，确保加速器按系统配置的模式启动。
-        if (OperatingSystem.IsLinux() && System.IO.File.Exists("/etc/watt-toolkit/proxy-mode"))
-        {
-            try
-            {
-                var sysMode = System.IO.File.ReadAllText("/etc/watt-toolkit/proxy-mode").Trim();
-                if (sysMode == "dns") ProxySettings.ProxyMode.Value = ProxyMode.DNS;
-                else if (sysMode == "hosts") ProxySettings.ProxyMode.Value = ProxyMode.Hosts;
-            }
-            catch { }
-        }
 
         IReadOnlyCollection<AccelerateProjectDTO>? proxyDomains = EnableProxyDomains;
 
@@ -82,24 +70,22 @@ partial class ProxyService
             twoLevelAgentPortId = IProxySettings.DefaultTwoLevelAgentPortId;
         string? twoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
         string? twoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
+        ProxySettings.MigrateDnsServerList();
         string? proxyDNS = ProxySettings.ProxyMasterDns.Value;
+        if (string.IsNullOrWhiteSpace(proxyDNS))
+            proxyDNS = IDnsAnalysisService.DefaultResolverServerList;
         bool isSupportIpv6 = await RefreshIpv6Support();
-        bool useDoh = ProxySettings.UseDoh.Value;
-        string? customDohAddres = ProxySettings.CustomDohAddres2.Value;
 
         string? proxyToken = proxyDomains.Any_Nullable(s => s.ProxyType == ProxyType.ServerAccelerate || s.Items.Any_Nullable(x => x.ProxyType == ProxyType.ServerAccelerate)) ?
             await TryRequestServerSideProxyToken() : null;
 
         if (ProxySettings.ProxyBeforeDNSCheck.Value)
         {
-            if (useDoh)
-            {
-                customDohAddres = await GetFastestDNSAsync(ProxySettingsWindowViewModel.DohAddress);
-            }
-            else
-            {
-                proxyDNS = await GetFastestDNSAsync(ProxySettingsWindowViewModel.ProxyDNSs.Skip(1));
-            }
+            var servers = proxyDNS.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
+            using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            if (!await CheckDnsServersAsync(servers, timeout.Token))
+                Toast.Show(ToastIcon.Warning, "DNS 预检查未通过或超时，加速仍会按配置顺序尝试服务器；请检查网络或解析设置。");
         }
 
         Lazy<IPAddress> proxyIp_ = new(() => ReverseProxySettings.GetProxyIp(proxyIp));
@@ -203,13 +189,6 @@ partial class ProxyService
                 {
                     SetProxyIp(IPAddress.Loopback);
                 }
-                var resultSetSystemProxy = await platformService.SetAsSystemProxyAsync(true,
-                    proxyIp_.Value,
-                    proxyPort);
-                if (!resultSetSystemProxy)
-                {
-                    return Strings.CommunityFix_SetAsSystemProxyFail;
-                }
                 break;
 
             case ProxyMode.PAC:
@@ -217,12 +196,6 @@ partial class ProxyService
                     proxyIp_.Value.Equals(IPAddress.Any))
                 {
                     SetProxyIp(IPAddress.Loopback);
-                }
-                var pacUrl = $"http://{proxyIp_.Value}:{proxyPort}/pac";
-                var resultSetSystemPACProxy = await platformService.SetAsSystemPACProxyAsync(true, pacUrl);
-                if (!resultSetSystemPACProxy)
-                {
-                    return Strings.CommunityFix_SetAsSystemPACProxyFail;
                 }
                 break;
 #if WINDOWS && !REMOVE_DNS_INTERCEPT
@@ -236,23 +209,12 @@ partial class ProxyService
 
         if (!OperatingSystem.IsWindows())
         {
-#if LINUX
-            if (LinuxPlatformServiceImpl.IsNixOS)
+            var checkRootCertificateCode = ICertificateManager.Constants.CheckRootCertificate(
+                  platformService,
+                  ICertificateManager.Constants.Instance);
+            if (checkRootCertificateCode != StartProxyResultCode.Ok)
             {
-                // NixOS 不可变系统适配：系统根证书由 security.pki.certificateFiles 声明式安装
-                // （nix store 只读，pkexec/NSS 安装路径在 NixOS 不可用）。AppData 下的 PFX
-                // 由打包证书源（STEAMTOOLS_BUNDLED_PFX）同步，无需在此检查/安装。
-            }
-            else
-#endif
-            {
-                var checkRootCertificateCode = ICertificateManager.Constants.CheckRootCertificate(
-                      platformService,
-                      ICertificateManager.Constants.Instance);
-                if (checkRootCertificateCode != StartProxyResultCode.Ok)
-                {
-                    return Strings.Error_CheckRootCertificateFailed_;
-                }
+                return Strings.Error_CheckRootCertificateFailed_;
             }
         }
 
@@ -261,33 +223,33 @@ partial class ProxyService
             proxyIp, proxyMode, isProxyGOG, onlyEnableProxyScript,
             enableHttpProxyToHttps, socks5ProxyEnable, socks5ProxyPortId,
             twoLevelAgentEnable, twoLevelAgentProxyType, twoLevelAgentIp,
-            twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6, useDoh, customDohAddres, proxyToken);
+            twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6, proxyToken);
         byte[] reverseProxySettings_ = Serializable.SMP2(reverseProxySettings);
 #if LINUX
-        if (BD.WTTS.Services.Implementation.LinuxPlatformServiceImpl.IsNixOS)
+        if (LinuxPlatformServiceImpl.IsNixOS)
         {
             // NixOS DNS 模式：把选中平台的监听域名列表写入 /tmp/steampp-domains.conf，
             // 由系统服务（dnsmasq 动态劫持，module.nix 的 proxyMode="dns"）消费。
-            var domains = (proxyDomains ?? System.Array.Empty<AccelerateProjectDTO>())
+            var domains = (proxyDomains ?? Array.Empty<AccelerateProjectDTO>())
                 .Where(s => s != null)
                 .SelectMany(s => s.ListeningDomainNamesArray)
                 .Where(d => !string.IsNullOrWhiteSpace(d))
                 .Distinct();
-            System.IO.File.WriteAllText("/tmp/steampp-domains.conf",
+            File.WriteAllText("/tmp/steampp-domains.conf",
                 string.Join(Environment.NewLine, domains));
             // 加速器 systemd 服务的 ExecStartPost 可能在本次写入之前已执行
             // （服务拉起时机不保证在写文件之后），立即主动触发 dnsmasq 域名
             // 映射更新，确保动态劫持拿到最新域名列表（polkit 已授权主用户）。
             try
             {
-                var psi = new System.Diagnostics.ProcessStartInfo("systemctl")
+                var psi = new ProcessStartInfo("systemctl")
                 {
                     UseShellExecute = false,
                     CreateNoWindow = true,
                 };
                 psi.ArgumentList.Add("start");
                 psi.ArgumentList.Add("watt-toolkit-dns-update.service");
-                System.Diagnostics.Process.Start(psi);
+                Process.Start(psi);
             }
             catch { }
         }
@@ -297,6 +259,25 @@ partial class ProxyService
         {
             switch (proxyMode)
             {
+                case ProxyMode.System:
+                case ProxyMode.PAC:
+                    try
+                    {
+                        var configured = proxyMode == ProxyMode.System
+                            ? await platformService.SetAsSystemProxyAsync(true, proxyIp_.Value, proxyPort)
+                            : await platformService.SetAsSystemPACProxyAsync(true, $"http://{proxyIp_.Value}:{proxyPort}/pac");
+                        if (!configured)
+                        {
+                            await reverseProxyService.StopProxyAsync();
+                            return proxyMode == ProxyMode.System ? Strings.CommunityFix_SetAsSystemProxyFail : Strings.CommunityFix_SetAsSystemPACProxyFail;
+                        }
+                    }
+                    catch
+                    {
+                        await reverseProxyService.StopProxyAsync();
+                        throw;
+                    }
+                    break;
                 case ProxyMode.Hosts: // 启动加速服务后修改 Hosts 文件
                     if (proxyDomains.Any_Nullable())
                     {
@@ -344,14 +325,7 @@ partial class ProxyService
             {
                 if (!string.IsNullOrWhiteSpace(Plugin.Instance.SubProcessPath))
                 {
-#if LINUX
-                    if (LinuxPlatformServiceImpl.IsNixOS)
-                    {
-                        // NixOS：nix store 只读，setcap 无法持久化（capset EPERM），
-                        // 监听特权端口的权限由系统服务 steampp-accelerator 的 AmbientCapabilities 提供。
-                    }
-                    else
-#endif
+                    if (!LinuxPlatformServiceImpl.IsNixOS)
                     {
                         Process.Start("pkexec", new string[] { "setcap", "cap_net_bind_service=+eip", Plugin.Instance.SubProcessPath }).WaitForExit();
                     }
@@ -362,10 +336,19 @@ partial class ProxyService
             }
             else
             {
+                var ports = proxyMode == ProxyMode.Hosts
+                    ? (enableHttpProxyToHttps ? "443、80" : "443")
+                    : proxyPort.ToString();
+                if (startProxyResult.Code == StartProxyResultCode.ListenerBindFailed)
+                {
+                    return $"无法监听代理端口（{ports}）。请检查端口是否被其他程序占用或被系统保留，以及安全软件是否阻止监听。";
+                }
+                if (CertificateFailurePresenter.IsCertificateFailure(startProxyResult.Code))
+                    return new OperateProxyServiceResult("Certificate operation failed.", CertificateError: startProxyResult.Code);
                 var errorString = startProxyResult.Code switch
                 {
                     StartProxyResultCode.Exception => startProxyResult.Exception?.ToString() ?? nameof(StartProxyResultCode.Exception),
-                    _ => $"{Strings.Error_BindPortError_.Format(proxyPort)}StaartProxyErrorCode:${startProxyResult.Code}"
+                    _ => $"{Strings.Error_BindPortError_.Format(ports)}StaartProxyErrorCode:${startProxyResult.Code}"
                 };
                 return errorString;
             }
@@ -495,7 +478,7 @@ partial class ProxyService
     /// 操作代理服务返回结果
     /// </summary>
     /// <param name="Error"></param>
-    readonly record struct OperateProxyServiceResult(string? Error, Exception? Exception = null)
+    readonly record struct OperateProxyServiceResult(string? Error, Exception? Exception = null, StartProxyResultCode? CertificateError = null)
     {
         public static implicit operator OperateProxyServiceResult(string error) => new(error);
 
@@ -506,13 +489,18 @@ partial class ProxyService
         /// </summary>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool OnStartedShowToastReturnProxyStatus()
+        public async Task<bool> OnStartedShowToastReturnProxyStatus()
         {
             bool proxyStatus;
             if (string.IsNullOrWhiteSpace(Error))
             {
                 Toast.Show(ToastIcon.Success, Strings.CommunityFix_StartProxySuccess);
                 proxyStatus = true;
+            }
+            else if (CertificateError is { } certificateError)
+            {
+                await CertificateFailurePresenter.ShowAsync(certificateError);
+                proxyStatus = false;
             }
             else if (Exception != null)
             {
@@ -545,68 +533,32 @@ partial class ProxyService
         }
     }
 
-    async Task<(long delayMs, string dns)> GetValidDNSAsync(string dns, CancellationToken cancellationToken = default)
+    static async Task<bool> CheckDnsServersAsync(IEnumerable<string> servers, CancellationToken cancellationToken)
     {
-        var testDomain = "dnscheck-test.steampp.net";
-        try
+        const string testDomain = "dnscheck-test.steampp.net";
+        foreach (var server in servers)
         {
-            long delayMs;
-            IPAddress[] address;
-            if (ProxySettings.UseDoh.Value)
+            if (cancellationToken.IsCancellationRequested)
+                break;
+            try
             {
-                (delayMs, address) = await INetworkTestService.Instance.TestDNSOverHttpsAsync(testDomain, dns, cancellationToken: cancellationToken);
+                var (_, addresses) = server.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
+                    ? await INetworkTestService.Instance.TestDNSOverHttpsAsync(testDomain, server, cancellationToken: cancellationToken)
+                    : await INetworkTestService.Instance.TestDNSAsync(testDomain,
+                        string.Equals(server, "System Default", StringComparison.OrdinalIgnoreCase) ? "System Default" : server,
+                        53, cancellationToken: cancellationToken);
+                if (addresses.Length > 0)
+                    return true;
             }
-            else
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
-                (delayMs, address) = await INetworkTestService.Instance.TestDNSAsync(testDomain, dns, 53, cancellationToken: cancellationToken);
+                break;
             }
-            if (address.Length == 0)
-                throw new Exception("Parsing failed. Return empty ip address.");
-
-            return (delayMs, dns);
-        }
-        catch (Exception ex)
-        {
-            Log.Error(nameof(StartOrStopProxyService), ex.ToString(), "DNS检测出错");
-            return (0, dns);
-        }
-    }
-
-    async Task<string?> GetFastestDNSAsync(IEnumerable<string> dnsAddresses, CancellationToken cancellationToken = default)
-    {
-        var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-        var tasks = new List<Task<(long delayMs, string dns)>>();
-
-        foreach (var dns in dnsAddresses)
-        {
-            tasks.Add(GetValidDNSAsync(dns, cts.Token));
-        }
-
-        try
-        {
-            // 等待任意一个任务完成
-            var completedTask = await Task.WhenAny(tasks);
-
-            // 获取任务结果
-            var (delayMs, dns) = await completedTask;
-            _ = cts.CancelAsync(); // 取消其他任务
-
-            // 如果任务成功完成（假设 delayMs > 0 表示成功）
-            if (delayMs > 0)
+            catch (Exception ex)
             {
-                return dns; // 返回第一个成功的 DNS 地址
+                Log.Error(nameof(StartOrStopProxyService), ex.ToString(), "DNS检测出错");
             }
         }
-        catch (OperationCanceledException)
-        {
-            // 任务被取消，忽略
-        }
-        catch (Exception ex)
-        {
-            Log.Error(nameof(StartOrStopProxyService), ex.ToString(), "DNS检测出错");
-        }
-
-        // 如果没有有效结果,返回默认值
-        return null;
+        return false;
     }
 }

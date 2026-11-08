@@ -20,6 +20,7 @@
 	<ItemGroup>
 		<PackageReference Include="Avalonia.Win32" />
 		<PackageReference Include="Avalonia.Skia" />
+		<PackageReference Include="Avalonia.HarfBuzz" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">
