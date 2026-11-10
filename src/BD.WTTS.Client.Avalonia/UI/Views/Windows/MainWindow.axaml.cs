@@ -1,4 +1,3 @@
-using Avalonia.Data;
 using BD.WTTS.Plugins.Abstractions;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
@@ -9,15 +8,10 @@ namespace BD.WTTS.UI.Views.Windows;
 
 public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
 {
-    readonly List<WeakReference<Control>> trackedPages = new();
-    bool closingForTray;
-    MainWindowViewState? closingState;
-
     public MainWindow()
     {
         InitializeComponent();
         ClosingBehavior = WindowClosingBehavior.OwnerWindowOnly;
-        _ = new MainWindowTrayLifetime(this);
         if (!AppSplashScreen.IsInitialized)
             SplashScreen = new AppSplashScreen();
         else
@@ -31,12 +25,11 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
 
     protected override void OnClosing(WindowClosingEventArgs e)
     {
-        if (!closingForTray && GeneralSettings.TrayIcon.Value &&
+        if (GeneralSettings.TrayIcon.Value &&
             e.CloseReason is WindowCloseReason.WindowClosing or WindowCloseReason.Undefined)
         {
             e.Cancel = true;
-            if (!HasProtectedUi())
-                Hide();
+            Hide();
         }
         base.OnClosing(e);
 
@@ -44,92 +37,6 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
         {
             Steamworks.SteamFriends.ClearRichPresence();
         }
-    }
-
-    protected override bool DisposeViewModelOnClose => !closingForTray;
-
-    internal void TrackPage(Control page)
-    {
-        for (var i = trackedPages.Count - 1; i >= 0; i--)
-        {
-            if (!trackedPages[i].TryGetTarget(out var tracked))
-                trackedPages.RemoveAt(i);
-            else if (ReferenceEquals(tracked, page))
-                return;
-        }
-        trackedPages.Add(new WeakReference<Control>(page));
-    }
-
-    internal bool HasProtectedUi()
-    {
-        if (MainWindowUiActivity.IsActive)
-            return true;
-        if (App.Instance.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop &&
-            desktop.Windows.Any(x => !ReferenceEquals(x, this) && x.PlatformImpl != null))
-            return true;
-        return this.GetVisualDescendants().OfType<SteamLoginView>()
-            .Any(x => x.ViewModel?.HasPendingLogin == true);
-    }
-
-    bool HasUnboundInput()
-    {
-        foreach (var visual in this.GetVisualDescendants())
-        {
-            if (visual is AutoCompleteBox { Text.Length: > 0 } search &&
-                BindingOperations.GetBindingExpressionBase(search, AutoCompleteBox.TextProperty) == null)
-                return true;
-
-            if (visual is TextBox { IsReadOnly: false, Text.Length: > 0 } text &&
-                !text.GetVisualAncestors().OfType<AutoCompleteBox>().Any() &&
-                BindingOperations.GetBindingExpressionBase(text, TextBox.TextProperty) == null)
-                return true;
-        }
-        return false;
-    }
-
-    internal bool TryCloseForTray(WindowState lastVisibleState)
-    {
-        if (!AppSplashScreen.IsInitialized || IViewModelManager.Instance.MainWindow2?.IsInitialized != true ||
-            HasProtectedUi() || HasUnboundInput() || Content is not MainView)
-            return false;
-
-        var state = NavigationService.Instance.CaptureFrameState();
-        if (state == null)
-            return false;
-        foreach (var reference in trackedPages)
-        {
-            if (reference.TryGetTarget(out var page))
-                state.Pages[page.GetType()] = TrayPageState.Capture(page);
-        }
-        state.Position = Position;
-        state.Width = Width;
-        state.Height = Height;
-        state.WindowState = lastVisibleState;
-        closingState = state;
-        closingForTray = true;
-        try
-        {
-            Close();
-            return PlatformImpl == null;
-        }
-        finally
-        {
-            closingForTray = false;
-            closingState = null;
-        }
-    }
-
-    protected override void OnClosed(EventArgs e)
-    {
-        if (closingForTray && closingState is { } state)
-        {
-            if (Content is MainView view)
-                view.SaveFrameState(state);
-            AvaloniaToastServiceImpl.Instance.ReleaseSnackbarManager(this);
-            TrayPageState.Set(state.Pages);
-            App.Instance.ReleaseMainWindow(this, state);
-        }
-        base.OnClosed(e);
     }
 
     static DateTime lastOpenedTime;

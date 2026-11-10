@@ -94,7 +94,7 @@
 			<Setter Property="VerticalContentAlignment" Value="Stretch" />
 		</Style>
 		<Style Selector="Border#LogoCard">
-			<Setter Property="(Grid.Row)" Value="2" />
+			<Setter Property="(Grid.Row)" Value="0" />
 			<Setter Property="(Grid.Column)" Value="1" />
 		</Style>
 	</UserControl.Styles>
@@ -104,7 +104,7 @@
 		<TabItem Header="{Binding Path=Res.Info, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
 			<ScrollViewer Classes="page-scroll">
 				<StackPanel Margin="0,12,12,16" Spacing="12">
-					<Border Classes="card" MinWidth="400">
+					<Border Classes="card">
 						<StackPanel Spacing="12">
 							<Grid Classes="field" RowDefinitions="Auto,Auto">
 								<TextBlock Classes="label"
@@ -273,7 +273,7 @@
 									<Setter Property="(Grid.ColumnSpan)" Value="2" />
 								</Style>
 								<Style Selector="Border#LogoCard">
-									<Setter Property="(Grid.Row)" Value="3" />
+									<Setter Property="(Grid.Row)" Value="1" />
 									<Setter Property="(Grid.Column)" Value="0" />
 									<Setter Property="(Grid.ColumnSpan)" Value="2" />
 								</Style>
@@ -281,7 +281,7 @@
 						</Grid.Styles>
 
 						<!--  横版封面  -->
-						<Border Classes="card" Grid.ColumnSpan="2">
+						<Border Grid.Row="2" Classes="card" Grid.ColumnSpan="2">
 							<StackPanel Spacing="8">
 								<Grid ColumnDefinitions="*,Auto">
 									<StackPanel VerticalAlignment="Center">
@@ -329,7 +329,7 @@
 
 						<!--  背景  -->
 						<Border
-							Grid.Row="1"
+							Grid.Row="3"
 							Classes="card"
 							Grid.ColumnSpan="2">
 							<StackPanel Spacing="8">
@@ -378,7 +378,7 @@
 						</Border>
 
 						<!--  竖版封面  -->
-						<Border x:Name="PortraitCard" Grid.Row="2" Classes="card">
+						<Border x:Name="PortraitCard" Grid.Row="0" Classes="card">
 							<StackPanel Spacing="8">
 								<Grid ColumnDefinitions="*,Auto">
 									<StackPanel VerticalAlignment="Center">
@@ -490,7 +490,7 @@
 						</ItemsControl.ItemsPanel>
 						<ItemsControl.ItemTemplate>
 							<DataTemplate DataType="{x:Type spp:SteamAppLaunchItem}">
-								<Border Classes="card" MinWidth="400">
+								<Border Classes="card">
 									<StackPanel Spacing="12">
 										<Grid Classes="field" RowDefinitions="Auto,Auto">
 											<TextBlock Classes="label"

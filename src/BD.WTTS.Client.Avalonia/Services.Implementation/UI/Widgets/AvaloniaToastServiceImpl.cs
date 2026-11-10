@@ -38,16 +38,6 @@ sealed class AvaloniaToastServiceImpl : IToastService
         };
     }
 
-    internal void ReleaseSnackbarManager(TopLevel host)
-    {
-        if (!ReferenceEquals(notificationHost, host))
-            return;
-
-        NotificationManager?.Uninstall();
-        NotificationManager = null;
-        notificationHost = null;
-    }
-
     /// <summary>
     /// 显示Toast
     /// </summary>

@@ -147,15 +147,6 @@ public class PageBase : UserControl
         _detailsPanel = e.NameScope.Find<Panel>("PageDetails");
         _scroller = e.NameScope.Find<ScrollViewer>("PageScroller");
     }
-    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
-    {
-        base.OnAttachedToVisualTree(e);
-        if (TopLevel.GetTopLevel(this) is MainWindow window &&
-            this.GetVisualAncestors().OfType<MainView>().Any())
-            window.TrackPage(this);
-    }
-
-
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
@@ -163,7 +154,6 @@ public class PageBase : UserControl
         _hasLoaded = true;
         SetDetailsAnimation();
         SetTabsAnimation();
-        TrayPageState.Restore(this);
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)
@@ -337,9 +327,6 @@ public class PageBase<TViewModel> : PageBase, IViewFor<TViewModel> where TViewMo
     /// </summary>
     public PageBase() : base()
     {
-        if (TrayPageState.GetViewModel<TViewModel>(GetType()) is { } savedViewModel)
-            DataContext = savedViewModel;
-
         // This WhenActivated block calls ViewModel's WhenActivated
         // block if the ViewModel implements IActivatableViewModel.
 

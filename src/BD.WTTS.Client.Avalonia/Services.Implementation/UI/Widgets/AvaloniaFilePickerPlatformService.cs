@@ -253,7 +253,6 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
 
     async Task<IEnumerable<IFileResult>> IOpenFileDialogService.PlatformPickAsync(PickOptions? options, bool allowMultiple)
     {
-        using var activity = MainWindowUiActivity.Enter();
         return await MainThread2.InvokeOnMainThreadAsync(() => PickOnUiThreadAsync(options, allowMultiple));
     }
 
@@ -294,7 +293,6 @@ sealed class AvaloniaFilePickerPlatformService : BaseService, IServiceBase, IOpe
 
     async Task<SaveFileResult?> ISaveFileDialogService.PlatformSaveAsync(PickOptions? options)
     {
-        using var activity = MainWindowUiActivity.Enter();
         return await MainThread2.InvokeOnMainThreadAsync(() => SaveOnUiThreadAsync(options));
     }
 

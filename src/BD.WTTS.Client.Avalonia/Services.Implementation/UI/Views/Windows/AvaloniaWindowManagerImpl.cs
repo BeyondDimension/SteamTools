@@ -110,7 +110,6 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         bool disableScroll = false)
         where TPageViewModel : ViewModelBase
     {
-        using var activity = MainWindowUiActivity.Enter();
         return await MainThread2.InvokeOnMainThreadAsync(async () =>
         {
         var td = new TaskDialogEx
