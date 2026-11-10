@@ -977,29 +977,6 @@ internal sealed class HostsFileServiceImpl
     bool mOnExitRestoreHosts;
     readonly AsyncLock mOnExitRestoreHostsLock = new();
 
-#if LINUX
-    // NixOS hosts 参考配置（声明式替代 /etc/hosts 运行时写入）
-    static string GetNixOSHostsConfigPath() => Path.Combine(IOPath.AppDataDirectory, "nixos-hosts.conf");
-
-    void WriteNixOSHostsConfig(IReadOnlyDictionary<string, string> hosts)
-    {
-        var path = GetNixOSHostsConfigPath();
-        var sb = new StringBuilder();
-        sb.AppendLine(MarkStart);
-        foreach (var (domain, ip) in hosts)
-        {
-            sb.AppendLine($"{ip} {domain}");
-        }
-        sb.AppendLine(MarkEnd);
-        File.WriteAllText(path, sb.ToString(), GetEncoding());
-    }
-
-    static void DeleteNixOSHostsConfig()
-    {
-        IOPath.FileTryDelete(GetNixOSHostsConfigPath());
-    }
-#endif
-
     public async Task OnExitRestoreHosts()
     {
         using (await mOnExitRestoreHostsLock.LockAsync())
