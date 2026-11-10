@@ -131,7 +131,15 @@ jobs:
       - name: 执行发布（linux-x64，目录发布 + NixOS 适配）
         run: |
           cd src/BD.WTTS.Client.Tools.Publish/bin/Release/net11.0
-          dotnet pub.dll run --rids linux-x64
+          set -o pipefail
+          dotnet pub.dll run --rids linux-x64 2>&1 | tee /tmp/publish.log
+
+      - name: 发布失败诊断（仅失败时，把错误行写成 annotation）
+        if: failure()
+        run: |
+          test -f /tmp/publish.log || { echo "::error::publish.log 不存在（失败可能早于本步骤）"; exit 0; }
+          grep -aE " error [A-Z]+[0-9]+|error MSB|error NU|Exception|Unhandled|失败的|Fehler" /tmp/publish.log | head -15 | sed -e 's/%/%25/g' -e 's/\r//g' | while IFS= read -r line; do echo "::error::$line"; done
+          echo "::error::tail: $(tail -5 /tmp/publish.log | tr '\n' ' ' | sed -e 's/%/%25/g' -e 's/\r//g')"
 
       - name: 上传发布产物
         uses: actions/upload-artifact@v4
