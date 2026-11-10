@@ -31,7 +31,7 @@ namespace BD.WTTS.Services.Implementation
                 }
                 //退出码 404 500 被使用
                 var shellStr = $"CERT_NAME=\"{CertificateConstants.CertificateName}\"; CERT_RESULT=$(certutil -L -d $HOME/.pki/nssdb | grep \"$CERT_NAME\"); if [ -n \"$CERT_RESULT\" ]; then echo \"证书 '$CERT_NAME' 存在。\"; exit 200; else echo \"证书 '$CERT_NAME' 不存在。\"; exit 10; fi";
-                var p = Process.Start(Process2.BinBash, new string[] { "-c", shellStr });
+                var p = Process.Start(LinuxShell.BashPath, new string[] { "-c", shellStr });
                 p.WaitForExit();
                 return p.ExitCode == 200;
             }
@@ -44,26 +44,22 @@ namespace BD.WTTS.Services.Implementation
 
         public bool? TrustRootCertificateAsync(string cerPath)
         {
+            if (IsNixOS)
+            {
+                // NixOS 无 certutil/NSS 环境，系统证书由 security.pki 声明式安装；
+                // 这里只负责把 AppData 的 CER 同步到模块声明的可写路径。
+                return TrySyncBundledCertificate(cerPath);
+            }
             // 使用  Certutil  NSS 工具 添加到 $HOME/.pki/nssdb Chrome 信任此储存区
-            Process.Start(Process2.BinBash, new string[] {
+            Process.Start(LinuxShell.BashPath, new string[] {
                         "-c",
                         $"{Certutil} -A -d $HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\" -t C,, -i \"{cerPath}\""
                     }).WaitForExit();
-            if (IsNixOS)
-            {
-                // 去打包证书源确认证书是否存在
-                return TrySyncBundledCertificate(cerPath);
-            }
             return RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "linux", "-ceri", CertificateConstants.AppDataDirectory }) == 0;
         }
 
         public void RemoveCertificate(byte[] certificate2)
         {
-            // 使用  Certutil  NSS 工具 从 $HOME/.pki/nssdb 中删除证书
-            Process.Start(Process2.BinBash, new string[] {
-                        "-c",
-                        $"{Certutil} -D -d $HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\""
-                    }).WaitForExit();
             if (IsNixOS)
             {
                 var nixosCerPath = GetBundledCerFilePath();
@@ -73,6 +69,11 @@ namespace BD.WTTS.Services.Implementation
                 }
                 return;
             }
+            // 使用  Certutil  NSS 工具 从 $HOME/.pki/nssdb 中删除证书
+            Process.Start(LinuxShell.BashPath, new string[] {
+                        "-c",
+                        $"{Certutil} -D -d $HOME/.pki/nssdb -n \"{CertificateConstants.CertificateName}\""
+                    }).WaitForExit();
             RunRootCommand(PkexecPath, new string[] { GetAppHostPath(), "linux", "-cerd", CertificateConstants.AppDataDirectory });
         }
 

@@ -118,7 +118,7 @@ public sealed partial class AcceleratorPageViewModel
     {
         var path = Path.Combine(IOPath.BaseDirectory!, "script", "environment_check.sh");
         var shellStr = $"if [ -x \"{path}\" ]; then '{path}' -c; else chmod +x '{path}'; '{path}' -c; fi";
-        return Process.Start(Process2.BinBash, new string[] { "-c", shellStr })
+        return Process.Start(LinuxShell.BashPath, new string[] { "-c", shellStr })
             ?? throw new InvalidOperationException("Unable to start environment_check.sh.");
     }
 
@@ -136,6 +136,10 @@ public sealed partial class AcceleratorPageViewModel
 #if LINUX
         try
         {
+            // NixOS 用 systemd 服务 + 声明式系统证书（security.pki），
+            // 不依赖 certutil/NSS 环境脚本，直接视为通过。
+            if (LinuxPlatformServiceImpl.IsNixOS)
+                return true;
             using var process = StartEnvironmentCheck();
             process.WaitForExit();
             return EnvironmentCheckResult(process.ExitCode);
@@ -152,6 +156,8 @@ public sealed partial class AcceleratorPageViewModel
     {
         try
         {
+            if (LinuxPlatformServiceImpl.IsNixOS)
+                return true;
             using var process = StartEnvironmentCheck();
             await process.WaitForExitAsync();
             return EnvironmentCheckResult(process.ExitCode);

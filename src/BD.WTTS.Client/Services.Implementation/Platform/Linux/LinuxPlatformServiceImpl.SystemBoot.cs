@@ -30,7 +30,7 @@ partial class LinuxPlatformServiceImpl
         try
         {
             using var p = new Process();
-            p.StartInfo.FileName = Process2.BinBash;
+            p.StartInfo.FileName = LinuxShell.BashPath;
             p.StartInfo.Arguments = "";
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardInput = true;

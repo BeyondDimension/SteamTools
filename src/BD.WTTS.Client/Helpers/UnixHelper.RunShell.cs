@@ -42,6 +42,6 @@ static partial class UnixHelper
     /// <param name="shell">脚本指令</param>
     /// <returns>返回结果</returns>
     public static string RunShell(string shell)
-        => Process2.RunShell(Process2.BinBash, shell, e => e.LogAndShowT(TAG));
+        => Process2.RunShell(LinuxShell.BashPath, shell, e => e.LogAndShowT(TAG));
 }
 #endif

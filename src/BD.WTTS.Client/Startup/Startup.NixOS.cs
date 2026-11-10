@@ -23,13 +23,29 @@ public static partial class StartupNixOS
             {
                 UseShellExecute = false,
                 CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
             };
             psi.ArgumentList.Add("start");
             psi.ArgumentList.Add(SERVICE_NAME);
-            Process.Start(psi);
+            using var process = Process.Start(psi);
+            if (process == null)
+            {
+                Log.Error(nameof(StartupNixOS), $"无法启动进程 {SYSCTL_NAME}");
+                return;
+            }
+            var stdout = process.StandardOutput.ReadToEnd();
+            var stderr = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+            if (process.ExitCode != 0)
+            {
+                Log.Error(nameof(StartupNixOS),
+                    $"{SYSCTL_NAME} start {SERVICE_NAME} 退出码 {process.ExitCode}，stdout: {stdout}，stderr: {stderr}");
+            }
         }
-        catch
+        catch (Exception ex)
         {
+            Log.Error(nameof(StartupNixOS), ex, $"{SYSCTL_NAME} start {SERVICE_NAME} 失败");
         }
     }
 
