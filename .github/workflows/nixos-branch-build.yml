@@ -128,19 +128,6 @@ jobs:
         # 只有文件才让 isCopyRuntime=false。服务器 /etc/NIXOS 是 nixos 系统文件，天然满足。
         run: sudo touch /etc/NIXOS
 
-      - name: 诊断：打印 AcceleratorPage.axaml.cs 20-30 行字节（CS1010 定位）
-        run: |
-          echo '== head 5 =='
-          head -5 src/BD.WTTS.Client.Plugins.Accelerator/UI/Views/Pages/AcceleratorPage.axaml.cs
-          echo '== lines 20-30 =='
-          sed -n '20,30p' src/BD.WTTS.Client.Plugins.Accelerator/UI/Views/Pages/AcceleratorPage.axaml.cs | cat -A
-          echo '== git rev-parse HEAD =='
-          git rev-parse HEAD
-          echo '== git status =='
-          git status --short | head -5
-          echo '== grep wt-ui-debug =='
-          grep -n 'wt-ui-debug' src/BD.WTTS.Client.Plugins.Accelerator/UI/Views/Pages/AcceleratorPage.axaml.cs
-
       - name: 执行发布（linux-x64，目录发布 + NixOS 适配）
         run: |
           cd src/BD.WTTS.Client.Tools.Publish/bin/Release/net11.0
