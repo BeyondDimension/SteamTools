@@ -39,8 +39,16 @@ public static partial class StartupNixOS
             process.WaitForExit();
             if (process.ExitCode != 0)
             {
+                var mainProcessAlive = false;
+                try
+                {
+                    mainProcessAlive = Process.GetProcessById(pid) != null;
+                }
+                catch
+                {
+                }
                 Log.Error(nameof(StartupNixOS),
-                    $"{SYSCTL_NAME} start {SERVICE_NAME} 退出码 {process.ExitCode}，stdout: {stdout}，stderr: {stderr}");
+                    $"{SYSCTL_NAME} start {SERVICE_NAME} 退出码 {process.ExitCode}（pipe={pipeName}, pid={pid}, 主进程存活={mainProcessAlive}），stdout: {stdout}，stderr: {stderr}");
             }
         }
         catch (Exception ex)

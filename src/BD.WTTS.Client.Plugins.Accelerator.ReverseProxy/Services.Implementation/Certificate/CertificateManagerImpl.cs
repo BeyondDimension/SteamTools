@@ -151,6 +151,19 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         // 加载源（PfxFilePath）仍优先取打包证书源（store 最新，与系统信任同源）；
         // 仅当 store 源缺失/过期时兜底生成，此时写入 AppData。
         var generatedPfxFilePath = CertificateConstants.DefaultPfxFilePath;
+
+        // 旧版打包会把 nix store 中的 pfx 复制到 AppData，权限保留为 0444（只读），
+        // 导致生成/续期证书时写入失败（“无法生成或加载加速证书”）。生成前先解除只读。
+        try
+        {
+            if (File.Exists(generatedPfxFilePath))
+                new FileInfo(generatedPfxFilePath).IsReadOnly = false;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(TAG, ex, $"解除 {generatedPfxFilePath} 只读属性失败");
+        }
+
         RootCertificate = CertGenerator.GenerateBySelfPfx(
             null,
             validFrom,
