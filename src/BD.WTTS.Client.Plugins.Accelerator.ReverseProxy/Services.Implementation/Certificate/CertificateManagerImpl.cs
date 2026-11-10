@@ -54,21 +54,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         try
         {
             ICertificateManager thiz = Interface;
-            // NixOS 适配：证书加载源优先取打包证书源（STEAMTOOLS_BUNDLED_PFX，nix store 最新 PFX）。
-            // store 中 cer/pfx 与系统 security.pki.certificateFiles 为同一构建产物（同源），
-            // 直接加载 store PFX 可保证代理私钥与系统信任严格一致（rebuild 后新 store 路径自动跟随，
-            // 不依赖 AppData 同步时机，也不受残留旧证书影响）。未设置该环境变量时回退原逻辑（AppData）。
-            var bundledPfxFilePath = BundledCertificateHelper.GetBundledPfxFilePath();
-            string pfxFilePath;
-            if (bundledPfxFilePath != null)
-            {
-                pfxFilePath = bundledPfxFilePath;
-            }
-            else
-            {
-                BundledCertificateHelper.TrySyncBundledCertificate(thiz.PfxFilePath);
-                pfxFilePath = thiz.PfxFilePath;
-            }
+            var pfxFilePath = thiz.PfxFilePath;
             if (!File.Exists(pfxFilePath))
                 return null;
             X509Certificate2 rootCert;

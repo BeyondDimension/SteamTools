@@ -6,7 +6,7 @@
 #     enable = true;
 #     user = "wt";            # 加速器服务运行用户（不能是 root）
 #     enableAcceleratorService = true;   # 系统级加速器服务（空闲，UI 点击时拉起）
-#     trustCertificate = true;           # security.pki.certificateFiles 信任打包证书
+#     trustCertificate = true;           # security.pki.certificates 信任运行时导出证书
 #     enablePolkit = true;               # 允许主用户无密码启停加速器服务
 #     proxyMode = "hosts";    # 加速模式：hosts（静态域名，默认）| dns（全局 dnsmasq 动态劫持）
 #   };
@@ -44,7 +44,7 @@ in
       type = lib.types.package;
       default = pkgs.watt-toolkit;
       defaultText = lib.literalExpression "pkgs.watt-toolkit";
-      description = "Watt Toolkit 包（需包含 out / accelerator / ssl 三个输出）。";
+      description = "Watt Toolkit 包（需包含 out / accelerator 两个输出）。";
     };
 
     user = lib.mkOption {
@@ -66,14 +66,14 @@ in
     ;
 
     trustCertificate = lib.mkEnableOption ''
-      将打包生成的 SteamTools 根证书（ssl 输出）加入 security.pki.certificateFiles
-      （NixOS 声明式证书信任，加速器代理证书与系统信任一致）''
+      将程序运行时生成并导出到 /var/lib/watt-toolkit 的 SteamTools 根证书
+      （.cer，私钥留在 AppData）以 security.pki.certificates 声明式信任''
     ;
 
     trustFirefoxCertificate = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "让 Firefox 信任系统最终信任的证书集合：写入企业策略（/etc/firefox/policies/policies.json），Install 指向系统 CA 合并库 /etc/ssl/certs/ca-certificates.crt（包含 security.pki 声明式信任的全部证书，含打包证书与用户自定义证书）。Firefox 默认不读系统 CA 库，需显式 Install。";
+      description = "让 Firefox 信任系统最终信任的证书集合：写入企业策略（/etc/firefox/policies/policies.json），Install 指向系统 CA 合并库 /etc/ssl/certs/ca-certificates.crt（包含 security.pki 声明式信任的全部证书，含运行时导出证书与用户自定义证书）。Firefox 默认不读系统 CA 库，需显式 Install。";
     };
 
     enablePolkit = lib.mkEnableOption ''
@@ -136,16 +136,32 @@ in
     # NixOS 声明式生成，只读；主程序侧 StartupNixOS 读取该文件。
     environment.etc."watt-toolkit/proxy-mode".text = cfg.proxyMode;
 
-    # NixOS 声明式证书信任：rebuild 后系统信任打包生成的 cer；
-    # 应用启动时经 wrapper STEAMTOOLS_BUNDLED_PFX 同步同一 PFX 到 AppData。
-    security.pki.certificateFiles = lib.mkIf cfg.trustCertificate [
-      "${cfg.package.ssl}/SteamTools.Certificate.cer"
-    ];
+    # NixOS 声明式证书信任。
+    # 证书由程序在加速器启动时惰性生成到 AppData（私钥不外流），再把 .cer 导出到
+    # /var/lib/watt-toolkit（STEAMTOOLS_BUNDLED_CER，见 package.nix wrapper 与本模块服务环境）。
+    # /nix/store 只读，所以这里读的是可写路径；首次启动前文件不存在 → 该条为空，
+    # 加速器跑过一次后再 nixos-rebuild switch，证书才会进入系统信任库。
+    # 证书有效期 300 天，续期后同样需要再 rebuild 一次。
+    security.pki.certificates = lib.mkIf cfg.trustCertificate (
+      let
+        certPath = "/var/lib/watt-toolkit/SteamTools.Certificate.cer";
+      in
+      lib.optional (builtins.pathExists certPath) (builtins.readFile certPath)
+    );
+
+    # 证书导出目录必须可写且属主为服务用户（程序以 cfg.user 身份运行）。
+    # tmpfiles 条目在下方与 dns 模式的 /run 目录合并定义；
+    # 系统切换世代不重启时也要靠 activationScript 兜底。
+    system.activationScripts.watt-toolkit-cert-dir = lib.mkIf (cfg.enableAcceleratorService || cfg.trustCertificate) ''
+      mkdir -p /var/lib/watt-toolkit
+      chown ${cfg.user}:${cfg.group} /var/lib/watt-toolkit
+      chmod 0755 /var/lib/watt-toolkit
+    '';
 
     # Firefox 默认不使用系统 CA 库（NSS），需要 enterprise policy 显式 Install。
     # Install 指向系统 CA 合并库 /etc/ssl/certs/ca-certificates.crt：
-    # 该文件由 NixOS 从 security.pki.certificateFiles 构建期生成，
-    # 包含系统最终信任的全部证书（打包证书 + 用户自定义），rebuild 自动跟随。
+    # 该文件由 NixOS 从 security.pki.certificates 构建期生成，
+    # 包含系统最终信任的全部证书（运行时导出证书 + 用户自定义），rebuild 自动跟随。
     environment.etc."firefox/policies/policies.json" =
       lib.mkIf (cfg.trustCertificate && cfg.trustFirefoxCertificate) {
         text = ''
@@ -174,9 +190,9 @@ in
         Environment = [
           "DOTNET_ROOT=${pkgs.dotnetCorePackages.sdk_11_0}/share/dotnet"
           "STEAMPP_PROXY_MODE=${cfg.proxyMode}"
-          # 打包证书源：服务进程直接读取 nix store 最新 PFX（rebuild 自动跟随新 store 路径），
-          # 与系统 security.pki.certificateFiles 信任的 cer 保持同一把密钥，避免漂移不一致。
-          "STEAMTOOLS_BUNDLED_PFX=${cfg.package.ssl}/SteamTools.Certificate.pfx"
+          # 证书导出目标：程序把 AppData 里运行时生成的 .cer 写到这里，
+          # 系统侧 security.pki.certificates 读取同一文件（私钥不离开 AppData）。
+          "STEAMTOOLS_BUNDLED_CER=/var/lib/watt-toolkit/SteamTools.Certificate.cer"
         ];
         ExecStart = "${pkgs.dotnetCorePackages.sdk_11_0}/bin/dotnet ${cfg.package.accelerator}/Steam++.Accelerator.dll $STEAMPP_PIPE $STEAMPP_PID $STEAMPP_MODEL";
         # root systemd 在服务进程（主用户身份）上设置 ambient capabilities，
@@ -215,10 +231,11 @@ in
     # 域名映射目录必须存在，否则 dnsmasq 启动报错/跳过 conf-dir）。
     # tmpfiles 只在开机时运行，nhsw 切换世代不重启系统，所以再加
     # activationScript：每次切换世代都创建，dnsmasq 重启时目录必在。
-    systemd.tmpfiles.rules = lib.mkIf (cfg.enableAcceleratorService && cfg.proxyMode == "dns") [
-      "d /run/dnsmasq.d 0755 root root -"
-      "d /run/watt-toolkit 0755 root root -"
-    ];
+    systemd.tmpfiles.rules =
+      lib.optional (cfg.enableAcceleratorService || cfg.trustCertificate)
+        "d /var/lib/watt-toolkit 0755 ${cfg.user} ${cfg.group} -"
+      ++ lib.optional (cfg.enableAcceleratorService && cfg.proxyMode == "dns") "d /run/dnsmasq.d 0755 root root -"
+      ++ lib.optional (cfg.enableAcceleratorService && cfg.proxyMode == "dns") "d /run/watt-toolkit 0755 root root -";
     system.activationScripts.watt-toolkit-dns-dirs = lib.mkIf (cfg.enableAcceleratorService && cfg.proxyMode == "dns") ''
       mkdir -p /run/dnsmasq.d /run/watt-toolkit
       chmod 0755 /run/dnsmasq.d /run/watt-toolkit

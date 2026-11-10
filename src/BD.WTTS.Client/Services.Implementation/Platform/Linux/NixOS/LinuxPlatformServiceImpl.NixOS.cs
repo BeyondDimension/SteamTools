@@ -42,15 +42,23 @@ namespace BD.WTTS.Services.Implementation
         public const string EnvName_BundledCer = "STEAMTOOLS_BUNDLED_CER";
 
         /// <summary>
-        /// 获取打包证书源 PFX 路径；未设置或文件不存在返回 null。
+        /// 获取证书导出目标路径（由 Nix 打包 wrapper / systemd 服务通过
+        /// <see cref="EnvName_BundledCer"/> 指定，例如 /var/lib/watt-toolkit/SteamTools.Certificate.cer）。
+        /// 未设置、或仍指向只读的 /nix/store 时返回 null（视为“未配置导出”）。
+        /// 注意：这里不要求目标文件已存在——首次启动时它还不存在，正是由本进程生成。
         /// </summary>
         public static string? GetBundledCerFilePath()
         {
             try
             {
                 var value = Environment.GetEnvironmentVariable(EnvName_BundledCer);
-                if (!string.IsNullOrWhiteSpace(value) && File.Exists(value))
-                    return value;
+                if (string.IsNullOrWhiteSpace(value))
+                    return null;
+                var path = Path.GetFullPath(value.Trim());
+                // /nix/store 为只读挂载，写入必然失败
+                if (path.StartsWith("/nix/store/", StringComparison.Ordinal))
+                    return null;
+                return path;
             }
             catch
             {
@@ -59,36 +67,54 @@ namespace BD.WTTS.Services.Implementation
         }
 
         /// <summary>
-        /// 从程序 AppData 同步至 NixOS 打包证书源。
-        /// 内容一致时跳过复制（幂等）。
+        /// 把程序在 AppData 中运行时生成的 CER 导出到模块声明的可写路径
+        /// （AppData → 证书源，方向与维护者要求一致：私钥留在 AppData，仅导出公钥证书）。
+        /// 内容一致时跳过复制（幂等），复制后回读校验。
         /// </summary>
-        /// <param name="targetPfxFilePath">软件实际使用的 CER 路径（CertificateConstants.DefaultCerFilePath）</param>
-        public static bool TrySyncBundledCertificate(string targetCerFilePath)
+        /// <param name="sourceCerFilePath">程序实际使用的 CER（CertificateConstants.DefaultCerFilePath）</param>
+        public static bool TrySyncBundledCertificate(string sourceCerFilePath)
         {
-            if (IsNixOS)
-            {
-                try
-                {
-                    var bundledCerFilePath = GetBundledCerFilePath();
-                    if (bundledCerFilePath == null)
-                        return false;
+            if (!IsNixOS)
+                return false;
 
-                    if (!File.Exists(bundledCerFilePath) ||
-                        !File.ReadAllBytes(targetCerFilePath).SequenceEqual(File.ReadAllBytes(bundledCerFilePath)))
-                    {
-                        var directory = Path.GetDirectoryName(targetCerFilePath);
-                        if (!string.IsNullOrWhiteSpace(directory))
-                            Directory.CreateDirectory(directory);
-                        File.Copy(targetCerFilePath, bundledCerFilePath, overwrite: true);
-                    }
+            var targetCerFilePath = GetBundledCerFilePath();
+            if (targetCerFilePath == null)
+                return false;
+
+            try
+            {
+                if (!File.Exists(sourceCerFilePath))
+                    return false;
+
+                if (!File.Exists(targetCerFilePath) ||
+                    !File.ReadAllBytes(sourceCerFilePath).SequenceEqual(File.ReadAllBytes(targetCerFilePath)))
+                {
+                    // 建的是目标文件所在目录（不是源文件目录）
+                    var directory = Path.GetDirectoryName(targetCerFilePath);
+                    if (!string.IsNullOrWhiteSpace(directory))
+                        Directory.CreateDirectory(directory);
+                    File.Copy(sourceCerFilePath, targetCerFilePath, overwrite: true);
+                }
+
+                // 回读校验：文件存在且内容一致才算成功
+                if (File.Exists(targetCerFilePath) &&
+                    File.ReadAllBytes(sourceCerFilePath).SequenceEqual(File.ReadAllBytes(targetCerFilePath)))
+                {
+                    Log.Info(nameof(LinuxPlatformServiceImpl),
+                        $"NixOS: 已导出证书 {sourceCerFilePath} -> {targetCerFilePath}");
                     return true;
                 }
-                catch
-                {
-                    return false;
-                }
+
+                Log.Error(nameof(LinuxPlatformServiceImpl),
+                    $"NixOS: 证书导出后回读校验失败 {targetCerFilePath}");
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                Log.Error(nameof(LinuxPlatformServiceImpl), ex,
+                    $"NixOS: 导出证书到 {targetCerFilePath} 失败");
+                return false;
+            }
         }
     }
 }

@@ -24,7 +24,7 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     {
-      # 包：steamtools / watt-toolkit / default（输出 out + accelerator + ssl，见 package.nix）
+      # 包：steamtools / watt-toolkit / default（输出 out + accelerator，见 package.nix）
       packages = forAllSystems (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};

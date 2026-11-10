@@ -1,18 +1,18 @@
 # SteamTools (Watt Toolkit) —— NixOS 不可变系统适配包
 #
 # 架构：
-#   outputs = [ out accelerator ssl ]
+#   outputs = [ out accelerator ]
 #     out        : 主程序（watt-toolkit，GUI + 插件 UI），Wrapper 注入运行时
 #     accelerator: 完整加速器模块（目录发布），供 systemd 系统服务运行
-#     ssl        : openssl 生成的系统根证书（cer 供 security.pki.certificateFiles 信任，
-#                  pfx 供主程序启动时同步到 AppData，保证代理私钥与系统信任一致）
 #
 # 设计要点（NixOS 不可变特性）：
 #   1. 加速器不以子进程方式随 GUI 启动，由系统级 systemd 服务（空闲，UI 点击时
 #      systemctl start 拉起）运行，AmbientCapabilities 注入 cap_net_bind_service 等，
 #      以普通用户身份监听 443，无需 root / fhsenv / setcap（capset 在 NixOS 返回 EPERM）。
-#   2. 证书由打包期 openssl 生成到 ssl output，系统声明式信任（security.pki.certificateFiles），
-#      flake 不保存私钥，证书状态不属于 flake 保证范围（漂移是预设计）。
+#   2. 证书不在打包期生成（打包期生成会把私钥放进共享、全局可读的 store，且与程序
+#      实际使用的私钥不是同一对）。程序启动加速器时惰性生成到 AppData，再把 .cer
+#      导出到模块声明的可写路径（STEAMTOOLS_BUNDLED_CER），由 security.pki.certificates
+#      声明式读取；私钥始终留在 AppData。
 #   3. /etc/hosts 由声明式配置管理（networking.hosts），运行时不可写；加速器的 Hosts
 #      条目在 NixOS 分支下写入 AppData 供合并进系统配置。
 #   4. 入口 wrapper 直接运行 dotnet + Steam++.dll（目录发布），不依赖 fhsenv。
@@ -97,8 +97,10 @@ stdenv.mkDerivation {
   # NixOS 适配版版本号（与上游源码版本解耦；当前基于上游 3.1.0）
   version = "0.0.1";
 
-  # 声明多个输出：out（主程序）/ accelerator（加速子进程）/ ssl（系统根证书）
-  outputs = [ "out" "accelerator" "ssl" ];
+  # 声明多个输出：out（主程序）/ accelerator（加速子进程）
+  # 注意：不再有 ssl 输出。系统根证书由程序运行时惰性生成到 AppData，
+  # 再由程序把 .cer 导出到模块声明的可写路径，供 security.pki.certificates 读取。
+  outputs = [ "out" "accelerator" ];
 
   src = if src != null then src else pkgs.fetchurl {
     url = publishUrl;
@@ -114,31 +116,10 @@ stdenv.mkDerivation {
   # （Steam++.Accelerator 是 15.5MB 单文件，strip 后只剩 59KB → bundle 损坏）。
   dontStrip = true;
 
-  nativeBuildInputs = [ pkgs.makeWrapper pkgs.patchelf pkgs.openssl ];
+  nativeBuildInputs = [ pkgs.makeWrapper pkgs.patchelf ];
 
   installPhase = ''
     runHook preInstall
-
-    # ---- ssl output：生成系统根证书（打包证书源） ----
-    # 与软件 CertGenerator 生成的主题/用途保持一致（CN=SteamTools Certificate, CA:TRUE, SHA256, 300 天）。
-    # rebuild 后系统 security.pki.certificateFiles 信任新 cer；应用启动时经入口 wrapper
-    # 的 STEAMTOOLS_BUNDLED_PFX 把同一把 PFX 同步到 AppData，保证代理私钥与系统信任一致。
-    mkdir -p $ssl
-    openssl req -x509 -newkey rsa:2048 -sha256 -days 300 -nodes \
-      -keyout $ssl/SteamTools.Certificate.key.pem \
-      -out $ssl/SteamTools.Certificate.cer \
-      -subj "/C=CN/O=BeyondDimension/OU=Technical Department/CN=SteamTools Certificate" \
-      -addext "basicConstraints=critical,CA:TRUE" \
-      -addext "keyUsage=critical,digitalSignature,keyCertSign,cRLSign" \
-      -addext "extendedKeyUsage=serverAuth,clientAuth"
-    openssl pkcs12 -export \
-      -inkey $ssl/SteamTools.Certificate.key.pem \
-      -in $ssl/SteamTools.Certificate.cer \
-      -out $ssl/SteamTools.Certificate.pfx \
-      -passout pass:
-    rm -f $ssl/SteamTools.Certificate.key.pem
-    chmod 644 $ssl/SteamTools.Certificate.cer $ssl/SteamTools.Certificate.pfx
-    echo "已生成系统根证书: $ssl/SteamTools.Certificate.cer / .pfx"
 
     # ---- 主程序（out output） ----
     mkdir -p $out
@@ -197,7 +178,7 @@ stdenv.mkDerivation {
     makeWrapper "$DOTNET_BIN" $out/bin/watt-toolkit \
       --set DOTNET_ROOT "$DOTNET_ROOT" \
       --set DOTNET_SYSTEM_GLOBALIZATION_INVARIANT "1" \
-      --set STEAMTOOLS_BUNDLED_PFX "$ssl/SteamTools.Certificate.pfx" \
+      --set STEAMTOOLS_BUNDLED_CER "/var/lib/watt-toolkit/SteamTools.Certificate.cer" \
       --run 'export XDG_DATA_HOME="$HOME/.local/share/WattToolkit"' \
       --prefix PATH : "${dotnet-sdk_11}/bin:${pkgs.nss_latest}/bin" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}:$DOTNET_ROOT" \

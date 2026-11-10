@@ -22,6 +22,13 @@ namespace BD.WTTS.Services.Implementation
                 X509Certificate2? cert = certificate2;
                 if (cert == null)
                     return false;
+                if (IsNixOS)
+                {
+                    // NixOS 系统证书库只读，「已安装」定义为：AppData 里的 CER 已成功导出到
+                    // 模块声明的可写路径（由 security.pki.certificates 声明式读取）。
+                    // 这里顺带完成导出，避免每次点加速都重新生成证书、轮换密钥。
+                    return TrySyncBundledCertificate(CertificateConstants.DefaultCerFilePath);
+                }
                 //退出码 404 500 被使用
                 var shellStr = $"CERT_NAME=\"{CertificateConstants.CertificateName}\"; CERT_RESULT=$(certutil -L -d $HOME/.pki/nssdb | grep \"$CERT_NAME\"); if [ -n \"$CERT_RESULT\" ]; then echo \"证书 '$CERT_NAME' 存在。\"; exit 200; else echo \"证书 '$CERT_NAME' 不存在。\"; exit 10; fi";
                 var p = Process.Start(Process2.BinBash, new string[] { "-c", shellStr });
