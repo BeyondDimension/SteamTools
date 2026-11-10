@@ -5549,6 +5549,15 @@ namespace BD.WTTS.Client.Resources {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to DNS 拦截模式.
+        /// </summary>
+        public static string ProxyMode_DNSIntercept {
+            get {
+                return ResourceManager.GetString("ProxyMode_DNSIntercept", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   查找类似 DNS 的本地化字符串（NixOS dnsmasq 动态劫持模式）。
         /// </summary>
         public static string ProxyMode_DNS {
