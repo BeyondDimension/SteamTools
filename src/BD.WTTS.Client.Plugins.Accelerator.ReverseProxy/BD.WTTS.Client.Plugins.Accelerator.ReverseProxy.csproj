@@ -79,8 +79,6 @@
 		<Compile Include="..\BD.WTTS.Client\Services\Mvvm\LogConsoleService.Logger.cs">
 			<LinkBase>Services\Mvvm</LinkBase>
 		</Compile>
-			<LinkBase>Helpers</LinkBase>
-		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
