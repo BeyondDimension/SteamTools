@@ -10,10 +10,12 @@ public partial class MainFramePage : UserControl
 {
     int lastIndex = -1;
     int waitingGeneration;
+    readonly string serviceErrorTextBase;
 
     public MainFramePage()
     {
         InitializeComponent();
+        serviceErrorTextBase = ServiceErrorText.Text ?? string.Empty;
 
         //Tabs.Items.Add(new TabStripItem { Content = Strings.CommunityFix, Tag = typeof(AcceleratorPage) });
         //Tabs.Items.Add(new TabStripItem { Content = Strings.ScriptConfig, Tag = typeof(ScriptPage) });
@@ -37,6 +39,11 @@ public partial class MainFramePage : UserControl
         ServiceLoadingText.IsVisible = waiting;
         ServiceErrorText.IsVisible = !waiting;
         RetryServiceButton.IsVisible = !waiting;
+        // NixOS：只显示「无法连接加速服务」无法区分是服务没起来还是参数过期，
+        // 把 StartupNixOS 记录的失败原因追加到错误文案里（仅失败态）。
+        var detail = global::BD.WTTS.StartupNixOS.LastStartFailureDetail;
+        if (!waiting && !string.IsNullOrEmpty(detail))
+            ServiceErrorText.Text = $"{serviceErrorTextBase}\n{detail}";
     }
 
     private async void RetryServiceButton_Click(object? sender, RoutedEventArgs e)

@@ -35,6 +35,31 @@ let
     # 必须 restart 才会加载刚写入的 steampp.conf；失败时回退 reload。
     systemctl restart dnsmasq || systemctl reload dnsmasq || true
   '';
+
+  # 加速器启动前的参数校验：文件存在、pid 可解析、进程存活，任一不满足都给出明确原因。
+  # 目的是把「164 循环」变成 journal 里可直接读懂的失败原因。
+  accelPreStartCheck = pkgs.writeShellScript "watt-toolkit-accelerator-pre" ''
+    set -eu
+    f=/run/watt-toolkit/accelerator.env
+    if [ ! -s "$f" ]; then
+      echo "watt-toolkit: 加速参数文件 $f 不存在或为空（应用未写入；请从应用内点击加速后重试）" >&2
+      exit 78
+    fi
+    pid=$(sed -n 's/^STEAMPP_PID=//p' "$f" | head -n 1)
+    pipename=$(sed -n 's/^STEAMPP_PIPE=//p' "$f" | head -n 1)
+    if [ -z "$pid" ]; then
+      echo "watt-toolkit: 参数文件缺少 STEAMPP_PID" >&2
+      exit 79
+    fi
+    if [ -z "$pipename" ]; then
+      echo "watt-toolkit: 参数文件缺少 STEAMPP_PIPE" >&2
+      exit 79
+    fi
+    if ! kill -0 "$pid" 2>/dev/null; then
+      echo "watt-toolkit: STEAMPP_PID=$pid 对应的主进程不存在（参数已过期，请从应用内重新点击加速）" >&2
+      exit 79
+    fi
+  '';
 in
 {
   options.programs.watt-toolkit = {
@@ -183,10 +208,12 @@ in
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        # 主程序点击加速时写入：STEAMPP_PIPE / STEAMPP_PID / STEAMPP_MODEL
-        EnvironmentFile = "/tmp/steampp-accel.env";
-        # 防呆：仅当 UI 已写入参数文件时启动（无 env 时 $STEAMPP_PIPE 等为空 → 加速器 164 循环）
-        ExecStartPre = "${pkgs.coreutils}/bin/test -s /tmp/steampp-accel.env";
+        # 主程序点击加速时把参数写入 /run/watt-toolkit/accelerator.env：
+        # STEAMPP_PIPE / STEAMPP_PID / STEAMPP_MODEL（目录由 tmpfiles 开机创建，属主为服务用户）
+        EnvironmentFile = "/run/watt-toolkit/accelerator.env";
+        # 启动前校验：参数文件存在、pid 可解析且进程仍存活，否则给出明确原因后失败
+        # （旧写法 test -s 只判断非空，过期参数会被当成有效参数启动 → 退出码 164 循环）
+        ExecStartPre = "${accelPreStartCheck}";
         Environment = [
           "DOTNET_ROOT=${pkgs.dotnetCorePackages.sdk_11_0}/share/dotnet"
           "STEAMPP_PROXY_MODE=${cfg.proxyMode}"
@@ -201,8 +228,8 @@ in
         # 失败多为参数缺失/环境问题（UI 侧），自动重启无意义且刷 start-limit
         Restart = "no";
         RestartSec = 1;
-        # 供 dns 模式联动脚本写域名映射（/run/watt-toolkit，属主为服务用户）
-        RuntimeDirectory = "watt-toolkit";
+        # 不再用 RuntimeDirectory：它在服务停止时会删掉目录，而参数文件必须先于
+        # systemctl start 存在。/run/watt-toolkit 统一由 tmpfiles + activationScript 维护。
       };
       # dns 模式：启动/停止时更新 dnsmasq 域名映射（root oneshot 服务写 /run/dnsmasq.d）
       serviceConfig.ExecStartPost = lib.mkIf (cfg.proxyMode == "dns") [
@@ -227,18 +254,24 @@ in
       script = "${dnsUpdateScript}";
     };
 
-    # dns 模式：预创建 /run 下的目录（tmpfs 开机清空，dnsmasq conf-dir 与
-    # 域名映射目录必须存在，否则 dnsmasq 启动报错/跳过 conf-dir）。
-    # tmpfiles 只在开机时运行，nhsw 切换世代不重启系统，所以再加
-    # activationScript：每次切换世代都创建，dnsmasq 重启时目录必在。
+    # /run 下的运行时目录：
+    #   /run/watt-toolkit          —— 加速器参数文件 accelerator.env 与 dns 域名映射，属主为服务用户
+    #   /run/dnsmasq.d             —— dnsmasq 额外配置目录
+    # tmpfs 开机清空；tmpfiles 只在开机跑，切换世代不重启系统，所以再加 activationScript。
     systemd.tmpfiles.rules =
       lib.optional (cfg.enableAcceleratorService || cfg.trustCertificate)
         "d /var/lib/watt-toolkit 0755 ${cfg.user} ${cfg.group} -"
-      ++ lib.optional (cfg.enableAcceleratorService && cfg.proxyMode == "dns") "d /run/dnsmasq.d 0755 root root -"
-      ++ lib.optional (cfg.enableAcceleratorService && cfg.proxyMode == "dns") "d /run/watt-toolkit 0755 root root -";
+      ++ lib.optional cfg.enableAcceleratorService
+        "d /run/watt-toolkit 0755 ${cfg.user} ${cfg.group} -"
+      ++ lib.optional (cfg.enableAcceleratorService && cfg.proxyMode == "dns") "d /run/dnsmasq.d 0755 root root -";
+    system.activationScripts.watt-toolkit-runtime-dirs = lib.mkIf cfg.enableAcceleratorService ''
+      mkdir -p /run/watt-toolkit
+      chown ${cfg.user}:${cfg.group} /run/watt-toolkit
+      chmod 0755 /run/watt-toolkit
+    '';
     system.activationScripts.watt-toolkit-dns-dirs = lib.mkIf (cfg.enableAcceleratorService && cfg.proxyMode == "dns") ''
-      mkdir -p /run/dnsmasq.d /run/watt-toolkit
-      chmod 0755 /run/dnsmasq.d /run/watt-toolkit
+      mkdir -p /run/dnsmasq.d
+      chmod 0755 /run/dnsmasq.d
     '';
 
     # dns 模式：全局 dnsmasq 作为系统解析器（接口无关，多 WiFi/有线通用）

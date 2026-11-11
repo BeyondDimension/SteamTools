@@ -80,14 +80,29 @@ public interface IPCSubProcessService : IDisposable
         params string[] args)
     {
         if (args.Length < 2)
+        {
+            // NixOS 服务式加速器：systemd 只保留退出码低 8 位（164 = 4004 & 0xFF），
+            // 参数校验阶段的早退必须自行打印，否则 journal 里只有 status=164。
+            Console.Error.WriteLine($"[Accelerator] 参数不足 args.Length={args.Length}, args=[{string.Join(", ", args)}]");
             return (int)CommandExitCode.EmptyArrayArgs;
+        }
         var pipeName = args[0];
         if (string.IsNullOrWhiteSpace(pipeName))
+        {
+            Console.Error.WriteLine("[Accelerator] pipeName 为空");
             return (int)CommandExitCode.EmptyPipeName;
+        }
         if (!int.TryParse(args[1], out var pid))
+        {
+            Console.Error.WriteLine($"[Accelerator] 主进程 pid 解析失败: '{args[1]}'");
             return (int)CommandExitCode.EmptyMainProcessId;
+        }
         if (!TryGetProcessById(pid, out var mainProcess))
+        {
+            var procExists = OperatingSystem.IsLinux() && Directory.Exists($"/proc/{pid}");
+            Console.Error.WriteLine($"[Accelerator] 找不到主进程 pid={pid} (/proc/{pid} 存在={procExists}), pipe={pipeName}");
             return (int)CommandExitCode.NotFoundMainProcessId;
+        }
 
 #if DEBUG
         // Logging is configured below, after the process arguments are validated.
@@ -96,7 +111,13 @@ public interface IPCSubProcessService : IDisposable
         // 验证要连接的服务端进程是否为自己的程序
         var ckPid = IPCSubProcessServiceImpl.CheckBePid(mainProcess);
         if (!ckPid)
+        {
+            string path;
+            try { path = mainProcess.MainModule?.FileName ?? "(null)"; }
+            catch (Exception ex) { path = $"(读取失败: {ex.GetType().Name})"; }
+            Console.Error.WriteLine($"[Accelerator] 主进程 pid={pid} 校验未通过 CheckBePid, exe={path}");
             return (int)CommandExitCode.MainProcessIdIncorrect;
+        }
 
 #if LIB_CLIENT_IPC
         var nativeLibraryPath = Environment.GetEnvironmentVariable(EnvKey_NativeLibraryPath);
