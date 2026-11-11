@@ -22,11 +22,6 @@ public enum ProxyMode : byte
     System,
 
     /// <summary>
-    /// NixOS DNS 动态劫持模式（由系统配置 programs.watt-toolkit.proxyMode 统一控制，UI 不可选）
-    /// </summary>
-    DNS,
-
-    /// <summary>
     /// VPN 代理模式(虚拟网卡)
     /// </summary>
     VPN,
@@ -40,4 +35,11 @@ public enum ProxyMode : byte
     /// PAC代理模式(Desktop Only)
     /// </summary>
     PAC,
+
+    /// <summary>
+    /// NixOS DNS 动态劫持模式（由系统配置 programs.watt-toolkit.proxyMode 统一控制，UI 不可选）
+    /// 必须追加在末尾：本枚举按 byte 持久化/经 IPC 序列化，
+    /// 插在中间会改变 VPN/ProxyOnly/PAC 的数值，Windows/Android 已保存的代理模式会错位。
+    /// </summary>
+    DNS,
 }

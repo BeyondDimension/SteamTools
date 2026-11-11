@@ -42,6 +42,11 @@ static partial class UnixHelper
     /// <param name="shell">脚本指令</param>
     /// <returns>返回结果</returns>
     public static string RunShell(string shell)
+#if LINUX
         => Process2.RunShell(LinuxShell.BashPath, shell, e => e.LogAndShowT(TAG));
+#else
+        // macOS/Catalyst 没有 LinuxShell（该类在 #if LINUX 下），沿用原有路径
+        => Process2.RunShell(Process2.BinBash, shell, e => e.LogAndShowT(TAG));
+#endif
 }
 #endif

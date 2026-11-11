@@ -13,6 +13,10 @@ public static class CertDiagnostics
 
     public static void Write(string stage, Exception? ex = null)
     {
+        // 诊断文件固定为 Linux 的 /tmp；调用点分布在多平台共用的证书代码里，
+        // 这里直接按平台短路，Windows/macOS 不产生任何 IO。
+        if (!OperatingSystem.IsLinux())
+            return;
         try
         {
             var sb = new System.Text.StringBuilder();
