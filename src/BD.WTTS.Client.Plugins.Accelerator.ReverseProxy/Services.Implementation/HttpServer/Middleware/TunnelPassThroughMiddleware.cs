@@ -9,17 +9,6 @@ namespace BD.WTTS.Services.Implementation;
 /// </summary>
 sealed class TunnelPassThroughMiddleware
 {
-    /// <summary>
-    /// 永不进行 Tls 中间人解密的域名
-    /// <para>这些域名的客户端做证书固定（pinning），本地根证书签发的证书不可能通过校验，
-    /// 无论是否命中加速规则都必须透传</para>
-    /// </summary>
-    static readonly DomainPattern[] NeverInterceptHosts = new DomainPattern[]
-    {
-        // Microsoft Store 源（winget 的 msstore）固定到微软根 CA
-        new(@"/^[^.]+\.dsx\.mp\.microsoft\.com$"),
-    };
-
     readonly IReverseProxyConfig reverseProxyConfig;
     readonly TunnelConnector tunnelConnector;
     readonly ILogger<TunnelPassThroughMiddleware> logger;
@@ -85,12 +74,6 @@ sealed class TunnelPassThroughMiddleware
             return false;
         }
 
-        // 证书固定的域名优先于其它条件判定，否则仍会被解密而导致客户端拒绝握手
-        if (IsNeverIntercept(host))
-        {
-            return true;
-        }
-
         try
         {
             // 加速域名与需要注入脚本的域名仍然解密
@@ -98,8 +81,7 @@ sealed class TunnelPassThroughMiddleware
             {
                 return false;
             }
-            return !IReverseProxyService.Constants.Instance.IsEnableScript ||
-                reverseProxyConfig.ProxyScripts?.Any() != true;
+            return IsScriptMatched(host) == false;
         }
         catch
         {
@@ -108,17 +90,38 @@ sealed class TunnelPassThroughMiddleware
     }
 
     /// <summary>
-    /// 是否属于永不进行 Tls 中间人解密的域名
+    /// 是否需要为该域名注入脚本
     /// </summary>
     /// <param name="host"></param>
     /// <returns></returns>
-    static bool IsNeverIntercept(string host)
+    bool IsScriptMatched(string host)
     {
-        foreach (var item in NeverInterceptHosts)
+        if (!IReverseProxyService.Constants.Instance.IsEnableScript || reverseProxyConfig.ProxyScripts == null)
         {
-            if (item.IsMatch(host))
+            return false;
+        }
+
+        foreach (var script in reverseProxyConfig.ProxyScripts)
+        {
+            foreach (var pattern in script.MatchDomainNamesArray)
             {
-                return true;
+                var schemeEnd = pattern.IndexOf("://", StringComparison.Ordinal);
+                if (pattern.StartsWith('/') || schemeEnd < 0)
+                {
+                    return true;
+                }
+
+                var authority = pattern[(schemeEnd + 3)..].Split('/')[0];
+                if (authority.Contains(':') || authority.Contains('?') || authority.Contains('#'))
+                {
+                    return true;
+                }
+
+                var hostPattern = "^" + Regex.Escape(authority).Replace("\\*", ".*") + "$";
+                if (Regex.IsMatch(host, hostPattern, RegexOptions.IgnoreCase))
+                {
+                    return true;
+                }
             }
         }
         return false;
