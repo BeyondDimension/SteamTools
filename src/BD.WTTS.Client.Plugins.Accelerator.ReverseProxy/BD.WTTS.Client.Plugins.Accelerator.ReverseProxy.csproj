@@ -73,6 +73,10 @@
 		<Compile Include="..\BD.WTTS.Client\Constants\CertificateConstants.cs">
 			<LinkBase>Constants</LinkBase>
 		</Compile>
+		<!-- 证书失败诊断：与主程序共用同一份实现（本工程不引用 BD.WTTS.Client 程序集） -->
+		<Compile Include="..\BD.WTTS.Client\Helpers\CertDiagnostics.cs">
+			<LinkBase>Helpers</LinkBase>
+		</Compile>
 		<Compile Include="..\BD.WTTS.Client\Services\Platform\IPlatformService.OS.Linux.Etc.Os_Release.cs">
 			<LinkBase>Services\Platform</LinkBase>
 		</Compile>
