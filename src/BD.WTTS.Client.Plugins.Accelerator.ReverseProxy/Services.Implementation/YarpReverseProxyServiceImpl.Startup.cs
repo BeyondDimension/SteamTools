@@ -41,6 +41,10 @@ partial class YarpReverseProxyServiceImpl
     {
         app.UseHttpLocalRequest();
 
+        // 使用 CRL 证书吊销列表中间件
+        var crlMiddleware = app.ApplicationServices.GetRequiredService<CrlMiddleware>();
+        app.Use(next => context => crlMiddleware.InvokeAsync(context, next));
+
         app.UseHttpProxyPac();
         app.UseRequestLogging();
         app.UseHttpReverseProxy();

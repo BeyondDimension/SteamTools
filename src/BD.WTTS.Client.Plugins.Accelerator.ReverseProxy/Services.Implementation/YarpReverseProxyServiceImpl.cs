@@ -207,6 +207,7 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                 else
                 {
                     options.ListenHttpsReverseProxy();
+                    options.ListenCrlReverseProxy();
                     if (EnableHttpProxyToHttps)
                         options.ListenHttpReverseProxy();
                 }
