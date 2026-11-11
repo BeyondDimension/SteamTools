@@ -4,7 +4,7 @@
 
 本项目是 **SteamTools（Watt Toolkit，原 Steam++）官方源码的 NixOS 适配分支**，解决不可变系统（NixOS）下的三个核心问题：
 
-1. **声明式打包**：`flake.nix` + `package.nix` 提供 `out`（主程序 GUI）/ `accelerator`（加速器系统服务）/ `ssl`（系统根证书）三输出包；
+1. **声明式打包**：`flake.nix` + `package.nix` 提供 `out`（主程序 GUI）/ `accelerator`（加速器系统服务）两个输出；根证书不再随包分发，由程序首次启动时在 AppData 生成、再导出到可写路径供声明式信任；
 2. **系统级加速器服务**：加速器不以子进程随 GUI 启动，由 `programs.watt-toolkit` 模块配置的 systemd 服务运行（空闲，UI 点击时拉起），`AmbientCapabilities` 注入 `cap_net_bind_service` 等，普通用户即可监听 443，无需 root / fhsenv / setcap；
 3. **版本锁定 + CI 自动发布**：`flake.lock` 锁定 nixpkgs revision；GitHub Actions 每次构建成功后自动上传 Release 并**回填 `package.nix` 的 url / sha256**（运行版本与构建版本一致，防漂移）。
 
@@ -45,7 +45,7 @@
             # package = steamtools.packages.${pkgs.system}.default;
             user = "wt";                       # 加速器服务运行用户（不能是 root）
             enableAcceleratorService = true;   # 系统级加速器服务（空闲，UI 点击时拉起）
-            trustCertificate = true;           # security.pki.certificateFiles 信任打包根证书
+            trustCertificate = true;           # security.pki.certificates 读取运行时导出的 /var/lib/watt-toolkit/*.cer
             # trustFirefoxCertificate = true;   # Firefox 信任系统最终证书集合（Install 系统 CA 合并库 /etc/ssl/certs/ca-certificates.crt，默认 true）
             enablePolkit = true;               # 允许主用户无密码启停加速器服务
           };
@@ -69,6 +69,26 @@ programs.watt-toolkit.enable = true;
 # 旧名兼容：
 services.steamtools.enable = true;   # 映射到同一配置
 ```
+
+### ⚠️ 构建 / 切换必须加 `--impure`
+
+`programs.watt-toolkit` 在**求值阶段**读取本机由程序运行时生成的证书
+（`/var/lib/watt-toolkit/SteamTools.Certificate.cer`），再拼进 `security.pki`——
+这是 flake 之外的本地状态，纯净求值会直接报错拒绝构建。所有命令都要带 `--impure`：
+
+```bash
+sudo nixos-rebuild switch --impure --flake .#myhost
+```
+
+首次部署的顺序（证书是运行时才有的，构建期不能凭空产生）：
+
+1. `sudo nixos-rebuild switch --impure --flake .#myhost` —— 先装好程序和加速器服务；
+2. 启动 GUI（`watt-toolkit`），点一次「加速」，程序会在 AppData 生成 CA 并导出到
+   `/var/lib/watt-toolkit/SteamTools.Certificate.cer`；
+3. 再执行一次同一条 `--impure` 重建 —— 这次证书才会被拼进
+   `/etc/ssl/certs/ca-certificates.crt`，加速才能真正跑起来。
+
+程序若检测到证书尚未进入系统信任库，会直接拦下加速并提示需要再次 rebuild。
 
 ## 加速模式（proxyMode）
 
