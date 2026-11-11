@@ -17,7 +17,7 @@ sealed class TunnelPassThroughMiddleware
     static readonly DomainPattern[] NeverInterceptHosts = new DomainPattern[]
     {
         // Microsoft Store 源（winget 的 msstore）固定到微软根 CA
-        new("*.dsx.mp.microsoft.com"),
+        new(@"/^[^.]+\.dsx\.mp\.microsoft\.com$"),
     };
 
     readonly IReverseProxyConfig reverseProxyConfig;
@@ -98,7 +98,8 @@ sealed class TunnelPassThroughMiddleware
             {
                 return false;
             }
-            return IsScriptMatched(host) == false;
+            return !IReverseProxyService.Constants.Instance.IsEnableScript ||
+                reverseProxyConfig.ProxyScripts?.Any() != true;
         }
         catch
         {
@@ -121,17 +122,5 @@ sealed class TunnelPassThroughMiddleware
             }
         }
         return false;
-    }
-
-    /// <summary>
-    /// 是否需要为该域名注入脚本
-    /// </summary>
-    /// <param name="host"></param>
-    /// <returns></returns>
-    bool IsScriptMatched(string host)
-    {
-        // 脚本的匹配规则基于完整 Url（如 *://host/*），此处以根路径拼接 Url 进行匹配
-        return reverseProxyConfig.TryGetScriptConfig($"https://{host}/", out _) ||
-            reverseProxyConfig.TryGetScriptConfig($"http://{host}/", out _);
     }
 }
