@@ -187,6 +187,32 @@ stdenv.mkDerivation {
       --add-flags "$out/assemblies/Steam++.dll"
     echo "Watt Toolkit 已安装到: $out/bin/watt-toolkit (dotnet: $DOTNET_BIN)"
 
+    # ---- 桌面条目 + 图标 ----
+    # 发布产物自带 Icons/Watt-Toolkit.png（512x512），装进 hicolor 主题；
+    # 条目 Exec 直接指向 wrapper（不经 steam-run：buildFHSEnv 的 privateTmp 会让
+    # /tmp 下的 IPC 管道与服务进程不互通），模块 enable 后菜单里即有入口。
+    mkdir -p $out/share/applications $out/share/icons/hicolor/512x512/apps
+    if [ -f "$out/Icons/Watt-Toolkit.png" ]; then
+      install -m 0644 "$out/Icons/Watt-Toolkit.png" "$out/share/icons/hicolor/512x512/apps/watt-toolkit.png"
+      echo "已安装图标: share/icons/hicolor/512x512/apps/watt-toolkit.png"
+    else
+      echo "警告: 未找到 Icons/Watt-Toolkit.png，桌面条目仍会生成"
+    fi
+    cat > $out/share/applications/watt-toolkit.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=Watt Toolkit
+Name[zh_CN]=Watt Toolkit（Steam++）
+GenericName=Game Toolkit
+Comment=Steam++ / Watt Toolkit
+Exec=$out/bin/watt-toolkit
+Icon=watt-toolkit
+Terminal=false
+StartupNotify=true
+Categories=Network;
+EOF
+    echo "已生成桌面条目: share/applications/watt-toolkit.desktop"
+
     # ---- Accelerator（accelerator output，NixOS 目录发布） ----
     # 加速器在 NixOS 分支构建时改为目录发布（发布工具检测 /etc/NIXOS 设 SingleFile=false）：
     # SingleFile apphost 在 NixOS 加载运行时失败（宿主退出码 203），目录发布后由
