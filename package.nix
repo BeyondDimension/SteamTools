@@ -51,8 +51,8 @@
 
 let
   # 官方发布包源（nixpkgs 提交/上游测试路径；可被 src/sha256 参数覆盖）
-  publishUrl = "https://github.com/Aozora-Wings/SteamTools-nixos/releases/download/v0.0.2/Steam++_linux_x64_nixos_v0.0.2_544450c.tgz";
-  publishSha256 = "e8c08cd103915ef900516aa4e1a4706e41d41c9a6e89fcb09d9c7264ba9fb965";
+  publishUrl = "https://github.com/Aozora-Wings/SteamTools-nixos/releases/download/v0.0.2/Steam++_linux_x64_nixos_v0.0.2_7b790c2.tgz";
+  publishSha256 = "8ea324a95d256aa8fd7ad396d638fb6c053c4dd6c57005ac0d55aea52822867c";
 
   dotnet-sdk_11 = pkgs.dotnetCorePackages.sdk_11_0;
 
