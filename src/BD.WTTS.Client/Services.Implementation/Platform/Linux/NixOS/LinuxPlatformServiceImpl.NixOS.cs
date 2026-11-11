@@ -42,6 +42,14 @@ namespace BD.WTTS.Services.Implementation
         public const string EnvName_BundledCer = "STEAMTOOLS_BUNDLED_CER";
 
         /// <summary>
+        /// 最近一次证书导出/加载失败的具体原因（成功时为 null）。
+        /// NixOS 上「证书未安装」与「证书文件损坏」在 UI 上是同一条笼统文案，
+        /// 这里保留真实原因，由调用方拼进提示。
+        /// </summary>
+        public static volatile string? LastCertificateError;
+
+
+        /// <summary>
         /// 获取证书导出目标路径（由 Nix 打包 wrapper / systemd 服务通过
         /// <see cref="EnvName_BundledCer"/> 指定，例如 /var/lib/watt-toolkit/SteamTools.Certificate.cer）。
         /// 未设置、或仍指向只读的 /nix/store 时返回 null（视为“未配置导出”）。
@@ -79,12 +87,20 @@ namespace BD.WTTS.Services.Implementation
 
             var targetCerFilePath = GetBundledCerFilePath();
             if (targetCerFilePath == null)
+            {
+                LastCertificateError = $"未配置证书导出路径（环境变量 {EnvName_BundledCer} 缺失或指向 /nix/store）";
+                Log.Error(nameof(LinuxPlatformServiceImpl), $"NixOS: {LastCertificateError}");
                 return false;
+            }
 
             try
             {
                 if (!File.Exists(sourceCerFilePath))
+                {
+                    LastCertificateError = $"AppData 中的 CER 不存在：{sourceCerFilePath}";
+                    Log.Error(nameof(LinuxPlatformServiceImpl), $"NixOS: {LastCertificateError}");
                     return false;
+                }
 
                 if (!File.Exists(targetCerFilePath) ||
                     !File.ReadAllBytes(sourceCerFilePath).SequenceEqual(File.ReadAllBytes(targetCerFilePath)))
@@ -100,19 +116,20 @@ namespace BD.WTTS.Services.Implementation
                 if (File.Exists(targetCerFilePath) &&
                     File.ReadAllBytes(sourceCerFilePath).SequenceEqual(File.ReadAllBytes(targetCerFilePath)))
                 {
+                    LastCertificateError = null;
                     Log.Info(nameof(LinuxPlatformServiceImpl),
                         $"NixOS: 已导出证书 {sourceCerFilePath} -> {targetCerFilePath}");
                     return true;
                 }
 
-                Log.Error(nameof(LinuxPlatformServiceImpl),
-                    $"NixOS: 证书导出后回读校验失败 {targetCerFilePath}");
+                LastCertificateError = $"证书导出后回读校验失败：{targetCerFilePath}";
+                Log.Error(nameof(LinuxPlatformServiceImpl), $"NixOS: {LastCertificateError}");
                 return false;
             }
             catch (Exception ex)
             {
-                Log.Error(nameof(LinuxPlatformServiceImpl), ex,
-                    $"NixOS: 导出证书到 {targetCerFilePath} 失败");
+                LastCertificateError = $"导出证书到 {targetCerFilePath} 失败：{ex.Message}";
+                Log.Error(nameof(LinuxPlatformServiceImpl), ex, $"NixOS: {LastCertificateError}");
                 return false;
             }
         }

@@ -103,6 +103,11 @@ public interface ICertificateManager
                 void TrustRootCertificateLinux()
                 {
                     var result = platformService.TrustRootCertificateAsync(cerFilePath);
+#if LINUX
+                    // NixOS 的系统证书库只读，走 security.pki 声明式安装；
+                    // 在这里打开「手动导入证书」网页只会误导用户（还会打断加速流程），跳过。
+                    if (!LinuxPlatformServiceImpl.IsNixOS)
+#endif
                     try
                     {
                         // 部分系统还是只能手动导入浏览器

@@ -214,6 +214,16 @@ partial class ProxyService
                   ICertificateManager.Constants.Instance);
             if (checkRootCertificateCode != StartProxyResultCode.Ok)
             {
+#if LINUX
+                // NixOS：笼统的「证书格式不正确」无法区分是文件损坏还是仅仅未被系统信任，
+                // 把证书管理侧记录的真实原因和结果码一并带出。
+                if (LinuxPlatformServiceImpl.IsNixOS)
+                {
+                    var detail = LinuxPlatformServiceImpl.LastCertificateError;
+                    var baseMessage = $"{Strings.Error_CheckRootCertificateFailed_}（{checkRootCertificateCode}）";
+                    return string.IsNullOrEmpty(detail) ? baseMessage : $"{baseMessage}\n{detail}";
+                }
+#endif
                 return Strings.Error_CheckRootCertificateFailed_;
             }
         }

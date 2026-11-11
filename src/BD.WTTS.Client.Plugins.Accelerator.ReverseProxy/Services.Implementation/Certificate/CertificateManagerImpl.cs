@@ -51,10 +51,10 @@ sealed partial class CertificateManagerImpl : ICertificateManager
 
     X509Certificate2? LoadRootCertificate()
     {
+        ICertificateManager thiz = Interface;
+        var pfxFilePath = thiz.PfxFilePath;
         try
         {
-            ICertificateManager thiz = Interface;
-            var pfxFilePath = thiz.PfxFilePath;
             if (!File.Exists(pfxFilePath))
                 return null;
             X509Certificate2 rootCert;
@@ -85,6 +85,20 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         catch (CryptographicException ex)
         {
             Log.Error(TAG, ex, nameof(LoadRootCertificate));
+#if LINUX
+            // NixOS：旧版打包把 nix store 里的 pfx 复制到 AppData（0444），该文件可能由另一套
+            // 密码/密钥生成，用当前密码打不开。此时不能把异常直接抛给 UI，否则表现为
+            // 「无法生成或加载加速证书」且永远无法自愈。改为备份该文件并返回 null，
+            // 让 SharedCreateRootCertificate 用当前密码重新生成一对新的证书。
+            if (LinuxPlatformServiceImpl.IsNixOS &&
+                string.Equals(pfxFilePath, CertificateConstants.DefaultPfxFilePath, StringComparison.Ordinal) &&
+                TryQuarantineBrokenPfx(pfxFilePath))
+            {
+                LinuxPlatformServiceImpl.LastCertificateError =
+                    $"AppData 证书无法用当前密码打开（{ex.Message}），已备份为 {pfxFilePath}.broken，将重新生成";
+                return null;
+            }
+#endif
             throw;
         }
         catch (Exception ex)
@@ -93,6 +107,32 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             return null;
         }
     }
+
+#if LINUX
+    /// <summary>
+    /// 备份无法打开的 pfx（NixOS 只允许作用于 AppData 内的默认证书路径）。
+    /// 先解除只读再改名，返回是否成功（成功即代表可以重新生成）。
+    /// </summary>
+    static bool TryQuarantineBrokenPfx(string pfxFilePath)
+    {
+        try
+        {
+            var fi = new FileInfo(pfxFilePath);
+            if (!fi.Exists)
+                return false;
+            fi.IsReadOnly = false;
+            var backupPath = pfxFilePath + ".broken-" + DateTime.Now.ToString("yyyyMMddHHmmss");
+            File.Move(pfxFilePath, backupPath, true);
+            Log.Error(TAG, $"NixOS: 无法打开证书 {pfxFilePath}，已备份为 {backupPath}，将重新生成");
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(TAG, ex, $"NixOS: 备份无法打开的证书 {pfxFilePath} 失败");
+            return false;
+        }
+    }
+#endif
 
     [Obsolete("use ICertificateManager.Constants.TrustRootCertificate")]
     void SharedTrustRootCertificate()
