@@ -254,7 +254,10 @@ partial class ProxyService
             twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6, proxyToken);
         byte[] reverseProxySettings_ = Serializable.SMP2(reverseProxySettings);
 #if LINUX
-        if (LinuxPlatformServiceImpl.IsNixOS)
+        // 只有 DNS 劫持模式才需要写域名列表并触发 watt-toolkit-dns-update.service；
+        // hosts 模式下该 unit 不存在（module.nix 按 proxyMode == "dns" 生成），
+        // 无条件调用会在每次点加速时刷出 Failed to start ... not found。
+        if (LinuxPlatformServiceImpl.IsNixOS && proxyMode == ProxyMode.DNSIntercept)
         {
             // NixOS DNS 模式：把选中平台的监听域名列表写入 /tmp/steampp-domains.conf，
             // 由系统服务（dnsmasq 动态劫持，module.nix 的 proxyMode="dns"）消费。
@@ -360,6 +363,16 @@ partial class ProxyService
                 }
                 //新线程等待 IPC 错误返回后 Kill 自己 Linux 修改权限需要重新启动
                 reverseProxyService.Exit();
+#if LINUX
+                // 子进程里 BindPortError 对应的检查是 hosts 模式下的 443（ReverseProxyServiceImpl.StartProxyAsync），
+                // 之前这里把 proxyPort（默认 26563）写进文案，用户会去查一个根本没被占用的端口。
+                if (LinuxPlatformServiceImpl.IsNixOS && proxyMode == ProxyMode.Hosts)
+                {
+                    return $"443 端口已被占用，hosts 模式需要监听 443 做 HTTPS 解密。\n" +
+                           "请先查出占用者并停止：sudo ss -ltnp 'sport = :443'\n" +
+                           "（常见原因是上一次的加速服务没退出，可执行 sudo systemctl stop steampp-accelerator 后重试）";
+                }
+#endif
                 return Strings.Error_BindPortError_.Format(proxyPort);
             }
             else
