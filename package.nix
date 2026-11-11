@@ -95,7 +95,9 @@ in
 stdenv.mkDerivation {
   pname = "watt-toolkit";
   # NixOS 适配版版本号（与上游源码版本解耦；当前基于上游 3.1.0）
-  version = "0.0.1";
+  # 0.0.2：用于区分 store 路径（watt-toolkit-0.0.2 / -0.0.2-accelerator），
+  #        避免与 0.0.1（旧 -ssl 打包、pfx 只读）混淆。
+  version = "0.0.2";
 
   # 声明多个输出：out（主程序）/ accelerator（加速子进程）
   # 注意：不再有 ssl 输出。系统根证书由程序运行时惰性生成到 AppData，
