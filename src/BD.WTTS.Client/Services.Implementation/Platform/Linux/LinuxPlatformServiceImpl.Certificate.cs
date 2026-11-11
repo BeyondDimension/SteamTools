@@ -24,10 +24,12 @@ namespace BD.WTTS.Services.Implementation
                     return false;
                 if (IsNixOS)
                 {
-                    // NixOS 系统证书库只读，「已安装」定义为：AppData 里的 CER 已成功导出到
-                    // 模块声明的可写路径（由 security.pki.certificates 声明式读取）。
-                    // 这里顺带完成导出，避免每次点加速都重新生成证书、轮换密钥。
-                    return TrySyncBundledCertificate(CertificateConstants.DefaultCerFilePath);
+                    // NixOS 系统证书库只读，「已安装」定义为：证书已成功导出到模块声明的可写路径
+                    // （由 security.pki.certificates 声明式读取）。
+                    // 必须用传入的证书对象导出，不能用本进程的 CertificateConstants.DefaultCerFilePath：
+                    // 证书由插件作用域进程生成（AppData=.../Plugins/Accelerator），
+                    // 而本判定可能在 AppData=.../Steam++ 的进程里执行，两边路径不是同一个文件。
+                    return TrySyncBundledCertificate(cert);
                 }
                 //退出码 404 500 被使用
                 var shellStr = $"CERT_NAME=\"{CertificateConstants.CertificateName}\"; CERT_RESULT=$(certutil -L -d $HOME/.pki/nssdb | grep \"$CERT_NAME\"); if [ -n \"$CERT_RESULT\" ]; then echo \"证书 '$CERT_NAME' 存在。\"; exit 200; else echo \"证书 '$CERT_NAME' 不存在。\"; exit 10; fi";

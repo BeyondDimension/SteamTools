@@ -75,6 +75,75 @@ namespace BD.WTTS.Services.Implementation
         }
 
         /// <summary>
+        /// 按证书对象本身导出到模块声明的可写路径。
+        /// 证书管理（生成 pfx/cer）运行在插件作用域进程，AppData 为
+        /// <c>.../Steam++/Plugins/Accelerator</c>；而「是否已安装」的判定运行在平台服务所在进程，
+        /// AppData 为 <c>.../Steam++</c>。两边各用 <see cref="CertificateConstants.DefaultCerFilePath"/>
+        /// 算出的路径不是同一个文件，于是「证书明明生成了」却被判为未安装。
+        /// 因此这里不依赖任何进程本地路径，直接用调用方传过来的证书导出公钥证书。
+        /// </summary>
+        public static bool TrySyncBundledCertificate(X509Certificate2 certificate)
+        {
+            if (!IsNixOS)
+                return false;
+
+            var targetCerFilePath = GetBundledCerFilePath();
+            if (targetCerFilePath == null)
+            {
+                LastCertificateError = $"未配置证书导出路径（环境变量 {EnvName_BundledCer} 缺失或指向 /nix/store）";
+                Log.Error(nameof(LinuxPlatformServiceImpl), $"NixOS: {LastCertificateError}");
+                CertDiagnostics.Write("TrySyncBundledCertificate(证书对象): 导出路径环境变量缺失");
+                return false;
+            }
+
+            try
+            {
+                // 只导出公钥证书（PEM），私钥留在插件 AppData 的 pfx 中，不写入可读路径
+                var pem = certificate.ExportCertificatePem();
+
+                var directory = Path.GetDirectoryName(targetCerFilePath);
+                if (!string.IsNullOrWhiteSpace(directory))
+                    Directory.CreateDirectory(directory);
+
+                var unchanged = File.Exists(targetCerFilePath) &&
+                    string.Equals(File.ReadAllText(targetCerFilePath), pem, StringComparison.Ordinal);
+                if (!unchanged)
+                {
+                    var tmpPath = targetCerFilePath + ".tmp";
+                    File.WriteAllText(tmpPath, pem);
+                    File.Move(tmpPath, targetCerFilePath, overwrite: true);
+                }
+
+                // 回读校验：目标文件能解析，且与传入证书是同一张（比较 DER）
+                if (!File.Exists(targetCerFilePath))
+                {
+                    LastCertificateError = $"证书导出后目标文件不存在：{targetCerFilePath}";
+                    Log.Error(nameof(LinuxPlatformServiceImpl), $"NixOS: {LastCertificateError}");
+                    return false;
+                }
+                using var written = X509CertificateLoader.LoadCertificateFromFile(targetCerFilePath);
+                if (!written.RawData.AsSpan().SequenceEqual(certificate.RawData))
+                {
+                    LastCertificateError = $"证书导出后内容不一致：{targetCerFilePath}";
+                    Log.Error(nameof(LinuxPlatformServiceImpl), $"NixOS: {LastCertificateError}");
+                    return false;
+                }
+
+                LastCertificateError = null;
+                Log.Info(nameof(LinuxPlatformServiceImpl),
+                    $"NixOS: 已导出证书（{(unchanged ? "内容未变化" : "已写入")}）-> {targetCerFilePath}");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LastCertificateError = $"导出证书到 {targetCerFilePath} 失败：{ex.Message}";
+                Log.Error(nameof(LinuxPlatformServiceImpl), ex, $"NixOS: {LastCertificateError}");
+                CertDiagnostics.Write("TrySyncBundledCertificate(证书对象): 导出/回读异常", ex);
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 把程序在 AppData 中运行时生成的 CER 导出到模块声明的可写路径
         /// （AppData → 证书源，方向与维护者要求一致：私钥留在 AppData，仅导出公钥证书）。
         /// 内容一致时跳过复制（幂等），复制后回读校验。
@@ -152,6 +221,14 @@ namespace BD.WTTS.Services.Implementation
         {
             try
             {
+                // 调用方可能来自插件作用域，传入的是插件 AppData 里的 cer；
+                // 若该路径在当前进程不可见，退回到模块声明的导出文件（它就是 security.pki 读取的那份）。
+                if (!File.Exists(cerFilePath))
+                {
+                    var bundled = GetBundledCerFilePath();
+                    if (bundled != null && File.Exists(bundled))
+                        cerFilePath = bundled;
+                }
                 if (!File.Exists(cerFilePath))
                 {
                     LastCertificateError = $"证书文件不存在：{cerFilePath}";
