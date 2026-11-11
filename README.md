@@ -1,157 +1,116 @@
-# SteamTools (Watt Toolkit) — NixOS 优化适配分支
+<h1 align="center">Watt Toolkit 🧰 (原名 Steam++)</h1>
 
-> **适配版 v0.0.1**（基于上游 3.1.0）。**System 加速模式暂不可用**（依赖 GNOME gsettings 系统代理，NixOS 下不适用），仅支持 `hosts` / `dns` 两种模式。
+<div align="center">
 
-本项目是 **SteamTools（Watt Toolkit，原 Steam++）官方源码的 NixOS 适配分支**，解决不可变系统（NixOS）下的三个核心问题：
+[English](./README.en.md) | 简体中文
 
-1. **声明式打包**：`flake.nix` + `package.nix` 提供 `out`（主程序 GUI）/ `accelerator`（加速器系统服务）两个输出；根证书不再随包分发，由程序首次启动时在 AppData 生成、再导出到可写路径供声明式信任；
-2. **系统级加速器服务**：加速器不以子进程随 GUI 启动，由 `programs.watt-toolkit` 模块配置的 systemd 服务运行（空闲，UI 点击时拉起），`AmbientCapabilities` 注入 `cap_net_bind_service` 等，普通用户即可监听 443，无需 root / fhsenv / setcap；
-3. **版本锁定 + CI 自动发布**：`flake.lock` 锁定 nixpkgs revision；GitHub Actions 每次构建成功后自动上传 Release 并**回填 `package.nix` 的 url / sha256**（运行版本与构建版本一致，防漂移）。
+「Watt Toolkit」是一个开源跨平台的多功能游戏工具箱，此工具的大部分功能都是需要您下载安装 Steam 才能使用。
+ 
+![Release Download](https://img.shields.io/github/downloads/BeyondDimension/SteamTools/total?style=flat-square)
+[![Release Version](https://img.shields.io/github/v/release/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/releases/latest)
+[![GitHub license](https://img.shields.io/github/license/BeyondDimension/SteamTools?style=flat-square)](LICENSE)
+[![GitHub Star](https://img.shields.io/github/stars/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/stargazers)
+[![GitHub Fork](https://img.shields.io/github/forks/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/network/members)
+![GitHub Repo size](https://img.shields.io/github/repo-size/BeyondDimension/SteamTools?style=flat-square&color=3cb371)
+[![GitHub Repo Languages](https://img.shields.io/github/languages/top/BeyondDimension/SteamTools?style=flat-square)](https://github.com/BeyondDimension/SteamTools/search?l=c%23)
+[![NET 7.0](https://img.shields.io/badge/dotnet-7.0-purple.svg?style=flat-square&color=512bd4)](https://learn.microsoft.com/zh-cn/dotnet/core/whats-new/dotnet-7)
+[![C# 11](https://img.shields.io/badge/c%23-11-brightgreen.svg?style=flat-square&color=6da86a)](https://learn.microsoft.com/zh-cn/dotnet/csharp/whats-new/csharp-11)
 
-## 分支与文件
+[![爱发电](https://img.shields.io/badge/爱发电-软妹币玩家-blue.svg?style=flat-square&color=ea4aaa&logo=github-sponsors)](https://afdian.com/@rmbgame)
+[![Kofi](https://img.shields.io/badge/Kofi-RMBGAME-orange.svg?style=flat-square&logo=kofi)](https://ko-fi.com/rmbgame)
+[![Patreon](https://img.shields.io/badge/Patreon-RMBGAME-red.svg?style=flat-square&logo=patreon)](https://www.patreon.com/rmbgame)
 
-| 路径 | 说明 |
-| --- | --- |
-| `nixos-branch` | 官方源码 + NixOS 适配补丁 + CI workflow |
-| `steamtools-nixos-branch.patch` | NixOS 适配补丁（`git apply` 可应用） |
-| `flake.nix` / `flake.lock` | 可直接 import 的 flake（包 + NixOS 模块 + 开发环境） |
-| `package.nix` | 包定义（url/sha256 由 CI 自动回填） |
-| `module.nix` | `programs.watt-toolkit` 模块（服务/证书/polkit） |
-| `.github/workflows/nixos-branch-build.yml` | CI：构建发布 linux-x64 → 上传 Release → 回填 url/sha256 |
+[![Crowdin](https://badges.crowdin.net/steampp/localized.svg)](https://crowdin.com/project/steampp)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FSteamTools-Team%2FSteamTools%2Fbadge%3Fref%3Ddevelop&style=flat-square)](https://actions-badge.atrox.dev/BeyondDimension/SteamTools/goto?ref=develop)
+[![GitHub Star](https://img.shields.io/github/stars/BeyondDimension/SteamTools.svg?logo=github)](https://github.com/BeyondDimension/SteamTools)
+[![Gitee Star](https://gitee.com/rmbgame/SteamTools/badge/star.svg)](https://gitee.com/rmbgame/SteamTools)
+[![Bilibili](https://img.shields.io/badge/bilibili-软妹币玩家-blue.svg?style=flat-square&logo=bilibili)](https://space.bilibili.com/797215)
+[![QQ群](https://img.shields.io/badge/QQ群-960746023-blue.svg?style=flat-square&color=12b7f5&logo=qq)](https://jq.qq.com/?_wv=1027&k=3JKPt4xC)
 
-## NixOS 使用（直接 import 本 flake）
+</div>
 
-在 nixos-configuration 中：
+## 🚀 下载渠道
+- [![Steam 商店](./res/brands/steam.jpg)](https://store.steampowered.com/app/2425030)
+- [![Microsoft 应用商店](./res/brands/msstore.en.png)](https://apps.microsoft.com/store/detail/watt-toolkit/9MTCFHS560NG?hl=zh-cn&gl=cn)
+- [软件官网](https://steampp.net)
+- [GitHub 发行版](https://github.com/BeyondDimension/SteamTools/releases)
+- [码云 发行版](https://gitee.com/rmbgame/SteamTools/releases)
+- [Arch 用户仓库](https://aur.archlinux.org/packages/watt-toolkit-bin)（当前 Release 构建）
+- [Arch 用户仓库 dev](https://aur.archlinux.org/packages/watt-toolkit-git)（拉取最新源码构建，也许会构建失败）
 
-```nix
-{
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    steamtools = {
-      url = "github:Aozora-Wings/SteamTools-nixos/nixos-branch";
-      # 国内网络可换镜像源（与 nixpkgs 同法）：
-      # url = "git+https://mirrors.nju.edu.cn/git/SteamTools-nixos.git?ref=nixos-branch";
-    };
-  };
+## ⬇️ [下载指南](./doc/download-guide.md)
+详见 [./doc/download-guide.md](./doc/download-guide.md)  
 
-  outputs = { nixpkgs, steamtools, ... }: {
-    nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
-      modules = [
-        steamtools.nixosModules.default
-        ({ pkgs, ... }: {
-          programs.watt-toolkit = {
-            enable = true;
-            # 默认已指向 steamtools.packages.${pkgs.system}.default，可显式覆盖：
-            # package = steamtools.packages.${pkgs.system}.default;
-            user = "wt";                       # 加速器服务运行用户（不能是 root）
-            enableAcceleratorService = true;   # 系统级加速器服务（空闲，UI 点击时拉起）
-            trustCertificate = true;           # security.pki.certificates 读取运行时导出的 /var/lib/watt-toolkit/*.cer
-            # trustFirefoxCertificate = true;   # Firefox 信任系统最终证书集合（Install 系统 CA 合并库 /etc/ssl/certs/ca-certificates.crt，默认 true）
-            enablePolkit = true;               # 允许主用户无密码启停加速器服务
-          };
-        })
-      ];
-    };
-  };
-}
-```
+## ✨ 功能
+全新的 3.0 版本，支持自定义插件功能，以下功能为下载时自带的默认插件，可以自行删除或禁用。
+1. 网络加速 <img src="./res/brands/windows.svg" width="16" height="16" /> <img src="./res/brands/linux.svg" width="16" height="16" /> <img src="./res/brands/apple.svg" width="16" height="16" /> <img src="./res/brands/android.svg" width="16" height="16" /> 
+	- 使用 [YARP.ReverseProxy](https://github.com/microsoft/reverse-proxy) 开源项目进行本地反代来支持更快的访问游戏网站。
+	- 通过加速服务拦截网络请求将一些 JS 脚本注入在网页中，提供类似网页插件的功能。
+3. 账号切换 <img src="./res/brands/windows.svg" width="16" height="16" /> <img src="./res/brands/linux.svg" width="16" height="16" /> <img src="./res/brands/apple.svg" width="16" height="16" />
+	- 快速切换已在当前 PC 上登录过的 Steam、Epic、Uplay 等等多平台账号，与管理 Steam 家庭共享库排序及禁用等功能。
+4. 库存游戏 <img src="./res/brands/windows.svg" width="16" height="16" /> <img src="./res/brands/linux.svg" width="16" height="16" /> <img src="./res/brands/apple.svg" width="16" height="16" />
+	- 直接管理你的 Steam 游戏库存，可以编辑游戏名称和[自定义封面](https://www.steamgriddb.com)。
+	- 监控 Steam 游戏下载进度实现 Steam 游戏下载完成定时关机功能。
+	- 模拟运行 Steam 游戏，让您不用安装和下载对应的游戏也能挂游玩时间和掉落 Steam 卡片
+	- 自助管理 Steam 游戏云存档，随时删除和上传自定义的存档文件至 Steam 云。
+	- 解锁以及反解锁 Steam 游戏成就。
+5. 本地令牌 <img src="./res/brands/windows.svg" width="16" height="16" /> <img src="./res/brands/linux.svg" width="16" height="16" /> <img src="./res/brands/apple.svg" width="16" height="16" /> <img src="./res/brands/android.svg" width="16" height="16" /> 
+	- 让您的手机令牌统一保存在电脑中、支持通用HOTP、TOTP、Steam、Google 等令牌导入。
+	- 支持 Steam 登录账号自定绑定生成令牌、支持 Steam 批量确认交易功能。
+6. ~~自动挂卡(新版本开发中)~~ <img src="./res/brands/windows.svg" width="16" height="16" /> <img src="./res/brands/linux.svg" width="16" height="16" /> <img src="./res/brands/apple.svg" width="16" height="16" /> <img src="./res/brands/android.svg" width="16" height="16" /> 
+	- ~~集成 [ArchiSteamFarm](https://github.com/JustArchiNET/ArchiSteamFarm) 在应用内提供 挂机掉落 Steam 集换式卡牌 等功能。~~
+7. 游戏工具 <img src="./res/brands/windows.svg" width="16" height="16" />
+	- 强制游戏窗口使用无边框窗口化、更多功能待开发。
 
-### 调用例子（简写）
+## 🖥 支持的操作系统
+- Windows 11
+- Windows 10 版本 1809（OS 内部版本 17763）或更高版本
+- macOS 10.15 或更高版本
+- Ubuntu 20.04 或更高版本
+- Debian 11 或更高版本
+- Fedora 37 或更高版本
+- Deepin(UOS) 20 或更高版本
+- ~~iOS 11 或更高版本~~（开发中…）
+- Android 5.0(API 21) 或更高版本
 
-```nix
-# 只装软件（不带服务）：
-environment.systemPackages = [ steamtools.packages.${pkgs.system}.default ];
+## 🧩 截图
+<img src="./res/screenshots/screenshot-windows-accelerator.webp" width="800" />
+<br/>
+<img src="./res/screenshots/screenshot-windows-gameaccount.webp" width="800" />
+<br/>
+<img src="./res/screenshots/screenshot-windows-gamelist.webp" width="800" />
+<br/>
+<br/>
+<!--<img src="./res/screenshots/screenshot-android-authenticator.png" width="800" />-->
 
-# 只用模块（含加速器服务 + 证书信任 + polkit）：
-imports = [ steamtools.nixosModules.watt-toolkit ];
-programs.watt-toolkit.enable = true;
+## 从移动端 Steam App 导入令牌指南
+- [Android 添加本地令牌（Xposed）](https://github.com/BeyondDimension/SteamTools/issues/2276)
+- [iOS 添加本地令牌（无需越狱/网络抓包）](https://github.com/BeyondDimension/SteamTools/issues/2129)
+- [iOS 添加本地令牌（无需越狱/iTunes 备份）](https://github.com/BeyondDimension/SteamTools/issues/299)
+- [iOS 添加本地令牌（需越狱）](https://github.com/BeyondDimension/SteamTools/issues/95)
 
-# 旧名兼容：
-services.steamtools.enable = true;   # 映射到同一配置
-```
+## 🌏 路线图
+查看这个 [milestones](https://github.com/BeyondDimension/SteamTools/milestones) 来了解我们下一步的开发计划，并随时提出问题。
 
-### ⚠️ 构建 / 切换必须加 `--impure`
+## ⌨️ 开发环境
+[Visual Studio 2026](https://visualstudio.microsoft.com/zh-hans/vs)     
+[JetBrains Rider](https://www.jetbrains.com/rider)  
+[Visual Studio Code](https://code.visualstudio.com)  
+[OpenJDK 17](https://learn.microsoft.com/zh-cn/java/openjdk/download#openjdk-17)  
+[Android Studio Electric Eel 或更高版本](https://developer.android.google.cn/studio)  
+[Xcode 26 或更高版本](https://developer.apple.com/xcode)  
 
-`programs.watt-toolkit` 在**求值阶段**读取本机由程序运行时生成的证书
-（`/var/lib/watt-toolkit/SteamTools.Certificate.cer`），再拼进 `security.pki`——
-这是 flake 之外的本地状态，纯净求值会直接报错拒绝构建。所有命令都要带 `--impure`：
+## 🏗️ [项目结构](./src/README.md)
+详见&nbsp;&nbsp;[./src/README.md](./src/README.md)  
 
-```bash
-sudo nixos-rebuild switch --impure --flake .#myhost
-```
+## 🧑‍💼 加入我们
+- [.NET/C# 高级软件工程师（客户端方向）](https://www.zhipin.com/job_detail/b271a34a3efeb84c1XJ_2dW6ElVT.html)
+- [.NET/C# 高级软件工程师](https://www.zhipin.com/job_detail/0164142566ff52d71XJ_2dW7GVVW.html)
 
-首次部署的顺序（证书是运行时才有的，构建期不能凭空产生）：
+<!--
+- [.NET/C# 软件工程师](https://www.zhipin.com/job_detail/80c0ad0f424e2ea61XJ_2t6-GVVZ.html)
+- [高级 Web 前端工程师](https://www.zhipin.com/job_detail/e59317c527f3f49e1XJ92d24FVRV.html)
+-->
 
-1. `sudo nixos-rebuild switch --impure --flake .#myhost` —— 先装好程序和加速器服务；
-2. 启动 GUI（`watt-toolkit`），点一次「加速」，程序会在 AppData 生成 CA 并导出到
-   `/var/lib/watt-toolkit/SteamTools.Certificate.cer`；
-3. 再执行一次同一条 `--impure` 重建 —— 这次证书才会被拼进
-   `/etc/ssl/certs/ca-certificates.crt`，加速才能真正跑起来。
-
-程序若检测到证书尚未进入系统信任库，会直接拦下加速并提示需要再次 rebuild。
-
-## 加速模式（proxyMode）
-
-NixOS 下加速模式由系统配置统一管理（**UI 中 Hosts / System / DNS 三个模式选项为灰色只读**，
-鼠标悬停提示去系统配置修改；UI 会显示当前系统配置的模式）。**System 模式暂不可用**：其实现依赖
-GNOME gsettings（`org.gnome.system.proxy`），与 NixOS 声明式理念及非 GNOME 桌面（niri/KDE 等）不兼容，
-故只开放 `hosts` / `dns` 两种模式。模块选项：
-
-```nix
-programs.watt-toolkit = {
-  enable = true;
-  proxyMode = "hosts";   # "hosts"（默认）| "dns"
-};
-```
-
-| 模式 | 机制 | 适用 |
-| --- | --- | --- |
-| `hosts`（默认） | 静态域名劫持：域名列表由本模块/系统配置静态写入，加速器监听 443 做 HTTPS 中间人 | 无额外常驻依赖；**当前静态列表仅覆盖 Steam 平台域名**（17 个），其他平台（GOG/Epic 等）域名未包含，需在 hosts 配置中补充 |
-| `dns` | 全局 dnsmasq 动态劫持：dnsmasq 作为系统解析器（`networking.nameservers=127.0.0.1`，NetworkManager `dns=none` 禁用 DHCP 下发 DNS），UI 点击加速时把**选中平台的完整域名列表**动态写入 `/run/dnsmasq.d/steampp.conf`（`address=/域名/127.0.0.1`）并 restart；停止加速自动撤销恢复直连 | 域名列表随选中平台动态变化，接口无关（多 WiFi/有线通用）；代价是 dnsmasq 常驻（systemd 托管，`Restart=on-failure`） |
-
-### dns 模式细节
-
-- 主程序加速启动时把选中平台的监听域名列表写入 `/tmp/steampp-domains.conf`；
-- 加速器服务 `ExecStartPost` 联动 root oneshot 服务 `watt-toolkit-dns-update`，
-  把域名列表转换为 dnsmasq `address=/域名/127.0.0.1` 规则写入 `/run/dnsmasq.d/steampp.conf` 并 `systemctl restart dnsmasq`（SIGHUP reload 不会重新扫描 conf-dir）；
-- `ExecStopPost` 撤销映射（清空 `steampp.conf` 并 restart），选中域名恢复上游直连；
-- dnsmasq 上游：`223.5.5.5 / 119.29.29.29 / 8.8.8.8`（选中域名以外所有查询直接上游解析，不经过加速器）。
-
-### hosts 模式注意
-
-当前静态 hosts 列表**只包含 Steam 平台域名**（`steam-hosts.nix`：steamcdn/steamstatic/steampowered 等 17 个域名）。
-其他平台加速（GOG/Epic/Origin/Uplay 等）的域名**未写入系统 hosts**——如使用 hosts 模式加速其他平台，
-需自行补充对应平台域名到系统配置，或改用 `dns` 模式（自动覆盖全部选中平台域名）。
-
-## 输出说明
-
-| 输出 | 内容 | 用途 |
-| --- | --- | --- |
-| `out` | 主程序（watt-toolkit GUI，wrapper 注入运行时） | `environment.systemPackages` |
-| `accelerator` | 加速器模块（目录发布，含 `Steam++.Accelerator.dll`） | systemd 服务 `ExecStart` |
-| `ssl` | openssl 生成的系统根证书（cer + pfx） | `security.pki.certificateFiles` / 应用启动同步 AppData |
-
-## CI 自动回填（url / sha256）
-
-`.github/workflows/nixos-branch-build.yml` 构建成功后自动：
-
-1. 计算 tgz 的 sha256；
-2. 上传到 GitHub Release（固定 tag `nixos-build`，固定文件名 `Steam++_linux_x64_nixos.tgz`，URL 稳定）；
-3. 回填 `package.nix` 的 `publishUrl` / `publishSha256`；
-4. `[skip ci]` 提交推送（不触发循环构建）。
-
-**前置要求**：仓库 Actions 需要 **Read and write** 权限（`Settings → Actions → General → Workflow permissions → Read and write permissions`），否则 Release 上传 / 回填提交会失败。
-
-## 开发测试环境
-
-```sh
-nix develop        # 进入（.NET SDK 11 preview + 构建/发布工具链）
-git apply ./steamtools-nixos-branch.patch
-dotnet build src/BD.WTTS.Client.Tools.Publish -c Release -t:Rebuild -p:UseSharedCompilation=false
-cd src/BD.WTTS.Client.Tools.Publish/bin/Release/net11.0
-dotnet pub.dll run --rids linux-x64
-```
-
-## 许可证
-
-上游项目为 GPL-3.0-only，本分支同样遵循（见 `LICENSE` / 上游 [BeyondDimension/SteamTools](https://github.com/BeyondDimension/SteamTools)）。
+## 📄 [开源代码库](./doc/open-source-library.md)  
+详见&nbsp;&nbsp;[./doc/open-source-library.md](./doc/open-source-library.md)  
