@@ -133,6 +133,89 @@ namespace BD.WTTS.Services.Implementation
                 return false;
             }
         }
+
+        /// <summary>
+        /// NixOS 系统 CA 合并库路径（由 security.pki.certificates 在构建期生成）。
+        /// </summary>
+        public const string SystemCaBundlePath = "/etc/ssl/certs/ca-certificates.crt";
+
+        /// <summary>
+        /// 判断证书是否真的已经进入系统 CA 合并库。
+        /// 注意：<see cref="TrySyncBundledCertificate"/> 只代表“已导出到可写路径”，
+        /// 而 security.pki.certificates 只在 nixos-rebuild 时求值，两者之间差一次 rebuild。
+        /// 若只看导出结果，就会在证书尚未被系统信任时仍然放行加速。
+        /// </summary>
+        public static bool IsCertificateTrustedBySystem(string cerFilePath)
+        {
+            try
+            {
+                if (!File.Exists(cerFilePath))
+                {
+                    LastCertificateError = $"证书文件不存在：{cerFilePath}";
+                    return false;
+                }
+                if (!File.Exists(SystemCaBundlePath))
+                {
+                    LastCertificateError = $"系统 CA 合并库不存在：{SystemCaBundlePath}";
+                    return false;
+                }
+
+                var certBase64 = ExtractCertificateBase64(File.ReadAllBytes(cerFilePath));
+                if (certBase64 == null)
+                {
+                    LastCertificateError = $"无法解析证书内容：{cerFilePath}";
+                    return false;
+                }
+
+                var bundle = NormalizeBase64(File.ReadAllText(SystemCaBundlePath));
+                if (!bundle.Contains(certBase64, StringComparison.Ordinal))
+                {
+                    LastCertificateError =
+                        $"证书已导出但尚未进入系统信任库（{SystemCaBundlePath}）：" +
+                        "security.pki.certificates 只在 nixos-rebuild 时求值，需要再执行一次 rebuild";
+                    return false;
+                }
+
+                LastCertificateError = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LastCertificateError = $"读取系统 CA 合并库失败：{ex.Message}";
+                Log.Error(nameof(LinuxPlatformServiceImpl), ex, $"NixOS: {LastCertificateError}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 从 CER 文件取出证书的 base64（兼容 PEM 与 DER 两种写法）。
+        /// </summary>
+        static string? ExtractCertificateBase64(byte[] data)
+        {
+            var text = System.Text.Encoding.ASCII.GetString(data);
+            const string beginMarker = "BEGIN CERTIFICATE";
+            if (text.Contains(beginMarker, StringComparison.Ordinal))
+            {
+                var begin = text.IndexOf(beginMarker, StringComparison.Ordinal);
+                var bodyStart = text.IndexOf('\n', begin);
+                var end = text.IndexOf("END CERTIFICATE", StringComparison.Ordinal);
+                if (bodyStart < 0 || end <= bodyStart)
+                    return null;
+                return NormalizeBase64(text.Substring(bodyStart, end - bodyStart));
+            }
+            return Convert.ToBase64String(data);
+        }
+
+        static string NormalizeBase64(string value)
+        {
+            var sb = new System.Text.StringBuilder(value.Length);
+            foreach (var c in value)
+            {
+                if (!char.IsWhiteSpace(c))
+                    sb.Append(c);
+            }
+            return sb.ToString();
+        }
     }
 }
 #endif

@@ -226,6 +226,23 @@ partial class ProxyService
 #endif
                 return Strings.Error_CheckRootCertificateFailed_;
             }
+#if LINUX
+            // NixOS：CheckRootCertificate 的 Ok 只代表「证书已生成并导出到可写路径」，
+            // security.pki.certificates 仍要下一次 nixos-rebuild 才求值。
+            // 此时放行只会让客户端在 TLS 握手时因证书不受信任而失败，
+            // 所以直接拦下并把该做的事写清楚。
+            if (LinuxPlatformServiceImpl.IsNixOS &&
+                !LinuxPlatformServiceImpl.IsCertificateTrustedBySystem(CertificateConstants.DefaultCerFilePath))
+            {
+                var reason = LinuxPlatformServiceImpl.LastCertificateError;
+                return "证书尚未进入系统信任库，此时开启加速会在客户端报证书错误。\n" +
+                       "请执行下面的命令后再开启加速：\n" +
+                       "sudo nixos-rebuild switch --flake .\n" +
+                       "（security.pki.certificates 只在构建期读取 /var/lib/watt-toolkit/SteamTools.Certificate.cer；" +
+                       "如果已关闭 programs.watt-toolkit.trustCertificate，请先开启）" +
+                       (string.IsNullOrEmpty(reason) ? "" : $"\n\n{reason}");
+            }
+#endif
         }
 
         ReverseProxySettings reverseProxySettings = new(proxyDomains, scripts,
