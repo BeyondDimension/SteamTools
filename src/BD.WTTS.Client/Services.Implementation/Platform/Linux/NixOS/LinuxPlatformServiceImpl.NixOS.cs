@@ -90,6 +90,7 @@ namespace BD.WTTS.Services.Implementation
             {
                 LastCertificateError = $"未配置证书导出路径（环境变量 {EnvName_BundledCer} 缺失或指向 /nix/store）";
                 Log.Error(nameof(LinuxPlatformServiceImpl), $"NixOS: {LastCertificateError}");
+                CertDiagnostics.Write("TrySyncBundledCertificate: 导出路径环境变量缺失");
                 return false;
             }
 
@@ -99,6 +100,7 @@ namespace BD.WTTS.Services.Implementation
                 {
                     LastCertificateError = $"AppData 中的 CER 不存在：{sourceCerFilePath}";
                     Log.Error(nameof(LinuxPlatformServiceImpl), $"NixOS: {LastCertificateError}");
+                    CertDiagnostics.Write($"TrySyncBundledCertificate: 源 CER 不存在 {sourceCerFilePath}");
                     return false;
                 }
 
@@ -130,6 +132,7 @@ namespace BD.WTTS.Services.Implementation
             {
                 LastCertificateError = $"导出证书到 {targetCerFilePath} 失败：{ex.Message}";
                 Log.Error(nameof(LinuxPlatformServiceImpl), ex, $"NixOS: {LastCertificateError}");
+                CertDiagnostics.Write("TrySyncBundledCertificate: 复制/回读异常", ex);
                 return false;
             }
         }
@@ -173,6 +176,7 @@ namespace BD.WTTS.Services.Implementation
                     LastCertificateError =
                         $"证书已导出但尚未进入系统信任库（{SystemCaBundlePath}）：" +
                         "security.pki.certificates 只在 nixos-rebuild 时求值，需要再执行一次 rebuild";
+                    CertDiagnostics.Write("IsCertificateTrustedBySystem: 证书尚未进入系统 CA 库");
                     return false;
                 }
 

@@ -214,6 +214,7 @@ partial class ProxyService
                   ICertificateManager.Constants.Instance);
             if (checkRootCertificateCode != StartProxyResultCode.Ok)
             {
+                CertDiagnostics.Write($"ProxyService.Operate: CheckRootCertificate={checkRootCertificateCode}");
 #if LINUX
                 // NixOS：笼统的「证书格式不正确」无法区分是文件损坏还是仅仅未被系统信任，
                 // 把证书管理侧记录的真实原因和结果码一并带出。

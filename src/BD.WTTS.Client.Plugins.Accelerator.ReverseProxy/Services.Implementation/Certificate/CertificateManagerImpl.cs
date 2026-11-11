@@ -85,6 +85,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         catch (CryptographicException ex)
         {
             Log.Error(TAG, ex, nameof(LoadRootCertificate));
+            CertDiagnostics.Write("LoadRootCertificate: CryptographicException", ex);
 #if LINUX
             // NixOS：旧版打包把 nix store 里的 pfx 复制到 AppData（0444），该文件可能由另一套
             // 密码/密钥生成，用当前密码打不开。此时不能把异常直接抛给 UI，否则表现为
@@ -104,6 +105,7 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         catch (Exception ex)
         {
             Log.Error(TAG, ex, nameof(LoadRootCertificate));
+            CertDiagnostics.Write("LoadRootCertificate: Exception", ex);
             return null;
         }
     }
@@ -211,6 +213,9 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             generatedPfxFilePath,
             GetPfxPassword());
         RootCertificatePackable = X509CertificatePackable.CreateX509Certificate2(generatedPfxFilePath, GetPfxPassword(), X509KeyStorageFlags.Exportable);
+
+        if (RootCertificate == null)
+            CertDiagnostics.Write("SharedCreateRootCertificate: RootCertificate 为空");
 
         return RootCertificate != null;
     }
@@ -414,12 +419,17 @@ sealed partial class CertificateManagerImpl : ICertificateManager
     public bool SetupRootCertificate()
     {
         if (!GenerateCertificate())
+        {
+            CertDiagnostics.Write("SetupRootCertificate: GenerateCertificate 返回 false");
             return false;
+        }
         var isRootCertificateInstalled = IsRootCertificateInstalled;
         if (!isRootCertificateInstalled)
         {
             TrustRootCertificate();
             isRootCertificateInstalled = IsRootCertificateInstalled;
+            if (!isRootCertificateInstalled)
+                CertDiagnostics.Write("SetupRootCertificate: 信任后 IsRootCertificateInstalled 仍为 false");
             return isRootCertificateInstalled;
         }
         return true;

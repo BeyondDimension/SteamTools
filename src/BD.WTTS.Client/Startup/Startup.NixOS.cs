@@ -39,10 +39,24 @@ public static partial class StartupNixOS
             }
 
             // 先写临时文件再原子替换，避免 systemd 读到写了一半的参数
-            var envFileContent = string.Join('\n',
+            var envLines = new List<string>
+            {
                 $"{ENV_PIPE_KEY}={pipeName}",
                 $"{ENV_PID_KEY}={pid}",
-                $"{ENV_MODEL_KEY}={model}") + "\n";
+                $"{ENV_MODEL_KEY}={model}",
+            };
+            // 主程序经 wrapper 启动时会设置 XDG_DATA_HOME（AppData 根目录为 $XDG_DATA_HOME/Steam++）。
+            // 加速器子进程的 systemd 单元没有这个变量，会退回到 $HOME/.local/share/Steam++，
+            // 导致它与主程序不是同一个 AppData：证书在一边生成、另一边读不到，被判为「未安装」。
+            // 这里把主程序的 XDG_* 原值一并写进参数文件（EnvironmentFile 优先于单元 Environment），
+            // 保证两个进程看到同一个 AppData / Cache。
+            foreach (var name in new[] { "XDG_DATA_HOME", "XDG_CACHE_HOME" })
+            {
+                var value = Environment.GetEnvironmentVariable(name);
+                if (!string.IsNullOrWhiteSpace(value))
+                    envLines.Add($"{name}={value}");
+            }
+            var envFileContent = string.Join('\n', envLines) + "\n";
             var tmpPath = ENV_FILE_PATH + ".tmp";
             File.WriteAllText(tmpPath, envFileContent);
             File.Move(tmpPath, ENV_FILE_PATH, true);
