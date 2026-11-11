@@ -291,6 +291,9 @@ partial class ProxyService
         }
         else
         {
+            var ports = proxyMode == ProxyMode.Hosts
+                    ? (enableHttpProxyToHttps ? "443、80" : "443")
+                    : proxyPort.ToString();
             if (startProxyResult.Code == StartProxyResultCode.BindPortError)
             {
                 if (!string.IsNullOrWhiteSpace(Plugin.Instance.SubProcessPath))
@@ -299,15 +302,12 @@ partial class ProxyService
                 }
                 //新线程等待 IPC 错误返回后 Kill 自己 Linux 修改权限需要重新启动
                 reverseProxyService.Exit();
-                return Strings.Error_BindPortError_.Format(proxyPort);
+                return Strings.Error_BindPortError_.Format(ports);
             }
             else
             {
                 if (startProxyResult.Code == StartProxyResultCode.ListenerBindFailed)
                 {
-                    var ports = proxyMode == ProxyMode.Hosts
-                        ? (enableHttpProxyToHttps ? "443、80" : "443")
-                        : proxyPort.ToString();
                     return $"无法监听代理端口（{ports}）。请检查端口是否被其他程序占用或被系统保留，以及安全软件是否阻止监听。";
                 }
                 if (CertificateFailurePresenter.IsCertificateFailure(startProxyResult.Code))
@@ -315,7 +315,7 @@ partial class ProxyService
                 var errorString = startProxyResult.Code switch
                 {
                     StartProxyResultCode.Exception => startProxyResult.Exception?.ToString() ?? nameof(StartProxyResultCode.Exception),
-                    _ => $"{Strings.Error_BindPortError_.Format(proxyPort)}StaartProxyErrorCode:${startProxyResult.Code}"
+                    _ => $"{Strings.Error_BindPortError_.Format(ports)}StaartProxyErrorCode:${startProxyResult.Code}"
                 };
                 return errorString;
             }

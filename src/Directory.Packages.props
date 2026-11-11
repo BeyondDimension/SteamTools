@@ -4,4 +4,7 @@
   <ItemGroup>
     <PackageVersion Update="ReactiveUI.Avalonia" Version="12.0.3" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Onigwrap" Version="1.0.11" />
+  </ItemGroup>
 </Project>

@@ -11,19 +11,6 @@ partial class App : IApplication
 
     public static App Instance => instance.Value;
 
-    MainWindowViewState? releasedMainWindowState;
-
-    internal void ReleaseMainWindow(Window window, MainWindowViewState state)
-    {
-        if (!ReferenceEquals(MainWindow, window))
-            return;
-        releasedMainWindowState = state;
-        MainWindow = null;
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop &&
-            ReferenceEquals(desktop.MainWindow, window))
-            desktop.MainWindow = null;
-    }
-
     public void RestoreMainWindow()
     {
         Window? mainWindow = null;
@@ -50,44 +37,17 @@ partial class App : IApplication
             throw new ArgumentNullException(nameof(mainWindow));
         }
 
-        var state = releasedMainWindowState;
-        var restoredWindow = state != null ? mainWindow as MainWindow : null;
-        if (restoredWindow != null)
-        {
-            restoredWindow.IsSaveWindowSize = false;
-            var screen = restoredWindow.Screens.ScreenFromPoint(state!.Position);
-            if (screen != null && screen.WorkingArea.Contains(state.Position))
-            {
-                restoredWindow.WindowStartupLocation = WindowStartupLocation.Manual;
-                restoredWindow.Position = state.Position;
-                if (state.Width > 0 && state.Width <= screen.Bounds.Width)
-                    restoredWindow.Width = state.Width;
-                if (state.Height > 0 && state.Height <= screen.Bounds.Height)
-                    restoredWindow.Height = state.Height;
-            }
-        }
-
         try
         {
             mainWindow.Show();
         }
         catch (InvalidOperationException)
         {
-            if (restoredWindow != null)
-                restoredWindow.IsSaveWindowSize = true;
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime retryDesktop)
                 retryDesktop.MainWindow = null;
             MainWindow = null;
             mainWindow = null;
             goto ReTry;
-        }
-
-        if (restoredWindow != null)
-        {
-            restoredWindow.IsSaveWindowSize = true;
-            if (state!.WindowState is WindowState.Maximized or WindowState.FullScreen)
-                restoredWindow.WindowState = state.WindowState;
-            releasedMainWindowState = null;
         }
 
         if (mainWindow.WindowState == WindowState.Minimized)

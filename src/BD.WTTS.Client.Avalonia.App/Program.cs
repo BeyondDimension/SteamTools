@@ -42,7 +42,7 @@ partial class Program
 
         instance = new(args);
         var exitCode = instance.StartAsync().GetAwaiter().GetResult();
-        return exitCode;
+        return CompleteExit(exitCode);
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ partial class Program
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", appCtxBaseDir);
         instance = new() { IsCustomEntryPoint = true, };
         var exitCode = instance.StartAsync().GetAwaiter().GetResult();
-        return exitCode;
+        return CompleteExit(exitCode);
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.
@@ -254,6 +254,9 @@ partial class Program
             return;
 
         var builder = BuildAvaloniaApp();
+#if MACOS
+        nativeUiInitialized = true;
+#endif
         builder.StartWithClassicDesktopLifetime2(
             Array.Empty<string>(),
             ShutdownMode.OnLastWindowClose);

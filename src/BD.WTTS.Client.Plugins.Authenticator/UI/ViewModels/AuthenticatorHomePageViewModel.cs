@@ -78,9 +78,9 @@ public sealed partial class AuthenticatorHomePageViewModel
             .AddTo(this);
     }
 
-    public void Initialize() => Initialize(checkCache: false);
+    public void Initialize() => InitializeCore(checkCache: false);
 
-    async void Initialize(bool checkCache)
+    async void InitializeCore(bool checkCache)
     {
         if (IsLoading || Disposed) return;
 
@@ -89,46 +89,46 @@ public sealed partial class AuthenticatorHomePageViewModel
         try
         {
             if (Disposed) return;
-        var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
-        if (checkCache && loadedSources != null && SourcesEqual(loadedSources, sourceList)) return;
-        if (sourceList.Any_Nullable())
-        {
-            (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorHelper.HasEncrypt(sourceList);
-
-            if (HasPasswordEncrypt && IsVerificationPass == false)
+            var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
+            if (checkCache && loadedSources != null && SourcesEqual(loadedSources, sourceList)) return;
+            if (sourceList.Any_Nullable())
             {
-                if (!await EnterPassword(sourceList[0]))
-                    return;
+                (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorHelper.HasEncrypt(sourceList);
+
+                if (HasPasswordEncrypt && IsVerificationPass == false)
+                {
+                    if (!await EnterPassword(sourceList[0]))
+                        return;
+                }
+                else
+                {
+                    IsVerificationPass = true;
+                }
+
+                // var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourcelist,
+                //     _currentPassword.Base64Encode_Nullable());
+
+                var list = (await AuthenticatorHelper.GetAllAuthenticatorsAsync(sourceList,
+                    _currentPassword)).OrderBy(i => i.Index);
+
+                var items = list.Select(item => new AuthenticatorItemModel(item)).ToArray();
+                AuthSource.Edit(updater =>
+                {
+                    updater.Clear();
+                    updater.AddOrUpdate(items);
+                });
+
+                UpdateTrayMenu();
+
+                //Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
             }
             else
             {
+                AuthSource.Clear();
+                UpdateTrayMenu();
                 IsVerificationPass = true;
             }
-
-            // var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourcelist,
-            //     _currentPassword.Base64Encode_Nullable());
-
-            var list = (await AuthenticatorHelper.GetAllAuthenticatorsAsync(sourceList,
-                _currentPassword)).OrderBy(i => i.Index);
-
-            var items = list.Select(item => new AuthenticatorItemModel(item)).ToArray();
-            AuthSource.Edit(updater =>
-            {
-                updater.Clear();
-                updater.AddOrUpdate(items);
-            });
-
-            UpdateTrayMenu();
-
-            //Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
-        }
-        else
-        {
-            AuthSource.Clear();
-            UpdateTrayMenu();
-            IsVerificationPass = true;
-        }
-        loadedSources = sourceList;
+            loadedSources = sourceList;
 
         }
         finally
@@ -327,144 +327,144 @@ public sealed partial class AuthenticatorHomePageViewModel
         await reorderLock.WaitAsync();
         try
         {
-        if (Disposed) return;
-        var response = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
-        if (response.Code != ApiRspCode.OK)
-        {
-            switch (response.Code)
+            if (Disposed) return;
+            var response = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
+            if (response.Code != ApiRspCode.OK)
             {
-                case ApiRspCode.Unauthorized:
-                    Toast.Show(ToastIcon.Error, AppResources.Error_PleaseLoginWattToolKit);
-                    break;
-            }
-
-            return;
-        }
-
-        #region 安全问题
-
-        if (string.IsNullOrEmpty(_currentAnswer))
-        {
-            var answer = await AuthenticatorHelper.VerifyIndependentPassword();
-            if (!string.IsNullOrEmpty(answer)) _currentAnswer = answer;
-            else return;
-        }
-
-        #endregion
-
-        response.Content.ThrowIsNull();
-        var cloudAuths = response.Content.Select(AuthenticatorHelper.ConvertToAuthenticatorDto).ToList();
-
-        if (cloudAuths.Count >= Auths.Count)
-        {
-            int changes = 0;
-            int additions = 0;
-            foreach (var cloudAuth in cloudAuths)
-            {
-                //var cloudAuth = AuthenticatorService.ConvertToAuthenticatorDto(item);
-                // var localAuth = (Auths.FirstOrDefault(i => i.AuthData.ServerId == cloudAuth.ServerId) ??
-                //                  Auths.FirstOrDefault(i => i.AuthData.Index == cloudAuth.Index))?.AuthData;
-                var localAuth = Auths.FirstOrDefault(i => i.AuthData.ServerId == cloudAuth.ServerId)?.AuthData;
-                if (localAuth != null)
+                switch (response.Code)
                 {
-                    bool isChanged = false;
-                    if (localAuth.Name != cloudAuth.Name)
-                    {
-                        localAuth.Name = cloudAuth.Name;
-                        isChanged = true;
-                    }
-
-                    if (localAuth.Index != cloudAuth.Index)
-                    {
-                        localAuth.Index = cloudAuth.Index;
-                        isChanged = true;
-                    }
-
-                    if (isChanged)
-                    {
-                        localAuth.LastUpdate = DateTimeOffset.Now;
-                        await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
-                            HasLocalPcEncrypt);
-                        changes++;
-                    }
-
-                    continue;
+                    case ApiRspCode.Unauthorized:
+                        Toast.Show(ToastIcon.Error, AppResources.Error_PleaseLoginWattToolKit);
+                        break;
                 }
 
-                additions++;
-                await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(cloudAuth, _currentPassword,
+                return;
+            }
+
+            #region 安全问题
+
+            if (string.IsNullOrEmpty(_currentAnswer))
+            {
+                var answer = await AuthenticatorHelper.VerifyIndependentPassword();
+                if (!string.IsNullOrEmpty(answer)) _currentAnswer = answer;
+                else return;
+            }
+
+            #endregion
+
+            response.Content.ThrowIsNull();
+            var cloudAuths = response.Content.Select(AuthenticatorHelper.ConvertToAuthenticatorDto).ToList();
+
+            if (cloudAuths.Count >= Auths.Count)
+            {
+                int changes = 0;
+                int additions = 0;
+                foreach (var cloudAuth in cloudAuths)
+                {
+                    //var cloudAuth = AuthenticatorService.ConvertToAuthenticatorDto(item);
+                    // var localAuth = (Auths.FirstOrDefault(i => i.AuthData.ServerId == cloudAuth.ServerId) ??
+                    //                  Auths.FirstOrDefault(i => i.AuthData.Index == cloudAuth.Index))?.AuthData;
+                    var localAuth = Auths.FirstOrDefault(i => i.AuthData.ServerId == cloudAuth.ServerId)?.AuthData;
+                    if (localAuth != null)
+                    {
+                        bool isChanged = false;
+                        if (localAuth.Name != cloudAuth.Name)
+                        {
+                            localAuth.Name = cloudAuth.Name;
+                            isChanged = true;
+                        }
+
+                        if (localAuth.Index != cloudAuth.Index)
+                        {
+                            localAuth.Index = cloudAuth.Index;
+                            isChanged = true;
+                        }
+
+                        if (isChanged)
+                        {
+                            localAuth.LastUpdate = DateTimeOffset.Now;
+                            await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
+                                HasLocalPcEncrypt);
+                            changes++;
+                        }
+
+                        continue;
+                    }
+
+                    additions++;
+                    await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(cloudAuth, _currentPassword,
+                        HasLocalPcEncrypt);
+                }
+
+                string changeMessage = AppResources.Auth_Sync_UpdateTips.Format(additions, changes);
+                if (changes == 0 && additions == 0)
+                {
+                    changeMessage = AppResources.Auth_Sync_LatestData;
+                }
+                Toast.Show(ToastIcon.Success, AppResources.Success_CloudSynchronizationSuccessful.Format(changeMessage));
+                Initialize();
+                return;
+            }
+
+            var pushItems = (
+                from item in Auths
+                let cloudAuth = cloudAuths.FirstOrDefault(i => i.ServerId == item.AuthData.ServerId)
+                where cloudAuth == null
+                select new UserAuthenticatorPushItem()
+                {
+                    Id = item.AuthData.ServerId,
+                    TokenType = item.AuthData.Platform == AuthenticatorPlatform.HOTP
+                        ? UserAuthenticatorTokenType.HOTP
+                        : UserAuthenticatorTokenType.TOTP,
+                    Name = item.AuthData.Name,
+                    Order = item.AuthData.Index,
+                    Token = MemoryPackSerializer.Serialize(item.AuthData.ToExport()),
+                }).ToArray();
+
+            if ((cloudAuths.Count + pushItems.Length) > MAX_SYNC_VALUE)
+            {
+                Toast.Show(ToastIcon.Error, AppResources.Error_CloudAuthMaximumQuantity___.Format(MAX_SYNC_VALUE, cloudAuths.Count, pushItems.Length));
+                return;
+            }
+
+            var syncResponse = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
+            {
+                Difference = pushItems,
+                Answer = _currentAnswer,
+            });
+
+            if (!syncResponse.IsSuccess)
+            {
+                Toast.Show(ToastIcon.Error, AppResources.Error_FailedToSynchronizeAuth);
+                return;
+            }
+            syncResponse.Content.ThrowIsNull();
+            if (!syncResponse.Content.Result)
+            {
+                Toast.Show(ToastIcon.Error, syncResponse.Content.Message);
+                return;
+            }
+            response = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
+            if (response.Content?.Length != Auths.Count)
+            {
+                Toast.Show(ToastIcon.Error, AppResources.Error_DataNotUnified);
+                return;
+            }
+            foreach (var item in response.Content)
+            {
+                var localAuth = Auths.FirstOrDefault(i => i.AuthData.Index == item.Order)?.AuthData;
+                // var localAuth = Auths
+                //     .FirstOrDefault(i => item.Token!.SequenceEqual(MemoryPackSerializer.Serialize(i.AuthData.ToExport())))
+                //     ?.AuthData;
+                localAuth.ThrowIsNull(AppResources.Error_localAuthNotEmpty);
+                localAuth.ServerId ??= item.Id;
+                localAuth.LastUpdate = DateTimeOffset.Now;
+                await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
                     HasLocalPcEncrypt);
             }
 
-            string changeMessage = AppResources.Auth_Sync_UpdateTips.Format(additions, changes);
-            if (changes == 0 && additions == 0)
-            {
-                changeMessage = AppResources.Auth_Sync_LatestData;
-            }
-            Toast.Show(ToastIcon.Success, AppResources.Success_CloudSynchronizationSuccessful.Format(changeMessage));
             Initialize();
-            return;
-        }
-
-        var pushItems = (
-            from item in Auths
-            let cloudAuth = cloudAuths.FirstOrDefault(i => i.ServerId == item.AuthData.ServerId)
-            where cloudAuth == null
-            select new UserAuthenticatorPushItem()
-            {
-                Id = item.AuthData.ServerId,
-                TokenType = item.AuthData.Platform == AuthenticatorPlatform.HOTP
-                    ? UserAuthenticatorTokenType.HOTP
-                    : UserAuthenticatorTokenType.TOTP,
-                Name = item.AuthData.Name,
-                Order = item.AuthData.Index,
-                Token = MemoryPackSerializer.Serialize(item.AuthData.ToExport()),
-            }).ToArray();
-
-        if ((cloudAuths.Count + pushItems.Length) > MAX_SYNC_VALUE)
-        {
-            Toast.Show(ToastIcon.Error, AppResources.Error_CloudAuthMaximumQuantity___.Format(MAX_SYNC_VALUE, cloudAuths.Count, pushItems.Length));
-            return;
-        }
-
-        var syncResponse = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
-        {
-            Difference = pushItems,
-            Answer = _currentAnswer,
-        });
-
-        if (!syncResponse.IsSuccess)
-        {
-            Toast.Show(ToastIcon.Error, AppResources.Error_FailedToSynchronizeAuth);
-            return;
-        }
-        syncResponse.Content.ThrowIsNull();
-        if (!syncResponse.Content.Result)
-        {
-            Toast.Show(ToastIcon.Error, syncResponse.Content.Message);
-            return;
-        }
-        response = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
-        if (response.Content?.Length != Auths.Count)
-        {
-            Toast.Show(ToastIcon.Error, AppResources.Error_DataNotUnified);
-            return;
-        }
-        foreach (var item in response.Content)
-        {
-            var localAuth = Auths.FirstOrDefault(i => i.AuthData.Index == item.Order)?.AuthData;
-            // var localAuth = Auths
-            //     .FirstOrDefault(i => item.Token!.SequenceEqual(MemoryPackSerializer.Serialize(i.AuthData.ToExport())))
-            //     ?.AuthData;
-            localAuth.ThrowIsNull(AppResources.Error_localAuthNotEmpty);
-            localAuth.ServerId ??= item.Id;
-            localAuth.LastUpdate = DateTimeOffset.Now;
-            await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
-                HasLocalPcEncrypt);
-        }
-
-        Initialize();
-        Toast.Show(ToastIcon.Success, AppResources.Success_AuthUpload__.Format(syncResponse.Content?.Message, pushItems.Length));
+            Toast.Show(ToastIcon.Success, AppResources.Success_AuthUpload__.Format(syncResponse.Content?.Message, pushItems.Length));
         }
         finally { reorderLock.Release(); }
     }
@@ -514,35 +514,35 @@ public sealed partial class AuthenticatorHomePageViewModel
             await reorderLock.WaitAsync();
             try
             {
-            if (Disposed) return;
-            if (authenticatorItemModel.AuthData.ServerId != null)
-            {
-                if (string.IsNullOrEmpty(_currentAnswer))
+                if (Disposed) return;
+                if (authenticatorItemModel.AuthData.ServerId != null)
                 {
-                    _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
-                    if (string.IsNullOrEmpty(_currentAnswer)) return;
-                }
-                var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
-                {
-                    Difference = new[]
+                    if (string.IsNullOrEmpty(_currentAnswer))
                     {
+                        _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
+                        if (string.IsNullOrEmpty(_currentAnswer)) return;
+                    }
+                    var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
+                    {
+                        Difference = new[]
+                        {
                         new UserAuthenticatorPushItem()
                         {
                             Id = authenticatorItemModel.AuthData.ServerId, IsDeleted = true,
                         },
                     },
-                    Answer = _currentAnswer,
-                });
-                response.Content.ThrowIsNull();
-                if (response.IsSuccess && response.Content.Result)
-                    Toast.Show(ToastIcon.Success, AppResources.Success_DelCloudData);
-                else
-                    Toast.Show(ToastIcon.Warning, AppResources.Error_DelCloudData);
-            }
-            await AuthenticatorHelper.DeleteAuth(authenticatorItemModel.AuthData);
-            AuthSource.Remove(authenticatorItemModel);
-            UpdateTrayMenu();
-            Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthDelSuccessful);
+                        Answer = _currentAnswer,
+                    });
+                    response.Content.ThrowIsNull();
+                    if (response.IsSuccess && response.Content.Result)
+                        Toast.Show(ToastIcon.Success, AppResources.Success_DelCloudData);
+                    else
+                        Toast.Show(ToastIcon.Warning, AppResources.Error_DelCloudData);
+                }
+                await AuthenticatorHelper.DeleteAuth(authenticatorItemModel.AuthData);
+                AuthSource.Remove(authenticatorItemModel);
+                UpdateTrayMenu();
+                Toast.Show(ToastIcon.Success, AppResources.Success_LocalAuthDelSuccessful);
             }
             finally { reorderLock.Release(); }
         }
@@ -781,7 +781,7 @@ public sealed partial class AuthenticatorHomePageViewModel
     public override void Activation()
     {
         base.Activation();
-        Initialize(checkCache: true);
+        InitializeCore(checkCache: true);
     }
 
     protected override void Dispose(bool disposing)

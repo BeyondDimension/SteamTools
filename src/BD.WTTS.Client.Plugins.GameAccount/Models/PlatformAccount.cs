@@ -132,6 +132,8 @@ public sealed partial class PlatformAccount
     public async void CreateShortcut(IAccount acc)
     {
 #if WINDOWS
+    try
+    {
         var gear = new[] { 512, 256, 128, 96, 64, 48, 32, 24, 16 };
         using var avatarImgBitmap = await Decode(acc.AvatarMedium);
         var iconSize = GetImgResolutionPower(Math.Min(avatarImgBitmap.Width, avatarImgBitmap.Height), gear);
@@ -177,20 +179,43 @@ public sealed partial class PlatformAccount
             if (bitmaps != null)
                 bitmaps.ForEach(x => x.Dispose());
         }
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT(nameof(PlatformAccount));
+        }
 #endif
     }
 
     async Task<SKBitmap> Decode(string? avatarImgPath)
     {
-        if (string.IsNullOrWhiteSpace(avatarImgPath))
-            return SKBitmap.Decode(AssetLoader.Open(new Uri("avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg")));
-        if (avatarImgPath.StartsWith("https"))
+        SKBitmap? bitmap = null;
+        try
         {
-            using var client = new HttpClient();
-            using var rspimg = await client.GetStreamAsync(avatarImgPath);
-            return SKBitmap.Decode(rspimg);
+            if (!string.IsNullOrWhiteSpace(avatarImgPath))
+            {
+                if (avatarImgPath.StartsWith("https"))
+                {
+                    using var client = new HttpClient();
+                    using var rspimg = await client.GetStreamAsync(avatarImgPath);
+                    bitmap = SKBitmap.Decode(rspimg);
+                }
+                else
+                {
+                    bitmap = SKBitmap.Decode(avatarImgPath);
+                }
+            }
         }
-        return SKBitmap.Decode(avatarImgPath);
+        catch (Exception)
+        {
+        }
+
+        if (bitmap != null && Math.Min(bitmap.Width, bitmap.Height) >= 16)
+            return bitmap;
+
+        bitmap?.Dispose();
+        using var stream = AssetLoader.Open(new Uri("avares://BD.WTTS.Client.Avalonia/UI/Assets/avatar.jpg"));
+        return SKBitmap.Decode(stream) ?? throw new InvalidOperationException("Failed to decode the default avatar.");
     }
 
     SKBitmap DrawIcon(SKBitmap originalBitmap, SKBitmap loginIcon, int iconSize)
