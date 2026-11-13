@@ -58,8 +58,19 @@ Screenshots can be posted here
 
 
 ### 🚑 Other Information
+
+<!--
+To check out your processor architecture and system version number, see the following documentations:
+- https://support.microsoft.com/windows/experience/find-information-about-your-windows-device
+- https://docs.microsoft.com/windows/client-management/client-tools/windows-version-search
+- https://support.apple.com/102767
+- https://manpages.ubuntu.com/manpages/tenacious/man1/lsb_release.1.html
+- https://manpages.ubuntu.com/manpages/tenacious/man1/uname.1.html
+- https://github.com/git-for-windows/git/issues/6287
+-->
+
 - Processor architecture: <!-- x64 / x86 / arm64 -->
-- System version number: <!-- example Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS -->
+- System version number: <!-- example Windows 10.19042.844 / macOS Monterey 12 / Ubuntu 20.04.2 LTS -->
 - Download channels: <!-- Microsoft Store / Official Website / Github / AppStore / xx netdisk -->
 - Program version: <!-- 2.8.4 -->
 - Does it contain a standalone runtime: <!-- with_runtime or without fde in the file name -->

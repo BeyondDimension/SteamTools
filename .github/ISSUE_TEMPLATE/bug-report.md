@@ -57,8 +57,18 @@ assignees: ''
 
 ### 🚑 其他信息
 
+<!--
+处理器体系结构和系统版本号的查询可以参考下列文档：
+- https://support.microsoft.com/windows/experience/find-information-about-your-windows-device
+- https://docs.microsoft.com/windows/client-management/client-tools/windows-version-search
+- https://support.apple.com/102767
+- https://manpages.ubuntu.com/manpages/tenacious/man1/lsb_release.1.html
+- https://manpages.ubuntu.com/manpages/tenacious/man1/uname.1.html
+- https://github.com/git-for-windows/git/issues/6287
+-->
+
 - 处理器体系结构：<!-- x64 / x86 / arm64 -->
-- 系统版本号：<!-- example Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS -->
+- 系统版本号：<!-- example Windows 10.19042.844 / macOS Monterey 12 / Ubuntu 20.04.2 LTS -->
 - 下载渠道：<!-- 微软商店 / 官网 / Github / AppStore / xx网盘 -->
 - 程序版本：<!-- 2.8.4 -->
 - 是否包含独立运行时：<!-- 文件名中带有 with_runtime 或 不包含 fde -->
