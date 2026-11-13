@@ -3,7 +3,8 @@
 	url = https://github.com/BeyondDimension/DirectoryPackages.git
 [submodule "ref/ArchiSteamFarm"]
 	path = ref/ArchiSteamFarm
-	url = https://github.com/BeyondDimension/ArchiSteamFarm.git
+    url = https://github.com/JustArchiNET/ArchiSteamFarm.git
+    branch = main
 [submodule "ref/Avalonia.Image2"]
 	path = ref/Avalonia.Image2
 	url = https://github.com/BeyondDimension/Avalonia.Image2.git
