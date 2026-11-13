@@ -1,4 +1,5 @@
 using AngleSharp.Dom;
+using Avalonia.Input;
 using BD.WTTS.Client.Resources;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
@@ -17,13 +18,59 @@ public sealed partial class App : Application
         OpenBrowserCommand = ReactiveCommand.Create<object?>(OpenBrowserCommandCore);
         CopyToClipboardCommand = ReactiveCommand.Create<object?>(CopyToClipboardCommandCore);
 #if MACOS
-        var menus = new NativeMenu();
-        menus.Add(new NativeMenuItem { Header = Strings.Settings, Command = ReactiveCommand.Create(() => { INavigationService.Instance.Navigate(typeof(SettingsPage)); }) });
-        menus.Add(new NativeMenuItemSeparator());
-        menus.Add(new NativeMenuItem { Header = Strings.Exit, Command = ReactiveCommand.Create(() => { Shutdown(); }) });
-        NativeMenu.SetMenu(this, menus);
+        InitializeMacOSNativeMenu();
 #endif
     }
+
+#if MACOS
+    void InitializeMacOSNativeMenu()
+    {
+        var appMenu = new NativeMenu();
+        appMenu.Add(new NativeMenuItem
+        {
+            Header = Strings.Settings,
+            Command = ReactiveCommand.Create(() =>
+            {
+                RestoreMainWindow();
+                INavigationService.Instance.Navigate(typeof(SettingsPage));
+            }),
+        });
+        appMenu.Add(new NativeMenuItem
+        {
+            Header = string.Format(GetMacMenuString("HideApp_", "Hide {0}"), Name),
+            Gesture = KeyGesture.Parse("CMD+W"),
+            Command = ReactiveCommand.Create(HideAllWindows),
+        });
+        appMenu.Add(new NativeMenuItem
+        {
+            Header = Strings.Exit,
+            Gesture = KeyGesture.Parse("CMD+Q"),
+            Command = ReactiveCommand.Create(() => Shutdown()),
+        });
+
+        NativeMenu.SetMenu(this, appMenu);
+    }
+
+    static string GetMacMenuString(string key, string fallback)
+        => Strings.ResourceManager.GetString(key, Strings.Culture) ?? fallback;
+
+    void HideAllWindows()
+    {
+        MainThread2.BeginInvokeOnMainThread(() =>
+        {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                foreach (var window in desktop.Windows.Where(x => x.IsVisible))
+                {
+                    window.Hide();
+                }
+                return;
+            }
+
+            MainWindow?.Hide();
+        });
+    }
+#endif
 
     /// <summary>
     /// 获取当前主窗口
@@ -48,6 +95,7 @@ public sealed partial class App : Application
                 window = classicDesktopStyleApplicationLifetime.Windows?.FirstOrDefault(x => x != null);
             }
         }
+
         return window;
     }
 
@@ -111,9 +159,11 @@ public sealed partial class App : Application
 
             desktop.MainWindow =
 #if !UI_DEMO
-                Startup.Instance.IsMinimize && MainWindow is MainWindow ? null :
+                Startup.Instance.IsMinimize && MainWindow is MainWindow
+                    ? null
+                    :
 #endif
-                MainWindow;
+                    MainWindow;
 
             if (Startup.Instance.IsMinimize && MainWindow is AppWindow appWindow)
             {
@@ -130,6 +180,7 @@ public sealed partial class App : Application
         {
             singleView.MainView = new MainView();
         }
+
         //SetThemeNotChangeValue(UISettings.Theme.Value);
         //SetThemeAccent(UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value);
         base.OnFrameworkInitializationCompleted();
@@ -191,6 +242,7 @@ public sealed partial class App : Application
             });
             return true;
         }
+
         return false;
     }
 
@@ -200,7 +252,8 @@ public sealed partial class App : Application
         UISettings.UseSystemThemeAccent.Subscribe(useSystemThemeAccent
             => SetThemeAccent(useSystemThemeAccent ? bool.TrueString : UISettings.ThemeAccent.Value));
         UISettings.ThemeAccent.Subscribe(color
-            => SetThemeAccent(UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value),
+                => SetThemeAccent(
+                    UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value),
             !UISettings.UseSystemThemeAccent.Value);
 
         GeneralSettings.AutoRunOnStartup.Subscribe(IApplication.SetBootAutoStart);
@@ -236,10 +289,12 @@ public sealed partial class App : Application
         catch
         {
         }
+
         return FontFamily.Default;
     }
 
-    public const string DefaultFontFamilyName = "avares://BD.WTTS.Client.Avalonia/UI/Assets/Fonts/HarmonyOS_Sans_SC_Regular.ttf#HarmonyOS Sans SC";
+    public const string DefaultFontFamilyName =
+        "avares://BD.WTTS.Client.Avalonia/UI/Assets/Fonts/HarmonyOS_Sans_SC_Regular.ttf#HarmonyOS Sans SC";
 
     static readonly Lazy<FontFamily> _DefaultFontFamily = new(GetDefaultFontFamily);
 
@@ -257,6 +312,7 @@ public sealed partial class App : Application
                 Toast.Show(ToastIcon.Warning, "打开链接失败");
                 return;
             }
+
             try
             {
                 Uri uri = new(urlString);
@@ -270,6 +326,7 @@ public sealed partial class App : Application
             catch
             {
             }
+
             Browser2.Open(urlString);
         }
         catch (Exception ex)
@@ -289,6 +346,7 @@ public sealed partial class App : Application
                 Toast.Show(ToastIcon.Warning, "复制内容失败");
                 return;
             }
+
             await Clipboard2.SetTextAsync(text.ToString());
             Toast.Show(ToastIcon.Success, Strings.CopyToClipboard);
         }

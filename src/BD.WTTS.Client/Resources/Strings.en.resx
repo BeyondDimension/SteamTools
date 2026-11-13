@@ -3877,6 +3877,12 @@ or switch the Steam client login account to the same as the card hanging account
     <value>Starting acceleration...</value>
     <comment>Author=kotovasia5120</comment>
   </data>
+  <data name="CommunityFix_StartingHint" xml:space="preserve">
+    <value>Preparing the network and proxy service. Please wait.</value>
+  </data>
+  <data name="CommunityFix_Stopping" xml:space="preserve">
+    <value>Stopping acceleration...</value>
+  </data>
   <data name="LocalAuth_JoinSteamAuthenticator_InitLocalAuthenticatorError" xml:space="preserve">
     <value>Error initializing local token</value>
     <comment>Author=kotovasia5120</comment>
@@ -4828,5 +4834,17 @@ This feature can set the wallpaper of Wallpaper Engine and other wallpaper softw
   </data>
   <data name="Error_CheckRootCertificateFailed_" xml:space="preserve">
     <value>Certificate format invalid or outdated. Delete &amp; regenerate in acceleration settings.</value>
+  </data>
+  <data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
+    <value>Steam path updated. If the native Steam component is already loaded, restart Watt Toolkit to switch its path.</value>
+  </data>
+  <data name="HideApp_" xml:space="preserve">
+    <value>Hide {0}</value>
+  </data>
+  <data name="HideWindow" xml:space="preserve">
+    <value>Hide Window</value>
+  </data>
+  <data name="WindowMenu" xml:space="preserve">
+    <value>Window</value>
   </data>
 </root>

@@ -121,6 +121,8 @@ public static partial class ServiceCollectionExtensions
 
             // tcp
             .AddSingleton<HttpProxyMiddleware>()
+            .AddSingleton<TunnelConnector>()
+            .AddSingleton<TunnelPassThroughMiddleware>()
             .AddSingleton<TunnelMiddleware>()
 
             // tls

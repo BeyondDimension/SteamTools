@@ -335,7 +335,7 @@ $"""
         const string timestamp_url = "http://timestamp.digicert.com";
 
         public const string pfxFilePath_MSStore_CodeSigning = @"C:\MSStore_CodeSigning.pfx";
-        public const string pfxFilePath_BeyondDimension_CodeSigning = @"C:\BeyondDimension_CodeSigning.pfx";
+        public const string pfxFilePath_BeyondDimension_CodeSigning = null!; //@"C:\BeyondDimension_CodeSigning.pfx";
         public const string pfxFilePath_HSM_CodeSigning = "e1e00c478e41300480a63cd62d5f771d24cf903b";
 
         public static void Start(
@@ -344,6 +344,11 @@ $"""
             string? pfxFilePath = null,
             string? workingDirectory = null)
         {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return;
+            }
+
             //if (pfxFilePath != pfxFilePath_MSStore_CodeSigning)
             //    return;
 

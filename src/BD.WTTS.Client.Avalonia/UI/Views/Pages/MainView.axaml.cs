@@ -117,6 +117,7 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
         if (top != null)
             AvaloniaToastServiceImpl.Instance.SetSnackbarManager(top);
         NavigationService.Instance.SetFrame(FrameView);
+        NavView.IsBackButtonVisible = FrameView.BackStackDepth > 0;
     }
 
     private void OnNavigationViewBackRequested(object? sender, NavigationViewBackRequestedEventArgs e)

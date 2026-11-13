@@ -42,7 +42,7 @@ partial class Program
 
         instance = new(args);
         var exitCode = instance.StartAsync().GetAwaiter().GetResult();
-        return exitCode;
+        return CompleteExit(exitCode);
     }
 
     /// <summary>
@@ -63,12 +63,9 @@ partial class Program
             throw new ArgumentOutOfRangeException(nameof(appCtxBaseDir),
                 appCtxBaseDir ?? "null", null);
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", appCtxBaseDir);
-        instance = new()
-        {
-            IsCustomEntryPoint = true,
-        };
+        instance = new() { IsCustomEntryPoint = true, };
         var exitCode = instance.StartAsync().GetAwaiter().GetResult();
-        return exitCode;
+        return CompleteExit(exitCode);
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.
@@ -89,10 +86,7 @@ partial class Program
 
             if (instance == null)
             {
-                instance = new()
-                {
-                    IsDesignMode = true,
-                };
+                instance = new() { IsDesignMode = true, };
                 instance.StartAsync().GetAwaiter().GetResult();
                 instance.RunUIApplication(AppServicesLevel.UI);
             }
@@ -116,29 +110,28 @@ partial class Program
 #elif MACCATALYST || MACOS
                                         .UseAvaloniaNative()
 #elif LINUX
-                                        .UseX11()
+                    .UseX11()
 #endif
-                                        .UseSkia()
+                    .UseSkia()
+                    .UseHarfBuzz()
+#if DEBUG
+                    .LogToTextWriter(Console.Error)
+#else
                                         .LogToTrace()
-                                        .UseReactiveUI(_ =>
-                                        {
-                                        });
-
+#endif
+                    .UseReactiveUI(_ => { });
                 builder.With(new FontManagerOptions
                 {
                     DefaultFamilyName = UI.App.DefaultFontFamilyName,
                     FontFallbacks = new[]
                     {
-                        new FontFallback
-                        {
-                            FontFamily = UI.App.DefaultFontFamily,
-                        },
-                        new FontFallback
-                        {
-                            FontFamily = FontFamily.Default,
-                        },
+                        new FontFallback { FontFamily = UI.App.DefaultFontFamily, },
+                        new FontFallback { FontFamily = FontFamily.Default, },
                     },
                 });
+#if DEBUG
+                builder.WithDeveloperTools();
+#endif
 
                 var useGpu = !IApplication.DisableGPU && GeneralSettings.GPU.Value;
 #if WINDOWS
@@ -168,6 +161,7 @@ partial class Program
                         yield return X11RenderingMode.Glx;
                         yield return X11RenderingMode.Egl;
                     }
+
                     yield return X11RenderingMode.Software;
                 }
 #endif
@@ -260,6 +254,9 @@ partial class Program
             return;
 
         var builder = BuildAvaloniaApp();
+#if MACOS
+        nativeUiInitialized = true;
+#endif
         builder.StartWithClassicDesktopLifetime2(
             Array.Empty<string>(),
             ShutdownMode.OnLastWindowClose);

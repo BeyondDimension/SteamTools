@@ -45,25 +45,28 @@ public sealed class CustomFilePicker : ContentControl
             e.DragEffects = e.DragEffects & (DragDropEffects.Copy | DragDropEffects.Link);
 
             // Only allow if the dragged data contains text or filenames.
-            if (!e.Data.Contains(DataFormats.Text) && !e.Data.Contains(DataFormats.Files))
+            if (!e.DataTransfer.Contains(DataFormat.Text) && !e.DataTransfer.Contains(DataFormat.File))
                 e.DragEffects = DragDropEffects.None;
         }
 
         void Drop(object? sender, DragEventArgs e)
         {
-            if (e.Data.Contains(DataFormats.Text))
-            {
-                FileName = e.Data.GetText();
-            }
-            else if (e.Data.Contains(DataFormats.Files))
-            {
-                var files = e.Data.GetFiles()?
-                    .Select(s => s.TryGetLocalPath())
-                    .Where(p => !string.IsNullOrEmpty(p))
-                    .OfType<string>();
+            var file = e.DataTransfer.TryGetFiles()?
+                .Select(s => s.TryGetLocalPath())
+                .FirstOrDefault(File.Exists);
+            file ??= e.DataTransfer.TryGetText()?.Trim().Trim('"');
+            if (!File.Exists(file))
+                return;
 
-                if (files.Any_Nullable())
-                    FileName = string.Join(Environment.NewLine, files);
+            try
+            {
+                FileName = file;
+                e.Handled = true;
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                Log.Error(nameof(CustomFilePicker), ex, "Unable to open the dropped file.");
+                Toast.Show(ToastIcon.Warning, ex.Message);
             }
         }
 

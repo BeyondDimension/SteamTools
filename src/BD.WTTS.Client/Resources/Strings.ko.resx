@@ -3139,4 +3139,7 @@ AAAAA-BBBBB-CCCC3</value>
   <data name="Error_CheckRootCertificateFailed_" xml:space="preserve">
     <value>인증서 형식 오류 또는 버전 구버전. 가속 설정에서 삭제 후 재생성하세요.</value>
   </data>
+  <data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
+    <value>Steam 경로가 변경되었습니다. Steam 네이티브 구성 요소가 이미 로드된 경우 Watt Toolkit을 다시 시작하여 경로를 전환하세요.</value>
+  </data>
 </root>

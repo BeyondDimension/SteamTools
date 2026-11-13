@@ -102,7 +102,7 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     /// <summary>
     /// 启用 Http 链接转发到 Https
     /// </summary>
-    [MPKey(9), MP2Key(9), JsonPropertyOrder(9)]
+    [MPKey(9), MP2Key(9), JsonPropertyOrder(9), JsonPropertyName("EnableHttpProxyToHttps2")]
     public bool EnableHttpProxyToHttps { get; set; } = IProxySettings.DefaultEnableHttpProxyToHttps;
 
     #endregion
@@ -214,6 +214,10 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     /// </summary>
     [MPKey(25), MP2Key(25), JsonPropertyOrder(25)]
     public bool ProxyBeforeDNSCheck { get; set; } = IProxySettings.DefaultProxyBeforeDNSCheck;
+
+    /// <summary>是否已迁移为混合解析服务器列表。</summary>
+    [MPKey(26), MP2Key(26), JsonPropertyOrder(26)]
+    public bool ResolverServersMigrated { get; set; }
 
 }
 
@@ -394,5 +398,9 @@ public static partial class ProxySettings
     /// </summary>
     public static SettingsStructProperty<bool, ProxySettings_> ProxyBeforeDNSCheck { get; }
         = new(DefaultProxyBeforeDNSCheck);
+
+    /// <summary>是否已迁移为混合解析服务器列表。</summary>
+    public static SettingsStructProperty<bool, ProxySettings_> ResolverServersMigrated { get; }
+        = new(false);
 
 }

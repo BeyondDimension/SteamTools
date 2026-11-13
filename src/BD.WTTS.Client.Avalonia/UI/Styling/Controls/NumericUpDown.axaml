@@ -11,7 +11,7 @@
                     Maximum="1454350"
                     Minimum="0"
                     ShowButtonSpinner="True"
-                    Watermark="Enter text"
+                    PlaceholderText="Enter text"
                     Value="28393255555555" />
                 <NumericUpDown
                     Width="150"
@@ -19,7 +19,7 @@
                     Increment="0.5"
                     Maximum="10"
                     Minimum="0"
-                    Watermark="Enter text"
+                    PlaceholderText="Enter text"
                     Value="28393255555555" />
             </StackPanel>
         </Border>

@@ -11,6 +11,7 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
     public MainWindow()
     {
         InitializeComponent();
+        ClosingBehavior = WindowClosingBehavior.OwnerWindowOnly;
         if (!AppSplashScreen.IsInitialized)
             SplashScreen = new AppSplashScreen();
         else
@@ -24,20 +25,21 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
 
     protected override void OnClosing(WindowClosingEventArgs e)
     {
-        if (GeneralSettings.TrayIcon.Value)
+        if (GeneralSettings.TrayIcon.Value &&
+            e.CloseReason is WindowCloseReason.WindowClosing or WindowCloseReason.Undefined)
         {
             e.Cancel = true;
             Hide();
         }
         base.OnClosing(e);
 
-        if (Steamworks.SteamClient.IsValid)
+        if ((!e.Cancel || !IsVisible) && Steamworks.SteamClient.IsValid)
         {
             Steamworks.SteamFriends.ClearRichPresence();
         }
     }
 
-    DateTime lastOpenedTime;
+    static DateTime lastOpenedTime;
 
     internal bool SetStartDefaultPageName()
     {
@@ -99,6 +101,9 @@ public sealed partial class MainWindow : ReactiveAppWindow<MainWindowViewModel>
 public sealed class AppSplashScreen : IApplicationSplashScreen
 {
     public static bool IsInitialized = false;
+    readonly object initializationSync = new();
+    Task? initializationTask;
+
 
     //public WindowViewModel? ViewModel { get; }
 
@@ -116,6 +121,12 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
 #endif
 
     Task IApplicationSplashScreen.RunTasks(CancellationToken token)
+    {
+        lock (initializationSync)
+            return initializationTask ??= RunTasksCore(token);
+    }
+
+    Task RunTasksCore(CancellationToken token)
     {
         return Task.Run(
             async () =>
@@ -246,7 +257,16 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
                     WatchTrace.Stop();
 #endif
                     s.OnStartup();
-                    await IViewModelManager.Instance.MainWindow.Initialize();
+                    var initialization = IViewModelManager.Instance.MainWindow.Initialize();
+                    if (await Task.WhenAny(initialization, Task.Delay(TimeSpan.FromSeconds(3), token)) == initialization)
+                    {
+                        await initialization;
+                    }
+                    else
+                    {
+                        token.ThrowIfCancellationRequested();
+                        _ = ObserveInitializationAsync(initialization);
+                    }
 
                     App.Instance.CompositeDisposable.Add(IViewModelManager.Instance.MainWindow);
                     App.Instance.CompositeDisposable.Add(SteamConnectService.Current.Dispose);
@@ -254,5 +274,17 @@ public sealed class AppSplashScreen : IApplicationSplashScreen
                     IsInitialized = true;
                 }
             }, cancellationToken: token);
+    }
+
+    static async Task ObserveInitializationAsync(Task initialization)
+    {
+        try
+        {
+            await initialization;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(AppSplashScreen), ex, "Main window initialization failed after the splash screen closed.");
+        }
     }
 }

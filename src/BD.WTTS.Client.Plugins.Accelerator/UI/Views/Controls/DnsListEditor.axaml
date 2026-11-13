@@ -1,0 +1,48 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.DnsListEditor"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:BD.WTTS.UI.ViewModels"
+    x:DataType="vm:DnsListEditorViewModel"
+    x:CompileBindings="True">
+    <Grid RowDefinitions="Auto,Auto" RowSpacing="10">
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+            <StackPanel VerticalAlignment="Center" Spacing="3">
+                <TextBlock FontWeight="SemiBold" Text="DNS / DoH 服务器" />
+                <TextBlock FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="从上到下依次尝试" />
+            </StackPanel>
+            <Button Grid.Column="1" Command="{Binding OpenManagerCommand}" AutomationProperties.Name="添加或管理 DNS 服务器">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <ui:FASymbolIcon Symbol="Add" />
+                    <TextBlock Text="添加 / 管理" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <Border
+            Grid.Row="1"
+            Padding="8,4"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="6">
+            <ScrollViewer
+                MaxHeight="150"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto"
+                AutomationProperties.Name="已配置的 DNS 服务器">
+                <ItemsControl ItemsSource="{Binding Servers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Grid Margin="4,5" ColumnDefinitions="Auto,*" ColumnSpacing="9">
+                                <TextBlock Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}" Text="●" FontSize="8" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="{Binding}" TextWrapping="Wrap" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

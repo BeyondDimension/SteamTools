@@ -14,7 +14,7 @@
             Background="#CDCDCD">
             <Border BorderBrush="#35EFEFEF" BorderThickness="1">
                 <spp:TaskDialogEx
-                    core:VisualStateHelper.ForcedClassesProperty=":open,:progressSuspend:hosted"
+                    core:FAVisualStateHelper.ForcedClassesProperty=":open,:progressSuspend:hosted"
                     Content="Dialog Content goes here"
                     FooterVisibility="Auto"
                     Header="Dialog Heading"
@@ -22,28 +22,28 @@
                     ShowProgressBar="True"
                     SubHeader="Dialog SubHeader">
                     <!--<spp:TaskDialogEx.Buttons>
-                        <ui:TaskDialogButton
+                        <ui:FATaskDialogButton
                             IconSource="Checkmark"
                             IsDefault="True"
                             Text="OK" />
-                        <ui:TaskDialogButton
+                        <ui:FATaskDialogButton
                             IconSource="Dismiss"
                             IsEnabled="False"
                             Text="Cancel" />
                     </spp:TaskDialogEx.Buttons>-->
 
                     <spp:TaskDialogEx.Commands>
-                        <ui:TaskDialogCommand
+                        <ui:FATaskDialogCommand
                             Description="A bigger description goes here"
                             IconSource="Map"
                             Text="Text here" />
-                        <ui:TaskDialogCommand
+                        <ui:FATaskDialogCommand
                             Description="A bigger description goes here"
                             IsEnabled="False"
                             Text="Text here" />
-                        <ui:TaskDialogCommand Text="Text here" />
-                        <ui:TaskDialogCheckBox Text="CheckBox" />
-                        <ui:TaskDialogRadioButton Text="RadioButton" />
+                        <ui:FATaskDialogCommand Text="Text here" />
+                        <ui:FATaskDialogCheckBox Text="CheckBox" />
+                        <ui:FATaskDialogRadioButton Text="RadioButton" />
                     </spp:TaskDialogEx.Commands>
 
                     <spp:TaskDialogEx.Footer>
@@ -54,8 +54,8 @@
         </Border>
     </Design.PreviewWith>
 
-    <Thickness x:Key="TaskDialogHeaderPadding">60 18 12 9</Thickness>
-    <Thickness x:Key="TaskDialogHeaderPaddingNoIcon">18 18 12 9</Thickness>
+    <Thickness x:Key="TaskDialogHeaderPadding">60 18 52 9</Thickness>
+    <Thickness x:Key="TaskDialogHeaderPaddingNoIcon">18 18 52 9</Thickness>
 
     <ControlTheme x:Key="TaskDialogMoreDetailsButton" TargetType="Button">
         <Setter Property="Foreground" Value="{DynamicResource TaskDialogFooterButtonForeground}" />
@@ -103,7 +103,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     IsVisible="False">
-                                    <ui:IconSourceElement Name="IconElement" IconSource="{TemplateBinding IconSource}" />
+                                    <ui:FAIconSourceElement Name="IconElement" IconSource="{TemplateBinding IconSource}" />
                                 </Viewbox>
                                 <TextBlock
                                     Name="HeaderText"
@@ -118,14 +118,20 @@
 
                                 <Button
                                     Name="CloseButton"
+                                    Width="32"
+                                    Height="32"
+                                    Padding="8"
                                     Margin="0,0,12,0"
                                     HorizontalAlignment="Right"
                                     Classes="Close"
-                                    Content="{StaticResource Close}"
                                     Focusable="True"
                                     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                     IsTabStop="True"
-                                    Theme="{StaticResource FA_SystemCaptionButton}" />
+                                    Theme="{StaticResource TransparentButton}"
+                                    AutomationProperties.Name="{x:Static spp:Strings.Close}"
+                                    ToolTip.Tip="{x:Static spp:Strings.Close}">
+                                    <PathIcon Classes="CloseIcon" />
+                                </Button>
                             </Panel>
 
                             <TextBlock
@@ -210,7 +216,7 @@
                                 <ItemsControl Name="ButtonsHost" KeyboardNavigation.TabNavigation="Continue">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <uip:TaskDialogButtonsPanel Spacing="8" />
+                                            <uip:FATaskDialogButtonsPanel Spacing="8" />
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                 </ItemsControl>
@@ -291,11 +297,11 @@
         </Style>
 
         <Style Selector="^:headerForeground /template/ TextBlock#HeaderText">
-            <Setter Property="Foreground" Value="{Binding $parent[ui:TaskDialog].HeaderForeground}" />
+            <Setter Property="Foreground" Value="{Binding $parent[ui:FATaskDialog].HeaderForeground}" />
         </Style>
 
-        <Style Selector="^:iconForeground /template/ ui|IconSourceElement#IconElement">
-            <Setter Property="Foreground" Value="{Binding $parent[ui:TaskDialog].IconForeground}" />
+        <Style Selector="^:iconForeground /template/ ui|FAIconSourceElement#IconElement">
+            <Setter Property="Foreground" Value="{Binding $parent[ui:FATaskDialog].IconForeground}" />
         </Style>
 
 
@@ -412,7 +418,7 @@
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         IsVisible="False">
-                                        <ui:IconSourceElement Name="IconElement" IconSource="{TemplateBinding IconSource}" />
+                                        <ui:FAIconSourceElement Name="IconElement" IconSource="{TemplateBinding IconSource}" />
                                     </Viewbox>
                                     <TextBlock
                                         Name="HeaderText"
@@ -427,14 +433,20 @@
 
                                     <Button
                                         Name="CloseButton"
+                                        Width="32"
+                                        Height="32"
+                                        Padding="8"
                                         Margin="0,0,12,0"
                                         HorizontalAlignment="Right"
                                         Classes="Close"
-                                        Content="{StaticResource Close}"
                                         Focusable="True"
                                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                         IsTabStop="True"
-                                        Theme="{StaticResource FA_SystemCaptionButton}" />
+                                        Theme="{StaticResource TransparentButton}"
+                                        AutomationProperties.Name="{x:Static spp:Strings.Close}"
+                                        ToolTip.Tip="{x:Static spp:Strings.Close}">
+                                        <PathIcon Classes="CloseIcon" />
+                                    </Button>
                                 </Panel>
 
                                 <TextBlock
@@ -515,7 +527,7 @@
                                     <ItemsControl Name="ButtonsHost" KeyboardNavigation.TabNavigation="Continue">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <uip:TaskDialogButtonsPanel Spacing="8" />
+                                                <uip:FATaskDialogButtonsPanel Spacing="8" />
                                             </ItemsPanelTemplate>
                                         </ItemsControl.ItemsPanel>
                                     </ItemsControl>

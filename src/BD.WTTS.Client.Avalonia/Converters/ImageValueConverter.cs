@@ -22,7 +22,7 @@ public abstract class ImageValueConverter : IValueConverter
 
         var task = imageHttpClientService.GetImageMemoryStreamAsync(url);
 
-        var stream = task.GetAwaiter().GetResult();
+        using var stream = task.GetAwaiter().GetResult();
         if (stream == null)
             return null;
 
@@ -164,7 +164,6 @@ public abstract class ImageValueConverter : IValueConverter
     /// <param name="s"></param>
     /// <param name="width"></param>
     /// <returns></returns>
-    [return: NotNullIfNotNull("s")]
     protected static Bitmap? GetDecodeBitmap(string? s, int width)
     {
         #region Obsolete
@@ -182,7 +181,7 @@ public abstract class ImageValueConverter : IValueConverter
         {
             return null;
         }
-        var stream = IOPath.OpenRead(s);
+        using var stream = IOPath.OpenRead(s);
         if (stream == null)
         {
             return null;

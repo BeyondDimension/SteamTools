@@ -46,7 +46,26 @@ public sealed class NavigationService : INavigationService
 
     public void SetFrame(Frame f)
     {
+        if (_frame != null)
+        {
+            _frame.NavigationFailed -= OnNavigationFailed;
+        }
         _frame = f;
+        _frame.NavigationFailed += OnNavigationFailed;
+
+        if (pendingNavigation is { } pending)
+        {
+            pendingNavigation = null;
+            Navigate(pending.Page, pending.Effect, pending.UseCache);
+        }
+    }
+
+    static void OnNavigationFailed(object? sender, FluentAvalonia.UI.Navigation.FANavigationFailedEventArgs e)
+    {
+        Log.Error(nameof(NavigationService), e.Exception, "Page navigation failed.");
+#if DEBUG
+        Console.Error.WriteLine(e.Exception);
+#endif
     }
 
     public void SetOverlayHost(Panel p)
@@ -57,7 +76,10 @@ public sealed class NavigationService : INavigationService
     public void Navigate(Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None, bool useCache = true)
     {
         if (_frame == null)
+        {
+            pendingNavigation = (t, effect, useCache);
             return;
+        }
 
         var navOptions = new FrameNavigationOptions
         {
@@ -126,7 +148,7 @@ public sealed class NavigationService : INavigationService
         if ((_frame?.Content as Control)?.DataContext != dataContext)
         {
             _frame?.NavigateFromObject(dataContext,
-            new FluentAvalonia.UI.Navigation.FrameNavigationOptions
+            new FluentAvalonia.UI.Navigation.FAFrameNavigationOptions
             {
                 IsNavigationStackEnabled = true,
                 TransitionInfoOverride = GetNavigationTransitionInfo(effect)
@@ -177,6 +199,7 @@ public sealed class NavigationService : INavigationService
 
     private Frame? _frame;
     private Panel? _overlayHost;
+    private (Type? Page, NavigationTransitionEffect Effect, bool UseCache)? pendingNavigation;
 }
 
 

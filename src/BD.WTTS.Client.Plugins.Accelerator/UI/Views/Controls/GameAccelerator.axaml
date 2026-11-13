@@ -36,7 +36,7 @@
                         MaxDropDownHeight="300"
                         Text="{Binding SearchText}"
                         ValueMemberBinding="{Binding Name, x:DataType=spp:XunYouGame}"
-                        Watermark="{x:Static spp:Strings.GameAccelerator_SearchGame}">
+                        PlaceholderText="{x:Static spp:Strings.GameAccelerator_SearchGame}">
                         <AutoCompleteBox.ItemTemplate>
                             <DataTemplate DataType="spp:XunYouGame">
                                 <WrapPanel>
@@ -80,7 +80,7 @@
                                 <ia:CallMethodAction MethodName="SwiperPrevious" TargetObject="{Binding #GameCarousel}" />
                             </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
-                        <ui:SymbolIcon FontSize="16" Symbol="ChevronLeft" />
+                        <ui:FASymbolIcon FontSize="16" Symbol="ChevronLeft" />
                     </Button>
                     <Button
                         Name="Right"
@@ -91,7 +91,7 @@
                                 <ia:CallMethodAction MethodName="SwiperNext" TargetObject="{Binding #GameCarousel}" />
                             </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
-                        <ui:SymbolIcon FontSize="16" Symbol="ChevronRight" />
+                        <ui:FASymbolIcon FontSize="16" Symbol="ChevronRight" />
                     </Button>
                 </StackPanel>
                 <spp:CarouselItems

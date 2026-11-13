@@ -24,23 +24,26 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
                 {
                     if (user.AccountName == steamAccount.AccountName)
                     {
+                        user.AutoLogin = true;
                         user.MostRecent = true;
-                        user.RememberPassword = true;
                         user.WantsOfflineMode = steamAccount.WantsOfflineMode;
                         user.SkipOfflineModeWarning = steamAccount.SkipOfflineModeWarning;
 
                         if (steamAccount.PersonaState != PersonaState.Default)
-                            ISteamService.Instance.SetPersonaState(steamAccount.SteamUser.SteamId32.ToString(), steamAccount.PersonaState);
+                            ISteamService.Instance.SetPersonaState(steamAccount.SteamUser.SteamId32.ToString(),
+                                steamAccount.PersonaState);
                     }
                     else
                     {
                         user.MostRecent = false;
+                        user.AutoLogin = false;
                     }
 
                     var optional = SteamConnectService.Current.SteamUsers.Lookup(user.SteamId64);
                     if (optional.HasValue)
                     {
                         optional.Value.MostRecent = user.MostRecent;
+                        optional.Value.AutoLogin = user.AutoLogin;
                     }
                 }
             }
@@ -50,14 +53,17 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
                 foreach (var user in users)
                 {
                     user.MostRecent = false;
+                    user.AutoLogin = false;
                 }
             }
+
             steamService.UpdateLocalUserData(users);
         }
         else
         {
             Toast.Show(ToastIcon.Error, Strings.Error_SteamGetUserInfo);
         }
+
         RunPlatformProcess(platform, false);
         return true;
     }
@@ -95,6 +101,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
         {
             return user.SteamId64.ToString();
         }
+
         return "";
     }
 
@@ -123,19 +130,12 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
             {
                 title = user.DisplayName + "(" + user.AliasName + ")";
             }
-            return new TrayMenuItem
-            {
-                Name = title,
-                Command = platform.SwapToAccountCommand,
-                CommandParameter = user,
-            };
+
+            return new TrayMenuItem { Name = title, Command = platform.SwapToAccountCommand, CommandParameter = user, };
         }).ToList();
 
-        IApplication.Instance.UpdateMenuItems(Plugin.Instance.UniqueEnglishName, new TrayMenuItem
-        {
-            Name = Plugin.Instance.Name,
-            Items = trayMenus,
-        });
+        IApplication.Instance.UpdateMenuItems(Plugin.Instance.UniqueEnglishName,
+            new TrayMenuItem { Name = Plugin.Instance.Name, Items = trayMenus, });
 
         await Task.CompletedTask;
         return accounts;
@@ -150,10 +150,12 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
     {
         if (account is SteamAccount steamAccount)
         {
-            var result = await MessageBox.ShowAsync(Strings.UserChange_DeleteUserTip, button: MessageBox.Button.OKCancel);
+            var result =
+                await MessageBox.ShowAsync(Strings.UserChange_DeleteUserTip, button: MessageBox.Button.OKCancel);
             if (result == MessageBox.Result.OK)
             {
-                result = await MessageBox.ShowAsync(Strings.UserChange_DeleteUserDataTip, button: MessageBox.Button.OKCancel);
+                result = await MessageBox.ShowAsync(Strings.UserChange_DeleteUserDataTip,
+                    button: MessageBox.Button.OKCancel);
                 if (result == MessageBox.Result.OK)
                 {
                     steamService.DeleteLocalUserData(steamAccount.SteamUser, true);
@@ -167,7 +169,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
                 return true;
             }
         }
+
         return false;
     }
-
 }

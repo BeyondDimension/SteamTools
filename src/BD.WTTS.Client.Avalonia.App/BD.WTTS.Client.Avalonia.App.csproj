@@ -22,6 +22,16 @@
 		<RuntimeIdentifiers>osx-x64;osx-arm64</RuntimeIdentifiers>
 	</PropertyGroup>
 
+	<!-- The SDK merges per-RID bundles with lipo; thin dependencies that already ship universal binaries first. -->
+	<Target Name="ThinUniversalMacOSNativeLibraries" AfterTargets="_CreateAppBundle"
+			Condition="'$(RuntimeIdentifier)' == 'osx-x64' OR '$(RuntimeIdentifier)' == 'osx-arm64'">
+		<PropertyGroup>
+			<_MacOSNativeArchitecture Condition="'$(RuntimeIdentifier)' == 'osx-x64'">x86_64</_MacOSNativeArchitecture>
+			<_MacOSNativeArchitecture Condition="'$(RuntimeIdentifier)' == 'osx-arm64'">arm64</_MacOSNativeArchitecture>
+		</PropertyGroup>
+		<Exec Command="set -eu; for library in &quot;$(MSBuildProjectDirectory)/$(_AppBundlePath)Contents/MonoBundle/&quot;*.dylib; do if [ -f &quot;$library&quot; ]; then if lipo -verify_arch x86_64 &quot;$library&quot; &gt;/dev/null 2&gt;&amp;1 &amp;&amp; lipo -verify_arch arm64 &quot;$library&quot; &gt;/dev/null 2&gt;&amp;1; then lipo -thin $(_MacOSNativeArchitecture) &quot;$library&quot; -output &quot;$library.thin&quot;; mv &quot;$library.thin&quot; &quot;$library&quot;; fi; fi; done" />
+	</Target>
+
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<AllowedReferenceRelatedFileExtensions>
 			<!-- Prevent default XML and PDB files copied to output in RELEASE. 
@@ -139,4 +149,3 @@
 	<Import Project="..\TFM_NETX_WITH_DESKTOP.props" />
 
 </Project>
-

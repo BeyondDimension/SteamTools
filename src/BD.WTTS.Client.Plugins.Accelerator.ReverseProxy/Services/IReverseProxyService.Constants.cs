@@ -75,7 +75,7 @@ public partial interface IReverseProxyService : IDisposable
 
     Task<StartProxyResult> GetDebugString2()
     {
-        StartProxyResult r = new(StartProxyResultCode.Exception, new Exception("aaaa"));
+        StartProxyResult r = new(StartProxyResultCode.Exception, new Exception("aaaa").ToString());
         return Task.FromResult(r);
     }
 
@@ -167,16 +167,12 @@ public partial interface IReverseProxySettings
 
     #endregion TwoLevelAgent(二级代理)
 
-    IPAddress? ProxyDNS { get; set; }
+    string? ProxyDNSAddresses { get; set; }
 
     /// <summary>
     /// 是否支持 IPv6
     /// </summary>
     bool IsSupportIpv6 { get; set; }
-
-    bool UseDoh { get; set; }
-
-    string? CustomDohAddres { get; set; }
 
     /// <summary>
     /// 服务端代理令牌
@@ -226,22 +222,12 @@ public readonly partial record struct ReverseProxySettings(
     string? ProxyDNS,
     [property:MP2Key(19)]
     bool IsSupportIpv6,
-    [property:MP2Key(20)]
-    bool UseDoh,
-    [property:MP2Key(21)]
-    string? CustomDohAddres,
     [property:MP2Key(22)]
     string? ServerSideProxyToken)
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal IPAddress GetProxyIp() => GetProxyIp(ProxyIp);
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal IPAddress? GetProxyDNS()
-    {
-        var result = IPAddress2.TryParse(ProxyDNS, out var proxyDNS) ? proxyDNS : null;
-        return result;
-    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static string GetTwoLevelAgentIp(string? twoLevelAgentIp)
@@ -280,10 +266,8 @@ public readonly partial record struct ReverseProxySettings(
         settings.TwoLevelAgentPortId = TwoLevelAgentPortId;
         settings.TwoLevelAgentUserName = TwoLevelAgentUserName;
         settings.TwoLevelAgentPassword = TwoLevelAgentPassword;
-        settings.ProxyDNS = GetProxyDNS();
+        settings.ProxyDNSAddresses = ProxyDNS;
         settings.IsSupportIpv6 = IsSupportIpv6;
-        settings.UseDoh = UseDoh;
-        settings.CustomDohAddres = CustomDohAddres;
         settings.ServerSideProxyToken = ServerSideProxyToken;
     }
 #endif
@@ -347,6 +331,18 @@ public enum StartProxyResultCode : byte
     /// </summary>
     BindPortError,
 
+    /// <summary>Windows CNG Key Isolation is disabled.</summary>
+    KeyIsolationServiceDisabled = 128,
+
+    /// <summary>Windows CNG Key Isolation is stopped.</summary>
+    KeyIsolationServiceStopped = 129,
+
+    /// <summary>Certificate generation, loading, or trust failed.</summary>
+    CertificateOperationFailed = 130,
+
+    /// <summary>Socket listener access was denied or its address is already in use.</summary>
+    ListenerBindFailed = 131,
+
     /// <summary>
     /// 早期 Windows 版本且缺少 Windows 更新补丁，Icu 存在 Bug 导致，要么更新操作系统，要么更改配置使用 NLS 重启程序
     /// <para>https://learn.microsoft.com/zh-cn/dotnet/core/extensions/globalization-icu#use-nls-instead-of-icu</para>
@@ -359,11 +355,11 @@ public enum StartProxyResultCode : byte
 /// </summary>
 /// <param name="Code">状态码</param>
 /// <param name="Exception">未处理的异常</param>
-public readonly record struct StartProxyResult(StartProxyResultCode Code, Exception? Exception)
+public readonly record struct StartProxyResult(StartProxyResultCode Code, string? Exception)
 {
     public static implicit operator bool(StartProxyResult result) => result.Code == StartProxyResultCode.Ok;
 
     public static implicit operator StartProxyResult(StartProxyResultCode code) => new(code, default);
 
-    public static implicit operator StartProxyResult(Exception? exception) => exception == null ? new(StartProxyResultCode.Ok, default) : new(StartProxyResultCode.Exception, exception);
+    public static implicit operator StartProxyResult(Exception? exception) => exception == null ? new(StartProxyResultCode.Ok, default) : new(StartProxyResultCode.Exception, exception.ToString());
 }

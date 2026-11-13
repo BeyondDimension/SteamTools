@@ -81,6 +81,11 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             }
             return rootCert;
         }
+        catch (CryptographicException ex)
+        {
+            Log.Error(TAG, ex, nameof(LoadRootCertificate));
+            throw;
+        }
         catch (Exception ex)
         {
             Log.Error(TAG, ex, nameof(LoadRootCertificate));
@@ -301,6 +306,20 @@ sealed partial class CertificateManagerImpl : ICertificateManager
         ICertificateManager.Constants.TrustRootCertificate(GetCerFilePathGeneratedWhenNoFileExists, platformService, RootCertificate);
     }
 
+    public StartProxyResultCode TrustRootCertificateWithResult()
+    {
+        var serviceBefore = CertificateFailureDiagnostics.Capture();
+        try
+        {
+            TrustRootCertificate();
+            return IsRootCertificateInstalled ? StartProxyResultCode.Ok : StartProxyResultCode.TrustRootCertificateFail;
+        }
+        catch (Exception ex)
+        {
+            return GetCertificateFailureCode(ex, serviceBefore);
+        }
+    }
+
     //[Obsolete("use ICertificateManager.Constants.TrustRootCertificate")]
     //[SupportedOSPlatform("macOS")]
     //void TrustRootCertificateMacOS()
@@ -346,6 +365,30 @@ sealed partial class CertificateManagerImpl : ICertificateManager
             return isRootCertificateInstalled;
         }
         return true;
+    }
+
+    internal static StartProxyResultCode GetCertificateFailureCode(Exception exception, KeyIsolationSnapshot serviceBefore)
+    {
+        Log.Error(TAG, exception, "Certificate operation failed.");
+        return CertificateFailureDiagnostics.Diagnose(exception, serviceBefore) switch
+        {
+            CertificateFailureReason.KeyIsolationDisabled => StartProxyResultCode.KeyIsolationServiceDisabled,
+            CertificateFailureReason.KeyIsolationStopped => StartProxyResultCode.KeyIsolationServiceStopped,
+            _ => StartProxyResultCode.CertificateOperationFailed,
+        };
+    }
+
+    public StartProxyResultCode SetupRootCertificateWithResult()
+    {
+        var serviceBefore = CertificateFailureDiagnostics.Capture();
+        try
+        {
+            return SetupRootCertificate() ? StartProxyResultCode.Ok : StartProxyResultCode.CertificateOperationFailed;
+        }
+        catch (Exception ex)
+        {
+            return GetCertificateFailureCode(ex, serviceBefore);
+        }
     }
 
     /// <inheritdoc cref="ICertificateManager.DeleteRootCertificate"/>

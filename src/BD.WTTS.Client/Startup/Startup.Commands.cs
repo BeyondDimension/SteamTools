@@ -169,6 +169,7 @@ partial class Startup // 自定义控制台命令参数
                 if (currentuser != null)
                 {
                     currentuser.MostRecent = true;
+                    currentuser.AutoLogin = true;
                     steamService.UpdateLocalUserData(users);
                     await steamService.SetSteamCurrentUserAsync(account);
                 }

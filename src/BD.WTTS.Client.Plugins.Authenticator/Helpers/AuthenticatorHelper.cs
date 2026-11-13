@@ -67,7 +67,7 @@ public static class AuthenticatorHelper
             await repository.DeleteAsync(item.Id);
     }
 
-    public static async void DeleteAuth(IAuthenticatorDTO authenticatorDto)
+    public static async Task DeleteAuth(IAuthenticatorDTO authenticatorDto)
     {
         if (authenticatorDto.ServerId.HasValue)
             await repository.DeleteAsync(authenticatorDto.ServerId.Value);
@@ -171,80 +171,49 @@ public static class AuthenticatorHelper
         return exportFile;
     }
 
-    /// <summary>
-    /// 上移或下移令牌排序值
-    /// </summary>
-    /// <param name="convert">集合元素ConvertToAuthenticator的委托</param>
-    /// <param name="items">令牌所在的集合</param>
-    /// <param name="index">被操作令牌所在集合的Index</param>
-    /// <param name="upOrDown">true为上移false为下移</param>
-    /// <param name="answer">操作云令牌所需的安全问题答案</param>
-    /// /// <typeparam name="T"></typeparam>
-    public static async Task<int> MoveAuthenticatorIndex<T>(Func<T, IAuthenticatorDTO> convert, IReadOnlyList<T> items,
-        int index, bool upOrDown, string? answer = null)
+    public static async Task SaveOrderAsync(IReadOnlyList<IAuthenticatorDTO> items, string? answer)
     {
-        var newIndex = upOrDown ? index - 1 : index + 1;
-        return await ChangeAuthenticatorIndex(convert, items, index, newIndex, answer);
-    }
+        var newOrder = items.Select((item, index) => (item.Id, Index: index + 1)).ToArray();
+        var cloud = items.Select((item, index) => (item, index))
+            .Where(x => x.item.ServerId != null).ToArray();
+        if (cloud.Length != 0 && string.IsNullOrEmpty(answer))
+            throw new InvalidOperationException("Cloud authenticator order requires a security answer.");
 
-    /// <summary>
-    /// 调整令牌排序值
-    /// </summary>
-    /// <param name="convert">集合元素ConvertToAuthenticator的委托</param>
-    /// <param name="items">令牌所在的集合</param>
-    /// <param name="oldIndex">被操作令牌所在集合的Index</param>
-    /// <param name="newIndex">被操作令牌需要调整到所在集合的Index</param>
-    /// <param name="answer">操作云令牌所需的安全问题答案</param>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static async Task<int> ChangeAuthenticatorIndex<T>(Func<T, IAuthenticatorDTO> convert, IReadOnlyList<T> items,
-        int oldIndex, int newIndex, string? answer = null)
-    {
-        var item = items[oldIndex];
-        var item2Index = newIndex;
-        if (item2Index <= -1 || item2Index >= items.Count || oldIndex == newIndex) return 0;
-        var item2 = items[item2Index];
-        var itemC = convert(item);
-        var itemC2 = convert(item2);
-        var orderIndex = itemC.Index;
-        var orderIndex2 = itemC2.Index;
-        itemC.Index = orderIndex2;
-        itemC2.Index = orderIndex;
-        var result = (await Task.WhenAll(UpdateAuthenticatorIndex(itemC, answer), UpdateAuthenticatorIndex(itemC2, answer)))
-            .Sum();
-        if (result < 2)
+        async Task SyncCloud(bool restore)
         {
-            itemC.Index = orderIndex;
-            itemC2.Index = orderIndex2;
-            result = (await Task.WhenAll(UpdateAuthenticatorIndex(itemC, answer),
-                    UpdateAuthenticatorIndex(itemC2, answer)))
-                .Sum();
-        }
-        return result;
-    }
-
-    static async Task<int> UpdateAuthenticatorIndex(IAuthenticatorDTO authenticatorDto,
-        string? answer = null)
-    {
-        if (authenticatorDto.ServerId == null) return await repository.UpdateIndexByItemAsync(authenticatorDto);
-        if (string.IsNullOrEmpty(answer)) return 0;
-        var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
-        {
-            Difference = new[]
+            if (cloud.Length == 0) return;
+            var response = await IMicroServiceClient.Instance.AuthenticatorClient.SyncAuthenticatorsToCloud(new()
             {
-                new UserAuthenticatorPushItem()
+                Difference = cloud.Select(x => new UserAuthenticatorPushItem
                 {
-                    Id = authenticatorDto.ServerId,
-                    Order = authenticatorDto.Index,
-                    Name = authenticatorDto.Name,
-                },
-            },
-            Answer = answer,
-        });
-        response.Content.ThrowIsNull();
-        if (response.IsSuccess && response.Content.Result) return await repository.UpdateIndexByItemAsync(authenticatorDto);
-        Toast.Show(ToastIcon.Warning, AppResources.Error_UpdateCloudData);
-        return 0;
+                    Id = x.item.ServerId,
+                    Order = restore ? x.item.Index : x.index + 1,
+                    Name = x.item.Name,
+                }).ToArray(),
+                Answer = answer,
+            });
+            if (!response.IsSuccess || response.Content == null || !response.Content.Result)
+                throw new InvalidOperationException("Cloud authenticator order could not be synchronized.");
+        }
+
+        try { await SyncCloud(false); }
+        catch (Exception cloudError)
+        {
+            throw new InvalidOperationException("Cloud order synchronization failed or its outcome is unknown. Synchronize before retrying.", cloudError);
+        }
+        try
+        {
+            await repository.UpdateOrderAsync(newOrder);
+        }
+        catch (Exception saveError)
+        {
+            try { await SyncCloud(true); }
+            catch (Exception rollbackError)
+            {
+                throw new AggregateException("Local order was not saved and cloud order could not be restored. Synchronize before retrying.", saveError, rollbackError);
+            }
+            throw;
+        }
     }
 
     /// <summary>

@@ -18,7 +18,7 @@
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
-        <ui:ImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
+        <ui:FAImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
@@ -34,7 +34,7 @@
                         HorizontalAlignment="Left"
                         IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
                                                       Path=!IsASFRuning}">
-                        <ui:SymbolIcon Symbol="Play" />
+                        <ui:FASymbolIcon Symbol="Play" />
                     </Viewbox>
                     <Viewbox
                         Width="16"
@@ -42,7 +42,7 @@
                         HorizontalAlignment="Left"
                         IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
                                                       Path=IsASFRuning}">
-                        <ui:SymbolIcon Symbol="Pause" />
+                        <ui:FASymbolIcon Symbol="Pause" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -71,7 +71,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Globe" />
+                        <ui:FASymbolIcon Symbol="Globe" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -90,7 +90,7 @@
                         Width="16"
                         Height="16"
                         HorizontalAlignment="Left">
-                        <ui:SymbolIcon Symbol="Settings" />
+                        <ui:FASymbolIcon Symbol="Settings" />
                     </Viewbox>
                     <TextBlock
                         Margin="28,4,0,4"
@@ -109,17 +109,17 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <ui:MenuFlyoutItem
+                        <ui:FAMenuFlyoutItem
                             Command="{Binding OpenASFBrowser}"
                             CommandParameter="Repo"
                             Text="Repo" />
-                        <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem
+                        <ui:FAMenuFlyoutSeparator />
+                        <ui:FAMenuFlyoutItem
                             Command="{Binding OpenASFBrowser}"
                             CommandParameter="Wiki"
                             Text="Wiki" />
-                        <ui:MenuFlyoutSeparator />
-                        <ui:MenuFlyoutItem
+                        <ui:FAMenuFlyoutSeparator />
+                        <ui:FAMenuFlyoutItem
                             Command="{Binding OpenASFBrowser}"
                             CommandParameter="ConfigGenerator"
                             Text="ConfigGenerator" />
@@ -140,7 +140,7 @@
                         TextTrimming="CharacterEllipsis" />
                 </spp:OptionsDisplayItem.Description>
                 <spp:OptionsDisplayItem.Icon>
-                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
+                    <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.ActionButton>
                     <Button Command="{Binding SelectASFExePath}" Content="选择路径" />
@@ -149,7 +149,7 @@
 
             <spp:OptionsDisplayItem Header="自动启动 ASF">
                 <spp:OptionsDisplayItem.Icon>
-                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
+                    <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.ActionButton>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ASFSettings.AutoRunArchiSteamFarm}, Path=Value, Mode=TwoWay}" />
@@ -158,7 +158,7 @@
 
             <spp:OptionsDisplayItem Header="检查文件安全性">
                 <spp:OptionsDisplayItem.Icon>
-                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE83D;" />
+                    <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE83D;" />
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.ActionButton>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ASFSettings.CheckArchiSteamFarmExe}, Path=Value, Mode=TwoWay}" />
@@ -167,16 +167,16 @@
 
             <spp:OptionsDisplayItem Header="ASF 监听端口">
                 <spp:OptionsDisplayItem.Icon>
-                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE704;" />
+                    <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE704;" />
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.ActionButton>
-                    <ui:NumberBox Minimum="5000" Value="{Binding Source={x:Static ms:ASFSettings.IPCPortId}, Path=Value, Mode=TwoWay}" />
+                    <ui:FANumberBox Minimum="5000" Value="{Binding Source={x:Static ms:ASFSettings.IPCPortId}, Path=Value, Mode=TwoWay}" />
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
             <spp:OptionsDisplayItem Header="端口被占时随机端口号">
                 <spp:OptionsDisplayItem.Icon>
-                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
+                    <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.ActionButton>
                     <ToggleSwitch Classes="LeftContent" IsChecked="{Binding Source={x:Static ms:ASFSettings.IPCPortOccupiedRandom}, Path=Value, Mode=TwoWay}" />
@@ -185,19 +185,19 @@
 
             <spp:OptionsDisplayItem Header="控制台最大行数">
                 <spp:OptionsDisplayItem.Icon>
-                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
+                    <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.ActionButton>
-                    <ui:NumberBox Minimum="1" Value="{Binding Source={x:Static ms:ASFSettings.ConsoleMaxLine}, Path=Value, Mode=TwoWay}" />
+                    <ui:FANumberBox Minimum="1" Value="{Binding Source={x:Static ms:ASFSettings.ConsoleMaxLine}, Path=Value, Mode=TwoWay}" />
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
             <spp:OptionsDisplayItem Header="控制台字体大小">
                 <spp:OptionsDisplayItem.Icon>
-                    <ui:FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8E9;" />
+                    <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8E9;" />
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.ActionButton>
-                    <ui:NumberBox Minimum="1" Value="{Binding Source={x:Static ms:ASFSettings.ConsoleFontSize}, Path=Value, Mode=TwoWay}" />
+                    <ui:FANumberBox Minimum="1" Value="{Binding Source={x:Static ms:ASFSettings.ConsoleFontSize}, Path=Value, Mode=TwoWay}" />
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 

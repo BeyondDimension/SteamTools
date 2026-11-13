@@ -63,15 +63,18 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
     {
         AvaloniaFilePickerFileTypeFilter fileTypes = new AvaloniaFilePickerFileTypeFilter.Item[] {
             new("Steam") {
-                Patterns = new[] { "steam.exe", },
+                Patterns = OperatingSystem.IsWindows() ? new[] { "steam.exe" } : new[] { "*" },
                 //MimeTypes =
                 //AppleUniformTypeIdentifiers =
                 },
         };
         await FilePicker2.PickAsync((path) =>
         {
-            if (!string.IsNullOrEmpty(path))
+            if (!string.IsNullOrEmpty(path) && !string.Equals(path, SteamSettings.SteamProgramPath.Value, StringComparison.Ordinal))
+            {
                 SteamSettings.SteamProgramPath.Value = path;
+                Toast.Show(ToastIcon.Info, AppResources.Settings_Steam_PathNativeRestart);
+            }
         }, fileTypes);
     }
 

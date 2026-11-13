@@ -27,26 +27,22 @@ public static class KestrelServerOptionsExtensions
         var reverseProxyConfig = options.ApplicationServices.GetRequiredService<IReverseProxyConfig>();
         var httpProxyPort = reverseProxyConfig.HttpProxyPort;
 
-        if (!IReverseProxyConfig.IsAvailableTcp(httpProxyPort))
-        {
-            throw new ApplicationException(
-                $"TCP port {httpProxyPort} is already occupied by other processes.");
-        }
-
         options.Listen(IReverseProxyService.Constants.Instance.ProxyIp, httpProxyPort, listen =>
         {
             listen.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
             var proxyMiddleware = options.ApplicationServices.GetRequiredService<HttpProxyMiddleware>();
+            var tunnelPassThroughMiddleware = options.ApplicationServices.GetRequiredService<TunnelPassThroughMiddleware>();
             var tunnelMiddleware = options.ApplicationServices.GetRequiredService<TunnelMiddleware>();
 
             listen.UseFlowAnalyze();
             listen.Use(next => context => proxyMiddleware.InvokeAsync(next, context));
+            listen.Use(next => context => tunnelPassThroughMiddleware.InvokeAsync(next, context));
             listen.UseTls();
             listen.Use(next => context => tunnelMiddleware.InvokeAsync(next, context));
         });
 
         options.GetLogger().LogInformation(
-            "Listened http://{ProxyIp}:{httpProxyPort}, HTTP proxy service startup completed.",
+            "Configuring HTTP proxy listener at {ProxyIp}:{httpProxyPort}.",
             IReverseProxyService.Constants.Instance.ProxyIp, httpProxyPort);
     }
 

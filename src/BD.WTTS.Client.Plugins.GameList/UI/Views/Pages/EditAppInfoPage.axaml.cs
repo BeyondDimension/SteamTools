@@ -17,6 +17,13 @@ public partial class EditAppInfoPage : ReactiveUserControl<EditAppInfoPageViewMo
         InitializeComponent();
     }
 
+    protected override Avalonia.Size MeasureOverride(Avalonia.Size availableSize)
+    {
+        var size = new Avalonia.Size(Math.Min(560, availableSize.Width), Math.Min(520, availableSize.Height));
+        base.MeasureOverride(size);
+        return size;
+    }
+
     public void ResetGridImage_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (ViewModel != null)

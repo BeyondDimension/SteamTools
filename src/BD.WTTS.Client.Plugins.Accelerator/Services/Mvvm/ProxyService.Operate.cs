@@ -69,24 +69,22 @@ partial class ProxyService
             twoLevelAgentPortId = IProxySettings.DefaultTwoLevelAgentPortId;
         string? twoLevelAgentUserName = ProxySettings.TwoLevelAgentUserName.Value;
         string? twoLevelAgentPassword = ProxySettings.TwoLevelAgentPassword.Value;
+        ProxySettings.MigrateDnsServerList();
         string? proxyDNS = ProxySettings.ProxyMasterDns.Value;
+        if (string.IsNullOrWhiteSpace(proxyDNS))
+            proxyDNS = IDnsAnalysisService.DefaultResolverServerList;
         bool isSupportIpv6 = await RefreshIpv6Support();
-        bool useDoh = ProxySettings.UseDoh.Value;
-        string? customDohAddres = ProxySettings.CustomDohAddres2.Value;
 
         string? proxyToken = proxyDomains.Any_Nullable(s => s.ProxyType == ProxyType.ServerAccelerate || s.Items.Any_Nullable(x => x.ProxyType == ProxyType.ServerAccelerate)) ?
             await TryRequestServerSideProxyToken() : null;
 
         if (ProxySettings.ProxyBeforeDNSCheck.Value)
         {
-            if (useDoh)
-            {
-                customDohAddres = await GetFastestDNSAsync(ProxySettingsWindowViewModel.DohAddress);
-            }
-            else
-            {
-                proxyDNS = await GetFastestDNSAsync(ProxySettingsWindowViewModel.ProxyDNSs.Skip(1));
-            }
+            var servers = proxyDNS.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
+            using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            if (!await CheckDnsServersAsync(servers, timeout.Token))
+                Toast.Show(ToastIcon.Warning, "DNS 预检查未通过或超时，加速仍会按配置顺序尝试服务器；请检查网络或解析设置。");
         }
 
         Lazy<IPAddress> proxyIp_ = new(() => ReverseProxySettings.GetProxyIp(proxyIp));
@@ -190,13 +188,6 @@ partial class ProxyService
                 {
                     SetProxyIp(IPAddress.Loopback);
                 }
-                var resultSetSystemProxy = await platformService.SetAsSystemProxyAsync(true,
-                    proxyIp_.Value,
-                    proxyPort);
-                if (!resultSetSystemProxy)
-                {
-                    return Strings.CommunityFix_SetAsSystemProxyFail;
-                }
                 break;
 
             case ProxyMode.PAC:
@@ -204,12 +195,6 @@ partial class ProxyService
                     proxyIp_.Value.Equals(IPAddress.Any))
                 {
                     SetProxyIp(IPAddress.Loopback);
-                }
-                var pacUrl = $"http://{proxyIp_.Value}:{proxyPort}/pac";
-                var resultSetSystemPACProxy = await platformService.SetAsSystemPACProxyAsync(true, pacUrl);
-                if (!resultSetSystemPACProxy)
-                {
-                    return Strings.CommunityFix_SetAsSystemPACProxyFail;
                 }
                 break;
 #if WINDOWS && !REMOVE_DNS_INTERCEPT
@@ -237,13 +222,32 @@ partial class ProxyService
             proxyIp, proxyMode, isProxyGOG, onlyEnableProxyScript,
             enableHttpProxyToHttps, socks5ProxyEnable, socks5ProxyPortId,
             twoLevelAgentEnable, twoLevelAgentProxyType, twoLevelAgentIp,
-            twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6, useDoh, customDohAddres, proxyToken);
+            twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6, proxyToken);
         byte[] reverseProxySettings_ = Serializable.SMP2(reverseProxySettings);
         var startProxyResult = await reverseProxyService.StartProxyAsync(reverseProxySettings_);
         if (startProxyResult)
         {
             switch (proxyMode)
             {
+                case ProxyMode.System:
+                case ProxyMode.PAC:
+                    try
+                    {
+                        var configured = proxyMode == ProxyMode.System
+                            ? await platformService.SetAsSystemProxyAsync(true, proxyIp_.Value, proxyPort)
+                            : await platformService.SetAsSystemPACProxyAsync(true, $"http://{proxyIp_.Value}:{proxyPort}/pac");
+                        if (!configured)
+                        {
+                            await reverseProxyService.StopProxyAsync();
+                            return proxyMode == ProxyMode.System ? Strings.CommunityFix_SetAsSystemProxyFail : Strings.CommunityFix_SetAsSystemPACProxyFail;
+                        }
+                    }
+                    catch
+                    {
+                        await reverseProxyService.StopProxyAsync();
+                        throw;
+                    }
+                    break;
                 case ProxyMode.Hosts: // 启动加速服务后修改 Hosts 文件
                     if (proxyDomains.Any_Nullable())
                     {
@@ -287,6 +291,9 @@ partial class ProxyService
         }
         else
         {
+            var ports = proxyMode == ProxyMode.Hosts
+                    ? (enableHttpProxyToHttps ? "443、80" : "443")
+                    : proxyPort.ToString();
             if (startProxyResult.Code == StartProxyResultCode.BindPortError)
             {
                 if (!string.IsNullOrWhiteSpace(Plugin.Instance.SubProcessPath))
@@ -295,14 +302,20 @@ partial class ProxyService
                 }
                 //新线程等待 IPC 错误返回后 Kill 自己 Linux 修改权限需要重新启动
                 reverseProxyService.Exit();
-                return Strings.Error_BindPortError_.Format(proxyPort);
+                return Strings.Error_BindPortError_.Format(ports);
             }
             else
             {
+                if (startProxyResult.Code == StartProxyResultCode.ListenerBindFailed)
+                {
+                    return $"无法监听代理端口（{ports}）。请检查端口是否被其他程序占用或被系统保留，以及安全软件是否阻止监听。";
+                }
+                if (CertificateFailurePresenter.IsCertificateFailure(startProxyResult.Code))
+                    return new OperateProxyServiceResult("Certificate operation failed.", CertificateError: startProxyResult.Code);
                 var errorString = startProxyResult.Code switch
                 {
                     StartProxyResultCode.Exception => startProxyResult.Exception?.ToString() ?? nameof(StartProxyResultCode.Exception),
-                    _ => $"{Strings.Error_BindPortError_.Format(proxyPort)}StaartProxyErrorCode:${startProxyResult.Code}"
+                    _ => $"{Strings.Error_BindPortError_.Format(ports)}StaartProxyErrorCode:${startProxyResult.Code}"
                 };
                 return errorString;
             }
@@ -432,7 +445,7 @@ partial class ProxyService
     /// 操作代理服务返回结果
     /// </summary>
     /// <param name="Error"></param>
-    readonly record struct OperateProxyServiceResult(string? Error, Exception? Exception = null)
+    readonly record struct OperateProxyServiceResult(string? Error, Exception? Exception = null, StartProxyResultCode? CertificateError = null)
     {
         public static implicit operator OperateProxyServiceResult(string error) => new(error);
 
@@ -443,13 +456,18 @@ partial class ProxyService
         /// </summary>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool OnStartedShowToastReturnProxyStatus()
+        public async Task<bool> OnStartedShowToastReturnProxyStatus()
         {
             bool proxyStatus;
             if (string.IsNullOrWhiteSpace(Error))
             {
                 Toast.Show(ToastIcon.Success, Strings.CommunityFix_StartProxySuccess);
                 proxyStatus = true;
+            }
+            else if (CertificateError is { } certificateError)
+            {
+                await CertificateFailurePresenter.ShowAsync(certificateError);
+                proxyStatus = false;
             }
             else if (Exception != null)
             {
@@ -482,68 +500,32 @@ partial class ProxyService
         }
     }
 
-    async Task<(long delayMs, string dns)> GetValidDNSAsync(string dns, CancellationToken cancellationToken = default)
+    static async Task<bool> CheckDnsServersAsync(IEnumerable<string> servers, CancellationToken cancellationToken)
     {
-        var testDomain = "dnscheck-test.steampp.net";
-        try
+        const string testDomain = "dnscheck-test.steampp.net";
+        foreach (var server in servers)
         {
-            long delayMs;
-            IPAddress[] address;
-            if (ProxySettings.UseDoh.Value)
+            if (cancellationToken.IsCancellationRequested)
+                break;
+            try
             {
-                (delayMs, address) = await INetworkTestService.Instance.TestDNSOverHttpsAsync(testDomain, dns, cancellationToken: cancellationToken);
+                var (_, addresses) = server.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
+                    ? await INetworkTestService.Instance.TestDNSOverHttpsAsync(testDomain, server, cancellationToken: cancellationToken)
+                    : await INetworkTestService.Instance.TestDNSAsync(testDomain,
+                        string.Equals(server, "System Default", StringComparison.OrdinalIgnoreCase) ? "System Default" : server,
+                        53, cancellationToken: cancellationToken);
+                if (addresses.Length > 0)
+                    return true;
             }
-            else
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
-                (delayMs, address) = await INetworkTestService.Instance.TestDNSAsync(testDomain, dns, 53, cancellationToken: cancellationToken);
+                break;
             }
-            if (address.Length == 0)
-                throw new Exception("Parsing failed. Return empty ip address.");
-
-            return (delayMs, dns);
-        }
-        catch (Exception ex)
-        {
-            Log.Error(nameof(StartOrStopProxyService), ex.ToString(), "DNS检测出错");
-            return (0, dns);
-        }
-    }
-
-    async Task<string?> GetFastestDNSAsync(IEnumerable<string> dnsAddresses, CancellationToken cancellationToken = default)
-    {
-        var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-        var tasks = new List<Task<(long delayMs, string dns)>>();
-
-        foreach (var dns in dnsAddresses)
-        {
-            tasks.Add(GetValidDNSAsync(dns, cts.Token));
-        }
-
-        try
-        {
-            // 等待任意一个任务完成
-            var completedTask = await Task.WhenAny(tasks);
-
-            // 获取任务结果
-            var (delayMs, dns) = await completedTask;
-            _ = cts.CancelAsync(); // 取消其他任务
-
-            // 如果任务成功完成（假设 delayMs > 0 表示成功）
-            if (delayMs > 0)
+            catch (Exception ex)
             {
-                return dns; // 返回第一个成功的 DNS 地址
+                Log.Error(nameof(StartOrStopProxyService), ex.ToString(), "DNS检测出错");
             }
         }
-        catch (OperationCanceledException)
-        {
-            // 任务被取消，忽略
-        }
-        catch (Exception ex)
-        {
-            Log.Error(nameof(StartOrStopProxyService), ex.ToString(), "DNS检测出错");
-        }
-
-        // 如果没有有效结果,返回默认值
-        return null;
+        return false;
     }
 }

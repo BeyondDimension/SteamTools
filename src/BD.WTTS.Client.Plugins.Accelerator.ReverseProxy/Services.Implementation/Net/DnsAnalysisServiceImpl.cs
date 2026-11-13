@@ -7,21 +7,35 @@ namespace BD.WTTS.Services.Implementation;
 
 sealed class DnsAnalysisServiceImpl
 {
-    readonly LookupClient lookupClient = new();
-
-    public async Task<int> AnalysisHostnameTimeAsync(string url, CancellationToken cancellationToken = default)
+    readonly LookupClient lookupClient = new(new LookupClientOptions
     {
-        if (!string.IsNullOrEmpty(url))
-        {
-            var client = lookupClient;
-            var result = await client.QueryAsync(url, QueryType.A, QueryClass.IN, cancellationToken);
-            if (result.Answers.Count > 0)
+        Retries = 0,
+        Timeout = TimeSpan.FromSeconds(2),
+        UseCache = false,
+    });
+
+    // DnsClient caches by question, so sharing a client would let a fallback answer mask the preferred server.
+    readonly ConcurrentDictionary<IPAddress, LookupClient> serverClients = new();
+
+    LookupClient GetClient(IPAddress[]? servers)
+        => servers is { Length: 1 }
+            ? serverClients.GetOrAdd(servers[0], static server => new LookupClient(new LookupClientOptions(server)
             {
-                var value = result.Answers.ARecords().FirstOrDefault()?.InitialTimeToLive;
-                return value ?? 0;
-            }
-        }
-        return 0;
+                Retries = 0,
+                Timeout = TimeSpan.FromSeconds(2),
+            }))
+            : lookupClient;
+
+    public async Task<int> AnalysisHostnameTimeAsync(string url, IPAddress[]? dnsServers = null, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrEmpty(url))
+            return 0;
+        var question = new DnsQuestion(url, QueryType.A);
+        var client = GetClient(dnsServers);
+        var result = dnsServers is { Length: > 1 }
+            ? await client.QueryAsync(question, new DnsQueryAndServerOptions(dnsServers) { UseCache = false }, cancellationToken)
+            : await client.QueryAsync(question, cancellationToken);
+        return result.HasError ? 0 : result.Answers.ARecords().FirstOrDefault()?.InitialTimeToLive ?? 0;
     }
 
     public IEnumerable<ARecord>? GetPingHostNameData(string url)
@@ -40,66 +54,57 @@ sealed class DnsAnalysisServiceImpl
 
     public async IAsyncEnumerable<IPAddress> AnalysisDomainIpAsync(string hostNameOrAddress, IPAddress[]? dnsServers, bool isIPv6, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        if (!string.IsNullOrEmpty(hostNameOrAddress))
+        if (string.IsNullOrEmpty(hostNameOrAddress))
+            yield break;
+        if (dnsServers == null)
         {
-            var client = lookupClient;
-            DnsQuestion question;
-            DnsQueryAndServerOptions? options = null;
-            IDnsQueryResponse response;
-
-            if (dnsServers == null)
-            {
-                var items = await
 #if NET6_0_OR_GREATER
-                Dns.GetHostAddressesAsync(hostNameOrAddress, cancellationToken);
+            var items = await Dns.GetHostAddressesAsync(hostNameOrAddress, cancellationToken)
+                .WaitAsync(TimeSpan.FromSeconds(2), cancellationToken);
 #else
-                Dns.GetHostAddressesAsync(hostNameOrAddress);
+            var items = await Dns.GetHostAddressesAsync(hostNameOrAddress);
 #endif
-                foreach (var item in items)
-                {
-                    yield return item;
-                }
-            }
-            else
+            foreach (var item in items)
+                yield return item;
+            yield break;
+        }
+
+        var options = dnsServers.Length > 1 ? new DnsQueryAndServerOptions(dnsServers) { UseCache = false } : null;
+        var client = GetClient(dnsServers);
+        var hasIpv6 = false;
+        if (isIPv6)
+        {
+            IDnsQueryResponse? response = null;
+            try
             {
-                options = new DnsQueryAndServerOptions(dnsServers);
+                var question = new DnsQuestion(hostNameOrAddress, QueryType.AAAA);
+                response = options == null
+                    ? await client.QueryAsync(question, cancellationToken)
+                    : await client.QueryAsync(question, options, cancellationToken);
             }
-
-            if (isIPv6)
-            {
-                question = new DnsQuestion(hostNameOrAddress, QueryType.AAAA);
-
-                if (options != null)
-                    response = await client.QueryAsync(question, options, cancellationToken);
-                else
-                    response = await client.QueryAsync(question, cancellationToken);
-
-                if (!response.HasError)
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
+            catch (Exception) { }
+            if (response != null && !response.HasError)
+                foreach (var item in response.Answers.AaaaRecords())
                 {
-                    var aaaaRecord = response.Answers.AaaaRecords();
-                    foreach (var item in aaaaRecord)
-                    {
-                        yield return item.Address;
-                    }
-                }
-            }
-
-            question = new DnsQuestion(hostNameOrAddress, QueryType.A);
-
-            if (options != null)
-                response = await client.QueryAsync(question, options, cancellationToken);
-            else
-                response = await client.QueryAsync(question, cancellationToken);
-
-            if (!response.HasError)
-            {
-                var aRecord = response.Answers.ARecords();
-                foreach (var item in aRecord)
-                {
+                    hasIpv6 = true;
                     yield return item.Address;
                 }
-            }
         }
+
+        IDnsQueryResponse? ipv4 = null;
+        try
+        {
+            var question = new DnsQuestion(hostNameOrAddress, QueryType.A);
+            ipv4 = options == null
+                ? await client.QueryAsync(question, cancellationToken)
+                : await client.QueryAsync(question, options, cancellationToken);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
+        catch (Exception) when (hasIpv6) { }
+        if (ipv4 != null && !ipv4.HasError)
+            foreach (var item in ipv4.Answers.ARecords())
+                yield return item.Address;
     }
 
     public async Task<string?> GetHostByIPAddressAsync(IPAddress ip)

@@ -5,7 +5,7 @@ namespace BD.WTTS;
 /// </summary>
 public static partial class AssemblyInfo
 {
-    const string Version2 = "3.1";
+    const string Version2 = "3.2";
 
     /// <summary>
     /// 语义化应用程序版本
@@ -13,7 +13,7 @@ public static partial class AssemblyInfo
     /// </summary>
     public const string Version = $"{Version2}.{VersionBuild}";
 
-    const string VersionBuild = "1"; // 1~99
+    const string VersionBuild = "0"; // 1~99
 
     const string VersionBuild2 = $"{VersionBuild}0"; // VersionBuild为1位时，补0，两位
 

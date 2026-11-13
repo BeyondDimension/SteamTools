@@ -56,7 +56,8 @@ public class CarouselItems : ItemsControl
     Button? _leftButton;
     Button? _rightButton;
     ItemsControl? _swiper;
-    Timer? _timer;
+    DispatcherTimer? _timer;
+    bool _isAttached;
 
     public ICommand? CarouselBannerIndexCommand { get; }
 
@@ -107,28 +108,55 @@ public class CarouselItems : ItemsControl
         {
             RefreshItemsSource();
         }
-        else if (change.Property == AutoScrollProperty)
+        else if (change.Property == AutoScrollProperty || change.Property == AutoScrollIntervalProperty)
         {
-            var x = change.GetNewValue<bool>();
-            if (x && _timer == null)
-            {
-                _timer = new Timer(_ =>
-                {
-                    if (!this.IsPointerOver)
-                    {
-                        Dispatcher.UIThread.Post(SwiperNext, DispatcherPriority.Background);
-                    }
-                }, nameof(AutoScroll), AutoScrollInterval, AutoScrollInterval);
-            }
-            else
-            {
-                if (_timer != null)
-                {
-                    _timer.Dispose();
-                    _timer = null;
-                }
-            }
+            UpdateTimer();
         }
+    }
+
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        _isAttached = true;
+        UpdateTimer();
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        _isAttached = false;
+        StopTimer();
+        base.OnDetachedFromVisualTree(e);
+    }
+
+    void UpdateTimer()
+    {
+        StopTimer();
+        if (!_isAttached || !AutoScroll || AutoScrollInterval == -1)
+            return;
+
+        _timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(AutoScrollInterval) };
+        _timer.Tick += OnTimerTick;
+        _timer.Start();
+    }
+
+    void StopTimer()
+    {
+        if (_timer == null)
+            return;
+
+        _timer.Stop();
+        _timer.Tick -= OnTimerTick;
+        _timer = null;
+    }
+
+    void OnTimerTick(object? sender, EventArgs e)
+    {
+        if (sender != _timer || !_isAttached || !AutoScroll)
+            return;
+        if (AutoScrollInterval == 0)
+            StopTimer();
+        if (!IsPointerOver)
+            SwiperNext();
     }
 
     protected override void OnPointerEntered(PointerEventArgs e)

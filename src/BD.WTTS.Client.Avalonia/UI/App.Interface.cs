@@ -18,17 +18,18 @@ partial class App : IApplication
     ReTry:
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            mainWindow = desktop.MainWindow;
+            mainWindow = desktop.MainWindow ?? MainWindow;
             if (mainWindow == null || mainWindow.PlatformImpl == null)
             {
                 if (mainWindow != null)
                 {
-                    (mainWindow.DataContext as IDisposable)?.Dispose();
+                    if (!ReferenceEquals(mainWindow.DataContext, IViewModelManager.Instance.MainWindow))
+                        (mainWindow.DataContext as IDisposable)?.Dispose();
                     (mainWindow as IDisposable)?.Dispose();
-                    MainWindow = desktop.MainWindow = null;
                 }
-                mainWindow = MainWindow = desktop.MainWindow = new MainWindow();
+                mainWindow = new MainWindow();
             }
+            MainWindow = desktop.MainWindow = mainWindow;
         }
 
         if (mainWindow == null)
@@ -42,6 +43,9 @@ partial class App : IApplication
         }
         catch (InvalidOperationException)
         {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime retryDesktop)
+                retryDesktop.MainWindow = null;
+            MainWindow = null;
             mainWindow = null;
             goto ReTry;
         }
