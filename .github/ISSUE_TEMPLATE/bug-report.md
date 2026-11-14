@@ -60,5 +60,19 @@ assignees: ''
 - 处理器体系结构：<!-- x64 / x86 / arm64 -->
 - 系统版本号：<!-- example Windows 10.19042.844(see winver) / macOS Monterey 12 / Ubuntu 20.04.2 LTS -->
 - 下载渠道：<!-- 微软商店 / 官网 / Github / AppStore / xx网盘 -->
-- 程序版本：<!-- 2.8.4 -->
+- 程序版本：
+    <!-- 
+    - 在应用程序中的 ⚙ 设置 → **关于**（适用于所有下载渠道）
+    - 或运行下列命令：
+        ```powershell
+        $exe = @(
+            (Get-Process 'Steam++' -ErrorAction SilentlyContinue).Path
+            $storeLocation = (Get-AppxPackage -Name '4651ED44255E.47979655102CE').InstallLocation
+            if ($storeLocation) { Join-Path $storeLocation 'Steam++.exe' }
+            (Get-Command 'Steam++' -ErrorAction SilentlyContinue).Source
+            'HKLM:\SOFTWARE', 'HKLM:\SOFTWARE\WOW6432Node', 'HKCU:\SOFTWARE' | ForEach-Object { Join-Path $_ 'Microsoft\Windows\CurrentVersion\Uninstall\*' } | Get-ItemProperty -ErrorAction SilentlyContinue | Where-Object { $_.DisplayName -match 'Watt Toolkit|Steam\+\+' } | ForEach-Object { if ($_.InstallLocation) { Join-Path $_.InstallLocation 'Steam++.exe' } elseif ($_.DisplayIcon) { $_.DisplayIcon -replace ',\d+$' } }
+        ) | Where-Object { $_ -and (Test-Path $_) } | Select-Object -First 1
+        if ($exe) { ($exe | Get-Item).VersionInfo.ProductVersion } else { '未自动找到 Steam++.exe，请在其 **设置** → **关于** 中查看版本' }
+        ```
+    -->
 - 是否包含独立运行时：<!-- 文件名中带有 with_runtime 或 不包含 fde -->
