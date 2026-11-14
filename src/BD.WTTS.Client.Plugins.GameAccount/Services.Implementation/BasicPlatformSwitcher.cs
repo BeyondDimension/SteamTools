@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using SJsonSerializer = System.Text.Json.JsonSerializer;
 using Newtonsoft.Json.Linq;
 using System.Text.Json.Nodes;
 using AppResources = BD.WTTS.Client.Resources.Strings;
@@ -604,7 +604,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
 
         var allIds = JTokenHelper.ReadDict(platform.IdsJsonPath);
         allIds[uniqueId] = name;
-        File.WriteAllText(platform.IdsJsonPath, JsonConvert.SerializeObject(allIds));
+        File.WriteAllText(platform.IdsJsonPath, SJsonSerializer.Serialize(allIds, GameAccountJsonContext.Default.AccountDictionary));
         return true;
     }
 
@@ -771,7 +771,7 @@ public sealed class BasicPlatformSwitcher : IPlatformSwitcher
                 //}
                 //else
                 _ = allIds.Remove(allIds.Single(x => x.Key == account.AccountId).Key);
-                File.WriteAllText(platform.IdsJsonPath, JsonConvert.SerializeObject(allIds));
+                File.WriteAllText(platform.IdsJsonPath, SJsonSerializer.Serialize(allIds, GameAccountJsonContext.Default.AccountDictionary));
             }
 
             // Remove cached files

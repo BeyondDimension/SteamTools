@@ -80,10 +80,18 @@ static partial class XunYouSDK
                     switch (RuntimeInformation.ProcessArchitecture)
                     {
                         case Architecture.X86:
+#if WTTS_NATIVE_AOT
+                            libraryPath = Path.Combine(AppContext.BaseDirectory, libraryFileNameX86);
+#else
                             libraryPath = Path.GetFullPath(Path.Combine(typeof(XunYouSDK).Assembly.Location, "..", libraryFileNameX86));
+#endif
                             break;
                         case Architecture.X64:
+#if WTTS_NATIVE_AOT
+                            libraryPath = Path.Combine(AppContext.BaseDirectory, libraryFileNameX64);
+#else
                             libraryPath = Path.GetFullPath(Path.Combine(typeof(XunYouSDK).Assembly.Location, "..", libraryFileNameX64));
+#endif
                             break;
                     }
                     break;

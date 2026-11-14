@@ -148,7 +148,7 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
         ReverseProxySettings reverseProxySettings;
         try
         {
-            reverseProxySettings = Serializable.DMP2<ReverseProxySettings>(reverseProxySettings_);
+            reverseProxySettings = MemoryPackSerializer.Deserialize<ReverseProxySettings>(reverseProxySettings_);
         }
         catch (Exception e)
         {

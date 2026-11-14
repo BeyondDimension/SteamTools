@@ -79,8 +79,6 @@
 		<PackageReference Include="Avalonia.Controls.ItemsRepeater" />
 		<PackageReference Include="Xaml.Behaviors.Avalonia" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
-		<PackageReference Include="AvaloniaEdit.TextMate" />
-		<PackageReference Include="Onigwrap" />
 		<!--<PackageReference Include="Markdown.Avalonia" />-->
 		<PackageReference Include="FluentAvaloniaUI" />
 		<PackageReference Include="Avalonia.Controls.ColorPicker" />

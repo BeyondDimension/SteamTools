@@ -11,6 +11,15 @@
 		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(WttsNativeAot)' == 'true'">
+		<PublishAot>true</PublishAot>
+		<SelfContained>true</SelfContained>
+		<OptimizationPreference Condition="'$(OptimizationPreference)' == ''">Size</OptimizationPreference>
+        <!-- On Windows dehydration saves disk bytes but materializes runtime data in private memory. -->
+        <IlcDehydrate Condition="'$(IlcDehydrate)' == '' AND $(RuntimeIdentifier.StartsWith('win-'))">false</IlcDehydrate>
+		<InvariantGlobalization>false</InvariantGlobalization>
+	</PropertyGroup>
+
 	<PropertyGroup>
 		<ApplicationIcon Condition="'$(Configuration)'=='Release'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
 		<ApplicationIcon Condition="'$(Configuration)'=='Debug'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>

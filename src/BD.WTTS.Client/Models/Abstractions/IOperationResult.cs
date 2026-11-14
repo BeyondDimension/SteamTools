@@ -31,7 +31,7 @@ public interface IOperationResult<T> : IOperationResult
 }
 
 /// <inheritdoc cref="IOperationResult{T}"/>
-public abstract class OperationResultBase<T> : IOperationResult<T>
+public abstract class OperationResultBase<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] T> : IOperationResult<T>
 {
     #region 构造函数
 

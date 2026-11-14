@@ -255,7 +255,12 @@ partial class PluginBase<TPlugin>
 
     readonly Lazy<string> mAssemblyLocation = new(() =>
     {
+#if WTTS_NATIVE_AOT
+        // Built-in plugin code lives in the native host rather than an external assembly file.
+        var assemblyLocation = Environment.ProcessPath;
+#else
         var assemblyLocation = typeof(TPlugin).Assembly.Location;
+#endif
         return assemblyLocation.ThrowIsNull();
     });
 

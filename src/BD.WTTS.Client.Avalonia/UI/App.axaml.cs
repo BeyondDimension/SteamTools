@@ -187,6 +187,10 @@ public sealed partial class App : Application
         //SetThemeNotChangeValue(UISettings.Theme.Value);
         //SetThemeAccent(UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value);
         base.OnFrameworkInitializationCompleted();
+        #if WINDOWS && WTTS_NATIVE_AOT
+        if (Ioc.Get_Nullable<INotificationService>() is INotificationService.ILifeCycle notificationLifecycle)
+            notificationLifecycle.OnStartup();
+        #endif
     }
 
     //#if WINDOWS

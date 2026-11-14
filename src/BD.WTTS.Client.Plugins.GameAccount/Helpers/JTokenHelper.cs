@@ -2,12 +2,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 using Formatting = Newtonsoft.Json.Formatting;
+using SJsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BD.WTTS;
 
 public static class JTokenHelper
 {
-    public static bool ReplaceVarInJsonFile<T>(string path, string selector, T replaceWith)
+    public static bool ReplaceVarInJsonFile(string path, string selector, JToken? replaceWith)
     {
         try
         {
@@ -53,7 +54,7 @@ public static class JTokenHelper
     /// </summary>
     public static void SaveJsonFile(string path, JToken jo, bool formatted = true)
     {
-        File.WriteAllText(path, JsonConvert.SerializeObject(jo, formatted ? Formatting.Indented : Formatting.None));
+        File.WriteAllText(path, jo.ToString(formatted ? Formatting.Indented : Formatting.None));
     }
 
     /// <summary>
@@ -63,14 +64,14 @@ public static class JTokenHelper
     /// <param name="isBasic"></param>
     public static Dictionary<string, string> ReadDict(string dictPath, bool isBasic = false)
     {
-        var s = JsonConvert.SerializeObject(new Dictionary<string, string>());
+        var s = "{}";
         if (!File.Exists(dictPath))
         {
             if (isBasic && !IOPath.PathIsDirectoryEmpty(Path.GetDirectoryName(dictPath)!))
             {
                 Toast.Show(ToastIcon.Error, AppResources.Error_OperateRegistryFilesFailed);
             }
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(s) ?? new Dictionary<string, string>();
+            return new Dictionary<string, string>();
         }
         try
         {
@@ -80,13 +81,13 @@ public static class JTokenHelper
         {
         }
 
-        return JsonConvert.DeserializeObject<Dictionary<string, string>>(s) ?? new Dictionary<string, string>();
+        return SJsonSerializer.Deserialize(s, GameAccountJsonContext.Default.AccountDictionary) ?? new Dictionary<string, string>();
     }
 
     public static void SaveDict(Dictionary<string, string> dict, string path, bool deleteIfEmpty = false)
     {
         if (path == null) return;
-        var outText = JsonConvert.SerializeObject(dict);
+        var outText = SJsonSerializer.Serialize(dict, GameAccountJsonContext.Default.AccountDictionary);
         if (outText.Length < 4 && File.Exists(path))
             IPlatformService.Instance.FileTryDelete(path);
         else

@@ -66,16 +66,20 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
                 break;
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             case "plu":
-                var plugins_assemblies = PluginsCore.LoadAssemblies() ?? new();
-                DebugString = string.Join(Environment.NewLine, plugins_assemblies.Select(x => x.Data.FullName).OrderBy(x => x));
+                DebugString = Startup.Instance.TryGetPlugins(out var loadedPlugins)
+                    ? string.Join(Environment.NewLine, loadedPlugins.Select(x => x.GetType().Assembly.FullName).OrderBy(x => x))
+                    : string.Empty;
                 break;
 #endif
             case "acc":
                 try
                 {
-                    dynamic reverseProxyS = Ioc.Get(
-                    Assembly.Load("BD.WTTS.Client.Plugins.Accelerator").GetType("BD.WTTS.Services.IReverseProxyService")!);
-                    await reverseProxyS.StartProxyAsync();
+                    var accelerator = Startup.Instance.TryGetPlugins(out var plugins)
+                        ? plugins.FirstOrDefault(x => x.UniqueEnglishName == AssemblyInfo.Accelerator)
+                        : null;
+                    if (accelerator == null)
+                        throw new InvalidOperationException("Accelerator plugin is not enabled.");
+                    await accelerator.OnCommandRun("start");
                 }
                 catch (Exception ex)
                 {

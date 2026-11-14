@@ -492,7 +492,7 @@ public sealed partial class ProxyService
                 out var fileStream, out var _))
             {
                 using var stream = fileStream;
-                MessagePackSerializer.Serialize(stream, ProxyDomains.Items, options: Serializable.lz4Options);
+                Serialization.AccelerateCacheSerializer.Serialize(stream, ProxyDomains.Items);
             }
         }
         else
@@ -506,7 +506,7 @@ public sealed partial class ProxyService
                 List<AccelerateProjectGroupDTO>? accelerates = null;
                 try
                 {
-                    accelerates = MessagePackSerializer.Deserialize<List<AccelerateProjectGroupDTO>>(stream, options: Serializable.lz4Options);
+                    accelerates = Serialization.AccelerateCacheSerializer.Deserialize(stream);
                 }
                 catch (Exception ex)
                 {

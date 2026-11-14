@@ -23,10 +23,6 @@ public static partial class ServiceCollectionExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IServiceCollection AddConfiguration(this IServiceCollection services, YarpReverseProxyServiceImpl reverseProxyService)
     {
-        // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.Configuration/ServiceCollectionExtensions.cs#L18
-        TypeConverterBinder.Bind(IPAddress2.ParseNullable, val => val?.ToString());
-        TypeConverterBinder.Bind(IPEndPoint.Parse, val => val?.ToString());
-
         // reverseProxyService 不能直接添加进服务集合，因 host 会释放 service
         services.AddSingleton<IReverseProxyConfig>(new ReverseProxyConfig(reverseProxyService));
         return services;
@@ -67,20 +63,20 @@ public static partial class ServiceCollectionExtensions
     public static void AddCommonHttpClientFactory(this IServiceCollection services)
     {
         services.AddSingleton<IHttpClientFactory_Common>(
-            s => new HttpClientFactoryWrapper(s));
+            s => new HttpClientFactoryWrapper(s.GetRequiredService<IHttpClientFactory_Extensions_Http>()));
     }
 
     sealed class HttpClientFactoryWrapper : IHttpClientFactory_Common
     {
-        readonly IServiceProvider s;
+        readonly IHttpClientFactory_Extensions_Http httpClientFactory;
 
-        public HttpClientFactoryWrapper(IServiceProvider s)
+        public HttpClientFactoryWrapper(IHttpClientFactory_Extensions_Http httpClientFactory)
         {
-            this.s = s;
+            this.httpClientFactory = httpClientFactory;
         }
 
         HttpClient IHttpClientFactory_Common.CreateClient(string name, HttpHandlerCategory category)
-            => s.GetRequiredService<IHttpClientFactory_Extensions_Http>().CreateClient(name);
+            => httpClientFactory.CreateClient(name);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -156,9 +152,20 @@ public static partial class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
+    // DNS 7 uses these wire-struct fields and Endian attributes to convert network byte order.
+    // Without their metadata the header question count is read in host order after trimming.
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.NonPublicFields, typeof(DNS.Protocol.Header))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.NonPublicFields, "DNS.Protocol.Question.Tail", "DNS")]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.NonPublicFields, "DNS.Protocol.ResourceRecords.ResourceRecord.Tail", "DNS")]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.NonPublicFields, "DNS.Protocol.ResourceRecords.ServiceResourceRecord.Head", "DNS")]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.NonPublicFields, typeof(DNS.Protocol.ResourceRecords.StartOfAuthorityResourceRecord.Options))]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static IServiceCollection AddPacketIntercept(this IServiceCollection services)
     {
+        // The codec's reflection-based Marshal.SizeOf(Type) also needs statically generated interop metadata.
+        _ = Marshal.SizeOf<byte>();
+        _ = Marshal.SizeOf<ushort>();
+        _ = Marshal.SizeOf<uint>();
         // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.PacketIntercept/ServiceCollectionExtensions.cs#L21
         //services.AddSingleton<IDnsConflictSolver, HostsConflictSolver>();
         //services.AddSingleton<IDnsConflictSolver, ProxyConflictSolver>();

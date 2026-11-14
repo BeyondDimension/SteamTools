@@ -46,11 +46,13 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
     /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
     public static void InitFileSystem()
     {
+#if !WTTS_NATIVE_AOT
         var isPrivilegedProcess = WindowsPlatformServiceImpl.IsPrivilegedProcess;
         if (isPrivilegedProcess)
         {
             TryDeleteRootPathObsoleteFiles();
         }
+#endif
 
         if (WindowsPlatformServiceImpl.CurrentAppIsInstallVersion)
         {

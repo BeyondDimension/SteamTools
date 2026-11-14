@@ -13,6 +13,8 @@ namespace BD.WTTS.Services.Implementation;
 sealed partial class HttpReverseProxyMiddleware
 {
     static readonly IDomainConfig defaultDomainConfig = new DomainConfig() { TlsSni = true, };
+    static readonly ReadOnlyMemory<byte> scriptXmlStart = Encoding.ASCII.GetBytes($"<script type=\"text/javascript\" src=\"{IReverseProxyService.Constants.InjectScriptPathPrefix}");
+    static readonly ReadOnlyMemory<byte> scriptXmlEnd = ".js\"></script>"u8.ToArray();
 
     readonly IHttpForwarder httpForwarder;
     readonly IReverseProxyHttpClientFactory httpClientFactory;
@@ -324,15 +326,18 @@ Actual value was {actualValue}.
                 body.Seek(0, SeekOrigin.Begin);
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding
                 var contentCompression = context.Response.Headers.ContentEncoding.ToString().ToLowerInvariant();
-                using Stream bodyDecompress = GetStreamByContentCompression(body, contentCompression, CompressionMode.Decompress, true) ?? body;
+                using Stream? bodyDecompress = GetStreamByContentCompression(body, contentCompression, CompressionMode.Decompress, true);
 
-                var buffer_ = await bodyDecompress.ToByteArrayAsync();
+                // The uncompressed body is already buffered; inspect its written range without copying it.
+                ReadOnlyMemory<byte> buffer_ = bodyDecompress == null
+                    ? body.GetBuffer().AsMemory(0, checked((int)body.Length))
+                    : await bodyDecompress.ToByteArrayAsync();
 
                 // https://github.com/dotnet/runtime/blob/v6.0.6/src/libraries/System.Net.Http/src/System/Net/Http/HttpContent.cs#L175
                 Encoding? encoding = context.Response.ContentTextEncoding();
                 if (encoding == null)
                 {
-                    if (!TryDetectEncoding(buffer_, out encoding))
+                    if (!TryDetectEncoding(buffer_.Span, out encoding))
                     {
                         encoding = Encoding.UTF8;
                     }
@@ -366,13 +371,11 @@ Actual value was {actualValue}.
                         //                        var html_start_string = encoding.GetString(html_start.Span);
                         //#endif
                         await bodyCoreWriter.WriteAsync(html_start);
-                        var script_xml_start = Encoding.ASCII.GetBytes($"<script type=\"text/javascript\" src=\"{IReverseProxyService.Constants.InjectScriptPathPrefix}");
-                        ReadOnlyMemory<byte> script_xml_end = ".js\"></script>"u8.ToArray();
                         foreach (var script in scripts)
                         {
-                            await bodyCoreWriter.WriteAsync(script_xml_start);
+                            await bodyCoreWriter.WriteAsync(scriptXmlStart);
                             await bodyCoreWriter.WriteAsync(encoding.GetBytes(script.LocalId.ToString()));
-                            await bodyCoreWriter.WriteAsync(script_xml_end);
+                            await bodyCoreWriter.WriteAsync(scriptXmlEnd);
                         }
                         var html_end = buffer[position..];
                         //#if DEBUG
@@ -433,11 +436,11 @@ Actual value was {actualValue}.
         _ => null,
     };
 
-    static bool TryDetectEncoding(byte[] data, [NotNullWhen(true)] out Encoding? encoding/*, out int preambleLength*/)
+    static bool TryDetectEncoding(ReadOnlySpan<byte> data, [NotNullWhen(true)] out Encoding? encoding/*, out int preambleLength*/)
     {
         // https://github.com/dotnet/runtime/blob/v6.0.6/src/libraries/System.Net.Http/src/System/Net/Http/HttpContent.cs#L773
 
-        const long offset = 0L;
+        const int offset = 0;
         var dataLength = data.Length;
 
         if (dataLength >= 2)

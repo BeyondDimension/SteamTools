@@ -80,14 +80,14 @@ public static class ThirdPartyLoginHelper
             {
                 webRsp.Msg = ApiRspExtensions.GetMessage(ApiRspCode.NoResponseContent);
                 if (socket != null)
-                    await socket.Send(JsonSerializer.Serialize(webRsp));
+                    await socket.Send(JsonSerializer.Serialize(webRsp, WebResponseJsonContext.Default.WebResponseDTO));
                 else
                     Toast.Show(ToastIcon.None, webRsp.Msg);
                 return;
             }
             webRsp.State = rsp.IsSuccess;
             if (socket != null)
-                await socket.Send(JsonSerializer.Serialize(webRsp)); // 仅可在 close 之前传递消息
+                await socket.Send(JsonSerializer.Serialize(webRsp, WebResponseJsonContext.Default.WebResponseDTO)); // 仅可在 close 之前传递消息
             else
                 Toast.Show(ToastIcon.None, webRsp.Msg);
             if (rsp.IsSuccess)
@@ -303,4 +303,9 @@ public static class ThirdPartyLoginHelper
             ExternalLoginChannel.Microsoft,
             ExternalLoginChannel.Apple,
     };
+}
+
+[JsonSerializable(typeof(ThirdPartyLoginHelper.WebResponseDTO))]
+internal partial class WebResponseJsonContext : JsonSerializerContext
+{
 }

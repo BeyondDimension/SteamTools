@@ -9,9 +9,14 @@ public partial class MainFramePage : UserControl
 {
     int lastIndex = -1;
 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(ArchiSteamFarmPage))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(BotPage))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(ASFSettingsPage))]
     public MainFramePage()
     {
         InitializeComponent();
+        InnerNavFrame.NavigationFailed += (_, args) => Log.Error(nameof(MainFramePage), args.Exception,
+            "Could not navigate to nested page {page}.", args.SourcePageType?.FullName);
 
         Tabs.SelectionChanged += Tabs_SelectionChanged;
     }
@@ -19,6 +24,9 @@ public partial class MainFramePage : UserControl
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
+
+        if (Tabs.SelectedIndex < 0 && Tabs.ItemCount > 0)
+            Tabs.SelectedIndex = 0;
 
         Tabs_SelectionChanged(null, null);
     }

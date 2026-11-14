@@ -72,6 +72,44 @@ public sealed class HttpReverseProxyMiddlewareUnitTest
         Assert.That(position, Is.EqualTo(expected));
     }
 
+    [TestCase(false)]
+    [TestCase(true)]
+    public void InjectionOffsetsRespectWrittenSlice(bool github)
+    {
+        var html = "<html><body>中文<script src='/runtime.js'></script></body></html>";
+        var payload = Encoding.UTF8.GetBytes(html);
+        var storage = new byte[payload.Length + 64];
+        payload.CopyTo(storage, 7);
+        Encoding.UTF8.GetBytes("<script src='/outside.js'></script></body>").CopyTo(storage, 7 + payload.Length);
+        ReadOnlyMemory<byte> written = storage.AsMemory(7, payload.Length);
+
+        var found = github
+            ? HttpReverseProxyMiddleware.FindScriptInjectInsertPositionForGithub(written, Encoding.UTF8, out var output, out var position)
+            : HttpReverseProxyMiddleware.FindScriptInjectInsertPosition(written, Encoding.UTF8, out output, out position);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(found, Is.True);
+            Assert.That(output.ToArray(), Is.EqualTo(payload));
+            var characterOffset = html.IndexOf(github ? "<script" : "</body>", StringComparison.Ordinal);
+            Assert.That(position, Is.EqualTo(Encoding.UTF8.GetByteCount(html.AsSpan(0, characterOffset))));
+        });
+    }
+
+    [Test]
+    public void ClosingTagOutsideWrittenSliceCannotBeUsedForInjection()
+    {
+        var storage = Encoding.UTF8.GetBytes("prefixplain text</body>");
+        var found = HttpReverseProxyMiddleware.FindScriptInjectInsertPosition(
+            storage.AsMemory(6, 10), Encoding.UTF8, out var output, out var position);
+        Assert.Multiple(() =>
+        {
+            Assert.That(found, Is.False);
+            Assert.That(position, Is.EqualTo(-1));
+            Assert.That(Encoding.UTF8.GetString(output.Span), Is.EqualTo("plain text"));
+        });
+    }
+
     [Test]
     public void TestFindScriptInjectInsertPositionForGithub_BeforeLastScriptWithSrc()
     {

@@ -25,6 +25,7 @@ public abstract partial class TabItemViewModel : ItemViewModel, IReadOnlyName
 
     #endregion
 
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
     public virtual Type? PageType { get; init; }
 
     public virtual void Initialize()

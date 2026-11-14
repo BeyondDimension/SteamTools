@@ -8,28 +8,28 @@ partial class HttpReverseProxyMiddleware
     /// <summary>
     /// 查找脚本注入位置
     /// </summary>
-    /// <param name="buffer_">Response.Body ByteArray</param>
+    /// <param name="buffer_">Response.Body written bytes</param>
     /// <param name="encoding">Response.Body Encoding</param>
-    /// <param name="buffer">Response.Body Byte[]</param>
+    /// <param name="buffer">Response.Body written bytes</param>
     /// <param name="insertPosition">Insert Script Xml Position</param>
     /// <returns></returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    internal static bool FindScriptInjectInsertPosition(byte[] buffer_, Encoding encoding, out ReadOnlyMemory<byte> buffer, out int insertPosition)
+    internal static bool FindScriptInjectInsertPosition(ReadOnlyMemory<byte> buffer_, Encoding encoding, out ReadOnlyMemory<byte> buffer, out int insertPosition)
     {
-        buffer = buffer_.AsMemory();
+        buffer = buffer_;
+        var span = buffer_.Span;
 
         // 匹配 </...> 60 47 ... 62
-        var mark_start = "</"u8.ToArray();
-        var mark_end = ">"u8.ToArray();
-        if (mark_start.Length <= 0 || mark_end.Length <= 0) goto notfound;
+        ReadOnlySpan<byte> mark_start = "</"u8;
+        ReadOnlySpan<byte> mark_end = ">"u8;
 
         int index_name_end = 0;
         int match_mark_end_index = 0;
         int match_mark_start_index = 0;
 
-        for (int i = buffer_.Length - 1; i >= 0; i--) // 倒序匹配，对应之前的 LastIndexOf(string
+        for (int i = span.Length - 1; i >= 0; i--) // 倒序匹配，对应之前的 LastIndexOf(string
         {
-            var item = buffer_[i];
+            var item = span[i];
             if (index_name_end == 0)
             {
                 var index = mark_end.Length - 1 - match_mark_end_index;
@@ -61,7 +61,7 @@ partial class HttpReverseProxyMiddleware
                         var index_name_start = i + mark_start.Length;
                         //if (encoding.GetMaxCharCount(index_name_end - index_name_start) >= matchCharCount)
                         //{
-                        var bytes = buffer.Span[index_name_start..index_name_end];
+                        var bytes = span[index_name_start..index_name_end];
                         var charCount = encoding.GetCharCount(bytes);
                         if (charCount == matchCharCount)
                         {
@@ -87,17 +87,17 @@ partial class HttpReverseProxyMiddleware
         reset: index_name_end = match_mark_end_index = match_mark_start_index = 0;
         }
 
-    notfound: insertPosition = -1;
+        insertPosition = -1;
         return false;
     }
 
-    internal static bool FindScriptInjectInsertPositionForGithub(byte[] buffer_, Encoding encoding, out ReadOnlyMemory<byte> buffer, out int insertPosition)
+    internal static bool FindScriptInjectInsertPositionForGithub(ReadOnlyMemory<byte> buffer_, Encoding encoding, out ReadOnlyMemory<byte> buffer, out int insertPosition)
     {
-        buffer = buffer_.AsMemory();
+        buffer = buffer_;
 
         ReadOnlySpan<byte> mark = "<script"u8;
         var lastScriptWithSrcStart = -1;
-        var span = buffer_.AsSpan();
+        var span = buffer_.Span;
 
         if (span.Length >= mark.Length)
         {

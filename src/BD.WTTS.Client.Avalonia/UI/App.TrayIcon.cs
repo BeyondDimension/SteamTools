@@ -14,6 +14,7 @@ partial class App
     public TrayIcons TrayIcons { get; init; } = new TrayIcons();
 
     readonly Dictionary<string, ICommand> trayIconMenus = new();
+    readonly CompositeDisposable trayMenuBindings = new();
 
     public IReadOnlyDictionary<string, ICommand> TrayIconMenus => trayIconMenus;
 
@@ -47,6 +48,7 @@ partial class App
             }
             else
             {
+                trayMenuBindings.Clear();
                 foreach (var trayIcon in TrayIcons)
                 {
                     trayIcon.Dispose();
@@ -111,6 +113,7 @@ partial class App
     {
         MainThread2.BeginInvokeOnMainThread(() =>
         {
+            trayMenuBindings.Clear();
             var menus = TrayIcons.FirstOrDefault()?.Menu;
 
             if (menus != null)
@@ -121,15 +124,6 @@ partial class App
                     {
                         new NativeMenuItem
                         {
-                            [!NativeMenuItem.HeaderProperty] = new MultiBinding {
-                                Bindings = new List<BindingBase>()
-                                {
-                                    new Binding { Path = "IsRunningSteamProcess", Source = SteamConnectService.Current, Mode = BindingMode.OneWay },
-                                    new Binding { Source = Strings.CloseSteam, Mode = BindingMode.OneTime },
-                                    new Binding { Source = Strings.StartSteam, Mode = BindingMode.OneTime },
-                                },
-                                Converter = (VisibleStringConverter)App.Instance.FindResource(nameof(VisibleStringConverter))!,
-                            },
                             Command = ReactiveCommand.Create(async () =>
                             {
                                 if(ISteamService.Instance.IsRunningSteamProcess)
@@ -155,6 +149,10 @@ partial class App
                             Command = ReactiveCommand.Create(() => { Shutdown(); })
                         },
                     };
+
+                trayMenuBindings.Add(defaultTrayMenus[0].Bind(NativeMenuItem.HeaderProperty,
+                    SteamConnectService.Current.WhenAnyValue(x => x.IsRunningSteamProcess)
+                        .Select(isRunning => isRunning ? Strings.CloseSteam : Strings.StartSteam)));
 
                 if (TrayMenus.Any_Nullable())
                 {

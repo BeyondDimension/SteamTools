@@ -1,5 +1,3 @@
-using System.DirectoryServices.ActiveDirectory;
-
 namespace BD.WTTS.UnitTest;
 
 public sealed class CertificateUnitTest

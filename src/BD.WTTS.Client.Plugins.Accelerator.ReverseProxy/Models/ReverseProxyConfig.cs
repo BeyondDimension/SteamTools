@@ -9,7 +9,8 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
     readonly ICollection<KeyValuePair<DomainPattern, IScriptConfig>> scriptConfigs;
     readonly ConcurrentDictionary<string, IDomainConfig?> domainConfigCache;
     readonly YarpReverseProxyServiceImpl reverseProxyService;
-    readonly ConcurrentDictionary<int, string> scriptsContent;
+    // Populated before the host starts; requests only read this snapshot.
+    readonly Dictionary<int, string> scriptsContent;
 
     public ReverseProxyConfig(YarpReverseProxyServiceImpl reverseProxyService)
     {
@@ -58,18 +59,18 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         }
     }
 
-    void LoadScriptContent(ConcurrentDictionary<int, string> dict, IEnumerable<ScriptIPCDTO>? scripts)
+    static void LoadScriptContent(Dictionary<int, string> dict, IEnumerable<ScriptIPCDTO>? scripts)
     {
         if (IReverseProxyService.Constants.Instance.IsEnableScript && scripts != null)
         {
             foreach (var item in scripts)
             {
-                if (!scriptsContent.ContainsKey(item.LocalId))
+                if (!dict.ContainsKey(item.LocalId))
                 {
                     if (LoadScriptFille(item.CachePath, out string? content))
                     {
                         if (!string.IsNullOrEmpty(content))
-                            scriptsContent.TryAdd(item.LocalId, content);
+                            dict.Add(item.LocalId, content);
                     }
                 }
             }
@@ -167,8 +168,10 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
 
         IDomainConfig? GetDomainConfig(string url)
         {
-            var key = domainConfigs.Keys.FirstOrDefault(item => item.IsMatch(url));
-            return key == null ? null : domainConfigs[key];
+            foreach (var item in domainConfigs)
+                if (item.Key.IsMatch(url))
+                    return item.Value;
+            return null;
         }
     }
 

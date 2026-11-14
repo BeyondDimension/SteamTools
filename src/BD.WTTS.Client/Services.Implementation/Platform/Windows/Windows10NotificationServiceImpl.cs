@@ -1,6 +1,11 @@
 #if WINDOWS
 using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.UI.Notifications;
+#if WTTS_NATIVE_AOT
+using ToastManager = BD.WTTS.Services.Implementation.NativeToastNotificationManager;
+#else
+using ToastManager = Microsoft.Toolkit.Uwp.Notifications.ToastNotificationManagerCompat;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
@@ -10,19 +15,22 @@ sealed class Windows10NotificationServiceImpl : INotificationService, INotificat
 {
     bool INotificationService.AreNotificationsEnabled()
     {
-        var notifier = ToastNotificationManagerCompat.CreateToastNotifier();
+        #if WTTS_NATIVE_AOT
+        if (Environment.IsPrivilegedProcess) return false; // Windows does not support elevated toast senders.
+        #endif
+        var notifier = ToastManager.CreateToastNotifier();
         return notifier.Setting == NotificationSetting.Enabled;
     }
 
     void INotificationService.Cancel(NotificationType notificationType)
     {
         (var tag, var group) = GetTagAndGroup(notificationType);
-        ToastNotificationManagerCompat.History.Remove(tag, group);
+        ToastManager.History.Remove(tag, group);
     }
 
     void INotificationService.CancelAll()
     {
-        ToastNotificationManagerCompat.History.Clear();
+        ToastManager.History.Clear();
     }
 
     static (string tag, string group) GetTagAndGroup(NotificationType notificationType)
@@ -101,19 +109,18 @@ sealed class Windows10NotificationServiceImpl : INotificationService, INotificat
                 .AddText(title, hintStyle: AdaptiveTextStyle.Header)
                 .AddText(text, hintStyle: AdaptiveTextStyle.Body);
 
-            builder.Show(t =>
+            (var tag, var group) = GetTagAndGroup(notificationType);
+            var toast = new ToastNotification(builder.GetToastContent().GetXml())
             {
-                (var tag, var group) = GetTagAndGroup(notificationType);
-                t.Tag = tag;
-                t.Group = group;
-                t.Activated += (_, _) =>
-                {
-                    if (autoCancel)
-                    {
-                        ToastNotificationManagerCompat.History.Remove(tag, group);
-                    }
-                };
-            });
+                Tag = tag,
+                Group = group,
+            };
+            toast.Activated += (_, _) =>
+            {
+                if (autoCancel)
+                    ToastManager.History.Remove(tag, group);
+            };
+            ToastManager.CreateToastNotifier().Show(toast);
         }
         catch (Exception ex)
         {
@@ -169,7 +176,7 @@ sealed class Windows10NotificationServiceImpl : INotificationService, INotificat
         }
 
         // Show the toast notification to the user
-        ToastNotificationManagerCompat.CreateToastNotifier().Show(toast);
+        ToastManager.CreateToastNotifier().Show(toast);
 
         var updateResult = NotificationUpdateResult.Succeeded;
         void Handler(float current)
@@ -177,7 +184,7 @@ sealed class Windows10NotificationServiceImpl : INotificationService, INotificat
             if (updateResult != NotificationUpdateResult.Succeeded) return;
             if (current >= 100f)
             {
-                ToastNotificationManagerCompat.History.Remove(tag, group);
+                ToastManager.History.Remove(tag, group);
             }
             else
             {
@@ -191,7 +198,7 @@ sealed class Windows10NotificationServiceImpl : INotificationService, INotificat
                 // Update 方法返回枚举 NotificationUpdateResult，用于告知是更新成功还是
                 // 找不到通知（这意味着用户可能已消除通知，应停止向其发送更新）。 在进度操作
                 // 完成之前（如在下载完成前），不建议弹出另一个 Toast。
-                updateResult = ToastNotificationManagerCompat.CreateToastNotifier().Update(data, tag, group);
+                updateResult = ToastManager.CreateToastNotifier().Update(data, tag, group);
             }
         }
 
@@ -200,6 +207,9 @@ sealed class Windows10NotificationServiceImpl : INotificationService, INotificat
 
     void INotificationService.ILifeCycle.OnStartup()
     {
+#if WTTS_NATIVE_AOT
+        NativeToastNotificationManager.Initialize();
+#endif
         // 桌面(未打包) 应用当前正在运行，也不会调用此，可能与管理员权限相关
 
         // https://docs.microsoft.com/zh-cn/windows/apps/design/shell/tiles-and-notifications/send-local-toast?tabs=desktop#step-3-handling-activation
@@ -216,12 +226,15 @@ sealed class Windows10NotificationServiceImpl : INotificationService, INotificat
 
     void INotificationService.ILifeCycle.OnShutdown()
     {
+#if WTTS_NATIVE_AOT
+        NativeToastNotificationManager.Shutdown();
+#endif
         // 如果应用有卸载程序，应在卸载程序中调用 ToastNotificationManagerCompat.Uninstall();。
         // 如果应用是不带安装程序的“可移植应用”，请考虑在应用退出时调用此方法，除非有通知在应用关闭后保留。
         // 卸载方法将清理任何计划通知和当前通知，删除任何关联的注册表值，并删除库创建的任何关联的临时文件。
         if (DesktopBridge.IsRunningAsUwp)
         {
-            ToastNotificationManagerCompat.Uninstall();
+            ToastManager.Uninstall();
         }
     }
 }

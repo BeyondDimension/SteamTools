@@ -246,6 +246,9 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
             AutoReconnectPeers = true, // 允许重连
             IpcLoggerProvider = _ => new IpcLogger_(loggerFactory, nameof(IPCMainProcessServiceImpl)),
         };
+#if WTTS_NATIVE_AOT
+        ipcCfg.IpcObjectSerializer = dotnetCampus.Ipc.Serialization.GeneratedIpcJsonSerializer.Instance;
+#endif
         ipcCfg.NamedPipeClientConnecting += IPCSubProcessServiceImpl.ValidateNamedPipeClientConnection;
         ipcProvider = new IpcProvider($"ipc_{_()}{tickCount64}{pid / 3}{pid % 3}", ipcCfg);
         ConfigureServices();

@@ -33,7 +33,7 @@ public partial interface IApplication
     /// </summary>
     object CurrentPlatformUIHost { get; }
 
-#if WINDOWS
+#if WINDOWS && !WTTS_NATIVE_AOT
     private static readonly Lazy<DeploymentMode> _DeploymentMode = new(() =>
     {
         try
@@ -53,7 +53,7 @@ public partial interface IApplication
 #endif
 
     DeploymentMode DeploymentMode =>
-#if WINDOWS
+#if WINDOWS && !WTTS_NATIVE_AOT
         _DeploymentMode.Value;
 #else
         DeploymentMode.SCD;

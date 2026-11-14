@@ -42,26 +42,27 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
     [Reactive]
     public string NATTypeTip { get; set; } = Strings.L10nAccel_132;
 
-    [ObservableAsProperty]
-    public string LocalEndPoint { get; } = string.Empty;
+    readonly ObservableAsPropertyHelper<string> localEndPoint;
+    readonly ObservableAsPropertyHelper<string> publicEndPoint;
+    readonly ObservableAsPropertyHelper<bool> pingOkVisible;
+    readonly ObservableAsPropertyHelper<bool> pingErrorVisible;
+    readonly ObservableAsPropertyHelper<bool> isNATChecking;
+    readonly ObservableAsPropertyHelper<bool> isDNSChecking;
+    readonly ObservableAsPropertyHelper<bool> isIPv6Checking;
 
-    [ObservableAsProperty]
-    public string PublicEndPoint { get; } = string.Empty;
+    public string LocalEndPoint => localEndPoint?.Value ?? string.Empty;
 
-    [ObservableAsProperty]
-    public bool PingOkVisible { get; }
+    public string PublicEndPoint => publicEndPoint?.Value ?? string.Empty;
 
-    [ObservableAsProperty]
-    public bool PingErrorVisible { get; }
+    public bool PingOkVisible => pingOkVisible?.Value ?? false;
 
-    [ObservableAsProperty]
-    public bool IsNATChecking { get; }
+    public bool PingErrorVisible => pingErrorVisible?.Value ?? false;
 
-    [ObservableAsProperty]
-    public bool IsDNSChecking { get; }
+    public bool IsNATChecking => isNATChecking?.Value ?? false;
 
-    [ObservableAsProperty]
-    public bool IsIPv6Checking { get; }
+    public bool IsDNSChecking => isDNSChecking?.Value ?? false;
+
+    public bool IsIPv6Checking => isIPv6Checking?.Value ?? false;
 
     [DomainValidation]
     [Reactive]
@@ -90,15 +91,15 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
         SelectedSTUNAddress = STUNAddress[0];
 
         NATCheckCommand = ReactiveCommand.CreateFromTask(NATCheckAsync);
-        NATCheckCommand
+        isNATChecking = NATCheckCommand
             .IsExecuting
-            .ToPropertyEx(this, x => x.IsNATChecking);
-        NATCheckCommand
+            .ToProperty(this, nameof(IsNATChecking));
+        publicEndPoint = NATCheckCommand
             .Select(x => x.PublicEndPoint)
-            .ToPropertyEx(this, x => x.PublicEndPoint);
-        NATCheckCommand
+            .ToProperty(this, nameof(PublicEndPoint), string.Empty);
+        localEndPoint = NATCheckCommand
             .Select(x => x.LocalEndPoint)
-            .ToPropertyEx(this, x => x.LocalEndPoint);
+            .ToProperty(this, nameof(LocalEndPoint), string.Empty);
         NATCheckCommand.Subscribe(x =>
         {
             NATLevel = x.NATLevel;
@@ -109,21 +110,21 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
             .IsExecuting
             .Where(x => x == true)
             .Select(x => false);
-        NATCheckCommand
+        pingOkVisible = NATCheckCommand
             .Select(x => x.PingResult == true)
             .Merge(hidePingResultStream)
-            .ToPropertyEx(this, x => x.PingOkVisible);
-        NATCheckCommand
+            .ToProperty(this, nameof(PingOkVisible));
+        pingErrorVisible = NATCheckCommand
             .Select(x => x.PingResult == false)
             .Merge(hidePingResultStream)
-            .ToPropertyEx(this, x => x.PingErrorVisible);
+            .ToProperty(this, nameof(PingErrorVisible));
 
         var canDNSCheck = this.WhenAnyValue(x => x.DomainPendingTest)
             .Select(domain => domain == string.Empty || DomainRegExp().IsMatch(domain));
         DNSCheckCommand = ReactiveCommand.CreateFromTask(DNSCheckAsync, canDNSCheck);
-        DNSCheckCommand
+        isDNSChecking = DNSCheckCommand
             .IsExecuting
-            .ToPropertyEx(this, x => x.IsDNSChecking);
+            .ToProperty(this, nameof(IsDNSChecking));
 
         IPv6CheckCommand = ReactiveCommand.CreateFromTask(async () =>
         {
@@ -139,9 +140,17 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
                 IPv6Address = string.Empty;
             }
         });
-        IPv6CheckCommand
+        isIPv6Checking = IPv6CheckCommand
             .IsExecuting
-            .ToPropertyEx(this, x => x.IsIPv6Checking);
+            .ToProperty(this, nameof(IsIPv6Checking));
+
+        CompositeDisposable.Add(localEndPoint);
+        CompositeDisposable.Add(publicEndPoint);
+        CompositeDisposable.Add(pingOkVisible);
+        CompositeDisposable.Add(pingErrorVisible);
+        CompositeDisposable.Add(isNATChecking);
+        CompositeDisposable.Add(isDNSChecking);
+        CompositeDisposable.Add(isIPv6Checking);
 
         IPv6CheckCommand.Execute().Subscribe();
     }

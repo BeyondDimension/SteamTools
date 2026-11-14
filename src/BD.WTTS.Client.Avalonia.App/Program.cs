@@ -194,7 +194,7 @@ partial class Program
 
                 var skiaOptions = new SkiaOptions
                 {
-                    MaxGpuResourceSizeBytes = 1024000000,
+                    MaxGpuResourceSizeBytes = 64 * 1024 * 1024,
                 };
 
                 builder.With(skiaOptions);

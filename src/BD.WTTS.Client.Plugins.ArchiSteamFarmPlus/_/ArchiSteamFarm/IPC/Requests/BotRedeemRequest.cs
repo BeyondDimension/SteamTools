@@ -22,7 +22,7 @@
 using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 
 namespace ArchiSteamFarm.IPC.Requests;
 
@@ -32,10 +32,11 @@ public sealed class BotRedeemRequest
     /// <summary>
     ///     A collection (set) of keys to redeem.
     /// </summary>
-    [JsonProperty(Required = Required.Always)]
+    [STJ.JsonInclude]
+    [STJ.JsonRequired]
     [Required]
     public ImmutableHashSet<string> KeysToRedeem { get; set; } = ImmutableHashSet<string>.Empty;
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public BotRedeemRequest() { }
 }

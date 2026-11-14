@@ -1,11 +1,13 @@
 using BD.SteamClient.Constants;
 using BD.WTTS.UI.Views.Pages;
+using System.Runtime.CompilerServices;
 
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class GameListPageViewModel : TabItemViewModel
 {
-    readonly Dictionary<string, string[]> dictPinYinArray = new();
+    // Search metadata follows the lifetime of the model's name, including rename/refresh.
+    readonly ConditionalWeakTable<string, string[]> dictPinYinArray = new();
     // Above the 128-game read batch; larger filter changes can still reset efficiently.
     const int ListResetThreshold = 256;
 
@@ -123,21 +125,23 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     {
         return s =>
         {
-            if (s == null || s.DisplayName == null)
+            if (s == null)
                 return false;
             if (string.IsNullOrEmpty(text))
                 return true;
-            if (s.DisplayName.Contains(text, StringComparison.OrdinalIgnoreCase) ||
-                   s.AppId.ToString().Contains(text, StringComparison.OrdinalIgnoreCase))
-            {
+            var name = s.DisplayName;
+            if (name.Contains(text, StringComparison.OrdinalIgnoreCase))
                 return true;
-            }
-            var pinyinArray = Pinyin.GetPinyin(s.DisplayName, dictPinYinArray);
-            if (Pinyin.SearchCompare(text, s.DisplayName, pinyinArray))
-            {
+
+            // App IDs have at most ten decimal digits; avoid a temporary string for
+            // every game on every search/filter evaluation.
+            Span<char> appId = stackalloc char[10];
+            if (s.AppId.TryFormat(appId, out var length) &&
+                ((ReadOnlySpan<char>)appId[..length]).Contains(text.AsSpan(), StringComparison.OrdinalIgnoreCase))
                 return true;
-            }
-            return false;
+
+            var pinyinArray = dictPinYinArray.GetValue(name, static value => Pinyin.GetPinyinArray(value));
+            return Pinyin.SearchCompare(text, name, pinyinArray);
         };
     }
 

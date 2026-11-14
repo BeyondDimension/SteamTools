@@ -22,7 +22,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using ArchiSteamFarm.Storage;
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 
 namespace ArchiSteamFarm.IPC.Requests;
 
@@ -32,10 +32,11 @@ public sealed class ASFRequest
     /// <summary>
     ///     ASF's global config structure.
     /// </summary>
-    [JsonProperty(Required = Required.Always)]
+    [STJ.JsonInclude]
+    [STJ.JsonRequired]
     [Required]
     public GlobalConfig GlobalConfig { get; set; } = new();
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public ASFRequest() { }
 }

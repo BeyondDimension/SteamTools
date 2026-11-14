@@ -174,9 +174,11 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
         }
     }
 
-    public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)
+    public override async ValueTask OnCommandRun(params string[] commandParams)
     {
-        cfg.AddProfile<AcceleratorAutoMapperProfile>();
+        if (commandParams is not ["start"])
+            throw new ArgumentException("Unknown accelerator command.", nameof(commandParams));
+        await ProxyService.Current.StartOrStopProxyService(true);
     }
 
     public override async ValueTask OnExit()
@@ -205,15 +207,19 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             {
                 try
                 {
+#if WTTS_NATIVE_AOT
+                    subProcessPath = Path.Combine(AppContext.BaseDirectory, "modules", moduleName);
+#else
                     subProcessPath = Assembly.GetExecutingAssembly().Location;
                     subProcessPath = Path.GetDirectoryName(subProcessPath);
                     subProcessPath.ThrowIsNull();
+#endif
 
                     const string fileName = $"Steam++.{moduleName}";
                     var subProcessFileName = OperatingSystem.IsWindows() ? $"{fileName}{FileEx.EXE}" : fileName;
                     subProcessPath = Path.Combine(subProcessPath, subProcessFileName);
 
-#if DEBUG // DEBUG 模式遍历项目查找模块
+#if DEBUG && !WTTS_NATIVE_AOT // DEBUG 模式遍历项目查找模块
                     if (!File.Exists(subProcessPath))
                     {
                         subProcessPath = Path.Combine(ProjectUtils.ProjPath, "src", "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "bin", "Debug", $"net{Environment.Version.Major}.{Environment.Version.Minor}", subProcessFileName);

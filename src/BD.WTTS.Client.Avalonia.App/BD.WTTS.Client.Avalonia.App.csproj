@@ -9,6 +9,17 @@
 		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(WttsNativeAot)' == 'true'">
+		<PublishAot>true</PublishAot>
+		<SelfContained>true</SelfContained>
+		<OptimizationPreference Condition="'$(OptimizationPreference)' == ''">Size</OptimizationPreference>
+		<InvariantGlobalization>false</InvariantGlobalization>
+	</PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Release' AND '$(WttsNativeAot)' != 'true' AND $(RuntimeIdentifier.StartsWith('win-'))">
+        <PublishReadyToRun Condition="'$(PublishReadyToRun)' == ''">true</PublishReadyToRun>
+    </PropertyGroup>
+
 	<PropertyGroup Condition="$(TargetFramework.StartsWith('net3')) OR $(TargetFramework.StartsWith('net4')) OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<ApplicationIcon Condition="'$(Configuration)'=='Release'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
 		<ApplicationIcon Condition="'$(Configuration)'=='Debug'">..\..\res\icons\app\v3\Icon.ico</ApplicationIcon>
@@ -112,6 +123,16 @@
 	<ItemGroup>
 		<ProjectReference Include="..\BD.WTTS.Client.Avalonia\BD.WTTS.Client.Avalonia.csproj" />
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(WttsNativeAot)' == 'true'">
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj" Aliases="AcceleratorPlugin" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameAccount\BD.WTTS.Client.Plugins.GameAccount.csproj" Aliases="GameAccountPlugin" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameList\BD.WTTS.Client.Plugins.GameList.csproj" Aliases="GameListPlugin" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Authenticator\BD.WTTS.Client.Plugins.Authenticator.csproj" Aliases="AuthenticatorPlugin" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus.csproj" Aliases="ArchiSteamFarmPlusPlugin" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.SteamIdleCard\BD.WTTS.Client.Plugins.SteamIdleCard.csproj" Aliases="SteamIdleCardPlugin" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameTools\BD.WTTS.Client.Plugins.GameTools.csproj" Aliases="GameToolsPlugin" />
 	</ItemGroup>
 
 	<!--<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND Exists('$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\lib\net9.0\System.Drawing.Common.dll')">

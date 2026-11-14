@@ -105,6 +105,7 @@
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Models\FlowStatistics.cs">
 			<LinkBase>Models</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Serialization\AcceleratorIpcJsonSerializerContext.cs" Link="Serialization\AcceleratorIpcJsonSerializerContext.cs" Condition="'$(WttsNativeAot)' == 'true'" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">

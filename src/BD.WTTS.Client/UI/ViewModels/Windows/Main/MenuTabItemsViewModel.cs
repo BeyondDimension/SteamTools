@@ -25,6 +25,7 @@ public class MenuTabItemViewModel : TabItemViewModel, IExplicitHasValue
 
     public string ResourceKeyOrName { get; }
 
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
     public override Type? PageType { get; init; }
 
     public required bool IsResourceGet { get; init; }

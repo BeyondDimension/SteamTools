@@ -1,4 +1,86 @@
 <Project>
+  <PropertyGroup Condition="'$(WttsNativeAot)' == 'true'">
+    <DefineConstants>$(DefineConstants);WTTS_NATIVE_AOT</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(WttsStartupTrace)' == 'true'">
+    <DefineConstants>$(DefineConstants);STARTUP_WATCH_TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <Target Name="WttsEmbedProjectSatelliteAssemblies" BeforeTargets="_ComputeIlcCompileInputs"
+          Condition="'$(WttsNativeAot)' == 'true' AND '$(PublishAot)' == 'true'">
+    <ItemGroup>
+      <ResolvedFileToPublish Condition="'%(ResolvedFileToPublish.Extension)' == '.dll' AND $([System.String]::Copy('%(ResolvedFileToPublish.Filename)').EndsWith('.resources'))">
+        <AssetType>resources</AssetType>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+
+  <!-- Select portable variants before framework resolution so both JIT and native
+       publications avoid acquiring WPF solely through these utility dependencies. -->
+  <Target Name="WttsSelectPortableNativeDependencies" AfterTargets="ResolvePackageAssets" BeforeTargets="AddTransitiveFrameworkReferences"
+          Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <ItemGroup>
+      <_WttsPortableCompile Include="@(ResolvedCompileFileDefinitions)" Condition="'%(NuGetPackageId)' == 'Splat.Drawing'">
+        <PortablePath>$(NuGetPackageRoot)splat.drawing\%(NuGetPackageVersion)\lib\net10.0\Splat.Drawing.dll</PortablePath>
+      </_WttsPortableCompile>
+      <_WttsPortableCompile Include="@(ResolvedCompileFileDefinitions)" Condition="'%(NuGetPackageId)' == 'Microsoft.VisualStudio.Threading.Only'">
+        <PortablePath>$(NuGetPackageRoot)microsoft.visualstudio.threading.only\%(NuGetPackageVersion)\lib\net8.0\Microsoft.VisualStudio.Threading.dll</PortablePath>
+      </_WttsPortableCompile>
+      <_WttsPortableRuntime Include="@(RuntimeCopyLocalItems)" Condition="'%(NuGetPackageId)' == 'Splat.Drawing'">
+        <PortablePath>$(NuGetPackageRoot)splat.drawing\%(NuGetPackageVersion)\lib\net10.0\Splat.Drawing.dll</PortablePath>
+      </_WttsPortableRuntime>
+      <_WttsPortableRuntime Include="@(RuntimeCopyLocalItems)" Condition="'%(NuGetPackageId)' == 'Microsoft.VisualStudio.Threading.Only'">
+        <PortablePath>$(NuGetPackageRoot)microsoft.visualstudio.threading.only\%(NuGetPackageVersion)\lib\net8.0\Microsoft.VisualStudio.Threading.dll</PortablePath>
+      </_WttsPortableRuntime>
+    </ItemGroup>
+    <Error Condition="'@(_WttsPortableCompile)' != '' AND !Exists('%(_WttsPortableCompile.PortablePath)')"
+           Text="Desktop publication requires the portable dependency: %(_WttsPortableCompile.PortablePath)" />
+    <Error Condition="'@(_WttsPortableRuntime)' != '' AND !Exists('%(_WttsPortableRuntime.PortablePath)')"
+           Text="Desktop publication requires the portable dependency: %(_WttsPortableRuntime.PortablePath)" />
+    <ItemGroup>
+      <ResolvedCompileFileDefinitions Remove="@(_WttsPortableCompile)" />
+      <ResolvedCompileFileDefinitions Include="@(_WttsPortableCompile->'%(PortablePath)')" />
+      <RuntimeCopyLocalItems Remove="@(_WttsPortableRuntime)" />
+      <RuntimeCopyLocalItems Include="@(_WttsPortableRuntime->'%(PortablePath)')" />
+      <TransitiveFrameworkReference Remove="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="WttsArchiveNativeSymbols" AfterTargets="ComputeFilesToPublish"
+          Condition="('$(WttsNativeAot)' == 'true' AND '$(PublishAot)' == 'true') OR '$(MSBuildProjectName)' == 'BD.WTTS.Client.Avalonia.App' OR '$(MSBuildProjectName)' == 'BD.WTTS.Client.Plugins.Accelerator.ReverseProxy'">
+    <PropertyGroup>
+      <_WttsNativeSymbolsDirectory Condition="'$(ArtifactsPath)' != ''">$(ArtifactsPath)/symbols/$(MSBuildProjectName)/$(RuntimeIdentifier)/</_WttsNativeSymbolsDirectory>
+      <_WttsNativeSymbolsDirectory Condition="'$(_WttsNativeSymbolsDirectory)' == ''">$(BaseOutputPath)native-symbols/$(Configuration)/$(TargetFramework)/$(RuntimeIdentifier)/</_WttsNativeSymbolsDirectory>
+    </PropertyGroup>
+    <ItemGroup>
+      <_WttsNativeSymbols Include="@(ResolvedFileToPublish)" Condition="'%(Extension)' == '.pdb' OR '%(Extension)' == '.dbg'" />
+      <ResolvedFileToPublish Remove="@(_WttsNativeSymbols)" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_WttsNativeSymbols)" DestinationFiles="@(_WttsNativeSymbols->'$(_WttsNativeSymbolsDirectory)%(RelativePath)')" SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- These executables host themselves; the CoreCLR IIS in-process loader cannot host Native AOT. -->
+  <Target Name="WttsExcludeNativeIisHosting" AfterTargets="ComputeFilesToPublish"
+          Condition="'$(WttsNativeAot)' == 'true' AND '$(PublishAot)' == 'true'">
+    <ItemGroup>
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)"
+                             Condition="'%(Filename)%(Extension)' == 'aspnetcorev2_inprocess.dll'" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Precompile startup-heavy assemblies, not every SDK/API surface. Keep independent
+       IL assemblies and dynamic plugins; composite R2R and global trimming stay off. -->
+  <Target Name="WttsSelectStartupReadyToRunAssemblies" BeforeTargets="_PrepareForReadyToRunCompilation"
+          Condition="'$(MSBuildProjectName)' == 'BD.WTTS.Client.Avalonia.App' AND '$(PublishReadyToRun)' == 'true' AND '$(WttsNativeAot)' != 'true'">
+    <ItemGroup>
+      <_WttsIlOnlyAssembly Include="@(ResolvedFileToPublish)"
+        Condition="'%(ResolvedFileToPublish.Extension)' == '.dll' AND '%(ResolvedFileToPublish.Filename)' != 'Steam++' AND '%(ResolvedFileToPublish.Filename)' != 'BD.WTTS.Client' AND '%(ResolvedFileToPublish.Filename)' != 'BD.WTTS.Client.Avalonia' AND '%(ResolvedFileToPublish.Filename)' != 'Avalonia.Base' AND '%(ResolvedFileToPublish.Filename)' != 'Avalonia.Controls' AND '%(ResolvedFileToPublish.Filename)' != 'FluentAvalonia'" />
+      <PublishReadyToRunExclude Include="@(_WttsIlOnlyAssembly->'%(Filename)%(Extension)')" />
+    </ItemGroup>
+  </Target>
+
+
   <!-- Windows development does not require the Apple workloads. Opt in for cross-platform builds. -->
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows')) AND '$(BuildAllTargetFrameworks)' != 'true' AND '$(WttsDesktopTargetFrameworks)' == '' AND $(TargetFrameworks.Contains('-windows')) AND $(TargetFrameworks.Contains('-macos'))">
     <TargetFrameworks>$([MSBuild]::Unescape($([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', 'net[0-9.]+-(macos|maccatalyst)[0-9.]*;?', '').TrimEnd(';'))))</TargetFrameworks>
@@ -15,5 +97,14 @@
   <ItemGroup Condition="'$(MSBuildProjectFullPath)' == '$(MSBuildThisFileDirectory)ref\SteamClient\src\BD.SteamClient\BD.SteamClient.csproj'">
     <PackageReference Remove="BD.Common" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)ref\Common\src\BD.Common\BD.Common.csproj" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(WttsNativeAot)' == 'true' AND '$(MSBuildProjectFullPath)' == '$(MSBuildThisFileDirectory)ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.ClientSDK\BD.WTTS.MicroServices.ClientSDK.csproj'">
+    <TargetFrameworks>net11.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(WttsNativeAot)' == 'true' AND '$(MSBuildProjectFullPath)' == '$(MSBuildThisFileDirectory)ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.ClientSDK\BD.WTTS.MicroServices.ClientSDK.csproj' AND $([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net11.0'))">
+    <PackageReference Remove="BD.Common;BD.Common.Primitives;BD.Common.ModelValidator" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)ref\Common\src\BD.Common\BD.Common.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)ref\Common\src\BD.Common.Primitives\BD.Common.Primitives.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)ref\Common\src\BD.Common.ModelValidator\BD.Common.ModelValidator.csproj" />
   </ItemGroup>
 </Project>
