@@ -2765,6 +2765,10 @@
 	<data name="SettingsModifiedRestartThisSoft" xml:space="preserve">
     <value>设置已修改，需重启软件后生效</value>
   </data>
+	<data name="Settings_Language_RestartRequired" xml:space="preserve">
+    <value>语言更改需完全退出并重新启动 Watt Toolkit 后生效。&#10;Fully exit and restart Watt Toolkit to apply language changes.</value>
+    <comment>Keep both Chinese and English in this restart notice.</comment>
+  </data>
 	<data name="Settings_InvalidConfigurationFile" xml:space="preserve">
     <value>无效的配置文件</value>
   </data>
@@ -3057,4 +3061,1876 @@
 	<data name="Settings_Steam_PathNativeRestart" xml:space="preserve">
     <value>Steam 路径已更新。如果本地 Steam 插件已加载，请重启 Watt Toolkit 以生效更改。</value>
   </data>
+	<data name="L10nApp_TokenConfirmationLogin" xml:space="preserve">
+    <value>使用令牌交易确认登录</value>
+  </data>
+	<data name="L10nApp_SelectConfirmedTokenAccount" xml:space="preserve">
+    <value>选择已登录交易确认的 Steam 令牌账号。</value>
+  </data>
+	<data name="L10nApp_SelectTokenAccount" xml:space="preserve">
+    <value>选择 Steam 令牌账号</value>
+  </data>
+	<data name="L10nApp_RefreshTokenAccounts" xml:space="preserve">
+    <value>刷新令牌账号</value>
+  </data>
+	<data name="L10nApp_LoginSelectedAccount" xml:space="preserve">
+    <value>使用所选账号登录</value>
+  </data>
+	<data name="L10nApp_TokenLogin" xml:space="preserve">
+    <value>令牌登录</value>
+  </data>
+	<data name="L10nApp_TestVersionWarning" xml:space="preserve">
+    <value>当前使用的程序版本为测试版本，可能会有各种各样不可言明的 Bug，遇到问题请理性反馈，谢谢。</value>
+  </data>
+	<data name="L10nApp_DefaultHomeTip" xml:space="preserve">
+    <value>如果您不喜欢当前主页为默认启动页面可以在【设置-界面设置-启动时默认打开页面】处更改</value>
+  </data>
+	<data name="L10nApp_NoPluginsWarning" xml:space="preserve">
+    <value>检测到你没有安装插件，请去下载插件即可使用更多功能。</value>
+  </data>
+	<data name="L10nApp_ReadMore" xml:space="preserve">
+    <value>阅读更多</value>
+  </data>
+	<data name="L10nApp_WelcomeBack" xml:space="preserve">
+    <value>欢迎回来</value>
+  </data>
+	<data name="L10nApp_HomeLoadFailed" xml:space="preserve">
+    <value>加载首页数据失败</value>
+  </data>
+	<data name="L10nApp_LatestNews" xml:space="preserve">
+    <value>最新消息</value>
+  </data>
+	<data name="L10nApp_ViewMore" xml:space="preserve">
+    <value>查看更多</value>
+  </data>
+	<data name="L10nApp_NoLatestNews" xml:space="preserve">
+    <value>暂无最新消息</value>
+  </data>
+	<data name="L10nApp_InstalledFeatures" xml:space="preserve">
+    <value>已安装功能</value>
+  </data>
+	<data name="L10nApp_PluginStoreHeading" xml:space="preserve">
+    <value>插件商店是什么？</value>
+  </data>
+	<data name="L10nApp_PluginStoreDescription" xml:space="preserve">
+    <value>3.0 版本的计划是将所有功能插件化，拆分后按需下载安装，每个人都可以只下载自己需要的插件功能使用，并且支持所有人都可以开发插件，等等还有许多暂时不方便说的内容，因为计划的过于异想天开，且遇到的问题有点多，所以开发难度有点点大，这个功能上线还需要一点时间，上线后 3.0 也将正式发布正式版，对一直等待的大家说声抱歉麻烦在多等等了 😭，如果您不习惯启动后是插件商店页面也可以在界面设置中修改启动默认页。</value>
+  </data>
+	<data name="L10nApp_EnablePushNotifications" xml:space="preserve">
+    <value>启用消息推送通知</value>
+  </data>
+	<data name="L10nApp_WindowsColors" xml:space="preserve">
+    <value>Windows 颜色</value>
+  </data>
+	<data name="L10nApp_MenuOrderDescription" xml:space="preserve">
+    <value>拖拽调整所有插件的菜单顺序</value>
+  </data>
+	<data name="L10nApp_MenuOrder" xml:space="preserve">
+    <value>功能菜单排序</value>
+  </data>
+	<data name="L10nApp_NoNotifications" xml:space="preserve">
+    <value>当前没有通知消息</value>
+  </data>
+	<data name="L10nApp_OpenLinkFailed" xml:space="preserve">
+    <value>打开链接失败</value>
+  </data>
+	<data name="L10nApp_CopyFailed" xml:space="preserve">
+    <value>复制内容失败</value>
+  </data>
+	<data name="L10nApp_AlreadyLoggedIn" xml:space="preserve">
+    <value>当前已是登录状态</value>
+  </data>
+	<data name="L10nAccel_001" xml:space="preserve">
+    <value>延迟</value>
+  </data>
+	<data name="L10nAccel_002" xml:space="preserve">
+    <value>丢包率</value>
+  </data>
+	<data name="L10nAccel_003" xml:space="preserve">
+    <value>从上到下依次尝试。修改会立即保存，重启加速后生效。</value>
+  </data>
+	<data name="L10nAccel_004" xml:space="preserve">
+    <value>IPv4、IPv6 或 HTTPS DoH 地址</value>
+  </data>
+	<data name="L10nAccel_005" xml:space="preserve">
+    <value>服务器地址</value>
+  </data>
+	<data name="L10nAccel_006" xml:space="preserve">
+    <value>添加</value>
+  </data>
+	<data name="L10nAccel_007" xml:space="preserve">
+    <value>添加系统默认地址</value>
+  </data>
+	<data name="L10nAccel_008" xml:space="preserve">
+    <value>服务器顺序</value>
+  </data>
+	<data name="L10nAccel_009" xml:space="preserve">
+    <value>删除全部时恢复默认列表。DoH 请使用 RFC 8484 二进制端点（通常为 /dns-query）</value>
+  </data>
+	<data name="L10nAccel_010" xml:space="preserve">
+    <value>NAT 类型检测</value>
+  </data>
+	<data name="L10nAccel_011" xml:space="preserve">
+    <value>STUN 服务器地址</value>
+  </data>
+	<data name="L10nAccel_012" xml:space="preserve">
+    <value>检测</value>
+  </data>
+	<data name="L10nAccel_013" xml:space="preserve">
+    <value>NAT 类型：</value>
+  </data>
+	<data name="L10nAccel_014" xml:space="preserve">
+    <value>本机IP地址：</value>
+  </data>
+	<data name="L10nAccel_015" xml:space="preserve">
+    <value>对外IP地址：</value>
+  </data>
+	<data name="L10nAccel_016" xml:space="preserve">
+    <value>若与您路由器 WAN IP 地址相同，则为公共网络</value>
+  </data>
+	<data name="L10nAccel_017" xml:space="preserve">
+    <value>互联网连通情况：</value>
+  </data>
+	<data name="L10nAccel_018" xml:space="preserve">
+    <value>相关链接</value>
+  </data>
+	<data name="L10nAccel_019" xml:space="preserve">
+    <value>XBOX 关于 NAT 文档</value>
+  </data>
+	<data name="L10nAccel_020" xml:space="preserve">
+    <value>PlayStation 关于 NAT 文档</value>
+  </data>
+	<data name="L10nAccel_021" xml:space="preserve">
+    <value>Nintendo Switch 关于 NAT 文档</value>
+  </data>
+	<data name="L10nAccel_022" xml:space="preserve">
+    <value>Bungie 关于 NAT 文档</value>
+  </data>
+	<data name="L10nAccel_023" xml:space="preserve">
+    <value>Activision 关于 NAT 文档</value>
+  </data>
+	<data name="L10nAccel_024" xml:space="preserve">
+    <value>RockStar Games 关于 NAT 文档</value>
+  </data>
+	<data name="L10nAccel_025" xml:space="preserve">
+    <value>迅游关于 NAT 文档</value>
+  </data>
+	<data name="L10nAccel_026" xml:space="preserve">
+    <value>DNS 检测</value>
+  </data>
+	<data name="L10nAccel_027" xml:space="preserve">
+    <value>检测项目</value>
+  </data>
+	<data name="L10nAccel_028" xml:space="preserve">
+    <value>待检测的域名</value>
+  </data>
+	<data name="L10nAccel_029" xml:space="preserve">
+    <value>测试结果</value>
+  </data>
+	<data name="L10nAccel_030" xml:space="preserve">
+    <value>解析地址</value>
+  </data>
+	<data name="L10nAccel_031" xml:space="preserve">
+    <value>IPv6 检测</value>
+  </data>
+	<data name="L10nAccel_032" xml:space="preserve">
+    <value>支持情况</value>
+  </data>
+	<data name="L10nAccel_033" xml:space="preserve">
+    <value>已支持 IPv6 访问</value>
+  </data>
+	<data name="L10nAccel_034" xml:space="preserve">
+    <value>不支持 IPv6 访问</value>
+  </data>
+	<data name="L10nAccel_035" xml:space="preserve">
+    <value>IPv6 地址</value>
+  </data>
+	<data name="L10nAccel_036" xml:space="preserve">
+    <value>DNS / DoH 服务器</value>
+  </data>
+	<data name="L10nAccel_037" xml:space="preserve">
+    <value>从上到下依次尝试</value>
+  </data>
+	<data name="L10nAccel_038" xml:space="preserve">
+    <value>添加或管理 DNS 服务器</value>
+  </data>
+	<data name="L10nAccel_039" xml:space="preserve">
+    <value>添加 / 管理</value>
+  </data>
+	<data name="L10nAccel_040" xml:space="preserve">
+    <value>已配置的 DNS 服务器</value>
+  </data>
+	<data name="L10nAccel_041" xml:space="preserve">
+    <value>下载 Watt加速器</value>
+  </data>
+	<data name="L10nAccel_042" xml:space="preserve">
+    <value>拒绝游戏延迟，提高稳定性</value>
+  </data>
+	<data name="L10nAccel_043" xml:space="preserve">
+    <value>安装路径</value>
+  </data>
+	<data name="L10nAccel_044" xml:space="preserve">
+    <value>立即下载</value>
+  </data>
+	<data name="L10nAccel_045" xml:space="preserve">
+    <value>自定义安装</value>
+  </data>
+	<data name="L10nAccel_046" xml:space="preserve">
+    <value>连通性测试</value>
+  </data>
+	<data name="L10nAccel_047" xml:space="preserve">
+    <value>Beta 测试加速项，不稳定且随时可能调整</value>
+  </data>
+	<data name="L10nAccel_048" xml:space="preserve">
+    <value>此数值代表测试网页打开访问所需时间，请以实际浏览器访问网页状况为准</value>
+  </data>
+	<data name="L10nAccel_049" xml:space="preserve">
+    <value>查看证书信息</value>
+  </data>
+	<data name="L10nAccel_050" xml:space="preserve">
+    <value>打开加速日志文件夹</value>
+  </data>
+	<data name="L10nAccel_051" xml:space="preserve">
+    <value>Watt 加速器相关</value>
+  </data>
+	<data name="L10nAccel_052" xml:space="preserve">
+    <value>平台加速</value>
+  </data>
+	<data name="L10nAccel_053" xml:space="preserve">
+    <value>加速脚本</value>
+  </data>
+	<data name="L10nAccel_054" xml:space="preserve">
+    <value>游戏加速</value>
+  </data>
+	<data name="L10nAccel_055" xml:space="preserve">
+    <value>网络检测</value>
+  </data>
+	<data name="L10nAccel_056" xml:space="preserve">
+    <value>已经到底啦! 没有找到想加速的游戏的话可以搜索添加哦~</value>
+  </data>
+	<data name="L10nAccel_057" xml:space="preserve">
+    <value>联系客服</value>
+  </data>
+	<data name="L10nAccel_058" xml:space="preserve">
+    <value>Q：为什么加速后流量一直显示 0KB ？</value>
+  </data>
+	<data name="L10nAccel_059" xml:space="preserve">
+    <value>A：流量统计图表是用于查看实时流量数据信息，您需要先访问对应的网站，这边才会有相应的流量波动数据，请检查是否已经选择了对应的网站加速项目，如果确定有正常勾选加速项目并且访问网站依然无流量，则可能是加速的监听服务没有启用成功，尝试更换加速模式。</value>
+  </data>
+	<data name="L10nAccel_060" xml:space="preserve">
+    <value>Q：加速后对应网站打不开显示 SSL 错误或者 Steam 浏览器显示 -100 错误？</value>
+  </data>
+	<data name="L10nAccel_061" xml:space="preserve">
+    <value>A：可以尝试执行以下操作进行修复，关闭加速，点击加速设置-移除证书再安装证书，重开加速。或者加速设置 - 代理设置- 尝试更换 doh 地址或者关闭 doh 使用 dns 等方案。</value>
+  </data>
+	<data name="L10nAccel_062" xml:space="preserve">
+    <value>Q：为什么加速经常不可用？还要自己去改设置或重新安装证书？</value>
+  </data>
+	<data name="L10nAccel_063" xml:space="preserve">
+    <value>A：Steam++ 的加速与游戏加速器的加速功能不同，加速是完全运行于你电脑本地的，所以会受到你电脑本地网络环境，系统环境各种因素影响，也正因如此才有这么多加速相关的选项，请合理根据情况适进行测试以及更改对应的选项以便加速能正常使用。</value>
+  </data>
+	<data name="L10nAccel_064" xml:space="preserve">
+    <value>加速不能用?</value>
+  </data>
+	<data name="L10nAccel_065" xml:space="preserve">
+    <value>启动加速时检查 DNS 可用性</value>
+  </data>
+	<data name="L10nAccel_066" xml:space="preserve">
+    <value>*该选项勾选后会导致程序的加速失效，请确认是配合二级代理实现仅需要脚本功能后再启用</value>
+  </data>
+	<data name="L10nAccel_067" xml:space="preserve">
+    <value>*请在有正确二级代理的情况下才考虑启用该选项，否则会导致程序的加速失效，改动后需重启加速才能生效</value>
+  </data>
+	<data name="L10nAccel_068" xml:space="preserve">
+    <value>无法连接加速服务。请检查加速组件是否正常启动，并允许管理员权限，然后重试。</value>
+  </data>
+	<data name="L10nAccel_069" xml:space="preserve">
+    <value>重试连接</value>
+  </data>
+	<data name="L10nAccel_070" xml:space="preserve">
+    <value>未检测到脚本文件，请先脚本工坊添加</value>
+  </data>
+	<data name="L10nAccel_071" xml:space="preserve">
+    <value>立即加速</value>
+  </data>
+	<data name="L10nAccel_072" xml:space="preserve">
+    <value>获取</value>
+  </data>
+	<data name="L10nAccel_073" xml:space="preserve">
+    <value>更新</value>
+  </data>
+	<data name="L10nAccel_074" xml:space="preserve">
+    <value>没有可测试的项目</value>
+  </data>
+	<data name="L10nAccel_075" xml:space="preserve">
+    <value>当前测试项全部未通过，请检查网络链接状况，以及代理设置里的设置项是否正常。</value>
+  </data>
+	<data name="L10nAccel_076" xml:space="preserve">
+    <value>提供一些游戏相关网站服务的加速及脚本注入功能</value>
+  </data>
+	<data name="L10nAccel_077" xml:space="preserve">
+    <value>未找到 hosts 文件</value>
+  </data>
+	<data name="L10nAccel_078" xml:space="preserve">
+    <value>未获取到网络适配器信息!</value>
+  </data>
+	<data name="L10nAccel_079" xml:space="preserve">
+    <value>未获取到可用的以太网,无线网络适配器</value>
+  </data>
+	<data name="L10nAccel_080" xml:space="preserve">
+    <value>未启用网卡</value>
+  </data>
+	<data name="L10nAccel_081" xml:space="preserve">
+    <value>获取网络信息失败!</value>
+  </data>
+	<data name="L10nAccel_082" xml:space="preserve">
+    <value>网络适配器未启用TCP/IP服务</value>
+  </data>
+	<data name="L10nAccel_083" xml:space="preserve">
+    <value>获取LSP信息失败!</value>
+  </data>
+	<data name="L10nAccel_084" xml:space="preserve">
+    <value>LSP响应异常!</value>
+  </data>
+	<data name="L10nAccel_086" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+	<data name="L10nAccel_087" xml:space="preserve">
+    <value>未运行</value>
+  </data>
+	<data name="L10nAccel_088" xml:space="preserve">
+    <value>无法生成或加载加速证书：Windows 的 CNG Key Isolation 服务{0}。
+
+点击确定打开 Windows 服务设置，请将该服务设为手动并启动，然后返回重试。</value>
+  </data>
+	<data name="L10nAccel_089" xml:space="preserve">
+    <value>证书服务不可用</value>
+  </data>
+	<data name="L10nAccel_090" xml:space="preserve">
+    <value>加速证书未能安装或信任，请检查系统证书权限后重试。</value>
+  </data>
+	<data name="L10nAccel_091" xml:space="preserve">
+    <value>无法生成或加载加速证书，请检查证书文件和系统加密服务。详细错误已记录在加速服务日志中。</value>
+  </data>
+	<data name="L10nAccel_092" xml:space="preserve">
+    <value>加速证书不可用</value>
+  </data>
+	<data name="L10nAccel_093" xml:space="preserve">
+    <value>新用户免费试用</value>
+  </data>
+	<data name="L10nAccel_094" xml:space="preserve">
+    <value>启动游戏成功</value>
+  </data>
+	<data name="L10nAccel_095" xml:space="preserve">
+    <value>启动游戏失败</value>
+  </data>
+	<data name="L10nAccel_096" xml:space="preserve">
+    <value>获取会员时间失败</value>
+  </data>
+	<data name="L10nAccel_097" xml:space="preserve">
+    <value>游戏加速会员有效期 {0:yyyy-MM-dd}</value>
+  </data>
+	<data name="L10nAccel_098" xml:space="preserve">
+    <value>加速成功</value>
+  </data>
+	<data name="L10nAccel_099" xml:space="preserve">
+    <value>发送测速指令</value>
+  </data>
+	<data name="L10nAccel_100" xml:space="preserve">
+    <value>需要登录账号才能使用游戏加速功能!</value>
+  </data>
+	<data name="L10nAccel_101" xml:space="preserve">
+    <value>获取游戏信息失败</value>
+  </data>
+	<data name="L10nAccel_102" xml:space="preserve">
+    <value>{0} - 区服选择</value>
+  </data>
+	<data name="L10nAccel_103" xml:space="preserve">
+    <value>正在加速中...</value>
+  </data>
+	<data name="L10nAccel_104" xml:space="preserve">
+    <value>加速启动失败</value>
+  </data>
+	<data name="L10nAccel_105" xml:space="preserve">
+    <value>正在停止加速中...</value>
+  </data>
+	<data name="L10nAccel_106" xml:space="preserve">
+    <value>停止加速失败，请尝试去加速器客户端停止加速</value>
+  </data>
+	<data name="L10nAccel_107" xml:space="preserve">
+    <value>已移除</value>
+  </data>
+	<data name="L10nAccel_108" xml:space="preserve">
+    <value>已添加到游戏列表</value>
+  </data>
+	<data name="L10nAccel_109" xml:space="preserve">
+    <value>已安装Watt加速器</value>
+  </data>
+	<data name="L10nAccel_110" xml:space="preserve">
+    <value>下载插件</value>
+  </data>
+	<data name="L10nAccel_111" xml:space="preserve">
+    <value>下载 Watt 加速器 插件</value>
+  </data>
+	<data name="L10nAccel_112" xml:space="preserve">
+    <value>正在初始化，请稍候</value>
+  </data>
+	<data name="L10nAccel_113" xml:space="preserve">
+    <value>正在下载 {0}%</value>
+  </data>
+	<data name="L10nAccel_114" xml:space="preserve">
+    <value>下载完成，正在安装...</value>
+  </data>
+	<data name="L10nAccel_115" xml:space="preserve">
+    <value>已安装</value>
+  </data>
+	<data name="L10nAccel_116" xml:space="preserve">
+    <value>未安装，不需要卸载</value>
+  </data>
+	<data name="L10nAccel_117" xml:space="preserve">
+    <value>卸载成功</value>
+  </data>
+	<data name="L10nAccel_118" xml:space="preserve">
+    <value>卸载失败</value>
+  </data>
+	<data name="L10nAccel_119" xml:space="preserve">
+    <value>启动 {0} 失败</value>
+  </data>
+	<data name="L10nAccel_120" xml:space="preserve">
+    <value>DNS 预检查未通过或超时，加速仍会按配置顺序尝试服务器；请检查网络或解析设置。</value>
+  </data>
+	<data name="L10nAccel_121" xml:space="preserve">
+    <value>无法监听代理端口（{0}）。请检查端口是否被其他程序占用或被系统保留，以及安全软件是否阻止监听。</value>
+  </data>
+	<data name="L10nAccel_122" xml:space="preserve">
+    <value>启动</value>
+  </data>
+	<data name="L10nAccel_123" xml:space="preserve">
+    <value>停止</value>
+  </data>
+	<data name="L10nAccel_124" xml:space="preserve">
+    <value>请在终端手动运行:environment_check.sh 安装依赖环境</value>
+  </data>
+	<data name="L10nAccel_125" xml:space="preserve">
+    <value>环境检查错误:{0}</value>
+  </data>
+	<data name="L10nAccel_126" xml:space="preserve">
+    <value>证书信息</value>
+  </data>
+	<data name="L10nAccel_127" xml:space="preserve">
+    <value>管理 DNS / DoH 服务器</value>
+  </data>
+	<data name="L10nAccel_128" xml:space="preserve">
+    <value>一次只能添加一个服务器地址。</value>
+  </data>
+	<data name="L10nAccel_129" xml:space="preserve">
+    <value>请输入有效的 IPv4、IPv6 地址、HTTPS DoH 地址或选择 System Default。</value>
+  </data>
+	<data name="L10nAccel_130" xml:space="preserve">
+    <value>请先选择一个服务器。</value>
+  </data>
+	<data name="L10nAccel_131" xml:space="preserve">
+    <value>未知</value>
+  </data>
+	<data name="L10nAccel_132" xml:space="preserve">
+    <value>未知类型</value>
+  </data>
+	<data name="L10nAccel_133" xml:space="preserve">
+    <value>开放 NAT</value>
+  </data>
+	<data name="L10nAccel_134" xml:space="preserve">
+    <value>您可与在其网络上具有任意 NAT 类型的用户玩多人游戏和发起多人游戏。</value>
+  </data>
+	<data name="L10nAccel_135" xml:space="preserve">
+    <value>中等 NAT</value>
+  </data>
+	<data name="L10nAccel_136" xml:space="preserve">
+    <value>您可与一些用户玩多人游戏；但是，并且通常你将不会被选为比赛的主持人。</value>
+  </data>
+	<data name="L10nAccel_137" xml:space="preserve">
+    <value>严格 NAT</value>
+  </data>
+	<data name="L10nAccel_138" xml:space="preserve">
+    <value>您只能与具有开放 NAT 类型的用户玩多人游戏。您不能被选为比赛的主持人。</value>
+  </data>
+	<data name="L10nAccel_139" xml:space="preserve">
+    <value>不可用 NAT</value>
+  </data>
+	<data name="L10nAccel_140" xml:space="preserve">
+    <value>如果 NAT 不可用，您将无法使用群聊天或连接到某些 Xbox 游戏的多人游戏。</value>
+  </data>
+	<data name="L10nAccel_141" xml:space="preserve">
+    <value>{0}（服务器：{1}）</value>
+  </data>
+	<data name="L10nAccel_142" xml:space="preserve">
+    <value>DNS 检测总超时（正在检测：{0}）</value>
+  </data>
+	<data name="L10nAccel_143" xml:space="preserve">
+    <value>所有 DNS 服务器检测失败或超时</value>
+  </data>
+	<data name="L10nAccel_144" xml:space="preserve">
+    <value>所有 DNS 服务器检测失败</value>
+  </data>
+	<data name="L10nAccel_145" xml:space="preserve">
+    <value>重置成功</value>
+  </data>
+	<data name="L10nAccel_146" xml:space="preserve">
+    <value>脚本商店需要登录账号才可访问</value>
+  </data>
+	<data name="L10nAccel_147" xml:space="preserve">
+    <value>选择文件夹</value>
+  </data>
+	<data name="L10nAccel_148" xml:space="preserve">
+    <value>请填入不带分隔符 &quot;/&quot; 的域名</value>
+  </data>
+	<data name="L10nAccel_149" xml:space="preserve">
+    <value>更新中</value>
+  </data>
+	<data name="L10nAccel_150" xml:space="preserve">
+    <value>更新失败</value>
+  </data>
+	<data name="L10nAccel_151" xml:space="preserve">
+    <value>更新成功</value>
+  </data>
+	<data name="L10nAccel_152" xml:space="preserve">
+    <value>启动中</value>
+  </data>
+	<data name="L10nAccel_153" xml:space="preserve">
+    <value>启动失败</value>
+  </data>
+	<data name="L10nAccel_154" xml:space="preserve">
+    <value>启动成功</value>
+  </data>
+	<data name="L10nAccel_155" xml:space="preserve">
+    <value>登录中</value>
+  </data>
+	<data name="L10nAccel_156" xml:space="preserve">
+    <value>登录成功</value>
+  </data>
+	<data name="L10nAccel_157" xml:space="preserve">
+    <value>登录失败</value>
+  </data>
+	<data name="L10nAccel_158" xml:space="preserve">
+    <value>未加速</value>
+  </data>
+	<data name="L10nAccel_159" xml:space="preserve">
+    <value>加速中</value>
+  </data>
+	<data name="L10nAccel_160" xml:space="preserve">
+    <value>加速已完成</value>
+  </data>
+	<data name="L10nAccel_161" xml:space="preserve">
+    <value>停止加速中</value>
+  </data>
+	<data name="L10nAccel_162" xml:space="preserve">
+    <value>加速已断开</value>
+  </data>
+	<data name="L10nAccel_163" xml:space="preserve">
+    <value>加速失败</value>
+  </data>
+	<data name="L10nAccel_164" xml:space="preserve">
+    <value>未知加速状态（{0}）</value>
+  </data>
+	<data name="L10nAuthIdle_Text001" xml:space="preserve">
+    <value>Steam 未返回有效的账号 ID，请重试登录。</value>
+  </data>
+	<data name="L10nAuthIdle_Text002" xml:space="preserve">
+    <value>登录账号与此令牌的 SteamID 不匹配，请使用令牌对应的 Steam 账号。</value>
+  </data>
+	<data name="L10nAuthIdle_Text003" xml:space="preserve">
+    <value>登录账号与此令牌的账号名称不匹配，请使用令牌对应的 Steam 账号。</value>
+  </data>
+	<data name="L10nAuthIdle_Text004" xml:space="preserve">
+    <value>此令牌缺少 SteamID 和账号名称，无法核对登录账号。</value>
+  </data>
+	<data name="L10nAuthIdle_Text005" xml:space="preserve">
+    <value>登录账号与此令牌不匹配，未保存任何登录状态。</value>
+  </data>
+	<data name="L10nAuthIdle_Text006" xml:space="preserve">
+    <value>此令牌缺少 SteamID，请使用账号密码登录并自动验证当前令牌后重试。</value>
+  </data>
+	<data name="L10nAuthIdle_Text007" xml:space="preserve">
+    <value>此令牌的数据格式无效，无法保存 SteamID。</value>
+  </data>
+	<data name="L10nAuthIdle_Text008" xml:space="preserve">
+    <value>仅已在“交易确认”中登录并保存登录状态的 Steam 令牌可使用扫码登录。请先打开此令牌的“确认交易”，登录并勾选记住登录后重试。</value>
+  </data>
+	<data name="L10nAuthIdle_Text009" xml:space="preserve">
+    <value>交易确认保存的登录状态已失效或不支持移动端确认。请先到此令牌的“确认交易”重新登录并保存状态，再使用扫码。</value>
+  </data>
+	<data name="L10nAuthIdle_Text010" xml:space="preserve">
+    <value>Steam 桌面客户端</value>
+  </data>
+	<data name="L10nAuthIdle_Text011" xml:space="preserve">
+    <value>网页浏览器</value>
+  </data>
+	<data name="L10nAuthIdle_Text012" xml:space="preserve">
+    <value>移动应用</value>
+  </data>
+	<data name="L10nAuthIdle_Text013" xml:space="preserve">
+    <value>Steam 未提供设备类型</value>
+  </data>
+	<data name="L10nAuthIdle_Text014" xml:space="preserve">
+    <value>Steam 未提供位置</value>
+  </data>
+	<data name="L10nAuthIdle_Text015" xml:space="preserve">
+    <value>此 IP 曾成功登录此账号</value>
+  </data>
+	<data name="L10nAuthIdle_Text016" xml:space="preserve">
+    <value>此 IP 没有成功登录此账号的历史</value>
+  </data>
+	<data name="L10nAuthIdle_Text017" xml:space="preserve">
+    <value>登录请求位置与当前确认位置不一致</value>
+  </data>
+	<data name="L10nAuthIdle_Text018" xml:space="preserve">
+    <value>此登录请求近期使用频繁</value>
+  </data>
+	<data name="L10nAuthIdle_Text019" xml:space="preserve">
+    <value>IP 曾登录</value>
+  </data>
+	<data name="L10nAuthIdle_Text020" xml:space="preserve">
+    <value>IP 无登录记录</value>
+  </data>
+	<data name="L10nAuthIdle_Text021" xml:space="preserve">
+    <value>位置不一致</value>
+  </data>
+	<data name="L10nAuthIdle_Text022" xml:space="preserve">
+    <value>登录请求频繁</value>
+  </data>
+	<data name="L10nAuthIdle_Text023" xml:space="preserve">
+    <value>目标设备请求保持登录</value>
+  </data>
+	<data name="L10nAuthIdle_Text024" xml:space="preserve">
+    <value>目标设备请求临时登录</value>
+  </data>
+	<data name="L10nAuthIdle_Text025" xml:space="preserve">
+    <value>Steam 未提供保持登录偏好</value>
+  </data>
+	<data name="L10nAuthIdle_Text026" xml:space="preserve">
+    <value>请特别核实此登录请求</value>
+  </data>
+	<data name="L10nAuthIdle_Text027" xml:space="preserve">
+    <value>请确认这是你本人发起的登录</value>
+  </data>
+	<data name="L10nAuthIdle_Text028" xml:space="preserve">
+    <value>Steam 未提供</value>
+  </data>
+	<data name="L10nAuthIdle_Text029" xml:space="preserve">
+    <value>提供多平台多账号令牌管理、加密、确认交易、云同步等功能</value>
+  </data>
+	<data name="L10nAuthIdle_Text030" xml:space="preserve">
+    <value>未命名 Steam 账号</value>
+  </data>
+	<data name="L10nAuthIdle_Text031" xml:space="preserve">
+    <value>SteamID 缺失</value>
+  </data>
+	<data name="L10nAuthIdle_Text032" xml:space="preserve">
+    <value>准备就绪，请扫描屏幕二维码。</value>
+  </data>
+	<data name="L10nAuthIdle_Text033" xml:space="preserve">
+    <value>Steam 游戏快速挂卡，需要启动 Steam 客户端并登录对应账号，支持多种算法逻辑挂卡，掉卡速度更快。</value>
+  </data>
+	<data name="L10nAuthIdle_Text034" xml:space="preserve">
+    <value>令牌插件不可用，请启用令牌插件后重新读取，或使用其他登录方式。</value>
+  </data>
+	<data name="L10nAuthIdle_Text035" xml:space="preserve">
+    <value>显示或隐藏验证码</value>
+  </data>
+	<data name="L10nAuthIdle_Text036" xml:space="preserve">
+    <value>加密方式</value>
+  </data>
+	<data name="L10nAuthIdle_Text037" xml:space="preserve">
+    <value>令牌刷新间隔时间</value>
+  </data>
+	<data name="L10nAuthIdle_Text038" xml:space="preserve">
+    <value>令牌位数</value>
+  </data>
+	<data name="L10nAuthIdle_Text039" xml:space="preserve">
+    <value>如果有初始值，请输入到下面Code框内，单击“验证”按钮后会生成上次使用的代码。</value>
+  </data>
+	<data name="L10nAuthIdle_Text040" xml:space="preserve">
+    <value>搜索令牌</value>
+  </data>
+	<data name="L10nAuthIdle_Text041" xml:space="preserve">
+    <value>已有令牌</value>
+  </data>
+	<data name="L10nAuthIdle_Text042" xml:space="preserve">
+    <value>Steam 市场</value>
+  </data>
+	<data name="L10nAuthIdle_Text043" xml:space="preserve">
+    <value>[Rooted Android] 3.x 新版导出令牌的另一种思路</value>
+  </data>
+	<data name="L10nAuthIdle_Text044" xml:space="preserve">
+    <value>[Rooted Android] 3.x 新版导出令牌的另另一种思路</value>
+  </data>
+	<data name="L10nAuthIdle_Text045" xml:space="preserve">
+    <value>请完整显示本人发起的 Steam 登录二维码，截图仅在本机识别，不保存、不上传。</value>
+  </data>
+	<data name="L10nAuthIdle_Text046" xml:space="preserve">
+    <value>扫描屏幕二维码</value>
+  </data>
+	<data name="L10nAuthIdle_Text047" xml:space="preserve">
+    <value>当前屏幕扫码仅支持 Windows。</value>
+  </data>
+	<data name="L10nAuthIdle_Text048" xml:space="preserve">
+    <value>选择已识别的登录请求</value>
+  </data>
+	<data name="L10nAuthIdle_Text049" xml:space="preserve">
+    <value>读取所选请求的设备信息</value>
+  </data>
+	<data name="L10nAuthIdle_Text050" xml:space="preserve">
+    <value>地区</value>
+  </data>
+	<data name="L10nAuthIdle_Text051" xml:space="preserve">
+    <value>请确认在安全环境登录，Steam 提示不代表安全保证。</value>
+  </data>
+	<data name="L10nAuthIdle_Text052" xml:space="preserve">
+    <value>目标设备保持登录</value>
+  </data>
+	<data name="L10nAuthIdle_Text053" xml:space="preserve">
+    <value>确认登录 Steam</value>
+  </data>
+	<data name="L10nAuthIdle_Text054" xml:space="preserve">
+    <value>更多请求详情</value>
+  </data>
+	<data name="L10nAuthIdle_Text055" xml:space="preserve">
+    <value>登录历史</value>
+  </data>
+	<data name="L10nAuthIdle_Text056" xml:space="preserve">
+    <value>位置核对</value>
+  </data>
+	<data name="L10nAuthIdle_Text057" xml:space="preserve">
+    <value>请求频率</value>
+  </data>
+	<data name="L10nAuthIdle_Text058" xml:space="preserve">
+    <value>登录偏好</value>
+  </data>
+	<data name="L10nAuthIdle_Text059" xml:space="preserve">
+    <value>位置数据</value>
+  </data>
+	<data name="L10nAuthIdle_Text060" xml:space="preserve">
+    <value>请求编号</value>
+  </data>
+	<data name="L10nAuthIdle_Text061" xml:space="preserve">
+    <value>协议版本</value>
+  </data>
+	<data name="L10nAuthIdle_Text062" xml:space="preserve">
+    <value>信息读取时间</value>
+  </data>
+	<data name="L10nAuthIdle_Text063" xml:space="preserve">
+    <value>优先运行此游戏</value>
+  </data>
+	<data name="L10nAuthIdle_Text064" xml:space="preserve">
+    <value>移入挂卡黑名单</value>
+  </data>
+	<data name="L10nAuthIdle_Text065" xml:space="preserve">
+    <value>移出挂卡黑名单</value>
+  </data>
+	<data name="L10nAuthIdle_Text066" xml:space="preserve">
+    <value>挂卡规则</value>
+  </data>
+	<data name="L10nAuthIdle_Text067" xml:space="preserve">
+    <value>挂卡顺序</value>
+  </data>
+	<data name="L10nAuthIdle_Text068" xml:space="preserve">
+    <value>最大并行挂时长游戏数量</value>
+  </data>
+	<data name="L10nAuthIdle_Text069" xml:space="preserve">
+    <value>快速切换游戏间隔时间(毫秒)</value>
+  </data>
+	<data name="L10nAuthIdle_Text070" xml:space="preserve">
+    <value>游戏最小运行时间(小时)</value>
+  </data>
+	<data name="L10nAuthIdle_Text071" xml:space="preserve">
+    <value>自动刷新徽章数据时间间隔(分钟)</value>
+  </data>
+	<data name="L10nAuthIdle_Text072" xml:space="preserve">
+    <value>扫描二维码登录 Steam</value>
+  </data>
+	<data name="L10nAuthIdle_Text073" xml:space="preserve">
+    <value>已取消解锁令牌；可以返回其他登录方式或重新读取令牌。</value>
+  </data>
+	<data name="L10nAuthIdle_Text074" xml:space="preserve">
+    <value>令牌二级密码不正确，请重新读取并解锁。</value>
+  </data>
+	<data name="L10nAuthIdle_Text075" xml:space="preserve">
+    <value>令牌登录状态已更改，请重新读取令牌后重试。</value>
+  </data>
+	<data name="L10nAuthIdle_Text076" xml:space="preserve">
+    <value>交易确认登录状态已更改，请重新读取令牌后重试。</value>
+  </data>
+	<data name="L10nAuthIdle_Text077" xml:space="preserve">
+    <value>交易确认登录状态已过期，请在令牌插件中重新登录交易确认。</value>
+  </data>
+	<data name="L10nAuthIdle_Text078" xml:space="preserve">
+    <value>交易确认登录状态已过期或不支持网页登录，请重新登录交易确认。</value>
+  </data>
+	<data name="L10nAuthIdle_Text079" xml:space="preserve">
+    <value>Steam 未接受该网页登录状态，请在令牌插件中重新登录交易确认。</value>
+  </data>
+	<data name="L10nAuthIdle_Text080" xml:space="preserve">
+    <value>导入失败、请检查数据正确</value>
+  </data>
+	<data name="L10nAuthIdle_Text081" xml:space="preserve">
+    <value>只绑定邮箱的情况下无法直接替换令牌</value>
+  </data>
+	<data name="L10nAuthIdle_Text082" xml:space="preserve">
+    <value>正在检查交易确认保存的登录状态…</value>
+  </data>
+	<data name="L10nAuthIdle_Text083" xml:space="preserve">
+    <value>正在扫描屏幕…请勿关闭或刷新 Steam 登录二维码。</value>
+  </data>
+	<data name="L10nAuthIdle_Text084" xml:space="preserve">
+    <value>未发现 Steam 登录二维码。请将二维码完整显示，避免被其他窗口遮挡，然后重试。</value>
+  </data>
+	<data name="L10nAuthIdle_Text085" xml:space="preserve">
+    <value>已识别二维码，正在读取目标设备信息…</value>
+  </data>
+	<data name="L10nAuthIdle_Text086" xml:space="preserve">
+    <value>发现多个 Steam 登录二维码，请选择要确认的请求，再读取设备信息。</value>
+  </data>
+	<data name="L10nAuthIdle_Text087" xml:space="preserve">
+    <value>已识别二维码，但读取登录请求失败。请刷新二维码重试；若交易确认状态已失效，请先到交易确认重新登录。</value>
+  </data>
+	<data name="L10nAuthIdle_Text088" xml:space="preserve">
+    <value>Windows 屏幕截图失败（错误 {0}）。请在已解锁的本地桌面重试。</value>
+  </data>
+	<data name="L10nAuthIdle_Text089" xml:space="preserve">
+    <value>未知程序集</value>
+  </data>
+	<data name="L10nAuthIdle_Text090" xml:space="preserve">
+    <value>缺少运行依赖 {0}。请使用完整构建或发布目录启动，不要仅替换令牌插件 DLL。</value>
+  </data>
+	<data name="L10nAuthIdle_Text091" xml:space="preserve">
+    <value>检查交易确认状态或屏幕扫码失败。请确认网络与程序依赖完整；本页面不会要求重新登录。</value>
+  </data>
+	<data name="L10nAuthIdle_Text092" xml:space="preserve">
+    <value>读取登录请求失败，二维码可能已过期。请刷新二维码；若登录状态失效，请到交易确认重新登录。</value>
+  </data>
+	<data name="L10nAuthIdle_Text093" xml:space="preserve">
+    <value>请核对以下登录请求。只有点击“确认登录 Steam”才会批准；不是本人发起请关闭窗口。</value>
+  </data>
+	<data name="L10nAuthIdle_Text094" xml:space="preserve">
+    <value>交易确认的登录状态已变化，请重新读取登录请求后再确认。</value>
+  </data>
+	<data name="L10nAuthIdle_Text095" xml:space="preserve">
+    <value>已确认登录。请回到 Steam 客户端或网页查看结果。</value>
+  </data>
+	<data name="L10nAuthIdle_Text096" xml:space="preserve">
+    <value>确认登录失败，二维码可能已过期。请重新扫描；若登录状态失效，请到交易确认重新登录。</value>
+  </data>
+	<data name="L10nAuthIdle_Text097" xml:space="preserve">
+    <value>无法获取此令牌的 Steam 验证码，请检查令牌后重试。</value>
+  </data>
+	<data name="L10nAuthIdle_Text098" xml:space="preserve">
+    <value>此令牌的 Steam 验证码不可用，请检查令牌后重试。</value>
+  </data>
+	<data name="L10nAuthIdle_Text099" xml:space="preserve">
+    <value>检查交易确认登录状态失败，请检查网络或重新登录。</value>
+  </data>
+	<data name="L10nAuthIdle_Text100" xml:space="preserve">
+    <value>登录状态已续期，但保存失败；本次仍可使用。</value>
+  </data>
+	<data name="L10nAuthIdle_Text101" xml:space="preserve">
+    <value>此令牌不可用，未保存任何登录状态。</value>
+  </data>
+	<data name="L10nAuthIdle_Text102" xml:space="preserve">
+    <value>Steam 已登录，但登录状态保存失败。请重试保存后再使用扫码。</value>
+  </data>
+	<data name="L10nAuthIdle_Text103" xml:space="preserve">
+    <value>Steam 已登录，但读取交易确认失败。请检查网络并刷新，不要反复重新登录。</value>
+  </data>
+	<data name="L10nAuthIdle_Text104" xml:space="preserve">
+    <value>私密游戏(不掉卡) + 已拉黑</value>
+  </data>
+	<data name="L10nAuthIdle_Text105" xml:space="preserve">
+    <value>私密游戏(不掉卡)</value>
+  </data>
+	<data name="L10nAuthIdle_Text106" xml:space="preserve">
+    <value>已拉黑</value>
+  </data>
+	<data name="L10nAuthIdle_Text107" xml:space="preserve">
+    <value>该游戏已被排除，不参与挂卡。请先取消拉黑或移除私密限制。</value>
+  </data>
+	<data name="L10nAuthIdle_Text108" xml:space="preserve">
+    <value>正在检测 Steam 登录状态…</value>
+  </data>
+	<data name="L10nAuthIdle_Text109" xml:space="preserve">
+    <value>正在加载徽章数据…</value>
+  </data>
+	<data name="L10nAuthIdle_Text110" xml:space="preserve">
+    <value>扫描屏幕二维码登录 Steam</value>
+  </data>
+	<data name="L10nAuthIdle_Text111" xml:space="preserve">
+    <value>详情与导出</value>
+  </data>
+	<data name="L10nAuthIdle_Text112" xml:space="preserve">
+    <value>松开放置</value>
+  </data>
+	<data name="L10nAuthIdle_Text113" xml:space="preserve">
+    <value> 张剩余卡牌掉落</value>
+  </data>
+	<data name="L10nAuthIdle_Text114" xml:space="preserve">
+    <value>估算价值 ¥ </value>
+  </data>
+	<data name="L10nAuthIdle_Text115" xml:space="preserve">
+    <value>当前 Steam 客户端登录账号：</value>
+  </data>
+	<data name="L10nAuthIdle_Text116" xml:space="preserve">
+    <value>挂卡进度 </value>
+  </data>
+	<data name="L10nAuthIdle_Text117" xml:space="preserve">
+    <value> 个游戏正在运行</value>
+  </data>
+	<data name="L10nAuthIdle_Text118" xml:space="preserve">
+    <value>挂卡游戏列表</value>
+  </data>
+	<data name="L10nAuthIdle_Text119" xml:space="preserve">
+    <value>未获取到挂卡游戏数据</value>
+  </data>
+	<data name="L10nAuthIdle_Text120" xml:space="preserve">
+    <value>共 {0} 个令牌</value>
+  </data>
+	<data name="L10nAuthIdle_Text121" xml:space="preserve">
+    <value>登录请求 {0}</value>
+  </data>
+	<data name="L10nAuthIdle_Text122" xml:space="preserve">
+    <value>确认账号：{0}</value>
+  </data>
+	<data name="L10nAuthIdle_Text123" xml:space="preserve">
+    <value>快速掉卡模式（推荐）</value>
+  </data>
+	<data name="L10nAuthIdle_Text124" xml:space="preserve">
+    <value>按顺序运行</value>
+  </data>
+	<data name="L10nAuthIdle_Text125" xml:space="preserve">
+    <value>先挂卡已满（游戏最小运行时间）的游戏，然后再并行挂时长</value>
+  </data>
+	<data name="L10nAuthIdle_Text126" xml:space="preserve">
+    <value>先并行挂时长满（游戏最小运行时间）后再挂卡</value>
+  </data>
+	<data name="L10nAuthIdle_Text127" xml:space="preserve">
+    <value>默认（按字母顺序）</value>
+  </data>
+	<data name="L10nAuthIdle_Text128" xml:space="preserve">
+    <value>按卡片数量最少优先</value>
+  </data>
+	<data name="L10nAuthIdle_Text129" xml:space="preserve">
+    <value>按卡片数量最多优先</value>
+  </data>
+	<data name="L10nAuthIdle_Text130" xml:space="preserve">
+    <value>按卡片价值最高优先</value>
+  </data>
+	<data name="L10nAuthIdle_PrivateExclusion" xml:space="preserve">
+    <value>检测到 {0} 个私密游戏，这些游戏将自动排除，不参与挂卡。</value>
+  </data>
+	<data name="L10nAuthIdle_DragTooltip" xml:space="preserve">
+    <value>{0} · 长按拖拽排序</value>
+  </data>
+	<data name="L10nGames_ListDescription" xml:space="preserve">
+    <value>管理 Steam 库存游戏信息，Steam 启动时加载当前账号库存，未启动时加载 Steam 本地缓存数据</value>
+  </data>
+	<data name="L10nGames_AccountDescription" xml:space="preserve">
+    <value>可支持自行添加多平台账号快速切换功能，Steam 可自动读取账号信息，其它平台请手动添加账号信息</value>
+  </data>
+	<data name="L10nGames_ToolsDescription" xml:space="preserve">
+    <value>通用游戏工具</value>
+  </data>
+	<data name="L10nGames_SaveEditNotice" xml:space="preserve">
+    <value>保存成功但还不会直接写入 Steam 文件，请到右上角编辑列表中保存所有更改信息到 Steam 文件中，即可生效！</value>
+  </data>
+	<data name="L10nGames_ImageDownloadWait" xml:space="preserve">
+    <value>图片下载需要一些时间，请稍后</value>
+  </data>
+	<data name="L10nGames_ExportEmpty" xml:space="preserve">
+    <value>没有可导出的已修改游戏数据。</value>
+  </data>
+	<data name="L10nGames_ExportTitle" xml:space="preserve">
+    <value>导出编辑游戏数据备份</value>
+  </data>
+	<data name="L10nGames_ExportNoData" xml:space="preserve">
+    <value>导出失败：没有可序列化的修改数据。</value>
+  </data>
+	<data name="L10nGames_ExportFailed" xml:space="preserve">
+    <value>导出失败，请检查文件权限后重试。</value>
+  </data>
+	<data name="L10nGames_ImportTitle" xml:space="preserve">
+    <value>导入编辑游戏数据备份</value>
+  </data>
+	<data name="L10nGames_ImportEmpty" xml:space="preserve">
+    <value>导入文件中没有可还原的数据。</value>
+  </data>
+	<data name="L10nGames_ImportNoMatches" xml:space="preserve">
+    <value>导入完成，但未匹配到可还原的游戏。
+请确认账号或游戏库与备份来源一致。</value>
+  </data>
+	<data name="L10nGames_ImportFailed" xml:space="preserve">
+    <value>导入失败，文件格式可能不正确。</value>
+  </data>
+	<data name="L10nGames_DownloadTitle" xml:space="preserve">
+    <value>Steam 下载监控</value>
+  </data>
+	<data name="L10nGames_DownloadDescription" xml:space="preserve">
+    <value>监听 Steam 下载任务并提供下载安装完成后执行睡眠、休眠、关机功能</value>
+  </data>
+	<data name="L10nGames_DownloadWatchTip" xml:space="preserve">
+    <value>启用此按钮才会启动监听 Steam 下载数据并在下载完时执行对应操作！</value>
+  </data>
+	<data name="L10nGames_EditTitle" xml:space="preserve">
+    <value>Steam 游戏修改</value>
+  </data>
+	<data name="L10nGames_EditDescription" xml:space="preserve">
+    <value>可以修改 Steam 游戏名称、发行商、封面图片、启动项等信息，并且保存生效至 Steam。</value>
+  </data>
+	<data name="L10nGames_IdleTitle" xml:space="preserve">
+    <value>Steam 挂时长</value>
+  </data>
+	<data name="L10nGames_IdleDescription" xml:space="preserve">
+    <value>不需要真正启动游戏即可让 Steam 认为你在同时运行多个游戏，达到运行时长增长目的</value>
+  </data>
+	<data name="L10nGames_SwitchAccount" xml:space="preserve">
+    <value>切换到此账号</value>
+  </data>
+	<data name="L10nGames_StartOffline" xml:space="preserve">
+    <value>以离线模式启动</value>
+  </data>
+	<data name="L10nGames_LoginAs" xml:space="preserve">
+    <value>登录为</value>
+  </data>
+	<data name="L10nGames_Invisible" xml:space="preserve">
+    <value>隐身</value>
+  </data>
+	<data name="L10nGames_Offline" xml:space="preserve">
+    <value>离线</value>
+  </data>
+	<data name="L10nGames_Online" xml:space="preserve">
+    <value>在线</value>
+  </data>
+	<data name="L10nGames_Busy" xml:space="preserve">
+    <value>忙碌</value>
+  </data>
+	<data name="L10nGames_Away" xml:space="preserve">
+    <value>离开</value>
+  </data>
+	<data name="L10nGames_Snooze" xml:space="preserve">
+    <value>打盹</value>
+  </data>
+	<data name="L10nGames_LookingToTrade" xml:space="preserve">
+    <value>想交易</value>
+  </data>
+	<data name="L10nGames_LookingToPlay" xml:space="preserve">
+    <value>想玩游戏</value>
+  </data>
+	<data name="L10nGames_CopyProfile" xml:space="preserve">
+    <value>复制个人资料</value>
+  </data>
+	<data name="L10nGames_CommunityUrl" xml:space="preserve">
+    <value>社区 URL</value>
+  </data>
+	<data name="L10nGames_SteamNickname" xml:space="preserve">
+    <value>Steam 昵称</value>
+  </data>
+	<data name="L10nGames_CopySteamId" xml:space="preserve">
+    <value>复制 SteamID</value>
+  </data>
+	<data name="L10nGames_SteamCommunity" xml:space="preserve">
+    <value>Steam 社区</value>
+  </data>
+	<data name="L10nGames_EditRemark" xml:space="preserve">
+    <value>修改备注名</value>
+  </data>
+	<data name="L10nGames_ChangeAvatar" xml:space="preserve">
+    <value>修改头像图片</value>
+  </data>
+	<data name="L10nGames_CreateShortcut" xml:space="preserve">
+    <value>创建桌面快捷方式</value>
+  </data>
+	<data name="L10nGames_DoubleClickSwitch" xml:space="preserve">
+    <value>双击可快速切换到此账号登录</value>
+  </data>
+	<data name="L10nGames_PlatformSettings" xml:space="preserve">
+    <value>平台设置</value>
+  </data>
+	<data name="L10nGames_ShowUsername" xml:space="preserve">
+    <value>显示用户名</value>
+  </data>
+	<data name="L10nGames_DragToSort" xml:space="preserve">
+    <value>拖拽可排序</value>
+  </data>
+	<data name="L10nGames_BorderlessTitle" xml:space="preserve">
+    <value>游戏无边框窗口化</value>
+  </data>
+	<data name="L10nGames_BorderlessDescription" xml:space="preserve">
+    <value>该功能可以获取游戏窗口句柄执行一些对应操作</value>
+  </data>
+	<data name="L10nGames_ViewWindowHistory" xml:space="preserve">
+    <value>查看捕获窗口记录</value>
+  </data>
+	<data name="L10nGames_History" xml:space="preserve">
+    <value>历史记录</value>
+  </data>
+	<data name="L10nGames_WindowInfo" xml:space="preserve">
+    <value>窗口信息</value>
+  </data>
+	<data name="L10nGames_VacTitle" xml:space="preserve">
+    <value>CS:GO VAC 修复</value>
+  </data>
+	<data name="L10nGames_VacDescription" xml:space="preserve">
+    <value>该功能可为玩家修复 CS:GO VAC 屏蔽问题</value>
+  </data>
+	<data name="L10nGames_Repair" xml:space="preserve">
+    <value>修复</value>
+  </data>
+	<data name="L10nGames_Repairing" xml:space="preserve">
+    <value>修复中</value>
+  </data>
+	<data name="L10nGames_Restart" xml:space="preserve">
+    <value>重启</value>
+  </data>
+	<data name="L10nGames_WindowsOnly" xml:space="preserve">
+    <value>仅 Windows 可用</value>
+  </data>
+	<data name="L10nGames_CpuScheduling" xml:space="preserve">
+    <value>CPU 游戏调度优化</value>
+  </data>
+	<data name="L10nGames_NotAvailable" xml:space="preserve">
+    <value>功能尚未开放</value>
+  </data>
+	<data name="L10nGames_RepairServicesFailed" xml:space="preserve">
+    <value>info - ※ 修复 Steam Services 失败
+</value>
+  </data>
+	<data name="L10nGames_RepairFirewall" xml:space="preserve">
+    <value>info - ※ 请检查您的防火墙设置(关闭 &quot;不允许例外&quot; 选项)再次尝试
+</value>
+  </data>
+	<data name="L10nGames_ExportSuccess" xml:space="preserve">
+    <value>导出成功，共 {0} 条修改数据。</value>
+  </data>
+	<data name="L10nGames_ImportSuccess" xml:space="preserve">
+    <value>导入成功，已还原 {0} 个游戏的修改数据。</value>
+  </data>
+	<data name="L10nGames_PlatformSettingsFormat" xml:space="preserve">
+    <value>{0} 平台设置</value>
+  </data>
+	<data name="L10nGames_PlatformPathFormat" xml:space="preserve">
+    <value>{0} 路径</value>
+  </data>
+	<data name="L10nGames_RepairLauncherService" xml:space="preserve">
+    <value>Info - ※&gt;&gt;&gt; 执行修复启动器服务项</value>
+  </data>
+	<data name="L10nGames_RestoreDep" xml:space="preserve">
+    <value>Info - ※ 恢复DEP默认启动设置</value>
+  </data>
+	<data name="L10nGames_RestartSteam" xml:space="preserve">
+    <value>Info - ※&gt;&gt;&gt; 重启 Steam</value>
+  </data>
+	<data name="L10nGames_RepairComplete" xml:space="preserve">
+    <value>Info - ※ 执行完毕</value>
+  </data>
+	<data name="L10nAsf_Text001" xml:space="preserve">
+    <value>ArchiSteamFarm 启动文件设置</value>
+  </data>
+	<data name="L10nAsf_Text002" xml:space="preserve">
+    <value>ASF 文件路径</value>
+  </data>
+	<data name="L10nAsf_Text003" xml:space="preserve">
+    <value>选择路径</value>
+  </data>
+	<data name="L10nAsf_Text004" xml:space="preserve">
+    <value>下载并设置 ASF 路径</value>
+  </data>
+	<data name="L10nAsf_Text005" xml:space="preserve">
+    <value>还没有下载过ASF？请点击下载</value>
+  </data>
+	<data name="L10nAsf_Text006" xml:space="preserve">
+    <value>一键下载</value>
+  </data>
+	<data name="L10nAsf_Text007" xml:space="preserve">
+    <value>输入指令或消息内容</value>
+  </data>
+	<data name="L10nAsf_Text008" xml:space="preserve">
+    <value>ASF 配置</value>
+  </data>
+	<data name="L10nAsf_Text009" xml:space="preserve">
+    <value>导入配置</value>
+  </data>
+	<data name="L10nAsf_Text010" xml:space="preserve">
+    <value>设置 ASF 安全密钥</value>
+  </data>
+	<data name="L10nAsf_Text011" xml:space="preserve">
+    <value>刷新全局配置</value>
+  </data>
+	<data name="L10nAsf_Text012" xml:space="preserve">
+    <value>ASF 全局配置</value>
+  </data>
+	<data name="L10nAsf_Text013" xml:space="preserve">
+    <value>文件位置</value>
+  </data>
+	<data name="L10nAsf_Text014" xml:space="preserve">
+    <value>打开文件所在位置</value>
+  </data>
+	<data name="L10nAsf_Text015" xml:space="preserve">
+    <value>配置文件文件夹</value>
+  </data>
+	<data name="L10nAsf_Text016" xml:space="preserve">
+    <value>插件文件夹</value>
+  </data>
+	<data name="L10nAsf_Text017" xml:space="preserve">
+    <value>日志文件夹</value>
+  </data>
+	<data name="L10nAsf_Text018" xml:space="preserve">
+    <value>WEBUI 文件夹</value>
+  </data>
+	<data name="L10nAsf_Text019" xml:space="preserve">
+    <value>自动启动 ASF</value>
+  </data>
+	<data name="L10nAsf_Text020" xml:space="preserve">
+    <value>检查文件安全性</value>
+  </data>
+	<data name="L10nAsf_Text021" xml:space="preserve">
+    <value>ASF 监听端口</value>
+  </data>
+	<data name="L10nAsf_Text022" xml:space="preserve">
+    <value>端口被占时随机端口号</value>
+  </data>
+	<data name="L10nAsf_Text023" xml:space="preserve">
+    <value>控制台最大行数</value>
+  </data>
+	<data name="L10nAsf_Text024" xml:space="preserve">
+    <value>控制台字体大小</value>
+  </data>
+	<data name="L10nAsf_Text025" xml:space="preserve">
+    <value>打开 WebUI</value>
+  </data>
+	<data name="L10nAsf_Text026" xml:space="preserve">
+    <value>设置</value>
+  </data>
+	<data name="L10nAsf_Text027" xml:space="preserve">
+    <value>用户输入</value>
+  </data>
+	<data name="L10nAsf_Text028" xml:space="preserve">
+    <value>Bot 账号</value>
+  </data>
+	<data name="L10nAsf_Text029" xml:space="preserve">
+    <value>打开 Bot 配置</value>
+  </data>
+	<data name="L10nAsf_Text030" xml:space="preserve">
+    <value>编辑 Json 文件</value>
+  </data>
+	<data name="L10nAsf_Text031" xml:space="preserve">
+    <value>删除</value>
+  </data>
+	<data name="L10nAsf_Text032" xml:space="preserve">
+    <value>导入 Bot</value>
+  </data>
+	<data name="L10nAsf_Text033" xml:space="preserve">
+    <value>刷新 Bot</value>
+  </data>
+	<data name="L10nAsf_Text034" xml:space="preserve">
+    <value>请先启动 ArchiSteamFarm</value>
+  </data>
+	<data name="L10nAsf_Text035" xml:space="preserve">
+    <value>当前列表没有 Bot 账号</value>
+  </data>
+	<data name="L10nAsf_Text036" xml:space="preserve">
+    <value>恢复挂卡</value>
+  </data>
+	<data name="L10nAsf_Text037" xml:space="preserve">
+    <value>暂停挂卡</value>
+  </data>
+	<data name="L10nAsf_Text038" xml:space="preserve">
+    <value>启用或禁用该 Bot</value>
+  </data>
+	<data name="L10nAsf_Text039" xml:space="preserve">
+    <value>控制台</value>
+  </data>
+	<data name="L10nAsf_Text040" xml:space="preserve">
+    <value>为指定机器人生成临时的​两步验证​令牌。</value>
+  </data>
+	<data name="L10nAsf_Text041" xml:space="preserve">
+    <value>为指定机器人拒绝所有等待操作的​两步验证​交易确认。</value>
+  </data>
+	<data name="L10nAsf_Text042" xml:space="preserve">
+    <value>为指定机器人接受所有等待操作的​两步验证​交易确认。</value>
+  </data>
+	<data name="L10nAsf_Text043" xml:space="preserve">
+    <value>为指定机器人激活给定的 Licenses （许可），该参数解释详见​下文。</value>
+  </data>
+	<data name="L10nAsf_Text044" xml:space="preserve">
+    <value>显示指定机器人的 Steam 钱包余额。</value>
+  </data>
+	<data name="L10nAsf_Text045" xml:space="preserve">
+    <value>显示指定机器人的 BGR（后台游戏激活器）队列信息。</value>
+  </data>
+	<data name="L10nAsf_Text046" xml:space="preserve">
+    <value>以给定的加密方式加密字符串——详见​下文的解释。</value>
+  </data>
+	<data name="L10nAsf_Text047" xml:space="preserve">
+    <value>重新启动指定机器人的挂卡模块。</value>
+  </data>
+	<data name="L10nAsf_Text048" xml:space="preserve">
+    <value>列出指定机器人的自动挂卡黑名单。</value>
+  </data>
+	<data name="L10nAsf_Text049" xml:space="preserve">
+    <value>将给定的 AppIDs 加入指定机器人的自动挂卡黑名单。</value>
+  </data>
+	<data name="L10nAsf_Text050" xml:space="preserve">
+    <value>将给定的 AppIDs 从指定机器人的自动挂卡黑名单中移除。</value>
+  </data>
+	<data name="L10nAsf_Text051" xml:space="preserve">
+    <value>列出指定机器人的优先挂卡队列。</value>
+  </data>
+	<data name="L10nAsf_Text052" xml:space="preserve">
+    <value>将给定的 AppIDs 加入指定机器人的优先挂卡队列。</value>
+  </data>
+	<data name="L10nAsf_Text053" xml:space="preserve">
+    <value>将给定的 AppIDs 从指定机器人的优先挂卡队列中移除。</value>
+  </data>
+	<data name="L10nAsf_Text054" xml:space="preserve">
+    <value>以指定的加密方式生成给定字符串的哈希值——详见​下文的解释。</value>
+  </data>
+	<data name="L10nAsf_Text055" xml:space="preserve">
+    <value>显示帮助（指向此页面的链接）。</value>
+  </data>
+	<data name="L10nAsf_Text056" xml:space="preserve">
+    <value>为指定机器人填写给定的输入值，仅在 Headless 模式中可用——详见​下文的解释。</value>
+  </data>
+	<data name="L10nAsf_Text057" xml:space="preserve">
+    <value>显示指定机器人的 Steam 帐户等级。</value>
+  </data>
+	<data name="L10nAsf_Text058" xml:space="preserve">
+    <value>将指定机器人的所有 LootableTypes 社区物品拾取到其 SteamUserPermissions 属性中设置的 Master 用户（如果有多个则取 steamID 最小的）。</value>
+  </data>
+	<data name="L10nAsf_Text059" xml:space="preserve">
+    <value>将指定机器人的所有符合给定 AppIDs 的 LootableTypes 社区物品拾取到其 SteamUserPermissions 属性中设置的 Master 用户（如果有多个则取 steamID 最小的）。 此命令与 loot% 相反。</value>
+  </data>
+	<data name="L10nAsf_Text060" xml:space="preserve">
+    <value>将指定机器人的所有不符合给定 AppIDs 的 LootableTypes 社区物品拾取到其 SteamUserPermissions 属性中设置的 Master 用户（如果有多个则取 steamID 最小的）。 此命令与 loot@ 相反。</value>
+  </data>
+	<data name="L10nAsf_Text061" xml:space="preserve">
+    <value>将指定机器人的 ContextID 库存分类中符合给定 AppID 的物品拾取到其 SteamUserPermissions 属性中设置的 Master 用户（如果有多个则取 steamID 最小的）。</value>
+  </data>
+	<data name="L10nAsf_Text062" xml:space="preserve">
+    <value>列出 MatchActively 自动交易的 App 黑名单。</value>
+  </data>
+	<data name="L10nAsf_Text063" xml:space="preserve">
+    <value>将给定的 AppIDs 加入到 MatchActively 自动交易的 App 黑名单。</value>
+  </data>
+	<data name="L10nAsf_Text064" xml:space="preserve">
+    <value>将给定的 AppIDs 从 MatchActively 自动交易 App 黑名单中移除。</value>
+  </data>
+	<data name="L10nAsf_Text065" xml:space="preserve">
+    <value>将指定机器人的昵称更改为 Nickname。</value>
+  </data>
+	<data name="L10nAsf_Text066" xml:space="preserve">
+    <value>检查指定机器人是否已拥有 Games，该参数解释详见​下文。</value>
+  </data>
+	<data name="L10nAsf_Text067" xml:space="preserve">
+    <value>永久暂停指定机器人的自动挂卡模块。 ASF 在本次会话中将不会再尝试对此帐户进行挂卡，除非您手动 resume 或者重启 ASF。</value>
+  </data>
+	<data name="L10nAsf_Text068" xml:space="preserve">
+    <value>临时暂停指定机器人的自动挂卡模块。 挂卡进程将会在下次游戏事件或者机器人断开连接时自动恢复。 您可以 resume 以恢复挂卡。</value>
+  </data>
+	<data name="L10nAsf_Text069" xml:space="preserve">
+    <value>临时暂停指定机器人的自动挂卡模块 Seconds 秒。 之后，挂卡模块会自动恢复。</value>
+  </data>
+	<data name="L10nAsf_Text070" xml:space="preserve">
+    <value>切换到手动挂卡——使指定机器人运行给定的 AppIDs，并且可选自定义 GameName 为游戏名称。 若要此功能正常工作，您的 Steam 帐户必须拥有所有您指定的 AppIDs 的有效许可，包括免费游戏。 使用 reset 或 resume 命令恢复。</value>
+  </data>
+	<data name="L10nAsf_Text071" xml:space="preserve">
+    <value>显示指定机器人的 Steam 商店​点数余额。</value>
+  </data>
+	<data name="L10nAsf_Text072" xml:space="preserve">
+    <value>更改指定机器人的 Steam 隐私设置，可用选项见​下文。</value>
+  </data>
+	<data name="L10nAsf_Text073" xml:space="preserve">
+    <value>为指定机器人激活给定的游戏序列号或钱包充值码。</value>
+  </data>
+	<data name="L10nAsf_Text074" xml:space="preserve">
+    <value>以 Modes 模式为指定机器人激活给定的游戏序列号或钱包充值码，模式详见下文的​解释。</value>
+  </data>
+	<data name="L10nAsf_Text075" xml:space="preserve">
+    <value>重置为原始（之前的）游玩状态，用来配合 play 命令的手动挂卡模式使用。</value>
+  </data>
+	<data name="L10nAsf_Text076" xml:space="preserve">
+    <value>恢复指定机器人的自动挂卡进程。</value>
+  </data>
+	<data name="L10nAsf_Text077" xml:space="preserve">
+    <value>启动指定机器人。</value>
+  </data>
+	<data name="L10nAsf_Text078" xml:space="preserve">
+    <value>显示进程统计信息，例如托管内存用量。</value>
+  </data>
+	<data name="L10nAsf_Text079" xml:space="preserve">
+    <value>显示指定机器人的状态。</value>
+  </data>
+	<data name="L10nAsf_Text080" xml:space="preserve">
+    <value>停止指定机器人。</value>
+  </data>
+	<data name="L10nAsf_Text081" xml:space="preserve">
+    <value>列出指定机器人的交易黑名单用户。</value>
+  </data>
+	<data name="L10nAsf_Text082" xml:space="preserve">
+    <value>将给定的 SteamIDs 加入指定机器人的交易黑名单。</value>
+  </data>
+	<data name="L10nAsf_Text083" xml:space="preserve">
+    <value>将给定的 SteamIDs 从指定机器人的交易黑名单中移除。</value>
+  </data>
+	<data name="L10nAsf_Text084" xml:space="preserve">
+    <value>将指定机器人的所有 TransferableTypes 社区物品转移到一个目标机器人。</value>
+  </data>
+	<data name="L10nAsf_Text085" xml:space="preserve">
+    <value>将指定机器人的所有符合给定 AppIDs 的 TransferableTypes 社区物品转移到一个目标机器人。 此命令与 transfer% 相反。</value>
+  </data>
+	<data name="L10nAsf_Text086" xml:space="preserve">
+    <value>将指定机器人的所有不符合给定 AppIDs 的 TransferableTypes 社区物品转移到一个目标机器人。 此命令与 transfer@ 相反。</value>
+  </data>
+	<data name="L10nAsf_Text087" xml:space="preserve">
+    <value>将指定机器人的 ContextID 库存分类中符合给定 AppID 的物品转移到一个目标机器人。</value>
+  </data>
+	<data name="L10nAsf_Text088" xml:space="preserve">
+    <value>拆开指定机器人库存中的所有补充包。</value>
+  </data>
+	<data name="L10nAsf_Text089" xml:space="preserve">
+    <value>显示 ASF 的版本号。</value>
+  </data>
+	<data name="L10nAsf_Text090" xml:space="preserve">
+    <value>昵称：{0}
+钱包余额：{1} {2}
+挂卡游戏：{3}</value>
+  </data>
+	<data name="L10nAsf_Text091" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+	<data name="L10nAsf_Text092" xml:space="preserve">
+    <value>离线</value>
+  </data>
+	<data name="L10nAsf_Text093" xml:space="preserve">
+    <value>在线</value>
+  </data>
+	<data name="L10nAsf_Text094" xml:space="preserve">
+    <value>正在挂卡</value>
+  </data>
+	<data name="L10nAsf_Text095" xml:space="preserve">
+    <value>等待输入</value>
+  </data>
+	<data name="L10nAsf_Text096" xml:space="preserve">
+    <value>比对文件下载失败</value>
+  </data>
+	<data name="L10nAsf_Text097" xml:space="preserve">
+    <value>ASF 下载成功</value>
+  </data>
+	<data name="L10nAsf_Text098" xml:space="preserve">
+    <value>ASF 文件下载异常</value>
+  </data>
+	<data name="L10nAsf_Text099" xml:space="preserve">
+    <value>开始下载 ASF </value>
+  </data>
+	<data name="L10nAsf_Text100" xml:space="preserve">
+    <value>等待后台下载文件</value>
+  </data>
+	<data name="L10nAsf_Text101" xml:space="preserve">
+    <value>下载插件</value>
+  </data>
+	<data name="L10nAsf_Text102" xml:space="preserve">
+    <value>开始下载 ASF</value>
+  </data>
+	<data name="L10nAsf_Text103" xml:space="preserve">
+    <value>正在初始化，请稍候</value>
+  </data>
+	<data name="L10nAsf_Text104" xml:space="preserve">
+    <value>正在下载 {0}%</value>
+  </data>
+	<data name="L10nAsf_Text105" xml:space="preserve">
+    <value>ArchiSteamFarmPlus 控制台功能实现</value>
+  </data>
+	<data name="L10nCore_SteamManualGuard" xml:space="preserve">
+    <value>请输入 Steam 令牌或邮箱验证码后继续。</value>
+  </data>
+	<data name="L10nCore_SteamAutomaticGuard" xml:space="preserve">
+    <value>自动令牌验证未完成，请重试或返回。</value>
+  </data>
+	<data name="L10nCore_SteamLoginFailed" xml:space="preserve">
+    <value>Steam 登录失败，请重试。</value>
+  </data>
+	<data name="L10nCore_SteamGuardUnavailable" xml:space="preserve">
+    <value>无法获取当前令牌验证码，请检查令牌后重试。</value>
+  </data>
+	<data name="L10nCore_SteamQrLoading" xml:space="preserve">
+    <value>正在获取 Steam 登录二维码…</value>
+  </data>
+	<data name="L10nCore_SteamQrInvalid" xml:space="preserve">
+    <value>Steam 返回的登录二维码无效。</value>
+  </data>
+	<data name="L10nCore_SteamQrCreateFailed" xml:space="preserve">
+    <value>无法生成 Steam 登录二维码。</value>
+  </data>
+	<data name="L10nCore_SteamQrScan" xml:space="preserve">
+    <value>请使用 Steam 手机客户端扫描，并在手机上确认登录。</value>
+  </data>
+	<data name="L10nCore_SteamQrUnavailable" xml:space="preserve">
+    <value>无法获取 Steam 登录二维码，请重试。</value>
+  </data>
+	<data name="L10nCore_SteamQrExpired" xml:space="preserve">
+    <value>二维码已过期，正在重新获取…</value>
+  </data>
+	<data name="L10nCore_SteamQrNetwork" xml:space="preserve">
+    <value>无法获取 Steam 登录二维码，请检查网络后重试。</value>
+  </data>
+	<data name="L10nCore_SteamNoSavedAccount" xml:space="preserve">
+    <value>没有可用的交易确认登录状态。请先在令牌插件的“确认交易”中登录，然后重新读取令牌。</value>
+  </data>
+	<data name="L10nCore_SteamAccountMismatch" xml:space="preserve">
+    <value>返回的 Steam 登录状态与所选账号不匹配，请重新读取令牌。</value>
+  </data>
+	<data name="L10nCore_SteamSessionCreateFailed" xml:space="preserve">
+    <value>无法创建 Steam 登录会话。</value>
+  </data>
+	<data name="L10nCore_SteamCookieRequired" xml:space="preserve">
+    <value>请输入 sessionid 和 steamLoginSecure。</value>
+  </data>
+	<data name="L10nCore_SteamCookieInvalid" xml:space="preserve">
+    <value>steamLoginSecure 格式无效。</value>
+  </data>
+	<data name="L10nCore_SteamSessionInvalid" xml:space="preserve">
+    <value>Steam 未返回有效的登录会话。</value>
+  </data>
+	<data name="L10nCore_SteamLoginSuccess" xml:space="preserve">
+    <value>Steam 登录成功。</value>
+  </data>
+	<data name="L10nCore_SteamLoginSaveFailed" xml:space="preserve">
+    <value>Steam 登录成功，但未能保存登录状态。</value>
+  </data>
+	<data name="L10nCore_SteamLoginNetwork" xml:space="preserve">
+    <value>无法完成 Steam 登录，请检查网络后重试。</value>
+  </data>
+	<data name="L10nCore_SteamLoginCanceled" xml:space="preserve">
+    <value>已取消 Steam 登录，可以重新选择登录方式。</value>
+  </data>
+	<data name="L10nCore_SteamLaunchParametersHint" xml:space="preserve">
+    <value>可添加自定义的参数来启动 Steam</value>
+  </data>
+	<data name="L10nCore_CertificateCheckError" xml:space="preserve">
+    <value>检测证书安装错误:{0}</value>
+  </data>
+	<data name="L10nCore_CertificateInstallError" xml:space="preserve">
+    <value>安装证书错误:{0}</value>
+  </data>
+	<data name="L10nCore_CertificateRemoveError" xml:space="preserve">
+    <value>删除证书错误:{0}</value>
+  </data>
+	<data name="L10nCore_CertificateInstallResult" xml:space="preserve">
+    <value>安装证书：{0}</value>
+  </data>
+	<data name="L10nCore_AuthorizationError" xml:space="preserve">
+    <value>获取授权出错</value>
+  </data>
+	<data name="L10nCore_AuthorizationCanceled" xml:space="preserve">
+    <value>授权被取消!</value>
+  </data>
+	<data name="L10nCore_CommandExecutionFailed" xml:space="preserve">
+    <value>执行命令失败!</value>
+  </data>
+	<data name="L10nCore_CertificateRemoveResult" xml:space="preserve">
+    <value>删除证书：{0}</value>
+  </data>
+	<data name="L10nCore_SteamIdleStarted" xml:space="preserve">
+    <value>已自动后台运行挂时长 {0} 个游戏</value>
+  </data>
+	<data name="L10nCore_CmdTestArgs" xml:space="preserve">
+    <value>测试参数</value>
+  </data>
+	<data name="L10nCore_CmdDebug" xml:space="preserve">
+    <value>调试</value>
+  </data>
+	<data name="L10nCore_CmdDisableGpu" xml:space="preserve">
+    <value>禁用 GPU 硬件加速</value>
+  </data>
+	<data name="L10nCore_CmdNativeOpenGl" xml:space="preserve">
+    <value>使用 Native OpenGL（仅 Windows）</value>
+  </data>
+	<data name="L10nCore_CmdLocalServer" xml:space="preserve">
+    <value>使用本机服务端</value>
+  </data>
+	<data name="L10nCore_CmdSteamRun" xml:space="preserve">
+    <value>Steam 内启动</value>
+  </data>
+	<data name="L10nCore_CmdSilent" xml:space="preserve">
+    <value>静默启动（不弹窗口）</value>
+  </data>
+	<data name="L10nCore_CmdSteamAccount" xml:space="preserve">
+    <value>指定对应 Steam 用户名</value>
+  </data>
+	<data name="L10nCore_CmdSteam" xml:space="preserve">
+    <value>Steam 相关操作</value>
+  </data>
+	<data name="L10nCore_CmdGameId" xml:space="preserve">
+    <value>指定一个 Steam 游戏 Id</value>
+  </data>
+	<data name="L10nCore_CmdAchievements" xml:space="preserve">
+    <value>打开成就解锁窗口</value>
+  </data>
+	<data name="L10nCore_CmdCloudManager" xml:space="preserve">
+    <value>打开云存档管理窗口</value>
+  </data>
+	<data name="L10nCore_CmdIdle" xml:space="preserve">
+    <value>挂运行服务，不加载窗口，内存占用更小</value>
+  </data>
+	<data name="L10nCore_CmdRunGame" xml:space="preserve">
+    <value>运行 Steam 应用</value>
+  </data>
+	<data name="L10nCore_CmdCertificateInfo" xml:space="preserve">
+    <value>显示当前根证书信息</value>
+  </data>
+	<data name="L10nCore_CmdShowInfo" xml:space="preserve">
+    <value>显示信息</value>
+  </data>
+	<data name="L10nCore_CmdInstallCert" xml:space="preserve">
+    <value>安装证书 参数为 AppDataDirectory</value>
+  </data>
+	<data name="L10nCore_CmdRemoveCert" xml:space="preserve">
+    <value>删除证书 参数为 AppDataDirectory</value>
+  </data>
+	<data name="L10nCore_CmdLinuxRoot" xml:space="preserve">
+    <value>Linux 平台 Root 权限 操作指令</value>
+  </data>
+	<data name="L10nCore_CmdProxyOn" xml:space="preserve">
+    <value>开启代理服务</value>
+  </data>
+	<data name="L10nCore_CmdProxyOff" xml:space="preserve">
+    <value>关闭代理服务</value>
+  </data>
+	<data name="L10nCore_CmdProxySilent" xml:space="preserve">
+    <value>启用代理服务，静默启动（不弹窗口）</value>
+  </data>
+	<data name="L10nCore_CmdShutdown" xml:space="preserve">
+    <value>安全结束正在运行的程序</value>
+  </data>
+	<data name="L10nCore_CmdPipeName" xml:space="preserve">
+    <value>IPC 管道名</value>
+  </data>
+	<data name="L10nCore_CmdProcessId" xml:space="preserve">
+    <value>主进程 Id</value>
+  </data>
+	<data name="L10nCore_CmdSudo" xml:space="preserve">
+    <value>使用管理员权限启动 IPC 服务进程</value>
+  </data>
+	<data name="L10nCore_CmdModuleName" xml:space="preserve">
+    <value>需要加载的模块名称</value>
+  </data>
+	<data name="L10nCore_CmdModuleArgs" xml:space="preserve">
+    <value>需要解析的参数，使用 HttpUtility.UrlDecode 解码</value>
+  </data>
+	<data name="L10nCore_CmdPluginIpc" xml:space="preserve">
+    <value>插件使用的 IPC 服务进程</value>
+  </data>
+	<data name="L10nCore_CommandLineTools" xml:space="preserve">
+    <value>命令行工具(Command Line Tools/CLT)</value>
+  </data>
+	<data name="待发送" xml:space="preserve">
+    <value>待发送</value>
+  </data>
+	<data name="已发送" xml:space="preserve">
+    <value>已发送</value>
+  </data>
+	<data name="发送失败" xml:space="preserve">
+    <value>发送失败</value>
+  </data>
+	<data name="被拦截" xml:space="preserve">
+    <value>被拦截</value>
+  </data>
+	<data name="充值" xml:space="preserve">
+    <value>充值</value>
+  </data>
+	<data name="购买商品" xml:space="preserve">
+    <value>购买商品</value>
+  </data>
+	<data name="账号余额" xml:space="preserve">
+    <value>账号余额</value>
+  </data>
+	<data name="付费积分" xml:space="preserve">
+    <value>付费积分</value>
+  </data>
+	<data name="免费积分" xml:space="preserve">
+    <value>免费积分</value>
+  </data>
+	<data name="未签约" xml:space="preserve">
+    <value>未签约</value>
+  </data>
+	<data name="已签约" xml:space="preserve">
+    <value>已签约</value>
+  </data>
+	<data name="解约中" xml:space="preserve">
+    <value>解约中</value>
+  </data>
+	<data name="已解约" xml:space="preserve">
+    <value>已解约</value>
+  </data>
+	<data name="礼品卡充值" xml:space="preserve">
+    <value>礼品卡充值</value>
+  </data>
+	<data name="自助礼品卡充值" xml:space="preserve">
+    <value>自助礼品卡充值</value>
+  </data>
+	<data name="余额交易充值" xml:space="preserve">
+    <value>余额交易充值</value>
+  </data>
+	<data name="迅游订单" xml:space="preserve">
+    <value>迅游订单</value>
+  </data>
+	<data name="点数交易充值" xml:space="preserve">
+    <value>点数交易充值</value>
+  </data>
+	<data name="用户点数交易充值" xml:space="preserve">
+    <value>用户点数交易充值</value>
+  </data>
+	<data name="待付款" xml:space="preserve">
+    <value>待付款</value>
+  </data>
+	<data name="已付款" xml:space="preserve">
+    <value>已付款</value>
+  </data>
+	<data name="已过期" xml:space="preserve">
+    <value>已过期</value>
+  </data>
+	<data name="已取消" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+	<data name="已关闭" xml:space="preserve">
+    <value>已关闭</value>
+  </data>
+	<data name="已完成" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+	<data name="已退款" xml:space="preserve">
+    <value>已退款</value>
+  </data>
+	<data name="一般订单" xml:space="preserve">
+    <value>一般订单</value>
+  </data>
+	<data name="续费订单" xml:space="preserve">
+    <value>续费订单</value>
+  </data>
+	<data name="原路支付平台退回" xml:space="preserve">
+    <value>原路支付平台退回</value>
+  </data>
+	<data name="人工处理" xml:space="preserve">
+    <value>人工处理</value>
+  </data>
+	<data name="未退款" xml:space="preserve">
+    <value>未退款</value>
+  </data>
+	<data name="同意退款但原路退还失败" xml:space="preserve">
+    <value>同意退款但原路退还失败</value>
+  </data>
+	<data name="被拒绝" xml:space="preserve">
+    <value>被拒绝</value>
+  </data>
+	<data name="退款中" xml:space="preserve">
+    <value>退款中</value>
+  </data>
+	<data name="JSAPI(支付宝小程序支付)" xml:space="preserve">
+    <value>JSAPI(支付宝小程序支付)</value>
+  </data>
+	<data name="JSAPI_PC(电脑网站支付)" xml:space="preserve">
+    <value>JSAPI_PC(电脑网站支付)</value>
+  </data>
+	<data name="NATIVE(扫码支付)" xml:space="preserve">
+    <value>NATIVE(扫码支付)</value>
+  </data>
+	<data name="APP(APP支付)" xml:space="preserve">
+    <value>APP(APP支付)</value>
+  </data>
+	<data name="MWEB(H5支付)" xml:space="preserve">
+    <value>MWEB(H5支付)</value>
+  </data>
+	<data name="现金" xml:space="preserve">
+    <value>现金</value>
+  </data>
+	<data name="在线支付" xml:space="preserve">
+    <value>在线支付</value>
+  </data>
+	<data name="余额" xml:space="preserve">
+    <value>余额</value>
+  </data>
+	<data name="优惠卷" xml:space="preserve">
+    <value>优惠卷</value>
+  </data>
+	<data name="银行转账" xml:space="preserve">
+    <value>银行转账</value>
+  </data>
+	<data name="POS机" xml:space="preserve">
+    <value>POS机</value>
+  </data>
+	<data name="支付宝" xml:space="preserve">
+    <value>支付宝</value>
+  </data>
+	<data name="微信支付" xml:space="preserve">
+    <value>微信支付</value>
+  </data>
+	<data name="云闪付支付" xml:space="preserve">
+    <value>云闪付支付</value>
+  </data>
+	<data name="JSAPI(小程序支付)" xml:space="preserve">
+    <value>JSAPI(小程序支付)</value>
+  </data>
+	<data name="JSAPI_OFFICIAL(公众号支付)" xml:space="preserve">
+    <value>JSAPI_OFFICIAL(公众号支付)</value>
+  </data>
+	<data name="补发点数订单" xml:space="preserve">
+    <value>补发点数订单</value>
+  </data>
+	<data name="添加愿望单" xml:space="preserve">
+    <value>添加愿望单</value>
+  </data>
+	<data name="待充值" xml:space="preserve">
+    <value>待充值</value>
+  </data>
+	<data name="已充值" xml:space="preserve">
+    <value>已充值</value>
+  </data>
+	<data name="充值进行中" xml:space="preserve">
+    <value>充值进行中</value>
+  </data>
+	<data name="充值异常" xml:space="preserve">
+    <value>充值异常</value>
+  </data>
+	<data name="充值关闭" xml:space="preserve">
+    <value>充值关闭</value>
+  </data>
+	<data name="等待支付" xml:space="preserve">
+    <value>等待支付</value>
+  </data>
+	<data name="待通知" xml:space="preserve">
+    <value>待通知</value>
+  </data>
+	<data name="通知失败" xml:space="preserve">
+    <value>通知失败</value>
+  </data>
+	<data name="通知完成" xml:space="preserve">
+    <value>通知完成</value>
+  </data>
+	<data name="等待核算" xml:space="preserve">
+    <value>等待核算</value>
+  </data>
+	<data name="未提取" xml:space="preserve">
+    <value>未提取</value>
+  </data>
+	<data name="已提取" xml:space="preserve">
+    <value>已提取</value>
+  </data>
+	<data name="操作结果的枚举" xml:space="preserve"><value>操作结果的枚举</value></data>
+	<data name="操作成功。" xml:space="preserve"><value>操作成功。</value></data>
+	<data name="操作没有引发任何变化，提交取消。" xml:space="preserve"><value>操作没有引发任何变化，提交取消。</value></data>
+	<data name="参数错误。" xml:space="preserve"><value>参数错误。</value></data>
+	<data name="指定参数的数据不存在。" xml:space="preserve"><value>指定参数的数据不存在。</value></data>
+	<data name="当前用户权限不足，不能继续操作。" xml:space="preserve"><value>当前用户权限不足，不能继续操作。</value></data>
+	<data name="登录超时" xml:space="preserve"><value>登录超时</value></data>
+	<data name="非法操作。" xml:space="preserve"><value>非法操作。</value></data>
+	<data name="警告" xml:space="preserve"><value>警告</value></data>
+	<data name="操作引发错误。" xml:space="preserve"><value>操作引发错误。</value></data>
+	<data name="禁用" xml:space="preserve"><value>禁用</value></data>
+	<data name="离线" xml:space="preserve"><value>离线</value></data>
+	<data name="在线" xml:space="preserve"><value>在线</value></data>
+	<data name="正在挂卡" xml:space="preserve"><value>正在挂卡</value></data>
 </root>

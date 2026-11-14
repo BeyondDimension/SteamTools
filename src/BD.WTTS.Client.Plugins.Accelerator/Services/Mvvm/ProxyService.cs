@@ -393,11 +393,13 @@ public sealed partial class ProxyService
             IApplication.Instance.UpdateMenuItems(Plugin.Instance.UniqueEnglishName, new TrayMenuItem
             {
                 Name = Plugin.Instance.Name,
+                NameResourceKey = nameof(Strings.CommunityFix),
                 Items = new List<TrayMenuItem>
                 {
                     new TrayMenuItem
                     {
-                        Name = "启动",
+                        Name = Strings.L10nAccel_122,
+                        NameResourceKey = nameof(Strings.L10nAccel_122),
                         //IsEnabled = new Binding()
                         //{
                         //    Source = ProxyService.Current,
@@ -411,7 +413,8 @@ public sealed partial class ProxyService
                     },
                     new TrayMenuItem
                     {
-                        Name = "停止",
+                        Name = Strings.L10nAccel_123,
+                        NameResourceKey = nameof(Strings.L10nAccel_123),
                         //IsEnabled = new Binding()
                         //{
                         //    Source = ProxyService.Current,

@@ -389,12 +389,12 @@ public sealed class ASFService : ReactiveObject
                 ZipFile.ExtractToDirectory(downloadSavingPath, downloadSavingDir);
                 ASFSettings.ArchiSteamFarmExePath.Value = Path.Combine(downloadSavingDir, "ArchiSteamFarm.exe");
                 progress?.Report(100);
-                Toast.Show(ToastIcon.Success, "ASF 下载成功");
+                Toast.Show(ToastIcon.Success, BD.WTTS.Client.Resources.Strings.L10nAsf_Text097);
             }
         }
         catch (Exception ex)
         {
-            Toast.LogAndShowT(ex, "ASF 文件下载异常");
+            Toast.LogAndShowT(ex, BD.WTTS.Client.Resources.Strings.L10nAsf_Text098);
         }
     }
 }

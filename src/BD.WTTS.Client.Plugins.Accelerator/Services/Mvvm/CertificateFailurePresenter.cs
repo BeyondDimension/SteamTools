@@ -17,10 +17,10 @@ internal static class CertificateFailurePresenter
         if (OperatingSystem.IsWindows() &&
             code is (StartProxyResultCode.KeyIsolationServiceDisabled or StartProxyResultCode.KeyIsolationServiceStopped))
         {
-            var state = code == StartProxyResultCode.KeyIsolationServiceDisabled ? "已禁用" : "未运行";
+            var state = code == StartProxyResultCode.KeyIsolationServiceDisabled ? Strings.L10nAccel_086 : Strings.L10nAccel_087;
             var answer = await MessageBox.ShowAsync(
-                $"无法生成或加载加速证书：Windows 的 CNG Key Isolation 服务{state}。\n\n点击确定打开 Windows 服务设置，请将该服务设为手动并启动，然后返回重试。",
-                "证书服务不可用", MessageBox.Button.OKCancel, MessageBox.Image.Warning);
+                string.Format(Strings.L10nAccel_088, state),
+                Strings.L10nAccel_089, MessageBox.Button.OKCancel, MessageBox.Image.Warning);
             if (answer.IsOK())
             {
                 try
@@ -36,8 +36,8 @@ internal static class CertificateFailurePresenter
         }
 
         var message = code == StartProxyResultCode.TrustRootCertificateFail
-            ? "加速证书未能安装或信任，请检查系统证书权限后重试。"
-            : "无法生成或加载加速证书，请检查证书文件和系统加密服务。详细错误已记录在加速服务日志中。";
-        await MessageBox.ShowAsync(message, "加速证书不可用", MessageBox.Button.OK, MessageBox.Image.Error);
+            ? Strings.L10nAccel_090
+            : Strings.L10nAccel_091;
+        await MessageBox.ShowAsync(message, Strings.L10nAccel_092, MessageBox.Button.OK, MessageBox.Image.Error);
     }
 }

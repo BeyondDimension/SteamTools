@@ -12,7 +12,7 @@
     x:CompileBindings="True"
     x:DataType="spp:SteamTradePageViewModel"
     mc:Ignorable="d">
-    <spp:ContentLoader CustomLoadingText="{Binding Path=Res.EnableAccelerationPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsLoading="{Binding IsLoading}">
+    <spp:ContentLoader CustomLoadingText="{x:Static spp:Strings.EnableAccelerationPrompt}" IsLoading="{Binding IsLoading}">
         <Panel>
             <!--  登录  -->
             <Grid RowDefinitions="*,Auto" RowSpacing="10">
@@ -38,18 +38,18 @@
                 <Grid Margin="0,4,0,8" RowDefinitions="Auto,Auto" RowSpacing="8">
                     <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
                         <CheckBox VerticalAlignment="Center" Command="{Binding SelectAllCommand}"
-                                  Content="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                  Content="{x:Static spp:Strings.SelectAll}"
                                   IsChecked="{Binding SelectedAll, Mode=OneWay}" />
                         <Button Grid.Column="1" Command="{Binding Refresh}"
-                                Content="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                Content="{x:Static spp:Strings.Refresh}" />
                         <Button Grid.Column="2" Command="{Binding Logout}"
-                                Content="{Binding Path=Res.Logout, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                Content="{x:Static spp:Strings.Logout}" />
                     </Grid>
                     <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="8">
                         <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding CancelAllTrade}"
-                                Content="{Binding Path=Res.BatchReject, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                Content="{x:Static spp:Strings.BatchReject}" />
                         <Button Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding ConfirmAllTrade}"
-                                Content="{Binding Path=Res.BatchPass, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                Content="{x:Static spp:Strings.BatchPass}" />
                     </Grid>
                 </Grid>
                 <TextBlock Grid.Row="1" Margin="0,0,0,8" Text="{Binding LoginStatus}" TextWrapping="Wrap"
@@ -59,7 +59,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         IsVisible="{Binding !!!Confirmations.Count}"
-                        Text="{Binding Path=Res.LocalAuth_AuthTrade_Null, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{x:Static spp:Strings.LocalAuth_AuthTrade_Null}" />
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                         <ItemsControl ItemsSource="{Binding Confirmations}">
                             <ItemsControl.ItemsPanel>

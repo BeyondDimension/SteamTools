@@ -217,7 +217,7 @@ public partial class AuthenticatorGeneralImportPageViewModel
             }
             if (importAuthenticatorValueDto == null)
             {
-                Toast.Show(ToastIcon.Info, "导入失败、请检查数据正确");
+                Toast.Show(ToastIcon.Info, Strings.L10nAuthIdle_Text080);
             }
             else
                 CurrentCode = importAuthenticatorValueDto.CurrentCode;

@@ -21,7 +21,7 @@ public class ProxyDomainGroupViewModel : ReactiveObject
         {
             if (EnableProxyDomainVMs == null)
             {
-                Toast.Show(ToastIcon.Warning, "没有可测试的项目");
+                Toast.Show(ToastIcon.Warning, Strings.L10nAccel_074);
                 return;
             }
 
@@ -41,7 +41,7 @@ public class ProxyDomainGroupViewModel : ReactiveObject
 
             if (EnableProxyDomainVMs.Count(x => x.DelayMillseconds == "Timeout") == EnableProxyDomainVMs.Count)
             {
-                Toast.Show(ToastIcon.Error, "当前测试项全部未通过，请检查网络链接状况，以及代理设置里的设置项是否正常。");
+                Toast.Show(ToastIcon.Error, Strings.L10nAccel_075);
             }
         });
     }

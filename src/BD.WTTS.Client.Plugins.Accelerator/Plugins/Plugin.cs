@@ -23,9 +23,13 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override string Name => Strings.CommunityFix;
 
+    public override string? NameResourceKey => nameof(Strings.CommunityFix);
+
     public sealed override string UniqueEnglishName => moduleName;
 
-    public sealed override string Description => "提供一些游戏相关网站服务的加速及脚本注入功能";
+    public sealed override string Description => Strings.L10nAccel_076;
+
+    public override string? DescriptionResourceKey => nameof(Strings.L10nAccel_076);
 
     protected sealed override string? AuthorOriginalString => null;
 
@@ -165,11 +169,8 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             //}
 #endif
 
-            //if (ResourceService.IsChineseSimplified)
-            //{
             if (Interlocked.CompareExchange(ref proxyInitialized, 1, 0) == 0)
                 await MainThread2.InvokeOnMainThreadAsync(ProxyService.Current.InitializeAsync);
-            //}
         }
     }
 

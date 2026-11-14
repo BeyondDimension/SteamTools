@@ -139,12 +139,19 @@ public sealed partial class CsgoVacRepairPageViewModel : ViewModelBase
     {
         if (!string.IsNullOrEmpty(msg))
         {
-            OutputString += msg + Environment.NewLine;
+            OutputString += (msg switch
+            {
+                "Info - ※>>> 执行修复启动器服务项" => Strings.L10nGames_RepairLauncherService,
+                "Info - ※ 恢复DEP默认启动设置" => Strings.L10nGames_RestoreDep,
+                "Info - ※>>> 重启 Steam" => Strings.L10nGames_RestartSteam,
+                "Info - ※ 执行完毕" => Strings.L10nGames_RepairComplete,
+                _ => msg,
+            }) + Environment.NewLine;
 
             if (msg.Contains("Add firewall exception failed for steamservice.exe", StringComparison.OrdinalIgnoreCase))
             {
-                OutputString += "info - ※ 修复 Steam Services 失败\n";
-                OutputString += "info - ※ 请检查您的防火墙设置(关闭 \"不允许例外\" 选项)再次尝试\n";
+                OutputString += Strings.L10nGames_RepairServicesFailed;
+                OutputString += Strings.L10nGames_RepairFirewall;
             }
         }
     }

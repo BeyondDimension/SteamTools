@@ -62,7 +62,7 @@ interface INSISBuildCommand : ICommand
 
         if (!File.Exists(nsiFilePath))
         {
-            Console.WriteLine($"找不到 NSIS-Build 文件，值：{nsiFilePath}");
+            Console.WriteLine(string.Format(ToolStrings.Get("MissingNsisBuild"), nsiFilePath));
             return;
         }
 

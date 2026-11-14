@@ -15,9 +15,13 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override string Name => Strings.GameList;
 
+    public override string? NameResourceKey => nameof(Strings.GameList);
+
     public sealed override string UniqueEnglishName => moduleName;
 
-    public sealed override string Description => "管理 Steam 库存游戏信息，Steam 启动时加载当前账号库存，未启动时加载 Steam 本地缓存数据";
+    public sealed override string Description => Strings.L10nGames_ListDescription;
+
+    public override string? DescriptionResourceKey => nameof(Strings.L10nGames_ListDescription);
 
     protected sealed override string? AuthorOriginalString => null;
 

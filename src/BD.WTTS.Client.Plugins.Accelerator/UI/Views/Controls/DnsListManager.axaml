@@ -2,34 +2,36 @@
 	x:Class="BD.WTTS.UI.Views.Controls.DnsListManager"
 	xmlns="https://github.com/avaloniaui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services"
+	xmlns:spp="https://steampp.net/ui"
 	xmlns:vm="using:BD.WTTS.UI.ViewModels"
 	x:DataType="vm:DnsListEditorViewModel"
 	x:CompileBindings="True">
 	<StackPanel MinWidth="280" MaxWidth="520" Spacing="12">
-		<TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="从上到下依次尝试。修改会立即保存，重启加速后生效。"
+		<TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{x:Static spp:Strings.L10nAccel_003}"
 		           TextWrapping="Wrap" />
 
 		<Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
 			<TextBox
 				x:Name="ServerAddress"
 				Text="{Binding Input, Mode=TwoWay}"
-				PlaceholderText="IPv4、IPv6 或 HTTPS DoH 地址"
-				AutomationProperties.Name="服务器地址">
+				PlaceholderText="{x:Static spp:Strings.L10nAccel_004}"
+				AutomationProperties.Name="{x:Static spp:Strings.L10nAccel_005}">
 				<TextBox.KeyBindings>
 					<KeyBinding Gesture="Enter" Command="{Binding AddCommand}" />
 				</TextBox.KeyBindings>
 			</TextBox>
-			<Button Grid.Column="1" Classes="accent" Command="{Binding AddCommand}" Content="添加" />
+			<Button Grid.Column="1" Classes="accent" Command="{Binding AddCommand}" Content="{x:Static spp:Strings.L10nAccel_006}" />
 		</Grid>
 
-		<Button HorizontalAlignment="Left" Command="{Binding AddSystemDefaultCommand}" Content="添加系统默认地址" />
+		<Button HorizontalAlignment="Left" Command="{Binding AddSystemDefaultCommand}" Content="{x:Static spp:Strings.L10nAccel_007}" />
 		<TextBlock
 			Foreground="{DynamicResource SystemFillColorCriticalBrush}"
 			IsVisible="{Binding Error, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
 			Text="{Binding Error}"
 			TextWrapping="Wrap" />
 
-		<TextBlock FontWeight="SemiBold" Text="服务器顺序" />
+		<TextBlock FontWeight="SemiBold" Text="{x:Static spp:Strings.L10nAccel_008}" />
 		<Border
 			Grid.Row="1"
 			Padding="8,4"
@@ -45,7 +47,7 @@
 				SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
 				ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 				ScrollViewer.VerticalScrollBarVisibility="Auto"
-				AutomationProperties.Name="服务器顺序">
+				AutomationProperties.Name="{x:Static spp:Strings.L10nAccel_008}">
 				<ListBox.Styles>
 					<Style Selector="ListBoxItem">
 						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -59,12 +61,12 @@
 			</ListBox>
 		</Border>
 		<WrapPanel>
-			<Button Margin="0,0,8,4" Command="{Binding MoveUpCommand}" Content="上移" />
-			<Button Margin="0,0,8,4" Command="{Binding MoveDownCommand}" Content="下移" />
-			<Button Margin="0,0,8,4" Command="{Binding RemoveCommand}" Content="删除" />
+			<Button Margin="0,0,8,4" Command="{Binding MoveUpCommand}" Content="{x:Static spp:Strings.MoveUp}" />
+			<Button Margin="0,0,8,4" Command="{Binding MoveDownCommand}" Content="{x:Static spp:Strings.MoveDown}" />
+			<Button Margin="0,0,8,4" Command="{Binding RemoveCommand}" Content="{x:Static spp:Strings.Delete}" />
 		</WrapPanel>
 
 		<TextBlock FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-		           Text="删除全部时恢复默认列表。DoH 请使用 RFC 8484 二进制端点（通常为 /dns-query）" TextWrapping="Wrap" />
+		           Text="{x:Static spp:Strings.L10nAccel_009}" TextWrapping="Wrap" />
 	</StackPanel>
 </UserControl>

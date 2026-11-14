@@ -43,7 +43,7 @@ public sealed partial class IdleCardPageViewModel : TabItemViewModel
 
     public bool CanStartIdle => !IsPageLoading && ViewState != 0;
 
-    public string PageLoadingText => IsCheckingLogin ? "正在检测 Steam 登录状态…" : "正在加载徽章数据…";
+    public string PageLoadingText => IsCheckingLogin ? Strings.L10nAuthIdle_Text108 : Strings.L10nAuthIdle_Text109;
 
     [Reactive]
     public bool RunLoaingState { get; set; }

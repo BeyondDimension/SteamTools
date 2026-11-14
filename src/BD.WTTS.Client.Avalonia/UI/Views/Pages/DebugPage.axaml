@@ -126,7 +126,7 @@
                 <TextBox
                     Name="CommandTextBox"
                     Grid.Row="1"
-                    PlaceholderText="{Binding Path=Res.Debug_InstructionPlaceholder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    PlaceholderText="{x:Static spp:Strings.Debug_InstructionPlaceholder}" />
             </Grid>
         </Border>
 

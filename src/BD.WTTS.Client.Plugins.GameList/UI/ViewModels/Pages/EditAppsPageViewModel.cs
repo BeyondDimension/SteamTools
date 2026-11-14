@@ -68,13 +68,13 @@ public sealed class EditAppsPageViewModel : ViewModelBase
 
         if (!SteamEditedApps.Any())
         {
-            Toast.Show(ToastIcon.Warning, "没有可导出的已修改游戏数据。");
+            Toast.Show(ToastIcon.Warning, Strings.L10nGames_ExportEmpty);
             return;
         }
 
         var result = await FilePicker2.SaveAsync(new PickOptions
         {
-            PickerTitle = "导出编辑游戏数据备份",
+            PickerTitle = Strings.L10nGames_ExportTitle,
             InitialFileName = $"steam-edited-apps-{DateTime.Now:yyyyMMddHHmmss}.stmbak",
         });
 
@@ -109,7 +109,7 @@ public sealed class EditAppsPageViewModel : ViewModelBase
 
             if (!exportData.ModifiedApps.Any())
             {
-                Toast.Show(ToastIcon.Error, "导出失败：没有可序列化的修改数据。");
+                Toast.Show(ToastIcon.Error, Strings.L10nGames_ExportNoData);
                 return;
             }
 
@@ -117,11 +117,11 @@ public sealed class EditAppsPageViewModel : ViewModelBase
             await stream.WriteAsync(exportData.Bytes, 0, exportData.Bytes.Length);
             await stream.FlushAsync();
 
-            Toast.Show(ToastIcon.Success, $"导出成功，共 {exportData.ModifiedApps.Count} 条修改数据。");
+            Toast.Show(ToastIcon.Success, string.Format(Strings.L10nGames_ExportSuccess, exportData.ModifiedApps.Count));
         }
         catch
         {
-            Toast.Show(ToastIcon.Error, "导出失败，请检查文件权限后重试。");
+            Toast.Show(ToastIcon.Error, Strings.L10nGames_ExportFailed);
         }
         finally
         {
@@ -133,7 +133,7 @@ public sealed class EditAppsPageViewModel : ViewModelBase
     {
         var file = await FilePicker2.PickAsync(new PickOptions
         {
-            PickerTitle = "导入编辑游戏数据备份",
+            PickerTitle = Strings.L10nGames_ImportTitle,
         });
 
         if (file == null)
@@ -147,23 +147,23 @@ public sealed class EditAppsPageViewModel : ViewModelBase
             var modifiedApps = Serializable.DMP<List<ModifiedApp>>(stream);
             if (!modifiedApps.Any_Nullable())
             {
-                Toast.Show(ToastIcon.Warning, "导入文件中没有可还原的数据。");
+                Toast.Show(ToastIcon.Warning, Strings.L10nGames_ImportEmpty);
                 return;
             }
 
             var applyCount = SteamConnectService.Current.ApplyModifiedApps(modifiedApps);
             if (applyCount <= 0)
             {
-                Toast.Show(ToastIcon.Warning, "导入完成，但未匹配到可还原的游戏。\n请确认账号或游戏库与备份来源一致。");
+                Toast.Show(ToastIcon.Warning, Strings.L10nGames_ImportNoMatches);
                 return;
             }
 
             this.RaisePropertyChanged(nameof(IsSteamEditedAppsEmpty));
-            Toast.Show(ToastIcon.Success, $"导入成功，已还原 {applyCount} 个游戏的修改数据。");
+            Toast.Show(ToastIcon.Success, string.Format(Strings.L10nGames_ImportSuccess, applyCount));
         }
         catch
         {
-            Toast.Show(ToastIcon.Error, "导入失败，文件格式可能不正确。");
+            Toast.Show(ToastIcon.Error, Strings.L10nGames_ImportFailed);
         }
     }
 

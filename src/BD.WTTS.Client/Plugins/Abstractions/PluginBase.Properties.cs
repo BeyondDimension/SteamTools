@@ -11,6 +11,8 @@ partial class PluginBase
 
     public abstract string Name { get; }
 
+    public virtual string? NameResourceKey => null;
+
     public abstract string UniqueEnglishName { get; }
 
     public abstract string Version { get; }
@@ -69,6 +71,8 @@ partial class PluginBase
         $"https://steampp.net/store/plugins/authors/{WebUtility.UrlEncode(Author)}";
 
     public virtual string? Description { get; }
+
+    public virtual string? DescriptionResourceKey => null;
 
     public abstract string AssemblyLocation { get; }
 

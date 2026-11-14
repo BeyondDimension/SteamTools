@@ -484,7 +484,7 @@ Failed to initialize FileSystem, access denied.
                 return 0;
 
             // https://docs.microsoft.com/zh-cn/archive/msdn-magazine/2019/march/net-parse-the-command-line-with-system-commandline
-            var rootCommand = new RootCommand("命令行工具(Command Line Tools/CLT)");
+            var rootCommand = new RootCommand(Strings.L10nCore_CommandLineTools);
             ConfigureCommands(rootCommand);
 
             var exitCode = rootCommand.Parse(args).InvokeAsync().GetAwaiter().GetResult();

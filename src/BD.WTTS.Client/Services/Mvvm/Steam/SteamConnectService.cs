@@ -308,7 +308,7 @@ public sealed class SteamConnectService
                     RuningSteamApps.TryAdd(item.Key, new SteamApp { AppId = item.Key, Name = item.Value, });
             }
 
-            Toast.Show(ToastIcon.Success, $"已自动后台运行挂时长 {aFKAppList.Count} 个游戏");
+            Toast.Show(ToastIcon.Success, string.Format(Strings.L10nCore_SteamIdleStarted, aFKAppList.Count));
             Task2.InBackground(() =>
             {
                 foreach (var item in RuningSteamApps.Values)

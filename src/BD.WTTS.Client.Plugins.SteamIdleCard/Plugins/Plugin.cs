@@ -14,9 +14,13 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override string Name => Strings.SteamIdleCard;
 
+    public override string? NameResourceKey => nameof(Strings.SteamIdleCard);
+
     public sealed override string UniqueEnglishName => moduleName;
 
-    public sealed override string Description => "Steam 游戏快速挂卡，需要启动 Steam 客户端并登录对应账号，支持多种算法逻辑挂卡，掉卡速度更快。";
+    public sealed override string Description => Strings.L10nAuthIdle_Text033;
+
+    public override string? DescriptionResourceKey => nameof(Strings.L10nAuthIdle_Text033);
 
     protected sealed override string? AuthorOriginalString => null;
 

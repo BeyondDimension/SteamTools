@@ -8,12 +8,12 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    Title="Steam 下载监控"
+    Title="{x:Static spp:Strings.L10nGames_DownloadTitle}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:DownloadPageViewModel"
-    Description="监听 Steam 下载任务并提供下载安装完成后执行睡眠、休眠、关机功能"
+    Description="{x:Static spp:Strings.L10nGames_DownloadDescription}"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
@@ -25,22 +25,15 @@
                 IsChecked="{Binding Source={x:Static s:SteamConnectService.Current},
                                               Path=IsWatchSteamDownloading,
                                               Mode=TwoWay}"
-                OffContent="{Binding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,
-                                               Mode=OneWay,
-                                               Source={x:Static s:ResourceService.Current}}"
-                OnContent="{Binding Path=Res.GameList_SteamShutdown_EnableWatchDownloading,
-                                              Mode=OneWay,
-                                              Source={x:Static s:ResourceService.Current}}" />-->
+                OffContent="{x:Static spp:Strings.GameList_SteamShutdown_EnableWatchDownloading}"
+                OnContent="{x:Static spp:Strings.GameList_SteamShutdown_EnableWatchDownloading}" />-->
 
-            <ToggleSplitButton IsChecked="{Binding Source={x:Static s:SteamConnectService.Current}, Path=IsWatchSteamDownloading, Mode=TwoWay}" ToolTip.Tip="启用此按钮才会启动监听 Steam 下载数据并在下载完时执行对应操作！">
+            <ToggleSplitButton IsChecked="{Binding Source={x:Static s:SteamConnectService.Current}, Path=IsWatchSteamDownloading, Mode=TwoWay}" ToolTip.Tip="{x:Static spp:Strings.L10nGames_DownloadWatchTip}">
                 <ToggleSplitButton.Content>
                     <TextBlock>
                         <TextBlock.Text>
                             <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                                <CompiledBindingExtension
-                                    Mode="OneWay"
-                                    Path="Res.GameList_SteamShutdown_DownloadComplete"
-                                    Source="{x:Static s:ResourceService.Current}}" />
+                                <Binding Mode="OneTime" Source="{x:Static spp:Strings.GameList_SteamShutdown_DownloadComplete}" />
                                 <CompiledBindingExtension
                                     Converter="{StaticResource EnumLocalizationNameConverter}"
                                     Mode="OneWay"
@@ -79,13 +72,13 @@
                 DockPanel.Dock="Right"
                 IsHitTestVisible="False" />
 
-            <CheckBox Content="{Binding Path=Res.SelectAll, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding IsAllCheck, Mode=TwoWay}" />
+            <CheckBox Content="{x:Static spp:Strings.SelectAll}" IsChecked="{Binding IsAllCheck, Mode=TwoWay}" />
         </StackPanel>
     </spp:PageBase.ActionContent>
     <spp:ContentLoader
         IsLoading="false"
         IsShowNoResultText="{Binding !!!DownloadingApps.Count, Mode=OneWay}"
-        NoResultMessage="{Binding Path=Res.GameList_SteamShutdown_AppsEmpty, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        NoResultMessage="{x:Static spp:Strings.GameList_SteamShutdown_AppsEmpty}">
         <ItemsControl ItemsSource="{Binding DownloadingApps}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -109,7 +102,7 @@
                                 <WrapPanel>
                                     <TextBlock
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                        Text="{Binding Path=Res.Downloaded, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                        Text="{x:Static spp:Strings.Downloaded}"
                                         Theme="{StaticResource CaptionTextBlockStyle}" />
                                     <TextBlock
                                         Margin="5,0,0,0"
@@ -141,7 +134,7 @@
                                 <WrapPanel>
                                     <TextBlock
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                        Text="{Binding Path=Res.Installed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                        Text="{x:Static spp:Strings.Installed}"
                                         Theme="{StaticResource CaptionTextBlockStyle}" />
                                     <TextBlock
                                         Margin="5,0,0,0"

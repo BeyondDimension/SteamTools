@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="DirectoryDeleted" xml:space="preserve"><value>Directory deleted: </value></data>
+  <data name="PublishingMain" xml:space="preserve"><value>Publishing [main project]</value></data>
+  <data name="PublishedMain" xml:space="preserve"><value>Published [main project] successfully</value></data>
+  <data name="ValidatingAvalonia" xml:space="preserve"><value>Validating [Avalonia.Base.dll version must be 11+]</value></data>
+  <data name="LinuxIcon" xml:space="preserve"><value>Linux requires Ico to import the system icon</value></data>
+  <data name="LinuxScripts" xml:space="preserve"><value>Copying Linux startup, environment check, and uninstall scripts</value></data>
+  <data name="ValidatedAvalonia" xml:space="preserve"><value>Validated [Avalonia.Base.dll version must be 11+] successfully</value></data>
+  <data name="RemovedCreateDump" xml:space="preserve"><value>Deleted CreateDump</value></data>
+  <data name="MoveNativeLibraries" xml:space="preserve"><value>Moving native libraries</value></data>
+  <data name="ProcessedJson" xml:space="preserve"><value>Processed JSON files</value></data>
+  <data name="PublishingAppHost" xml:space="preserve"><value>Publishing [AppHost]</value></data>
+  <data name="PublishedAppHost" xml:space="preserve"><value>Published [AppHost] successfully</value></data>
+  <data name="PublishingPlugins" xml:space="preserve"><value>Publishing [plugins]</value></data>
+  <data name="PublishedPlugins" xml:space="preserve"><value>Published [plugins] successfully</value></data>
+  <data name="CopyingRuntime" xml:space="preserve"><value>Copying runtime</value></data>
+  <data name="CopiedRuntime" xml:space="preserve"><value>Finished copying runtime</value></data>
+  <data name="RemovedCache" xml:space="preserve"><value>Deleted AppData/Cache</value></data>
+  <data name="ScanningFiles" xml:space="preserve"><value>Scanning files</value></data>
+  <data name="ScannedFiles" xml:space="preserve"><value>Finished scanning files</value></data>
+  <data name="HashingFiles" xml:space="preserve"><value>Calculating file hashes</value></data>
+  <data name="HashedFiles" xml:space="preserve"><value>Finished calculating file hashes</value></data>
+  <data name="SigningCount" xml:space="preserve"><value>Digitally signing files, file count: </value></data>
+  <data name="GeneratingMsix" xml:space="preserve"><value>Generating [MSIX package]</value></data>
+  <data name="GeneratedMsixSize" xml:space="preserve"><value>Generated [MSIX package], file size: </value></data>
+  <data name="PathSuffix" xml:space="preserve"><value>, path: </value></data>
+  <data name="CreatingArchive" xml:space="preserve"><value>Creating [archive]</value></data>
+  <data name="CreatedArchiveSize" xml:space="preserve"><value>Created [archive] successfully, file size: </value></data>
+  <data name="GeneratedManifestSize" xml:space="preserve"><value>Generated published file manifest, file size: </value></data>
+  <data name="GeneratingArchive" xml:space="preserve"><value>Generating archive: {0}</value></data>
+  <data name="GeneratedArchive" xml:space="preserve"><value>Archive generated: {0}</value></data>
+  <data name="MissingNsisBuild" xml:space="preserve"><value>NSIS-Build file not found, value: {0}</value></data>
+  <data name="PatchTypeHelp" xml:space="preserve"><value>type 0:Create 1:Apply 2:UploadFile 3:Generate a patch from the supplied version number</value></data>
+  <data name="GeneratingPatch" xml:space="preserve"><value>Generating: {0} -&gt; {1} platform:{2}</value></data>
+  <data name="OldFileCount" xml:space="preserve"><value>Old version file count: {0}</value></data>
+  <data name="NewFileCount" xml:space="preserve"><value>New version file count: {0}</value></data>
+  <data name="DeletedFileCount" xml:space="preserve"><value>Files to delete: {0}</value></data>
+  <data name="ChangedFileCount" xml:space="preserve"><value>Changed file count: {0}</value></data>
+  <data name="Compressing" xml:space="preserve"><value>Compressing</value></data>
+  <data name="Finished" xml:space="preserve"><value>Finished</value></data>
+  <data name="DirectoryNotFound" xml:space="preserve"><value>Directory does not exist</value></data>
+</root>

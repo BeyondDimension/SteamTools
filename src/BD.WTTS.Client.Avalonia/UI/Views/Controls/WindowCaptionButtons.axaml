@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     WindowDecorationProperties.ElementRole="User">
     <UserControl.Resources>
@@ -45,10 +46,10 @@
     </UserControl.Resources>
     <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
         <Button Name="MinimizeButton" Content="&#xE921;" Theme="{StaticResource CaptionButton}"
-                ToolTip.Tip="{Binding Res.Minimize, Source={x:Static s:ResourceService.Current}}" />
+                ToolTip.Tip="{x:Static spp:Strings.Minimize}" />
         <Button Name="MaximizeButton" Content="&#xE922;" Theme="{StaticResource CaptionButton}"
-                ToolTip.Tip="{Binding Res.Maximize, Source={x:Static s:ResourceService.Current}}" />
+                ToolTip.Tip="{x:Static spp:Strings.Maximize}" />
         <Button Name="CloseButton" Classes="Close" Theme="{StaticResource CaptionCloseButton}"
-                ToolTip.Tip="{Binding Res.Close, Source={x:Static s:ResourceService.Current}}" />
+                ToolTip.Tip="{x:Static spp:Strings.Close}" />
     </StackPanel>
 </UserControl>

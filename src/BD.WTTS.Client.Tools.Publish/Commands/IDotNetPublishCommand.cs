@@ -227,22 +227,22 @@ interface IDotNetPublishCommand : ICommand
                 //}
                 DirTryDelete(rootPublishDir);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.Write("已删除目录：");
+                Console.Write(ToolStrings.Get("DirectoryDeleted"));
                 Console.WriteLine(rootPublishDir);
                 ResetConsoleColor();
 
                 // 发布主体
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始发布【主项目】");
+                Console.WriteLine(ToolStrings.Get("PublishingMain"));
                 ResetConsoleColor();
                 ProcessHelper.StartAndWaitForExit(psi);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("发布成功【主项目】");
+                Console.WriteLine(ToolStrings.Get("PublishedMain"));
                 ResetConsoleColor();
 
                 // 验证 Avalonia.Base.dll 版本号必须为 11+
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始验证【Avalonia.Base.dll 版本号必须为 11+】");
+                Console.WriteLine(ToolStrings.Get("ValidatingAvalonia"));
                 ResetConsoleColor();
                 if (arg.SingleFile.HasValue && !arg.SingleFile.Value)
                 {
@@ -258,7 +258,7 @@ interface IDotNetPublishCommand : ICommand
 
                 if (info.Platform == Platform.Linux)
                 {
-                    Console.WriteLine("Linux 需要 Ico 导入系统图标");
+                    Console.WriteLine(ToolStrings.Get("LinuxIcon"));
                     var ico_path = Path.Combine(ProjectUtils.ProjPath, "res", "icons", "app", "v3", "Logo_512.png");
                     var save_dir_path = Path.Combine(rootPublishDir, "Icons");
                     if (File.Exists(ico_path))
@@ -267,20 +267,25 @@ interface IDotNetPublishCommand : ICommand
                         // 不能使用下划线
                         File.Copy(ico_path, Path.Combine(save_dir_path, "Watt-Toolkit.png"), true);
                     }
-                    Console.WriteLine("Linux 复制启动 环境检查 卸载脚本");
+                    Console.WriteLine(ToolStrings.Get("LinuxScripts"));
                     var script_path = Path.Combine(rootPublishDir, "..", "ShellScript", "Linux");//Path.Combine(ProjectUtils.ProjPath, "build", "linux");
                     CopyDirectory(script_path, Path.Combine(rootPublishDir, "script"), true);
+                    var localizedScripts = Path.Combine(ProjectUtils.ProjPath, "build", "linux");
+                    var destinationScripts = Path.Combine(rootPublishDir, "script");
+                    foreach (var script in new[] { "Steam++.sh", "environment_check.sh", "offline_init.sh", "online_install.sh", "uninstall.sh" })
+                        File.Copy(Path.Combine(localizedScripts, script), Path.Combine(destinationScripts, script), true);
+                    CopyDirectory(Path.Combine(localizedScripts, "locale"), Path.Combine(destinationScripts, "locale"), true);
                     File.Move(Path.Combine(rootPublishDir, "script", "Steam++.sh"), Path.Combine(rootPublishDir, "Steam++.sh"));
                 }
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("验证成功【Avalonia.Base.dll 版本号必须为 11+】");
+                Console.WriteLine(ToolStrings.Get("ValidatedAvalonia"));
                 ResetConsoleColor();
 
                 // 删除 CreateDump
                 RemoveCreateDump(publishDir);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("已删除 CreateDump");
+                Console.WriteLine(ToolStrings.Get("RemovedCreateDump"));
                 ResetConsoleColor();
 
                 // 移动本机库
@@ -295,25 +300,25 @@ interface IDotNetPublishCommand : ICommand
                     }
                 }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("移动本机库");
+                Console.WriteLine(ToolStrings.Get("MoveNativeLibraries"));
                 ResetConsoleColor();
 
                 // 处理 json 文件
                 var runtimeconfigjsonpath = Path.Combine(publishDir, runtimeconfigjsonfilename);
                 ILaunchAppTestCommand.HandlerJsonFiles(runtimeconfigjsonpath, info.Platform);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("已处理 json 文件");
+                Console.WriteLine(ToolStrings.Get("ProcessedJson"));
                 ResetConsoleColor();
 
                 if (isWindows)
                 {
                     // 发布 apphost
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                    Console.WriteLine("开始发布【AppHost】");
+                    Console.WriteLine(ToolStrings.Get("PublishingAppHost"));
                     ResetConsoleColor();
                     PublishAppHost(publishDir, info.Platform, debug);
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                    Console.WriteLine("发布成功【AppHost】");
+                    Console.WriteLine(ToolStrings.Get("PublishedAppHost"));
                     ResetConsoleColor();
 
                     CopyWindowsDlls(publishDir);
@@ -321,20 +326,20 @@ interface IDotNetPublishCommand : ICommand
 
                 // 发布插件
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始发布【插件】");
+                Console.WriteLine(ToolStrings.Get("PublishingPlugins"));
                 ResetConsoleColor();
                 PublishPlugins(debug, info.Platform, info.Architecture, publishDir, arg.Configuration, arg.Framework);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("发布成功【插件】");
+                Console.WriteLine(ToolStrings.Get("PublishedPlugins"));
                 ResetConsoleColor();
 
                 // 复制运行时
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始复制运行时");
+                Console.WriteLine(ToolStrings.Get("CopyingRuntime"));
                 ResetConsoleColor();
                 CopyRuntime(rootPublishDir, info.Platform, isCopyRuntime, info.Architecture);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("完成复制运行时");
+                Console.WriteLine(ToolStrings.Get("CopiedRuntime"));
                 ResetConsoleColor();
 
                 var appPublish = new AppPublishInfo()
@@ -347,21 +352,21 @@ interface IDotNetPublishCommand : ICommand
                 IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_AppData));
                 IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_Cache));
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("已删除 AppData/Cache");
+                Console.WriteLine(ToolStrings.Get("RemovedCache"));
                 ResetConsoleColor();
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始扫描文件");
+                Console.WriteLine(ToolStrings.Get("ScanningFiles"));
                 ResetConsoleColor();
                 IScanPublicDirectoryCommand.ScanPathCore(appPublish.DirectoryPath,
                     appPublish.Files,
                     ignoreRootDirNames: ignoreDirNames);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("完成扫描文件");
+                Console.WriteLine(ToolStrings.Get("ScannedFiles"));
                 ResetConsoleColor();
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始文件计算哈希值");
+                Console.WriteLine(ToolStrings.Get("HashingFiles"));
                 ResetConsoleColor();
                 if (sha256)
                 {
@@ -380,7 +385,7 @@ interface IDotNetPublishCommand : ICommand
                     }
                 }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("完成文件计算哈希值");
+                Console.WriteLine(ToolStrings.Get("HashedFiles"));
                 ResetConsoleColor();
 
                 if (OperatingSystem.IsWindows() && isWindows)
@@ -412,7 +417,7 @@ interface IDotNetPublishCommand : ICommand
                     if (toBeSignedFilePaths.Count != 0)
                     {
                         SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                        Console.Write("正在进行数字签名，文件数量：");
+                        Console.Write(ToolStrings.Get("SigningCount"));
                         Console.WriteLine(toBeSignedFilePaths.Count);
                         ResetConsoleColor();
                         var fileNames = string.Join(' ', toBeSignedFilePaths.Select(x =>
@@ -451,7 +456,7 @@ $"""
                     }
 
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                    Console.WriteLine("开始生成【MSIX 包】");
+                    Console.WriteLine(ToolStrings.Get("GeneratingMsix"));
                     ResetConsoleColor();
                     // 生成清单文件
                     MSIXHelper.MakeAppx.GenerateAppxManifestXml(rootPublishDir, AppVersion4, info.Architecture);
@@ -491,15 +496,15 @@ $"""
                     appPublish.SingleFile.Add(CloudFileType.MsixBundle, msixInfo);
 
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                    Console.Write("已生成【MSIX 包】，文件大小：");
+                    Console.Write(ToolStrings.Get("GeneratedMsixSize"));
                     Console.Write(IOPath.GetDisplayFileSizeString(msixInfo.Length));
-                    Console.Write("，路径：");
+                    Console.Write(ToolStrings.Get("PathSuffix"));
                     Console.WriteLine(msixFilePath);
                     ResetConsoleColor();
                 }
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始创建【压缩包】");
+                Console.WriteLine(ToolStrings.Get("CreatingArchive"));
                 ResetConsoleColor();
                 string? packPath = null;
                 string GetPackPathWithTryDelete(string fileEx)
@@ -566,7 +571,7 @@ $"""
                     ICompressedPackageCommand.CreateZipPack(GetPackPathWithTryDelete(".stmupload.zip"), stmUploads);
                 }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.Write("创建成功【压缩包】，文件大小：");
+                Console.Write(ToolStrings.Get("CreatedArchiveSize"));
                 if (packPath != null)
                 {
                     Console.Write(IOPath.GetDisplayFileSizeString(new FileInfo(packPath).Length));
@@ -575,7 +580,7 @@ $"""
                 {
                     Console.Write(0);
                 }
-                Console.Write("，路径：");
+                Console.Write(ToolStrings.Get("PathSuffix"));
                 Console.WriteLine(packPath);
                 ResetConsoleColor();
 
@@ -590,9 +595,9 @@ $"""
                 jsonFileStream.SetLength(jsonFileStream.Position);
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.Write("发布文件信息清单已生成，文件大小：");
+                Console.Write(ToolStrings.Get("GeneratedManifestSize"));
                 Console.Write(IOPath.GetDisplayFileSizeString(appPublish.Files.Sum(x => x.Length)));
-                Console.Write("，路径：");
+                Console.Write(ToolStrings.Get("PathSuffix"));
                 Console.WriteLine(jsonFilePath);
                 ResetConsoleColor();
             }

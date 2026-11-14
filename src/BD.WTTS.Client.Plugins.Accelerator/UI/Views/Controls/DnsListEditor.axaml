@@ -2,6 +2,8 @@
     x:Class="BD.WTTS.UI.Views.Controls.DnsListEditor"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:vm="using:BD.WTTS.UI.ViewModels"
     x:DataType="vm:DnsListEditorViewModel"
@@ -9,13 +11,13 @@
     <Grid RowDefinitions="Auto,Auto" RowSpacing="10">
         <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
             <StackPanel VerticalAlignment="Center" Spacing="3">
-                <TextBlock FontWeight="SemiBold" Text="DNS / DoH 服务器" />
-                <TextBlock FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="从上到下依次尝试" />
+                <TextBlock FontWeight="SemiBold" Text="{x:Static spp:Strings.L10nAccel_036}" />
+                <TextBlock FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{x:Static spp:Strings.L10nAccel_037}" />
             </StackPanel>
-            <Button Grid.Column="1" Command="{Binding OpenManagerCommand}" AutomationProperties.Name="添加或管理 DNS 服务器">
+            <Button Grid.Column="1" Command="{Binding OpenManagerCommand}" AutomationProperties.Name="{x:Static spp:Strings.L10nAccel_038}">
                 <StackPanel Orientation="Horizontal" Spacing="6">
                     <ui:FASymbolIcon Symbol="Add" />
-                    <TextBlock Text="添加 / 管理" />
+                    <TextBlock Text="{x:Static spp:Strings.L10nAccel_039}" />
                 </StackPanel>
             </Button>
         </Grid>
@@ -31,7 +33,7 @@
                 MaxHeight="150"
                 HorizontalScrollBarVisibility="Disabled"
                 VerticalScrollBarVisibility="Auto"
-                AutomationProperties.Name="已配置的 DNS 服务器">
+                AutomationProperties.Name="{x:Static spp:Strings.L10nAccel_040}">
                 <ItemsControl ItemsSource="{Binding Servers}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="x:String">

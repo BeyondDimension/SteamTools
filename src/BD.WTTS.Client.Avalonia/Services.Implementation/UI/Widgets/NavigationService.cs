@@ -60,6 +60,22 @@ public sealed class NavigationService : INavigationService
         }
     }
 
+    internal void ResetFrame()
+    {
+        if (_frame != null)
+            _frame.NavigationFailed -= OnNavigationFailed;
+        _frame = null;
+        _overlayHost?.Children.Clear();
+        _overlayHost = null;
+        pendingNavigation = null;
+    }
+
+    internal void DetachFrame(Frame frame)
+    {
+        if (ReferenceEquals(_frame, frame))
+            ResetFrame();
+    }
+
     static void OnNavigationFailed(object? sender, FluentAvalonia.UI.Navigation.FANavigationFailedEventArgs e)
     {
         Log.Error(nameof(NavigationService), e.Exception, "Page navigation failed.");

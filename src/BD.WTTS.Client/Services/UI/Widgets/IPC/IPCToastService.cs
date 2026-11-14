@@ -16,6 +16,8 @@ public interface IPCToastService
 
         [Obsolete]
         CommunityFix_OnRunCatch,
+
+        CommunityFix_DnsPollutionResponse,
     }
 
     /// <summary>
@@ -48,6 +50,8 @@ public interface IPCToastService
         /// </summary>
         Error,
     }
+
+    Task<string?> GetTextAsync(ToastText text);
 
     void Show(ToastIcon icon, ToastText text, int? duration = null);
 

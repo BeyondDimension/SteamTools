@@ -11,7 +11,13 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
     {
         SelectLanguage = ResourceService.GetSelectLanguage();
         this.WhenValueChanged(x => x.SelectLanguage, false)
-              .Subscribe(x => UISettings.Language.Value = x.Key);
+              .Subscribe(x =>
+              {
+                  if (string.Equals(UISettings.Language.Value, x.Key, StringComparison.OrdinalIgnoreCase))
+                      return;
+                  UISettings.Language.Value = x.Key;
+                  Toast.Show(ToastIcon.Info, AppResources.Settings_Language_RestartRequired);
+              });
 
         OpenFolder_Click = ReactiveCommand.Create<string>(OpenFolder);
 
@@ -107,7 +113,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
             InputType = TextBoxWindowViewModel.TextBoxInputType.TextBox,
             Value = SteamSettings.SteamStratParameter.Value,
         };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(vm, AppResources.Edit + " " + AppResources.Settings_Steam_SteamStratParameter, subHeader: "可添加自定义的参数来启动 Steam", isDialog: false, isCancelButton: true))
+        if (await IWindowManager.Instance.ShowTaskDialogAsync(vm, AppResources.Edit + " " + AppResources.Settings_Steam_SteamStratParameter, subHeader: Strings.L10nCore_SteamLaunchParametersHint, isDialog: false, isCancelButton: true))
         {
             SteamSettings.SteamStratParameter.Value = vm.Value;
         }

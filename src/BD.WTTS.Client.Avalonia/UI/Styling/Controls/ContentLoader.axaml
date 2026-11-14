@@ -41,7 +41,7 @@
                         </Border>
                         <TextBlock
                             HorizontalAlignment="Center"
-                            Text="{Binding Path=Res.GameList_IsLoading, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Text="{x:Static spp:Strings.GameList_IsLoading}"
                             Theme="{StaticResource SubtitleTextBlockStyle}" />
                         <TextBlock
                             HorizontalAlignment="Center"

@@ -30,6 +30,7 @@ public partial class BotPageViewModel : ViewModelBase
           .Sort(SortExpressionComparer<BotViewModel>.Descending(x => x.Bot.BotName))
           .Bind(out _SteamBots)
           .Subscribe();
+
     }
 
     public async Task SelectBotFiles_Click()

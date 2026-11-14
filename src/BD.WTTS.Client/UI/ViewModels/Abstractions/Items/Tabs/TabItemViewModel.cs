@@ -1,6 +1,4 @@
 // ReSharper disable once CheckNamespace
-using BD.WTTS.Client.Resources;
-using System.Resources;
 
 namespace BD.WTTS.UI.ViewModels.Abstractions;
 
@@ -28,14 +26,6 @@ public abstract partial class TabItemViewModel : ItemViewModel, IReadOnlyName
     #endregion
 
     public virtual Type? PageType { get; init; }
-
-    protected TabItemViewModel() : base()
-    {
-        ResourceService.Subscribe(() =>
-        {
-            this.RaisePropertyChanged(nameof(Name));
-        }).AddTo(this);
-    }
 
     public virtual void Initialize()
     {

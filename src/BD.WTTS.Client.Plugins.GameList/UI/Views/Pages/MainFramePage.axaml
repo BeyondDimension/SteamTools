@@ -30,22 +30,22 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="{Binding Path=Res.Library, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <TabStripItem Content="{x:Static spp:Strings.Library}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:GameListPage" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="下载">
+            <TabStripItem Content="{x:Static spp:Strings.Download}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:DownloadPage" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="挂机">
+            <TabStripItem Content="{x:Static spp:Strings.OnHook}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:IdleAppsPage" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="编辑">
+            <TabStripItem Content="{x:Static spp:Strings.Edit}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:EditAppsPage" />
                 </TabStripItem.Tag>

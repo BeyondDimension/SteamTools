@@ -17,7 +17,7 @@ interface IGenerateBsPatch : ICommand
 
     static Command ICommand.GetCommand()
     {
-        var type = CommandCompat.GetOption<int>("--type", "type 0:Create 1:Apply 2:UploadFile 3:传入版本号生成补丁");
+        var type = CommandCompat.GetOption<int>("--type", ToolStrings.Get("PatchTypeHelp"));
         //旧文件
         var oldFile = CommandCompat.GetOption<string>("--old", "old file");
         //新文件
@@ -325,7 +325,7 @@ interface IGenerateBsPatch : ICommand
         {
             pathFileInfo.Directory?.Create();
         }
-        Console.WriteLine($"开始生成: {oldVer} -> {newVer} platform:{platform}");
+        Console.WriteLine(string.Format(ToolStrings.Get("GeneratingPatch"), oldVer, newVer, platform));
         await ContrastVersion(oldAppVerFileList, newAppVerFileList, pathSavePath);
 
     }
@@ -374,8 +374,8 @@ interface IGenerateBsPatch : ICommand
     {
         var oldFiles = oldFileList.Files.Where(x => !x.RelativePath.StartsWith("dotnet\\"));
         var newFiles = newFileList.Files.Where(x => !x.RelativePath.StartsWith("dotnet\\"));
-        Console.WriteLine($"旧版本文件数：{oldFiles.Count()}");
-        Console.WriteLine($"新版本文件数：{newFiles.Count()}");
+        Console.WriteLine(string.Format(ToolStrings.Get("OldFileCount"), oldFiles.Count()));
+        Console.WriteLine(string.Format(ToolStrings.Get("NewFileCount"), newFiles.Count()));
         var changeList = new Dictionary<string, PatchBundleInfo?>();
 
         var removeFiles = oldFiles.Select(x => x.RelativePath).Except(newFiles.Select(x => x.RelativePath));
@@ -384,7 +384,7 @@ interface IGenerateBsPatch : ICommand
         {
             changeList.Add(item, null);
         }
-        Console.WriteLine($"需要删除的文件数：{changeList.Count}");
+        Console.WriteLine(string.Format(ToolStrings.Get("DeletedFileCount"), changeList.Count));
         foreach (var item in newFiles)
         {
             var oldFile = oldFiles.FirstOrDefault(x => x.RelativePath.Equals(item.RelativePath));
@@ -438,13 +438,13 @@ interface IGenerateBsPatch : ICommand
         if (File.Exists(patchFilePath))
             File.Delete(patchFilePath);
 
-        Console.WriteLine($"变动文件数量：{changeList.Count}");
+        Console.WriteLine(string.Format(ToolStrings.Get("ChangedFileCount"), changeList.Count));
         using var fileStream = File.OpenWrite(patchFilePath);
         using var brSave = new BrotliStream(fileStream, CompressionLevel.SmallestSize);
-        Console.WriteLine($"开始压缩");
+        Console.WriteLine(ToolStrings.Get("Compressing"));
         await MemoryPackSerializer.SerializeAsync(typeof(Dictionary<string, PatchBundleInfo?>), brSave, changeList);
         //fileStream.Flush();
-        Console.WriteLine($"结束");
+        Console.WriteLine(ToolStrings.Get("Finished"));
     }
 
     /// <summary>
@@ -486,7 +486,7 @@ interface IGenerateBsPatch : ICommand
         }
         else
         {
-            Console.WriteLine("文件夹不存在");
+            Console.WriteLine(ToolStrings.Get("DirectoryNotFound"));
         }
     }
 }

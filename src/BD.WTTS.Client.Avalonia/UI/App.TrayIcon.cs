@@ -125,8 +125,8 @@ partial class App
                                 Bindings = new List<BindingBase>()
                                 {
                                     new Binding { Path = "IsRunningSteamProcess", Source = SteamConnectService.Current, Mode = BindingMode.OneWay },
-                                    new Binding { Path = "Res.CloseSteam", Source = ResourceService.Current, Mode = BindingMode.OneWay },
-                                    new Binding { Path = "Res.StartSteam", Source = ResourceService.Current, Mode = BindingMode.OneWay },
+                                    new Binding { Source = Strings.CloseSteam, Mode = BindingMode.OneTime },
+                                    new Binding { Source = Strings.StartSteam, Mode = BindingMode.OneTime },
                                 },
                                 Converter = (VisibleStringConverter)App.Instance.FindResource(nameof(VisibleStringConverter))!,
                             },
@@ -145,13 +145,13 @@ partial class App
                         //new NativeMenuItemSeparator(),
                         new NativeMenuItem
                         {
-                            [!NativeMenuItem.HeaderProperty] = new Binding { Path = "Res.OpenMainWindow", Source = ResourceService.Current, Mode = BindingMode.OneWay },
+                            Header = Strings.OpenMainWindow,
                             Command = ReactiveCommand.Create(RestoreMainWindow),
                         },
                         new NativeMenuItemSeparator(),
                         new NativeMenuItem
                         {
-                            [!NativeMenuItem.HeaderProperty] = new Binding { Path = "Res.Exit", Source = ResourceService.Current, Mode = BindingMode.OneWay },
+                            Header = Strings.Exit,
                             Command = ReactiveCommand.Create(() => { Shutdown(); })
                         },
                     };
@@ -168,7 +168,7 @@ partial class App
                             {
                                 var menu = new NativeMenuItem
                                 {
-                                    Header = sub.Name,
+                                    Header = GetTrayItemName(sub),
                                     Command = sub.Command,
                                     CommandParameter = sub.CommandParameter,
                                 };
@@ -181,7 +181,7 @@ partial class App
                             }
                             menus.Add(new NativeMenuItem
                             {
-                                Header = item.Value.Name,
+                                Header = GetTrayItemName(item.Value),
                                 Menu = subMenu,
                             });
                         }
@@ -189,7 +189,7 @@ partial class App
                         {
                             menus.Add(new NativeMenuItem
                             {
-                                Header = item.Value.Name,
+                                Header = GetTrayItemName(item.Value),
                                 Command = item.Value.Command,
                                 CommandParameter = item.Value.CommandParameter,
                             });
@@ -205,6 +205,10 @@ partial class App
             }
         });
     }
+
+    static string GetTrayItemName(TrayMenuItem item) => item.NameResourceKey is { } key
+        ? Strings.ResourceManager.GetString(key, Strings.Culture) ?? item.Name
+        : item.Name;
 
     public void UpdateMenuItems(string menuKey, TrayMenuItem trayMenuItem)
     {

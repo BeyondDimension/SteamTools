@@ -2,6 +2,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
     x:CompileBindings="True">
     <Design.PreviewWith>
         <Border Padding="20">
@@ -16,7 +17,7 @@
 
     <!--  AutoCompleteBox  -->
     <Style Selector="AutoCompleteBox.Search /template/ TextBox#PART_TextBox">
-        <Setter Property="PlaceholderText" Value="{Binding Path=Res.Search, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Setter Property="PlaceholderText" Value="{x:Static spp:Strings.Search}" />
         <Setter Property="InnerRightContent">
             <Template>
                 <StackPanel Orientation="Horizontal">

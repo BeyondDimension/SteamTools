@@ -2,6 +2,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:s="https://steampp.net/services"
+    xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     x:CompileBindings="True">
     <Design.PreviewWith>
@@ -296,8 +297,8 @@
     </Styles.Resources>
 
     <Style Selector="ToggleSwitch">
-        <Setter Property="OffContent" Value="{Binding Path=Res.Off, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-        <Setter Property="OnContent" Value="{Binding Path=Res.On, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+        <Setter Property="OffContent" Value="{x:Static spp:Strings.Off}" />
+        <Setter Property="OnContent" Value="{x:Static spp:Strings.On}" />
         <Setter Property="MinWidth" Value="0" />
     </Style>
 

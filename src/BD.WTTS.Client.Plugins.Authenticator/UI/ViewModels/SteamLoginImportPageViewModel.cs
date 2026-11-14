@@ -259,7 +259,7 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
 
                     if (!IsVerifyAccountPhone)
                     {
-                        Toast.Show(ToastIcon.Warning, "只绑定邮箱的情况下无法直接替换令牌");
+                        Toast.Show(ToastIcon.Warning, Strings.L10nAuthIdle_Text081);
 
                         // 弹出绑定手机号流程
                         var added = await IWindowManager.Instance.ShowTaskDialogAsync(

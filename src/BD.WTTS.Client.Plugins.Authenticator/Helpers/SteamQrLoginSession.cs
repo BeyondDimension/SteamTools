@@ -6,8 +6,8 @@ namespace BD.WTTS.Helpers;
 
 internal static class SteamQrLoginSession
 {
-    public const string LoginRequiredMessage = "仅已在“交易确认”中登录并保存登录状态的 Steam 令牌可使用扫码登录。请先打开此令牌的“确认交易”，登录并勾选记住登录后重试。";
-    public const string SessionExpiredMessage = "交易确认保存的登录状态已失效或不支持移动端确认。请先到此令牌的“确认交易”重新登录并保存状态，再使用扫码。";
+    public static string LoginRequiredMessage => Strings.L10nAuthIdle_Text008;
+    public static string SessionExpiredMessage => Strings.L10nAuthIdle_Text009;
 
     public static bool CanUse(SteamAuthenticator authenticator)
         => TryGetSession(authenticator, out _, out _);

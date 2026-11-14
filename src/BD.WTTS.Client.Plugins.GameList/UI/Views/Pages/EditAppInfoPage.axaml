@@ -101,29 +101,29 @@
 
 	<TabControl x:Name="EditorTabs" Padding="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
 		<!--  信息  -->
-		<TabItem Header="{Binding Path=Res.Info, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+		<TabItem Header="{x:Static spp:Strings.Info}">
 			<ScrollViewer Classes="page-scroll">
 				<StackPanel Margin="0,12,12,16" Spacing="12">
 					<Border Classes="card">
 						<StackPanel Spacing="12">
 							<Grid Classes="field" RowDefinitions="Auto,Auto">
 								<TextBlock Classes="label"
-								           Text="{Binding Path=Res.Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								           Text="{x:Static spp:Strings.Name}" />
 								<TextBox Text="{Binding App.Name}" />
 							</Grid>
 							<Grid Classes="field" RowDefinitions="Auto,Auto">
 								<TextBlock Classes="label"
-								           Text="{Binding Path=Res.SortAs, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								           Text="{x:Static spp:Strings.SortAs}" />
 								<TextBox Text="{Binding App.SortAs}" />
 							</Grid>
 							<Grid Classes="field" RowDefinitions="Auto,Auto">
 								<TextBlock Classes="label"
-								           Text="{Binding Path=Res.Developer, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								           Text="{x:Static spp:Strings.Developer}" />
 								<TextBox Text="{Binding App.Developer}" />
 							</Grid>
 							<Grid Classes="field" RowDefinitions="Auto,Auto">
 								<TextBlock Classes="label"
-								           Text="{Binding Path=Res.Publisher, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								           Text="{x:Static spp:Strings.Publisher}" />
 								<TextBox Text="{Binding App.Publisher}" />
 							</Grid>
 						</StackPanel>
@@ -137,30 +137,30 @@
 							</Grid>
 							<Grid Classes="row" ColumnDefinitions="3*,7*">
 								<TextBlock Classes="label"
-								           Text="{Binding Path=Res.SupportSystem, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								           Text="{x:Static spp:Strings.SupportSystem}" />
 								<TextBlock Classes="value" Text="{Binding App.OSList}" />
 							</Grid>
 							<Grid Classes="row" ColumnDefinitions="3*,7*" IsVisible="{Binding App.IsInstalled}">
 								<TextBlock Classes="label"
-								           Text="{Binding Path=Res.DiskUsage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								           Text="{x:Static spp:Strings.DiskUsage}" />
 								<TextBlock Classes="value"
 								           Text="{Binding App.SizeOnDisk, Converter={StaticResource StringFormatConverter}, ConverterParameter=size}" />
 							</Grid>
 							<Grid Classes="row" ColumnDefinitions="3*,7*" IsVisible="{Binding App.IsInstalled}">
 								<TextBlock Classes="label"
-								           Text="{Binding Path=Res.LastUpdatedDateTime, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								           Text="{x:Static spp:Strings.LastUpdatedDateTime}" />
 								<TextBlock Classes="value" Text="{Binding App.LastUpdated, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
 							</Grid>
 							<Grid Classes="row" ColumnDefinitions="3*,7*" IsVisible="{Binding App.IsInstalled}">
 								<TextBlock Classes="label"
-								           Text="{Binding Path=Res.InstalledPath, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								           Text="{x:Static spp:Strings.InstalledPath}" />
 								<HyperlinkButton
 									Grid.Column="1"
 									Padding="0"
 									HorizontalAlignment="Stretch"
 									Command="{Binding OpenFolder}"
 									CommandParameter="{Binding App.InstalledDir}"
-									ToolTip.Tip="{Binding Path=Res.Settings_General_BrowseCustomFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Null}}">
+									ToolTip.Tip="{Binding Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Mode=OneTime, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Null}}">
 									<TextBlock Text="{Binding App.InstalledDir}" TextWrapping="Wrap" TextTrimming="None" />
 								</HyperlinkButton>
 							</Grid>
@@ -172,7 +172,7 @@
 		</TabItem>
 
 		<!--  媒体  -->
-		<TabItem Header="{Binding Path=Res.Media, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+		<TabItem Header="{x:Static spp:Strings.Media}">
 			<Panel>
 				<Grid
 					x:Name="SteamGridDBContent"
@@ -192,7 +192,7 @@
 								<StackPanel Orientation="Horizontal" Spacing="8">
 									<ui:FASymbolIcon FontSize="16" Symbol="Back" />
 									<TextBlock VerticalAlignment="Center"
-									           Text="{Binding Path=Res.Back, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+									           Text="{x:Static spp:Strings.Back}" />
 								</StackPanel>
 							</Button>
 							<TextBlock
@@ -207,7 +207,7 @@
 						Grid.Row="1"
 						IsLoading="{Binding IsLoadingSteamGrid}"
 						IsShowNoResultText="{Binding IsSteamGridEmpty}"
-						NoResultMessage="{Binding Path=Res.FailedGetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+						NoResultMessage="{x:Static spp:Strings.FailedGetImageFromSteamGridDB}">
 						<ScrollViewer Classes="page-scroll">
 							<ItemsControl
 								Margin="0,0,12,12"
@@ -234,15 +234,15 @@
 													<MenuItem
 														Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenSteamGridDBImageUrlCommand}"
 														CommandParameter="{Binding}"
-														Header="{Binding Path=Res.OpenImageInBrowser, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+														Header="{x:Static spp:Strings.OpenImageInBrowser}" />
 													<MenuItem
 														Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenSteamGridDBAppUrlCommand}"
 														CommandParameter="{Binding}"
-														Header="{Binding Path=Res.OpenSteamGridDBInBrowser, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+														Header="{x:Static spp:Strings.OpenSteamGridDBInBrowser}" />
 													<MenuItem
 														Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenSteamGridDBAuthorUrlCommand}"
 														CommandParameter="{Binding}"
-														Header="{Binding Path=Res.OpenTheAuthorPageInBrowser, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+														Header="{x:Static spp:Strings.OpenTheAuthorPageInBrowser}" />
 												</MenuFlyout>
 											</spp:AppItem.MoreFlyout>
 											<spp:AppItem.Image>
@@ -286,11 +286,11 @@
 								<Grid ColumnDefinitions="*,Auto">
 									<StackPanel VerticalAlignment="Center">
 										<TextBlock FontWeight="SemiBold" TextWrapping="Wrap"
-										           Text="{Binding Path=Res.HorizontalTitlePage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+										           Text="{x:Static spp:Strings.HorizontalTitlePage}" />
 										<TextBlock
 											Classes="hint"
 											Text="460 x 215 px"
-											ToolTip.Tip="{Binding Path=Res.RecommendedResolution, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+											ToolTip.Tip="{x:Static spp:Strings.RecommendedResolution}" />
 									</StackPanel>
 									<StackPanel
 										Grid.Column="1"
@@ -300,14 +300,14 @@
 											Classes="tool"
 											Click="ShowGridDialog_Click"
 											Tag="{x:Static spp:SteamGridItemType.Header}"
-											ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+											ToolTip.Tip="{x:Static spp:Strings.GetImageFromSteamGridDB}">
 											<ui:FASymbolIcon FontSize="18" Symbol="CloudDownload" />
 										</Button>
 										<Button
 											Classes="tool"
 											Click="ResetGridImage_Click"
 											Tag="{x:Static spp:SteamGridItemType.Header}"
-											ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+											ToolTip.Tip="{x:Static spp:Strings.Reset}">
 											<ui:FASymbolIcon FontSize="18" Symbol="Redo" />
 										</Button>
 									</StackPanel>
@@ -336,11 +336,11 @@
 								<Grid ColumnDefinitions="*,Auto">
 									<StackPanel VerticalAlignment="Center">
 										<TextBlock FontWeight="SemiBold" TextWrapping="Wrap"
-										           Text="{Binding Path=Res.Background, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+										           Text="{x:Static spp:Strings.Background}" />
 										<TextBlock
 											Classes="hint"
 											Text="1920 x 620 px"
-											ToolTip.Tip="{Binding Path=Res.RecommendedResolution, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+											ToolTip.Tip="{x:Static spp:Strings.RecommendedResolution}" />
 									</StackPanel>
 									<StackPanel
 										Grid.Column="1"
@@ -350,14 +350,14 @@
 											Classes="tool"
 											Click="ShowGridDialog_Click"
 											Tag="{x:Static spp:SteamGridItemType.Hero}"
-											ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+											ToolTip.Tip="{x:Static spp:Strings.GetImageFromSteamGridDB}">
 											<ui:FASymbolIcon FontSize="18" Symbol="CloudDownload" />
 										</Button>
 										<Button
 											Classes="tool"
 											Click="ResetGridImage_Click"
 											Tag="{x:Static spp:SteamGridItemType.Hero}"
-											ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+											ToolTip.Tip="{x:Static spp:Strings.Reset}">
 											<ui:FASymbolIcon FontSize="18" Symbol="Redo" />
 										</Button>
 									</StackPanel>
@@ -383,11 +383,11 @@
 								<Grid ColumnDefinitions="*,Auto">
 									<StackPanel VerticalAlignment="Center">
 										<TextBlock FontWeight="SemiBold" TextWrapping="Wrap"
-										           Text="{Binding Path=Res.VerticalTitlePage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+										           Text="{x:Static spp:Strings.VerticalTitlePage}" />
 										<TextBlock
 											Classes="hint"
 											Text="600 x 900 px"
-											ToolTip.Tip="{Binding Path=Res.RecommendedResolution, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+											ToolTip.Tip="{x:Static spp:Strings.RecommendedResolution}" />
 									</StackPanel>
 									<StackPanel
 										Grid.Column="1"
@@ -397,14 +397,14 @@
 											Classes="tool"
 											Click="ShowGridDialog_Click"
 											Tag="{x:Static spp:SteamGridItemType.Grid}"
-											ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+											ToolTip.Tip="{x:Static spp:Strings.GetImageFromSteamGridDB}">
 											<ui:FASymbolIcon FontSize="18" Symbol="CloudDownload" />
 										</Button>
 										<Button
 											Classes="tool"
 											Click="ResetGridImage_Click"
 											Tag="{x:Static spp:SteamGridItemType.Grid}"
-											ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+											ToolTip.Tip="{x:Static spp:Strings.Reset}">
 											<ui:FASymbolIcon FontSize="18" Symbol="Redo" />
 										</Button>
 									</StackPanel>
@@ -432,11 +432,11 @@
 								<Grid ColumnDefinitions="*,Auto">
 									<StackPanel VerticalAlignment="Center">
 										<TextBlock FontWeight="SemiBold" TextWrapping="Wrap"
-										           Text="{Binding Path=Res.Icon, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+										           Text="{x:Static spp:Strings.Icon}" />
 										<TextBlock
 											Classes="hint"
 											Text="120 x 120 px"
-											ToolTip.Tip="{Binding Path=Res.RecommendedResolution, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+											ToolTip.Tip="{x:Static spp:Strings.RecommendedResolution}" />
 									</StackPanel>
 									<StackPanel
 										Grid.Column="1"
@@ -446,14 +446,14 @@
 											Classes="tool"
 											Click="ShowGridDialog_Click"
 											Tag="{x:Static spp:SteamGridItemType.Logo}"
-											ToolTip.Tip="{Binding Path=Res.GetImageFromSteamGridDB, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+											ToolTip.Tip="{x:Static spp:Strings.GetImageFromSteamGridDB}">
 											<ui:FASymbolIcon FontSize="18" Symbol="CloudDownload" />
 										</Button>
 										<Button
 											Classes="tool"
 											Click="ResetGridImage_Click"
 											Tag="{x:Static spp:SteamGridItemType.Logo}"
-											ToolTip.Tip="{Binding Path=Res.Reset, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+											ToolTip.Tip="{x:Static spp:Strings.Reset}">
 											<ui:FASymbolIcon FontSize="18" Symbol="Redo" />
 										</Button>
 									</StackPanel>
@@ -478,7 +478,7 @@
 		</TabItem>
 
 		<!--  启动项  -->
-		<TabItem Header="{Binding Path=Res.LaunchItem, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+		<TabItem Header="{x:Static spp:Strings.LaunchItem}"
 		         IsVisible="{Binding App.IsInstalled}">
 			<ScrollViewer Classes="page-scroll">
 				<StackPanel Margin="0,12,12,16" Spacing="12">
@@ -494,27 +494,27 @@
 									<StackPanel Spacing="12">
 										<Grid Classes="field" RowDefinitions="Auto,Auto">
 											<TextBlock Classes="label"
-											           Text="{Binding Path=Res.Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+											           Text="{x:Static spp:Strings.Name}" />
 											<TextBox Text="{Binding Label}" />
 										</Grid>
 										<Grid Classes="field" RowDefinitions="Auto,Auto">
 											<TextBlock Classes="label"
-											           Text="{Binding Path=Res.ExecutableFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+											           Text="{x:Static spp:Strings.ExecutableFile}" />
 											<TextBox Text="{Binding Executable}" />
 										</Grid>
 										<Grid Classes="field" RowDefinitions="Auto,Auto">
 											<TextBlock Classes="label"
-											           Text="{Binding Path=Res.Arguments, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+											           Text="{x:Static spp:Strings.Arguments}" />
 											<TextBox Text="{Binding Arguments}" />
 										</Grid>
 										<Grid Classes="field" RowDefinitions="Auto,Auto">
 											<TextBlock Classes="label"
-											           Text="{Binding Path=Res.WorkingDir, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+											           Text="{x:Static spp:Strings.WorkingDir}" />
 											<TextBox Text="{Binding WorkingDir}" />
 										</Grid>
 										<Grid Classes="field" RowDefinitions="Auto,Auto">
 											<TextBlock Classes="label"
-											           Text="{Binding Path=Res.SupportSystem, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+											           Text="{x:Static spp:Strings.SupportSystem}" />
 											<ui:FAComboBox
 												Grid.Row="1"
 												HorizontalAlignment="Stretch"
@@ -532,17 +532,17 @@
 											<Button
 												Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).UpLaunchItemCommand}"
 												CommandParameter="{Binding}"
-												Content="{Binding Path=Res.MoveUp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+												Content="{x:Static spp:Strings.MoveUp}"
 												Cursor="Hand" />
 											<Button
 												Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).DownLaunchItemCommand}"
 												CommandParameter="{Binding}"
-												Content="{Binding Path=Res.MoveDown, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+												Content="{x:Static spp:Strings.MoveDown}"
 												Cursor="Hand" />
 											<Button
 												Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).DeleteLaunchItemCommand}"
 												CommandParameter="{Binding}"
-												Content="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+												Content="{x:Static spp:Strings.Delete}"
 												Cursor="Hand" />
 										</WrapPanel>
 									</StackPanel>
@@ -558,7 +558,7 @@
 						<StackPanel Orientation="Horizontal" Spacing="8">
 							<ui:FASymbolIcon FontSize="18" Symbol="Add" />
 							<TextBlock VerticalAlignment="Center"
-							           Text="{Binding Path=Res.Add, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							           Text="{x:Static spp:Strings.Add}" />
 						</StackPanel>
 					</Button>
 				</StackPanel>
@@ -566,7 +566,7 @@
 		</TabItem>
 
 		<!--  云存档  -->
-		<TabItem Header="{Binding Path=Res.SaveFile, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+		<TabItem Header="{x:Static spp:Strings.SaveFile}"
 		         IsVisible="{Binding App.IsCloudArchive}">
 			<ScrollViewer Classes="page-scroll">
 				<StackPanel Margin="0,12,12,16" Spacing="12">
@@ -578,12 +578,12 @@
 									ColumnSpacing="8"
 									VerticalAlignment="Center">
 									<TextBlock Classes="label"
-									           Text="{Binding Path=Res.CloudSaveFileSize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+									           Text="{x:Static spp:Strings.CloudSaveFileSize}" />
 									<Button
 										Grid.Column="1"
 										Classes="tool"
 										Command="{Binding ManageCloudArchive_Click}"
-										ToolTip.Tip="{Binding Path=Res.GameList_CloudArchiveManager, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+										ToolTip.Tip="{x:Static spp:Strings.GameList_CloudArchiveManager}">
 										<ui:FASymbolIcon FontSize="18" Symbol="CloudBackup" />
 									</Button>
 								</Grid>
@@ -594,7 +594,7 @@
 							</Grid>
 							<Grid Classes="row" ColumnDefinitions="*,Auto">
 								<TextBlock Classes="label"
-								           Text="{Binding Path=Res.CloudMaxnumFiles, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								           Text="{x:Static spp:Strings.CloudMaxnumFiles}" />
 								<TextBlock
 									Grid.Column="1"
 									VerticalAlignment="Center"
@@ -627,14 +627,14 @@
 										</Grid>
 										<Grid Classes="row" ColumnDefinitions="3*,7*">
 											<TextBlock Classes="label"
-											           Text="{Binding Path=Res.DirPath, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+											           Text="{x:Static spp:Strings.DirPath}" />
 											<HyperlinkButton
 												Grid.Column="1"
 												Padding="0"
 												HorizontalAlignment="Stretch"
 												Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenFolder}"
 												CommandParameter="{Binding FormatDirPath}"
-												ToolTip.Tip="{Binding Path=Res.Settings_General_BrowseCustomFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Null}}">
+												ToolTip.Tip="{Binding Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Mode=OneTime, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Null}}">
 												<TextBlock Text="{Binding FormatDirPath}" TextWrapping="Wrap" TextTrimming="None" />
 											</HyperlinkButton>
 										</Grid>

@@ -3,11 +3,8 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
-public sealed class ResourceService : ReactiveObject
+public static class ResourceService
 {
-    static readonly Lazy<ResourceService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
-
-    public static ResourceService Current => mCurrent.Value;
 
     public static readonly IReadOnlyDictionary<string, string> Languages;
     public static readonly IReadOnlyDictionary<string, string> SteamLanguages;
@@ -18,7 +15,7 @@ public sealed class ResourceService : ReactiveObject
         var value = UISettings.Language.Value;
         foreach (var item in Languages)
         {
-            if (item.Value == value)
+            if (item.Key.Equals(value ?? string.Empty, StringComparison.OrdinalIgnoreCase))
             {
                 return item;
             }
@@ -61,7 +58,6 @@ public sealed class ResourceService : ReactiveObject
     //});
     //public static string DefaultConsoleFont => mDefaultConsoleFont.Value;
 
-    public AppResources Res { get; private set; } = new();
 
     public static CultureInfo DefaultCurrentUICulture { get; private set; }
 
@@ -98,22 +94,17 @@ public sealed class ResourceService : ReactiveObject
         AppResources.Culture = DefaultCurrentUICulture;
     }
 
-    public static void ChangeAutoLanguage(CultureInfo? cultureInfo = null) => MainThread2.BeginInvokeOnMainThread(() => ChangeAutoLanguageCore(cultureInfo));
-
-    static void ChangeAutoLanguageCore(CultureInfo? cultureInfo = null)
+    public static void InitializeLanguage(string? cultureName)
     {
-        if (!string.IsNullOrWhiteSpace(SettingsPageViewModel.SelectLanguageKey))
-            return;
-        cultureInfo ??= CultureInfo.CurrentUICulture;
-        DefaultCurrentUICulture = cultureInfo;
-        ChangeLanguageCore(cultureInfo.Name);
+        var culture = TryGetCultureInfo(cultureName, DefaultCurrentUICulture);
+        AppResources.Culture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.CurrentUICulture = culture;
+        CultureInfo.CurrentCulture = culture;
+        mAcceptLanguage = GetAcceptLanguageCore();
+        mLanguage = GetLanguageCore();
     }
-
-    /// <summary>
-    /// 更改语言
-    /// </summary>
-    /// <param name="cultureName"></param>
-    public static void ChangeLanguage(string? cultureName) => MainThread2.BeginInvokeOnMainThread(() => ChangeLanguageCore(cultureName));
 
     static CultureInfo TryGetCultureInfo(string? cultureName, CultureInfo defaultCultureInfo)
     {
@@ -129,23 +120,6 @@ public sealed class ResourceService : ReactiveObject
         {
             return defaultCultureInfo;
         }
-    }
-
-    static void ChangeLanguageCore(string? cultureName)
-    {
-        if (cultureName == null || AppResources.Culture.IsMatch(cultureName)) return;
-        AppResources.Culture = TryGetCultureInfo(cultureName, DefaultCurrentUICulture);
-        Thread.CurrentThread.CurrentUICulture = AppResources.Culture;
-        Thread.CurrentThread.CurrentCulture = AppResources.Culture;
-        CultureInfo.DefaultThreadCurrentUICulture = AppResources.Culture;
-        CultureInfo.DefaultThreadCurrentCulture = AppResources.Culture;
-        CultureInfo.CurrentUICulture = AppResources.Culture;
-        CultureInfo.CurrentCulture = AppResources.Culture;
-        mAcceptLanguage = GetAcceptLanguageCore();
-        mLanguage = GetLanguageCore();
-        Current.Res = new();
-        Current.RaisePropertyChanged(nameof(Res));
-        ChangedHandler?.Invoke();
     }
 
     public static string GetCurrentCultureSteamLanguageName()
@@ -217,29 +191,4 @@ public sealed class ResourceService : ReactiveObject
 
     public static CultureInfo Culture => AppResources.Culture ?? DefaultCurrentUICulture;
 
-    static event Action? ChangedHandler;
-
-    sealed class ChangedEventListener : IDisposable
-    {
-        readonly Action _listener;
-
-        public ChangedEventListener(Action listener)
-        {
-            _listener = listener;
-            ChangedHandler += Handle;
-        }
-
-        void Handle() => _listener.Invoke();
-
-        public void Dispose()
-        {
-            ChangedHandler -= Handle;
-        }
-    }
-
-    public static IDisposable Subscribe(Action action, bool notifyOnInitialValue = true)
-    {
-        if (notifyOnInitialValue) action();
-        return new ChangedEventListener(action);
-    }
 }

@@ -1,6 +1,7 @@
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
 using BD.WTTS.Helpers;
+using BD.WTTS.Services;
 using WinAuth;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -47,8 +48,8 @@ public sealed class SteamQrLoginPageViewModel : WindowViewModel
     }
 
     public string AuthenticatorName => item.AuthName;
-    public string AccountName => authenticator.AccountName ?? "未命名 Steam 账号";
-    public string SteamId => authenticator.SteamId64?.ToString(CultureInfo.InvariantCulture) ?? "SteamID 缺失";
+    public string AccountName => authenticator.AccountName ?? Strings.L10nAuthIdle_Text030;
+    public string SteamId => authenticator.SteamId64?.ToString(CultureInfo.InvariantCulture) ?? Strings.L10nAuthIdle_Text031;
     public bool IsScreenCaptureSupported => SteamLoginQrScreenScanner.IsSupported;
     public ICommand ScanScreenCommand { get; }
     public ICommand ApproveCommand { get; }
@@ -61,7 +62,9 @@ public sealed class SteamQrLoginPageViewModel : WindowViewModel
     [Reactive] public bool PersistentLogin { get; set; }
     [Reactive] public SteamLoginQrChallenge? SelectedChallenge { get; set; }
     [Reactive] public SteamQrLoginRequestDetails? RequestDetails { get; private set; }
-    [Reactive] public string Status { get; private set; } = "准备就绪，请扫描屏幕二维码。";
+    [Reactive] public string Status { get; private set; } = Strings.L10nAuthIdle_Text032;
+
+    void SetStatus(string text) => Status = text;
 
     public bool HasMultipleChallenges => Challenges.Count > 1;
     public bool NeedsReview => SelectedChallenge != null && RequestDetails == null;
@@ -94,7 +97,7 @@ public sealed class SteamQrLoginPageViewModel : WindowViewModel
         authorizedSessionData = null;
         HasSavedSession = false;
         ClearReview();
-        Status = message;
+        SetStatus(message);
     }
 
     async Task<bool> EnsureSavedAccessTokenAsync()
@@ -122,21 +125,21 @@ public sealed class SteamQrLoginPageViewModel : WindowViewModel
         SelectedChallenge = null;
         try
         {
-            Status = "正在检查交易确认保存的登录状态…";
+            SetStatus(Strings.L10nAuthIdle_Text082);
             if (!await EnsureSavedAccessTokenAsync())
                 return;
-            Status = "正在扫描屏幕…请勿关闭或刷新 Steam 登录二维码。";
+            SetStatus(Strings.L10nAuthIdle_Text083);
             var results = await SteamLoginQrScreenScanner.CaptureAsync(lifetimeToken);
             lifetimeToken.ThrowIfCancellationRequested();
             foreach (var result in results)
                 Challenges.Add(result);
             SelectedChallenge = results.FirstOrDefault();
-            Status = results.Count switch
+            SetStatus(results.Count switch
             {
-                0 => "未发现 Steam 登录二维码。请将二维码完整显示，避免被其他窗口遮挡，然后重试。",
-                1 => "已识别二维码，正在读取目标设备信息…",
-                _ => "发现多个 Steam 登录二维码，请选择要确认的请求，再读取设备信息。",
-            };
+                0 => Strings.L10nAuthIdle_Text084,
+                1 => Strings.L10nAuthIdle_Text085,
+                _ => Strings.L10nAuthIdle_Text086,
+            });
             if (results.Count == 1)
             {
                 try { await ReviewSelectedAsync(); }
@@ -144,27 +147,27 @@ public sealed class SteamQrLoginPageViewModel : WindowViewModel
                 catch
                 {
                     ClearReview();
-                    Status = "已识别二维码，但读取登录请求失败。请刷新二维码重试；若交易确认状态已失效，请先到交易确认重新登录。";
+                    SetStatus(Strings.L10nAuthIdle_Text087);
                 }
             }
         }
         catch (OperationCanceledException) when (lifetimeToken.IsCancellationRequested) { }
         catch (PlatformNotSupportedException)
         {
-            Status = "当前屏幕扫码仅支持 Windows。";
+            SetStatus(Strings.L10nAuthIdle_Text047);
         }
         catch (System.ComponentModel.Win32Exception ex)
         {
-            Status = $"Windows 屏幕截图失败（错误 {ex.NativeErrorCode}）。请在已解锁的本地桌面重试。";
+            SetStatus(string.Format(Strings.L10nAuthIdle_Text088, ex.NativeErrorCode));
         }
         catch (FileNotFoundException ex)
         {
-            var missing = string.IsNullOrWhiteSpace(ex.FileName) ? "未知程序集" : Path.GetFileName(ex.FileName.Split(',')[0]);
-            Status = $"缺少运行依赖 {missing}。请使用完整构建或发布目录启动，不要仅替换令牌插件 DLL。";
+            var missing = string.IsNullOrWhiteSpace(ex.FileName) ? null : Path.GetFileName(ex.FileName.Split(',')[0]);
+            SetStatus(string.Format(Strings.L10nAuthIdle_Text090, missing ?? Strings.L10nAuthIdle_Text089));
         }
         catch
         {
-            Status = "检查交易确认状态或屏幕扫码失败。请确认网络与程序依赖完整；本页面不会要求重新登录。";
+            SetStatus(Strings.L10nAuthIdle_Text091);
         }
         finally { IsBusy = false; }
     }
@@ -179,7 +182,7 @@ public sealed class SteamQrLoginPageViewModel : WindowViewModel
         catch
         {
             ClearReview();
-            Status = "读取登录请求失败，二维码可能已过期。请刷新二维码；若登录状态失效，请到交易确认重新登录。";
+            SetStatus(Strings.L10nAuthIdle_Text092);
         }
         finally { IsBusy = false; }
     }
@@ -197,7 +200,7 @@ public sealed class SteamQrLoginPageViewModel : WindowViewModel
         RequestDetails = new SteamQrLoginRequestDetails(info, challenge);
         this.RaisePropertyChanged(nameof(NeedsReview));
         reviewedChallenge = challenge;
-        Status = "请核对以下登录请求。只有点击“确认登录 Steam”才会批准；不是本人发起请关闭窗口。";
+        SetStatus(Strings.L10nAuthIdle_Text093);
         this.RaisePropertyChanged(nameof(CanApprove));
     }
 
@@ -208,7 +211,7 @@ public sealed class SteamQrLoginPageViewModel : WindowViewModel
         if (authorizedSessionData != authenticator.SessionData)
         {
             ClearReview();
-            Status = "交易确认的登录状态已变化，请重新读取登录请求后再确认。";
+            SetStatus(Strings.L10nAuthIdle_Text094);
             return;
         }
         var challenge = reviewedChallenge!;
@@ -226,14 +229,14 @@ public sealed class SteamQrLoginPageViewModel : WindowViewModel
                 return;
             IsApproved = true;
             reviewedChallenge = null;
-            Status = "已确认登录。请回到 Steam 客户端或网页查看结果。";
+            SetStatus(Strings.L10nAuthIdle_Text095);
             Close?.Invoke(true);
         }
         catch (OperationCanceledException) when (lifetimeToken.IsCancellationRequested) { }
         catch
         {
             ClearReview();
-            Status = "确认登录失败，二维码可能已过期。请重新扫描；若登录状态失效，请到交易确认重新登录。";
+            SetStatus(Strings.L10nAuthIdle_Text096);
         }
         finally { IsBusy = false; }
     }

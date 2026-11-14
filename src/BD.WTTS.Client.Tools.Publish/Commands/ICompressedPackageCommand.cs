@@ -64,7 +64,7 @@ interface ICompressedPackageCommand : ICommand
     {
         var fileEx = GetFileExByCloudFileType(type);
         var packPath = GetPackPath(item, fileEx);
-        Console.WriteLine($"正在生成压缩包：{packPath}");
+        Console.WriteLine(string.Format(ToolStrings.Get("GeneratingArchive"), packPath));
         IOPath.FileIfExistsItDelete(packPath);
 
         GetCreatePackByCloudFileType(type)(packPath, item.Files);
@@ -84,7 +84,7 @@ interface ICompressedPackageCommand : ICommand
             item.SingleFile[type] = info;
         else
             item.SingleFile.Add(type, info);
-        Console.WriteLine($"压缩包已生成：{packPath}");
+        Console.WriteLine(string.Format(ToolStrings.Get("GeneratedArchive"), packPath));
     }
 
     /// <summary>

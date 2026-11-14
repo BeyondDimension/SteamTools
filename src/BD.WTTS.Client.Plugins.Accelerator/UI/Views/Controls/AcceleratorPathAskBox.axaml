@@ -2,6 +2,7 @@
     x:Class="BD.WTTS.UI.Views.Controls.AcceleratorPathAskBox"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Avalonia.Xaml.Interactivity"
     xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
@@ -18,22 +19,22 @@
             HorizontalAlignment="Center"
             FontSize="21"
             TextAlignment="Center">
-            <Run Text="下载 Watt加速器" />
+            <Run Text="{x:Static spp:Strings.L10nAccel_041}" />
             <LineBreak />
-            <Run Text="拒绝游戏延迟，提高稳定性" />
+            <Run Text="{x:Static spp:Strings.L10nAccel_042}" />
         </TextBlock>
 
         <ui:FASettingsExpander
             x:Name="PathSelect"
             Description="{Binding Source={x:Static ms:GameAcceleratorSettings.WattAcceleratorDirPath}, Path=Value}"
-            Header="安装路径"
+            Header="{x:Static spp:Strings.L10nAccel_043}"
             IsClickEnabled="True"
             IsVisible="False">
             <ui:FASettingsExpander.IconSource>
                 <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
             </ui:FASettingsExpander.IconSource>
             <ui:FASettingsExpander.Footer>
-                <Button Click="SelectWattAcceleratorInstallPath" Content="选择路径" />
+                <Button Click="SelectWattAcceleratorInstallPath" Content="{x:Static spp:Strings.LocalAuth_ExportAuth_SelectPath}" />
             </ui:FASettingsExpander.Footer>
         </ui:FASettingsExpander>
 
@@ -46,7 +47,7 @@
                 HorizontalAlignment="Center"
                 Classes="TransparentAccent"
                 Click="OKButton_Click"
-                Content="立即下载"
+                Content="{x:Static spp:Strings.L10nAccel_044}"
                 FontSize="14" />
 
             <Button
@@ -56,7 +57,7 @@
                 Click="CustomInstallButton_Click"
                 Theme="{StaticResource TransparentButton}">
                 <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="自定义安装" />
+                    <TextBlock Text="{x:Static spp:Strings.L10nAccel_045}" />
                     <ui:FAFontIcon Glyph="&#xE70D;" IsVisible="{Binding !#PathSelect.IsVisible}" />
                     <ui:FAFontIcon Glyph="&#xE70E;" IsVisible="{Binding #PathSelect.IsVisible}" />
                 </StackPanel>

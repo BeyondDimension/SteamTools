@@ -58,6 +58,8 @@ public static class PluginsCore
     {
         bool hasValue;
         string? hasNotValueError;
+        readonly string name;
+        readonly string? description;
 
         public DisablePlugin(IPlugin plugin)
         {
@@ -67,10 +69,12 @@ public static class PluginsCore
                 throw new ApplicationException("Disable reflection calls to this constructor.");
 
             Id = plugin.Id;
-            Name = plugin.Name;
+            name = plugin.Name;
+            NameResourceKey = plugin.NameResourceKey;
             UniqueEnglishName = plugin.UniqueEnglishName;
             Version = plugin.Version;
-            Description = plugin.Description;
+            description = plugin.Description;
+            DescriptionResourceKey = plugin.DescriptionResourceKey;
             StoreUrl = plugin.StoreUrl;
             HelpUrl = plugin.HelpUrl;
             Author = plugin.Author;
@@ -100,13 +104,17 @@ public static class PluginsCore
 
         public Guid Id { get; init; }
 
-        public string Name { get; init; }
+        public string Name => NameResourceKey is { } key ? Strings.ResourceManager.GetString(key, Strings.Culture) ?? name : name;
+
+        public string? NameResourceKey { get; }
 
         public string UniqueEnglishName { get; init; }
 
         public string Version { get; init; }
 
-        public string? Description { get; init; }
+        public string? Description => DescriptionResourceKey is { } key ? Strings.ResourceManager.GetString(key, Strings.Culture) ?? description : description;
+
+        public string? DescriptionResourceKey { get; }
 
         public string StoreUrl { get; init; }
 

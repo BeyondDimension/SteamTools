@@ -15,9 +15,9 @@
 	<Grid RowDefinitions="Auto,*">
 
 		<spp:Stepper SelectedIndex="{Binding SelectIndex}">
-			<spp:StepperItem Content="{Binding Path=Res.Steam_BindTel, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-			<spp:StepperItem Content="{Binding Path=Res.Steam_ConfirmEmailLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-			<spp:StepperItem Content="{Binding Path=Res.TelCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+			<spp:StepperItem Content="{x:Static spp:Strings.Steam_BindTel}" />
+			<spp:StepperItem Content="{x:Static spp:Strings.Steam_ConfirmEmailLink}" />
+			<spp:StepperItem Content="{x:Static spp:Strings.TelCode}" />
 		</spp:Stepper>
 
 		<spp:ContentLoader
@@ -36,7 +36,7 @@
 						<TextBlock
 								Margin="0,0,0,6"
 								DockPanel.Dock="Top"
-								Text="{Binding Path=Res.User_Phone, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								Text="{x:Static spp:Strings.User_Phone}" />
 						<TextBox
 								Name="PhoneNumberText"
 								MaxWidth="300"
@@ -49,7 +49,7 @@
 							HorizontalAlignment="Center"
 							HorizontalContentAlignment="Center"
 							Command="{Binding StartBindingAsync}"
-							Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							Content="{x:Static spp:Strings.Continue}" />
 				</StackPanel>
 
 				<StackPanel
@@ -61,7 +61,7 @@
 							HorizontalAlignment="Center"
 							HorizontalContentAlignment="Center"
 							Command="{Binding ConfirmBindingEmailAsync}"
-							Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							Content="{x:Static spp:Strings.Continue}" />
 				</StackPanel>
 
 				<StackPanel
@@ -73,7 +73,7 @@
 						<TextBlock
 								Margin="0,0,0,6"
 								DockPanel.Dock="Top"
-								Text="{Binding Path=Res.Error_PleaseEnterTelCode, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+								Text="{x:Static spp:Strings.Error_PleaseEnterTelCode}" />
 						<TextBox
 								Name="CodeText"
 								MaxWidth="300"
@@ -85,7 +85,7 @@
 							HorizontalAlignment="Center"
 							HorizontalContentAlignment="Center"
 							Command="{Binding VerifyAccountPhoneWithCodeAsync}"
-							Content="{Binding Path=Res.Continue, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+							Content="{x:Static spp:Strings.Continue}" />
 				</StackPanel>
 			</Carousel>
 		</spp:ContentLoader>

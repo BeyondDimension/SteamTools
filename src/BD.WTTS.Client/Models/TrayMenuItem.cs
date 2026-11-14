@@ -6,6 +6,8 @@ public partial class TrayMenuItem
 
     public string Name { get; set; } = string.Empty;
 
+    public string? NameResourceKey { get; set; }
+
     public ICommand? Command { get; set; }
 
     public object? CommandParameter { get; set; }

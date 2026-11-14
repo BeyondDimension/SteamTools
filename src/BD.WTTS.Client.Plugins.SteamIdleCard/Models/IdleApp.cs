@@ -83,11 +83,11 @@ public class IdleApp : ReactiveObject
         get
         {
             if (IsPrivateGame && IsBlacklisted)
-                return "私密游戏(不掉卡) + 已拉黑";
+                return Strings.L10nAuthIdle_Text104;
             if (IsPrivateGame)
-                return "私密游戏(不掉卡)";
+                return Strings.L10nAuthIdle_Text105;
             if (IsBlacklisted)
-                return "已拉黑";
+                return Strings.L10nAuthIdle_Text106;
             return string.Empty;
         }
     }

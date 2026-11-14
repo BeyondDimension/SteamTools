@@ -42,8 +42,13 @@
 		Background="{DynamicResource ControlFillColorDefaultBrush}"
 		BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
 		BorderThickness="1"
-		CornerRadius="6"
-		ToolTip.Tip="{Binding AuthData.Created, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss} · 长按拖拽排序'}">
+		CornerRadius="6">
+		<ToolTip.Tip>
+			<MultiBinding Converter="{StaticResource StringFormatConverter}">
+				<Binding Mode="OneTime" Source="{x:Static spp:Strings.L10nAuthIdle_DragTooltip}" />
+				<Binding Path="AuthData.Created" StringFormat="{}{0:yyyy-MM-dd HH:mm:ss}" />
+			</MultiBinding>
+		</ToolTip.Tip>
 		<Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,*,3">
 			<TextBlock
 				Grid.ColumnSpan="2"
@@ -70,7 +75,7 @@
 				FontFamily="{StaticResource SymbolThemeFontFamily}"
 				FontSize="16"
 				Theme="{StaticResource TransparentButton}"
-				ToolTip.Tip="{Binding Path=Res.More, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+				ToolTip.Tip="{x:Static spp:Strings.More}" />
 			<TextBlock
 				Grid.Row="1"
 				FontSize="11"
@@ -86,7 +91,7 @@
 				VerticalAlignment="Center"
 				Classes="Plain"
 				Command="{Binding CopyCode}"
-				ToolTip.Tip="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+				ToolTip.Tip="{x:Static spp:Strings.Copy}">
 				<TextBlock
 					FontSize="23"
 					FontWeight="SemiBold"
@@ -101,7 +106,7 @@
 					x:Name="ToggleEye"
 					Classes="TokenAction"
 					Theme="{StaticResource TransparentButton}"
-					ToolTip.Tip="显示或隐藏验证码">
+					ToolTip.Tip="{x:Static spp:Strings.L10nAuthIdle_Text035}">
 					<Panel>
 						<ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="16" Glyph="{StaticResource RedEye}"
 						               IsVisible="{Binding IsSelected}" />

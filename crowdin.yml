@@ -3,3 +3,23 @@ files:
     ignore:
       - '*.cs'
     translation: /src/BD.WTTS.Client/Resources/Strings.%two_letters_code%.resx
+    languages_mapping: &dotnet_languages
+      two_letters_code:
+        zh-TW: zh-Hant
+  - source: /src/BD.WTTS.Client/Resources/ProxyStrings.resx
+    translation: /src/BD.WTTS.Client/Resources/ProxyStrings.%two_letters_code%.resx
+    languages_mapping: *dotnet_languages
+  - source: /ref/SteamClient/src/BD.SteamClient/Resources/Strings.resx
+    translation: /ref/SteamClient/src/BD.SteamClient/Resources/Strings.%two_letters_code%.resx
+    languages_mapping: *dotnet_languages
+  - source: /ref/WTTS.MicroServices.ClientSDK/ref/WTTS.Public/src/BD.WTTS.Primitives.Resources/Strings.resx
+    translation: /ref/WTTS.MicroServices.ClientSDK/ref/WTTS.Public/src/BD.WTTS.Primitives.Resources/Strings.%two_letters_code%.resx
+    languages_mapping: *dotnet_languages
+  - source: /src/BD.WTTS.Client.Tools.Publish/ToolStrings.resx
+    translation: /src/BD.WTTS.Client.Tools.Publish/ToolStrings.%two_letters_code%.resx
+    languages_mapping: *dotnet_languages
+  - source: /src/BD.WTTS.Client.Tools.HostsTest/ToolStrings.resx
+    translation: /src/BD.WTTS.Client.Tools.HostsTest/ToolStrings.%two_letters_code%.resx
+    languages_mapping: *dotnet_languages
+  - source: /build/linux/locale/*.pot
+    translation: /build/linux/locale/%locale_with_underscore%/LC_MESSAGES/%file_name%.po

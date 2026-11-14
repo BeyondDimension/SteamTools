@@ -15,14 +15,16 @@
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
         <TextBlock Margin="0,0,0,5">
             <TextBlock.Text>
-                <MultiBinding StringFormat="{}{0} 平台设置">
+                <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                    <Binding Mode="OneTime" Source="{x:Static spp:Strings.L10nGames_PlatformSettingsFormat}" />
                     <CompiledBindingExtension Mode="OneWay" Path="Platform.FullName" />
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
         <ui:FASettingsExpander Description="{Binding PlatformSettings.PlatformPath}" IsClickEnabled="True">
             <ui:FASettingsExpander.Header>
-                <MultiBinding StringFormat="{}{0} 路径">
+                <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                    <Binding Mode="OneTime" Source="{x:Static spp:Strings.L10nGames_PlatformPathFormat}" />
                     <CompiledBindingExtension Mode="OneWay" Path="Platform.FullName" />
                 </MultiBinding>
             </ui:FASettingsExpander.Header>
@@ -30,7 +32,7 @@
                 <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE188;" />
             </ui:FASettingsExpander.IconSource>
             <ui:FASettingsExpander.Footer>
-                <Button Command="{Binding SelectProgramPath}" Content="选择路径" />
+                <Button Command="{Binding SelectProgramPath}" Content="{x:Static spp:Strings.LocalAuth_ExportAuth_SelectPath}" />
             </ui:FASettingsExpander.Footer>
         </ui:FASettingsExpander>
     </StackPanel>

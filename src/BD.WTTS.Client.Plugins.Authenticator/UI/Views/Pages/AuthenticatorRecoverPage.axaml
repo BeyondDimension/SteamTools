@@ -15,7 +15,7 @@
     <spp:ContentLoader
         x:Name="ContentLoader"
         IsLoading="{Binding !!!AuthenticatorDeleteBackups.Count, Mode=OneWay}"
-        NoResultMessage="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.Auth_Sync_NoHasRecover, Mode=OneWay}">
+        NoResultMessage="{x:Static spp:Strings.Auth_Sync_NoHasRecover}">
         <Grid RowDefinitions="*,Auto">
             <ItemsControl ItemsSource="{Binding AuthenticatorDeleteBackups, Mode=OneWay}">
                 <ItemsControl.ItemsPanel>
@@ -36,14 +36,14 @@
                                         <TextBlock
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
-                                            Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.GeneralAuth_Name, Mode=OneWay}"
+                                            Text="{x:Static spp:Strings.GeneralAuth_Name}"
                                             TextTrimming="CharacterEllipsis" />
 
                                         <TextBlock
                                             VerticalAlignment="Top"
                                             FontSize="12"
                                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                            Text="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.Auth_Sync_DeleteTime, Mode=OneWay}"
+                                            Text="{x:Static spp:Strings.Auth_Sync_DeleteTime}"
                                             TextWrapping="Wrap" />
                                     </StackPanel>
                                 </StackPanel>
@@ -77,7 +77,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Command="{Binding Recover}"
-                Content="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.Auth_Sync_VerifyRecover, Mode=OneWay}"
+                Content="{x:Static spp:Strings.Auth_Sync_VerifyRecover}"
                 IsVisible="{Binding !#ContentLoader.IsLoading}" />
         </Grid>
     </spp:ContentLoader>

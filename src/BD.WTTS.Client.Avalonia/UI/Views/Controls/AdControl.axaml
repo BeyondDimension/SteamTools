@@ -36,13 +36,13 @@
                 Margin="10"
                 FontSize="10"
                 Foreground="White"
-                Text="{Binding Path=Res.Advertisement, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Text="{x:Static spp:Strings.Advertisement}" />
             <Button
                 Name="CloseAdBtn"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Background="Transparent"
-                Content="{Binding Path=Res.Advertisement_Close, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Content="{x:Static spp:Strings.Advertisement_Close}"
                 Cursor="Hand"
                 Foreground="White" />
         </Panel>

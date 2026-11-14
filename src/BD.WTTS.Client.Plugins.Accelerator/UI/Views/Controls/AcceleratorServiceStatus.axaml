@@ -2,6 +2,7 @@
     x:Class="BD.WTTS.UI.Views.Pages.AcceleratorServiceStatus"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:s="https://steampp.net/services"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enum="using:BD.WTTS.Enums"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -44,7 +45,7 @@
                                     HorizontalAlignment="Right"
                                     Click="ConnectTestButtonOnClick"
                                     Command="{Binding ConnectTestCommand}"
-                                    Content="连通性测试"
+                                    Content="{x:Static spp:Strings.L10nAccel_046}"
                                     DockPanel.Dock="Right" />
                             </ui:FASettingsExpander.Footer>
                             <ui:FASettingsExpanderItem Theme="{StaticResource SettingsExpanderItem2}">
@@ -58,7 +59,7 @@
                                                         Padding="5,0"
                                                         CornerRadius="5"
                                                         IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
-                                                        ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
+                                                        ToolTip.Tip="{x:Static spp:Strings.L10nAccel_047}">
                                                         <Border.Background>
                                                             <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                                                                 <GradientStop Offset="0.0" Color="#43cbff" />
@@ -85,7 +86,7 @@
                                                         FontSize="20"
                                                         Glyph="&#xE946;"
                                                         ToolTip.ShowDelay="0"
-                                                        ToolTip.Tip="此数值代表测试网页打开访问所需时间，请以实际浏览器访问网页状况为准"
+                                                        ToolTip.Tip="{x:Static spp:Strings.L10nAccel_048}"
                                                         IsVisible="{Binding Text, ElementName=DelayValue, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
                                                     </ui:FAFontIcon>
                                                 </StackPanel>

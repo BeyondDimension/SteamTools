@@ -17,16 +17,19 @@ sealed partial class HttpReverseProxyMiddleware
     readonly IHttpForwarder httpForwarder;
     readonly IReverseProxyHttpClientFactory httpClientFactory;
     readonly IReverseProxyConfig reverseProxyConfig;
+    readonly IPCToastService toast;
     readonly ILogger<HttpReverseProxyMiddleware> logger;
 
     public HttpReverseProxyMiddleware(
         IHttpForwarder httpForwarder,
         IReverseProxyHttpClientFactory httpClientFactory,
         IReverseProxyConfig reverseProxyConfig,
+        IPCToastService toast,
         ILogger<HttpReverseProxyMiddleware> logger)
     {
         this.httpForwarder = httpForwarder;
         this.httpClientFactory = httpClientFactory;
+        this.toast = toast;
         this.reverseProxyConfig = reverseProxyConfig;
         this.logger = logger;
     }
@@ -74,7 +77,7 @@ Actual value was {actualValue}.
             context.Response.Body = memoryStream;
         }
 
-        if (TryGetDomainConfig(url.Remove(0, context.Request.Scheme.Length + 3), out var domainConfig) == false)
+        if (TryGetDomainConfig(url.Remove(0, context.Request.Scheme.Length + 3), out var domainConfig, out var unknownHost) == false)
         {
             if (reverseProxyConfig.Service.TwoLevelAgentEnable)
             {
@@ -97,6 +100,14 @@ Actual value was {actualValue}.
             return;
         }
 
+        string? dnsWarning = null;
+        if (unknownHost != null)
+        {
+            dnsWarning = await toast.GetTextAsync(IPCToastService.ToastText.CommunityFix_DnsPollutionResponse)
+                ?? BD.WTTS.Client.Resources.ProxyStrings.DnsPollution(null);
+            logger.LogWarning("{DnsWarning}", string.Format(dnsWarning, unknownHost));
+        }
+
         if (domainConfig == defaultDomainConfig &&
             !reverseProxyConfig.Service.OnlyEnableProxyScript)
         {
@@ -105,7 +116,7 @@ Actual value was {actualValue}.
             if (ip == null || IPAddress.IsLoopback(ip))
             {
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                await context.Response.WriteAsync($"域名 {context.Request.Host.Host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。", Encoding.UTF8);
+                await context.Response.WriteAsync(string.Format(dnsWarning!, context.Request.Host.Host), Encoding.UTF8);
                 return;
             }
         }
@@ -194,9 +205,10 @@ Actual value was {actualValue}.
         return domainConfig;
     }
 
-    bool TryGetDomainConfig(string uri, [MaybeNullWhen(false)] out IDomainConfig domainConfig)
+    bool TryGetDomainConfig(string uri, [MaybeNullWhen(false)] out IDomainConfig domainConfig, out string? unknownHost)
     {
         domainConfig = null;
+        unknownHost = null;
 
         if (!reverseProxyConfig.Service.OnlyEnableProxyScript && reverseProxyConfig.TryGetDomainConfig(uri, out domainConfig) == true)
         {
@@ -207,8 +219,7 @@ Actual value was {actualValue}.
         // 未配置的域名，但仍然被解析到本机 IP 的域名
         if (IsDomain(host))
         {
-            logger.LogWarning(
-                "域名 {host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。", host);
+            unknownHost = host;
             domainConfig = defaultDomainConfig;
             return true;
         }

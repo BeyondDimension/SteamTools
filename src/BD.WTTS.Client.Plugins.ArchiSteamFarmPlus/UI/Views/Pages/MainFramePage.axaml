@@ -30,17 +30,17 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="控制台">
+            <TabStripItem Content="{x:Static spp:Strings.L10nAsf_Text039}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:ArchiSteamFarmPage" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="Bot 配置">
+            <TabStripItem Content="{x:Static spp:Strings.ASF_BotManage}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:BotPage" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="ASF 配置">
+            <TabStripItem Content="{x:Static spp:Strings.L10nAsf_Text008}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:ASFSettingsPage" />
                 </TabStripItem.Tag>

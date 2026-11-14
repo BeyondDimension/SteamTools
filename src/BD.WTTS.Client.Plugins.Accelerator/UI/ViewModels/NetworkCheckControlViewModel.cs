@@ -13,7 +13,7 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
     {
         public const string RegPattern = @"^[^/]+\.[^/]{2,}$";
 
-        public override string FormatErrorMessage(string name) => "请填入不带分隔符 \"/\" 的域名";
+        public override string FormatErrorMessage(string name) => Strings.L10nAccel_148;
 
         public DomainValidationAttribute() : base(RegPattern)
         {
@@ -36,11 +36,11 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
         "stun.fitauto.ru",
     ];
 
-    [ObservableAsProperty]
-    public string NATLevel { get; } = string.Empty;
+    [Reactive]
+    public string NATLevel { get; set; } = Strings.L10nAccel_131;
 
-    [ObservableAsProperty]
-    public string NATTypeTip { get; } = string.Empty;
+    [Reactive]
+    public string NATTypeTip { get; set; } = Strings.L10nAccel_132;
 
     [ObservableAsProperty]
     public string LocalEndPoint { get; } = string.Empty;
@@ -99,14 +99,11 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
         NATCheckCommand
             .Select(x => x.LocalEndPoint)
             .ToPropertyEx(this, x => x.LocalEndPoint);
-        NATCheckCommand
-            .Select(x => x.NATLevel)
-            .Merge(Observable.Return("未知"))
-            .ToPropertyEx(this, x => x.NATLevel);
-        NATCheckCommand
-            .Select(x => x.NATTypeTip)
-            .Merge(Observable.Return("未知类型"))
-            .ToPropertyEx(this, x => x.NATTypeTip);
+        NATCheckCommand.Subscribe(x =>
+        {
+            NATLevel = x.NATLevel;
+            NATTypeTip = x.NATTypeTip;
+        });
 
         var hidePingResultStream = NATCheckCommand
             .IsExecuting
@@ -169,20 +166,21 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
         var publicEndPoint = natCheckResult.PublicEndPoint?.Address.ToString() ?? "Unknown";
         var localEndPoint = natCheckResult.LocalEndPoint?.Address.ToString() ?? "Unknown";
 
-        var (natLevel, natTypeTip) = natCheckResult.NatType switch
-        {
-            // Open
-            NatType.OpenInternet or NatType.FullCone => ("开放 NAT", "您可与在其网络上具有任意 NAT 类型的用户玩多人游戏和发起多人游戏。"),
-            // Moderate
-            NatType.RestrictedCone or NatType.PortRestrictedCone or NatType.SymmetricUdpFirewall => ("中等 NAT", "您可与一些用户玩多人游戏；但是，并且通常你将不会被选为比赛的主持人。"),
-            // Strict
-            NatType.Symmetric or NatType.UdpBlocked => ("严格 NAT", "您只能与具有开放 NAT 类型的用户玩多人游戏。您不能被选为比赛的主持人。"),
-            // Unknown
-            NatType.Unknown or NatType.UnsupportedServer or _ => ("不可用 NAT", "如果 NAT 不可用，您将无法使用群聊天或连接到某些 Xbox 游戏的多人游戏。"),
-        };
-
+        var (natLevel, natTypeTip) = GetNatText(natCheckResult.NatType);
         return new NATFetchResult(publicEndPoint, localEndPoint, natLevel, natTypeTip, netSucc);
     }
+
+    static (string, string) GetNatText(NatType natType) => natType switch
+        {
+            // Open
+            NatType.OpenInternet or NatType.FullCone => (Strings.L10nAccel_133, Strings.L10nAccel_134),
+            // Moderate
+            NatType.RestrictedCone or NatType.PortRestrictedCone or NatType.SymmetricUdpFirewall => (Strings.L10nAccel_135, Strings.L10nAccel_136),
+            // Strict
+            NatType.Symmetric or NatType.UdpBlocked => (Strings.L10nAccel_137, Strings.L10nAccel_138),
+            // Unknown
+            NatType.Unknown or NatType.UnsupportedServer or _ => (Strings.L10nAccel_139, Strings.L10nAccel_140),
+        };
 
     async Task DNSCheckAsync()
     {
@@ -211,13 +209,13 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
                 if (address.Length > 0)
                 {
                     DNSTestDelay = delayMs + "ms ";
-                    DNSTestResult = $"{address[0]}（服务器：{server}）";
+                    DNSTestResult = string.Format(Strings.L10nAccel_141, address[0], server);
                     return;
                 }
             }
             catch (OperationCanceledException) when (timeout.IsCancellationRequested)
             {
-                DNSTestResult = $"DNS 检测总超时（正在检测：{server}）";
+                DNSTestResult = string.Format(Strings.L10nAccel_142, server);
                 return;
             }
             catch (OperationCanceledException)
@@ -229,6 +227,6 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
                 Log.Error(nameof(AcceleratorPageViewModel), ex.ToString());
             }
         }
-        DNSTestResult = hadTimeout ? "所有 DNS 服务器检测失败或超时" : "所有 DNS 服务器检测失败";
+        DNSTestResult = hadTimeout ? Strings.L10nAccel_143 : Strings.L10nAccel_144;
     }
 }

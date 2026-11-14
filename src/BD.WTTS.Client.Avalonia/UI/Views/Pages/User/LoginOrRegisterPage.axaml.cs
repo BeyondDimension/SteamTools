@@ -43,7 +43,7 @@ public partial class LoginOrRegisterPage : ReactiveUserControl<LoginOrRegisterWi
             this.ViewModel.LoginState = 0;
             if (UserService.Current.IsAuthenticated)
             {
-                Toast.Show(ToastIcon.Info, "当前已是登录状态");
+                Toast.Show(ToastIcon.Info, Strings.L10nApp_AlreadyLoggedIn);
                 this.ViewModel.Close(false);
             }
         }

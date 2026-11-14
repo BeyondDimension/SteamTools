@@ -166,17 +166,6 @@
 //    //    };
 //    //    menu.Add(exitMenuItem);
 
-//    //    return ResourceService.Subscribe(() =>
-//    //    {
-//    //        if (exitMenuItem != null)
-//    //        {
-//    //            exitMenuItem.Header = Exit;
-//    //        }
-//    //        foreach (var item in tabItems)
-//    //        {
-//    //            item.Value.Header = TabItemViewModel.GetName(item.Key);
-//    //        }
-//    //    });
 //    //}
 
 //    #endregion

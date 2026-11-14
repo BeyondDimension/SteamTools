@@ -42,7 +42,7 @@ public class NetworkEnvCheckService
         bool hostFileExist = File.Exists(HOST_FILE_PATH);
 
         if (!hostFileExist)
-            return Task.FromResult((false, "未找到 hosts 文件"));
+            return Task.FromResult((false, Strings.L10nAccel_077));
 
         return Task.FromResult((hostFileExist, string.Empty));
     }
@@ -52,7 +52,7 @@ public class NetworkEnvCheckService
         interfaces ??= NetworkInterface.GetAllNetworkInterfaces();
 
         if (interfaces == null || interfaces.Length == 0)
-            return (false, "未获取到网络适配器信息!");
+            return (false, Strings.L10nAccel_078);
 
         // 如何判断虚拟网卡?
 
@@ -62,7 +62,7 @@ public class NetworkEnvCheckService
                 (x.NetworkInterfaceType == NetworkInterfaceType.Ethernet || x.NetworkInterfaceType == NetworkInterfaceType.Wireless80211));
 
         if (!useableNetworkInterfaces.Any())
-            return (false, "未获取到可用的以太网,无线网络适配器");
+            return (false, Strings.L10nAccel_079);
 
         var checkResults =
             useableNetworkInterfaces.Select(x => new
@@ -87,10 +87,10 @@ public class NetworkEnvCheckService
         var ipProps = @interface.GetIPProperties();
 
         if (@interface.OperationalStatus != OperationalStatus.Up)
-            return (false, "未启用网卡");
+            return (false, Strings.L10nAccel_080);
 
         if (ipProps == null)
-            return (false, $"获取网络信息失败!");
+            return (false, Strings.L10nAccel_081);
 
         bool hasIPv4 = ipProps.UnicastAddresses
             .Any(x => x.Address.AddressFamily == AddressFamily.InterNetwork);
@@ -99,7 +99,7 @@ public class NetworkEnvCheckService
             .Any(x => x.Address.AddressFamily == AddressFamily.InterNetworkV6);
 
         if (!hasIPv4 && !hasIPv6)
-            return (false, "网络适配器未启用TCP/IP服务");
+            return (false, Strings.L10nAccel_082);
 
         // 如何判断虚拟网卡?
 
@@ -126,7 +126,7 @@ public class NetworkEnvCheckService
             int result = WSCEnumProtocols(null, protocolBuffer, ref bufferSize, ref error);
             if (result == -1)
             {
-                return (false, "获取LSP信息失败!");
+                return (false, Strings.L10nAccel_083);
             }
 
             int structSize = Marshal.SizeOf(typeof(WSAPROTOCOL_INFO));
@@ -149,7 +149,7 @@ public class NetworkEnvCheckService
                 var handle = predicate(in protocolInfo);
 
                 if (!handle)
-                    return (false, "LSP响应异常!");
+                    return (false, Strings.L10nAccel_084);
             }
 
             return (true, string.Empty);
