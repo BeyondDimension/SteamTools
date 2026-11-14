@@ -31,10 +31,12 @@ public static class KestrelServerOptionsExtensions
         {
             listen.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
             var proxyMiddleware = options.ApplicationServices.GetRequiredService<HttpProxyMiddleware>();
+            var tunnelPassThroughMiddleware = options.ApplicationServices.GetRequiredService<TunnelPassThroughMiddleware>();
             var tunnelMiddleware = options.ApplicationServices.GetRequiredService<TunnelMiddleware>();
 
             listen.UseFlowAnalyze();
             listen.Use(next => context => proxyMiddleware.InvokeAsync(next, context));
+            listen.Use(next => context => tunnelPassThroughMiddleware.InvokeAsync(next, context));
             listen.UseTls();
             listen.Use(next => context => tunnelMiddleware.InvokeAsync(next, context));
         });
