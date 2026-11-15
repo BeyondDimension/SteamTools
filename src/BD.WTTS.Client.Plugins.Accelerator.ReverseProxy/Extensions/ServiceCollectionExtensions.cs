@@ -114,6 +114,7 @@ public static partial class ServiceCollectionExtensions
             .AddMemoryCache()
             .AddHttpForwarder()
             .AddSingleton<CertService>()
+            .AddSingleton<CrlMiddleware>()
             //.AddSingleton<ICaCertInstaller, CaCertInstallerOfMacOS>()
             //.AddSingleton<ICaCertInstaller, CaCertInstallerOfWindows>()
             //.AddSingleton<ICaCertInstaller, CaCertInstallerOfLinuxRedHat>()
