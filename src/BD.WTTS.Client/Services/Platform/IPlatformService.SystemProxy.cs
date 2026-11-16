@@ -28,6 +28,21 @@ partial interface IPlatformService
         "192.168.*",
         Constants.Urls.OfficialApiHostName,
         Constants.Urls.OfficialShopApiHostName,
+        // Microsoft Store、Windows 搜索的网页预览等 AppContainer 应用不允许连接 127.0.0.1，
+        // 系统代理指向本机回环端口时它们会直接失去网络，故在系统代理层面排除，令其直连。
+        // 注：Windows 11 26H2(Build 26300) 起 CheckNetIsolation 的环回豁免失效（命令返回成功但状态不落盘），
+        // 回环方案不可用，只能在此排除。
+        "*.mp.microsoft.com", // 含 winget msstore 源（SFS）的 *.dsx.mp.microsoft.com，其证书固定到微软根 CA
+        "*.microsoft.com",
+        "*.s-microsoft.com",
+        "*.microsoftonline.com",
+        "*.live.com",
+        "*.windows.com",
+        "*.windowsupdate.com",
+        "*.msftconnecttest.com",
+        "*.msftncsi.com",
+        "*.bing.com",
+        "*.bing.net",
     };
 
     /// <summary>
