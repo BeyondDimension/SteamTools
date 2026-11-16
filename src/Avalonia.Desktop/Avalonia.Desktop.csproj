@@ -19,8 +19,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Avalonia.Win32" />
-		<PackageReference Include="Avalonia.Skia" />
-		<PackageReference Include="Avalonia.HarfBuzz" />
+		<PackageReference Include="Avalonia.Skia" Condition="'$(WttsUseSimdSkia)' != 'true'" />
+		<PackageReference Include="Avalonia.HarfBuzz" Condition="'$(WttsUseSimdSkia)' != 'true'" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" !$(TargetFramework.Contains('-windows')) ">

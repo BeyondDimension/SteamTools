@@ -134,9 +134,10 @@
 		<PackageReference Include="System.Drawing.Common" />
 		<PackageReference Include="Microsoft.Extensions.FileProviders.Physical" />
 		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
-		<PackageReference Include="SkiaSharp" />
-		<PackageReference Include="SkiaSharp.HarfBuzz" />
-		<PackageReference Include="HarfBuzzSharp" />
+		<PackageReference Include="SimdSkia" Condition="'$(WttsUseSimdSkia)' == 'true'" />
+		<PackageReference Include="SkiaSharp" Condition="'$(WttsUseSimdSkia)' != 'true'" />
+		<PackageReference Include="SkiaSharp.HarfBuzz" Condition="'$(WttsUseSimdSkia)' != 'true'" />
+		<PackageReference Include="HarfBuzzSharp" Condition="'$(WttsUseSimdSkia)' != 'true'" />
 		<PackageReference Include="Utf8StringInterpolation" />
 		<!--<PackageReference Include="BD.Any.AppCenter" />
 		<PackageReference Include="BD.Any.AppCenter.Analytics" />-->
@@ -218,8 +219,8 @@
 		<!--<PackageReference Include="Aigio.Any.AppCenter" />
 		<PackageReference Include="Aigio.Any.AppCenter.Analytics" />
 		<PackageReference Include="Aigio.Any.AppCenter.Crashes" />-->
-		<PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" />
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux" />
+		<PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Condition="'$(WttsUseSimdSkia)' != 'true'" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Condition="'$(WttsUseSimdSkia)' != 'true'" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">

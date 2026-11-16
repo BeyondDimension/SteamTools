@@ -1,7 +1,4 @@
 using BD.WTTS.UI.Styling;
-using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView;
-using SkiaSharp;
 
 namespace BD.WTTS.UI;
 
@@ -61,14 +58,6 @@ partial class App
 
         RequestedThemeVariant = mode;
 
-        if (value == AppTheme.Light)
-        {
-            LiveCharts.Configure(settings => settings.AddLightTheme());
-        }
-        else
-        {
-            LiveCharts.Configure(settings => settings.AddDarkTheme());
-        }
     }
 
     public static void SetThemeAccent(string? colorHex)

@@ -1,0 +1,65 @@
+<Project>
+  <Import Project="$(MSBuildThisFileDirectory)sources.props" />
+  <PropertyGroup>
+    <WttsStaticGraphics Condition="'$(WttsStaticGraphics)' == ''">false</WttsStaticGraphics>
+    <WttsStaticGraphicsComponents Condition="'$(WttsStaticGraphicsComponents)' == ''">Skia;HarfBuzz</WttsStaticGraphicsComponents>
+    <WttsStaticGraphicsRoot Condition="'$(WttsStaticGraphicsRoot)' == ''">$(MSBuildThisFileDirectory)../artifacts/native-graphics/$(RuntimeIdentifier)</WttsStaticGraphicsRoot>
+    <_WttsLinkStaticGraphics Condition="'$(WttsStaticGraphics)' == 'true' AND '$(WttsNativeAot)' == 'true' AND '$(PublishAot)' == 'true' AND '$(WttsUseSimdSkia)' != 'true'">true</_WttsLinkStaticGraphics>
+    <_WttsLinkStaticSkia Condition="'$(_WttsLinkStaticGraphics)' == 'true' AND $([System.String]::Copy(';$(WttsStaticGraphicsComponents);').Contains(';Skia;'))">true</_WttsLinkStaticSkia>
+    <_WttsLinkStaticHarfBuzz Condition="'$(_WttsLinkStaticGraphics)' == 'true' AND $([System.String]::Copy(';$(WttsStaticGraphicsComponents);').Contains(';HarfBuzz;'))">true</_WttsLinkStaticHarfBuzz>
+  </PropertyGroup>
+  <Import Project="$(WttsStaticGraphicsRoot)/Skia.props" Condition="'$(_WttsLinkStaticSkia)' == 'true' AND Exists('$(WttsStaticGraphicsRoot)/Skia.props')" />
+  <Import Project="$(WttsStaticGraphicsRoot)/HarfBuzz.props" Condition="'$(_WttsLinkStaticHarfBuzz)' == 'true' AND Exists('$(WttsStaticGraphicsRoot)/HarfBuzz.props')" />
+
+  <ItemGroup Condition="'$(_WttsLinkStaticSkia)' == 'true'">
+    <DirectPInvoke Include="libSkiaSharp" />
+    <!-- Matches the complete native/windows/build.cake feature set, including D3D/Vulkan. -->
+    <NativeLibrary Include="d3d12.lib;dxgi.lib;d3dcompiler.lib;gdi32.lib;user32.lib;ole32.lib;fontsub.lib;usp10.lib;synchronization.lib;opengl32.lib;delayimp.lib" />
+    <LinkerArg Include="/DELAYLOAD:d3d12.dll;/DELAYLOAD:dxgi.dll;/DELAYLOAD:D3DCOMPILER_47.dll" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(_WttsLinkStaticHarfBuzz)' == 'true'">
+    <DirectPInvoke Include="libHarfBuzzSharp" />
+  </ItemGroup>
+
+  <Target Name="WttsResolveStaticGraphics" BeforeTargets="_ComputeIlcCompileInputs;ComputeIlcCompileInputs" Condition="'$(_WttsLinkStaticGraphics)' == 'true'">
+    <Error Condition="'$(RuntimeIdentifier)' != 'win-x64' AND '$(RuntimeIdentifier)' != 'win-arm64'" Text="Static graphics currently supports only win-x64 and win-arm64. JIT and other RIDs keep their normal dynamic graphics dependencies." />
+    <Error Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch('$(WttsStaticGraphicsComponents)', '^(Skia|HarfBuzz)(;(Skia|HarfBuzz))*$'))" Text="WttsStaticGraphicsComponents must explicitly name Skia and/or HarfBuzz, separated by semicolons. ANGLE remains the original dynamic native package; older static renderer builds are not substituted." />
+    <Error Condition="'$(_WttsLinkStaticSkia)' == 'true' AND '$(Version_SkiaSharp)' != '$(WttsStaticSkiaSharpVersion)'" Text="Static Skia source is pinned to $(WttsStaticSkiaSharpVersion), but managed SkiaSharp is $(Version_SkiaSharp). Update and rebuild exact matching native sources before publishing." />
+    <Error Condition="'$(_WttsLinkStaticHarfBuzz)' == 'true' AND '$(Version_HarfBuzzSharp)' != '$(WttsStaticHarfBuzzVersion)'" Text="Static HarfBuzz source is pinned to $(WttsStaticHarfBuzzVersion), but managed HarfBuzzSharp is $(Version_HarfBuzzSharp). Update and rebuild exact matching native sources before publishing." />
+    <Error Condition="'$(_WttsLinkStaticSkia)' == 'true' AND '$(WttsBuiltSkiaSource)' != '$(WttsStaticSkiaCommit)'" Text="Exact static Skia archives are missing. Run build/native-graphics/build-static-graphics.ps1 -RuntimeIdentifier $(RuntimeIdentifier) -Component Skia (requires Python, C++ Build Tools and Windows SDK 10.0.22621+). Expected receipt: $(WttsStaticGraphicsRoot)/Skia.props" />
+    <Error Condition="'$(_WttsLinkStaticHarfBuzz)' == 'true' AND '$(WttsBuiltHarfBuzzSource)' != '$(WttsStaticHarfBuzzCommit)'" Text="Exact static HarfBuzz archives are missing. Run build/native-graphics/build-static-graphics.ps1 -RuntimeIdentifier $(RuntimeIdentifier) -Component HarfBuzz. Expected receipt: $(WttsStaticGraphicsRoot)/HarfBuzz.props" />
+    <GetFileHash Files="@(_WttsStaticGraphicsArchive)" Algorithm="SHA256" MetadataName="CurrentHash">
+      <Output TaskParameter="Items" ItemName="_WttsVerifiedStaticGraphicsArchive" />
+    </GetFileHash>
+    <Error Condition="'%(_WttsVerifiedStaticGraphicsArchive.CurrentHash)' != '%(_WttsVerifiedStaticGraphicsArchive.Sha256)'" Text="Static graphics archive no longer matches its source-build receipt: %(_WttsVerifiedStaticGraphicsArchive.Identity). Rebuild rather than substituting a native DLL import library." />
+    <ItemGroup>
+      <NativeLibrary Include="@(_WttsVerifiedStaticGraphicsArchive)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Only omit dynamic graphics after the native linker has actually succeeded.
+       These selectors never touch the deliberately shared e_sqlite3.dll. -->
+  <Target Name="WttsPublishStaticGraphics" AfterTargets="LinkNative" Condition="'$(_WttsLinkStaticGraphics)' == 'true'">
+    <ItemGroup>
+      <_WttsStaticallyLinkedGraphicsDll Include="@(ResolvedFileToPublish)" Condition="('$(_WttsLinkStaticSkia)' == 'true' AND '%(Filename)%(Extension)' == 'libSkiaSharp.dll') OR ('$(_WttsLinkStaticHarfBuzz)' == 'true' AND '%(Filename)%(Extension)' == 'libHarfBuzzSharp.dll')" />
+      <ResolvedFileToPublish Remove="@(_WttsStaticallyLinkedGraphicsDll)" />
+      <_WttsGraphicsNotice Include="$(WttsStaticGraphicsRoot)/licenses/Skia/**/*" Condition="'$(_WttsLinkStaticSkia)' == 'true'">
+        <ComponentDirectory>Skia/</ComponentDirectory>
+      </_WttsGraphicsNotice>
+      <_WttsGraphicsNotice Include="$(WttsStaticGraphicsRoot)/licenses/HarfBuzz/**/*" Condition="'$(_WttsLinkStaticHarfBuzz)' == 'true'">
+        <ComponentDirectory>HarfBuzz/</ComponentDirectory>
+      </_WttsGraphicsNotice>
+      <ResolvedFileToPublish Include="@(_WttsGraphicsNotice)">
+        <RelativePath>licenses/native-graphics/%(_WttsGraphicsNotice.ComponentDirectory)%(_WttsGraphicsNotice.RecursiveDir)%(_WttsGraphicsNotice.Filename)%(_WttsGraphicsNotice.Extension)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+    <PropertyGroup>
+      <_WttsStaticGraphicsLinked>true</_WttsStaticGraphicsLinked>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="WttsRemoveStaleDynamicGraphics" AfterTargets="Publish" Condition="'$(_WttsStaticGraphicsLinked)' == 'true'">
+    <Delete Files="@(_WttsStaticallyLinkedGraphicsDll->'$(PublishDir)%(RelativePath)')" />
+  </Target>
+</Project>

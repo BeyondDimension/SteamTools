@@ -106,86 +106,58 @@ public sealed partial class MainWindowViewModel : WindowViewModel
         FooterTabItems = footerTabItems;
     }
 
-    public override async Task Initialize()
+    readonly object initializationSync = new();
+    Task? initializationTask;
+
+    public override Task Initialize()
     {
-        if (!IsInitialized)
+        lock (initializationSync)
+            return initializationTask ??= InitializeCoreAsync();
+    }
+
+    async Task InitializeCoreAsync()
+    {
+        var startup = Startup.Instance;
+        Task pluginInitialization = Task.CompletedTask;
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+        // Elevated operations await IPCRoot where needed. Local plugin data and
+        // Steam startup must not be gated on an unrelated process or plugin.
+        if (startup.TryGetPlugins(out var plugins))
         {
-            var startup = Startup.Instance;
+            PluginCount = plugins.Count;
+            pluginInitialization = PluginsCore.InitializePluginsAsync(plugins);
+        }
+        try
+        {
+            SteamConnectService.Current.Initialize();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(MainWindowViewModel), ex, "Steam connection initialization failed.");
+        }
+#endif
 
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-            if (OperatingSystem.IsWindows())
+        await pluginInitialization;
+
+        if (startup.InvalidConfiguration)
+        {
+            MainThread2.BeginInvokeOnMainThread(() =>
             {
-                // 等待 Ipc 管理员权限服务初始化完毕
-                await IPlatformService.IPCRoot.Instance;
-            }
-            if (startup.TryGetPlugins(out var plugins))
-            {
-                PluginCount = plugins.Count;
-                foreach (var plugin in plugins)
+                StringBuilder b = new(Strings.Settings_InvalidConfigurationFile);
+                b.AppendLine(Environment.NewLine);
+                foreach (var item in startup.InvalidConfigurationFileNames)
                 {
-                    try
-                    {
-                        await plugin.OnInitializeAsync();
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(nameof(MainWindowViewModel), ex,
-                            $"({plugin.UniqueEnglishName}) Plugin.OnInitializeAsync fail.");
-                    }
+                    if (string.IsNullOrWhiteSpace(item))
+                        continue;
+                    b.Append(item);
+                    b.AppendLine(FileEx.JSON);
                 }
-            }
-            //if (ASFSettings.AutoRunArchiSteamFarm.Value)
-            //{
-            //    if (platformService.UsePlatformForegroundService)
-            //    {
-            //        await platformService.StartOrStopForegroundServiceAsync(nameof(ASFService), true);
-            //    }
-            //    else
-            //    {
-            //        await ASFService.Current.InitASF();
-            //    }
-            //}
-#endif
-
-#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-            {
-                SteamConnectService.Current.Initialize();
-                //SteamConnectService.Current.RefreshSteamUsers();
-            }
-#endif
-
-            //Parallel.ForEach(TabItems, item =>
-            //{
-            //    item.Initialize();
-            //    //Task.Run(item.Initialize).ForgetAndDispose();
-            //});
-
-            #region 提示设置项配置文件，如果存在无效的文件时
-
-            if (startup.InvalidConfiguration)
-            {
-                MainThread2.BeginInvokeOnMainThread(() =>
-                {
-                    StringBuilder b = new(Strings.Settings_InvalidConfigurationFile);
-                    b.AppendLine(Environment.NewLine);
-                    foreach (var item in startup.InvalidConfigurationFileNames)
-                    {
-                        if (string.IsNullOrWhiteSpace(item))
-                            continue;
-                        b.Append(item);
-                        b.AppendLine(FileEx.JSON);
-                    }
-                    var errorMsg = b.ToString();
-                    MessageBox.Show(errorMsg, Strings.Error, icon: MessageBox.Image.Error);
-                });
-            }
-
-            #endregion
-
-            IsInitialized = true;
+                var errorMsg = b.ToString();
+                MessageBox.Show(errorMsg, Strings.Error, icon: MessageBox.Image.Error);
+            });
         }
 
-        await Task.CompletedTask;
+        IsInitialized = true;
     }
 
     //public async override void Activation()

@@ -80,9 +80,9 @@
 		<PackageReference Include="Xaml.Behaviors.Avalonia" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
 		<!--<PackageReference Include="Markdown.Avalonia" />-->
-		<PackageReference Include="FluentAvaloniaUI" />
+		<PackageReference Include="FluentAvaloniaUI" Condition="'$(WttsUseSimdSkia)' != 'true'" />
+		<ProjectReference Include="..\..\ref\FluentAvalonia\FluentAvalonia\FluentAvalonia.csproj" Condition="'$(WttsUseSimdSkia)' == 'true'" />
 		<PackageReference Include="Avalonia.Controls.ColorPicker" />
-		<PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="AvaloniaUI.DiagnosticsSupport" />
 		<!--ProjectReference Include="..\Avalonia.Themes.Default\Avalonia.Themes.Default.csproj" />
@@ -93,8 +93,8 @@
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<!-- Windows Only -->
-		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
-		<ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
+		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" Condition="'$(WttsUseSimdSkia)' != 'true'" />
+		<ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" Condition="'$(WttsUseSimdSkia)' != 'true'" />
 		<!--<PackageReference Include="Aigio.Avalonia.AppCenter" />
 		<PackageReference Include="Aigio.Avalonia.AppCenter.Analytics" />
 		<PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />-->
@@ -105,21 +105,21 @@
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">
 		<!-- iOS/macOS/MacCatalyst Only -->
-		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" />
-		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
+		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" Condition="'$(WttsUseSimdSkia)' != 'true'" />
+		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" Condition="'$(WttsUseSimdSkia)' != 'true'" />
 		<PackageReference Include="Avalonia.Native" />
 		<ProjectReference Include="..\..\ref\Common\src\BD.Common.Essentials.Maui.Runtime\BD.Common.Essentials.Maui.Runtime.csproj" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == ''">
 		<!-- Linux Only -->
-		<ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" />
-		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" />
+		<ProjectReference Include="..\Avalonia.Native\Avalonia.Native.csproj" Condition="'$(WttsUseSimdSkia)' != 'true'" />
+		<ProjectReference Include="..\Avalonia.Win32\Avalonia.Win32.csproj" Condition="'$(WttsUseSimdSkia)' != 'true'" />
 		<PackageReference Include="Avalonia.X11" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Avalonia.Skia.Internals\Avalonia.Skia.Internals.csproj" />
+		<ProjectReference Include="..\Avalonia.Skia.Internals\Avalonia.Skia.Internals.csproj" Condition="'$(WttsUseSimdSkia)' != 'true'" />
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 

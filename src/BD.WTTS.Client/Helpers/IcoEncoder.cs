@@ -28,7 +28,8 @@ public static class IcoEncoder
             {
                 var image = bitmaps[index];
                 MemoryStream memoryStream1 = new();
-                image.Encode(memoryStream1, SKEncodedImageFormat.Png, 100);
+                using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
+                    data.SaveTo(memoryStream1);
                 int num1 = (int)memoryStream1.Length;
                 memoryStreamList.Add(memoryStream1);
                 class253_1 = new(image.Width, image.Height, 0, image.BytesPerPixel);

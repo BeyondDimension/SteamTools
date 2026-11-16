@@ -79,6 +79,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Include="..\BD.WTTS.Client\Helpers\SharedSqliteNativeLibrary.cs" Link="Helpers\SharedSqliteNativeLibrary.cs" />
 		<Compile Include="..\BD.WTTS.Client\Resources\ProxyStrings.cs" Link="Resources\ProxyStrings.cs" />
 		<EmbeddedResource Include="..\BD.WTTS.Client\Resources\ProxyStrings*.resx" Link="Resources\%(Filename)%(Extension)" />
 		<Compile Include="..\BD.WTTS.Client\Constants\CertificateConstants.cs">

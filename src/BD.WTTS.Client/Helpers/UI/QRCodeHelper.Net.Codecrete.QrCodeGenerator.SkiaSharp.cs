@@ -12,7 +12,7 @@ namespace Net.Codecrete.QrCodeGenerator;
 
 static class QrCodeBitmapExtensions
 {
-    public static SKBitmap ToBitmap(this QrCode qrCode, int scale, int border, SKColor foreground, SKColorType colorType = SKColorType.Argb4444, SKAlphaType alphaType = SKAlphaType.Premul)
+    public static SKBitmap ToBitmap(this QrCode qrCode, int scale, int border, SKColor foreground, SKColorType colorType = SKColorType.Bgra8888, SKAlphaType alphaType = SKAlphaType.Premul)
     {
         // check arguments
         if (scale <= 0)
@@ -37,11 +37,7 @@ static class QrCodeBitmapExtensions
 
         using (SKCanvas canvas = new(bitmap))
         {
-            // draw background
-            //using (SKPaint paint = new SKPaint { Color = background })
-            //{
-            //    canvas.DrawRect(0, 0, dim, dim, paint);
-            //}
+            canvas.Clear(SKColors.Transparent);
 
             // draw modules
             using SKPaint paint = new() { Color = foreground };

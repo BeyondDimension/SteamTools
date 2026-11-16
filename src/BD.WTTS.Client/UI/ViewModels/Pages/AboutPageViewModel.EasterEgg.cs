@@ -525,13 +525,19 @@ partial class AboutPageViewModel
         b.Append(GetAssemblyVersion(typeof(ServiceCollection).Assembly));
         b.AppendLine();
 
+#if WTTS_SIMD_SKIA
+        b.Append("[simdskia.ver] ");
+#else
         b.Append("[skia.ver] ");
+#endif
         b.Append(GetAssemblyVersion(typeof(SkiaSharp.SKColor).Assembly));
         b.AppendLine();
 
+#if !WTTS_SIMD_SKIA
         b.Append("[harfbuzz.ver] ");
         b.Append(GetAssemblyVersion("HarfBuzzSharp.NativeObject, HarfBuzzSharp"));
         b.AppendLine();
+#endif
 
         b.Append("[essentials.supported] ");
         b.Append(CommonEssentials.IsSupported.ToLowerString());

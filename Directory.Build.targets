@@ -2,6 +2,9 @@
   <PropertyGroup Condition="'$(WttsNativeAot)' == 'true'">
     <DefineConstants>$(DefineConstants);WTTS_NATIVE_AOT</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(WttsUseSimdSkia)' == 'true'">
+    <DefineConstants>$(DefineConstants);WTTS_SIMD_SKIA</DefineConstants>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(WttsStartupTrace)' == 'true'">
     <DefineConstants>$(DefineConstants);STARTUP_WATCH_TRACE</DefineConstants>
   </PropertyGroup>
@@ -107,4 +110,5 @@
     <ProjectReference Include="$(MSBuildThisFileDirectory)ref\Common\src\BD.Common.Primitives\BD.Common.Primitives.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)ref\Common\src\BD.Common.ModelValidator\BD.Common.ModelValidator.csproj" />
   </ItemGroup>
+  <Import Project="$(MSBuildThisFileDirectory)build/native-graphics/StaticGraphics.targets" Condition="'$(MSBuildProjectName)' == 'BD.WTTS.Client.Avalonia.App'" />
 </Project>

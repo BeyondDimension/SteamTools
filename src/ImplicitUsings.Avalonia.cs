@@ -37,7 +37,9 @@ global using Avalonia.Utilities;
 global using Avalonia.Logging;
 global using Avalonia.VisualTree;
 global using Avalonia.Interactivity;
+#if !WTTS_SIMD_SKIA
 global using Avalonia.Skia;
+#endif
 global using Avalonia.Layout;
 global using Avalonia.LogicalTree;
 global using Avalonia.Rendering;

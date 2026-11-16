@@ -1,9 +1,6 @@
 using AngleSharp.Dom;
 using Avalonia.Input;
 using BD.WTTS.Client.Resources;
-using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView;
-using SkiaSharp;
 using System.Drawing.Drawing2D;
 
 namespace BD.WTTS.UI;

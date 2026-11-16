@@ -8,7 +8,7 @@
     xmlns:spp="https://steampp.net/ui"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    IsVisible="{Binding IsShowAdvertise, Mode=OneWay, Source={x:Static s:AdvertiseService.Current}}"
+    IsVisible="False"
     mc:Ignorable="d">
     <Border ClipToBounds="True" CornerRadius="{DynamicResource ControlCornerRadius}">
         <Panel>

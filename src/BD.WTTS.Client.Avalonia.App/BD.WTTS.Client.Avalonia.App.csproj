@@ -125,6 +125,20 @@
 		<ProjectReference Include="..\BD.WTTS.Client\BD.WTTS.Client.csproj" />
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(WttsUseSimdSkia)' == 'true'">
+		<PackageReference Include="SimdSkia.Avalonia.Desktop" />
+		<None Update="Properties\SimdSkia-MIT.txt" TargetPath="licenses\SimdSkia\SimdSkia-MIT.txt" CopyToPublishDirectory="PreserveNewest" />
+		<None Include="$(NuGetPackageRoot)simdskia.avalonia/$(Version_SimdSkia)/licenses/Avalonia-MIT.txt;
+					   $(NuGetPackageRoot)simdskia.core/$(Version_SimdSkia)/licenses/Clipper2-BSL-1.0.txt;
+					   $(NuGetPackageRoot)simdskia.core/$(Version_SimdSkia)/licenses/Skia-BSD.txt;
+					   $(NuGetPackageRoot)simdskia.compatibility/$(Version_SimdSkia)/licenses/SkiaSharp-MIT.txt;
+					   $(NuGetPackageRoot)simdskia.imaging/$(Version_SimdSkia)/licenses/Apache-2.0.txt;
+					   $(NuGetPackageRoot)simdskia.imaging/$(Version_SimdSkia)/licenses/Sdcb.SimdCodecs-MIT.txt;
+					   $(NuGetPackageRoot)simdskia.text/$(Version_SimdSkia)/licenses/SharpFont-MIT.txt"
+			  TargetPath="licenses\SimdSkia\%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" />
+		<None Include="..\..\ref\FluentAvalonia\LICENSE" TargetPath="licenses\FluentAvalonia\LICENSE" CopyToPublishDirectory="PreserveNewest" />
+	</ItemGroup>
+
 	<ItemGroup Condition="'$(WttsNativeAot)' == 'true'">
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj" Aliases="AcceleratorPlugin" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameAccount\BD.WTTS.Client.Plugins.GameAccount.csproj" Aliases="GameAccountPlugin" />

@@ -16,6 +16,19 @@ public static class DrawingContextExtensions
         BitmapBlendingMode bitmapBlending = BitmapBlendingMode.Source)
     {
         _ = source ?? throw new ArgumentNullException(nameof(source));
-        context.PlatformImpl.DrawBitmap2(source.PlatformImpl.Item, opacity, sourceRect, destRect, interpolationMode, bitmapBlending);
+        var platform = context.PlatformImpl;
+        platform.PushRenderOptions(new RenderOptions
+        {
+            BitmapInterpolationMode = interpolationMode,
+            BitmapBlendingMode = bitmapBlending,
+        });
+        try
+        {
+            platform.DrawBitmap(source.PlatformImpl.Item, opacity, sourceRect, destRect);
+        }
+        finally
+        {
+            platform.PopRenderOptions();
+        }
     }
 }

@@ -86,6 +86,8 @@ public sealed partial class PlatformAccount
         {
             if (IsLoading) return;
             IsLoading = true;
+            HasLoadedUsers = false;
+            UsersLoadException = null;
             var loadedSteamPath = IsSteamPlatform ? ExePath : null;
             try
             {
@@ -103,11 +105,16 @@ public sealed partial class PlatformAccount
                         }
                 });
 
-                if ((!IsSteamPlatform || string.Equals(loadedSteamPath, ExePath, StringComparison.Ordinal)) && users.Any_Nullable())
-                    Accounts = new ObservableCollection<IAccount>(users.OrderByDescending(x => x.LastLoginTime));
+                if (!IsSteamPlatform || string.Equals(loadedSteamPath, ExePath, StringComparison.Ordinal))
+                {
+                    if (users.Any_Nullable())
+                        Accounts = new ObservableCollection<IAccount>(users.OrderByDescending(x => x.LastLoginTime));
+                    HasLoadedUsers = true;
+                }
             }
             catch (Exception ex)
             {
+                UsersLoadException = ex;
                 ex.LogAndShowT(nameof(PlatformAccount));
             }
             finally
@@ -220,16 +227,15 @@ public sealed partial class PlatformAccount
 
     SKBitmap DrawIcon(SKBitmap originalBitmap, SKBitmap loginIcon, int iconSize)
     {
-        loginIcon = loginIcon.Resize(new SKSizeI(iconSize / 3, iconSize / 3), SKSamplingOptions.Default);
+        using var resizedLoginIcon = loginIcon.Resize(new SKSizeI(iconSize / 3, iconSize / 3), SKSamplingOptions.Default);
         SKBitmap avatarImgBitmap = new(iconSize, iconSize);
 
         using SKCanvas canvas = new(avatarImgBitmap);
-        SKPaint paint = new SKPaint();
-        // paint.FilterQuality = SKSamplingOptions.Default;
-        canvas.DrawBitmap(originalBitmap.Resize(new SKSizeI(iconSize, iconSize), SKSamplingOptions.Default),
-            new SKRect(0, 0, iconSize, iconSize), paint);
+        using SKPaint paint = new();
+        using var resizedOriginal = originalBitmap.Resize(new SKSizeI(iconSize, iconSize), SKSamplingOptions.Default);
+        canvas.DrawBitmap(resizedOriginal, new SKRect(0, 0, iconSize, iconSize), paint);
 
-        canvas.DrawBitmap(loginIcon, new SKRect(0, 0, loginIcon.Width, loginIcon.Height));
+        canvas.DrawBitmap(resizedLoginIcon, new SKRect(0, 0, resizedLoginIcon.Width, resizedLoginIcon.Height));
         return avatarImgBitmap;
     }
 

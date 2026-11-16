@@ -252,34 +252,54 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
         ipcCfg.NamedPipeClientConnecting += IPCSubProcessServiceImpl.ValidateNamedPipeClientConnection;
         ipcProvider = new IpcProvider($"ipc_{_()}{tickCount64}{pid / 3}{pid % 3}", ipcCfg);
         ConfigureServices();
-        ipcProvider.StartServer();
         ipcProvider.PeerConnected += IpcProvider_PeerConnected;
+        ipcProvider.StartServer();
 
 #if WINDOWS
         // 启动管理员权限服务进程
         Task2.InBackground(async () =>
         {
-            var processPath = Environment.ProcessPath;
-            processPath.ThrowIsNull();
-            var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
-            const string arguments_ =
-                $"-clt {IPlatformService.IPCRoot.CommandName} {IPlatformService.IPCRoot.args_PipeName} {{0}} {IPlatformService.IPCRoot.args_ProcessId} {{1}}";
-            var arguments = string.Format(arguments_, pipeName, pid);
-            await AddDaemonWithStartSubProcessAsync(IPlatformService.IPCRoot.moduleName, async _ =>
+            try
             {
-                return await Policy.HandleResult<Process?>(x => x == null)
-                    .RetryAsync(3)
-                    .ExecuteAsync(async () =>
+                var processPath = Environment.ProcessPath;
+                processPath.ThrowIsNull();
+                var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
+                const string arguments_ =
+                    $"-clt {IPlatformService.IPCRoot.CommandName} {IPlatformService.IPCRoot.args_PipeName} {{0}} {IPlatformService.IPCRoot.args_ProcessId} {{1}}";
+                var arguments = string.Format(arguments_, pipeName, pid);
+                var process = await AddDaemonWithStartSubProcessAsync(IPlatformService.IPCRoot.moduleName, async _ =>
                 {
-                    if (OSShuttingDownHelper.IsSystemShuttingDown())
+                    return await Policy.HandleResult<Process?>(x => x == null)
+                        .RetryAsync(3)
+                        .ExecuteAsync(async () =>
                     {
-                        return null;
-                    }
-                    var process = await WindowsPlatformServiceImpl.StartAsAdministrator(processPath, arguments);
-                    return process;
+                        if (OSShuttingDownHelper.IsSystemShuttingDown())
+                            return null;
+                        return await WindowsPlatformServiceImpl.StartAsAdministrator(processPath, arguments);
+                    });
                 });
-            });
+                if (process == null)
+                    throw new InvalidOperationException("The administrator service could not be started or elevation was canceled.");
+                process.EnableRaisingEvents = true;
+                process.Exited += (_, _) => AdministratorExited(process);
+                if (process.HasExited)
+                    AdministratorExited(process);
+            }
+            catch (Exception ex)
+            {
+                IPlatformService.IPCRoot.FailInitialization(ex);
+                logger.LogError(ex, "Administrator service startup failed.");
+            }
         });
+
+        void AdministratorExited(Process process)
+        {
+            if (disposedValue || IPlatformService.IPCRoot.Instance.IsCompleted)
+                return;
+            var exception = new InvalidOperationException($"The administrator service exited before IPC connected (exit {process.ExitCode}).");
+            IPlatformService.IPCRoot.FailInitialization(exception);
+            logger.LogError(exception, "Administrator IPC initialization failed.");
+        }
 #endif
     }
 
@@ -496,7 +516,7 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
                 }
                 catch (Exception ex)
                 {
-                    //GlobalExceptionHandler.Handler(ex, $"{plugin.UniqueEnglishName}.ConfigureRequiredServices");
+                    logger.LogError(ex, "Plugin {name} IPC registration failed.", plugin.UniqueEnglishName);
                 }
             }
         }

@@ -1,0 +1,16 @@
+<Project>
+  <!-- Native inputs are deliberately independent of NuGet's dynamic native assets. -->
+  <PropertyGroup>
+    <WttsStaticSkiaSharpVersion>4.155.0</WttsStaticSkiaSharpVersion>
+    <WttsStaticHarfBuzzVersion>14.4.0</WttsStaticHarfBuzzVersion>
+    <WttsStaticSkiaSharpCommit>d25e7fa628a2576e50ecc42004cc4fd03c6657f5</WttsStaticSkiaSharpCommit>
+    <WttsStaticSkiaCommit>c2d78902a56e24827a7273a4ed3461ce18780680</WttsStaticSkiaCommit>
+    <WttsStaticHarfBuzzCommit>36cb489cb02ce4b92099669ba9f9bea348eff93f</WttsStaticHarfBuzzCommit>
+    <WttsStaticGnCommit>b2afae122eeb6ce09c52d63f67dc53fc517dbdc8</WttsStaticGnCommit>
+    <WttsStaticNinjaVersion>version:2@1.12.1.chromium.4</WttsStaticNinjaVersion>
+    <!-- ANGLE stays dynamic: available Chromium 7151 static assets predate the
+         installed Avalonia native renderer. ABI compatibility is not permission to downgrade. -->
+    <WttsDynamicAngleVersion>2.1.27548.20260419</WttsDynamicAngleVersion>
+    <WttsDynamicAngleCommit>1c89805903c1482166356d3b950d474973180e61</WttsDynamicAngleCommit>
+  </PropertyGroup>
+</Project>

@@ -56,7 +56,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     readonly TaskCompletionSource<IReverseProxyService> reverseProxyService = new(TaskCreationOptions.RunContinuationsAsynchronously);
     readonly TaskCompletionSource<ICertificateManager> certificateManager = new(TaskCreationOptions.RunContinuationsAsynchronously);
-    int proxyInitialized;
+    int proxyInitializationState;
     internal Task ServicesReady => Task.WhenAll(reverseProxyService.Task, certificateManager.Task);
     //readonly TaskCompletionSource<IAcceleratorService> acceleratorService = new();
 
@@ -168,9 +168,21 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             //    Console.WriteLine(ex);
             //}
 #endif
+        }
 
-            if (Interlocked.CompareExchange(ref proxyInitialized, 1, 0) == 0)
-                await MainThread2.InvokeOnMainThreadAsync(ProxyService.Current.InitializeAsync);
+        if (Interlocked.CompareExchange(ref proxyInitializationState, 1, 0) != 0)
+            return;
+
+        try
+        {
+            await MainThread2.InvokeOnMainThreadAsync(static () => ProxyService.Current.InitializeAsync());
+            if (ProxyService.Current.IsInitialized)
+                Volatile.Write(ref proxyInitializationState, 2);
+        }
+        finally
+        {
+            // A failed attempt must not prevent initialization on the next connection.
+            Interlocked.CompareExchange(ref proxyInitializationState, 0, 1);
         }
     }
 
