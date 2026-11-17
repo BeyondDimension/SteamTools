@@ -14,7 +14,7 @@ partial class Program
 {
     [STAThread]
     static int Main(string[] args) // Main 函数需要 STA 线程不可更改为 async Task
-    {   
+    {
         #region 尝试修正 AppContext.BaseDirectory
 
         try
