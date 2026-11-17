@@ -21,7 +21,7 @@ interface ILaunchAppTestCommand : ICommand
     {
         var path = DebugRuntimeConfigPath;
 
-        HandlerJsonFiles(path, Platform.Windows);
+        HandlerJsonFiles(path);
 
         // 测试主程序启动是否正常
         path = path[..^runtimeconfigjsonfilename.Length] + exefileName;
@@ -81,34 +81,15 @@ interface ILaunchAppTestCommand : ICommand
     }
 
     /// <summary>
-    /// 根据 runtimeconfig.json 文件路径删除 Microsoft.WindowsDesktop.App 节点
+    /// 缩小生成的运行时配置和依赖清单，保留所有声明的框架依赖。
     /// </summary>
     /// <param name="path"></param>
-    static void HandlerJsonFiles(string path, Platform platform)
+    static void HandlerJsonFiles(string path)
     {
         using var stream = GetFileStream(path);
         var node = TryParseJsonNode(stream);
         if (stream != null && node != null)
         {
-            bool isWindows = false;
-            switch (platform)
-            {
-                case Platform.Windows:
-                case Platform.UWP:
-                case Platform.WinUI:
-                    isWindows = true;
-                    break;
-            }
-            if (isWindows)
-            {
-                //var frameworks = node["runtimeOptions"]?["frameworks"]?.AsArray();
-                //var desktopNode = frameworks?.FirstOrDefault(x =>
-                //    x?["name"]?.GetValue<string>() == "Microsoft.WindowsDesktop.App");
-                //if (desktopNode != null)
-                //{
-                //    frameworks!.Remove(desktopNode);
-                //}
-            }
             Write(path, stream, node);
         }
 

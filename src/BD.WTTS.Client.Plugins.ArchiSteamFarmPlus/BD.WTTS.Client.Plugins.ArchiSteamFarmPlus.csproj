@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<InternalsVisibleTo Include="AsfSmoke" />
 		<None Remove="UI\Assets\asf.ico" />
 	</ItemGroup>
 

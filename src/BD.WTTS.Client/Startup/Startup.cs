@@ -298,6 +298,7 @@ public abstract partial class Startup
             WatchTrace.Record("CustomAppDomain.AssemblyLoad");
 #endif
 
+#if !WTTS_NATIVE_AOT
             // 自定义当前应用程序域程序集解析
             static string GetAssemblyLocation()
             {
@@ -357,6 +358,7 @@ public abstract partial class Startup
             };
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("CustomAppDomain.AssemblyResolve");
+#endif
 #endif
 #endif
 

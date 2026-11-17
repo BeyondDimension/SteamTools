@@ -2,6 +2,10 @@
 using Moq;
 #endif
 
+#if WTTS_SIMD_SKIA
+using SimdSkia.Avalonia;
+#endif
+
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
@@ -10,7 +14,7 @@ partial class Program
 {
     [STAThread]
     static int Main(string[] args) // Main 函数需要 STA 线程不可更改为 async Task
-    {
+    {   
         #region 尝试修正 AppContext.BaseDirectory
 
         try
@@ -105,6 +109,13 @@ partial class Program
             try
             {
                 var builder = AppBuilder.Configure(() => UI.App.Instance)
+#if WTTS_SIMD_SKIA
+                    .UseSimdSkiaDesktop(static options =>
+                    {
+                        if (IApplication.DisableGPU || !GeneralSettings.GPU.Value)
+                            options.UseCpu();
+                    })
+#else
 #if WINDOWS
                                         .UseWin32()
 #elif MACCATALYST || MACOS
@@ -114,6 +125,7 @@ partial class Program
 #endif
                     .UseSkia()
                     .UseHarfBuzz()
+#endif
 #if DEBUG
                     .LogToTextWriter(Console.Error)
 #else
@@ -133,6 +145,7 @@ partial class Program
                 builder.WithDeveloperTools();
 #endif
 
+#if !WTTS_SIMD_SKIA
                 var useGpu = !IApplication.DisableGPU && GeneralSettings.GPU.Value;
 #if WINDOWS
                 var useWgl = IApplication.UseWgl || GeneralSettings.NativeOpenGL.Value;
@@ -165,11 +178,16 @@ partial class Program
                     yield return X11RenderingMode.Software;
                 }
 #endif
+#endif
 
 #if MACOS
                 builder.With(new AvaloniaNativePlatformOptions
                 {
+#if WTTS_SIMD_SKIA
+                    RenderingMode = [AvaloniaNativeRenderingMode.Software],
+#else
                     RenderingMode = GetRenderingMode().ToArray(),
+#endif
                 });
                 builder.With(new MacOSPlatformOptions
                 {
@@ -178,7 +196,11 @@ partial class Program
 #elif LINUX
                 builder.With(new X11PlatformOptions
                 {
+#if WTTS_SIMD_SKIA
+                    RenderingMode = [X11RenderingMode.Software],
+#else
                     RenderingMode = GetRenderingMode().ToArray(),
+#endif
                     EnableMultiTouch = true,
                     UseDBusMenu = true,
                     EnableIme = true,
@@ -186,18 +208,24 @@ partial class Program
 #elif WINDOWS
                 var options = new Win32PlatformOptions
                 {
+#if WTTS_SIMD_SKIA
+                    RenderingMode = [Win32RenderingMode.Software],
+#else
                     RenderingMode = GetRenderingMode().ToArray(),
+#endif
                     WinUICompositionBackdropCornerRadius = 8f,
                 };
 
                 builder.With(options);
 
+#if !WTTS_SIMD_SKIA
                 var skiaOptions = new SkiaOptions
                 {
-                    MaxGpuResourceSizeBytes = 1024000000,
+                    MaxGpuResourceSizeBytes = 64 * 1024 * 1024,
                 };
 
                 builder.With(skiaOptions);
+#endif
 #else
                 throw new PlatformNotSupportedException("Avalonia.Desktop package was referenced on non-desktop platform or it isn't supported");
 #endif
@@ -257,7 +285,7 @@ partial class Program
 #if MACOS
         nativeUiInitialized = true;
 #endif
-        builder.StartWithClassicDesktopLifetime2(
+        builder.StartWithClassicDesktopLifetime(
             Array.Empty<string>(),
             ShutdownMode.OnLastWindowClose);
     }

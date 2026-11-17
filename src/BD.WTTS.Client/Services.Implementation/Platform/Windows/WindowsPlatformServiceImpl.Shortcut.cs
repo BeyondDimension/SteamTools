@@ -1,8 +1,5 @@
 #if WINDOWS
-using IWshRuntimeLibrary;
-using SkiaSharp;
-using System.CommandLine;
-using Res = BD.WTTS.Properties.Resources;
+using BD.WTTS.Helpers;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services.Implementation;
@@ -57,26 +54,7 @@ partial class WindowsPlatformServiceImpl
         string? iconLocation = null,
         string? workingDirectory = null)
     {
-        WshShell shell = new();
-        var shortcut = (IWshShortcut)shell.CreateShortcut(pathLink);
-        shortcut.TargetPath = targetPath;
-
-        if (!string.IsNullOrEmpty(description))
-            shortcut.Description = description;
-
-        if (!string.IsNullOrEmpty(arguments))
-            shortcut.Arguments = arguments;
-
-        if (!string.IsNullOrEmpty(hotkey))
-            shortcut.Hotkey = hotkey;
-
-        if (!string.IsNullOrEmpty(iconLocation))
-            shortcut.IconLocation = iconLocation;
-
-        if (!string.IsNullOrEmpty(workingDirectory))
-            shortcut.WorkingDirectory = workingDirectory;
-
-        shortcut.Save();
+        WindowsShellShortcut.Create(pathLink, targetPath, arguments, description, hotkey, iconLocation, workingDirectory);
     }
 
     void IPCPlatformService.CreateShortcut(

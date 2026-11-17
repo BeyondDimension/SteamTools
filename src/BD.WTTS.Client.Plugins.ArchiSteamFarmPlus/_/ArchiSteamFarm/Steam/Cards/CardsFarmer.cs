@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +9,19 @@ namespace ArchiSteamFarm.Steam.Cards;
 
 public sealed class CardsFarmer
 {
-    [JsonProperty]
+    [STJ.JsonInclude]
     public IReadOnlyCollection<Game>? CurrentGamesFarming { get; private set; }
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     public IReadOnlyCollection<Game>? GamesToFarm { get; private set; }
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     public bool Paused { get; private set; }
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     public TimeSpan TimeRemaining { get; private set; }
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public CardsFarmer()
     {
     }

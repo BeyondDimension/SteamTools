@@ -1,0 +1,33 @@
+# SkiaSharp v4.155.0 native/windows/build.cake, with static archive output.
+# Vulkan, Direct3D, Graphite, PDF, codecs and Skottie retain upstream capabilities.
+target_os = "win"
+target_cpu = "x64"
+is_official_build = true
+is_static_skiasharp = true
+skia_enable_fontmgr_win_gdi = false
+skia_use_harfbuzz = false
+skia_use_icu = false
+skia_use_partition_alloc = false
+skia_use_system_expat = false
+skia_use_system_freetype2 = false
+skia_use_system_libjpeg_turbo = false
+skia_use_system_libpng = false
+skia_use_system_libwebp = false
+skia_use_system_zlib = false
+skia_enable_skottie = true
+skia_use_vulkan = true
+skia_use_direct3d = true
+skia_use_freetype = false
+skia_enable_fontmgr_custom_empty = false
+skia_enable_fontmgr_win = true
+skia_enable_graphite = true
+extra_cflags = [
+  "-DSKIA_C_DLL",
+  "-DSK_AVOID_SLOW_RASTER_PIPELINE_BLURS",
+  "-DSK_ENABLE_LEGACY_SHADERCONTEXT",
+  "/MT",
+  "/EHsc",
+  "/Z7",
+  "/guard:cf",
+  "-D_HAS_AUTO_PTR_ETC=1",
+]

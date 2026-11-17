@@ -20,7 +20,7 @@
 // limitations under the License.
 
 using System.Diagnostics.CodeAnalysis;
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 
 namespace ArchiSteamFarm.IPC.Requests;
 
@@ -30,15 +30,15 @@ public sealed class BotPauseRequest
     /// <summary>
     ///     Specifies if pause is permanent or temporary (default).
     /// </summary>
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public bool Permanent { get; set; }
 
     /// <summary>
     ///     Specifies automatic resume action in given seconds. Default value of 0 disables automatic resume.
     /// </summary>
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public ushort ResumeInSeconds { get; private set; } = 0;
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public BotPauseRequest() { }
 }

@@ -881,7 +881,7 @@ internal sealed class HostsFileServiceImpl
         return Convert(result);
     }
 
-    static IOperationResult<T> TryReadHosts<T>(Func<T> func, string methodName)
+    static IOperationResult<T> TryReadHosts<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] T>(Func<T> func, string methodName)
     {
         try
         {

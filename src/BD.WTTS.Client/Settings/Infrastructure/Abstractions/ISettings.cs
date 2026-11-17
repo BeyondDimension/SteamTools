@@ -1,25 +1,27 @@
 using SJsonSerializer = System.Text.Json.JsonSerializer;
 using Microsoft.Extensions.FileProviders;
+using System.Text.Json;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings.Abstractions;
 
 public interface ISettings
 {
-    private static readonly MethodInfo TrySaveMethod;
+    private static readonly ConcurrentDictionary<Type, (Action<object, bool> Save, Action SaveAll)> registrations = new();
 
-    static ISettings()
-    {
-        var trySaveMethod = typeof(SettingsExtensions).GetMethod(nameof(SettingsExtensions.TrySave_____));
-        TrySaveMethod = trySaveMethod.ThrowIsNull();
-    }
+    protected static bool Register<TSettings>() where TSettings : class, ISettings<TSettings>, new()
+        => registrations.TryAdd(typeof(TSettings), (
+            static (options, notRead) => SettingsExtensions.TrySave_____((IOptionsMonitor<TSettings>)options, notRead ? bool.TrueString : null),
+            static () =>
+            {
+                var options = Ioc.Get_Nullable<IOptionsMonitor<TSettings>>();
+                if (options != null)
+                    SettingsExtensions.TrySave_____(options);
+            }));
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static void TrySave([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties)] Type type, object optionsMonitor, bool notRead = false)
-        => TrySaveMethod.MakeGenericMethod(type).Invoke(null, new object?[] {
-            optionsMonitor,
-            notRead ? bool.TrueString : null,
-        });
+    static void TrySave(Type type, object optionsMonitor, bool notRead = false)
+        => registrations[type].Save(optionsMonitor, notRead);
 
     static abstract string Name { get; }
 
@@ -62,17 +64,12 @@ public interface ISettings
         }
     }
 
-    protected static readonly HashSet<Type> types = new();
-
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void SaveSettings([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type type)
+    private static void SaveSettings(Action save)
     {
         try
         {
-            var optionsType = typeof(IOptionsMonitor<>).MakeGenericType(type);
-            var options = Ioc.Get_Nullable(optionsType);
-            if (options != null)
-                TrySave(type, options);
+            save();
         }
         catch (Exception ex)
         {
@@ -85,10 +82,11 @@ public interface ISettings
     {
         try
         {
-            await Parallel.ForEachAsync(types, async ([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] type, _) => await Task.Run(() =>
+            await Parallel.ForEachAsync(registrations.Values, static (registration, _) =>
             {
-                SaveSettings(type);
-            }).ConfigureAwait(false)).ConfigureAwait(false);
+                SaveSettings(registration.SaveAll);
+                return ValueTask.CompletedTask;
+            }).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -107,73 +105,27 @@ public interface ISettings
             WriteIndented = true,
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         };
+#if !WTTS_NATIVE_AOT
         o.Converters.Add(new JsonStringEnumConverter());
+#endif
         return o;
-    }
-
-    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-    sealed class JsonTypeInfoResolver : IJsonTypeInfoResolver
-    {
-        readonly DefaultJsonTypeInfoResolver resolver = new();
-
-        static readonly Lazy<JsonTypeInfoResolver> instance = new(() => new());
-
-        public static IJsonTypeInfoResolver Instance => instance.Value;
-
-        JsonTypeInfoResolver() { }
-
-        JsonTypeInfo? IJsonTypeInfoResolver.GetTypeInfo(Type type, JsonSerializerOptions options)
-        {
-            if (types.Contains(type))
-            {
-                try
-                {
-#pragma warning disable IL2070 // 'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The parameter of method does not have matching annotations.
-                    if (typeof(JsonTypeInfoResolver)
-                        .GetMethod(nameof(GetJsonTypeInfo), BindingFlags.NonPublic | BindingFlags.Static)
-                        ?.MakeGenericMethod(type).Invoke(null, null) is JsonTypeInfo jsonTypeInfo)
-                    {
-                        if (jsonTypeInfo.Options == options)
-                            return jsonTypeInfo;
-                        if (Activator.CreateInstance(jsonTypeInfo.GetType(), options) is JsonTypeInfo jsonTypeInfo1)
-                            return jsonTypeInfo1;
-                    }
-#pragma warning restore IL2070 // 'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The parameter of method does not have matching annotations.
-                }
-                catch
-                {
-
-                }
-            }
-            return resolver.GetTypeInfo(type, options);
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        static JsonTypeInfo<TSettings> GetJsonTypeInfo<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TSettings>() where TSettings : class, ISettings<TSettings>, new()
-            => TSettings.JsonTypeInfo;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static TSettings? Deserialize<TSettings>(string settingsFilePath) where TSettings : ISettings
     {
-        JsonObject? jobj;
-        var options = ISettings.GetDefaultOptions();
+        // Read the named envelope without invoking reflection-based JSON metadata.
         using var readStream = new FileStream(
             settingsFilePath,
             FileMode.Open,
             FileAccess.Read,
             FileShare.ReadWrite | FileShare.Delete);
-        jobj = SJsonSerializer.Deserialize<JsonObject>(readStream, options);
-        if (jobj != null)
+        using var document = JsonDocument.Parse(readStream);
+        if (document.RootElement.ValueKind != JsonValueKind.Null &&
+            document.RootElement.TryGetProperty(TSettings.Name, out var settingsElement) &&
+            settingsElement.ValueKind != JsonValueKind.Null)
         {
-            var jnode = jobj[TSettings.Name];
-            if (jnode != null)
-            {
-                options = ISettings.GetDefaultOptions();
-                options.TypeInfoResolver = ISettings.JsonTypeInfoResolver.Instance;
-                var settingsByRead = SJsonSerializer.Deserialize<TSettings>(jnode, options);
-                return settingsByRead;
-            }
+            return SJsonSerializer.Deserialize(settingsElement, (JsonTypeInfo<TSettings>)TSettings.JsonTypeInfo);
         }
         return default;
     }
@@ -237,7 +189,7 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
                 if (settings_ != null)
                 {
                     // 监听到的设置模型实例，如果和 new 一个空的数据一样的，就是默认值则忽略
-                    var newSettingsData = Serializable.SMP2(settings);
+                    var newSettingsData = Serializable.SMP2(settings_);
                     var emptySettingsData = Serializable.SMP2(new TSettings());
                     if (newSettingsData.SequenceEqual(emptySettingsData))
                         return;
@@ -268,7 +220,7 @@ public interface ISettings<TSettings> : ISettings where TSettings : class, ISett
         @delegate = default;
 
         var type = typeof(TSettings);
-        if (!types.Add(type))
+        if (!Register<TSettings>())
             return default;
 
         TSettings? settings = default;
@@ -410,8 +362,8 @@ internal static class SettingsExtensions
                             if (settingsByRead != default)
                             {
                                 // 使用 MemoryPack 序列化两者比较相等
-                                var right = MemoryPackSerializer.Serialize(settingsByRead);
-                                var left = MemoryPackSerializer.Serialize(settings);
+                                var right = Serializable.SMP2(settingsByRead);
+                                var left = Serializable.SMP2(settings);
                                 if (left.SequenceEqual(right))
                                     return;
                             }

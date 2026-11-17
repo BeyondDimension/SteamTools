@@ -30,7 +30,7 @@ public static partial class ReverseProxyServiceExtensions
     {
         var bytes = s.GetFlowStatistics_Bytes();
         if (bytes == default) return default;
-        var flowStatistics = Serializable.DMP2<FlowStatistics>(bytes);
+        var flowStatistics = MemoryPackSerializer.Deserialize<FlowStatistics>(bytes);
         return flowStatistics;
     }
 }

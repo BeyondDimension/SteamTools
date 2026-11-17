@@ -56,7 +56,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     readonly TaskCompletionSource<IReverseProxyService> reverseProxyService = new(TaskCreationOptions.RunContinuationsAsynchronously);
     readonly TaskCompletionSource<ICertificateManager> certificateManager = new(TaskCreationOptions.RunContinuationsAsynchronously);
-    int proxyInitialized;
+    int proxyInitializationState;
     internal Task ServicesReady => Task.WhenAll(reverseProxyService.Task, certificateManager.Task);
     //readonly TaskCompletionSource<IAcceleratorService> acceleratorService = new();
 
@@ -168,15 +168,29 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             //    Console.WriteLine(ex);
             //}
 #endif
+        }
 
-            if (Interlocked.CompareExchange(ref proxyInitialized, 1, 0) == 0)
-                await MainThread2.InvokeOnMainThreadAsync(ProxyService.Current.InitializeAsync);
+        if (Interlocked.CompareExchange(ref proxyInitializationState, 1, 0) != 0)
+            return;
+
+        try
+        {
+            await MainThread2.InvokeOnMainThreadAsync(static () => ProxyService.Current.InitializeAsync());
+            if (ProxyService.Current.IsInitialized)
+                Volatile.Write(ref proxyInitializationState, 2);
+        }
+        finally
+        {
+            // A failed attempt must not prevent initialization on the next connection.
+            Interlocked.CompareExchange(ref proxyInitializationState, 0, 1);
         }
     }
 
-    public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)
+    public override async ValueTask OnCommandRun(params string[] commandParams)
     {
-        cfg.AddProfile<AcceleratorAutoMapperProfile>();
+        if (commandParams is not ["start"])
+            throw new ArgumentException("Unknown accelerator command.", nameof(commandParams));
+        await ProxyService.Current.StartOrStopProxyService(true);
     }
 
     public override async ValueTask OnExit()
@@ -205,15 +219,19 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             {
                 try
                 {
+#if WTTS_NATIVE_AOT
+                    subProcessPath = Path.Combine(AppContext.BaseDirectory, "modules", moduleName);
+#else
                     subProcessPath = Assembly.GetExecutingAssembly().Location;
                     subProcessPath = Path.GetDirectoryName(subProcessPath);
                     subProcessPath.ThrowIsNull();
+#endif
 
                     const string fileName = $"Steam++.{moduleName}";
                     var subProcessFileName = OperatingSystem.IsWindows() ? $"{fileName}{FileEx.EXE}" : fileName;
                     subProcessPath = Path.Combine(subProcessPath, subProcessFileName);
 
-#if DEBUG // DEBUG 模式遍历项目查找模块
+#if DEBUG && !WTTS_NATIVE_AOT // DEBUG 模式遍历项目查找模块
                     if (!File.Exists(subProcessPath))
                     {
                         subProcessPath = Path.Combine(ProjectUtils.ProjPath, "src", "BD.WTTS.Client.Plugins.Accelerator.ReverseProxy", "bin", "Debug", $"net{Environment.Version.Major}.{Environment.Version.Minor}", subProcessFileName);

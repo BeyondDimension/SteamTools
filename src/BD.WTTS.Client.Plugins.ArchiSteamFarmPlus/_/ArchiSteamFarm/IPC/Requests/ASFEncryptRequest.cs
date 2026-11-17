@@ -22,7 +22,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using ArchiSteamFarm.Helpers;
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 
 namespace ArchiSteamFarm.IPC.Requests;
 
@@ -32,17 +32,19 @@ public sealed class ASFEncryptRequest
     /// <summary>
     ///     Encryption method used for encrypting this string.
     /// </summary>
-    [JsonProperty(Required = Required.Always)]
+    [STJ.JsonInclude]
+    [STJ.JsonRequired]
     [Required]
     public ArchiCryptoHelper.ECryptoMethod CryptoMethod { get; private set; }
 
     /// <summary>
     ///     String to encrypt with provided <see cref="CryptoMethod" />.
     /// </summary>
-    [JsonProperty(Required = Required.Always)]
+    [STJ.JsonInclude]
+    [STJ.JsonRequired]
     [Required]
     public string StringToEncrypt { get; set; } = "";
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public ASFEncryptRequest() { }
 }

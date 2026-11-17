@@ -17,7 +17,7 @@ internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
         MainWindow = new MainWindowViewModel(tabItems, footerTabItems);
     }
 
-    public T Get<T>() where T : ViewModelBase
+    public T Get<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>() where T : ViewModelBase
     {
         var vmType = typeof(T);
         if (viewModelCaches.TryGetValue(vmType, out var vmValue))
@@ -37,11 +37,14 @@ internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
                 vmValue2 = Activator.CreateInstance<T>();
             }
             viewModelCaches[vmType] = vmValue2;
+            // A live view model replaces its serialized snapshot; preserve newer concurrent snapshots.
+            if (value != null)
+                viewModelDataCaches.TryRemove(new KeyValuePair<Type, byte[]>(vmType, value));
             return vmValue2;
         }
     }
 
-    public ViewModelBase Get(Type vmType)
+    public ViewModelBase Get([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type vmType)
     {
         if (viewModelCaches.TryGetValue(vmType, out var vmValue))
         {
@@ -60,6 +63,8 @@ internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
                 vmValue2 = (ViewModelBase)Activator.CreateInstance(vmType)!;
             }
             viewModelCaches[vmType] = vmValue2;
+            if (value != null)
+                viewModelDataCaches.TryRemove(new KeyValuePair<Type, byte[]>(vmType, value));
             return vmValue2;
         }
     }
@@ -68,7 +73,6 @@ internal sealed class ViewModelManager : ReactiveObject, IViewModelManager
     {
         var vmType = viewModel.GetType();
         var value = Serializable.SMP2(vmType, viewModel);
-        viewModelDataCaches[vmType] = value;
         viewModelDataCaches[vmType] = value;
         viewModelCaches.TryRemove(vmType, out var _);
     }

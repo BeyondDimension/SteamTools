@@ -1,101 +1,28 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.Avalonia;
 
 namespace BD.WTTS.UI.Views.Controls;
 
 public partial class ProxyChartView : UserControl
 {
-    private readonly LineSeries<RateTick> readSeries = new()
-    {
-        GeometrySize = 0,
-        GeometryFill = null,
-        GeometryStroke = null,
-        LineSmoothness = 1,
-        EnableNullSplitting = false,
-        DataLabelsSize = 12,
-        //Stroke = LiveChartsSkiaSharp.DefaultPaint,
-        Name = Strings.Upload,
-        YToolTipLabelFormatter = (e) => $"{IOPath.GetDisplayFileSizeString(e.Coordinate.PrimaryValue)}/s",
-        Mapping = (rate, point) =>
-        {
-            return new(rate.Timestamp, rate.Rate);
-            //point.PrimaryValue = rate.Rate;
-            //point.SecondaryValue = rate.Timestamp;
-        }
-    };
-
-    private readonly LineSeries<RateTick> writeSeries = new()
-    {
-        GeometrySize = 0,
-        GeometryFill = null,
-        GeometryStroke = null,
-        LineSmoothness = 1,
-        EnableNullSplitting = false,
-        DataLabelsSize = 12,
-        Name = Strings.Download,
-        //Stroke = LiveChartsSkiaSharp.DefaultPaint,
-        YToolTipLabelFormatter = (e) => $"{IOPath.GetDisplayFileSizeString(e.Coordinate.PrimaryValue)}/s",
-        Mapping = (rate, point) =>
-        {
-            return new(rate.Timestamp, rate.Rate);
-            //point.PrimaryValue = rate.Rate;
-            //point.SecondaryValue = rate.Timestamp;
-        }
-    };
-
-    private readonly ObservableCollection<RateTick> writes = new();
-    private readonly ObservableCollection<RateTick> reads = new();
-
-    public Func<double, string> XFormatter { get; } = timestamp => ((long)timestamp).ToDateTimeS().ToString("HH:mm:ss");
-
-    public Func<double, string> YFormatter { get; } = value => $"{IOPath.GetDisplayFileSizeString(value)}/s";
-
     CancellationTokenSource? cancellation;
     Task? refreshTask;
     IDisposable? statusSubscription;
-
-    public static readonly AvaloniaProperty<IEnumerable<ISeries>> SeriesProperty =
-        AvaloniaProperty.Register<CartesianChart, IEnumerable<ISeries>>("Series", Enumerable.Empty<ISeries>(), inherits: true);
-
-    public ObservableCollection<ISeries> Series
-    {
-        get
-        {
-            return (ObservableCollection<ISeries>)GetValue(SeriesProperty);
-        }
-
-        set
-        {
-            SetValue(SeriesProperty, value);
-        }
-    }
+    bool attached;
+    bool running;
 
     public ProxyChartView()
     {
         InitializeComponent();
-
-        this.readSeries.Values = reads;
-        this.writeSeries.Values = writes;
-        Series = [readSeries, writeSeries];
-
-        if (Chart != null)
-        {
-            //Chart.UpdateFinished += Chart_UpdateFinished;
-            //Chart.Series = new ISeries[] { readSeries, writeSeries };
-            Chart[!CartesianChart.SeriesProperty] = this[!SeriesProperty];
-            Chart.XAxes = new Axis[] { new Axis { Labeler = XFormatter } };
-            Chart.YAxes = new Axis[] { new Axis { Labeler = YFormatter, MinLimit = 0 } };
-        }
-
+        Chart.IsActive = false;
+        Chart.PresentationActiveChanged += (_, _) => UpdateRefreshState();
     }
 
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
+        attached = true;
         statusSubscription = ProxyService.Current.WhenAnyValue(x => x.ProxyStatus)
             .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(UpdateProxyStatus);
@@ -103,52 +30,55 @@ public partial class ProxyChartView : UserControl
 
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
+        attached = false;
         statusSubscription?.Dispose();
         statusSubscription = null;
-        StopRefreshing();
+        Chart.IsActive = false;
+        UpdateRefreshState();
         base.OnDetachedFromVisualTree(e);
     }
 
-    void UpdateProxyStatus(bool running)
+    void UpdateProxyStatus(bool value)
     {
-        if (!running)
+        running = value;
+        Chart.IsActive = value;
+        if (!value)
         {
-            StopRefreshing();
-            reads.Clear();
-            writes.Clear();
+            Chart.Clear();
         }
-        else if (cancellation == null)
-        {
-            var source = cancellation = new CancellationTokenSource();
-            var token = source.Token;
-            refreshTask = Task.Run(() => FlushFlowChartAsync(token));
-        }
+        UpdateRefreshState();
     }
 
-    void StopRefreshing()
+    void UpdateRefreshState()
     {
-        var source = cancellation;
-        var task = refreshTask;
-        cancellation = null;
-        refreshTask = null;
-        if (source == null)
+        if (!attached || !running || !Chart.IsPresentationActive)
+        {
+            cancellation?.Cancel();
             return;
-
-        source.Cancel();
-        _ = task!.ContinueWith(static (_, state) => ((CancellationTokenSource)state!).Dispose(),
-            source, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+        }
+        // Retain the old task until its final IPC read has completed. Rapid tab changes
+        // and stop/start transitions must never produce overlapping refresh loops.
+        if (refreshTask != null) return;
+        var source = cancellation = new CancellationTokenSource();
+        var task = refreshTask = Task.Run(() => FlushFlowChartAsync(source.Token));
+        _ = CompleteRefreshAsync(task, source);
     }
 
-    private struct RateTick
+    async Task CompleteRefreshAsync(Task task, CancellationTokenSource source)
     {
-        public double Rate { get; }
-
-        public double Timestamp { get; }
-
-        public RateTick(double rate, double timestamp)
+        try
         {
-            this.Rate = rate;
-            this.Timestamp = timestamp;
+            await task;
+        }
+        catch (OperationCanceledException) when (source.IsCancellationRequested)
+        {
+        }
+        finally
+        {
+            source.Dispose();
+            cancellation = null;
+            refreshTask = null;
+            UpdateRefreshState();
         }
     }
 
@@ -158,55 +88,30 @@ public partial class ProxyChartView : UserControl
         {
             try
             {
-                var flowStatistics = IReverseProxyService.Constants.Instance.GetFlowStatistics();
-                if (flowStatistics != null)
+                var flow = IReverseProxyService.Constants.Instance.GetFlowStatistics();
+                if (flow != null)
                 {
-                    var timestamp = DateTime.Now.ToUnixTimeSeconds();
-                    Dispatcher.UIThread.Post(() =>
+                    var timestamp = DateTimeOffset.Now;
+                    // Await the UI hand-off rather than filling its queue if rendering is busy.
+                    await Dispatcher.UIThread.InvokeAsync(() =>
                     {
-                        if (token.IsCancellationRequested)
-                            return;
-
-                        textBlockRead.Text = IOPath.GetDisplayFileSizeString(flowStatistics.TotalRead);
-                        textBlockWrite.Text = IOPath.GetDisplayFileSizeString(flowStatistics.TotalWrite);
-                        reads.Add(new RateTick(flowStatistics.ReadRate, timestamp));
-                        writes.Add(new RateTick(flowStatistics.WriteRate, timestamp));
-
-                        if (reads.Count > 60)
-                        {
-                            reads.RemoveAt(0);
-                            writes.RemoveAt(0);
-                        }
+                        if (token.IsCancellationRequested) return;
+                        Chart.SetTotals(flow.TotalRead, flow.TotalWrite);
+                        // Proxy read = upload; proxy write = download. Values are already B/s.
+                        Chart.AppendSample(timestamp, flow.ReadRate, flow.WriteRate);
                     });
                 }
             }
-            catch
-            {
-            }
-
-            try
-            {
-                await Task.Delay(1000, token).ConfigureAwait(false);
-            }
             catch (OperationCanceledException) when (token.IsCancellationRequested)
             {
-                break;
+                return;
             }
+            catch
+            {
+                // The remote service can be unavailable while starting or stopping.
+                // Keep the last real sample rather than inventing a zero-rate reading.
+            }
+            await Task.Delay(1000, token).ConfigureAwait(false);
         }
     }
-
-    ////解决内存泄露问题
-    ////https://github.com/beto-rodriguez/LiveCharts2/issues/1080#issuecomment-1601536016
-    //private static void Chart_UpdateFinished(LiveChartsCore.Kernel.Sketches.IChartView<SkiaSharpDrawingContext> chart)
-    //{
-    //    // Chart library leaks PaintTasks
-    //    if (chart.CoreCanvas != null)
-    //    {
-    //        // Periodically clean up drawables, this may cause the chart to blip if the user mouses over it during this time
-    //        if (chart.CoreCanvas.DrawablesCount > 50)
-    //        {
-    //            chart.CoreCanvas.SetPaintTasks([]);
-    //        }
-    //    }
-    //}
 }

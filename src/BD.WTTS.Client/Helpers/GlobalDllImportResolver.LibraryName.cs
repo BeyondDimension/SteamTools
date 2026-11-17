@@ -58,8 +58,10 @@ static partial class GlobalDllImportResolver
     static IEnumerable<string> GetLibraryNames()
     {
         yield return e_sqlite3;
+#if !WTTS_SIMD_SKIA
         yield return libSkiaSharp;
         yield return libHarfBuzzSharp;
+#endif
 #if WINDOWS || TOOL_PUBLISH
         yield return av_libGLESv2;
         yield return WebView2Loader;

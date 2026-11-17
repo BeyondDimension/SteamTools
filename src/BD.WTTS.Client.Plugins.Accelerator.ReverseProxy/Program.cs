@@ -79,6 +79,10 @@ finally
     }
 }
 
+#if WTTS_NATIVE_AOT
+// sqlite-net maps these properties by reflection when opening the existing secure-storage database.
+[DynamicDependency(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicProperties, typeof(KeyValuePair))]
+#endif
 static void ConfigureServices(IServiceCollection services)
 {
     services.AddLogging(l =>

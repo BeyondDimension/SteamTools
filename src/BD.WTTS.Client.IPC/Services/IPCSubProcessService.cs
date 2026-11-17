@@ -35,7 +35,7 @@ public interface IPCSubProcessService : IDisposable
         try
         {
             var b = s.Base64UrlDecodeToByteArray();
-            var m = Serializable.DMP2<SubProcessArgumentIndex2Model>(b);
+            var m = MemoryPackSerializer.Deserialize<SubProcessArgumentIndex2Model>(b);
             return m;
         }
         catch

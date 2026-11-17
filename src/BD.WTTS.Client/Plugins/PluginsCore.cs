@@ -1,13 +1,16 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+#if !WTTS_NATIVE_AOT
 using System.Runtime.Loader;
+#endif
 using static BD.WTTS.AssemblyInfo;
 
 namespace BD.WTTS.Plugins;
 
-public static class PluginsCore
+public static partial class PluginsCore
 {
     const string TAG = nameof(PluginsCore);
 
+#if !WTTS_NATIVE_AOT
     /// <summary>
     /// 禁用的插件使用单独的 <see cref="AssemblyLoadContext"/> 加载与卸载
     /// </summary>
@@ -52,6 +55,7 @@ public static class PluginsCore
     }
 
     static DisablePluginsAssemblyLoadContext disablePluginsAssemblyLoadContext = new();
+#endif
 
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     sealed record class DisablePlugin : IPlugin
@@ -61,12 +65,18 @@ public static class PluginsCore
         readonly string name;
         readonly string? description;
 
-        public DisablePlugin(IPlugin plugin)
+        public DisablePlugin(IPlugin plugin
+#if WTTS_NATIVE_AOT
+            , bool hasValue, string? hasNotValueError
+#endif
+            )
         {
+#if !WTTS_NATIVE_AOT
             StackTrace stackTrace = new();
             var isInternalCall = ReflectionHelper.IsInternalCall<DisablePlugin>(stackTrace);
             if (!isInternalCall)
                 throw new ApplicationException("Disable reflection calls to this constructor.");
+#endif
 
             Id = plugin.Id;
             name = plugin.Name;
@@ -87,6 +97,10 @@ public static class PluginsCore
             InstallTime = plugin.InstallTime;
             ReleaseTime = plugin.ReleaseTime;
 
+#if WTTS_NATIVE_AOT
+            this.hasValue = hasValue;
+            this.hasNotValueError = hasNotValueError;
+#else
             try
             {
                 hasValue = plugin.HasValue(out hasNotValueError);
@@ -96,6 +110,7 @@ public static class PluginsCore
                 hasValue = false;
                 hasNotValueError = ex.ToString();
             }
+#endif
         }
 
         string DebuggerDisplay => $"{UniqueEnglishName} v{Version}";
@@ -208,6 +223,7 @@ public static class PluginsCore
         }
     }
 
+#if !WTTS_NATIVE_AOT
     //static readonly HashSet<string> ignoreDirNames = new(StringComparer.OrdinalIgnoreCase)
     //{
     //    Update,
@@ -365,22 +381,21 @@ public static class PluginsCore
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static IEnumerable<PluginResult<Assembly>> VerifyAssemblies(IEnumerable<PluginResult<Assembly>> assemblies)
+    static IEnumerable<(bool IsDisable, Type[] Types)> VerifyAssemblies(IEnumerable<PluginResult<Assembly>> assemblies)
     {
         foreach (var assembly in assemblies)
         {
-            var isOk = false;
+            Type[]? types = null;
             try
             {
-                // This call is bare minimum to verify if the assembly can load itself
-                assembly.Data.GetTypes();
-                isOk = true;
+                // Validate every type once, then reuse the result for MEF discovery.
+                types = assembly.Data.GetTypes();
             }
             catch (Exception e)
             {
                 Log.Error(TAG, e, $"assembly.GetTypes fail, assembly: {assembly}");
             }
-            if (isOk) yield return assembly;
+            if (types != null) yield return (assembly.IsDisable, types);
         }
     }
 
@@ -388,12 +403,12 @@ public static class PluginsCore
     static HashSet<IPlugin>? GetExports(
         HashSet<IPlugin> plugins,
         HashSet<IPlugin> disablePlugins,
-        IEnumerable<Assembly> assemblies)
+        IEnumerable<Type> types)
     {
         ConventionBuilder conventions = new();
         conventions.ForTypesDerivedFrom<IPlugin>().Export<IPlugin>();
 
-        var configuration = new ContainerConfiguration().WithAssemblies(assemblies, conventions);
+        var configuration = new ContainerConfiguration().WithParts(types, conventions);
 
         try
         {
@@ -500,8 +515,9 @@ public static class PluginsCore
         var assemblies = LoadAssemblies(disablePluginNames, loadModules);
         if (!assemblies.Any_Nullable()) return null;
 
-        var assemblies_ = VerifyAssemblies(assemblies).ToArray();
-        if (!assemblies_.Any()) return null;
+        // Keep reflection results local so disabled plugin contexts remain collectible.
+        var assemblyTypes = VerifyAssemblies(assemblies).ToArray();
+        if (assemblyTypes.Length == 0) return null;
 
         static int OrderPlugin(IPlugin plugin) => plugin.UniqueEnglishName switch
         {
@@ -523,12 +539,12 @@ public static class PluginsCore
         SortedSet<PluginResult<IPlugin>> pluginResults = new(comparer);
         HashSet<IPlugin> disablePlugins = new();
         HashSet<IPlugin> activePlugins = new();
-        GetExports(activePlugins, disablePlugins, assemblies_.Where(x => !x.IsDisable).Select(x => x.Data));
+        GetExports(activePlugins, disablePlugins, assemblyTypes.Where(x => !x.IsDisable).SelectMany(x => x.Types));
         foreach (var plugin in activePlugins)
         {
             pluginResults.Add(new(false, plugin));
         }
-        GetExports(disablePlugins, disablePlugins, assemblies_.Where(x => x.IsDisable).Select(x => x.Data));
+        GetExports(disablePlugins, disablePlugins, assemblyTypes.Where(x => x.IsDisable).SelectMany(x => x.Types));
         foreach (var plugin in disablePlugins)
         {
             try
@@ -545,5 +561,6 @@ public static class PluginsCore
         disablePluginsAssemblyLoadContext = null!;
         return pluginResults;
     }
+#endif
 }
 #endif

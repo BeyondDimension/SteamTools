@@ -3,46 +3,18 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+    xmlns:controls="using:BD.WTTS.UI.Views.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Panel>
-        <lvc:CartesianChart
-            x:Name="Chart"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Background="Transparent" />
-
-        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
-            <TextBlock
-                Margin="0,5"
-                HorizontalAlignment="Center"
-                Foreground="DodgerBlue"
-                Text="{x:Static spp:Strings.UploadFlow}"
-                Theme="{StaticResource BodyStrongTextBlockStyle}" />
-            <TextBlock
-                x:Name="textBlockRead"
-                Margin="0,0,0,8"
-                HorizontalAlignment="Center"
-                Foreground="DodgerBlue"
-                Text="0 B" />
-
-            <TextBlock
-                Margin="0,5"
-                HorizontalAlignment="Center"
-                Foreground="IndianRed"
-                Text="{x:Static spp:Strings.DownloadFlow}"
-                Theme="{StaticResource BodyStrongTextBlockStyle}" />
-            <TextBlock
-                x:Name="textBlockWrite"
-                Margin="0,0,0,8"
-                HorizontalAlignment="Center"
-                Foreground="IndianRed"
-                Text="0 B" />
-        </StackPanel>
-    </Panel>
+    <controls:TrafficChart
+        x:Name="Chart"
+        UploadLabel="{x:Static spp:Strings.Upload}"
+        DownloadLabel="{x:Static spp:Strings.Download}"
+        TotalUploadLabel="{x:Static spp:Strings.UploadFlow}"
+        TotalDownloadLabel="{x:Static spp:Strings.DownloadFlow}"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch" />
 </UserControl>

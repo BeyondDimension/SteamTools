@@ -2,8 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
 using AvaloniaEdit;
-using AvaloniaEdit.TextMate;
-using TextMateSharp.Grammars;
 
 namespace BD.WTTS.UI.Views.Controls;
 
@@ -19,18 +17,7 @@ public partial class ProxyLog : UserControl
 
         var logTextbox = this.FindControl<TextEditor>("LogTextbox")!;
 
-        //Here we initialize RegistryOptions with the theme we want to use.
-        var registryOptions = new TextMateSharp.Grammars.RegistryOptions(ThemeName.Dark);
-
-        //Initial setup of TextMate.
-        var textMateInstallation = logTextbox.InstallTextMate(registryOptions);
-
-        //Here we are getting the language by the extension and right after that we are initializing grammar with this language.
-        //And that's all 😀, you are ready to use AvaloniaEdit with syntax highlighting!
-        textMateInstallation.SetGrammar(registryOptions.GetScopeByLanguageId(registryOptions.GetLanguageByExtension(".log").Id));
-
-        //logTextbox.Text = LogText;
-        //logTextbox.ScrollToLine(logTextbox.Document.LineCount);
+        LogSyntaxHighlighting.Apply(logTextbox);
 
         logTextbox.TextChanged += LogTextbox_TextChanged;
 

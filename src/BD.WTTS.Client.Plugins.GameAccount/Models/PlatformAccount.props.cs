@@ -13,6 +13,12 @@ public sealed partial class PlatformAccount : ReactiveObject
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public bool IsLoading { get; set; }
 
+    [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
+    public bool HasLoadedUsers { get; private set; }
+
+    [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
+    public Exception? UsersLoadException { get; private set; }
+
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public PlatformSettings? PlatformSetting { get; set; }
 

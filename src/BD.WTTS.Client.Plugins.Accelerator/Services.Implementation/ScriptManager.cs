@@ -19,14 +19,12 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
     protected override string? DefaultClientName => TAG;
 
     readonly IToast toast;
-    readonly IMapper mapper;
     readonly IScriptRepository scriptRepository;
     readonly IMicroServiceClient csc;
 
     public ScriptManager(
         IHttpClientFactory clientFactory,
         IScriptRepository scriptRepository,
-        IMapper mapper,
         ILoggerFactory loggerFactory,
         IToast toast,
         IHttpPlatformHelperService http_helper,
@@ -35,7 +33,6 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
             http_helper, clientFactory)
     {
         this.scriptRepository = scriptRepository;
-        this.mapper = mapper;
         this.toast = toast;
         this.csc = csc;
     }
@@ -184,7 +181,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
                     jsSaveInfo = new FileInfo(jsBuildFullPath);
                     if (await BuildScriptAsync(info, jsSaveInfo, isCompile))
                     {
-                        var entity = mapper.Map<Script>(info);
+                        var entity = ScriptMapper.ToEntity(info);
                         entity.MD5 = md5;
                         entity.SHA512 = sha512;
                         if (entity.Pid != null && entity.Pid == Guid.Parse("00000000-0000-0000-0000-000000000001"))
@@ -518,7 +515,7 @@ public sealed class ScriptManager : GeneralHttpClientFactory, IScriptManager
     }
 
     public async Task<IEnumerable<ScriptDTO>> GetAllScriptAsync() =>
-        mapper.Map<List<ScriptDTO>>(await scriptRepository.GetAllAsync());
+        (await scriptRepository.GetAllAsync()).Select(ScriptMapper.ToDto).ToList();
 
     public async Task<IApiRsp<string?>> DownloadScriptAsync(string url)
     {

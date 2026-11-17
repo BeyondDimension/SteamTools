@@ -62,9 +62,9 @@ partial class ArchiSteamFarmWebApiServiceImpl // SendAsync(HttpClient)
             {
                 var typeResponseBody = typeof(TResponseBody);
                 var isVoidResponseBody = typeResponseBody == typeVoid;
-                var typeResponseBodyDeserialize = isVoidResponseBody ? typeof(GenericResponse) : typeof(GenericResponse<TResponseBody?>);
-                var result = await DeserializeAsync(rsp.Content,
-                    typeResponseBodyDeserialize, cancellationToken);
+                GenericResponse? result = isVoidResponseBody
+                    ? await DeserializeAsync<GenericResponse>(rsp.Content, cancellationToken)
+                    : await DeserializeAsync<GenericResponse<TResponseBody?>>(rsp.Content, cancellationToken);
                 if (result is GenericResponse resultGR)
                 {
                     var code = resultGR.Success ? ApiRspCode.OK : (ApiRspCode)rsp.StatusCode;

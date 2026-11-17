@@ -411,7 +411,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         else
         {
             var iPCConfig = new IPCConfig(ipcUrl);
-            File.WriteAllText(customConfigPath, System.Text.Json.JsonSerializer.Serialize(iPCConfig));
+            File.WriteAllText(customConfigPath, System.Text.Json.JsonSerializer.Serialize(iPCConfig, ArchiSteamFarmJsonContext.Default.IPCConfig));
         }
         CurrentIPCPortValue = ipcUrl.Port;
         return ipcUrl.OriginalString;

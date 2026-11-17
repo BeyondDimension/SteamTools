@@ -20,12 +20,16 @@ public partial interface IPlatformService : IPCPlatformService
         internal const string args_ProcessId = "-p";
         internal const string CommandName = "sudo";
 
-        static readonly TaskCompletionSource<IPCPlatformService> tcs = new();
+        // Completion comes from the IPC receive thread. Never run plugin startup
+        // inline there: its continuation may make synchronous IPC calls itself.
+        static readonly TaskCompletionSource<IPCPlatformService> tcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
         /// <summary>
         /// 从 IPC 框架中获取由管理员权限子进程实现的远程服务
         /// </summary>
         public static Task<IPCPlatformService> Instance => tcs.Task;
+
+        internal static void FailInitialization(Exception exception) => tcs.TrySetException(exception);
 
         internal static async Task SetIPC(IPCMainProcessService ipc)
         {

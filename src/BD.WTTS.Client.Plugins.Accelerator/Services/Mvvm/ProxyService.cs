@@ -326,14 +326,25 @@ public sealed partial class ProxyService
         return ProxySettings.ProgramStartupRunProxy.Value;
     }
 
+    /// <summary>
+    /// Whether accelerator data and scripts finished initializing, independently of IPC readiness.
+    /// </summary>
+    public bool IsInitialized { get; private set; }
+
+    public Exception? InitializationException { get; private set; }
+
     public async Task InitializeAsync()
     {
+        IsInitialized = false;
+        InitializationException = null;
+
         try
         {
             await InitializeAccelerateAsync();
         }
         catch (Exception ex)
         {
+            InitializationException = ex;
             Toast.LogAndShowT(ex, nameof(ProxyService),
                 msg: "Accelerate init fail.");
             return; // 加速项目初始化失败时，中止初始化
@@ -345,6 +356,7 @@ public sealed partial class ProxyService
         }
         catch (Exception ex)
         {
+            InitializationException = ex;
             Toast.LogAndShowT(ex, nameof(ProxyService),
                 msg: "Script init fail.");
             return; // 脚本数据初始化失败时，中止初始化
@@ -384,6 +396,7 @@ public sealed partial class ProxyService
         }
 
         UpdateProxyTrayMenuItems();
+        IsInitialized = true;
     }
 
     private void UpdateProxyTrayMenuItems()
@@ -492,7 +505,7 @@ public sealed partial class ProxyService
                 out var fileStream, out var _))
             {
                 using var stream = fileStream;
-                MessagePackSerializer.Serialize(stream, ProxyDomains.Items, options: Serializable.lz4Options);
+                Serialization.AccelerateCacheSerializer.Serialize(stream, ProxyDomains.Items);
             }
         }
         else
@@ -506,7 +519,7 @@ public sealed partial class ProxyService
                 List<AccelerateProjectGroupDTO>? accelerates = null;
                 try
                 {
-                    accelerates = MessagePackSerializer.Deserialize<List<AccelerateProjectGroupDTO>>(stream, options: Serializable.lz4Options);
+                    accelerates = Serialization.AccelerateCacheSerializer.Deserialize(stream);
                 }
                 catch (Exception ex)
                 {
@@ -585,6 +598,7 @@ public sealed partial class ProxyService
 
         var scriptList = await scriptManager.GetAllScriptAsync();
         var scriptList2 = await scriptManager.CheckFiles(scriptList);
+        ProxyScripts.Clear();
         ProxyScripts.AddRange(scriptList2);
 
         //拉取 GM.js
