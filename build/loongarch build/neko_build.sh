@@ -10,8 +10,8 @@
 #    · lnuget.loongnix.cn —— 只在 SQLITE_MODE=bundled 时兜底取 loongarch64 版 SQLite
 #      （默认 SQLITE_MODE=auto 直接用系统 libsqlite3，根本不用它）
 #
-#  旧脚本用 `dotnet add package ... --source lnuget` 来“逼” NuGet 去龙芯源取包。
-#  但 `dotnet add package` 会顺带做一次隐式还原，而 `--source` 会把**整张源列表**
+#  旧脚本用 dotnet add package ... --source lnuget 来“逼” NuGet 去龙芯源取包。
+#  但 dotnet add package 会顺带做一次隐式还原，而 --source 会把整张源列表
 #  替换掉，于是一次还原里所有包都只问 lnuget —— 这就是“为什么全在 lnuget 上爬”。
 #  以前能过只是因为其它包早已躺在本地缓存里；上游升到 Avalonia 12 / net11 后，
 #  一堆新版本包本地没有，就整片 NU1101/NU1102 了。
@@ -62,7 +62,7 @@ fi
 
 # 运行时补丁版本：必须和 SDK 自带、也就是最后要打包进 WattToolkit/dotnet 的那份
 # shared 运行时对齐。不显式给的话，带 -r 的 restore 会去 NuGet 上找
-# `Microsoft.NETCore.App.Runtime.<rid>` 的最新补丁包——而微软根本不发布
+# Microsoft.NETCore.App.Runtime.<rid> 的最新补丁包——而微软根本不发布
 # linux-loongarch64 的 runtime pack（只在龙芯 SDK 的 packs/ 里），于是整片 NU1101。
 # 症状：ref/ 里十几个项目一起报「找不到 Microsoft.NETCore.App.Runtime.linux-loongarch64」。
 DOTNET_BIN="$(command -v dotnet || true)"
@@ -75,7 +75,7 @@ if [ -n "$DOTNET_BIN" ]; then
     fi
 fi
 
-# SQLite：nuget.org 上 SQLitePCLRaw.lib.e_sqlite3 2.1.11 里**没有** linux-loongarch64
+# SQLite：nuget.org 上 SQLitePCLRaw.lib.e_sqlite3 2.1.11 里没有 linux-loongarch64
 # 资源（只到 riscv64），上游 sqlite-net-pcl 1.11.285 新依赖的 SourceGear.sqlite3 3.53.3
 # 也没有。默认（SQLITE_MODE=auto/system）改成软链系统 libsqlite3，只有 bundled 模式
 # 才用到下面这两个常量（lnuget 重打包的那份 2.1.11）。
@@ -140,7 +140,7 @@ export DOTNET_NUGET_SIGNATURE_VERIFICATION="${DOTNET_NUGET_SIGNATURE_VERIFICATIO
 # ---------------------------------------------------------------------------
 # 2. 决定 SQLite 原生库怎么来
 # ---------------------------------------------------------------------------
-# 为什么会缺：nuget.org 上 SQLitePCLRaw.lib.e_sqlite3 2.1.11 里**没有**
+# 为什么会缺：nuget.org 上 SQLitePCLRaw.lib.e_sqlite3 2.1.11 里没有
 # linux-loongarch64 资源（只有 riscv64）；上游 sqlite-net-pcl 1.11.285 新依赖的
 # SourceGear.sqlite3 3.53.3 也没有（同样只到 riscv64）。
 #
@@ -200,10 +200,10 @@ if [ -n "$SQLITE_SYSTEM_LIB" ]; then
 else
     say "==> [2/6] SQLite：打包 lnuget 的 libe_sqlite3.so（bundled 模式）"
     # 注意：NuGet 只要 id+版本 在全局包目录里命中（<NUGET_PACKAGES>/<id>/<ver>），就直接用
-    # 里面已解包的内容，**根本不会再问远端源**。所以光“换源”没用 —— 旧缓存里那份
+    # 里面已解包的内容，根本不会再问远端源。所以光“换源”没用 —— 旧缓存里那份
     # nuget.org 版本（不带 loongarch64）会一直胜出，必须就地覆盖。
     #
-    # lnuget 经常抽风（500、超时），所以 .nupkg 会在本地留一份：
+    # lnuget 经常抽风（广东电信对 lnuget 进行了屏蔽，得用数据连），所以 .nupkg 会在本地留一份：
     #   build/lnuget-cache/sqlitepclraw.lib.e_sqlite3.2.1.11.nupkg
     # 只要它在，bundled 模式就完全不需要联 lnuget（build/ 已被 .gitignore 忽略）。
     NUGET_ROOT="${NUGET_PACKAGES:-$HOME/.nuget/packages}"
@@ -260,7 +260,7 @@ fi
 # 3. 还原
 # ---------------------------------------------------------------------------
 say "==> [3/6] 还原主程序与反代插件"
-# 反代插件一会儿要用 UseAppHost=true（单文件 exe）。注意：**不能在 restore 阶段**
+# 反代插件一会儿要用 UseAppHost=true（单文件 exe）。注意：不能在 restore 阶段
 # 带上 UseAppHost=true —— 那会让 ref/dotnetCampus.Ipc 的 netcoreapp3.1 目标也去找
 # linux-loongarch64 的 apphost 包（NETSDK1084：这个 TFM 的龙芯 apphost 根本不存在）。
 # 所以 restore 用默认值，publish 时再用 --no-restore + UseAppHost=true。
@@ -329,7 +329,7 @@ done
 # ---------------------------------------------------------------------------
 # 5. 校验原生库
 # ---------------------------------------------------------------------------
-# 注意：`--sc false` + `-r linux-loongarch64` 发布时，.NET 11 会把 runtimes/<rid>/native/*.so
+# 注意：--sc false + -r linux-loongarch64 发布时，.NET 11 会把 runtimes/<rid>/native/*.so
 # 直接摊平到输出根目录（旧 SDK 会保留 runtimes/ 子树），两种布局都要认。
 say "==> [5/6] 校验 linux-loongarch64 原生库"
 PUBLISH_DIR="realbuild/assemblies"
