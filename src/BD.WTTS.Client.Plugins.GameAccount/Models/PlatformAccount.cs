@@ -23,11 +23,13 @@ public sealed partial class PlatformAccount
             _ => platformSwitchers.OfType<BasicPlatformSwitcher>().First(),
         };
 
-        SwapToAccountCommand = ReactiveCommand.Create<IAccount>(async acc =>
+        var swapCommand = ReactiveCommand.CreateFromTask<IAccount>(async acc =>
         {
             if (await platformSwitcher.SwapToAccount(acc, this))
                 Toast.Show(ToastIcon.Success, AppResources.Success_SwitchAccount__.Format(FullName, acc.DisplayName));
         });
+        swapCommand.ThrownExceptions.Subscribe(ex => ex.LogAndShowT(nameof(PlatformAccount)));
+        SwapToAccountCommand = swapCommand;
 
         OpenUrlToBrowserCommand = ReactiveCommand.Create<IAccount>(acc =>
         {
@@ -77,17 +79,22 @@ public sealed partial class PlatformAccount
 
         CreateShortcutCommand = ReactiveCommand.Create<IAccount>(acc => CreateShortcut(acc));
 
-        //LoadUsers();
+        if (platformSwitcher is SteamPlatformSwitcher steamSwitcher)
+            steamSwitcher.RegisterTrayAccounts(this);
     }
+
+    int loadingUsers;
 
     public void LoadUsers()
     {
+        if (Interlocked.Exchange(ref loadingUsers, 1) != 0)
+            return;
+
         Task2.InBackground(async () =>
         {
-            if (IsLoading) return;
-            IsLoading = true;
             HasLoadedUsers = false;
             UsersLoadException = null;
+            IsLoading = true;
             var loadedSteamPath = IsSteamPlatform ? ExePath : null;
             try
             {
@@ -120,6 +127,7 @@ public sealed partial class PlatformAccount
             finally
             {
                 IsLoading = false;
+                Volatile.Write(ref loadingUsers, 0);
                 if (IsSteamPlatform && !string.Equals(loadedSteamPath, ExePath, StringComparison.Ordinal))
                     LoadUsers();
             }

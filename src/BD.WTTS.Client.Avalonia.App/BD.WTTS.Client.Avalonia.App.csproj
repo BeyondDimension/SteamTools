@@ -139,7 +139,8 @@
 		<None Include="..\..\ref\FluentAvalonia\LICENSE" TargetPath="licenses\FluentAvalonia\LICENSE" CopyToPublishDirectory="PreserveNewest" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(WttsNativeAot)' == 'true'">
+	<!-- Debug discovers these projects' output DLLs rather than linking them into the app. -->
+	<ItemGroup Condition="'$(WttsNativeAot)' == 'true' OR ('$(Configuration)' == 'Debug' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows')">
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator\BD.WTTS.Client.Plugins.Accelerator.csproj" Aliases="AcceleratorPlugin" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameAccount\BD.WTTS.Client.Plugins.GameAccount.csproj" Aliases="GameAccountPlugin" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameList\BD.WTTS.Client.Plugins.GameList.csproj" Aliases="GameListPlugin" />
@@ -147,6 +148,11 @@
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus.csproj" Aliases="ArchiSteamFarmPlusPlugin" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.SteamIdleCard\BD.WTTS.Client.Plugins.SteamIdleCard.csproj" Aliases="SteamIdleCardPlugin" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameTools\BD.WTTS.Client.Plugins.GameTools.csproj" Aliases="GameToolsPlugin" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(WttsNativeAot)' != 'true' AND '$(Configuration)' == 'Debug' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<ProjectReference Update="..\BD.WTTS.Client.Plugins.*\*.csproj" ReferenceOutputAssembly="false" Private="false" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj" ReferenceOutputAssembly="false" Private="false" />
 	</ItemGroup>
 
 	<!--<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND Exists('$(NugetPackageRoot)\system.drawing.common\$(Version_System_Drawing_Common)\lib\net9.0\System.Drawing.Common.dll')">

@@ -706,10 +706,19 @@ public sealed partial class SteamConnectService
         }
     }
 
-    public void RefreshSteamUsers()
+    public void RefreshSteamUsers(bool requireReadSuccess = false)
     {
         var generation = Volatile.Read(ref steamPathGeneration);
-        var list = stmService.GetRememberUserList();
+        List<SteamUser> list;
+        if (requireReadSuccess)
+        {
+            if (!stmService.TryGetRememberUserList(out list))
+                throw new IOException("Unable to read Steam's saved account list.");
+        }
+        else
+        {
+            list = stmService.GetRememberUserList();
+        }
         lock (gameListSync)
         {
             if (generation != Volatile.Read(ref steamPathGeneration)) return;

@@ -1,3 +1,5 @@
+using dotnetCampus.Ipc.CompilerServices.Attributes;
+
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
@@ -14,6 +16,7 @@ partial interface IReverseProxyService
     /// 获取流量统计信息
     /// </summary>
     /// <returns></returns>
+    [IpcMethod(Timeout = 2000)]
     byte[]? GetFlowStatistics_Bytes();
 
     /// <summary>

@@ -12,6 +12,7 @@ public sealed partial class App : Application
     public App()
     {
         Name = AssemblyInfo.Trademark;
+        CompositeDisposable.Add(trayMenuBindings);
         OpenBrowserCommand = ReactiveCommand.Create<object?>(OpenBrowserCommandCore);
         CopyToClipboardCommand = ReactiveCommand.Create<object?>(CopyToClipboardCommandCore);
 #if MACOS
@@ -252,7 +253,7 @@ public sealed partial class App : Application
 
     public void InitSettingSubscribe()
     {
-        GeneralSettings.TrayIcon.Subscribe(x => InitTrayIcon());
+        GeneralSettings.TrayIcon.Subscribe(_ => MainThread2.BeginInvokeOnMainThread(InitTrayIcon));
         UISettings.UseSystemThemeAccent.Subscribe(useSystemThemeAccent
             => SetThemeAccent(useSystemThemeAccent ? bool.TrueString : UISettings.ThemeAccent.Value));
         UISettings.ThemeAccent.Subscribe(color

@@ -150,11 +150,29 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 已归档.
+        /// </summary>
+        public static string Achievement_Archived {
+            get {
+                return ResourceManager.GetString("Achievement_Archived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 描述.
         /// </summary>
         public static string Achievement_Description {
             get {
                 return ResourceManager.GetString("Achievement_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 无法再确认你拥有所需的 DLC。请刷新后重试。
+        /// </summary>
+        public static string Achievement_DlcOwnershipChanged {
+            get {
+                return ResourceManager.GetString("Achievement_DlcOwnershipChanged", resourceCulture);
             }
         }
         
@@ -195,6 +213,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 无法加载成就和统计数据的定义。请刷新后重试。
+        /// </summary>
+        public static string Achievement_LoadSchemaFailed {
+            get {
+                return ResourceManager.GetString("Achievement_LoadSchemaFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 获取到 {0} 个成就和 {1} 条统计信息.
         /// </summary>
         public static string Achievement_LoadSucces {
@@ -231,11 +258,38 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 没有可显示的成就。
+        /// </summary>
+        public static string Achievement_NoVisibleAchievements {
+            get {
+                return ResourceManager.GetString("Achievement_NoVisibleAchievements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 成就总进度.
+        /// </summary>
+        public static string Achievement_Progress {
+            get {
+                return ResourceManager.GetString("Achievement_Progress", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to 刷新成就和统计.
         /// </summary>
         public static string Achievement_RefreshTip {
             get {
                 return ResourceManager.GetString("Achievement_RefreshTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 无法从 Steam 获取成就和统计数据。请刷新后重试。
+        /// </summary>
+        public static string Achievement_RequestStatsFailed {
+            get {
+                return ResourceManager.GetString("Achievement_RequestStatsFailed", resourceCulture);
             }
         }
         
@@ -286,11 +340,47 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 全部.
+        /// </summary>
+        public static string Achievement_SetAll {
+            get {
+                return ResourceManager.GetString("Achievement_SetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 本体游戏.
+        /// </summary>
+        public static string Achievement_SetBaseGame {
+            get {
+                return ResourceManager.GetString("Achievement_SetBaseGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 成就组.
+        /// </summary>
+        public static string Achievement_SetFilter {
+            get {
+                return ResourceManager.GetString("Achievement_SetFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 统计修改.
         /// </summary>
         public static string Achievement_StatsEdit {
             get {
                 return ResourceManager.GetString("Achievement_StatsEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 无法保存成就和统计数据。请刷新后重试。
+        /// </summary>
+        public static string Achievement_StoreFailed {
+            get {
+                return ResourceManager.GetString("Achievement_StoreFailed", resourceCulture);
             }
         }
         
@@ -313,6 +403,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 成就总数.
+        /// </summary>
+        public static string Achievement_TotalCount {
+            get {
+                return ResourceManager.GetString("Achievement_TotalCount", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to 成就解锁.
         /// </summary>
         public static string Achievement_Unlock {
@@ -321,6 +420,15 @@ namespace BD.WTTS.Client.Resources {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to 已解锁.
+        /// </summary>
+        public static string Achievement_UnlockedCount {
+            get {
+                return ResourceManager.GetString("Achievement_UnlockedCount", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to 与 Steam 建立连接失败，可能是该游戏没有成就，或者你没有该游戏。.
         /// </summary>
@@ -13679,6 +13787,34 @@ namespace BD.WTTS.Client.Resources {
                 return ResourceManager.GetString("L10nCore_CommandLineTools", resourceCulture);
             }
         }
+
+        public static string Tray_QuickActions => ResourceManager.GetString("Tray_QuickActions", resourceCulture);
+
+        public static string Tray_AcceleratorLoading => ResourceManager.GetString("Tray_AcceleratorLoading", resourceCulture);
+
+        public static string Tray_AcceleratorUnavailable => ResourceManager.GetString("Tray_AcceleratorUnavailable", resourceCulture);
+
+        public static string Tray_AcceleratorStarting => ResourceManager.GetString("Tray_AcceleratorStarting", resourceCulture);
+
+        public static string Tray_AcceleratorStopping => ResourceManager.GetString("Tray_AcceleratorStopping", resourceCulture);
+
+        public static string Tray_CurrentAccount => ResourceManager.GetString("Tray_CurrentAccount", resourceCulture);
+
+        public static string Tray_NoSavedAccounts => ResourceManager.GetString("Tray_NoSavedAccounts", resourceCulture);
+
+        public static string Tray_ManageAccounts => ResourceManager.GetString("Tray_ManageAccounts", resourceCulture);
+
+        public static string Tray_AcceleratorPreparing => ResourceManager.GetString("Tray_AcceleratorPreparing", resourceCulture);
+
+        public static string Tray_AccountReadFailed => ResourceManager.GetString("Tray_AccountReadFailed", resourceCulture);
+
+        public static string Tray_AccelerationDuration => ResourceManager.GetString("Tray_AccelerationDuration", resourceCulture);
+
+        public static string Tray_AccelerationProjects => ResourceManager.GetString("Tray_AccelerationProjects", resourceCulture);
+
+        public static string Tray_NoActiveProjects => ResourceManager.GetString("Tray_NoActiveProjects", resourceCulture);
+
+        public static string Tray_TrafficDetails => ResourceManager.GetString("Tray_TrafficDetails", resourceCulture);
 
     }
 }

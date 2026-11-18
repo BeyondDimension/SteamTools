@@ -4,586 +4,505 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed class AchievementAppPageViewModel : WindowViewModel
 {
+    readonly int appId;
+    readonly ISteamService steamService;
+    readonly ISteamworksLocalApiService steam;
+    readonly StatsReply statsReply;
+    readonly StatsReply storeReply;
+    readonly CancellationTokenSource lifetime = new();
+    Task? currentSteamOperation;
+    bool sessionInitialized;
+    bool statsReady;
+    bool isSaving;
+    List<AchievementInfo> allAchievements = [];
+    List<StatInfo> allStatistics = [];
+    AchievementSetOption? selectedAchievementSet;
+    string? searchText;
+    bool isCheckAll;
+
     public static string DisplayName => Constants.HARDCODED_APP_NAME + " | " + Strings.Achievement_Manage;
 
-    int AppId { get; }
+    public IReadOnlyList<AchievementInfo> Achievements { get; private set; } = [];
+    public IReadOnlyList<StatInfo> Statistics { get; private set; } = [];
+    public IReadOnlyList<AchievementSetOption> AchievementSets { get; private set; } = [];
+    public int UnlockedAchievementCount { get; private set; }
+    public int TotalAchievementCount => allAchievements.Count;
+    public double AchievementCompletion => TotalAchievementCount == 0 ? 0 : (double)UnlockedAchievementCount / TotalAchievementCount;
+    public bool HasAchievementSnapshot => statsReady;
+    public bool ShowAchievementSetSelector { get; private set; }
+    public bool ShowAchievementSetLabels => ShowAchievementSetSelector && SelectedAchievementSet?.Id is null;
+    public bool IsLoading { get; private set; }
+    public bool HasVisibleAchievements => Achievements.Count != 0;
+    public bool CanRefreshStats => !IsLoading && !isSaving;
+    public bool CanUpdateStats => statsReady && !IsLoading && !isSaving;
+    public bool CanEditVisibleAchievements => CanUpdateStats && Achievements.Any(static item => item.CanEdit);
 
-    bool isSaving;
-
-    #region 成就列表
-    private readonly ReadOnlyObservableCollection<AchievementInfo>? _Achievements;
-    private readonly SourceList<AchievementInfo> _AchievementsSourceList;
-    //private IReadOnlyCollection<AchievementInfo>? _BackAchievements;
-
-    public ReadOnlyObservableCollection<AchievementInfo>? Achievements => _Achievements;
-    #endregion
-
-    #region 统计列表
-
-    private readonly ReadOnlyObservableCollection<StatInfo>? _Statistics;
-    private readonly SourceList<StatInfo> _StatisticsSourceList;
-
-    public ReadOnlyObservableCollection<StatInfo>? Statistics => _Statistics;
-
-    #endregion
-
-    [Reactive]
-
-    public bool IsCheckAll { get; set; }
-
-    [Reactive]
-    public string? SearchText { get; set; }
-
-    Func<AchievementInfo, bool> PredicateAchievementName(string? text)
+    public AchievementSetOption? SelectedAchievementSet
     {
-        return s =>
+        get => selectedAchievementSet;
+        set
         {
-            if (s == null || s.Name == null || s.Description == null)
-                return false;
-            if (string.IsNullOrEmpty(text))
-                return true;
-            if (s.Name.Contains(text, StringComparison.OrdinalIgnoreCase) ||
-                   s.Description.ToString().Contains(text, StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-
-            return false;
-        };
+            if (IsLoading || value is null || ReferenceEquals(selectedAchievementSet, value)) return;
+            selectedAchievementSet = value;
+            this.RaisePropertyChanged();
+            this.RaisePropertyChanged(nameof(ShowAchievementSetLabels));
+            UpdateAchievementFilter();
+        }
     }
 
-    Func<StatInfo, bool> PredicateStatInfoName(string? text)
+    public string? SearchText
     {
-        return s =>
+        get => searchText;
+        set
         {
-            if (s == null || s.DisplayName == null || s.Id == null)
-                return false;
-            if (string.IsNullOrEmpty(text))
-                return true;
-            if (s.DisplayName.Contains(text, StringComparison.OrdinalIgnoreCase) ||
-                   s.Id.ToString().Contains(text, StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-
-            return false;
-        };
+            if (searchText == value) return;
+            searchText = value;
+            this.RaisePropertyChanged();
+            UpdateAchievementFilter();
+            UpdateStatisticsFilter();
+        }
     }
 
-    public AchievementAppPageViewModel(int appid)
+    public bool IsCheckAll
     {
+        get => isCheckAll;
+        set
+        {
+            if (isCheckAll == value || !CanUpdateStats) return;
+            isCheckAll = value;
+            foreach (var achievement in Achievements)
+                if (achievement.CanEdit)
+                    achievement.IsChecked = value;
+            this.RaisePropertyChanged();
+        }
+    }
+
+    public AchievementAppPageViewModel(int appid) : this(appid, ISteamService.Instance, ISteamworksLocalApiService.Instance)
+    {
+    }
+
+    internal AchievementAppPageViewModel(int appid, ISteamService steamService, ISteamworksLocalApiService steam)
+    {
+        appId = appid;
+        this.steamService = steamService;
+        this.steam = steam;
+        statsReply = new((ulong)appid);
+        storeReply = new((ulong)appid);
         Title = DisplayName;
+    }
 
-        SteamConnectService.Current.Initialize(appid);
+    public async void RefreshStats_Click()
+    {
+        if (Disposed || IsLoading || isSaving) return;
+        var token = lifetime.Token;
+        IsLoading = true;
+        statsReady = false;
+        this.RaisePropertyChanged(nameof(IsLoading));
+        RaiseEditAvailability();
 
-        if (SteamConnectService.Current.IsConnectToSteam == false)
+        try
         {
-            MessageBox.ShowAsync(Strings.Achievement_Warning_1, DisplayName, MessageBox.Button.OK).ContinueWith(s =>
+            var load = Task.Run(() => LoadSnapshotAsync(token), token);
+            currentSteamOperation = load;
+            var snapshot = await load;
+            if (token.IsCancellationRequested) return;
+            Title = Constants.HARDCODED_APP_NAME + " | " + snapshot.GameName;
+            statsReady = true;
+            ApplySnapshot(snapshot.Achievements, snapshot.Statistics);
+        }
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
+        {
+        }
+        catch (Exception ex)
+        {
+            if (token.IsCancellationRequested) return;
+            Log.Error(nameof(AchievementAppPageViewModel), ex, "Could not load Steam achievements and stats.");
+            ApplySnapshot([], []);
+            Toast.Show(ToastIcon.Error, ex.Message);
+        }
+        finally
+        {
+            currentSteamOperation = null;
+            IsLoading = false;
+            if (!token.IsCancellationRequested)
             {
-                EnforceClose();
-            }).Wait();
+                this.RaisePropertyChanged(nameof(IsLoading));
+                RaiseEditAvailability();
+            }
+        }
+    }
+
+    async Task<Snapshot> LoadSnapshotAsync(CancellationToken token)
+    {
+        if (!sessionInitialized)
+        {
+            if (!steamService.IsRunningSteamProcess || !steam.Initialize(appId))
+                throw new InvalidOperationException(Strings.Achievement_Warning_1);
+            sessionInitialized = true;
+            steam.AddUserStatsReceivedCallback(statsReply.Receive);
+            steam.AddUserStatsStoredCallback(storeReply.Receive);
         }
 
-        _AchievementsSourceList = new SourceList<AchievementInfo>();
-        _StatisticsSourceList = new SourceList<StatInfo>();
+        steam.RunCallbacks(false);
+        statsReply.Result = null;
+        if (!steam.RequestCurrentStats())
+            throw new InvalidOperationException(Strings.Achievement_RequestStatsFailed);
+        var result = await WaitForReplyAsync(statsReply, Strings.Achievement_RequestStatsFailed, token).ConfigureAwait(false);
+        if (result != 1)
+            throw new InvalidOperationException(Strings.Achievement_Warning_2.Format(result));
 
-        var nameAchievementsFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateAchievementName);
+        var appKey = appId.ToString(CultureInfo.InvariantCulture);
+        var directory = steamService.SteamDirPath;
+        var schema = string.IsNullOrWhiteSpace(directory) ? null : KeyValue.LoadAsBinary(
+            Path.Combine(directory, "appcache", "stats", $"UserGameStatsSchema_{appKey}.bin"));
+        var game = schema?[appKey];
+        if (game is not { Valid: true } || game["stats"].Children is not { } statDefinitions)
+            throw new InvalidDataException(Strings.Achievement_LoadSchemaFailed);
 
-        var nameStatisticsFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateStatInfoName);
-
-        _AchievementsSourceList
-            .Connect()
-            .Filter(nameAchievementsFilter)
-            .ObserveOn(RxSchedulers.MainThreadScheduler)
-            .Sort(SortExpressionComparer<AchievementInfo>.Descending(x => x.IsAchieved).ThenByAscending(x => x.Name))
-            .Bind(out _Achievements)
-            .Subscribe();
-
-        _StatisticsSourceList
-            .Connect()
-            .Filter(nameStatisticsFilter)
-            .ObserveOn(RxSchedulers.MainThreadScheduler)
-            .Sort(SortExpressionComparer<StatInfo>.Descending(x => x.Id!))
-            .Bind(out _Statistics)
-            .Subscribe();
-
-        this.WhenAnyValue(x => x.IsCheckAll)
-            .Subscribe(x =>
-            {
-                foreach (var item in _AchievementsSourceList.Items)
-                    if (!item.IsProtection)
-                        item.IsChecked = x == true;
-            });
-
-        AppId = appid;
-        string name = ISteamworksLocalApiService.Instance.GetAppData((uint)appid, "name");
-        name ??= appid.ToString();
-        Title = Constants.HARDCODED_APP_NAME + " | " + name;
-
-        //ToastService.Current.Set(Strings.Achievement_LoadData);
-
-        ISteamworksLocalApiService.Instance.AddUserStatsReceivedCallback((param) =>
+        var language = ResourceService.GetCurrentCultureSteamLanguageName();
+        var steamLanguage = steam.GetCurrentGameLanguage();
+        var entries = AchievementSchema.ReadAchievements(game, appId, language, steamLanguage);
+        var access = new AchievementAccess(steam);
+        entries.RemoveAll(achievement =>
         {
-            if (param.Result != 1)
-            {
-                MessageBox.ShowAsync(Strings.Achievement_Warning_2.Format(param.Result), DisplayName, MessageBox.Button.OK).ContinueWith(s =>
-                {
-                    EnforceClose();
-                }).Wait();
-            }
-            if (LoadUserGameStatsSchema() == false)
-            {
-                MessageBox.ShowAsync("Failed to load schema", DisplayName, MessageBox.Button.OK).ContinueWith(s =>
-                {
-                    EnforceClose();
-                }).Wait();
-            }
-            GetAchievements();
-            GetStatistics();
+            token.ThrowIfCancellationRequested();
+            if (!access.OwnsRequiredDlc(achievement) ||
+                !steam.GetAchievementAndUnlockTime(achievement.Id!, out var unlocked, out var unlockTime) ||
+                (achievement.IsArchived && !unlocked))
+                return true;
 
-            Toast.Show(ToastIcon.Success, Strings.Achievement_LoadSucces.Format(_AchievementsSourceList.Count, _StatisticsSourceList.Count));
+            achievement.IsAchieved = unlocked;
+            achievement.IsChecked = unlocked;
+            if (unlocked && unlockTime is > 0 and <= uint.MaxValue)
+            {
+                achievement.UnlockTimeUnix = unlockTime;
+                achievement.UnlockTime = DateTimeOffset.FromUnixTimeSeconds(unlockTime).LocalDateTime;
+            }
+            return false;
         });
 
-        Task.Run(() =>
+        var statistics = new List<StatInfo>();
+        foreach (var stat in statDefinitions)
         {
-            while (true)
+            token.ThrowIfCancellationRequested();
+            if (stat["name"].AsString("") is not { Length: > 0 } id) continue;
+            var type = AchievementSchema.GetStatType(stat);
+            StatInfo? entry = type switch
             {
-                ISteamworksLocalApiService.Instance.RunCallbacks(false);
-                Thread.Sleep(2000);
-            }
-        }).Forget();
-
-        RefreshStats_Click();
-    }
-
-    /// <summary>
-    /// 因为是独立进程，所以直接使用结束进程强制退出
-    /// </summary>
-    void EnforceClose()
-    {
-        Process.GetCurrentProcess().Kill();
-    }
-
-    bool LoadUserGameStatsSchema()
-    {
-        var path = ISteamService.Instance.SteamDirPath;
-        if (string.IsNullOrWhiteSpace(path)) return false;
-        path = Path.Combine(path, "appcache");
-        path = Path.Combine(path, "stats");
-        path = Path.Combine(path, string.Format(
-            CultureInfo.InvariantCulture,
-            "UserGameStatsSchema_{0}.bin",
-            AppId));
-
-        if (File.Exists(path) == false)
-        {
-            return false;
-        }
-
-        var kv = KeyValue.LoadAsBinary(path);
-
-        if (kv == null)
-        {
-            return false;
-        }
-
-        var currentLanguage = ResourceService.GetCurrentCultureSteamLanguageName();
-        var stats = kv[AppId.ToString(CultureInfo.InvariantCulture)]["stats"];
-        if (stats.Valid == false ||
-            stats.Children == null)
-        {
-            return false;
-        }
-
-        foreach (var stat in stats.Children)
-        {
-            if (stat.Valid == false)
-            {
-                continue;
-            }
-
-            UserStatType type;
-
-            // schema in the new format
-            var typeNode = stat["type"];
-            if (typeNode.Valid == true && typeNode.Type == KeyValueType.String)
-            {
-                if (Enum.TryParse((string)typeNode.Value, true, out type) == false)
+                UserStatType.Integer when steam.GetStatValue(id, out int value) => new IntStatInfo
                 {
-                    type = UserStatType.Invalid;
-                }
-            }
-            else
-            {
-                type = UserStatType.Invalid;
-            }
-
-            // schema in the old format
-            if (type == UserStatType.Invalid)
-            {
-                var typeIntNode = stat["type_int"];
-                var rawType = typeIntNode.Valid == true
-                    ? typeIntNode.AsInteger(0)
-                    : typeNode.AsInteger(0);
-                type = (UserStatType)rawType;
-            }
-
-            switch (type)
-            {
-                case UserStatType.Invalid:
-                    {
-                        break;
-                    }
-
-                case UserStatType.Integer:
-                    {
-                        var id = stat["name"].AsString("");
-                        string name = GetLocalizedString(stat["display"]["name"], currentLanguage, id!);
-
-                        _StatisticsSourceList.Add(new IntStatInfo()
-                        {
-                            Id = stat["name"].AsString(""),
-                            DisplayName = name,
-                            MinValue = stat["min"].AsInteger(int.MinValue),
-                            MaxValue = stat["max"].AsInteger(int.MaxValue),
-                            MaxChange = stat["maxchange"].AsInteger(0),
-                            IncrementOnly = stat["incrementonly"].AsBoolean(false),
-                            DefaultValue = stat["default"].AsInteger(0),
-                            Permission = stat["permission"].AsInteger(0),
-                        });
-                        break;
-                    }
-
-                case UserStatType.Float:
-                case UserStatType.AverageRate:
-                    {
-                        var id = stat["name"].AsString("");
-                        string name = GetLocalizedString(stat["display"]["name"], currentLanguage, id!);
-
-                        _StatisticsSourceList.Add(new FloatStatInfo()
-                        {
-                            Id = stat["name"].AsString(""),
-                            DisplayName = name,
-                            MinValue = stat["min"].AsFloat(float.MinValue),
-                            MaxValue = stat["max"].AsFloat(float.MaxValue),
-                            MaxChange = stat["maxchange"].AsFloat(0.0f),
-                            IncrementOnly = stat["incrementonly"].AsBoolean(false),
-                            DefaultValue = stat["default"].AsFloat(0.0f),
-                            Permission = stat["permission"].AsInteger(0),
-                        });
-                        break;
-                    }
-
-                case UserStatType.Achievements:
-                case UserStatType.GroupAchievements:
-                    {
-                        if (stat.Children != null)
-                        {
-                            foreach (var bits in stat.Children.Where(
-                                b => string.Compare(b.Name, "bits", StringComparison.InvariantCultureIgnoreCase) == 0))
-                            {
-                                if (bits.Valid == false ||
-                                    bits.Children == null)
-                                {
-                                    continue;
-                                }
-
-                                foreach (var bit in bits.Children)
-                                {
-                                    string id = bit["name"].AsString("");
-                                    string name = GetLocalizedString(bit["display"]["name"], currentLanguage, id!);
-                                    string desc = GetLocalizedString(bit["display"]["desc"], currentLanguage, "");
-
-                                    _AchievementsSourceList.Add(new AchievementInfo()
-                                    {
-                                        AppId = AppId,
-                                        Id = id,
-                                        Name = name,
-                                        Description = desc,
-                                        IconNormal = bit["display"]["icon"].AsString(""),
-                                        IconLocked = bit["display"]["icon_gray"].AsString(""),
-                                        IsHidden = bit["display"]["hidden"].AsBoolean(false),
-                                        Permission = bit["permission"].AsInteger(0),
-                                    });
-                                }
-                            }
-                        }
-
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new InvalidOperationException("invalid stat type");
-                    }
-            }
-        }
-
-        return true;
-    }
-
-    static string GetLocalizedString(KeyValue kv, string language, string defaultValue)
-    {
-        var name = kv[language].AsString("");
-        if (string.IsNullOrEmpty(name) == false)
-        {
-            return name;
-        }
-
-        language = ISteamworksLocalApiService.Instance.GetCurrentGameLanguage();
-
-        name = kv[language].AsString("");
-        if (string.IsNullOrEmpty(name) == false)
-        {
-            return name;
-        }
-
-        if (language != "english")
-        {
-            name = kv["english"].AsString("");
-            if (string.IsNullOrEmpty(name) == false)
-            {
-                return name;
-            }
-        }
-
-        name = kv.AsString("");
-        if (string.IsNullOrEmpty(name) == false)
-        {
-            return name;
-        }
-
-        return defaultValue;
-    }
-
-    void GetAchievements()
-    {
-        var list = new List<AchievementInfo>();
-        foreach (var def in _AchievementsSourceList.Items)
-        {
-            if (string.IsNullOrEmpty(def.Id) == true)
-            {
-                continue;
-            }
-
-            if (ISteamworksLocalApiService.Instance.GetAchievementAndUnlockTime(def.Id, out bool isAchieved, out var unlockTime) == false)
-            {
-                continue;
-            }
-
-            //ISteamworksLocalApiService.Instance.GetAchievementAchievedPercent(def.Id, out float percent);
-
-            var info = new AchievementInfo()
-            {
-                AppId = def.AppId,
-                Id = def.Id,
-                IsAchieved = isAchieved,
-                IsChecked = isAchieved,
-                IconNormal = string.IsNullOrEmpty(def.IconNormal) ? null : def.IconNormal,
-                IconLocked = string.IsNullOrEmpty(def.IconLocked) ? def.IconNormal : def.IconLocked,
-                Permission = def.Permission,
-                UnlockTime = unlockTime.ToDateTimeS(),
-                UnlockTimeUnix = unlockTime,
-                Name = def.Name,
-                Description = def.Description,
-                //Percent = percent,
+                    IntValue = value,
+                    OriginalValue = value,
+                },
+                UserStatType.Float or UserStatType.AverageRate when steam.GetStatValue(id, out float value) => new FloatStatInfo
+                {
+                    FloatValue = value,
+                    OriginalValue = value,
+                },
+                _ => null,
             };
-
-            list.Add(info);
+            if (entry is null) continue;
+            entry.Id = id;
+            entry.DisplayName = AchievementSchema.GetLocalizedString(stat["display"]["name"], language, steamLanguage, id);
+            entry.IsIncrementOnly = stat["incrementonly"].AsBoolean(false);
+            entry.Permission = stat["permission"].AsInteger(0);
+            statistics.Add(entry);
         }
-        //this.Achievements = new ObservableCollection<AchievementInfo>(list.OrderByDescending(s => s.IsAchieved).ThenBy(s => s.Id).ToList());
-        //Parallel.ForEach(list, async achievement =>
-        //{
-        //    achievement.IconStream = await IHttpService.Instance.GetImageAsync(achievement.IconUrl, ImageChannelType.SteamAchievementIcon);
-        //});
-        _AchievementsSourceList.Clear();
-        _AchievementsSourceList.AddRange(list);
-        //_BackAchievements = Achievements;
+        statistics.Sort(static (a, b) => string.CompareOrdinal(b.Id, a.Id));
+
+        var name = steam.GetAppData((uint)appId, "name");
+        return new(string.IsNullOrWhiteSpace(name) ? appKey : name, entries, statistics);
     }
 
-    int StoreAchievements(List<(AchievementInfo Info, bool IsChecked)> achievements)
+    async Task<int> WaitForReplyAsync(StatsReply reply, string timeoutMessage, CancellationToken token)
     {
-        foreach (var (info, isChecked) in achievements)
+        using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(100));
+        var start = Stopwatch.GetTimestamp();
+        while (true)
         {
-            info.IsAchieved = isChecked;
-            if (ISteamworksLocalApiService.Instance.SetAchievement(info.Id!, isChecked) == false)
+            token.ThrowIfCancellationRequested();
+            steam.RunCallbacks(false);
+            if (reply.Result is { } result) return result;
+            if (Stopwatch.GetElapsedTime(start) >= TimeSpan.FromSeconds(15))
+                throw new TimeoutException(timeoutMessage);
+            await timer.WaitForNextTickAsync(token).ConfigureAwait(false);
+        }
+    }
+
+    async Task<bool> StoreStatsAsync(CancellationToken token, bool resetStats = false)
+    {
+        var store = Task.Run(async () =>
+        {
+            steam.RunCallbacks(false);
+            storeReply.Result = null;
+            if (!(resetStats ? steam.ResetAllStats(false) : steam.StoreStats())) return false;
+            var result = await WaitForReplyAsync(storeReply, Strings.Achievement_StoreFailed, token).ConfigureAwait(false);
+            if (result == 1) return true;
+            Log.Warn(nameof(AchievementAppPageViewModel), $"Steam rejected the achievement or stats write (EResult {result}).");
+            return false;
+        }, token);
+        currentSteamOperation = store;
+        try
+        {
+            return await store;
+        }
+        finally
+        {
+            currentSteamOperation = null;
+        }
+    }
+
+    void ApplySnapshot(List<AchievementInfo> achievements, List<StatInfo> statistics)
+    {
+        allAchievements = achievements;
+        allStatistics = statistics;
+
+        var sets = new List<AchievementSetOption>();
+        var unlocked = 0;
+        for (var index = 0; index < achievements.Count;)
+        {
+            var set = achievements[index].Set;
+            var first = index;
+            var setUnlocked = 0;
+            do
             {
-                MessageBox.ShowAsync(Strings.Achievement_Warning_3.Format(info.Name), DisplayName, MessageBox.Button.OK).ContinueWith(s =>
-                {
-                    EnforceClose();
-                });
-                return -1;
+                if (achievements[index].IsAchieved) setUnlocked++;
+                index++;
             }
+            while (index < achievements.Count && achievements[index].Set?.Id == set?.Id);
+            sets.Add(new(set?.Id ?? 0, set?.Name ?? Strings.Achievement_SetBaseGame, setUnlocked, index - first, set is { DlcAppId: > 0 }));
+            unlocked += setUnlocked;
         }
 
-        return achievements.Count;
+        var previousSet = selectedAchievementSet?.Id;
+        ShowAchievementSetSelector = sets.Any(static set => set.Id is > 0);
+        UnlockedAchievementCount = unlocked;
+        sets.Insert(0, new(null, Strings.Achievement_SetAll, unlocked, achievements.Count, false));
+        AchievementSets = sets;
+        this.RaisePropertyChanged(nameof(UnlockedAchievementCount));
+        this.RaisePropertyChanged(nameof(TotalAchievementCount));
+        this.RaisePropertyChanged(nameof(AchievementCompletion));
+        this.RaisePropertyChanged(nameof(AchievementSets));
+        // Replacing ItemsSource can reset the ComboBox selection. Restore it by ID after publishing the new options.
+        selectedAchievementSet = sets.Find(set => set.Id == previousSet) ?? sets[0];
+        this.RaisePropertyChanged(nameof(SelectedAchievementSet));
+        this.RaisePropertyChanged(nameof(ShowAchievementSetSelector));
+        this.RaisePropertyChanged(nameof(ShowAchievementSetLabels));
+        UpdateAchievementFilter();
+        UpdateStatisticsFilter();
     }
 
-    void GetStatistics()
+    void UpdateAchievementFilter()
     {
-        var list = new List<StatInfo>();
-        foreach (var rdef in _StatisticsSourceList.Items)
+        var setId = selectedAchievementSet?.Id;
+        var text = searchText?.Trim();
+        Achievements = setId is null && string.IsNullOrEmpty(text) ? allAchievements : allAchievements.FindAll(item =>
+            (setId is null || (item.Set?.Id ?? 0) == setId) &&
+            (string.IsNullOrEmpty(text) || Matches(item.Name, text) || Matches(item.Description, text) || Matches(item.Set?.Name, text)));
+        if (isCheckAll)
         {
-            if (string.IsNullOrEmpty(rdef.Id) == true)
+            isCheckAll = false;
+            this.RaisePropertyChanged(nameof(IsCheckAll));
+        }
+        this.RaisePropertyChanged(nameof(Achievements));
+        this.RaisePropertyChanged(nameof(HasVisibleAchievements));
+        this.RaisePropertyChanged(nameof(CanEditVisibleAchievements));
+    }
+
+    void UpdateStatisticsFilter()
+    {
+        var text = searchText?.Trim();
+        Statistics = string.IsNullOrEmpty(text) ? allStatistics : allStatistics.FindAll(item =>
+            Matches(item.DisplayName, text) || Matches(item.Id, text));
+        this.RaisePropertyChanged(nameof(Statistics));
+    }
+
+    static bool Matches(string? value, string text) => value?.Contains(text, StringComparison.OrdinalIgnoreCase) == true;
+
+    bool StageAchievements(List<(AchievementInfo Info, bool IsChecked)> changes)
+    {
+        // The display snapshot is not a license check: query Steam again before staging anything.
+        var result = new AchievementAccess(steam).StageChanges(changes, out var rejected);
+        if (result == AchievementWriteResult.Staged) return true;
+        Toast.Show(ToastIcon.Error, result == AchievementWriteResult.Restricted ? Strings.Achievement_DlcOwnershipChanged :
+            Strings.Achievement_Warning_3.Format(rejected?.Name ?? rejected?.Id));
+        return false;
+    }
+
+    int StageStatistics()
+    {
+        var count = 0;
+        foreach (var stat in Statistics)
+        {
+            if (!stat.IsModified) continue;
+            var stored = stat switch
             {
+                IntStatInfo { Id: { Length: > 0 } id } value => steam.SetStatValue(id, value.IntValue),
+                FloatStatInfo { Id: { Length: > 0 } id } value => steam.SetStatValue(id, value.FloatValue),
+                _ => false,
+            };
+            if (stored)
+            {
+                count++;
                 continue;
             }
-            if (rdef is IntStatInfo idef && !string.IsNullOrEmpty(idef.Id))
-            {
-                if (ISteamworksLocalApiService.Instance.GetStatValue(idef.Id, out int value))
-                {
-                    list.Add(new IntStatInfo()
-                    {
-                        Id = idef.Id,
-                        DisplayName = idef.DisplayName,
-                        IntValue = value,
-                        OriginalValue = value,
-                        IsIncrementOnly = idef.IncrementOnly,
-                        Permission = idef.Permission,
-                    });
-                }
-            }
-            else if (rdef is FloatStatInfo fdef && !string.IsNullOrEmpty(fdef.Id))
-            {
-                if (ISteamworksLocalApiService.Instance.GetStatValue(fdef.Id, out float value))
-                {
-                    list.Add(new FloatStatInfo()
-                    {
-                        Id = fdef.Id,
-                        DisplayName = fdef.DisplayName,
-                        FloatValue = value,
-                        OriginalValue = value,
-                        IsIncrementOnly = fdef.IncrementOnly,
-                        Permission = fdef.Permission,
-                    });
-                }
-            }
+            Toast.Show(ToastIcon.Error, Strings.Achievement_Warning_4.Format(stat.Id));
+            return -1;
         }
-        //this.Statistics = new ObservableCollection<StatInfo>(list);
-
-        _StatisticsSourceList.Clear();
-        _StatisticsSourceList.AddRange(list);
-    }
-
-    int StoreStatistics()
-    {
-        if (Statistics == null || Statistics.Count == 0)
-        {
-            return 0;
-        }
-
-        var statistics = Statistics.Where(stat => stat.IsModified).ToList();
-        if (statistics.Count == 0)
-        {
-            return 0;
-        }
-
-        foreach (var stat in statistics)
-        {
-            if (stat is IntStatInfo intStat && !string.IsNullOrEmpty(intStat.Id))
-            {
-                if (ISteamworksLocalApiService.Instance.SetStatValue(
-                    intStat.Id,
-                    intStat.IntValue) == false)
-                {
-                    Toast.Show(ToastIcon.Error, Strings.Achievement_Warning_4.Format(intStat.Id));
-                    return -1;
-                }
-            }
-            else if (stat is FloatStatInfo floatStat && !string.IsNullOrEmpty(floatStat.Id))
-            {
-                if (ISteamworksLocalApiService.Instance.SetStatValue(
-                    floatStat.Id,
-                    floatStat.FloatValue) == false)
-                {
-                    Toast.Show(ToastIcon.Error, Strings.Achievement_Warning_4.Format(floatStat.Id));
-                    return -1;
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException("unsupported stat type");
-            }
-        }
-
-        return statistics.Count;
-    }
-
-    public void RefreshStats_Click()
-    {
-        _AchievementsSourceList.Clear();
-        _StatisticsSourceList.Clear();
-        //Achievements = new ObservableCollection<AchievementInfo>();
-        //Statistics = new ObservableCollection<StatInfo>();
-        ISteamworksLocalApiService.Instance.RequestCurrentStats();
-        //ISteamworksLocalApiService.Instance.RequestGlobalAchievementPercentages();
-        //return r;
-    }
-
-    public async void ResetAllStats_Click()
-    {
-        var result = await MessageBox.ShowAsync(Strings.Achievement_ResetWaring_1, DisplayName, MessageBox.Button.OKCancel);
-        if (result.IsOK())
-        {
-            var achievementsToo = await MessageBox.ShowAsync(Strings.Achievement_ResetWaring_2, DisplayName, MessageBox.Button.OKCancel);
-            var real = await MessageBox.ShowAsync(Strings.Achievement_ResetWaring_3, DisplayName, MessageBox.Button.OKCancel);
-            if (real.IsOK())
-            {
-                if (ISteamworksLocalApiService.Instance.ResetAllStats(achievementsToo.IsOK()))
-                {
-                    return;
-                }
-                RefreshStats_Click();
-            }
-        }
+        return count;
     }
 
     public async void SaveChange_Click()
     {
-        if (isSaving)
-            return;
-
-        isSaving = true;
+        if (!CanUpdateStats || Disposed) return;
+        var token = lifetime.Token;
+        SetSaving(true);
+        var refresh = false;
         try
         {
-            // Save the same filtered set and checked values that were presented for confirmation.
-            var changes = (Achievements ?? Enumerable.Empty<AchievementInfo>())
-                .Where(info => info.IsAchieved != info.IsChecked)
-                .Select(info => (Info: info, IsChecked: info.IsChecked))
-                .ToList();
-            int lockCount = changes.Count(change => change.Info.IsAchieved && !change.IsChecked);
-            if (lockCount > 0)
-            {
-                var result = await MessageBox.ShowAsync(Strings.Achievement_LockWarning.Format(lockCount), DisplayName, MessageBox.Button.OKCancel, MessageBox.Image.Warning);
-                if (!result.IsOK())
-                    return;
-            }
-
-            int achievements = StoreAchievements(changes);
-            if (achievements < 0)
-            {
-                RefreshStats_Click();
+            var changes = Achievements.Where(static item => item.CanEdit && item.IsAchieved != item.IsChecked)
+                .Select(static item => (Info: item, item.IsChecked)).ToList();
+            var lockCount = changes.Count(static change => !change.IsChecked);
+            if (lockCount > 0 && !(await MessageBox.ShowAsync(Strings.Achievement_LockWarning.Format(lockCount),
+                DisplayName, MessageBox.Button.OKCancel, MessageBox.Image.Warning)).IsOK())
                 return;
-            }
+            if (Disposed || (changes.Count == 0 && !Statistics.Any(static stat => stat.IsModified))) return;
 
-            int stats = StoreStatistics();
-            if (stats < 0)
+            refresh = true;
+            if (!StageAchievements(changes)) return;
+            var stats = StageStatistics();
+            if (stats < 0) return;
+            var saved = await StoreStatsAsync(token);
+            if (!token.IsCancellationRequested)
             {
-                RefreshStats_Click();
-                return;
+                if (saved)
+                    Toast.Show(ToastIcon.Success, Strings.Achievement_EditSucces.Format(changes.Count, stats));
+                else
+                    Toast.Show(ToastIcon.Error, Strings.Achievement_StoreFailed);
             }
-
-            if (ISteamworksLocalApiService.Instance.StoreStats() == false)
-            {
-                ResetAllStats_Click();
-                return;
-            }
-            Toast.Show(ToastIcon.Success, Strings.Achievement_EditSucces.Format(achievements, stats));
-            RefreshStats_Click();
+        }
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
+        {
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(AchievementAppPageViewModel), ex, "Could not save Steam achievement or stat changes.");
+            if (!Disposed) Toast.Show(ToastIcon.Error, Strings.Achievement_StoreFailed);
         }
         finally
         {
-            isSaving = false;
+            SetSaving(false);
+            if (refresh) RefreshStats_Click();
         }
     }
+
+    public async void ResetAllStats_Click()
+    {
+        if (!CanUpdateStats || Disposed) return;
+        var token = lifetime.Token;
+        SetSaving(true);
+        var refresh = false;
+        try
+        {
+            if (!(await MessageBox.ShowAsync(Strings.Achievement_ResetWaring_1, DisplayName, MessageBox.Button.OKCancel)).IsOK())
+                return;
+            var resetAchievements = (await MessageBox.ShowAsync(Strings.Achievement_ResetWaring_2, DisplayName, MessageBox.Button.OKCancel)).IsOK();
+            if (!(await MessageBox.ShowAsync(Strings.Achievement_ResetWaring_3, DisplayName, MessageBox.Button.OKCancel)).IsOK() || Disposed)
+                return;
+
+            refresh = true;
+            var saved = await StoreStatsAsync(token, resetStats: true);
+            if (token.IsCancellationRequested) return;
+            if (!saved)
+            {
+                Toast.Show(ToastIcon.Error, Strings.Achievement_StoreFailed);
+                return;
+            }
+            if (resetAchievements)
+            {
+                // Never pass true to the game-wide reset: it cannot honor per-achievement restrictions.
+                var changes = allAchievements.Where(static item => item.CanEdit && item.IsAchieved)
+                    .Select(static item => (Info: item, IsChecked: false)).ToList();
+                if (changes.Count != 0 && StageAchievements(changes) && !await StoreStatsAsync(token) && !token.IsCancellationRequested)
+                    Toast.Show(ToastIcon.Error, Strings.Achievement_StoreFailed);
+            }
+        }
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
+        {
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(AchievementAppPageViewModel), ex, "Could not reset Steam achievements or stats.");
+            if (!Disposed) Toast.Show(ToastIcon.Error, Strings.Achievement_StoreFailed);
+        }
+        finally
+        {
+            SetSaving(false);
+            if (refresh) RefreshStats_Click();
+        }
+    }
+
+    void SetSaving(bool value)
+    {
+        isSaving = value;
+        if (!Disposed) RaiseEditAvailability();
+    }
+
+    void RaiseEditAvailability()
+    {
+        this.RaisePropertyChanged(nameof(CanRefreshStats));
+        this.RaisePropertyChanged(nameof(HasAchievementSnapshot));
+        this.RaisePropertyChanged(nameof(CanUpdateStats));
+        this.RaisePropertyChanged(nameof(CanEditVisibleAchievements));
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && !Disposed)
+        {
+            lifetime.Cancel();
+            if (currentSteamOperation is { IsCompleted: false } operation)
+                _ = operation.ContinueWith(_ => ReleaseSession(), CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+            else
+                ReleaseSession();
+        }
+        base.Dispose(disposing);
+    }
+
+    void ReleaseSession()
+    {
+        try
+        {
+            if (sessionInitialized) steam.DisposeSteamClient();
+        }
+        catch (Exception ex)
+        {
+            Log.Warn(nameof(AchievementAppPageViewModel), ex, "Could not release the Steam achievement session.");
+        }
+        finally
+        {
+            lifetime.Dispose();
+        }
+    }
+
+    sealed class StatsReply(ulong gameId)
+    {
+        public int? Result { get; set; }
+
+        public void Receive(ISteamworksLocalApiService.IUserStatsReceived reply) => Receive(reply.GameId, reply.Result);
+
+        public void Receive(ulong responseGameId, int result)
+        {
+            if (responseGameId == gameId) Result = result;
+        }
+    }
+
+    sealed record Snapshot(string GameName, List<AchievementInfo> Achievements, List<StatInfo> Statistics);
+}
+
+public sealed record AchievementSetOption(int? Id, string Name, int UnlockedCount, int TotalCount, bool IsDlc)
+{
+    public string CountText { get; } = $"{UnlockedCount:N0} / {TotalCount:N0}";
+
+    public override string ToString() => $"{Name} · {CountText}";
 }

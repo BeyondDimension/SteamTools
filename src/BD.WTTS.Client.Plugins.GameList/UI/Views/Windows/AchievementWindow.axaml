@@ -4,207 +4,390 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    xmlns:wnd="using:FluentAvalonia.UI.Windowing"
     Title="{Binding Title}"
-    Width="750"
-    Height="500"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    Width="960"
+    Height="630"
+    MinWidth="700"
+    MinHeight="460"
+    d:DesignHeight="630"
+    d:DesignWidth="960"
     x:CompileBindings="True"
     x:DataType="spp:AchievementAppPageViewModel"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <Grid RowDefinitions="Auto, *">
-        <spp:TitleBar
-            Name="TitleBarHost"
-            IsShowSearchBox="True"
-            SearchText="{Binding SearchText, Mode=TwoWay}">
-            <spp:TitleBar.ActionContent>
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <Button
-                        Width="40"
-                        Height="40"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Command="{Binding RefreshStats_Click}"
-                        Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{x:Static spp:Strings.Achievement_RefreshTip}">
-                        <Viewbox
-                            Width="22"
-                            Height="22"
-                            VerticalAlignment="Center">
-                            <ui:FASymbolIcon Symbol="Refresh" />
-                        </Viewbox>
-                    </Button>
-                    <Button
-                        Width="40"
-                        Height="40"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Command="{Binding ResetAllStats_Click}"
-                        Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{x:Static spp:Strings.Achievement_ResetTip}">
-                        <Viewbox
-                            Width="22"
-                            Height="22"
-                            VerticalAlignment="Center">
-                            <ui:FASymbolIcon Symbol="Redo" />
-                        </Viewbox>
-                    </Button>
-                    <Button
-                        Width="40"
-                        Height="40"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Command="{Binding SaveChange_Click}"
-                        Theme="{DynamicResource TransparentButton}"
-                        ToolTip.Tip="{x:Static spp:Strings.Achievement_StoreTip}">
-                        <Viewbox
-                            Width="22"
-                            Height="22"
-                            VerticalAlignment="Center">
-                            <ui:FASymbolIcon Symbol="SaveFilled" />
-                        </Viewbox>
-                    </Button>
-                </StackPanel>
-            </spp:TitleBar.ActionContent>
-        </spp:TitleBar>
+    <Window.Styles>
+        <Style Selector="Border.achievementSurface">
+            <Setter Property="Background" Value="{DynamicResource LayerFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+            <Setter Property="ClipToBounds" Value="True" />
+        </Style>
+        <Style Selector="TabControl TabItem">
+            <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+            <Setter Property="Padding" Value="10,5" />
+        </Style>
+    </Window.Styles>
 
-        <spp:ContentLoader Grid.Row="1" IsLoading="{Binding !!!Achievements.Count, Mode=OneWay}">
-            <TabControl Padding="0">
-                <TabItem Header="{x:Static spp:Strings.Achievement_Unlock}">
-                    <DataGrid IsReadOnly="True" ItemsSource="{Binding Achievements}">
-                        <DataGrid.Columns>
-                            <!--  CheckBox  -->
-                            <DataGridTemplateColumn Width="60">
-                                <DataGridTemplateColumn.Header>
-                                    <ToggleSwitch
-                                        VerticalAlignment="Center"
-                                        Classes="OnlySwitch"
-                                        IsChecked="{Binding $parent[Window].((spp:AchievementAppPageViewModel)DataContext).IsCheckAll, Mode=TwoWay}" />
-                                </DataGridTemplateColumn.Header>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate x:DataType="spp:AchievementInfo">
+    <TabControl SelectedIndex="0">
+        <TabControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+        </TabControl.ItemsPanel>
+        <TabControl.Template>
+            <ControlTemplate TargetType="TabControl" x:DataType="spp:AchievementAppPageViewModel">
+                <Grid RowDefinitions="Auto,*">
+                    <Border
+                        Height="{StaticResource TitleBarHeight}"
+                        Background="Transparent"
+                        WindowDecorationProperties.ElementRole="TitleBar">
+                        <!-- Leave room for the shared Fluent window caption buttons on Windows. -->
+                        <Grid ColumnSpacing="8" Margin="{OnPlatform Default='16,0', Windows='16,0,148,0'}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" MinWidth="104" MaxWidth="218" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ItemsPresenter
+                                Name="PART_ItemsPresenter"
+                                VerticalAlignment="Center"
+                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                WindowDecorationProperties.ElementRole="User" />
+                            <TextBox
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                AutomationProperties.Name="{x:Static spp:Strings.Search}"
+                                PlaceholderText="{x:Static spp:Strings.Search}"
+                                Text="{Binding SearchText, Mode=TwoWay}"
+                                WindowDecorationProperties.ElementRole="User" />
+                            <StackPanel
+                                Grid.Column="3"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="8"
+                                WindowDecorationProperties.ElementRole="User">
+                                <Button
+                                    Width="32"
+                                    Height="32"
+                                    Padding="0"
+                                    AutomationProperties.Name="{x:Static spp:Strings.Refresh}"
+                                    Command="{Binding RefreshStats_Click}"
+                                    IsEnabled="{Binding CanRefreshStats}"
+                                    Theme="{StaticResource TransparentButton}"
+                                    ToolTip.Tip="{x:Static spp:Strings.Achievement_RefreshTip}">
+                                    <ui:FASymbolIcon FontSize="16" Symbol="Refresh" />
+                                </Button>
+                                <Button
+                                    Width="32"
+                                    Height="32"
+                                    Padding="0"
+                                    AutomationProperties.Name="{x:Static spp:Strings.Reset}"
+                                    Command="{Binding ResetAllStats_Click}"
+                                    IsEnabled="{Binding CanUpdateStats}"
+                                    Theme="{StaticResource TransparentButton}"
+                                    ToolTip.Tip="{x:Static spp:Strings.Achievement_ResetTip}">
+                                    <ui:FAFontIcon FontSize="16" Glyph="&#xE7A7;" />
+                                </Button>
+                                <Button
+                                    MinWidth="64"
+                                    MinHeight="32"
+                                    Classes="accent"
+                                    Command="{Binding SaveChange_Click}"
+                                    Content="{x:Static spp:Strings.Save}"
+                                    IsEnabled="{Binding CanUpdateStats}"
+                                    ToolTip.Tip="{x:Static spp:Strings.Achievement_StoreTip}" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <spp:ContentLoader Grid.Row="1" Margin="16,6,16,16" IsLoading="{Binding IsLoading}">
+                        <ContentPresenter
+                            Name="PART_SelectedContentHost"
+                            Content="{TemplateBinding SelectedContent}"
+                            ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                            IsVisible="{Binding !IsLoading}" />
+                    </spp:ContentLoader>
+                </Grid>
+            </ControlTemplate>
+        </TabControl.Template>
+
+        <TabItem Header="{x:Static spp:Strings.Achievement_Unlock}">
+            <Grid RowDefinitions="Auto,*" RowSpacing="8">
+                <Border Padding="12,8" Classes="achievementSurface" IsVisible="{Binding HasAchievementSnapshot}">
+                    <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="14">
+                        <StackPanel VerticalAlignment="Center" Spacing="6">
+                            <TextBlock FontWeight="SemiBold" Text="{x:Static spp:Strings.Achievement_Progress}" />
+                            <ProgressBar
+                                Height="6"
+                                AutomationProperties.Name="{x:Static spp:Strings.Achievement_Progress}"
+                                Classes="Material"
+                                Foreground="{DynamicResource AccentFillColorDefaultBrush}"
+                                Maximum="1"
+                                Value="{Binding AchievementCompletion}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock
+                                FontSize="20"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+                                Text="{Binding UnlockedAchievementCount, StringFormat={}{0:N0}}" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{x:Static spp:Strings.Achievement_UnlockedCount}"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                            <TextBlock
+                                FontSize="20"
+                                FontWeight="SemiBold"
+                                Text="{Binding TotalAchievementCount, StringFormat={}{0:N0}}" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{x:Static spp:Strings.Achievement_TotalCount}"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Column="3"
+                            VerticalAlignment="Center"
+                            IsVisible="{Binding ShowAchievementSetSelector}"
+                            Spacing="3">
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{x:Static spp:Strings.Achievement_SetFilter}"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                            <ComboBox
+                                Width="224"
+                                HorizontalContentAlignment="Stretch"
+                                AutomationProperties.Name="{x:Static spp:Strings.Achievement_SetFilter}"
+                                ItemsSource="{Binding AchievementSets}"
+                                SelectedItem="{Binding SelectedAchievementSet, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="spp:AchievementSetOption">
+                                        <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="6">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Text="{Binding Name}"
+                                                TextTrimming="CharacterEllipsis"
+                                                ToolTip.Tip="{Binding Name}" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                VerticalAlignment="Center"
+                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                IsVisible="{Binding IsDlc}"
+                                                Text="{x:Static spp:Strings.SteamAppType_DLC}"
+                                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                                            <TextBlock
+                                                Grid.Column="2"
+                                                VerticalAlignment="Center"
+                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                Text="{Binding CountText}"
+                                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1" Classes="achievementSurface">
+                    <Panel>
+                        <TextBlock
+                            Margin="12"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            IsVisible="{Binding !HasVisibleAchievements}"
+                            Text="{x:Static spp:Strings.Achievement_NoVisibleAchievements}"
+                            TextWrapping="Wrap" />
+
+                        <DataGrid
+                            Name="AchievementGrid"
+                            Background="Transparent"
+                            ColumnHeaderHeight="38"
+                            HeadersVisibility="Column"
+                            HorizontalGridLinesBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                            IsReadOnly="True"
+                            IsVisible="{Binding HasVisibleAchievements}"
+                            ItemsSource="{Binding Achievements}"
+                            VerticalScroll="OnAchievementGridVerticalScroll">
+                            <DataGrid.Resources>
+                                <!-- The Fluent header also reserves sort icon space in non-sortable columns. -->
+                                <x:Double x:Key="DataGridSortIconMinWidth">0</x:Double>
+                            </DataGrid.Resources>
+                            <DataGrid.Styles>
+                                <Style Selector="DataGridColumnHeader">
+                                    <Setter Property="Padding" Value="6,0" />
+                                </Style>
+                            </DataGrid.Styles>
+                            <DataGrid.Columns>
+                                <!--  CheckBox  -->
+                                <DataGridTemplateColumn
+                                    Width="56"
+                                    MinWidth="56"
+                                    CanUserSort="False">
+                                    <DataGridTemplateColumn.Header>
                                         <ToggleSwitch
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            HorizontalContentAlignment="Center"
+                                            AutomationProperties.Name="{x:Static spp:Strings.SelectAll}"
                                             Classes="OnlySwitch"
-                                            IsChecked="{Binding IsChecked, Mode=TwoWay}"
-                                            IsEnabled="{Binding !IsProtection}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-                            <!--  Image  -->
-                            <DataGridTemplateColumn
-                                Width="84"
-                                CanUserSort="True"
-                                SortMemberPath="IsChecked">
-                                <DataGridTemplateColumn.Header>
-                                    <TextBlock Text="{x:Static spp:Strings.Achievement_Icon}" />
-                                </DataGridTemplateColumn.Header>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate x:DataType="spp:AchievementInfo">
-                                        <spp:Image2
-                                            Width="64"
-                                            Height="64"
-                                            Margin="-8,0,0,0"
-                                            DecodeWidth="64"
-                                            EnableCache="False"
-                                            Source="{Binding IconUrl}"
-                                            Stretch="UniformToFill" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-                            <!--  Name  -->
-                            <DataGridTemplateColumn
-                                Width="*"
-                                CanUserSort="True"
-                                SortMemberPath="Name">
-                                <DataGridTemplateColumn.Header>
-                                    <TextBlock Text="{x:Static spp:Strings.Achievement_Name}" />
-                                </DataGridTemplateColumn.Header>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate x:DataType="spp:AchievementInfo">
-                                        <WrapPanel Margin="10,0">
-                                            <TextBlock
+                                            IsChecked="{Binding $parent[Window].((spp:AchievementAppPageViewModel)DataContext).IsCheckAll, Mode=TwoWay}"
+                                            IsEnabled="{Binding $parent[Window].((spp:AchievementAppPageViewModel)DataContext).CanEditVisibleAchievements}" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate x:DataType="spp:AchievementInfo">
+                                            <ToggleSwitch
+                                                HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                IsVisible="{Binding IsProtection}"
-                                                Text="{Binding Source={x:Static spp:Strings.Achievement_IsProtection}, Mode=OneTime, StringFormat={}({0})}" />
-                                            <StackPanel
+                                                HorizontalContentAlignment="Center"
+                                                Classes="OnlySwitch"
+                                                IsChecked="{Binding IsChecked, Mode=TwoWay}">
+                                                <ToggleSwitch.IsEnabled>
+                                                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                                        <Binding Path="CanEdit" />
+                                                        <Binding Path="$parent[Window].((spp:AchievementAppPageViewModel)DataContext).CanUpdateStats" />
+                                                    </MultiBinding>
+                                                </ToggleSwitch.IsEnabled>
+                                            </ToggleSwitch>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!-- SizeToHeader defers star-column measurement, which can seed a short initial scroll extent. -->
+                                <DataGridTemplateColumn
+                                    Width="68"
+                                    MinWidth="68"
+                                    CanUserSort="False">
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock HorizontalAlignment="Center" Text="{x:Static spp:Strings.Achievement_Icon}" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate x:DataType="spp:AchievementInfo">
+                                            <spp:Image2
+                                                Width="48"
+                                                Height="48"
+                                                Margin="0,5"
+                                                HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                Orientation="Vertical"
-                                                Spacing="5">
-                                                <TextBlock Text="{Binding Name}" />
+                                                DecodeWidth="48"
+                                                EnableCache="False"
+                                                Source="{Binding IconUrl}"
+                                                Stretch="UniformToFill" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!--  Name  -->
+                                <DataGridTemplateColumn
+                                    Width="1.2*"
+                                    CanUserSort="True"
+                                    SortMemberPath="Name">
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{x:Static spp:Strings.Achievement_Name}" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate x:DataType="spp:AchievementInfo">
+                                            <StackPanel Margin="8,5" VerticalAlignment="Center" Spacing="2">
+                                                <TextBlock FontWeight="SemiBold" Text="{Binding Name}" TextWrapping="Wrap" />
                                                 <TextBlock
-                                                    IsVisible="{Binding IsAchieved}"
+                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                    IsVisible="{Binding $parent[Window].((spp:AchievementAppPageViewModel)DataContext).ShowAchievementSetLabels}"
+                                                    Text="{Binding Set.Name, FallbackValue={x:Static spp:Strings.Achievement_SetBaseGame}, TargetNullValue={x:Static spp:Strings.Achievement_SetBaseGame}}"
+                                                    TextWrapping="Wrap"
+                                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                                                <TextBlock
+                                                    IsVisible="{Binding IsProtection}"
+                                                    Text="{Binding Source={x:Static spp:Strings.Achievement_IsProtection}, Mode=OneTime, StringFormat={}({0})}"
+                                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                                                <Border
+                                                    Padding="4,0"
+                                                    HorizontalAlignment="Left"
+                                                    BorderBrush="{DynamicResource TextFillColorSecondaryBrush}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="3"
+                                                    IsVisible="{Binding IsArchived}">
+                                                    <TextBlock
+                                                        Text="{x:Static spp:Strings.Achievement_Archived}"
+                                                        Theme="{StaticResource CaptionTextBlockStyle}" />
+                                                </Border>
+                                                <TextBlock
+                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                    IsVisible="{Binding HasUnlockTime}"
                                                     Text="{Binding UnlockTime, StringFormat={x:Static spp:Strings.Achievement_TimeFormat}}"
+                                                    TextWrapping="Wrap"
                                                     Theme="{StaticResource CaptionTextBlockStyle}" />
                                             </StackPanel>
-                                        </WrapPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
-                            <!--  Description  -->
-                            <DataGridTemplateColumn
-                                Width="2*"
-                                CanUserSort="True"
-                                SortMemberPath="Description">
-                                <DataGridTemplateColumn.Header>
-                                    <TextBlock Text="{x:Static spp:Strings.Achievement_Description}" />
-                                </DataGridTemplateColumn.Header>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate x:DataType="spp:AchievementInfo">
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            Text="{Binding Description}"
-                                            TextWrapping="WrapWithOverflow" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </TabItem>
-                <TabItem Header="{x:Static spp:Strings.Achievement_StatsEdit}">
-                    <DataGrid IsReadOnly="False" ItemsSource="{Binding Statistics}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn
-                                Width="2*"
-                                x:DataType="spp:StatInfo"
-                                Binding="{Binding Id}"
-                                Header="Id"
-                                IsReadOnly="True" />
-                            <DataGridTextColumn
-                                Width="2*"
-                                x:DataType="spp:StatInfo"
-                                Binding="{Binding DisplayName}"
-                                Header="Name"
-                                IsReadOnly="True" />
-                            <DataGridTextColumn
-                                Width="*"
-                                x:DataType="spp:StatInfo"
-                                Binding="{Binding Value, Mode=TwoWay}"
-                                Header="Value"
-                                IsReadOnly="False" />
-                            <DataGridTextColumn
-                                Width="*"
-                                x:DataType="spp:StatInfo"
-                                Binding="{Binding Extra}"
-                                CanUserSort="True"
-                                Header="Extra"
-                                IsReadOnly="True"
-                                SortMemberPath="Extra" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </TabItem>
-            </TabControl>
-        </spp:ContentLoader>
-    </Grid>
+                                <!--  Description  -->
+                                <DataGridTemplateColumn
+                                    Width="2*"
+                                    CanUserSort="True"
+                                    SortMemberPath="Description">
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{x:Static spp:Strings.Achievement_Description}" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate x:DataType="spp:AchievementInfo">
+                                            <TextBlock
+                                                Margin="8,5"
+                                                VerticalAlignment="Center"
+                                                Text="{Binding Description}"
+                                                TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Panel>
+                </Border>
+            </Grid>
+        </TabItem>
+        <TabItem Header="{x:Static spp:Strings.Achievement_StatsEdit}">
+            <Border Classes="achievementSurface">
+                <DataGrid
+                    Background="Transparent"
+                    HeadersVisibility="Column"
+                    HorizontalGridLinesBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                    IsReadOnly="{Binding !CanUpdateStats}"
+                    ItemsSource="{Binding Statistics}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="2*"
+                            x:DataType="spp:StatInfo"
+                            Binding="{Binding Id}"
+                            Header="Id"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="2*"
+                            x:DataType="spp:StatInfo"
+                            Binding="{Binding DisplayName}"
+                            Header="Name"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="*"
+                            x:DataType="spp:StatInfo"
+                            Binding="{Binding Value, Mode=TwoWay}"
+                            Header="Value"
+                            IsReadOnly="False" />
+                        <DataGridTextColumn
+                            Width="*"
+                            x:DataType="spp:StatInfo"
+                            Binding="{Binding Extra}"
+                            CanUserSort="True"
+                            Header="Extra"
+                            IsReadOnly="True"
+                            SortMemberPath="Extra" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </TabItem>
+    </TabControl>
 </Window>

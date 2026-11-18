@@ -123,8 +123,14 @@
 	<data name="On" xml:space="preserve">
     <value>开</value>
   </data>
+	<data name="Achievement_Archived" xml:space="preserve">
+    <value>已归档</value>
+  </data>
 	<data name="Achievement_Description" xml:space="preserve">
     <value>描述</value>
+  </data>
+	<data name="Achievement_DlcOwnershipChanged" xml:space="preserve">
+    <value>无法再确认你拥有所需的 DLC。请刷新后重试。</value>
   </data>
 	<data name="Achievement_EditSucces" xml:space="preserve">
     <value>修改了 {0} 个成就和 {1} 条统计信息</value>
@@ -138,6 +144,9 @@
 	<data name="Achievement_LoadData" xml:space="preserve">
     <value>加载成就和统计数据...</value>
   </data>
+	<data name="Achievement_LoadSchemaFailed" xml:space="preserve">
+    <value>无法加载成就和统计数据的定义。请刷新后重试。</value>
+  </data>
 	<data name="Achievement_LoadSucces" xml:space="preserve">
     <value>获取到 {0} 个成就和 {1} 条统计信息</value>
   </data>
@@ -150,8 +159,17 @@
 	<data name="Achievement_Name" xml:space="preserve">
     <value>名称</value>
   </data>
+	<data name="Achievement_NoVisibleAchievements" xml:space="preserve">
+    <value>没有可显示的成就。</value>
+  </data>
+	<data name="Achievement_Progress" xml:space="preserve">
+    <value>成就总进度</value>
+  </data>
 	<data name="Achievement_RefreshTip" xml:space="preserve">
     <value>刷新成就和统计</value>
+  </data>
+	<data name="Achievement_RequestStatsFailed" xml:space="preserve">
+    <value>无法从 Steam 获取成就和统计数据。请刷新后重试。</value>
   </data>
 	<data name="Achievement_ResetTip" xml:space="preserve">
     <value>复位成就和统计</value>
@@ -169,8 +187,20 @@
 	<data name="Achievement_RiskWarning" xml:space="preserve">
     <value>【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。</value>
   </data>
+	<data name="Achievement_SetAll" xml:space="preserve">
+    <value>全部</value>
+  </data>
+	<data name="Achievement_SetBaseGame" xml:space="preserve">
+    <value>本体游戏</value>
+  </data>
+	<data name="Achievement_SetFilter" xml:space="preserve">
+    <value>成就组</value>
+  </data>
 	<data name="Achievement_StatsEdit" xml:space="preserve">
     <value>统计修改</value>
+  </data>
+	<data name="Achievement_StoreFailed" xml:space="preserve">
+    <value>无法保存成就和统计数据。请刷新后重试。</value>
   </data>
 	<data name="Achievement_StoreTip" xml:space="preserve">
     <value>保存并应用成就和统计</value>
@@ -178,8 +208,14 @@
 	<data name="Achievement_TimeFormat" xml:space="preserve">
     <value>解锁于 {0:yyyy-MM-dd HH:mm:ss}</value>
   </data>
+	<data name="Achievement_TotalCount" xml:space="preserve">
+    <value>成就总数</value>
+  </data>
 	<data name="Achievement_Unlock" xml:space="preserve">
     <value>成就解锁</value>
+  </data>
+	<data name="Achievement_UnlockedCount" xml:space="preserve">
+    <value>已解锁</value>
   </data>
 	<data name="Achievement_Warning_1" xml:space="preserve">
     <value>与 Steam 建立连接失败，可能是该游戏没有成就，或者你没有该游戏。</value>
@@ -4933,4 +4969,46 @@
 	<data name="离线" xml:space="preserve"><value>离线</value></data>
 	<data name="在线" xml:space="preserve"><value>在线</value></data>
 	<data name="正在挂卡" xml:space="preserve"><value>正在挂卡</value></data>
+	<data name="Tray_QuickActions" xml:space="preserve">
+    <value>快捷操作</value>
+  </data>
+	<data name="Tray_AcceleratorLoading" xml:space="preserve">
+    <value>正在等待加速服务…</value>
+  </data>
+	<data name="Tray_AcceleratorUnavailable" xml:space="preserve">
+    <value>加速服务不可用</value>
+  </data>
+	<data name="Tray_AcceleratorStarting" xml:space="preserve">
+    <value>正在开启加速…</value>
+  </data>
+	<data name="Tray_AcceleratorStopping" xml:space="preserve">
+    <value>正在关闭加速…</value>
+  </data>
+	<data name="Tray_CurrentAccount" xml:space="preserve">
+    <value>当前登录</value>
+  </data>
+	<data name="Tray_NoSavedAccounts" xml:space="preserve">
+    <value>没有已保存的 Steam 账号</value>
+  </data>
+	<data name="Tray_ManageAccounts" xml:space="preserve">
+    <value>管理账号</value>
+  </data>
+	<data name="Tray_AcceleratorPreparing" xml:space="preserve">
+    <value>正在准备加速配置…</value>
+  </data>
+	<data name="Tray_AccountReadFailed" xml:space="preserve">
+    <value>读取 Steam 账号失败</value>
+  </data>
+	<data name="Tray_AccelerationDuration" xml:space="preserve">
+    <value>加速时长</value>
+  </data>
+	<data name="Tray_AccelerationProjects" xml:space="preserve">
+    <value>加速项</value>
+  </data>
+	<data name="Tray_NoActiveProjects" xml:space="preserve">
+    <value>本次没有启用加速项</value>
+  </data>
+	<data name="Tray_TrafficDetails" xml:space="preserve">
+    <value>本次加速的实时速率 · 累计流量</value>
+  </data>
 </root>

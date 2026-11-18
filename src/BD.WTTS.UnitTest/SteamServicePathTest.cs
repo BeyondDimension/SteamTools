@@ -50,6 +50,26 @@ public sealed class SteamServicePathTest
     }
 
     [Test]
+    public void SavedAccountReaderDistinguishesCorruptionFromAnEmptyList()
+    {
+        var service = new TestSteamService { ConfiguredPath = Path.Combine(first, "steam.exe") };
+        var path = Path.Combine(first, "config", "loginusers.vdf");
+        Assert.That(service.TryGetRememberUserList(out var saved), Is.True);
+        Assert.That(saved.Select(user => user.AccountName), Is.EqualTo(new[] { "first-account" }));
+
+        File.WriteAllText(path, "\"users\" { \"unclosed", Encoding.UTF8);
+        Assert.That(service.TryGetRememberUserList(out _), Is.False);
+
+        File.WriteAllText(path, "\"users\" { }", Encoding.UTF8);
+        Assert.That(service.TryGetRememberUserList(out var empty), Is.True);
+        Assert.That(empty, Is.Empty);
+
+        File.Delete(path);
+        Assert.That(service.TryGetRememberUserList(out var missing), Is.True);
+        Assert.That(missing, Is.Empty);
+    }
+
+    [Test]
     public async Task ChangingPathDuringBatchReadDoesNotMixTheTwoInstallations()
     {
         var service = new TestSteamService { ConfiguredPath = Path.Combine(first, "steam.exe") };

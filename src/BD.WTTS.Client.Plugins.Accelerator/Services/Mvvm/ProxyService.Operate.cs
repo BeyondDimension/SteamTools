@@ -285,7 +285,10 @@ partial class ProxyService
                     }
                     break;
             }
-            _StartAccelerateTime = DateTimeOffset.Now;
+            traySession = new(Stopwatch.GetTimestamp(),
+                onlyEnableProxyScript || proxyDomains == null ? [] : proxyDomains.OrderBy(static project => project.Order)
+                    .Select(static project => project.Name).ToArray(),
+                ReadTrayTraffic);
             StartTimer();
             return default;
         }
@@ -399,12 +402,13 @@ partial class ProxyService
                 break;
 #endif
         }
-        StopTimer(); // 停止 UI 计时器
 #if MACOS
         reverseProxyService.StopProxyAsync().GetAwaiter(); // 停止代理服务
 #else
         await reverseProxyService.StopProxyAsync(); // 停止代理服务
 #endif
+        StopTimer(); // 停止 UI 计时器
+        traySession = null;
         return default;
     }
 
