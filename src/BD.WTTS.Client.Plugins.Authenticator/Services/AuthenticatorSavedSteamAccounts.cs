@@ -85,12 +85,12 @@ internal sealed class AuthenticatorSavedSteamAccounts : ISteamSavedAccountProvid
         {
             var prompt = new TextBoxWindowViewModel { InputType = TextBoxWindowViewModel.TextBoxInputType.Password };
             if (!await IWindowManager.Instance.ShowTaskDialogAsync(prompt, AppResources.Title_InputAuthPassword, isDialog: false, isCancelButton: true))
-                throw new InvalidOperationException("已取消解锁令牌；可以返回其他登录方式或重新读取令牌。");
+                throw new InvalidOperationException(Strings.L10nAuthIdle_Text073);
             cancellationToken.ThrowIfCancellationRequested();
             password = prompt.Value;
             prompt.Value = null;
             if (string.IsNullOrEmpty(password) || !await AuthenticatorHelper.ValidatePassword(protectedSource, password))
-                throw new InvalidOperationException("令牌二级密码不正确，请重新读取并解锁。");
+                throw new InvalidOperationException(Strings.L10nAuthIdle_Text074);
         }
         var entries = await AuthenticatorHelper.GetAllAuthenticatorsAsync(sources, password);
         cancellationToken.ThrowIfCancellationRequested();
@@ -114,17 +114,17 @@ internal sealed class AuthenticatorSavedSteamAccounts : ISteamSavedAccountProvid
                 token.ThrowIfCancellationRequested();
                 var item = current.FirstOrDefault(x => x.Id == sourceId);
                 if (item?.Value == null || !item.Value.SequenceEqual(encryptedValue))
-                    throw new InvalidOperationException("令牌登录状态已更改，请重新读取令牌后重试。");
+                    throw new InvalidOperationException(Strings.L10nAuthIdle_Text075);
                 if (liveAuthenticator != null && !IsLiveSessionCurrent(sourceId, liveAuthenticator, saved, access, refresh))
-                    throw new InvalidOperationException("交易确认登录状态已更改，请重新读取令牌后重试。");
+                    throw new InvalidOperationException(Strings.L10nAuthIdle_Text076);
                 var webSession = await CreateWebSessionAsync(id, access, refresh, Ioc.Get<ISteamAccountService>(), token);
                 current = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
                 token.ThrowIfCancellationRequested();
                 item = current.FirstOrDefault(x => x.Id == sourceId);
                 if (item?.Value == null || !item.Value.SequenceEqual(encryptedValue))
-                    throw new InvalidOperationException("令牌登录状态已更改，请重新读取令牌后重试。");
+                    throw new InvalidOperationException(Strings.L10nAuthIdle_Text075);
                 if (liveAuthenticator != null && !IsLiveSessionCurrent(sourceId, liveAuthenticator, saved, access, refresh))
-                    throw new InvalidOperationException("交易确认登录状态已更改，请重新读取令牌后重试。");
+                    throw new InvalidOperationException(Strings.L10nAuthIdle_Text076);
                 return webSession;
             }));
         }
@@ -168,11 +168,11 @@ internal sealed class AuthenticatorSavedSteamAccounts : ISteamSavedAccountProvid
         if (!IsTokenUsable(accessToken, steamId, refresh: false))
         {
             if (!IsTokenUsable(refreshToken, steamId, refresh: true))
-                throw new InvalidOperationException("交易确认登录状态已过期，请在令牌插件中重新登录交易确认。");
+                throw new InvalidOperationException(Strings.L10nAuthIdle_Text077);
             accessToken = await accountService.RefreshAccessToken(steamId, refreshToken!).WaitAsync(cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
             if (!IsTokenUsable(accessToken, steamId, refresh: false))
-                throw new InvalidOperationException("交易确认登录状态已过期或不支持网页登录，请重新登录交易确认。");
+                throw new InvalidOperationException(Strings.L10nAuthIdle_Text078);
         }
 
         var expectedId = steamId.ToString(CultureInfo.InvariantCulture);
@@ -193,7 +193,7 @@ internal sealed class AuthenticatorSavedSteamAccounts : ISteamSavedAccountProvid
             (location!.IsAbsoluteUri && (location.Scheme != Uri.UriSchemeHttps || location.Host != "steamcommunity.com" || location.Port != 443)) ||
             !(path.StartsWith("/id/", StringComparison.OrdinalIgnoreCase) ||
               path == "/profiles/" + expectedId || path.StartsWith("/profiles/" + expectedId + "/", StringComparison.Ordinal)))
-            throw new InvalidOperationException("Steam 未接受该网页登录状态，请在令牌插件中重新登录交易确认。");
+            throw new InvalidOperationException(Strings.L10nAuthIdle_Text079);
         cancellationToken.ThrowIfCancellationRequested();
         return new SteamSession { SteamId = expectedId, AccessToken = accessToken!, RefreshToken = string.Empty, CookieContainer = cookies };
     }

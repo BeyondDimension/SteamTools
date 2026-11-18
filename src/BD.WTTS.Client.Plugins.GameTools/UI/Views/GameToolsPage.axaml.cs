@@ -4,6 +4,8 @@ namespace BD.WTTS.UI.Views.Pages;
 
 public partial class GameToolsPage : PageBase
 {
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(BorderlessGamePage))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(CsgoVacRepairPage))]
     public GameToolsPage()
     {
         InitializeComponent();

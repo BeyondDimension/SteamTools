@@ -418,7 +418,7 @@ public sealed partial class AuthenticatorHomePageViewModel
                         : UserAuthenticatorTokenType.TOTP,
                     Name = item.AuthData.Name,
                     Order = item.AuthData.Index,
-                    Token = MemoryPackSerializer.Serialize(item.AuthData.ToExport()),
+                    Token = Serializable.SMP2(item.AuthData.ToExport()),
                 }).ToArray();
 
             if ((cloudAuths.Count + pushItems.Length) > MAX_SYNC_VALUE)

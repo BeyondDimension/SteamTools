@@ -77,22 +77,22 @@
                 IsClosable="False"
                 IsOpen="True"
                 IsVisible="{spp:OnPlatform !GA}"
-                Message="当前使用的程序版本为测试版本，可能会有各种各样不可言明的 Bug，遇到问题请理性反馈，谢谢。"
+                Message="{x:Static spp:Strings.L10nApp_TestVersionWarning}"
                 Severity="Warning"
                 VerticalAlignment="Top" />
             <spp:Snackbar
                 IsClosable="False"
                 IsOpen="True"
                 IsVisible="{spp:OnPlatform !GA}"
-                Message="如果您不喜欢当前主页为默认启动页面可以在【设置-界面设置-启动时默认打开页面】处更改"
+                Message="{x:Static spp:Strings.L10nApp_DefaultHomeTip}"
                 VerticalAlignment="Top" />
             <spp:Snackbar
                 IsClosable="False"
                 IsOpen="True"
                 IsVisible="{Binding !!!MainWindow2.PluginCount, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}"
-                Message="检测到你没有安装插件，请去下载插件即可使用更多功能。"
+                Message="{x:Static spp:Strings.L10nApp_NoPluginsWarning}"
                 Severity="Warning"
-                Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Title="{x:Static spp:Strings.Notice_Tray_Title}"
                 VerticalAlignment="Top" />
 
             <WrapPanel Margin="5,0">
@@ -125,7 +125,7 @@
                         VerticalAlignment="Center" />
                 </WrapPanel>
                 <TextBlock Theme="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center">
-                    <Run Text="{Binding Path=Res.Welcome_User_, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <Run Text="{x:Static spp:Strings.Welcome_User_}" />
                 </TextBlock>
             </WrapPanel>
 
@@ -152,7 +152,7 @@
                                         ClipToBounds="True"
                                         CornerRadius="{StaticResource ControlCornerRadius}"
                                         Padding="20,10">
-                                        <TextBlock FontSize="16" Text="阅读更多" />
+                                        <TextBlock FontSize="16" Text="{x:Static spp:Strings.L10nApp_ReadMore}" />
                                     </Border>
                                 </spp:AppItem.Status>
                                 <spp:AppItem.Image>
@@ -169,8 +169,8 @@
                     MinHeight="220"
                     Padding="32">
                     <StackPanel Spacing="8" VerticalAlignment="Center">
-                        <TextBlock Text="欢迎回来" Theme="{StaticResource TitleTextBlockStyle}" />
-                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="加载首页数据失败" TextWrapping="Wrap" />
+                        <TextBlock Text="{x:Static spp:Strings.L10nApp_WelcomeBack}" Theme="{StaticResource TitleTextBlockStyle}" />
+                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{x:Static spp:Strings.L10nApp_HomeLoadFailed}" TextWrapping="Wrap" />
                     </StackPanel>
                 </Border>
                 <spp:Skeleton
@@ -194,13 +194,13 @@
                 Spacing="10">
                 <DockPanel>
                     <TextBlock
-                        Text="最新消息"
+                        Text="{x:Static spp:Strings.L10nApp_LatestNews}"
                         Theme="{StaticResource TitleTextBlockStyle}"
                         VerticalAlignment="Center" />
                     <Button
                         Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                         CommandParameter="{x:Static spp:HomePageViewModel.OfficialWebsite_Article}"
-                        Content="查看更多"
+                        Content="{x:Static spp:Strings.L10nApp_ViewMore}"
                         DockPanel.Dock="Right"
                         HorizontalAlignment="Right"
                         Theme="{StaticResource HyperlinkButton}"
@@ -254,7 +254,7 @@
                     <Border IsHitTestVisible="False" IsVisible="{Binding !IsArticlesLoading}">
                         <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8" IsVisible="{Binding !Articles.Count}" Padding="24">
                             <StackPanel Spacing="6">
-                                <TextBlock FontWeight="SemiBold" Text="暂无最新消息" />
+                                <TextBlock FontWeight="SemiBold" Text="{x:Static spp:Strings.L10nApp_NoLatestNews}" />
                                 <!-- <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="有新消息时显示在这里。" TextWrapping="Wrap" /> -->
                             </StackPanel>
                         </Border>
@@ -595,7 +595,7 @@
 
                 <TextBlock
                     Margin="-3,0,0,0"
-                    Text="已安装功能"
+                    Text="{x:Static spp:Strings.L10nApp_InstalledFeatures}"
                     Theme="{StaticResource TitleTextBlockStyle}" />
 
                 <ItemsControl ItemsSource="{Binding MainWindow2.TabItems, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}">

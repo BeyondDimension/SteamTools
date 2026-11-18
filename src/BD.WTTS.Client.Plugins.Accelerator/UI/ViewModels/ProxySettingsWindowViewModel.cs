@@ -31,6 +31,6 @@ public sealed class ProxySettingsWindowViewModel : WindowViewModel
             ProxySettings.OnlyEnableProxyScript.Save();
         }
 
-        Toast.Show(ToastIcon.Success, "重置成功");
+        Toast.Show(ToastIcon.Success, Strings.L10nAccel_145);
     }
 }

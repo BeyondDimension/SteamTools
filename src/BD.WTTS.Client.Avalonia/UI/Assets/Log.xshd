@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SyntaxDefinition name="Log" extensions=".log" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Verbose" foreground="#6A9955" />
+  <Color name="Debug" foreground="#569CD6" />
+  <Color name="Info" foreground="#B5CEA8" />
+  <Color name="Warning" foreground="#CE9178" />
+  <Color name="Error" foreground="#D16969" fontWeight="bold" />
+  <Color name="Date" foreground="#6A9955" />
+  <Color name="Constant" foreground="#569CD6" />
+  <Color name="String" foreground="#CE9178" />
+  <Color name="Exception" foreground="#D16969" fontStyle="italic" />
+  <Color name="Stack" foreground="#CE9178" fontStyle="italic" />
+  <RuleSet>
+    <Rule color="Verbose">\bTrace\b:|(?i:\[(?:verbose|verb|vrb|vb|v)\])|(?&lt;=^[\s\d\p{P}]*)\bV\b</Rule>
+    <Rule color="Debug">\b(?:DEBUG|Debug)\b|(?i:\bdebug:|\[(?:debug|dbug|dbg|de|d)\])|(?&lt;=^[\s\d\p{P}]*)\bD\b</Rule>
+    <Rule color="Info">\b(?:HINT|INFO|INFORMATION|Info|NOTICE|II)\b|(?i:\b(?:info|information):|\[(?:information|info|inf|in|i)\])|(?&lt;=^[\s\d\p{P}]*)\bI\b</Rule>
+    <Rule color="Warning">\b(?:WARNING|WARN|Warn|WW)\b|(?i:\bwarning:|\[(?:warning|warn|wrn|wn|w)\])|(?&lt;=^[\s\d\p{P}]*)\bW\b</Rule>
+    <Rule color="Error">\b(?:ALERT|CRITICAL|EMERGENCY|ERROR|FAILURE|FAIL|Fatal|FATAL|Error|EE)\b|(?i:\berror:|\[(?:error|eror|err|er|e|fatal|fatl|ftl|fa|f)\])|(?&lt;=^[\s\d\p{P}]*)\bE\b</Rule>
+    <Rule color="Date">\b\d{4}-\d{2}-\d{2}(?:T|\b)|\d{2}[^\w\s]\d{2}[^\w\s]\d{4}\b|\d{1,2}:\d{2}(?::\d{2}(?:[.,]\d+)?)?(?:Z|[ ]?[+-]\d{1,2}:\d{2})?\b</Rule>
+    <Rule color="Constant">\b(?:[0-9a-fA-F]{40}|[0-9a-fA-F]{10}|[0-9a-fA-F]{7})\b|\b[0-9a-fA-F]{8}-?(?:[0-9a-fA-F]{4}-?){3}[0-9a-fA-F]{12}\b|\b(?:[0-9a-fA-F]{2,}[:-])+[0-9a-fA-F]{2,}\b|\b(?:[0-9]+|true|false|null|0x[a-fA-F0-9]+)\b</Rule>
+    <Rule color="String">"[^"]*"|(?&lt;!\w)'[^']*'</Rule>
+    <Rule color="Exception">\b[a-zA-Z.]*Exception\b</Rule>
+    <Rule color="Stack">^[\t ]*at.*$</Rule>
+    <Rule color="Constant">\b[a-z]+://\S+\b/?|(?&lt;![\w/\\])(?:[\w-]+\.)+[\w-]+(?![\w/\\])</Rule>
+  </RuleSet>
+</SyntaxDefinition>

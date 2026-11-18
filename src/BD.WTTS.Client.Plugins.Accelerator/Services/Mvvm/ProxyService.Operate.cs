@@ -84,7 +84,7 @@ partial class ProxyService
                 .Select(x => x.Trim()).Where(x => x.Length > 0).ToArray();
             using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(15));
             if (!await CheckDnsServersAsync(servers, timeout.Token))
-                Toast.Show(ToastIcon.Warning, "DNS 预检查未通过或超时，加速仍会按配置顺序尝试服务器；请检查网络或解析设置。");
+                Toast.Show(ToastIcon.Warning, Strings.L10nAccel_120);
         }
 
         Lazy<IPAddress> proxyIp_ = new(() => ReverseProxySettings.GetProxyIp(proxyIp));
@@ -308,7 +308,7 @@ partial class ProxyService
             {
                 if (startProxyResult.Code == StartProxyResultCode.ListenerBindFailed)
                 {
-                    return $"无法监听代理端口（{ports}）。请检查端口是否被其他程序占用或被系统保留，以及安全软件是否阻止监听。";
+                    return string.Format(Strings.L10nAccel_121, ports);
                 }
                 if (CertificateFailurePresenter.IsCertificateFailure(startProxyResult.Code))
                     return new OperateProxyServiceResult("Certificate operation failed.", CertificateError: startProxyResult.Code);

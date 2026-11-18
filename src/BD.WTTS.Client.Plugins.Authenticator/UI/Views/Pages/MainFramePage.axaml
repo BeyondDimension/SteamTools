@@ -30,12 +30,12 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="已有令牌">
+            <TabStripItem Content="{x:Static spp:Strings.L10nAuthIdle_Text041}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:AuthenticatorHomePage" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <TabStripItem Content="Steam 市场">
+            <TabStripItem Content="{x:Static spp:Strings.L10nAuthIdle_Text042}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:SteamMarketManagePage" />
                 </TabStripItem.Tag>

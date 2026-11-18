@@ -12,6 +12,9 @@ partial interface IPlugin
     /// </summary>
     string Name { get; }
 
+    /// <summary>共享客户端资源中的插件名称键；未使用共享资源时为 null。</summary>
+    string? NameResourceKey => null;
+
     /// <summary>
     /// 插件唯一英文名，与 Id 一样不能有重复的
     /// </summary>
@@ -26,6 +29,9 @@ partial interface IPlugin
     /// 插件描述
     /// </summary>
     string? Description { get; }
+
+    /// <summary>共享客户端资源中的插件描述键；未使用共享资源时为 null。</summary>
+    string? DescriptionResourceKey => null;
 
     /// <summary>
     /// 插件商店地址

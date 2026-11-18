@@ -53,10 +53,11 @@ public sealed partial class GameAcceleratorService
     [Reactive]
     public DateTime? VipEndTime { get; set; }
 
-    const string VipEndTimeStringDef = "新用户免费试用";
+    bool hasValidVipEndTime;
 
-    [Reactive]
-    public string? VipEndTimeString { get; set; } = VipEndTimeStringDef;
+    public string VipEndTimeString => hasValidVipEndTime && VipEndTime.HasValue
+        ? string.Format(Strings.L10nAccel_097, VipEndTime.Value)
+        : Strings.L10nAccel_093;
 
     GameAcceleratorService()
     {
@@ -70,7 +71,7 @@ public sealed partial class GameAcceleratorService
         InstallAcceleratorCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             if (await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel(),
-    pageContent: new AcceleratorPathAskBox(), title: "游戏加速", isCancelButton: false, isOkButton: false))
+    pageContent: new AcceleratorPathAskBox(), title: Strings.L10nAccel_054, isCancelButton: false, isOkButton: false))
             {
                 await InstallAccelerator();
             }
@@ -162,10 +163,10 @@ public sealed partial class GameAcceleratorService
                         case XunYouState.启动成功:
                             break;
                         case XunYouState.启动游戏成功:
-                            Toast.Show(ToastIcon.Success, "启动游戏成功");
+                            Toast.Show(ToastIcon.Success, Strings.L10nAccel_094);
                             break;
                         case XunYouState.启动游戏失败:
-                            Toast.Show(ToastIcon.Error, "启动游戏失败");
+                            Toast.Show(ToastIcon.Error, Strings.L10nAccel_095);
                             break;
                         default:
                             Games.Items.Where(s => s.IsAccelerating || s.IsAccelerated).ForEach(s =>
@@ -178,7 +179,7 @@ public sealed partial class GameAcceleratorService
                                 RestoreGameStatus(CurrentAcceleratorGame);
                                 CurrentAcceleratorGame = null;
                             }
-                            Toast.Show(ToastIcon.Warning, x.State.ToString());
+                            Toast.Show(ToastIcon.Warning, GetXunYouStateText(x.State));
                             break;
                     }
                 });
@@ -187,7 +188,7 @@ public sealed partial class GameAcceleratorService
                 .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(async x =>
                 {
-                    string vipEndTimeString = VipEndTimeStringDef;
+                    var hasValidEndTime = false;
                     try
                     {
                         if (string.IsNullOrWhiteSpace(x?.WattOpenId))
@@ -205,7 +206,7 @@ public sealed partial class GameAcceleratorService
 
                         if (!vipEndTimeResult.IsSuccess || vipEndTimeResult.Content == null)
                         {
-                            Toast.Show(ToastIcon.Error, "获取会员时间失败");
+                            Toast.Show(ToastIcon.Error, Strings.L10nAccel_096);
                             return;
                         }
 
@@ -217,7 +218,7 @@ public sealed partial class GameAcceleratorService
                                 VipEndTime = etime.Value.ToDateTime(UnixTimestampType.Seconds);
                                 if (VipEndTime.Value > DateTime.Now)
                                 {
-                                    vipEndTimeString = $"游戏加速会员有效期 {VipEndTime.Value:yyyy-MM-dd}";
+                                    hasValidEndTime = true;
                                 }
                             }
                         }
@@ -231,7 +232,8 @@ public sealed partial class GameAcceleratorService
                     }
                     finally
                     {
-                        VipEndTimeString = vipEndTimeString;
+                        hasValidVipEndTime = hasValidEndTime;
+                        this.RaisePropertyChanged(nameof(VipEndTimeString));
                     }
                 });
 
@@ -239,6 +241,30 @@ public sealed partial class GameAcceleratorService
             LoadGames();
         }
     }
+
+    static string GetXunYouStateText(XunYouState state) => state switch
+    {
+        XunYouState.更新中 => Strings.L10nAccel_149,
+        XunYouState.更新失败 => Strings.L10nAccel_150,
+        XunYouState.更新成功 => Strings.L10nAccel_151,
+        XunYouState.启动中 => Strings.L10nAccel_152,
+        XunYouState.启动失败 => Strings.L10nAccel_153,
+        XunYouState.启动成功 => Strings.L10nAccel_154,
+        XunYouState.退出 => Strings.Exit,
+        XunYouState.登录中 => Strings.L10nAccel_155,
+        XunYouState.登录成功 => Strings.L10nAccel_156,
+        XunYouState.登录失败 => Strings.L10nAccel_157,
+        XunYouState.退出登录 => Strings.SignOut,
+        XunYouState.未加速 => Strings.L10nAccel_158,
+        XunYouState.加速中 => Strings.L10nAccel_159,
+        XunYouState.加速已完成 => Strings.L10nAccel_160,
+        XunYouState.停止加速中 => Strings.L10nAccel_161,
+        XunYouState.加速已断开 => Strings.L10nAccel_162,
+        XunYouState.加速失败 => Strings.L10nAccel_163,
+        XunYouState.启动游戏失败 => Strings.L10nAccel_095,
+        XunYouState.启动游戏成功 => Strings.L10nAccel_094,
+        _ => string.Format(Strings.L10nAccel_164, (int)state),
+    };
 
     /// <summary>
     /// 恢复加速游戏状态
@@ -308,7 +334,7 @@ public sealed partial class GameAcceleratorService
 
         //加速后
         TracepointHelper.TrackEvent("AcceleratorGameSuccess");
-        Toast.Show(ToastIcon.Success, "加速成功");
+        Toast.Show(ToastIcon.Success, Strings.L10nAccel_098);
         if (ProxySettings.AutoShowWattAcceleratorWindow.Value)
         {
             _ = ShowXunYouWindow(true);
@@ -332,7 +358,7 @@ public sealed partial class GameAcceleratorService
 #if DEBUG
         if (speedCode == XunYouTestSpeedCode.成功)
         {
-            Toast.Show(ToastIcon.Info, "发送测速指令");
+            Toast.Show(ToastIcon.Info, Strings.L10nAccel_099);
         }
 #endif
     }
@@ -354,7 +380,7 @@ public sealed partial class GameAcceleratorService
             CurrentAcceleratorGame = app;
             if (UserService.Current.User?.WattOpenId == null)
             {
-                Toast.Show(ToastIcon.Warning, "需要登录账号才能使用游戏加速功能!");
+                Toast.Show(ToastIcon.Warning, Strings.L10nAccel_100);
                 UserService.Current.ShowWindow();
                 app.IsAccelerating = false;
                 return;
@@ -378,7 +404,7 @@ public sealed partial class GameAcceleratorService
                     //}
 
                     if (!await IWindowManager.Instance.ShowTaskDialogAsync(new MessageBoxWindowViewModel(),
-                        pageContent: new AcceleratorPathAskBox(), title: "游戏加速", isCancelButton: false, isOkButton: false))
+                        pageContent: new AcceleratorPathAskBox(), title: Strings.L10nAccel_054, isCancelButton: false, isOkButton: false))
                     {
                         app.IsAccelerating = false;
                         return;
@@ -422,13 +448,13 @@ public sealed partial class GameAcceleratorService
                 var gameInfo = XunYouSDK.GetGameInfo(app.Id);
                 if (gameInfo == null)
                 {
-                    Toast.Show(ToastIcon.Warning, "获取游戏信息失败");
+                    Toast.Show(ToastIcon.Warning, Strings.L10nAccel_101);
                     app.IsAccelerating = false;
                     return;
                 }
                 app.GameInfo = gameInfo;
                 var vm = new GameInfoPageViewModel(app);
-                var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, $"{app.Name} - 区服选择", pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
+                var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, string.Format(Strings.L10nAccel_102, app.Name), pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
                 if (!result || app.SelectedArea == null)
                 {
                     app.IsAccelerating = false;
@@ -460,11 +486,11 @@ public sealed partial class GameAcceleratorService
                     if (startCode == 101)
                     {
                         app.AcceleratingProgress = 0;
-                        Toast.Show(ToastIcon.Info, "正在加速中...");
+                        Toast.Show(ToastIcon.Info, Strings.L10nAccel_103);
                     }
                     else
                     {
-                        Toast.Show(ToastIcon.Error, "加速启动失败");
+                        Toast.Show(ToastIcon.Error, Strings.L10nAccel_104);
                         app.IsAccelerating = false;
                     }
                 }
@@ -482,12 +508,12 @@ public sealed partial class GameAcceleratorService
                 // 停止加速
                 if (code == XunYouSendResultCode.发送成功)
                 {
-                    Toast.Show(ToastIcon.Info, "正在停止加速中...");
+                    Toast.Show(ToastIcon.Info, Strings.L10nAccel_105);
                 }
                 else
                 {
                     app.IsAccelerating = false;
-                    Toast.Show(ToastIcon.Error, "停止加速失败，请尝试去加速器客户端停止加速");
+                    Toast.Show(ToastIcon.Error, Strings.L10nAccel_106);
                 }
             }
         }
@@ -501,7 +527,7 @@ public sealed partial class GameAcceleratorService
         //}
         Current.Games.RemoveKey(app.Id);
         GameAcceleratorSettings.MyGames.Remove(app.Id);
-        Toast.Show(ToastIcon.Success, "已移除");
+        Toast.Show(ToastIcon.Success, Strings.L10nAccel_107);
     }
 
     public static void AddMyGame(XunYouGameViewModel app)
@@ -513,7 +539,7 @@ public sealed partial class GameAcceleratorService
             if (app.PicInfo == null)
                 app.PicInfo = XunYouSDK.GetPicInfo(app.Id);
             Current.Games.AddOrUpdate(app);
-            Toast.Show(ToastIcon.Success, "已添加到游戏列表");
+            Toast.Show(ToastIcon.Success, Strings.L10nAccel_108);
         }
     }
 
@@ -619,17 +645,17 @@ public sealed partial class GameAcceleratorService
         {
             if (isInstall)
             {
-                Toast.Show(ToastIcon.Info, "已安装Watt加速器");
+                Toast.Show(ToastIcon.Info, Strings.L10nAccel_109);
                 return;
             }
             TracepointHelper.TrackEvent("DownloadInstallAccelerator");
             var td = new TaskDialog
             {
-                Title = "下载插件",
+                Title = Strings.L10nAccel_110,
                 ShowProgressBar = true,
                 IconSource = new SymbolIconSource { Symbol = FluentAvalonia.UI.Controls.FASymbol.Download },
-                SubHeader = "下载 Watt 加速器 插件",
-                Content = "正在初始化，请稍候",
+                SubHeader = Strings.L10nAccel_111,
+                Content = Strings.L10nAccel_112,
                 XamlRoot = AvaloniaWindowManagerImpl.GetWindowTopLevel(),
                 //Buttons =
                 //{
@@ -658,12 +684,12 @@ public sealed partial class GameAcceleratorService
                 switch (content)
                 {
                     case < 100:
-                        Dispatcher.UIThread.Post(() => { td.Content = $"正在下载 {item.Content}%"; });
+                        Dispatcher.UIThread.Post(() => { td.Content = string.Format(Strings.L10nAccel_113, item.Content); });
                         td.SetProgressBarState(item.Content, TaskDialogProgressState.Normal);
                         break;
                     case 100:
                         td.SetProgressBarState(item.Content, TaskDialogProgressState.Indeterminate);
-                        Dispatcher.UIThread.Post(() => { td.Content = $"下载完成，正在安装..."; });
+                        Dispatcher.UIThread.Post(() => { td.Content = Strings.L10nAccel_114; });
                         break;
                     case (int)XunYouDownLoadCode.安装成功:
                         //处理成功
@@ -677,11 +703,11 @@ public sealed partial class GameAcceleratorService
                         break;
                     // Code 和进度重叠 递进 1000 XunYouInstallOrStartCode.默认 XunYouInstallOrStartCode.已安装
                     case 1000:
-                        Dispatcher.UIThread.Post(() => { td.Content = $"默认"; });
+                        Dispatcher.UIThread.Post(() => { td.Content = Strings.Default; });
                         // XunYouInstallOrStartCode.默认
                         break;
                     case 1001:
-                        Dispatcher.UIThread.Post(() => { td.Content = $"已安装"; });
+                        Dispatcher.UIThread.Post(() => { td.Content = Strings.L10nAccel_115; });
                         // XunYouInstallOrStartCode.已安装
                         Dispatcher.UIThread.Post(() => { td.Hide(TaskDialogStandardResult.OK); });
                         break;
@@ -697,7 +723,7 @@ public sealed partial class GameAcceleratorService
         {
             if (!isInstall)
             {
-                Toast.Show(ToastIcon.Info, "未安装，不需要卸载");
+                Toast.Show(ToastIcon.Info, Strings.L10nAccel_116);
                 return;
             }
             var uninstall = await Ioc.Get<IAcceleratorService>().XY_Uninstall();
@@ -705,11 +731,11 @@ public sealed partial class GameAcceleratorService
             {
                 if (code == 0)
                 {
-                    Toast.Show(ToastIcon.Success, "卸载成功");
+                    Toast.Show(ToastIcon.Success, Strings.L10nAccel_117);
                 }
                 else
                 {
-                    Toast.Show(ToastIcon.Error, "卸载失败");
+                    Toast.Show(ToastIcon.Error, Strings.L10nAccel_118);
                 }
             }
         }
@@ -720,12 +746,12 @@ public sealed partial class GameAcceleratorService
         var gameInfo = XunYouSDK.GetGameInfo(app.Id);
         if (gameInfo == null)
         {
-            Toast.Show(ToastIcon.Warning, "获取游戏信息失败");
+            Toast.Show(ToastIcon.Warning, Strings.L10nAccel_101);
             return;
         }
 
         var vm = new GameInfoPageViewModel(new XunYouGameViewModel { Name = app.Name, GameInfo = gameInfo, SelectedArea = app.SelectedArea, SelectedServer = app.SelectedServer });
-        var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, $"{app.Name} - 区服选择", pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
+        var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, string.Format(Strings.L10nAccel_102, app.Name), pageContent: new GameInfoPage(), isOkButton: false, disableScroll: true);
         if (!result || vm.XunYouGame.SelectedArea == null)
         {
             return;
@@ -753,11 +779,11 @@ public sealed partial class GameAcceleratorService
                     app.IsAccelerated = false;
                     app.AcceleratingProgress = 0;
                     CurrentAcceleratorGame = app;
-                    Toast.Show(ToastIcon.Info, "正在加速中...");
+                    Toast.Show(ToastIcon.Info, Strings.L10nAccel_103);
                 }
                 else
                 {
-                    Toast.Show(ToastIcon.Error, "加速启动失败");
+                    Toast.Show(ToastIcon.Error, Strings.L10nAccel_104);
                     app.IsAccelerating = false;
                 }
             }
@@ -788,7 +814,7 @@ public sealed partial class GameAcceleratorService
         {
             if (r == XunYouStartGameCode.失败)
             {
-                Toast.Show(ToastIcon.Error, $"启动 {app.Name} 失败");
+                Toast.Show(ToastIcon.Error, string.Format(Strings.L10nAccel_119, app.Name));
             }
         }
     }

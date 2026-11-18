@@ -137,7 +137,7 @@
                                 Grid.ColumnSpan="2"
                                 VerticalAlignment="Bottom"
                                 Foreground="#C5FFFFFF"
-                                Text="延迟" />
+                                Text="{x:Static spp:Strings.L10nAccel_001}" />
                             <TextBlock
                                 Grid.Column="3"
                                 VerticalAlignment="Bottom"
@@ -151,7 +151,7 @@
                                 Grid.ColumnSpan="2"
                                 VerticalAlignment="Bottom"
                                 Foreground="#C5FFFFFF"
-                                Text="丢包率" />
+                                Text="{x:Static spp:Strings.L10nAccel_002}" />
                             <!--<TextBlock
                                 Margin="20,0,0,0"
                                 VerticalAlignment="Bottom"
@@ -173,7 +173,7 @@
                                 Classes="accent"
                                 Command="{Binding GameLaunchCommand, Source={x:Static s:GameAcceleratorService.Current}}"
                                 CommandParameter="{Binding}"
-                                Content="启动游戏"
+                                Content="{x:Static spp:Strings.GameList_RuningItemBtn}"
                                 FontSize="18"
                                 IsVisible="{Binding ShowStart}" />
 
@@ -194,7 +194,7 @@
                                 Height="42"
                                 Command="{Binding GameAcceleratorCommand, Source={x:Static s:GameAcceleratorService.Current}}"
                                 CommandParameter="{Binding}"
-                                Content="停止加速"
+                                Content="{x:Static spp:Strings.CommunityFix_StopProxy}"
                                 FontSize="18" />
                         </StackPanel>
                     </Grid>

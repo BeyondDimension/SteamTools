@@ -21,7 +21,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using ArchiSteamFarm.Core;
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 
 namespace ArchiSteamFarm.IPC.Requests;
 
@@ -31,15 +31,17 @@ public sealed class BotInputRequest
     /// <summary>
     ///     Specifies the type of the input.
     /// </summary>
-    [JsonProperty(Required = Required.Always)]
+    [STJ.JsonInclude]
+    [STJ.JsonRequired]
     public ASF.EUserInputType Type { get; set; }
 
     /// <summary>
     ///     Specifies the value for given input type (declared in <see cref="Type" />)
     /// </summary>
-    [JsonProperty(Required = Required.Always)]
+    [STJ.JsonInclude]
+    [STJ.JsonRequired]
     public string Value { get; private set; } = "";
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public BotInputRequest() { }
 }

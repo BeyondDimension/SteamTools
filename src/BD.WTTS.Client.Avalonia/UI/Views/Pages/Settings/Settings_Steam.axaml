@@ -16,18 +16,18 @@
     <StackPanel Spacing="{StaticResource SettingsSpacing}">
         <TextBlock
             Margin="0,0,0,10"
-            Text="{Binding Path=Res.Settings_Steam, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Text="{x:Static spp:Strings.Settings_Steam}"
             Theme="{StaticResource SubtitleTextBlockStyle}" />
-        <spp:OptionsDisplayItem Description="{Binding Source={x:Static ms:SteamSettings.SteamProgramPath}, Path=Value, Mode=OneWay}" Header="{Binding Path=Res.Settings_Steam_Path, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{Binding Source={x:Static ms:SteamSettings.SteamProgramPath}, Path=Value, Mode=OneWay}" Header="{x:Static spp:Strings.Settings_Steam_Path}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <Button Command="{Binding SelectSteamProgramLocation}" Content="{Binding Path=Res.LocalAuth_ExportAuth_SelectPath, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <Button Command="{Binding SelectSteamProgramLocation}" Content="{x:Static spp:Strings.LocalAuth_ExportAuth_SelectPath}" />
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Header="{Binding Path=Res.Settings_Steam_AutoRunSteam, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Header="{x:Static spp:Strings.Settings_Steam_AutoRunSteam}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
             </spp:OptionsDisplayItem.Icon>
@@ -37,8 +37,8 @@
         </spp:OptionsDisplayItem>
 
         <spp:OptionsDisplayItem
-            Description="{Binding Path=Res.Settings_Steam_AdminRunPrompt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-            Header="{Binding Path=Res.Settings_Steam_RuningAdmin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Description="{x:Static spp:Strings.Settings_Steam_AdminRunPrompt}"
+            Header="{x:Static spp:Strings.Settings_Steam_RuningAdmin}"
             IsVisible="{spp:OnPlatform Windows}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE7EF;" />
@@ -48,7 +48,7 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Header="{Binding Path=Res.Settings_Steam_RuningMinimize, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Header="{x:Static spp:Strings.Settings_Steam_RuningMinimize}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9E9;" />
             </spp:OptionsDisplayItem.Icon>
@@ -57,7 +57,7 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Description="{Binding Path=Res.Settings_Steam_NoAutoUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{Binding Path=Res.Settings_Steam_NotCheckUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{x:Static spp:Strings.Settings_Steam_NoAutoUpdate}" Header="{x:Static spp:Strings.Settings_Steam_NotCheckUpdate}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE895;" />
             </spp:OptionsDisplayItem.Icon>
@@ -66,7 +66,7 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Header="{Binding Path=Res.Settings_Steam_RunSteamChina, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Header="{x:Static spp:Strings.Settings_Steam_RunSteamChina}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE9E9;" />
             </spp:OptionsDisplayItem.Icon>
@@ -75,7 +75,7 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Description="{Binding Path=Res.Settings_Steam_AutoPopupMessage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Header="{Binding Path=Res.Settings_Steam_CheckSteamRuningNotification, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{x:Static spp:Strings.Settings_Steam_AutoPopupMessage}" Header="{x:Static spp:Strings.Settings_Steam_CheckSteamRuningNotification}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7E7;" />
             </spp:OptionsDisplayItem.Icon>
@@ -84,12 +84,12 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Description="{Binding Source={x:Static ms:SteamSettings.SteamStratParameter}, Path=Value, Mode=OneWay}" Header="{Binding Path=Res.Settings_Steam_SteamStratParameter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        <spp:OptionsDisplayItem Description="{Binding Source={x:Static ms:SteamSettings.SteamStratParameter}, Path=Value, Mode=OneWay}" Header="{x:Static spp:Strings.Settings_Steam_SteamStratParameter}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
             </spp:OptionsDisplayItem.Icon>
             <spp:OptionsDisplayItem.ActionButton>
-                <Button Command="{Binding EditSteamParameter}" Content="{Binding Path=Res.Edit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <Button Command="{Binding EditSteamParameter}" Content="{x:Static spp:Strings.Edit}" />
             </spp:OptionsDisplayItem.ActionButton>
             <!--<spp:OptionsDisplayItem.Content>
 				<TextBox Classes="clearButton"

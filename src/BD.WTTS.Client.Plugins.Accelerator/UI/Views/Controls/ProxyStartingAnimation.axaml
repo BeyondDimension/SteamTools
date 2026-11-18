@@ -74,7 +74,7 @@
                     HorizontalAlignment="Center"
                     FontSize="18"
                     FontWeight="SemiBold"
-                    Text="{Binding Path=Res.CommunityFix_Starting, Source={x:Static s:ResourceService.Current}, Mode=OneWay}"
+                    Text="{x:Static spp:Strings.CommunityFix_Starting}"
                     TextAlignment="Center"
                     TextWrapping="Wrap" />
                 <TextBlock
@@ -82,7 +82,7 @@
                     HorizontalAlignment="Center"
                     FontSize="12"
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding Path=Res.CommunityFix_StartingHint, Source={x:Static s:ResourceService.Current}, Mode=OneWay}"
+                    Text="{x:Static spp:Strings.CommunityFix_StartingHint}"
                     TextAlignment="Center"
                     TextWrapping="Wrap" />
             </StackPanel>

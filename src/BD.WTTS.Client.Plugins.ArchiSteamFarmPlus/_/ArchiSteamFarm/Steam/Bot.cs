@@ -1,57 +1,57 @@
 using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Steam.Cards;
 using ArchiSteamFarm.Steam.Storage;
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 
 namespace ArchiSteamFarm.Steam;
 
 public sealed class Bot
 {
-    [JsonProperty(PropertyName = "AccountFlags")]
+    [STJ.JsonInclude]
     public EAccountFlags AccountFlags { get; private set; }
 
-    [JsonProperty(PropertyName = "BotConfig")]
+    [STJ.JsonInclude]
     public BotConfig BotConfig { get; private set; } = new();
 
-    [JsonProperty(PropertyName = "AvatarHash")]
+    [STJ.JsonInclude]
     public string? AvatarHash { get; private set; }
 
-    [JsonProperty(PropertyName = "BotName")]
+    [STJ.JsonInclude]
     public string BotName { get; private set; } = string.Empty;
 
-    [JsonProperty(PropertyName = "CardsFarmer")]
+    [STJ.JsonInclude]
     public CardsFarmer CardsFarmer { get; private set; } = new();
 
-    [JsonProperty(PropertyName = "GamesToRedeemInBackgroundCount")]
+    [STJ.JsonInclude]
     public uint GamesToRedeemInBackgroundCount { get; private set; }
 
-    [JsonProperty(PropertyName = "HasMobileAuthenticator")]
+    [STJ.JsonInclude]
     public bool HasMobileAuthenticator { get; private set; }
 
-    [JsonProperty(PropertyName = "IsConnectedAndLoggedOn")]
+    [STJ.JsonInclude]
     public bool IsConnectedAndLoggedOn { get; private set; }
 
-    [JsonProperty(PropertyName = "IsPlayingPossible")]
+    [STJ.JsonInclude]
     public bool IsPlayingPossible { get; private set; }
 
-    [JsonProperty(PropertyName = "KeepRunning")]
+    [STJ.JsonInclude]
     public bool KeepRunning { get; private set; }
 
-    [JsonProperty(PropertyName = "Nickname")]
+    [STJ.JsonInclude]
     public string? Nickname { get; private set; }
 
-    [JsonProperty(PropertyName = "RequiredInput")]
+    [STJ.JsonInclude]
     public ASF.EUserInputType RequiredInput { get; private set; }
 
-    [JsonProperty(PropertyName = "SteamID")]
+    [STJ.JsonInclude]
     public ulong SteamID { get; private set; }
 
-    [JsonProperty(PropertyName = "WalletBalance")]
+    [STJ.JsonInclude]
     public long WalletBalance { get; private set; }
 
-    [JsonProperty(PropertyName = "WalletCurrency")]
+    [STJ.JsonInclude]
     public ECurrencyCode WalletCurrency { get; private set; }
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public Bot() { }
 }

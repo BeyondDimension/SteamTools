@@ -5,6 +5,7 @@ using BD.SteamClient.Constants;
 using Avalonia.Threading;
 using System.Runtime.Devices;
 using BD.WTTS.Helpers;
+using BD.WTTS.Services;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -157,7 +158,7 @@ public sealed partial class IdleCardPageViewModel
     {
         if (idleApp.IsExcludedFromIdle)
         {
-            Toast.Show(ToastIcon.Warning, "该游戏已被排除，不参与挂卡。请先取消拉黑或移除私密限制。");
+            Toast.Show(ToastIcon.Warning, Strings.L10nAuthIdle_Text107);
             return;
         }
 
@@ -542,7 +543,7 @@ public sealed partial class IdleCardPageViewModel
             ExcludedBlacklistGameCount = apps.Count(x => x.IsBlacklisted);
             HasPrivateGameExcluded = ExcludedPrivateGameCount > 0;
             PrivateGameExcludeTip = HasPrivateGameExcluded
-                ? $"检测到 {ExcludedPrivateGameCount} 个私密游戏，这些游戏将自动排除，不参与挂卡。"
+                ? string.Format(Strings.L10nAuthIdle_PrivateExclusion, ExcludedPrivateGameCount)
                 : string.Empty;
 
             Dispatcher.UIThread.Invoke(() =>

@@ -1,3 +1,5 @@
+using AppStrings = BD.WTTS.Client.Resources.Strings;
+
 namespace BD.WTTS.Models;
 
 public sealed class BotViewModel : ReactiveObject
@@ -46,7 +48,7 @@ public sealed class BotViewModel : ReactiveObject
 
     public string Tags
     {
-        get => $"昵称：{Bot.Nickname}\r\n钱包余额：{Bot.WalletCurrency} {Math.Round((decimal)Bot.WalletBalance / 100)}\r\n挂卡游戏：{string.Join(',', Bot.CardsFarmer?.CurrentGamesFarming?.Select(s => s.GameName) ?? Enumerable.Empty<string>())}";
+        get => string.Format(AppStrings.L10nAsf_Text090, Bot.Nickname, Bot.WalletCurrency, Math.Round((decimal)Bot.WalletBalance / 100), string.Join(',', Bot.CardsFarmer?.CurrentGamesFarming?.Select(s => s.GameName) ?? Enumerable.Empty<string>()));
     }
 
     // https://github.com/JustArchiNET/ASF-ui/blob/9105e9becd86d610418532b73852ae22e19b3587/src/models/Bot.js#L6
@@ -72,13 +74,21 @@ public sealed class BotViewModel : ReactiveObject
     /// <returns></returns>
     public string GetStatusText()
     {
-        var statusText = BotStatus.GetDescription();
+        var statusText = BotStatus switch
+        {
+            BotStatus.Disabled => AppStrings.L10nAsf_Text091,
+            BotStatus.OffLine => AppStrings.L10nAsf_Text092,
+            BotStatus.Online => AppStrings.L10nAsf_Text093,
+            BotStatus.Farming => AppStrings.L10nAsf_Text094,
+            _ => BotStatus.ToString(),
+        };
         //挂卡详情不展示在状态中，名称太长
         //if (BotStatus == BotStatus.Farming && Bot.CardsFarmer?.CurrentGamesFarming?.Count == 1) return $"{statusText} - {Bot.CardsFarmer.CurrentGamesFarming.First().GameName}";
         //if (BotStatus == BotStatus.Farming && Bot.CardsFarmer?.CurrentGamesFarming?.Count > 1) return $"{statusText} - 多个游戏";
-        if (BotStatus == BotStatus.Disabled && Bot.RequiredInput != ASF.EUserInputType.None) return $"等待输入";  // 等待用户控制台输入
+        if (BotStatus == BotStatus.Disabled && Bot.RequiredInput != ASF.EUserInputType.None) return AppStrings.L10nAsf_Text095;  // 等待用户控制台输入
         return statusText!;
     }
+
 
     public static implicit operator BotViewModel(Bot bot) => new(bot);
 }

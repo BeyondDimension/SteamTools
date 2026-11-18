@@ -20,13 +20,13 @@
             Spacing="20">
             <TextBlock
                 Margin="-3,0,0,0"
-                Text="插件商店是什么？"
+                Text="{x:Static spp:Strings.L10nApp_PluginStoreHeading}"
                 Theme="{StaticResource TitleTextBlockStyle}" />
 
-            <TextBlock Text="3.0 版本的计划是将所有功能插件化，拆分后按需下载安装，每个人都可以只下载自己需要的插件功能使用，并且支持所有人都可以开发插件，等等还有许多暂时不方便说的内容，因为计划的过于异想天开，且遇到的问题有点多，所以开发难度有点点大，这个功能上线还需要一点时间，上线后 3.0 也将正式发布正式版，对一直等待的大家说声抱歉麻烦在多等等了 😭，如果您不习惯启动后是插件商店页面也可以在界面设置中修改启动默认页。" TextWrapping="WrapWithOverflow" />
+            <TextBlock Text="{x:Static spp:Strings.L10nApp_PluginStoreDescription}" TextWrapping="WrapWithOverflow" />
             <TextBlock
                 Margin="-3,0,0,0"
-                Text="已安装功能"
+                Text="{x:Static spp:Strings.L10nApp_InstalledFeatures}"
                 Theme="{StaticResource TitleTextBlockStyle}" />
 
             <ItemsControl ItemsSource="{Binding MainWindow2.TabItems, Mode=OneWay, Source={x:Static s:IViewModelManager.Instance}}">

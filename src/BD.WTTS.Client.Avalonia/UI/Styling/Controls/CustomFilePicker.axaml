@@ -49,7 +49,7 @@
                                     <ui:FASymbolIcon FontSize="30" Symbol="Download" />
                                     <TextBlock
                                         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                                        Text="{Binding Path=Res.CustomFilePicker_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                        Text="{x:Static spp:Strings.CustomFilePicker_Tip}"
                                         TextAlignment="Center"
                                         Theme="{StaticResource BodyStrongTextBlockStyle}" />
                                 </StackPanel>

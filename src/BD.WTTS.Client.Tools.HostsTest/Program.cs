@@ -5,15 +5,15 @@ var bColor = Console.BackgroundColor;
 try
 {
     var isProcessElevated = IsProcessElevated(Process.GetCurrentProcess());
-    Console.WriteLine($"当前进程是否为管理员权限：{isProcessElevated}");
+    Console.WriteLine(string.Format(ToolStrings.Get("AdministratorStatus"), isProcessElevated));
 
     var hostsFilePath = Path.Combine(Environment.SystemDirectory, "drivers", "etc", "hosts");
-    Console.WriteLine($"hosts 文件路径：{hostsFilePath}");
+    Console.WriteLine(string.Format(ToolStrings.Get("HostsPath"), hostsFilePath));
 
     try
     {
         var text = File.ReadAllText(hostsFilePath);
-        Console.WriteLine("hosts 文件内容：");
+        Console.WriteLine(ToolStrings.Get("HostsContents"));
         Console.WriteLine("--------------------------------------------------");
         Console.WriteLine(text);
         Console.WriteLine("--------------------------------------------------");
@@ -27,11 +27,11 @@ try
     {
         Console.ForegroundColor = ConsoleColor.White;
         Console.BackgroundColor = ConsoleColor.DarkRed;
-        Console.WriteLine("错误：");
+        Console.WriteLine(ToolStrings.Get("Error"));
         Console.WriteLine(ex.ToString());
 
         // https://learn.microsoft.com/zh-cn/sysinternals/downloads/handle
-        Console.WriteLine("查找 hosts 文件被哪个进程占用的命令，需要安装工具：");
+        Console.WriteLine(ToolStrings.Get("FindLockingProcess"));
         Console.WriteLine("https://learn.microsoft.com/zh-cn/sysinternals/downloads/handle");
         Console.WriteLine();
         Console.WriteLine(
@@ -44,7 +44,7 @@ finally
 {
     Console.ForegroundColor = fColor;
     Console.BackgroundColor = bColor;
-    Console.WriteLine("键入回车键后退出此程序：");
+    Console.WriteLine(ToolStrings.Get("PressEnterToExit"));
     Console.ReadLine();
 }
 

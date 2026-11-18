@@ -21,7 +21,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using ArchiSteamFarm.Localization;
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 
 // ReSharper disable once CheckNamespace
 namespace ArchiSteamFarm.IPC.Responses;
@@ -34,7 +34,7 @@ public sealed class GenericResponse<T> : GenericResponse
     /// <remarks>
     ///     The type of the result depends on the API endpoint that you've called.
     /// </remarks>
-    [JsonProperty]
+    [STJ.JsonInclude]
     public T? Result { get; private set; }
 
     public GenericResponse(T? result) : base(result is not null) => Result = result;
@@ -45,7 +45,7 @@ public sealed class GenericResponse<T> : GenericResponse
 
     public GenericResponse(bool success, string? message, T? result) : base(success, message) => Result = result;
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     private GenericResponse() { }
 }
 
@@ -57,13 +57,14 @@ public class GenericResponse
     /// <remarks>
     ///     This property will provide exact reason for majority of expected failures.
     /// </remarks>
-    [JsonProperty]
+    [STJ.JsonInclude]
     public string? Message { get; private set; }
 
     /// <summary>
     ///     Boolean type that specifies if the request has succeeded.
     /// </summary>
-    [JsonProperty(Required = Required.Always)]
+    [STJ.JsonInclude]
+    [STJ.JsonRequired]
     [Required]
     public bool Success { get; private set; }
 
@@ -75,6 +76,6 @@ public class GenericResponse
         Message = !string.IsNullOrEmpty(message) ? message! : success ? "OK" : Strings.WarningFailed;
     }
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     protected GenericResponse() { }
 }

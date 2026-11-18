@@ -20,49 +20,49 @@
             <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).SwapToAccountCommand}"
                 CommandParameter="{Binding}"
-                Text="切换到此账号" />
+                Text="{x:Static spp:Strings.L10nGames_SwitchAccount}" />
             <ui:FAMenuFlyoutItem
                 Click="SteamOfflineModeStartMenuItem_Click"
                 IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"
-                Text="以离线模式启动" />
-            <ui:FAMenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="登录为">
+                Text="{x:Static spp:Strings.L10nGames_StartOffline}" />
+            <ui:FAMenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{x:Static spp:Strings.L10nGames_LoginAs}">
                 <ui:FAMenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
                     Tag="{x:Static spp:PersonaState.Invisible}"
-                    Text="隐身" />
+                    Text="{x:Static spp:Strings.L10nGames_Invisible}" />
                 <ui:FAMenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
                     Tag="{x:Static spp:PersonaState.Offline}"
-                    Text="离线" />
+                    Text="{x:Static spp:Strings.L10nGames_Offline}" />
                 <ui:FAMenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
                     Tag="{x:Static spp:PersonaState.Online}"
-                    Text="在线" />
+                    Text="{x:Static spp:Strings.L10nGames_Online}" />
                 <ui:FAMenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
                     Tag="{x:Static spp:PersonaState.Busy}"
-                    Text="忙碌" />
+                    Text="{x:Static spp:Strings.L10nGames_Busy}" />
                 <ui:FAMenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
                     Tag="{x:Static spp:PersonaState.Away}"
-                    Text="离开" />
+                    Text="{x:Static spp:Strings.L10nGames_Away}" />
                 <ui:FAMenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
                     Tag="{x:Static spp:PersonaState.Snooze}"
-                    Text="打盹" />
+                    Text="{x:Static spp:Strings.L10nGames_Snooze}" />
                 <ui:FAMenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
                     Tag="{x:Static spp:PersonaState.LookingToTrade}"
-                    Text="想交易" />
+                    Text="{x:Static spp:Strings.L10nGames_LookingToTrade}" />
                 <ui:FAMenuFlyoutItem
                     Click="SteamPersonaStateSwapMenuItem_Click"
                     Tag="{x:Static spp:PersonaState.LookingToPlay}"
-                    Text="想玩游戏" />
+                    Text="{x:Static spp:Strings.L10nGames_LookingToPlay}" />
             </ui:FAMenuFlyoutSubItem>
             <ui:FAMenuFlyoutSeparator />
-            <ui:FAMenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{Binding Path=Res.Copy, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <ui:FAMenuFlyoutSubItem Text="复制个人资料">
-                    <ui:FAMenuFlyoutItem Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}" Text="社区 URL">
+            <ui:FAMenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{x:Static spp:Strings.Copy}">
+                <ui:FAMenuFlyoutSubItem Text="{x:Static spp:Strings.L10nGames_CopyProfile}">
+                    <ui:FAMenuFlyoutItem Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}" Text="{x:Static spp:Strings.L10nGames_CommunityUrl}">
                         <ui:FAMenuFlyoutItem.CommandParameter>
                             <MultiBinding Converter="{StaticResource StringFormatConverter}">
                                 <CompiledBindingExtension Path="." Source="{x:Static spp:SteamApiUrls.STEAM_PROFILES_URL}" />
@@ -73,13 +73,13 @@
                     <ui:FAMenuFlyoutItem
                         Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}"
                         CommandParameter="{Binding DisplayName}"
-                        Text="Steam 昵称" />
+                        Text="{x:Static spp:Strings.L10nGames_SteamNickname}" />
                     <ui:FAMenuFlyoutItem
                         Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}"
                         CommandParameter="{Binding AccountName}"
-                        Text="Steam 用户名" />
+                        Text="{x:Static spp:Strings.Steam_User}" />
                 </ui:FAMenuFlyoutSubItem>
-                <ui:FAMenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="复制 SteamID">
+                <ui:FAMenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{x:Static spp:Strings.L10nGames_CopySteamId}">
                     <ui:FAMenuFlyoutItem Click="CopySteamIdMenuItem_Click" Text="SteamID [STEAM0:~]">
                         <ui:FAMenuFlyoutItem.Tag>
                             <x:Int32>1</x:Int32>
@@ -102,8 +102,8 @@
                     </ui:FAMenuFlyoutItem>
                 </ui:FAMenuFlyoutSubItem>
             </ui:FAMenuFlyoutSubItem>
-            <ui:FAMenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{Binding Path=Res.OpenLink, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
-                <ui:FAMenuFlyoutItem Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" Text="Steam 社区">
+            <ui:FAMenuFlyoutSubItem IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}" Text="{x:Static spp:Strings.OpenLink}">
+                <ui:FAMenuFlyoutItem Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}" Text="{x:Static spp:Strings.L10nGames_SteamCommunity}">
                     <ui:FAMenuFlyoutItem.CommandParameter>
                         <MultiBinding Converter="{StaticResource StringFormatConverter}">
                             <CompiledBindingExtension Path="." Source="{x:Static spp:SteamApiUrls.STEAM_PROFILES_URL}" />
@@ -172,27 +172,27 @@
             <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).EditRemarkCommand}"
                 CommandParameter="{Binding}"
-                Text="修改备注名" />
+                Text="{x:Static spp:Strings.L10nGames_EditRemark}" />
             <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).SetAccountAvatarCommand}"
                 CommandParameter="{Binding}"
                 IsVisible="{Binding !$parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"
-                Text="修改头像图片" />
+                Text="{x:Static spp:Strings.L10nGames_ChangeAvatar}" />
             <ui:FAMenuFlyoutSeparator />
             <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).CreateShortcutCommand}"
                 CommandParameter="{Binding}"
                 IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsWindwos}"
-                Text="创建桌面快捷方式" />
+                Text="{x:Static spp:Strings.L10nGames_CreateShortcut}" />
             <ui:FAMenuFlyoutItem
                 Click="OpenUserDataFolderMenuItem_Click"
                 IsVisible="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).IsSteamPlatform}"
-                Text="{Binding Path=Res.UserChange_ShowUserDataFolder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Text="{x:Static spp:Strings.UserChange_ShowUserDataFolder}" />
             <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).DeleteAccountCommand}"
                 CommandParameter="{Binding}"
                 Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Text="{x:Static spp:Strings.Delete}" />
         </ui:FAMenuFlyout>
     </UserControl.Resources>
     <ScrollViewer>
@@ -202,7 +202,7 @@
         <spp:ContentLoader
             IsLoading="{Binding IsLoading}"
             IsShowNoResultText="{Binding !!!Accounts.Count, Mode=OneWay}"
-            NoResultMessage="{Binding Path=Res.UserChange_NoUserTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            NoResultMessage="{x:Static spp:Strings.UserChange_NoUserTip}">
             <ItemsControl Grid.Row="1" ItemsSource="{Binding Accounts}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -228,7 +228,7 @@
                                 </spp:AppItem.Tags>
                                 <ToolTip.Tip>
                                     <TextBlock>
-                                        <Run Text="双击可快速切换到此账号登录" />
+                                        <Run Text="{x:Static spp:Strings.L10nGames_DoubleClickSwitch}" />
                                         <LineBreak />
                                         <Run FontSize="16" Text="{Binding DisplayName}" />
                                         <LineBreak />
@@ -238,9 +238,9 @@
                                 <spp:AppItem.Status>
                                     <StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
                                         <Border Background="{DynamicResource AccentFillColorDefaultBrush}" CornerRadius="4" IsVisible="{Binding IsRecentLogin}" Padding="5,3">
-                                            <TextBlock FontSize="11" Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}" Text="{Binding Path=Res.UserChange_RecentLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                            <TextBlock FontSize="11" Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}" Text="{x:Static spp:Strings.UserChange_RecentLogin}" />
                                         </Border>
-                                        <ui:FASymbolIcon FontSize="14" Foreground="{DynamicResource SystemFillColorSuccessBrush}" IsVisible="{Binding RememberPassword}" Symbol="Checkmark" ToolTip.Tip="{Binding Path=Res.UserChange_RememberMe, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        <ui:FASymbolIcon FontSize="14" Foreground="{DynamicResource SystemFillColorSuccessBrush}" IsVisible="{Binding RememberPassword}" Symbol="Checkmark" ToolTip.Tip="{x:Static spp:Strings.UserChange_RememberMe}" />
                                     </StackPanel>
                                 </spp:AppItem.Status>
                                 <i:Interaction.Behaviors>

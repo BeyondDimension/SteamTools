@@ -12,9 +12,12 @@ partial class IPCMainProcessServiceImpl : IPCToastService
     {
         ToastText.CreateCertificateFaild => AppResources.CreateCertificateFaild,
         ToastText.CommunityFix_DNSErrorNotify => AppResources.CommunityFix_DNSErrorNotify,
+        ToastText.CommunityFix_DnsPollutionResponse => BD.WTTS.Client.Resources.ProxyStrings.DnsPollution(AppResources.Culture),
         ToastText.CommunityFix_OnRunCatch => AppResources.CommunityFix_OnRunCatch,
         _ => string.Empty,
     };
+
+    public Task<string?> GetTextAsync(ToastText text) => Task.FromResult<string?>(GetText(text));
 
     public void Show(ToastIcon icon, ToastText text, int? duration = null)
     {

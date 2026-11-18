@@ -22,7 +22,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using ArchiSteamFarm.Helpers;
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 
 namespace ArchiSteamFarm.IPC.Requests;
 
@@ -32,17 +32,19 @@ public sealed class ASFHashRequest
     /// <summary>
     ///     Hashing method used for hashing this string.
     /// </summary>
-    [JsonProperty(Required = Required.Always)]
+    [STJ.JsonInclude]
+    [STJ.JsonRequired]
     [Required]
     public ArchiCryptoHelper.EHashingMethod HashingMethod { get; private set; }
 
     /// <summary>
     ///     String to hash with provided <see cref="HashingMethod" />.
     /// </summary>
-    [JsonProperty(Required = Required.Always)]
+    [STJ.JsonInclude]
+    [STJ.JsonRequired]
     [Required]
     public string StringToHash { get; set; } = "";
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public ASFHashRequest() { }
 }

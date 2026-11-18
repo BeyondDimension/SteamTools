@@ -1,7 +1,7 @@
 <spp:PageBase
-    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Description="{x:Static spp:Strings.L10nGames_AccountDescription}"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
-    Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Title="{x:Static spp:Strings.UserFastChange}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d"
@@ -48,7 +48,7 @@
                     <TextBlock
                         HorizontalAlignment="Left"
                         Margin="28,4,0,4"
-                        Text="{Binding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                        Text="{x:Static spp:Strings.UserChange_LoginNewAccount}"
                         VerticalAlignment="Center" />
                 </Panel>
             </Button>
@@ -68,7 +68,7 @@
                     <TextBlock
                         HorizontalAlignment="Left"
                         Margin="28,4,0,4"
-                        Text="{Binding Path=Res.GameAccount_SaveCurrentAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                        Text="{x:Static spp:Strings.GameAccount_SaveCurrentAccount}"
                         VerticalAlignment="Center" />
                 </Panel>
             </Button>
@@ -88,7 +88,7 @@
             <!--  <TextBlock  -->
             <!--  HorizontalAlignment="Left"  -->
             <!--  Margin="28,4,0,4"  -->
-            <!--  Text="{Binding Path=Res.AccountChange_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"  -->
+            <!--  Text="{x:Static spp:Strings.AccountChange_Title}"  -->
             <!--  VerticalAlignment="Center" />  -->
             <!--     </Panel> -->
             <!-- </Button> -->
@@ -107,7 +107,7 @@
                     <TextBlock
                         HorizontalAlignment="Left"
                         Margin="28,4,0,4"
-                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                        Text="{x:Static spp:Strings.Refresh}"
                         VerticalAlignment="Center" />
                 </Panel>
             </Button>
@@ -123,21 +123,18 @@
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
                         <ui:FAMenuFlyoutItem
                             IsVisible="{Binding !IsSelectedSteam}"
-                            Text="平台设置"
+                            Text="{x:Static spp:Strings.L10nGames_PlatformSettings}"
                             x:Name="PlatformSettingButton" />
-                        <!--<ui:FAMenuFlyoutItem x:Name="PluginSettingButton" Text="{Binding Path=Res.Settings_Plugin, Mode=OneWay,Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:FAMenuFlyoutItem x:Name="PluginSettingButton" Text="{x:Static spp:Strings.Settings_Plugin}" />-->
                         <ui:FAToggleMenuFlyoutItem
                             IsChecked="{Binding Source={x:Static ms:GameAccountSettings.IsShowAccountName}, Path=Value, Mode=TwoWay}"
                             IsVisible="{Binding IsSelectedSteam}"
-                            Text="显示用户名" />
+                            Text="{x:Static spp:Strings.L10nGames_ShowUsername}" />
                         <ui:FAMenuFlyoutSeparator IsVisible="{Binding !IsSelectedSteam}" />
                         <ui:FAMenuFlyoutItem IsEnabled="False">
                             <ui:FAMenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <CompiledBindingExtension
-                                        Mode="OneWay"
-                                        Path="Res.Plugin_Version"
-                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <Binding Mode="OneTime" Source="{x:Static spp:Strings.Plugin_Version}" />
                                     <CompiledBindingExtension
                                         Mode="OneWay"
                                         Path="Version"
@@ -145,9 +142,9 @@
                                 </MultiBinding>
                             </ui:FAMenuFlyoutItem.Text>
                         </ui:FAMenuFlyoutItem>
-                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.ViewInStore}" />
+                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.UseHelp}" />
+                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.AboutThisPlugin}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -174,7 +171,7 @@
                 <Button.Flyout>
                     <MenuFlyout Placement="BottomEdgeAlignedLeft">
                         <MenuItem
-                            Header="{Binding Path=Res.AddPlatform, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Header="{x:Static spp:Strings.AddPlatform}"
                             IsVisible="{Binding !!AddGamePlatforms.Count}"
                             ItemsSource="{Binding AddGamePlatforms}">
                             <MenuItem.Styles>
@@ -205,13 +202,13 @@
                             </MenuItem.DataTemplates>-->
                         </MenuItem>
                         <MenuItem Header="-" IsVisible="{Binding !!AddGamePlatforms.Count}" />
-                        <MenuItem Command="{Binding LoginNewCommand}" Header="{Binding Path=Res.UserChange_LoginNewAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <MenuItem Command="{Binding LoginNewCommand}" Header="{x:Static spp:Strings.UserChange_LoginNewAccount}">
                             <MenuItem.Icon>
                                 <ui:FASymbolIcon Symbol="Add" />
                             </MenuItem.Icon>
                         </MenuItem>
                         <!--<ui:FAMenuFlyoutSeparator />
-                        <ui:FAMenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_EndProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <ui:FAMenuFlyoutSubItem Text="{x:Static spp:Strings.GameAccount_EndProcessWay}">
                             <ui:FARadioMenuFlyoutItem
                                 GroupName="KillMethond"
                                 IconSource="Games"
@@ -222,7 +219,7 @@
                                 IconSource="Icons"
                                 Text="Direct" />
                         </ui:FAMenuFlyoutSubItem>
-                        <ui:FAMenuFlyoutSubItem Text="{Binding Path=Res.GameAccount_StartProcessWay, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                        <ui:FAMenuFlyoutSubItem Text="{x:Static spp:Strings.GameAccount_StartProcessWay}">
                             <ui:FARadioMenuFlyoutItem
                                 GroupName="StartMethond"
                                 IconSource="Games"
@@ -233,7 +230,7 @@
                                 Text="Direct" />
                         </ui:FAMenuFlyoutSubItem>
                         <ui:FAMenuFlyoutSeparator />
-                        <ui:FAToggleMenuFlyoutItem IconSource="Safe" Text="{Binding Path=Res.AdministratorStartup, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <ui:FAToggleMenuFlyoutItem IconSource="Safe" Text="{x:Static spp:Strings.AdministratorStartup}" />-->
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>

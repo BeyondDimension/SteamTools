@@ -7,12 +7,12 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Title="{x:Static spp:Strings.LocalAuth}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:SteamMarketManagePageViewModel"
-    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Description="{x:Static spp:Strings.L10nAuthIdle_Text029}"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
@@ -36,7 +36,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Settings_Auth, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{x:Static spp:Strings.Settings_Auth}" />
                 </Panel>
             </ToggleButton>
             <DropDownButton
@@ -52,10 +52,7 @@
                         <ui:FAMenuFlyoutItem IsEnabled="False">
                             <ui:FAMenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <CompiledBindingExtension
-                                        Mode="OneWay"
-                                        Path="Res.Plugin_Version"
-                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <Binding Mode="OneTime" Source="{x:Static spp:Strings.Plugin_Version}" />
                                     <CompiledBindingExtension
                                         Mode="OneWay"
                                         Path="Version"
@@ -64,9 +61,9 @@
                             </ui:FAMenuFlyoutItem.Text>
                         </ui:FAMenuFlyoutItem>
                         <ui:FAMenuFlyoutSeparator />
-                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.ViewInStore}" />
+                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.UseHelp}" />
+                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.AboutThisPlugin}" />
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>

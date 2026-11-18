@@ -51,7 +51,7 @@ public sealed class OperationResult : OperationResultBase<object>
 }
 
 /// <inheritdoc cref="OperationResultBase{T}"/>
-public sealed class OperationResult<T> : OperationResultBase<T>
+public sealed class OperationResult<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] T> : OperationResultBase<T>
 {
     /// <inheritdoc cref="OperationResultBase{T}.OperationResultBase(OperationResultType)"/>
     public OperationResult()

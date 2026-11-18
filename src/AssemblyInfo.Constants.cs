@@ -5,7 +5,7 @@ namespace BD.WTTS;
 /// </summary>
 public static partial class AssemblyInfo
 {
-    const string Version2 = "3.2";
+    const string Version2 = "3.3";
 
     /// <summary>
     /// 语义化应用程序版本
@@ -15,19 +15,20 @@ public static partial class AssemblyInfo
 
     const string VersionBuild = "0"; // 1~99
 
-    const string VersionBuild2 = $"{VersionBuild}0"; // VersionBuild为1位时，补0，两位
+    //const string VersionBuild2 = $"{VersionBuild}0"; // VersionBuild为1位时，补0，两位
 
-    /// <summary>
-    /// 预览版本号，范围 1~9，只增不减
-    /// </summary>
-    const string ver_for_preview = "1";
+    ///// <summary>
+    ///// 预览版本号，范围 1~9，只增不减
+    ///// </summary>
+    //const string ver_for_preview = "0";
 
-    /// <summary>
-    /// RC 版本号，范围 0~9，只增不减
-    /// </summary>
-    const string ver_for_rc = "0";
+    ///// <summary>
+    ///// RC 版本号，范围 0~9，只增不减
+    ///// </summary>
+    //const string ver_for_rc = "0";
 
-    public const string FileVersion = $"{Version2}.{VersionBuild2}{ver_for_rc}0{ver_for_preview}.0"; // msix 需要保持第四位为0
+    //public const string FileVersion = $"{Version2}.{VersionBuild2}{ver_for_rc}0{ver_for_preview}.0"; // msix 需要保持第四位为0
+    public const string FileVersion = $"{Version2}.{VersionBuild}.0"; // msix 需要保持第四位为0
 
     public const string InformationalVersion = Version;
     //public const string InformationalVersion = $"{Version}-preview.{ver_for_preview}";

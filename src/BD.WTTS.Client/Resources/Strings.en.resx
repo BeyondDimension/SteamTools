@@ -3561,6 +3561,10 @@ Once the transaction is confirmed, it cannot be revoked, please choose carefully
     <value>The settings have been modified and will take effect after restarting the software</value>
     <comment>Author=kotovasia5120</comment>
   </data>
+  <data name="Settings_Language_RestartRequired" xml:space="preserve">
+    <value>语言更改需完全退出并重新启动 Watt Toolkit 后生效。&#10;Fully exit and restart Watt Toolkit to apply language changes.</value>
+    <comment>Keep both Chinese and English in this restart notice.</comment>
+  </data>
   <data name="Settings_InvalidConfigurationFile" xml:space="preserve">
     <value>Invalid configuration file</value>
     <comment>Author=kotovasia5120</comment>
@@ -4846,5 +4850,1911 @@ This feature can set the wallpaper of Wallpaper Engine and other wallpaper softw
   </data>
   <data name="WindowMenu" xml:space="preserve">
     <value>Window</value>
+  </data>
+  <data name="L10nApp_TokenConfirmationLogin" xml:space="preserve">
+    <value>Sign in using trade confirmation credentials</value>
+  </data>
+  <data name="L10nApp_SelectConfirmedTokenAccount" xml:space="preserve">
+    <value>Select a Steam authenticator account already signed in for trade confirmations.</value>
+  </data>
+  <data name="L10nApp_SelectTokenAccount" xml:space="preserve">
+    <value>Select a Steam authenticator account</value>
+  </data>
+  <data name="L10nApp_RefreshTokenAccounts" xml:space="preserve">
+    <value>Refresh authenticator accounts</value>
+  </data>
+  <data name="L10nApp_LoginSelectedAccount" xml:space="preserve">
+    <value>Sign in with the selected account</value>
+  </data>
+  <data name="L10nApp_TokenLogin" xml:space="preserve">
+    <value>Authenticator sign-in</value>
+  </data>
+  <data name="L10nApp_TestVersionWarning" xml:space="preserve">
+    <value>You are using a test version of the application, which may contain various unexpected bugs. Please report any issues constructively. Thank you.</value>
+  </data>
+  <data name="L10nApp_DefaultHomeTip" xml:space="preserve">
+    <value>If you prefer a different startup page, change it in Settings &gt; Interface settings &gt; Default page at startup.</value>
+  </data>
+  <data name="L10nApp_NoPluginsWarning" xml:space="preserve">
+    <value>No plugins are installed. Download plugins to access more features.</value>
+  </data>
+  <data name="L10nApp_ReadMore" xml:space="preserve">
+    <value>Read more</value>
+  </data>
+  <data name="L10nApp_WelcomeBack" xml:space="preserve">
+    <value>Welcome back</value>
+  </data>
+  <data name="L10nApp_HomeLoadFailed" xml:space="preserve">
+    <value>Failed to load home page data</value>
+  </data>
+  <data name="L10nApp_LatestNews" xml:space="preserve">
+    <value>Latest news</value>
+  </data>
+  <data name="L10nApp_ViewMore" xml:space="preserve">
+    <value>View more</value>
+  </data>
+  <data name="L10nApp_NoLatestNews" xml:space="preserve">
+    <value>No latest news</value>
+  </data>
+  <data name="L10nApp_InstalledFeatures" xml:space="preserve">
+    <value>Installed features</value>
+  </data>
+  <data name="L10nApp_PluginStoreHeading" xml:space="preserve">
+    <value>What is the plugin store?</value>
+  </data>
+  <data name="L10nApp_PluginStoreDescription" xml:space="preserve">
+    <value>The plan for version 3.0 is to turn all features into plugins that can be downloaded and installed as needed. Everyone will be able to download only the features they need and develop their own plugins. There are also many other plans we cannot share yet. These ambitious plans and the many issues encountered have made development challenging, so this feature still needs more time. Version 3.0 will officially leave testing when it launches. We apologize to everyone who has been waiting and ask for a little more patience 😭. If you do not want the plugin store to appear at startup, you can change the default startup page in Interface settings.</value>
+  </data>
+  <data name="L10nApp_EnablePushNotifications" xml:space="preserve">
+    <value>Enable push notifications</value>
+  </data>
+  <data name="L10nApp_WindowsColors" xml:space="preserve">
+    <value>Windows colors</value>
+  </data>
+  <data name="L10nApp_MenuOrderDescription" xml:space="preserve">
+    <value>Drag to reorder all plugin menu items</value>
+  </data>
+  <data name="L10nApp_MenuOrder" xml:space="preserve">
+    <value>Feature menu order</value>
+  </data>
+  <data name="L10nApp_NoNotifications" xml:space="preserve">
+    <value>No notifications</value>
+  </data>
+  <data name="L10nApp_OpenLinkFailed" xml:space="preserve">
+    <value>Failed to open link</value>
+  </data>
+  <data name="L10nApp_CopyFailed" xml:space="preserve">
+    <value>Failed to copy content</value>
+  </data>
+  <data name="L10nApp_AlreadyLoggedIn" xml:space="preserve">
+    <value>Already signed in</value>
+  </data>
+  <data name="L10nCore_SteamManualGuard" xml:space="preserve">
+    <value>Enter your Steam authenticator or email verification code to continue.</value>
+  </data>
+  <data name="L10nCore_SteamAutomaticGuard" xml:space="preserve">
+    <value>Automatic authenticator verification did not complete. Please retry or go back.</value>
+  </data>
+  <data name="L10nCore_SteamLoginFailed" xml:space="preserve">
+    <value>Steam sign-in failed. Please try again.</value>
+  </data>
+  <data name="L10nCore_SteamGuardUnavailable" xml:space="preserve">
+    <value>Unable to get the current authenticator code. Check your authenticator and try again.</value>
+  </data>
+  <data name="L10nCore_SteamQrLoading" xml:space="preserve">
+    <value>Getting the Steam sign-in QR code…</value>
+  </data>
+  <data name="L10nCore_SteamQrInvalid" xml:space="preserve">
+    <value>Steam returned an invalid sign-in QR code.</value>
+  </data>
+  <data name="L10nCore_SteamQrCreateFailed" xml:space="preserve">
+    <value>Unable to generate the Steam sign-in QR code.</value>
+  </data>
+  <data name="L10nCore_SteamQrScan" xml:space="preserve">
+    <value>Scan with the Steam mobile app and confirm sign-in on your phone.</value>
+  </data>
+  <data name="L10nCore_SteamQrUnavailable" xml:space="preserve">
+    <value>Unable to get the Steam sign-in QR code. Please try again.</value>
+  </data>
+  <data name="L10nCore_SteamQrExpired" xml:space="preserve">
+    <value>The QR code has expired. Getting a new code…</value>
+  </data>
+  <data name="L10nCore_SteamQrNetwork" xml:space="preserve">
+    <value>Unable to get the Steam sign-in QR code. Check your network and try again.</value>
+  </data>
+  <data name="L10nCore_SteamNoSavedAccount" xml:space="preserve">
+    <value>No trade confirmation sign-in session is available. First sign in under Trade confirmations in the authenticator plugin, then reload the authenticators.</value>
+  </data>
+  <data name="L10nCore_SteamAccountMismatch" xml:space="preserve">
+    <value>The returned Steam sign-in session does not match the selected account. Please reload the authenticators.</value>
+  </data>
+  <data name="L10nCore_SteamSessionCreateFailed" xml:space="preserve">
+    <value>Unable to create a Steam sign-in session.</value>
+  </data>
+  <data name="L10nCore_SteamCookieRequired" xml:space="preserve">
+    <value>Enter sessionid and steamLoginSecure.</value>
+  </data>
+  <data name="L10nCore_SteamCookieInvalid" xml:space="preserve">
+    <value>Invalid steamLoginSecure format.</value>
+  </data>
+  <data name="L10nCore_SteamSessionInvalid" xml:space="preserve">
+    <value>Steam did not return a valid sign-in session.</value>
+  </data>
+  <data name="L10nCore_SteamLoginSuccess" xml:space="preserve">
+    <value>Successfully signed in to Steam.</value>
+  </data>
+  <data name="L10nCore_SteamLoginSaveFailed" xml:space="preserve">
+    <value>Successfully signed in to Steam, but failed to save the sign-in session.</value>
+  </data>
+  <data name="L10nCore_SteamLoginNetwork" xml:space="preserve">
+    <value>Unable to complete Steam sign-in. Check your network and try again.</value>
+  </data>
+  <data name="L10nCore_SteamLoginCanceled" xml:space="preserve">
+    <value>Steam sign-in canceled. You can choose a sign-in method again.</value>
+  </data>
+  <data name="L10nCore_SteamLaunchParametersHint" xml:space="preserve">
+    <value>Add custom parameters for launching Steam</value>
+  </data>
+  <data name="L10nCore_CertificateCheckError" xml:space="preserve">
+    <value>Error checking certificate installation:{0}</value>
+  </data>
+  <data name="L10nCore_CertificateInstallError" xml:space="preserve">
+    <value>Error installing certificate:{0}</value>
+  </data>
+  <data name="L10nCore_CertificateRemoveError" xml:space="preserve">
+    <value>Error removing certificate:{0}</value>
+  </data>
+  <data name="L10nCore_CertificateInstallResult" xml:space="preserve">
+    <value>Install certificate: {0}</value>
+  </data>
+  <data name="L10nCore_AuthorizationError" xml:space="preserve">
+    <value>Failed to obtain authorization</value>
+  </data>
+  <data name="L10nCore_AuthorizationCanceled" xml:space="preserve">
+    <value>Authorization canceled!</value>
+  </data>
+  <data name="L10nCore_CommandExecutionFailed" xml:space="preserve">
+    <value>Command execution failed!</value>
+  </data>
+  <data name="L10nCore_CertificateRemoveResult" xml:space="preserve">
+    <value>Remove certificate: {0}</value>
+  </data>
+  <data name="L10nCore_SteamIdleStarted" xml:space="preserve">
+    <value>Automatically started idling {0} games in the background</value>
+  </data>
+  <data name="L10nCore_CmdTestArgs" xml:space="preserve">
+    <value>Test arguments</value>
+  </data>
+  <data name="L10nCore_CmdDebug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="L10nCore_CmdDisableGpu" xml:space="preserve">
+    <value>Disable GPU hardware acceleration</value>
+  </data>
+  <data name="L10nCore_CmdNativeOpenGl" xml:space="preserve">
+    <value>Use Native OpenGL (Windows only)</value>
+  </data>
+  <data name="L10nCore_CmdLocalServer" xml:space="preserve">
+    <value>Use the local server</value>
+  </data>
+  <data name="L10nCore_CmdSteamRun" xml:space="preserve">
+    <value>Launch from Steam</value>
+  </data>
+  <data name="L10nCore_CmdSilent" xml:space="preserve">
+    <value>Start silently (without a window)</value>
+  </data>
+  <data name="L10nCore_CmdSteamAccount" xml:space="preserve">
+    <value>Specify the corresponding Steam username</value>
+  </data>
+  <data name="L10nCore_CmdSteam" xml:space="preserve">
+    <value>Steam operations</value>
+  </data>
+  <data name="L10nCore_CmdGameId" xml:space="preserve">
+    <value>Specify a Steam game ID</value>
+  </data>
+  <data name="L10nCore_CmdAchievements" xml:space="preserve">
+    <value>Open the achievement unlocker window</value>
+  </data>
+  <data name="L10nCore_CmdCloudManager" xml:space="preserve">
+    <value>Open the cloud save manager window</value>
+  </data>
+  <data name="L10nCore_CmdIdle" xml:space="preserve">
+    <value>Run the idling service without loading a window to reduce memory usage</value>
+  </data>
+  <data name="L10nCore_CmdRunGame" xml:space="preserve">
+    <value>Run a Steam application</value>
+  </data>
+  <data name="L10nCore_CmdCertificateInfo" xml:space="preserve">
+    <value>Show current root certificate information</value>
+  </data>
+  <data name="L10nCore_CmdShowInfo" xml:space="preserve">
+    <value>Show information</value>
+  </data>
+  <data name="L10nCore_CmdInstallCert" xml:space="preserve">
+    <value>Install the certificate; the argument is AppDataDirectory</value>
+  </data>
+  <data name="L10nCore_CmdRemoveCert" xml:space="preserve">
+    <value>Remove the certificate; the argument is AppDataDirectory</value>
+  </data>
+  <data name="L10nCore_CmdLinuxRoot" xml:space="preserve">
+    <value>Linux root privilege commands</value>
+  </data>
+  <data name="L10nCore_CmdProxyOn" xml:space="preserve">
+    <value>Start the proxy service</value>
+  </data>
+  <data name="L10nCore_CmdProxyOff" xml:space="preserve">
+    <value>Stop the proxy service</value>
+  </data>
+  <data name="L10nCore_CmdProxySilent" xml:space="preserve">
+    <value>Enable the proxy service and start silently (without a window)</value>
+  </data>
+  <data name="L10nCore_CmdShutdown" xml:space="preserve">
+    <value>Safely shut down the running application</value>
+  </data>
+  <data name="L10nCore_CmdPipeName" xml:space="preserve">
+    <value>IPC pipe name</value>
+  </data>
+  <data name="L10nCore_CmdProcessId" xml:space="preserve">
+    <value>Main process ID</value>
+  </data>
+  <data name="L10nCore_CmdSudo" xml:space="preserve">
+    <value>Start the IPC service process with administrator privileges</value>
+  </data>
+  <data name="L10nCore_CmdModuleName" xml:space="preserve">
+    <value>Name of the module to load</value>
+  </data>
+  <data name="L10nCore_CmdModuleArgs" xml:space="preserve">
+    <value>Arguments to parse, decoded using HttpUtility.UrlDecode</value>
+  </data>
+  <data name="L10nCore_CmdPluginIpc" xml:space="preserve">
+    <value>IPC service process used by plugins</value>
+  </data>
+  <data name="L10nCore_CommandLineTools" xml:space="preserve">
+    <value>Command Line Tools (CLT)</value>
+  </data>
+  <data name="Achievement_LockWarning" xml:space="preserve">
+    <value>Warning: Some previously unlocked achievements have been deselected. Saving will lock {0} unlocked achievements again. Continue? If you only want to unlock an individual achievement, do not turn off any already unlocked achievements.</value>
+  </data>
+  <data name="Plugin_OpenAppDataFolder" xml:space="preserve">
+    <value>Open plugin AppData folder</value>
+  </data>
+  <data name="待发送" xml:space="preserve">
+    <value>Pending delivery</value>
+  </data>
+  <data name="已发送" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="发送失败" xml:space="preserve">
+    <value>Failed to send</value>
+  </data>
+  <data name="被拦截" xml:space="preserve">
+    <value>Blocked</value>
+  </data>
+  <data name="充值" xml:space="preserve">
+    <value>Top up</value>
+  </data>
+  <data name="购买商品" xml:space="preserve">
+    <value>Purchase items</value>
+  </data>
+  <data name="账号余额" xml:space="preserve">
+    <value>Account balance</value>
+  </data>
+  <data name="付费积分" xml:space="preserve">
+    <value>Paid points</value>
+  </data>
+  <data name="免费积分" xml:space="preserve">
+    <value>Free points</value>
+  </data>
+  <data name="未签约" xml:space="preserve">
+    <value>Not contracted</value>
+  </data>
+  <data name="已签约" xml:space="preserve">
+    <value>Contracted</value>
+  </data>
+  <data name="解约中" xml:space="preserve">
+    <value>Terminating contract</value>
+  </data>
+  <data name="已解约" xml:space="preserve">
+    <value>Contract terminated</value>
+  </data>
+  <data name="礼品卡充值" xml:space="preserve">
+    <value>Gift card top-up</value>
+  </data>
+  <data name="自助礼品卡充值" xml:space="preserve">
+    <value>Self-service gift card top-up</value>
+  </data>
+  <data name="余额交易充值" xml:space="preserve">
+    <value>Balance transaction top-up</value>
+  </data>
+  <data name="迅游订单" xml:space="preserve">
+    <value>Xunyou order</value>
+  </data>
+  <data name="点数交易充值" xml:space="preserve">
+    <value>Points transaction top-up</value>
+  </data>
+  <data name="用户点数交易充值" xml:space="preserve">
+    <value>User points transaction top-up</value>
+  </data>
+  <data name="待付款" xml:space="preserve">
+    <value>Pending payment</value>
+  </data>
+  <data name="已付款" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="已过期" xml:space="preserve">
+    <value>Expired</value>
+  </data>
+  <data name="已取消" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="已关闭" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="已完成" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="已退款" xml:space="preserve">
+    <value>Refunded</value>
+  </data>
+  <data name="一般订单" xml:space="preserve">
+    <value>Standard order</value>
+  </data>
+  <data name="续费订单" xml:space="preserve">
+    <value>Renewal order</value>
+  </data>
+  <data name="原路支付平台退回" xml:space="preserve">
+    <value>Refund through the original payment platform</value>
+  </data>
+  <data name="人工处理" xml:space="preserve">
+    <value>Manual processing</value>
+  </data>
+  <data name="未退款" xml:space="preserve">
+    <value>Not refunded</value>
+  </data>
+  <data name="同意退款但原路退还失败" xml:space="preserve">
+    <value>Refund approved, but refund to the original payment method failed</value>
+  </data>
+  <data name="被拒绝" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="退款中" xml:space="preserve">
+    <value>Refund in progress</value>
+  </data>
+  <data name="JSAPI(支付宝小程序支付)" xml:space="preserve">
+    <value>JSAPI (Alipay mini program payment)</value>
+  </data>
+  <data name="JSAPI_PC(电脑网站支付)" xml:space="preserve">
+    <value>JSAPI_PC (desktop website payment)</value>
+  </data>
+  <data name="NATIVE(扫码支付)" xml:space="preserve">
+    <value>NATIVE (QR code payment)</value>
+  </data>
+  <data name="APP(APP支付)" xml:space="preserve">
+    <value>APP (in-app payment)</value>
+  </data>
+  <data name="MWEB(H5支付)" xml:space="preserve">
+    <value>MWEB (H5 payment)</value>
+  </data>
+  <data name="现金" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="在线支付" xml:space="preserve">
+    <value>Online payment</value>
+  </data>
+  <data name="余额" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="优惠卷" xml:space="preserve">
+    <value>Coupon</value>
+  </data>
+  <data name="银行转账" xml:space="preserve">
+    <value>Bank transfer</value>
+  </data>
+  <data name="POS机" xml:space="preserve">
+    <value>POS terminal</value>
+  </data>
+  <data name="支付宝" xml:space="preserve">
+    <value>Alipay</value>
+  </data>
+  <data name="微信支付" xml:space="preserve">
+    <value>WeChat Pay</value>
+  </data>
+  <data name="云闪付支付" xml:space="preserve">
+    <value>UnionPay QuickPass</value>
+  </data>
+  <data name="JSAPI(小程序支付)" xml:space="preserve">
+    <value>JSAPI (mini program payment)</value>
+  </data>
+  <data name="JSAPI_OFFICIAL(公众号支付)" xml:space="preserve">
+    <value>JSAPI_OFFICIAL (official account payment)</value>
+  </data>
+  <data name="补发点数订单" xml:space="preserve">
+    <value>Points reissue order</value>
+  </data>
+  <data name="添加愿望单" xml:space="preserve">
+    <value>Add to wishlist</value>
+  </data>
+  <data name="待充值" xml:space="preserve">
+    <value>Pending top-up</value>
+  </data>
+  <data name="已充值" xml:space="preserve">
+    <value>Topped up</value>
+  </data>
+  <data name="充值进行中" xml:space="preserve">
+    <value>Top-up in progress</value>
+  </data>
+  <data name="充值异常" xml:space="preserve">
+    <value>Top-up error</value>
+  </data>
+  <data name="充值关闭" xml:space="preserve">
+    <value>Top-up closed</value>
+  </data>
+  <data name="等待支付" xml:space="preserve">
+    <value>Awaiting payment</value>
+  </data>
+  <data name="待通知" xml:space="preserve">
+    <value>Pending notification</value>
+  </data>
+  <data name="通知失败" xml:space="preserve">
+    <value>Notification failed</value>
+  </data>
+  <data name="通知完成" xml:space="preserve">
+    <value>Notification completed</value>
+  </data>
+  <data name="等待核算" xml:space="preserve">
+    <value>Awaiting settlement</value>
+  </data>
+  <data name="未提取" xml:space="preserve">
+    <value>Not withdrawn</value>
+  </data>
+  <data name="已提取" xml:space="preserve">
+    <value>Withdrawn</value>
+  </data>
+  <data name="操作结果的枚举" xml:space="preserve">
+    <value>Operation result enumeration</value>
+  </data>
+  <data name="操作成功。" xml:space="preserve">
+    <value>Operation successful.</value>
+  </data>
+  <data name="操作没有引发任何变化，提交取消。" xml:space="preserve">
+    <value>The operation made no changes. Submission canceled.</value>
+  </data>
+  <data name="参数错误。" xml:space="preserve">
+    <value>Invalid arguments.</value>
+  </data>
+  <data name="指定参数的数据不存在。" xml:space="preserve">
+    <value>No data exists for the specified arguments.</value>
+  </data>
+  <data name="当前用户权限不足，不能继续操作。" xml:space="preserve">
+    <value>The current user does not have sufficient permissions to continue.</value>
+  </data>
+  <data name="登录超时" xml:space="preserve">
+    <value>Sign-in timed out</value>
+  </data>
+  <data name="非法操作。" xml:space="preserve">
+    <value>Invalid operation.</value>
+  </data>
+  <data name="警告" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="操作引发错误。" xml:space="preserve">
+    <value>The operation caused an error.</value>
+  </data>
+  <data name="禁用" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="离线" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="在线" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="正在挂卡" xml:space="preserve">
+    <value>Farming cards</value>
+  </data>
+  <data name="L10nAccel_001" xml:space="preserve">
+    <value>Latency</value>
+  </data>
+  <data name="L10nAccel_002" xml:space="preserve">
+    <value>Packet loss</value>
+  </data>
+  <data name="L10nAccel_003" xml:space="preserve">
+    <value>Servers are tried from top to bottom. Changes are saved immediately and take effect after restarting acceleration.</value>
+  </data>
+  <data name="L10nAccel_004" xml:space="preserve">
+    <value>IPv4, IPv6, or HTTPS DoH address</value>
+  </data>
+  <data name="L10nAccel_005" xml:space="preserve">
+    <value>Server address</value>
+  </data>
+  <data name="L10nAccel_006" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="L10nAccel_007" xml:space="preserve">
+    <value>Add system default address</value>
+  </data>
+  <data name="L10nAccel_008" xml:space="preserve">
+    <value>Server order</value>
+  </data>
+  <data name="L10nAccel_009" xml:space="preserve">
+    <value>Removing all servers restores the default list. For DoH, use an RFC 8484 binary endpoint (usually /dns-query)</value>
+  </data>
+  <data name="L10nAccel_010" xml:space="preserve">
+    <value>NAT type test</value>
+  </data>
+  <data name="L10nAccel_011" xml:space="preserve">
+    <value>STUN server address</value>
+  </data>
+  <data name="L10nAccel_012" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="L10nAccel_013" xml:space="preserve">
+    <value>NAT type:</value>
+  </data>
+  <data name="L10nAccel_014" xml:space="preserve">
+    <value>Local IP address:</value>
+  </data>
+  <data name="L10nAccel_015" xml:space="preserve">
+    <value>External IP address:</value>
+  </data>
+  <data name="L10nAccel_016" xml:space="preserve">
+    <value>If this matches your router's WAN IP address, you are on a public network</value>
+  </data>
+  <data name="L10nAccel_017" xml:space="preserve">
+    <value>Internet connectivity:</value>
+  </data>
+  <data name="L10nAccel_018" xml:space="preserve">
+    <value>Related links</value>
+  </data>
+  <data name="L10nAccel_019" xml:space="preserve">
+    <value>Xbox NAT documentation</value>
+  </data>
+  <data name="L10nAccel_020" xml:space="preserve">
+    <value>PlayStation NAT documentation</value>
+  </data>
+  <data name="L10nAccel_021" xml:space="preserve">
+    <value>Nintendo Switch NAT documentation</value>
+  </data>
+  <data name="L10nAccel_022" xml:space="preserve">
+    <value>Bungie NAT documentation</value>
+  </data>
+  <data name="L10nAccel_023" xml:space="preserve">
+    <value>Activision NAT documentation</value>
+  </data>
+  <data name="L10nAccel_024" xml:space="preserve">
+    <value>Rockstar Games NAT documentation</value>
+  </data>
+  <data name="L10nAccel_025" xml:space="preserve">
+    <value>XunYou NAT documentation</value>
+  </data>
+  <data name="L10nAccel_026" xml:space="preserve">
+    <value>DNS test</value>
+  </data>
+  <data name="L10nAccel_027" xml:space="preserve">
+    <value>Test items</value>
+  </data>
+  <data name="L10nAccel_028" xml:space="preserve">
+    <value>Domain to test</value>
+  </data>
+  <data name="L10nAccel_029" xml:space="preserve">
+    <value>Test results</value>
+  </data>
+  <data name="L10nAccel_030" xml:space="preserve">
+    <value>Resolved address</value>
+  </data>
+  <data name="L10nAccel_031" xml:space="preserve">
+    <value>IPv6 test</value>
+  </data>
+  <data name="L10nAccel_032" xml:space="preserve">
+    <value>Support status</value>
+  </data>
+  <data name="L10nAccel_033" xml:space="preserve">
+    <value>IPv6 access is supported</value>
+  </data>
+  <data name="L10nAccel_034" xml:space="preserve">
+    <value>IPv6 access is not supported</value>
+  </data>
+  <data name="L10nAccel_035" xml:space="preserve">
+    <value>IPv6 address</value>
+  </data>
+  <data name="L10nAccel_036" xml:space="preserve">
+    <value>DNS / DoH servers</value>
+  </data>
+  <data name="L10nAccel_037" xml:space="preserve">
+    <value>Servers are tried from top to bottom</value>
+  </data>
+  <data name="L10nAccel_038" xml:space="preserve">
+    <value>Add or manage DNS servers</value>
+  </data>
+  <data name="L10nAccel_039" xml:space="preserve">
+    <value>Add / Manage</value>
+  </data>
+  <data name="L10nAccel_040" xml:space="preserve">
+    <value>Configured DNS servers</value>
+  </data>
+  <data name="L10nAccel_041" xml:space="preserve">
+    <value>Download Watt Accelerator</value>
+  </data>
+  <data name="L10nAccel_042" xml:space="preserve">
+    <value>Reduce game latency and improve stability</value>
+  </data>
+  <data name="L10nAccel_043" xml:space="preserve">
+    <value>Installation path</value>
+  </data>
+  <data name="L10nAccel_044" xml:space="preserve">
+    <value>Download now</value>
+  </data>
+  <data name="L10nAccel_045" xml:space="preserve">
+    <value>Custom installation</value>
+  </data>
+  <data name="L10nAccel_046" xml:space="preserve">
+    <value>Connectivity test</value>
+  </data>
+  <data name="L10nAccel_047" xml:space="preserve">
+    <value>Beta acceleration item. It may be unstable and change at any time</value>
+  </data>
+  <data name="L10nAccel_048" xml:space="preserve">
+    <value>This value is the time needed to open the test page. Actual browser performance may vary</value>
+  </data>
+  <data name="L10nAccel_049" xml:space="preserve">
+    <value>View certificate information</value>
+  </data>
+  <data name="L10nAccel_050" xml:space="preserve">
+    <value>Open acceleration log folder</value>
+  </data>
+  <data name="L10nAccel_051" xml:space="preserve">
+    <value>Watt Accelerator</value>
+  </data>
+  <data name="L10nAccel_052" xml:space="preserve">
+    <value>Platform acceleration</value>
+  </data>
+  <data name="L10nAccel_053" xml:space="preserve">
+    <value>Acceleration scripts</value>
+  </data>
+  <data name="L10nAccel_054" xml:space="preserve">
+    <value>Game acceleration</value>
+  </data>
+  <data name="L10nAccel_055" xml:space="preserve">
+    <value>Network diagnostics</value>
+  </data>
+  <data name="L10nAccel_056" xml:space="preserve">
+    <value>You have reached the end! If your game is not listed, search for it and add it.</value>
+  </data>
+  <data name="L10nAccel_057" xml:space="preserve">
+    <value>Contact support</value>
+  </data>
+  <data name="L10nAccel_058" xml:space="preserve">
+    <value>Q: Why does traffic stay at 0KB after starting acceleration?</value>
+  </data>
+  <data name="L10nAccel_059" xml:space="preserve">
+    <value>A: The traffic chart shows real-time traffic. You must visit a supported website before traffic appears. Check that its acceleration item is selected. If the item is selected and visiting the website still produces no traffic, the acceleration listener may not have started. Try another acceleration mode.</value>
+  </data>
+  <data name="L10nAccel_060" xml:space="preserve">
+    <value>Q: Why does a website show an SSL error or the Steam browser show error -100 after starting acceleration?</value>
+  </data>
+  <data name="L10nAccel_061" xml:space="preserve">
+    <value>A: Try stopping acceleration, opening Acceleration Settings, removing and reinstalling the certificate, then starting acceleration again. You can also open Acceleration Settings - Proxy Settings and try a different DoH address, or disable DoH and use DNS.</value>
+  </data>
+  <data name="L10nAccel_062" xml:space="preserve">
+    <value>Q: Why does acceleration often stop working, requiring settings changes or certificate reinstallation?</value>
+  </data>
+  <data name="L10nAccel_063" xml:space="preserve">
+    <value>A: Unlike game accelerators, Steam++ acceleration runs entirely on your computer. Your local network and system environment can affect it. This is why there are many acceleration options. Test and adjust the relevant options for your environment to make acceleration work correctly.</value>
+  </data>
+  <data name="L10nAccel_064" xml:space="preserve">
+    <value>Acceleration not working?</value>
+  </data>
+  <data name="L10nAccel_065" xml:space="preserve">
+    <value>Check DNS availability when starting acceleration</value>
+  </data>
+  <data name="L10nAccel_066" xml:space="preserve">
+    <value>*Enabling this option disables normal acceleration. Only enable it if you need script features with an upstream proxy</value>
+  </data>
+  <data name="L10nAccel_067" xml:space="preserve">
+    <value>*Only enable this option with a correctly configured upstream proxy; otherwise acceleration will not work. Restart acceleration for changes to take effect</value>
+  </data>
+  <data name="L10nAccel_068" xml:space="preserve">
+    <value>Cannot connect to the acceleration service. Check that the acceleration component is running, grant administrator permissions, and try again.</value>
+  </data>
+  <data name="L10nAccel_069" xml:space="preserve">
+    <value>Retry connection</value>
+  </data>
+  <data name="L10nAccel_070" xml:space="preserve">
+    <value>No script files found. Add scripts from the Script Workshop first</value>
+  </data>
+  <data name="L10nAccel_071" xml:space="preserve">
+    <value>Accelerate now</value>
+  </data>
+  <data name="L10nAccel_072" xml:space="preserve">
+    <value>Get</value>
+  </data>
+  <data name="L10nAccel_073" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="L10nAccel_074" xml:space="preserve">
+    <value>No items available to test</value>
+  </data>
+  <data name="L10nAccel_075" xml:space="preserve">
+    <value>All current tests failed. Check your network connection and proxy settings.</value>
+  </data>
+  <data name="L10nAccel_076" xml:space="preserve">
+    <value>Accelerates gaming-related websites and provides script injection</value>
+  </data>
+  <data name="L10nAccel_077" xml:space="preserve">
+    <value>Hosts file not found</value>
+  </data>
+  <data name="L10nAccel_078" xml:space="preserve">
+    <value>Could not get network adapter information!</value>
+  </data>
+  <data name="L10nAccel_079" xml:space="preserve">
+    <value>No available Ethernet or wireless network adapters found</value>
+  </data>
+  <data name="L10nAccel_080" xml:space="preserve">
+    <value>Network adapter is disabled</value>
+  </data>
+  <data name="L10nAccel_081" xml:space="preserve">
+    <value>Failed to get network information!</value>
+  </data>
+  <data name="L10nAccel_082" xml:space="preserve">
+    <value>TCP/IP is not enabled on the network adapter</value>
+  </data>
+  <data name="L10nAccel_083" xml:space="preserve">
+    <value>Failed to get LSP information!</value>
+  </data>
+  <data name="L10nAccel_084" xml:space="preserve">
+    <value>Unexpected LSP response!</value>
+  </data>
+  <data name="L10nAccel_086" xml:space="preserve">
+    <value>disabled</value>
+  </data>
+  <data name="L10nAccel_087" xml:space="preserve">
+    <value>not running</value>
+  </data>
+  <data name="L10nAccel_088" xml:space="preserve">
+    <value>Cannot generate or load the acceleration certificate: the Windows CNG Key Isolation service is {0}.
+
+Click OK to open Windows Services. Set this service to Manual and start it, then return and try again.</value>
+  </data>
+  <data name="L10nAccel_089" xml:space="preserve">
+    <value>Certificate service unavailable</value>
+  </data>
+  <data name="L10nAccel_090" xml:space="preserve">
+    <value>The acceleration certificate could not be installed or trusted. Check system certificate permissions and try again.</value>
+  </data>
+  <data name="L10nAccel_091" xml:space="preserve">
+    <value>Cannot generate or load the acceleration certificate. Check the certificate files and system cryptographic services. Details have been recorded in the acceleration service log.</value>
+  </data>
+  <data name="L10nAccel_092" xml:space="preserve">
+    <value>Acceleration certificate unavailable</value>
+  </data>
+  <data name="L10nAccel_093" xml:space="preserve">
+    <value>Free trial for new users</value>
+  </data>
+  <data name="L10nAccel_094" xml:space="preserve">
+    <value>Game started successfully</value>
+  </data>
+  <data name="L10nAccel_095" xml:space="preserve">
+    <value>Failed to start game</value>
+  </data>
+  <data name="L10nAccel_096" xml:space="preserve">
+    <value>Failed to get membership expiration time</value>
+  </data>
+  <data name="L10nAccel_097" xml:space="preserve">
+    <value>Game acceleration membership expires on {0:yyyy-MM-dd}</value>
+  </data>
+  <data name="L10nAccel_098" xml:space="preserve">
+    <value>Acceleration started successfully</value>
+  </data>
+  <data name="L10nAccel_099" xml:space="preserve">
+    <value>Sending speed test command</value>
+  </data>
+  <data name="L10nAccel_100" xml:space="preserve">
+    <value>Sign in to use game acceleration!</value>
+  </data>
+  <data name="L10nAccel_101" xml:space="preserve">
+    <value>Failed to get game information</value>
+  </data>
+  <data name="L10nAccel_102" xml:space="preserve">
+    <value>{0} - Select region and server</value>
+  </data>
+  <data name="L10nAccel_103" xml:space="preserve">
+    <value>Starting acceleration...</value>
+  </data>
+  <data name="L10nAccel_104" xml:space="preserve">
+    <value>Failed to start acceleration</value>
+  </data>
+  <data name="L10nAccel_105" xml:space="preserve">
+    <value>Stopping acceleration...</value>
+  </data>
+  <data name="L10nAccel_106" xml:space="preserve">
+    <value>Failed to stop acceleration. Try stopping it in the accelerator client</value>
+  </data>
+  <data name="L10nAccel_107" xml:space="preserve">
+    <value>Removed</value>
+  </data>
+  <data name="L10nAccel_108" xml:space="preserve">
+    <value>Added to game list</value>
+  </data>
+  <data name="L10nAccel_109" xml:space="preserve">
+    <value>Watt Accelerator is installed</value>
+  </data>
+  <data name="L10nAccel_110" xml:space="preserve">
+    <value>Download plugin</value>
+  </data>
+  <data name="L10nAccel_111" xml:space="preserve">
+    <value>Download Watt Accelerator plugin</value>
+  </data>
+  <data name="L10nAccel_112" xml:space="preserve">
+    <value>Initializing, please wait</value>
+  </data>
+  <data name="L10nAccel_113" xml:space="preserve">
+    <value>Downloading {0}%</value>
+  </data>
+  <data name="L10nAccel_114" xml:space="preserve">
+    <value>Download complete, installing...</value>
+  </data>
+  <data name="L10nAccel_115" xml:space="preserve">
+    <value>Installed</value>
+  </data>
+  <data name="L10nAccel_116" xml:space="preserve">
+    <value>Not installed; no need to uninstall</value>
+  </data>
+  <data name="L10nAccel_117" xml:space="preserve">
+    <value>Uninstalled successfully</value>
+  </data>
+  <data name="L10nAccel_118" xml:space="preserve">
+    <value>Failed to uninstall</value>
+  </data>
+  <data name="L10nAccel_119" xml:space="preserve">
+    <value>Failed to start {0}</value>
+  </data>
+  <data name="L10nAccel_120" xml:space="preserve">
+    <value>DNS pre-check failed or timed out. Acceleration will still try servers in the configured order. Check your network or DNS settings.</value>
+  </data>
+  <data name="L10nAccel_121" xml:space="preserve">
+    <value>Cannot listen on proxy port ({0}). Check whether another program is using the port, the system has reserved it, or security software is blocking the listener.</value>
+  </data>
+  <data name="L10nAccel_122" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="L10nAccel_123" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="L10nAccel_124" xml:space="preserve">
+    <value>Run environment_check.sh manually in a terminal to install the required dependencies</value>
+  </data>
+  <data name="L10nAccel_125" xml:space="preserve">
+    <value>Environment check error: {0}</value>
+  </data>
+  <data name="L10nAccel_126" xml:space="preserve">
+    <value>Certificate information</value>
+  </data>
+  <data name="L10nAccel_127" xml:space="preserve">
+    <value>Manage DNS / DoH servers</value>
+  </data>
+  <data name="L10nAccel_128" xml:space="preserve">
+    <value>Only one server address can be added at a time.</value>
+  </data>
+  <data name="L10nAccel_129" xml:space="preserve">
+    <value>Enter a valid IPv4, IPv6, or HTTPS DoH address, or select System Default.</value>
+  </data>
+  <data name="L10nAccel_130" xml:space="preserve">
+    <value>Select a server first.</value>
+  </data>
+  <data name="L10nAccel_131" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="L10nAccel_132" xml:space="preserve">
+    <value>Unknown type</value>
+  </data>
+  <data name="L10nAccel_133" xml:space="preserve">
+    <value>Open NAT</value>
+  </data>
+  <data name="L10nAccel_134" xml:space="preserve">
+    <value>You can play and host multiplayer games with users who have any NAT type.</value>
+  </data>
+  <data name="L10nAccel_135" xml:space="preserve">
+    <value>Moderate NAT</value>
+  </data>
+  <data name="L10nAccel_136" xml:space="preserve">
+    <value>You can play multiplayer games with some users, but you will usually not be selected as the host.</value>
+  </data>
+  <data name="L10nAccel_137" xml:space="preserve">
+    <value>Strict NAT</value>
+  </data>
+  <data name="L10nAccel_138" xml:space="preserve">
+    <value>You can only play multiplayer games with users who have an open NAT. You cannot be selected as the host.</value>
+  </data>
+  <data name="L10nAccel_139" xml:space="preserve">
+    <value>NAT unavailable</value>
+  </data>
+  <data name="L10nAccel_140" xml:space="preserve">
+    <value>If NAT is unavailable, you cannot use party chat or connect to multiplayer games in some Xbox games.</value>
+  </data>
+  <data name="L10nAccel_141" xml:space="preserve">
+    <value>{0} (server: {1})</value>
+  </data>
+  <data name="L10nAccel_142" xml:space="preserve">
+    <value>DNS test overall timeout (testing: {0})</value>
+  </data>
+  <data name="L10nAccel_143" xml:space="preserve">
+    <value>All DNS server tests failed or timed out</value>
+  </data>
+  <data name="L10nAccel_144" xml:space="preserve">
+    <value>All DNS server tests failed</value>
+  </data>
+  <data name="L10nAccel_145" xml:space="preserve">
+    <value>Reset successfully</value>
+  </data>
+  <data name="L10nAccel_146" xml:space="preserve">
+    <value>Sign in to access the Script Store</value>
+  </data>
+  <data name="L10nAccel_147" xml:space="preserve">
+    <value>Select folder</value>
+  </data>
+  <data name="L10nAccel_148" xml:space="preserve">
+    <value>Enter a domain name without the separator &quot;/&quot;</value>
+  </data>
+  <data name="L10nAccel_149" xml:space="preserve">
+    <value>Updating</value>
+  </data>
+  <data name="L10nAccel_150" xml:space="preserve">
+    <value>Update failed</value>
+  </data>
+  <data name="L10nAccel_151" xml:space="preserve">
+    <value>Updated successfully</value>
+  </data>
+  <data name="L10nAccel_152" xml:space="preserve">
+    <value>Starting</value>
+  </data>
+  <data name="L10nAccel_153" xml:space="preserve">
+    <value>Start failed</value>
+  </data>
+  <data name="L10nAccel_154" xml:space="preserve">
+    <value>Started successfully</value>
+  </data>
+  <data name="L10nAccel_155" xml:space="preserve">
+    <value>Signing in</value>
+  </data>
+  <data name="L10nAccel_156" xml:space="preserve">
+    <value>Signed in successfully</value>
+  </data>
+  <data name="L10nAccel_157" xml:space="preserve">
+    <value>Sign-in failed</value>
+  </data>
+  <data name="L10nAccel_158" xml:space="preserve">
+    <value>Not accelerating</value>
+  </data>
+  <data name="L10nAccel_159" xml:space="preserve">
+    <value>Accelerating</value>
+  </data>
+  <data name="L10nAccel_160" xml:space="preserve">
+    <value>Acceleration ready</value>
+  </data>
+  <data name="L10nAccel_161" xml:space="preserve">
+    <value>Stopping acceleration</value>
+  </data>
+  <data name="L10nAccel_162" xml:space="preserve">
+    <value>Acceleration disconnected</value>
+  </data>
+  <data name="L10nAccel_163" xml:space="preserve">
+    <value>Acceleration failed</value>
+  </data>
+  <data name="L10nAccel_164" xml:space="preserve">
+    <value>Unknown acceleration state ({0})</value>
+  </data>
+  <data name="L10nAuthIdle_Text001" xml:space="preserve">
+    <value>Steam did not return a valid account ID. Please sign in again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text002" xml:space="preserve">
+    <value>The signed-in account does not match this authenticator's SteamID. Use the Steam account associated with this authenticator.</value>
+  </data>
+  <data name="L10nAuthIdle_Text003" xml:space="preserve">
+    <value>The signed-in account name does not match this authenticator. Use the Steam account associated with this authenticator.</value>
+  </data>
+  <data name="L10nAuthIdle_Text004" xml:space="preserve">
+    <value>This authenticator has no SteamID or account name, so the signed-in account cannot be verified.</value>
+  </data>
+  <data name="L10nAuthIdle_Text005" xml:space="preserve">
+    <value>The signed-in account does not match this authenticator. No login session was saved.</value>
+  </data>
+  <data name="L10nAuthIdle_Text006" xml:space="preserve">
+    <value>This authenticator has no SteamID. Sign in with your account and password and automatically verify the current authenticator, then try again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text007" xml:space="preserve">
+    <value>The authenticator data format is invalid. The SteamID cannot be saved.</value>
+  </data>
+  <data name="L10nAuthIdle_Text008" xml:space="preserve">
+    <value>QR login is available only for Steam authenticators with a saved Trade Confirmations session. Open this authenticator's Trade Confirmations, sign in with Remember login selected, then try again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text009" xml:space="preserve">
+    <value>The saved Trade Confirmations session has expired or does not support mobile confirmations. Sign in again and save the session in this authenticator's Trade Confirmations before scanning.</value>
+  </data>
+  <data name="L10nAuthIdle_Text010" xml:space="preserve">
+    <value>Steam desktop client</value>
+  </data>
+  <data name="L10nAuthIdle_Text011" xml:space="preserve">
+    <value>Web browser</value>
+  </data>
+  <data name="L10nAuthIdle_Text012" xml:space="preserve">
+    <value>Mobile app</value>
+  </data>
+  <data name="L10nAuthIdle_Text013" xml:space="preserve">
+    <value>Steam did not provide a device type</value>
+  </data>
+  <data name="L10nAuthIdle_Text014" xml:space="preserve">
+    <value>Steam did not provide a location</value>
+  </data>
+  <data name="L10nAuthIdle_Text015" xml:space="preserve">
+    <value>This IP address has successfully signed in to this account before</value>
+  </data>
+  <data name="L10nAuthIdle_Text016" xml:space="preserve">
+    <value>This IP address has no history of successfully signing in to this account</value>
+  </data>
+  <data name="L10nAuthIdle_Text017" xml:space="preserve">
+    <value>The login request location differs from the current confirmation location</value>
+  </data>
+  <data name="L10nAuthIdle_Text018" xml:space="preserve">
+    <value>This login request has been used frequently recently</value>
+  </data>
+  <data name="L10nAuthIdle_Text019" xml:space="preserve">
+    <value>IP previously used to sign in</value>
+  </data>
+  <data name="L10nAuthIdle_Text020" xml:space="preserve">
+    <value>No login history for this IP</value>
+  </data>
+  <data name="L10nAuthIdle_Text021" xml:space="preserve">
+    <value>Location mismatch</value>
+  </data>
+  <data name="L10nAuthIdle_Text022" xml:space="preserve">
+    <value>Frequent login requests</value>
+  </data>
+  <data name="L10nAuthIdle_Text023" xml:space="preserve">
+    <value>The target device requests to stay signed in</value>
+  </data>
+  <data name="L10nAuthIdle_Text024" xml:space="preserve">
+    <value>The target device requests a temporary login</value>
+  </data>
+  <data name="L10nAuthIdle_Text025" xml:space="preserve">
+    <value>Steam did not provide a stay-signed-in preference</value>
+  </data>
+  <data name="L10nAuthIdle_Text026" xml:space="preserve">
+    <value>Review this login request with extra care</value>
+  </data>
+  <data name="L10nAuthIdle_Text027" xml:space="preserve">
+    <value>Confirm that you initiated this login</value>
+  </data>
+  <data name="L10nAuthIdle_Text028" xml:space="preserve">
+    <value>Not provided by Steam</value>
+  </data>
+  <data name="L10nAuthIdle_Text029" xml:space="preserve">
+    <value>Manage authenticators for multiple platforms and accounts, with encryption, trade confirmations, cloud sync, and more</value>
+  </data>
+  <data name="L10nAuthIdle_Text030" xml:space="preserve">
+    <value>Unnamed Steam account</value>
+  </data>
+  <data name="L10nAuthIdle_Text031" xml:space="preserve">
+    <value>SteamID missing</value>
+  </data>
+  <data name="L10nAuthIdle_Text032" xml:space="preserve">
+    <value>Ready. Scan a QR code on your screen.</value>
+  </data>
+  <data name="L10nAuthIdle_Text033" xml:space="preserve">
+    <value>Quickly idle Steam games for card drops. Start the Steam client and sign in to the corresponding account. Multiple idling algorithms help cards drop faster.</value>
+  </data>
+  <data name="L10nAuthIdle_Text034" xml:space="preserve">
+    <value>The Authenticator plugin is unavailable. Enable it and read the authenticator again, or use another login method.</value>
+  </data>
+  <data name="L10nAuthIdle_Text035" xml:space="preserve">
+    <value>Show or hide verification code</value>
+  </data>
+  <data name="L10nAuthIdle_Text036" xml:space="preserve">
+    <value>Encryption method</value>
+  </data>
+  <data name="L10nAuthIdle_Text037" xml:space="preserve">
+    <value>Authenticator refresh interval</value>
+  </data>
+  <data name="L10nAuthIdle_Text038" xml:space="preserve">
+    <value>Code digits</value>
+  </data>
+  <data name="L10nAuthIdle_Text039" xml:space="preserve">
+    <value>If you have an initial value, enter it in the Code box below. Click Verify to generate the previously used code.</value>
+  </data>
+  <data name="L10nAuthIdle_Text040" xml:space="preserve">
+    <value>Search authenticators</value>
+  </data>
+  <data name="L10nAuthIdle_Text041" xml:space="preserve">
+    <value>Existing authenticators</value>
+  </data>
+  <data name="L10nAuthIdle_Text042" xml:space="preserve">
+    <value>Steam Market</value>
+  </data>
+  <data name="L10nAuthIdle_Text043" xml:space="preserve">
+    <value>[Rooted Android] An alternative way to export authenticators from version 3.x</value>
+  </data>
+  <data name="L10nAuthIdle_Text044" xml:space="preserve">
+    <value>[Rooted Android] Another alternative way to export authenticators from version 3.x</value>
+  </data>
+  <data name="L10nAuthIdle_Text045" xml:space="preserve">
+    <value>Fully display the Steam login QR code that you requested. Screenshots are recognized locally only and are never saved or uploaded.</value>
+  </data>
+  <data name="L10nAuthIdle_Text046" xml:space="preserve">
+    <value>Scan QR code on screen</value>
+  </data>
+  <data name="L10nAuthIdle_Text047" xml:space="preserve">
+    <value>Screen QR scanning is currently supported only on Windows.</value>
+  </data>
+  <data name="L10nAuthIdle_Text048" xml:space="preserve">
+    <value>Select a detected login request</value>
+  </data>
+  <data name="L10nAuthIdle_Text049" xml:space="preserve">
+    <value>Read device information for the selected request</value>
+  </data>
+  <data name="L10nAuthIdle_Text050" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="L10nAuthIdle_Text051" xml:space="preserve">
+    <value>Make sure you are signing in in a secure environment. Steam's information is not a guarantee of safety.</value>
+  </data>
+  <data name="L10nAuthIdle_Text052" xml:space="preserve">
+    <value>Keep target device signed in</value>
+  </data>
+  <data name="L10nAuthIdle_Text053" xml:space="preserve">
+    <value>Confirm Steam login</value>
+  </data>
+  <data name="L10nAuthIdle_Text054" xml:space="preserve">
+    <value>More request details</value>
+  </data>
+  <data name="L10nAuthIdle_Text055" xml:space="preserve">
+    <value>Login history</value>
+  </data>
+  <data name="L10nAuthIdle_Text056" xml:space="preserve">
+    <value>Location check</value>
+  </data>
+  <data name="L10nAuthIdle_Text057" xml:space="preserve">
+    <value>Request frequency</value>
+  </data>
+  <data name="L10nAuthIdle_Text058" xml:space="preserve">
+    <value>Login preference</value>
+  </data>
+  <data name="L10nAuthIdle_Text059" xml:space="preserve">
+    <value>Location data</value>
+  </data>
+  <data name="L10nAuthIdle_Text060" xml:space="preserve">
+    <value>Request ID</value>
+  </data>
+  <data name="L10nAuthIdle_Text061" xml:space="preserve">
+    <value>Protocol version</value>
+  </data>
+  <data name="L10nAuthIdle_Text062" xml:space="preserve">
+    <value>Information read at</value>
+  </data>
+  <data name="L10nAuthIdle_Text063" xml:space="preserve">
+    <value>Run this game first</value>
+  </data>
+  <data name="L10nAuthIdle_Text064" xml:space="preserve">
+    <value>Add to idling blacklist</value>
+  </data>
+  <data name="L10nAuthIdle_Text065" xml:space="preserve">
+    <value>Remove from idling blacklist</value>
+  </data>
+  <data name="L10nAuthIdle_Text066" xml:space="preserve">
+    <value>Idling rule</value>
+  </data>
+  <data name="L10nAuthIdle_Text067" xml:space="preserve">
+    <value>Idling order</value>
+  </data>
+  <data name="L10nAuthIdle_Text068" xml:space="preserve">
+    <value>Maximum games accumulating playtime in parallel</value>
+  </data>
+  <data name="L10nAuthIdle_Text069" xml:space="preserve">
+    <value>Quick game switching interval (milliseconds)</value>
+  </data>
+  <data name="L10nAuthIdle_Text070" xml:space="preserve">
+    <value>Minimum game runtime (hours)</value>
+  </data>
+  <data name="L10nAuthIdle_Text071" xml:space="preserve">
+    <value>Automatic badge data refresh interval (minutes)</value>
+  </data>
+  <data name="L10nAuthIdle_Text072" xml:space="preserve">
+    <value>Scan a QR code to sign in to Steam</value>
+  </data>
+  <data name="L10nAuthIdle_Text073" xml:space="preserve">
+    <value>Authenticator unlocking was canceled. Return to another login method or read the authenticator again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text074" xml:space="preserve">
+    <value>The authenticator's secondary password is incorrect. Read and unlock it again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text075" xml:space="preserve">
+    <value>The authenticator login session has changed. Read the authenticator again and retry.</value>
+  </data>
+  <data name="L10nAuthIdle_Text076" xml:space="preserve">
+    <value>The Trade Confirmations login session has changed. Read the authenticator again and retry.</value>
+  </data>
+  <data name="L10nAuthIdle_Text077" xml:space="preserve">
+    <value>The Trade Confirmations session has expired. Sign in to Trade Confirmations again in the Authenticator plugin.</value>
+  </data>
+  <data name="L10nAuthIdle_Text078" xml:space="preserve">
+    <value>The Trade Confirmations session has expired or does not support web login. Sign in to Trade Confirmations again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text079" xml:space="preserve">
+    <value>Steam did not accept this web session. Sign in to Trade Confirmations again in the Authenticator plugin.</value>
+  </data>
+  <data name="L10nAuthIdle_Text080" xml:space="preserve">
+    <value>Import failed. Check that the data is correct.</value>
+  </data>
+  <data name="L10nAuthIdle_Text081" xml:space="preserve">
+    <value>The authenticator cannot be replaced directly when only an email address is linked</value>
+  </data>
+  <data name="L10nAuthIdle_Text082" xml:space="preserve">
+    <value>Checking the saved Trade Confirmations session…</value>
+  </data>
+  <data name="L10nAuthIdle_Text083" xml:space="preserve">
+    <value>Scanning the screen… Do not close or refresh the Steam login QR code.</value>
+  </data>
+  <data name="L10nAuthIdle_Text084" xml:space="preserve">
+    <value>No Steam login QR code found. Display the entire QR code without other windows covering it, then try again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text085" xml:space="preserve">
+    <value>QR code detected. Reading target device information…</value>
+  </data>
+  <data name="L10nAuthIdle_Text086" xml:space="preserve">
+    <value>Multiple Steam login QR codes found. Select the request to confirm, then read its device information.</value>
+  </data>
+  <data name="L10nAuthIdle_Text087" xml:space="preserve">
+    <value>QR code detected, but the login request could not be read. Refresh the QR code and retry. If the Trade Confirmations session has expired, sign in there again first.</value>
+  </data>
+  <data name="L10nAuthIdle_Text088" xml:space="preserve">
+    <value>Windows screen capture failed (error {0}). Try again on an unlocked local desktop.</value>
+  </data>
+  <data name="L10nAuthIdle_Text089" xml:space="preserve">
+    <value>Unknown assembly</value>
+  </data>
+  <data name="L10nAuthIdle_Text090" xml:space="preserve">
+    <value>Required runtime dependency {0} is missing. Start the application from a complete build or publish directory; do not replace only the Authenticator plugin DLL.</value>
+  </data>
+  <data name="L10nAuthIdle_Text091" xml:space="preserve">
+    <value>Checking the Trade Confirmations session or scanning the screen failed. Check your network and application dependencies. This page will not ask you to sign in again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text092" xml:space="preserve">
+    <value>The login request could not be read. The QR code may have expired. Refresh it; if the session has expired, sign in to Trade Confirmations again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text093" xml:space="preserve">
+    <value>Review the login request below. It will be approved only when you click Confirm Steam login. Close the window if you did not initiate it.</value>
+  </data>
+  <data name="L10nAuthIdle_Text094" xml:space="preserve">
+    <value>The Trade Confirmations session has changed. Read the login request again before confirming.</value>
+  </data>
+  <data name="L10nAuthIdle_Text095" xml:space="preserve">
+    <value>Login confirmed. Return to the Steam client or website to check the result.</value>
+  </data>
+  <data name="L10nAuthIdle_Text096" xml:space="preserve">
+    <value>Login confirmation failed. The QR code may have expired. Scan again; if the session has expired, sign in to Trade Confirmations again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text097" xml:space="preserve">
+    <value>Could not get the Steam verification code from this authenticator. Check the authenticator and try again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text098" xml:space="preserve">
+    <value>This authenticator's Steam verification code is unavailable. Check the authenticator and try again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text099" xml:space="preserve">
+    <value>Could not check the Trade Confirmations session. Check your network or sign in again.</value>
+  </data>
+  <data name="L10nAuthIdle_Text100" xml:space="preserve">
+    <value>The login session was renewed but could not be saved. It can still be used this time.</value>
+  </data>
+  <data name="L10nAuthIdle_Text101" xml:space="preserve">
+    <value>This authenticator is unavailable. No login session was saved.</value>
+  </data>
+  <data name="L10nAuthIdle_Text102" xml:space="preserve">
+    <value>Signed in to Steam, but the session could not be saved. Save it successfully before using QR scanning.</value>
+  </data>
+  <data name="L10nAuthIdle_Text103" xml:space="preserve">
+    <value>Signed in to Steam, but trade confirmations could not be read. Check your network and refresh instead of repeatedly signing in.</value>
+  </data>
+  <data name="L10nAuthIdle_Text104" xml:space="preserve">
+    <value>Private game (no card drops) + blacklisted</value>
+  </data>
+  <data name="L10nAuthIdle_Text105" xml:space="preserve">
+    <value>Private game (no card drops)</value>
+  </data>
+  <data name="L10nAuthIdle_Text106" xml:space="preserve">
+    <value>Blacklisted</value>
+  </data>
+  <data name="L10nAuthIdle_Text107" xml:space="preserve">
+    <value>This game is excluded from idling. Remove it from the blacklist or remove its private status first.</value>
+  </data>
+  <data name="L10nAuthIdle_Text108" xml:space="preserve">
+    <value>Checking Steam login status…</value>
+  </data>
+  <data name="L10nAuthIdle_Text109" xml:space="preserve">
+    <value>Loading badge data…</value>
+  </data>
+  <data name="L10nAuthIdle_Text110" xml:space="preserve">
+    <value>Scan a QR code on screen to sign in to Steam</value>
+  </data>
+  <data name="L10nAuthIdle_Text111" xml:space="preserve">
+    <value>Details and export</value>
+  </data>
+  <data name="L10nAuthIdle_Text112" xml:space="preserve">
+    <value>Release to drop</value>
+  </data>
+  <data name="L10nAuthIdle_Text113" xml:space="preserve">
+    <value> card drops remaining</value>
+  </data>
+  <data name="L10nAuthIdle_Text114" xml:space="preserve">
+    <value>Estimated value ¥ </value>
+  </data>
+  <data name="L10nAuthIdle_Text115" xml:space="preserve">
+    <value>Current Steam client account: </value>
+  </data>
+  <data name="L10nAuthIdle_Text116" xml:space="preserve">
+    <value>Idling progress </value>
+  </data>
+  <data name="L10nAuthIdle_Text117" xml:space="preserve">
+    <value> games running</value>
+  </data>
+  <data name="L10nAuthIdle_Text118" xml:space="preserve">
+    <value>Games to idle</value>
+  </data>
+  <data name="L10nAuthIdle_Text119" xml:space="preserve">
+    <value>No idling game data retrieved</value>
+  </data>
+  <data name="L10nAuthIdle_Text120" xml:space="preserve">
+    <value>{0} authenticators in total</value>
+  </data>
+  <data name="L10nAuthIdle_Text121" xml:space="preserve">
+    <value>Login request {0}</value>
+  </data>
+  <data name="L10nAuthIdle_Text122" xml:space="preserve">
+    <value>Account to confirm: {0}</value>
+  </data>
+  <data name="L10nAuthIdle_Text123" xml:space="preserve">
+    <value>Fast card drop mode (recommended)</value>
+  </data>
+  <data name="L10nAuthIdle_Text124" xml:space="preserve">
+    <value>Run in order</value>
+  </data>
+  <data name="L10nAuthIdle_Text125" xml:space="preserve">
+    <value>First idle games that have reached the minimum game runtime for cards, then accumulate playtime in parallel</value>
+  </data>
+  <data name="L10nAuthIdle_Text126" xml:space="preserve">
+    <value>First accumulate playtime in parallel until the minimum game runtime is reached, then idle for cards</value>
+  </data>
+  <data name="L10nAuthIdle_Text127" xml:space="preserve">
+    <value>Default (alphabetical order)</value>
+  </data>
+  <data name="L10nAuthIdle_Text128" xml:space="preserve">
+    <value>Fewest cards first</value>
+  </data>
+  <data name="L10nAuthIdle_Text129" xml:space="preserve">
+    <value>Most cards first</value>
+  </data>
+  <data name="L10nAuthIdle_Text130" xml:space="preserve">
+    <value>Highest card value first</value>
+  </data>
+  <data name="L10nAuthIdle_PrivateExclusion" xml:space="preserve">
+    <value>Detected {0} private games. These games will be excluded from idling automatically.</value>
+  </data>
+  <data name="L10nAuthIdle_DragTooltip" xml:space="preserve">
+    <value>{0} · Long press to drag and reorder</value>
+  </data>
+  <data name="L10nGames_ListDescription" xml:space="preserve">
+    <value>Manage Steam library game details. Load the current account library while Steam is running, or the local Steam cache otherwise.</value>
+  </data>
+  <data name="L10nGames_AccountDescription" xml:space="preserve">
+    <value>Quickly switch between accounts on multiple platforms. Steam account details are read automatically; add account details manually for other platforms.</value>
+  </data>
+  <data name="L10nGames_ToolsDescription" xml:space="preserve">
+    <value>General game tools</value>
+  </data>
+  <data name="L10nGames_SaveEditNotice" xml:space="preserve">
+    <value>Saved successfully, but not yet written to Steam files. Open the edit list in the upper right and save all changes to Steam files to apply them.</value>
+  </data>
+  <data name="L10nGames_ImageDownloadWait" xml:space="preserve">
+    <value>Downloading images may take some time. Please wait.</value>
+  </data>
+  <data name="L10nGames_ExportEmpty" xml:space="preserve">
+    <value>There is no edited game data to export.</value>
+  </data>
+  <data name="L10nGames_ExportTitle" xml:space="preserve">
+    <value>Export edited game data backup</value>
+  </data>
+  <data name="L10nGames_ExportNoData" xml:space="preserve">
+    <value>Export failed: there is no serializable edited data.</value>
+  </data>
+  <data name="L10nGames_ExportFailed" xml:space="preserve">
+    <value>Export failed. Check file permissions and try again.</value>
+  </data>
+  <data name="L10nGames_ImportTitle" xml:space="preserve">
+    <value>Import edited game data backup</value>
+  </data>
+  <data name="L10nGames_ImportEmpty" xml:space="preserve">
+    <value>The imported file contains no data to restore.</value>
+  </data>
+  <data name="L10nGames_ImportNoMatches" xml:space="preserve">
+    <value>Import completed, but no matching games were found to restore.
+Make sure the account or game library matches the backup source.</value>
+  </data>
+  <data name="L10nGames_ImportFailed" xml:space="preserve">
+    <value>Import failed. The file format may be invalid.</value>
+  </data>
+  <data name="L10nGames_DownloadTitle" xml:space="preserve">
+    <value>Steam download monitor</value>
+  </data>
+  <data name="L10nGames_DownloadDescription" xml:space="preserve">
+    <value>Monitor Steam downloads and sleep, hibernate, or shut down after downloading and installation finish.</value>
+  </data>
+  <data name="L10nGames_DownloadWatchTip" xml:space="preserve">
+    <value>Enable this button to monitor Steam downloads and perform the selected action when they finish.</value>
+  </data>
+  <data name="L10nGames_EditTitle" xml:space="preserve">
+    <value>Edit Steam games</value>
+  </data>
+  <data name="L10nGames_EditDescription" xml:space="preserve">
+    <value>Change Steam game names, publishers, cover images, launch options, and other details, then save the changes to Steam.</value>
+  </data>
+  <data name="L10nGames_IdleTitle" xml:space="preserve">
+    <value>Steam playtime idling</value>
+  </data>
+  <data name="L10nGames_IdleDescription" xml:space="preserve">
+    <value>Increase playtime by making Steam report multiple games as running without actually launching them.</value>
+  </data>
+  <data name="L10nGames_SwitchAccount" xml:space="preserve">
+    <value>Switch to this account</value>
+  </data>
+  <data name="L10nGames_StartOffline" xml:space="preserve">
+    <value>Start in offline mode</value>
+  </data>
+  <data name="L10nGames_LoginAs" xml:space="preserve">
+    <value>Sign in as</value>
+  </data>
+  <data name="L10nGames_Invisible" xml:space="preserve">
+    <value>Invisible</value>
+  </data>
+  <data name="L10nGames_Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="L10nGames_Online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="L10nGames_Busy" xml:space="preserve">
+    <value>Busy</value>
+  </data>
+  <data name="L10nGames_Away" xml:space="preserve">
+    <value>Away</value>
+  </data>
+  <data name="L10nGames_Snooze" xml:space="preserve">
+    <value>Snooze</value>
+  </data>
+  <data name="L10nGames_LookingToTrade" xml:space="preserve">
+    <value>Looking to trade</value>
+  </data>
+  <data name="L10nGames_LookingToPlay" xml:space="preserve">
+    <value>Looking to play</value>
+  </data>
+  <data name="L10nGames_CopyProfile" xml:space="preserve">
+    <value>Copy profile</value>
+  </data>
+  <data name="L10nGames_CommunityUrl" xml:space="preserve">
+    <value>Community URL</value>
+  </data>
+  <data name="L10nGames_SteamNickname" xml:space="preserve">
+    <value>Steam nickname</value>
+  </data>
+  <data name="L10nGames_CopySteamId" xml:space="preserve">
+    <value>Copy SteamID</value>
+  </data>
+  <data name="L10nGames_SteamCommunity" xml:space="preserve">
+    <value>Steam Community</value>
+  </data>
+  <data name="L10nGames_EditRemark" xml:space="preserve">
+    <value>Edit account remark</value>
+  </data>
+  <data name="L10nGames_ChangeAvatar" xml:space="preserve">
+    <value>Change avatar image</value>
+  </data>
+  <data name="L10nGames_CreateShortcut" xml:space="preserve">
+    <value>Create desktop shortcut</value>
+  </data>
+  <data name="L10nGames_DoubleClickSwitch" xml:space="preserve">
+    <value>Double-click to quickly sign in to this account</value>
+  </data>
+  <data name="L10nGames_PlatformSettings" xml:space="preserve">
+    <value>Platform settings</value>
+  </data>
+  <data name="L10nGames_ShowUsername" xml:space="preserve">
+    <value>Show username</value>
+  </data>
+  <data name="L10nGames_DragToSort" xml:space="preserve">
+    <value>Drag to reorder</value>
+  </data>
+  <data name="L10nGames_BorderlessTitle" xml:space="preserve">
+    <value>Borderless game window</value>
+  </data>
+  <data name="L10nGames_BorderlessDescription" xml:space="preserve">
+    <value>Capture a game window handle to perform window operations.</value>
+  </data>
+  <data name="L10nGames_ViewWindowHistory" xml:space="preserve">
+    <value>View captured window history</value>
+  </data>
+  <data name="L10nGames_History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="L10nGames_WindowInfo" xml:space="preserve">
+    <value>Window information</value>
+  </data>
+  <data name="L10nGames_VacTitle" xml:space="preserve">
+    <value>CS:GO VAC repair</value>
+  </data>
+  <data name="L10nGames_VacDescription" xml:space="preserve">
+    <value>Repair CS:GO VAC blocking issues.</value>
+  </data>
+  <data name="L10nGames_Repair" xml:space="preserve">
+    <value>Repair</value>
+  </data>
+  <data name="L10nGames_Repairing" xml:space="preserve">
+    <value>Repairing</value>
+  </data>
+  <data name="L10nGames_Restart" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="L10nGames_WindowsOnly" xml:space="preserve">
+    <value>Windows only</value>
+  </data>
+  <data name="L10nGames_CpuScheduling" xml:space="preserve">
+    <value>CPU game scheduling optimization</value>
+  </data>
+  <data name="L10nGames_NotAvailable" xml:space="preserve">
+    <value>This feature is not available yet</value>
+  </data>
+  <data name="L10nGames_RepairServicesFailed" xml:space="preserve">
+    <value>info - ※ Failed to repair Steam Services
+</value>
+  </data>
+  <data name="L10nGames_RepairFirewall" xml:space="preserve">
+    <value>info - ※ Check your firewall settings (disable &quot;Do not allow exceptions&quot;) and try again
+</value>
+  </data>
+  <data name="L10nGames_ExportSuccess" xml:space="preserve">
+    <value>Exported successfully: {0} edited records.</value>
+  </data>
+  <data name="L10nGames_ImportSuccess" xml:space="preserve">
+    <value>Imported successfully: restored edits for {0} games.</value>
+  </data>
+  <data name="L10nGames_PlatformSettingsFormat" xml:space="preserve">
+    <value>{0} platform settings</value>
+  </data>
+  <data name="L10nGames_PlatformPathFormat" xml:space="preserve">
+    <value>{0} path</value>
+  </data>
+  <data name="L10nGames_RepairLauncherService" xml:space="preserve">
+    <value>Info - ※&gt;&gt;&gt; Repairing launcher services</value>
+  </data>
+  <data name="L10nGames_RestoreDep" xml:space="preserve">
+    <value>Info - ※ Restoring default DEP startup settings</value>
+  </data>
+  <data name="L10nGames_RestartSteam" xml:space="preserve">
+    <value>Info - ※&gt;&gt;&gt; Restarting Steam</value>
+  </data>
+  <data name="L10nGames_RepairComplete" xml:space="preserve">
+    <value>Info - ※ Completed</value>
+  </data>
+  <data name="L10nAsf_Text001" xml:space="preserve">
+    <value>ArchiSteamFarm executable settings</value>
+  </data>
+  <data name="L10nAsf_Text002" xml:space="preserve">
+    <value>ASF file path</value>
+  </data>
+  <data name="L10nAsf_Text003" xml:space="preserve">
+    <value>Select path</value>
+  </data>
+  <data name="L10nAsf_Text004" xml:space="preserve">
+    <value>Download ASF and set its path</value>
+  </data>
+  <data name="L10nAsf_Text005" xml:space="preserve">
+    <value>Have not downloaded ASF yet? Click to download</value>
+  </data>
+  <data name="L10nAsf_Text006" xml:space="preserve">
+    <value>Download now</value>
+  </data>
+  <data name="L10nAsf_Text007" xml:space="preserve">
+    <value>Enter a command or message</value>
+  </data>
+  <data name="L10nAsf_Text008" xml:space="preserve">
+    <value>ASF configuration</value>
+  </data>
+  <data name="L10nAsf_Text009" xml:space="preserve">
+    <value>Import configuration</value>
+  </data>
+  <data name="L10nAsf_Text010" xml:space="preserve">
+    <value>Set ASF security key</value>
+  </data>
+  <data name="L10nAsf_Text011" xml:space="preserve">
+    <value>Refresh global configuration</value>
+  </data>
+  <data name="L10nAsf_Text012" xml:space="preserve">
+    <value>ASF global configuration</value>
+  </data>
+  <data name="L10nAsf_Text013" xml:space="preserve">
+    <value>File location</value>
+  </data>
+  <data name="L10nAsf_Text014" xml:space="preserve">
+    <value>Open file location</value>
+  </data>
+  <data name="L10nAsf_Text015" xml:space="preserve">
+    <value>Configuration folder</value>
+  </data>
+  <data name="L10nAsf_Text016" xml:space="preserve">
+    <value>Plugin folder</value>
+  </data>
+  <data name="L10nAsf_Text017" xml:space="preserve">
+    <value>Log folder</value>
+  </data>
+  <data name="L10nAsf_Text018" xml:space="preserve">
+    <value>WEBUI folder</value>
+  </data>
+  <data name="L10nAsf_Text019" xml:space="preserve">
+    <value>Start ASF automatically</value>
+  </data>
+  <data name="L10nAsf_Text020" xml:space="preserve">
+    <value>Check file integrity</value>
+  </data>
+  <data name="L10nAsf_Text021" xml:space="preserve">
+    <value>ASF listening port</value>
+  </data>
+  <data name="L10nAsf_Text022" xml:space="preserve">
+    <value>Use a random port if the port is in use</value>
+  </data>
+  <data name="L10nAsf_Text023" xml:space="preserve">
+    <value>Maximum console lines</value>
+  </data>
+  <data name="L10nAsf_Text024" xml:space="preserve">
+    <value>Console font size</value>
+  </data>
+  <data name="L10nAsf_Text025" xml:space="preserve">
+    <value>Open WebUI</value>
+  </data>
+  <data name="L10nAsf_Text026" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="L10nAsf_Text027" xml:space="preserve">
+    <value>User input</value>
+  </data>
+  <data name="L10nAsf_Text028" xml:space="preserve">
+    <value>Bot accounts</value>
+  </data>
+  <data name="L10nAsf_Text029" xml:space="preserve">
+    <value>Open Bot configuration</value>
+  </data>
+  <data name="L10nAsf_Text030" xml:space="preserve">
+    <value>Edit JSON file</value>
+  </data>
+  <data name="L10nAsf_Text031" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="L10nAsf_Text032" xml:space="preserve">
+    <value>Import Bot</value>
+  </data>
+  <data name="L10nAsf_Text033" xml:space="preserve">
+    <value>Refresh Bots</value>
+  </data>
+  <data name="L10nAsf_Text034" xml:space="preserve">
+    <value>Start ArchiSteamFarm first</value>
+  </data>
+  <data name="L10nAsf_Text035" xml:space="preserve">
+    <value>There are no Bot accounts in this list</value>
+  </data>
+  <data name="L10nAsf_Text036" xml:space="preserve">
+    <value>Resume card farming</value>
+  </data>
+  <data name="L10nAsf_Text037" xml:space="preserve">
+    <value>Pause card farming</value>
+  </data>
+  <data name="L10nAsf_Text038" xml:space="preserve">
+    <value>Enable or disable this Bot</value>
+  </data>
+  <data name="L10nAsf_Text039" xml:space="preserve">
+    <value>Console</value>
+  </data>
+  <data name="L10nAsf_Text040" xml:space="preserve">
+    <value>Generate a temporary two-factor authentication token for the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text041" xml:space="preserve">
+    <value>Reject all pending two-factor authentication trade confirmations for the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text042" xml:space="preserve">
+    <value>Accept all pending two-factor authentication trade confirmations for the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text043" xml:space="preserve">
+    <value>Activate the given Licenses for the specified bots. See below for parameter details.</value>
+  </data>
+  <data name="L10nAsf_Text044" xml:space="preserve">
+    <value>Show the Steam wallet balance of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text045" xml:space="preserve">
+    <value>Show BGR (background game redeemer) queue information for the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text046" xml:space="preserve">
+    <value>Encrypt a string using the given encryption method. See the explanation below.</value>
+  </data>
+  <data name="L10nAsf_Text047" xml:space="preserve">
+    <value>Restart the card farming module for the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text048" xml:space="preserve">
+    <value>List the automatic card farming blacklist for the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text049" xml:space="preserve">
+    <value>Add the given AppIDs to the automatic card farming blacklist of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text050" xml:space="preserve">
+    <value>Remove the given AppIDs from the automatic card farming blacklist of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text051" xml:space="preserve">
+    <value>List the priority card farming queue of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text052" xml:space="preserve">
+    <value>Add the given AppIDs to the priority card farming queue of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text053" xml:space="preserve">
+    <value>Remove the given AppIDs from the priority card farming queue of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text054" xml:space="preserve">
+    <value>Hash the given string using the specified hashing method. See the explanation below.</value>
+  </data>
+  <data name="L10nAsf_Text055" xml:space="preserve">
+    <value>Show help (a link to this page).</value>
+  </data>
+  <data name="L10nAsf_Text056" xml:space="preserve">
+    <value>Provide the given input value for the specified bots. Available only in Headless mode; see the explanation below.</value>
+  </data>
+  <data name="L10nAsf_Text057" xml:space="preserve">
+    <value>Show the Steam account level of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text058" xml:space="preserve">
+    <value>Send all LootableTypes community items from the specified bots to the Master user configured in SteamUserPermissions (the lowest steamID if there are several).</value>
+  </data>
+  <data name="L10nAsf_Text059" xml:space="preserve">
+    <value>Send all LootableTypes community items matching the given AppIDs from the specified bots to the Master user configured in SteamUserPermissions (the lowest steamID if there are several). This is the opposite of loot%.</value>
+  </data>
+  <data name="L10nAsf_Text060" xml:space="preserve">
+    <value>Send all LootableTypes community items not matching the given AppIDs from the specified bots to the Master user configured in SteamUserPermissions (the lowest steamID if there are several). This is the opposite of loot@.</value>
+  </data>
+  <data name="L10nAsf_Text061" xml:space="preserve">
+    <value>Send items matching the given AppID in the ContextID inventory category of the specified bots to the Master user configured in SteamUserPermissions (the lowest steamID if there are several).</value>
+  </data>
+  <data name="L10nAsf_Text062" xml:space="preserve">
+    <value>List the App blacklist for MatchActively automatic trading.</value>
+  </data>
+  <data name="L10nAsf_Text063" xml:space="preserve">
+    <value>Add the given AppIDs to the App blacklist for MatchActively automatic trading.</value>
+  </data>
+  <data name="L10nAsf_Text064" xml:space="preserve">
+    <value>Remove the given AppIDs from the App blacklist for MatchActively automatic trading.</value>
+  </data>
+  <data name="L10nAsf_Text065" xml:space="preserve">
+    <value>Change the nickname of the specified bots to Nickname.</value>
+  </data>
+  <data name="L10nAsf_Text066" xml:space="preserve">
+    <value>Check whether the specified bots own Games. See below for parameter details.</value>
+  </data>
+  <data name="L10nAsf_Text067" xml:space="preserve">
+    <value>Permanently pause automatic card farming for the specified bots. ASF will not farm these accounts again in this session unless you manually resume or restart ASF.</value>
+  </data>
+  <data name="L10nAsf_Text068" xml:space="preserve">
+    <value>Temporarily pause automatic card farming for the specified bots. Farming automatically resumes on the next game event or when the bot disconnects. Use resume to resume farming.</value>
+  </data>
+  <data name="L10nAsf_Text069" xml:space="preserve">
+    <value>Temporarily pause automatic card farming for the specified bots for Seconds seconds. Farming then resumes automatically.</value>
+  </data>
+  <data name="L10nAsf_Text070" xml:space="preserve">
+    <value>Switch to manual farming: run the given AppIDs on the specified bots, with an optional custom GameName. Your Steam account must own valid licenses for all specified AppIDs, including free games. Use reset or resume to restore the previous state.</value>
+  </data>
+  <data name="L10nAsf_Text071" xml:space="preserve">
+    <value>Show the Steam store points balance of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text072" xml:space="preserve">
+    <value>Change the Steam privacy settings of the specified bots. See below for available options.</value>
+  </data>
+  <data name="L10nAsf_Text073" xml:space="preserve">
+    <value>Redeem the given game keys or wallet codes for the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text074" xml:space="preserve">
+    <value>Redeem the given game keys or wallet codes for the specified bots using Modes. See the explanation below for modes.</value>
+  </data>
+  <data name="L10nAsf_Text075" xml:space="preserve">
+    <value>Restore the original (previous) playing state, for use with manual farming through the play command.</value>
+  </data>
+  <data name="L10nAsf_Text076" xml:space="preserve">
+    <value>Resume automatic card farming for the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text077" xml:space="preserve">
+    <value>Start the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text078" xml:space="preserve">
+    <value>Show process statistics, such as managed memory usage.</value>
+  </data>
+  <data name="L10nAsf_Text079" xml:space="preserve">
+    <value>Show the status of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text080" xml:space="preserve">
+    <value>Stop the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text081" xml:space="preserve">
+    <value>List users on the trading blacklist of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text082" xml:space="preserve">
+    <value>Add the given SteamIDs to the trading blacklist of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text083" xml:space="preserve">
+    <value>Remove the given SteamIDs from the trading blacklist of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text084" xml:space="preserve">
+    <value>Transfer all TransferableTypes community items from the specified bots to a target bot.</value>
+  </data>
+  <data name="L10nAsf_Text085" xml:space="preserve">
+    <value>Transfer all TransferableTypes community items matching the given AppIDs from the specified bots to a target bot. This is the opposite of transfer%.</value>
+  </data>
+  <data name="L10nAsf_Text086" xml:space="preserve">
+    <value>Transfer all TransferableTypes community items not matching the given AppIDs from the specified bots to a target bot. This is the opposite of transfer@.</value>
+  </data>
+  <data name="L10nAsf_Text087" xml:space="preserve">
+    <value>Transfer items matching the given AppID in the ContextID inventory category of the specified bots to a target bot.</value>
+  </data>
+  <data name="L10nAsf_Text088" xml:space="preserve">
+    <value>Unpack all booster packs in the inventories of the specified bots.</value>
+  </data>
+  <data name="L10nAsf_Text089" xml:space="preserve">
+    <value>Show the ASF version.</value>
+  </data>
+  <data name="L10nAsf_Text090" xml:space="preserve">
+    <value>Nickname: {0}
+Wallet balance: {1} {2}
+Farming games: {3}</value>
+  </data>
+  <data name="L10nAsf_Text091" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="L10nAsf_Text092" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="L10nAsf_Text093" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="L10nAsf_Text094" xml:space="preserve">
+    <value>Farming cards</value>
+  </data>
+  <data name="L10nAsf_Text095" xml:space="preserve">
+    <value>Waiting for input</value>
+  </data>
+  <data name="L10nAsf_Text096" xml:space="preserve">
+    <value>Failed to download the comparison file</value>
+  </data>
+  <data name="L10nAsf_Text097" xml:space="preserve">
+    <value>ASF downloaded successfully</value>
+  </data>
+  <data name="L10nAsf_Text098" xml:space="preserve">
+    <value>An error occurred while downloading ASF files</value>
+  </data>
+  <data name="L10nAsf_Text099" xml:space="preserve">
+    <value>Starting ASF download </value>
+  </data>
+  <data name="L10nAsf_Text100" xml:space="preserve">
+    <value>Waiting for files to download in the background</value>
+  </data>
+  <data name="L10nAsf_Text101" xml:space="preserve">
+    <value>Download plugin</value>
+  </data>
+  <data name="L10nAsf_Text102" xml:space="preserve">
+    <value>Starting ASF download</value>
+  </data>
+  <data name="L10nAsf_Text103" xml:space="preserve">
+    <value>Initializing, please wait</value>
+  </data>
+  <data name="L10nAsf_Text104" xml:space="preserve">
+    <value>Downloading {0}%</value>
+  </data>
+  <data name="L10nAsf_Text105" xml:space="preserve">
+    <value>ArchiSteamFarmPlus console functionality</value>
   </data>
 </root>

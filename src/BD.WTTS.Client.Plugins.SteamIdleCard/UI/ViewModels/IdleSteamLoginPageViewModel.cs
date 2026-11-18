@@ -15,7 +15,7 @@ public sealed class IdleSteamLoginPageViewModel : WindowViewModel
             var provider = Ioc.Get_Nullable<ISteamSavedAccountProvider>();
             return provider != null ? provider.LoadAsync(token) :
                 Task.FromException<IReadOnlyList<SteamSavedLoginAccount>>(
-                    new InvalidOperationException("令牌插件不可用，请启用令牌插件后重新读取，或使用其他登录方式。"));
+                    new InvalidOperationException(Strings.L10nAuthIdle_Text034));
         };
         Login.AddTo(this);
         Login.LoginSucceededAsync = _ =>

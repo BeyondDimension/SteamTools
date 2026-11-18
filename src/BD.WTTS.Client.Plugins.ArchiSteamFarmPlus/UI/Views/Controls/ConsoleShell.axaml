@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ms="https://steampp.net/settings"
+    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     x:Name="u"
@@ -49,7 +50,7 @@
                     <AutoCompleteBox.Styles>
                         <Style Selector="AutoCompleteBox">
                             <Setter Property="VerticalAlignment" Value="Center" />
-                            <Setter Property="PlaceholderText" Value="输入指令或消息内容" />
+                            <Setter Property="PlaceholderText" Value="{x:Static spp:Strings.L10nAsf_Text007}" />
                         </Style>
                         <Style Selector="AutoCompleteBox /template/ TextBox#PART_TextBox">
                             <Setter Property="AcceptsReturn" Value="False" />

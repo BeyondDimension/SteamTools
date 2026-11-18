@@ -1,9 +1,6 @@
 using AngleSharp.Dom;
 using Avalonia.Input;
 using BD.WTTS.Client.Resources;
-using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView;
-using SkiaSharp;
 using System.Drawing.Drawing2D;
 
 namespace BD.WTTS.UI;
@@ -26,7 +23,7 @@ public sealed partial class App : Application
     void InitializeMacOSNativeMenu()
     {
         var appMenu = new NativeMenu();
-        appMenu.Add(new NativeMenuItem
+        var settingsItem = new NativeMenuItem
         {
             Header = Strings.Settings,
             Command = ReactiveCommand.Create(() =>
@@ -34,19 +31,22 @@ public sealed partial class App : Application
                 RestoreMainWindow();
                 INavigationService.Instance.Navigate(typeof(SettingsPage));
             }),
-        });
-        appMenu.Add(new NativeMenuItem
+        };
+        var hideItem = new NativeMenuItem
         {
             Header = string.Format(GetMacMenuString("HideApp_", "Hide {0}"), Name),
             Gesture = KeyGesture.Parse("CMD+W"),
             Command = ReactiveCommand.Create(HideAllWindows),
-        });
-        appMenu.Add(new NativeMenuItem
+        };
+        var exitItem = new NativeMenuItem
         {
             Header = Strings.Exit,
             Gesture = KeyGesture.Parse("CMD+Q"),
             Command = ReactiveCommand.Create(() => Shutdown()),
-        });
+        };
+        appMenu.Add(settingsItem);
+        appMenu.Add(hideItem);
+        appMenu.Add(exitItem);
 
         NativeMenu.SetMenu(this, appMenu);
     }
@@ -184,6 +184,10 @@ public sealed partial class App : Application
         //SetThemeNotChangeValue(UISettings.Theme.Value);
         //SetThemeAccent(UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value);
         base.OnFrameworkInitializationCompleted();
+        #if WINDOWS && WTTS_NATIVE_AOT
+        if (Ioc.Get_Nullable<INotificationService>() is INotificationService.ILifeCycle notificationLifecycle)
+            notificationLifecycle.OnStartup();
+        #endif
     }
 
     //#if WINDOWS
@@ -309,7 +313,7 @@ public sealed partial class App : Application
             var urlString = url?.ToString();
             if (string.IsNullOrEmpty(urlString))
             {
-                Toast.Show(ToastIcon.Warning, "打开链接失败");
+                Toast.Show(ToastIcon.Warning, Strings.L10nApp_OpenLinkFailed);
                 return;
             }
 
@@ -343,7 +347,7 @@ public sealed partial class App : Application
         {
             if (text == null || string.IsNullOrEmpty(text.ToString()))
             {
-                Toast.Show(ToastIcon.Warning, "复制内容失败");
+                Toast.Show(ToastIcon.Warning, Strings.L10nApp_CopyFailed);
                 return;
             }
 

@@ -8,12 +8,12 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Title="{x:Static spp:Strings.ArchiSteamFarmPlus}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:ArchiSteamFarmPlusPageViewModel"
-    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Description="{x:Static spp:Strings.L10nAsf_Text105}"
     ScrollViewer.VerticalScrollBarVisibility="Disabled"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
@@ -50,7 +50,7 @@
                         VerticalAlignment="Center"
                         IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
                                                       Path=!IsASFRuning}"
-                        Text="{Binding Path=Res.ASF_Start, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{x:Static spp:Strings.ASF_Start}" />
 
                     <TextBlock
                         Margin="28,4,0,4"
@@ -58,7 +58,7 @@
                         VerticalAlignment="Center"
                         IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
                                                       Path=IsASFRuning}"
-                        Text="{Binding Path=Res.ASF_Stop, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{x:Static spp:Strings.ASF_Stop}" />
                 </Panel>
             </Button>
             <Button
@@ -77,7 +77,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="打开 WebUI" />
+                        Text="{x:Static spp:Strings.L10nAsf_Text025}" />
                 </Panel>
             </Button>
             <ToggleButton
@@ -96,7 +96,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="设置" />
+                        Text="{x:Static spp:Strings.L10nAsf_Text026}" />
                 </Panel>
             </ToggleButton>
             <DropDownButton
@@ -131,7 +131,7 @@
 
     <spp:PageBase.PaneContent>
         <StackPanel Margin="15,20" Spacing="20">
-            <spp:OptionsDisplayItem Header="ASF 文件路径">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text002}">
                 <spp:OptionsDisplayItem.Description>
                     <TextBlock
                         MaxWidth="120"
@@ -143,11 +143,11 @@
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE756;" />
                 </spp:OptionsDisplayItem.Icon>
                 <spp:OptionsDisplayItem.ActionButton>
-                    <Button Command="{Binding SelectASFExePath}" Content="选择路径" />
+                    <Button Command="{Binding SelectASFExePath}" Content="{x:Static spp:Strings.L10nAsf_Text003}" />
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
-            <spp:OptionsDisplayItem Header="自动启动 ASF">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text019}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
                 </spp:OptionsDisplayItem.Icon>
@@ -156,7 +156,7 @@
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
-            <spp:OptionsDisplayItem Header="检查文件安全性">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text020}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE83D;" />
                 </spp:OptionsDisplayItem.Icon>
@@ -165,7 +165,7 @@
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
-            <spp:OptionsDisplayItem Header="ASF 监听端口">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text021}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE704;" />
                 </spp:OptionsDisplayItem.Icon>
@@ -174,7 +174,7 @@
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
-            <spp:OptionsDisplayItem Header="端口被占时随机端口号">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text022}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
                 </spp:OptionsDisplayItem.Icon>
@@ -183,7 +183,7 @@
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
-            <spp:OptionsDisplayItem Header="控制台最大行数">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text023}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
                 </spp:OptionsDisplayItem.Icon>
@@ -192,7 +192,7 @@
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
-            <spp:OptionsDisplayItem Header="控制台字体大小">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text024}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8E9;" />
                 </spp:OptionsDisplayItem.Icon>
@@ -223,13 +223,12 @@
             <TextBlock Text="{Binding Source={x:Static s:ASFService.Current}, Path=ConsoleLogText, Mode=TwoWay}" />-->
 
         <spp:ConsoleShell
-            AutoCompleteBoxItems="{ReflectionBinding Path=Value,
-                                                     Source={x:Static spp:ArchiSteamFarmCommand.Commands}}"
+            AutoCompleteBoxItems="{x:Static spp:ArchiSteamFarmCommand.Commands}"
             CommandSubmit="ConsoleShell_CommandSubmit"
             FontSize="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},
                                          Path=Value,
                                          Mode=OneWay}"
-            InputIndicator="用户输入"
+            InputIndicator="{x:Static spp:Strings.L10nAsf_Text027}"
             IsMask="false"
             LogText="{ReflectionBinding Source={x:Static s:ASFService.Current},
                                         Path=ConsoleLogText,

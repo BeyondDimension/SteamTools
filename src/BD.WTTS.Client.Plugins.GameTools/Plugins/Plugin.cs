@@ -14,9 +14,13 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override string Name => Strings.GameRelated;
 
+    public override string? NameResourceKey => nameof(Strings.GameRelated);
+
     public sealed override string UniqueEnglishName => moduleName;
 
-    public sealed override string Description => "通用游戏工具";
+    public sealed override string Description => Strings.L10nGames_ToolsDescription;
+
+    public override string? DescriptionResourceKey => nameof(Strings.L10nGames_ToolsDescription);
 
     protected sealed override string? AuthorOriginalString => null;
 

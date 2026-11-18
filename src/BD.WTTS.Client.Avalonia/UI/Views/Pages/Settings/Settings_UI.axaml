@@ -19,11 +19,11 @@
     <StackPanel Spacing="{StaticResource SettingsSpacing}">
         <TextBlock
             Margin="0,0,0,10"
-            Text="{Binding Path=Res.Settings_UI, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Text="{x:Static spp:Strings.Settings_UI}"
             Theme="{StaticResource SubtitleTextBlockStyle}" />
 
         <Border>
-            <ui:FASettingsExpander Header="{Binding Path=Res.Settings_UI_StartDefaultPage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <ui:FASettingsExpander Header="{x:Static spp:Strings.Settings_UI_StartDefaultPage}">
                 <ui:FASettingsExpander.IconSource>
                     <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Device}" />
                 </ui:FASettingsExpander.IconSource>
@@ -41,8 +41,8 @@
 
         <Border IsEnabled="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
             <ui:FASettingsExpander
-                Description="{Binding Path=Res.Advertisement_NoShow_Tip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-                Header="{Binding Path=Res.Advertisement_NoShow, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Description="{x:Static spp:Strings.Advertisement_NoShow_Tip}"
+                Header="{x:Static spp:Strings.Advertisement_NoShow}"
                 IsEnabled="{Binding Path=User?.UserType, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:UserType.Sponsor}}">
                 <ui:FASettingsExpander.IconSource>
                     <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource HeartBroken}" />
@@ -54,8 +54,8 @@
         </Border>
 
         <spp:OptionsDisplayItem
-            Description="{Binding Path=Res.Settings_UI_ThemeStyle, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-            Header="{Binding Path=Res.Settings_Theme, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Description="{x:Static spp:Strings.Settings_UI_ThemeStyle}"
+            Header="{x:Static spp:Strings.Settings_Theme}"
             Icon="DarkTheme">
             <spp:OptionsDisplayItem.ActionButton>
                 <ComboBox SelectedItem="{Binding Source={x:Static ms:UISettings.Theme}, Path=Value, Mode=TwoWay, Converter={StaticResource EnumConverter}, ConverterParameter={x:Type spp:AppTheme}}">
@@ -73,16 +73,16 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
         <spp:OptionsDisplayItem
-            Description="{Binding Path=Res.Settings_UI_AccentColor, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Description="{x:Static spp:Strings.Settings_UI_AccentColor}"
             Expands="True"
-            Header="{Binding Path=Res.Settings_ThemeAccent, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Header="{x:Static spp:Strings.Settings_ThemeAccent}"
             Icon="ColorLine"
             IsExpanded="{Binding Path=IsChecked, ElementName=AccentCustom, Mode=OneWay}">
             <spp:OptionsDisplayItem.ActionButton>
                 <StackPanel Orientation="Horizontal" Spacing="10">
-                    <RadioButton Content="{Binding Path=Res.Settings_UI_SystemDefault, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsChecked="{Binding Source={x:Static ms:UISettings.UseSystemThemeAccent}, Path=Value, Mode=TwoWay}" />
+                    <RadioButton Content="{x:Static spp:Strings.Settings_UI_SystemDefault}" IsChecked="{Binding Source={x:Static ms:UISettings.UseSystemThemeAccent}, Path=Value, Mode=TwoWay}" />
                     <RadioButton
-                        Content="{Binding Path=Res.Settings_UI_Custom, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                        Content="{x:Static spp:Strings.Settings_UI_Custom}"
                         IsChecked="{Binding Source={x:Static ms:UISettings.UseSystemThemeAccent}, Path=!Value, Mode=OneWay}"
                         x:Name="AccentCustom" />
                 </StackPanel>
@@ -92,7 +92,7 @@
                     <DockPanel LastChildFill="False" Margin="24,0,0,6">
                         <TextBlock
                             DockPanel.Dock="Left"
-                            Text="{Binding Path=Res.Settings_UI_PreviewColor, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Text="{x:Static spp:Strings.Settings_UI_PreviewColor}"
                             VerticalAlignment="Center" />
 
                         <Grid
@@ -193,7 +193,7 @@
                         Margin="-20" />
 
 
-                    <TextBlock Margin="24,24,0,0" Text="Windows 颜色" />
+                    <TextBlock Margin="24,24,0,0" Text="{x:Static spp:Strings.L10nApp_WindowsColors}" />
 
                     <ListBox
                         AutoScrollToSelectedItem="False"
@@ -268,7 +268,7 @@
                     <DockPanel LastChildFill="False" Margin="24,6,0,0">
                         <TextBlock
                             DockPanel.Dock="Left"
-                            Text="{Binding Path=Res.Settings_UI_CustomColor, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Text="{x:Static spp:Strings.Settings_UI_CustomColor}"
                             VerticalAlignment="Center" />
 
                         <ColorPicker Color="{Binding Source={x:Static ms:UISettings.ThemeAccent}, Converter={StaticResource ColorStringToBrushConverter}, Path=Value, Mode=TwoWay}" DockPanel.Dock="Right" />
@@ -278,8 +278,8 @@
         </spp:OptionsDisplayItem>
 
         <spp:OptionsDisplayItem
-            Description="{Binding Path=Res.Settings_UI_DefaultLanguage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-            Header="{Binding Path=Res.Settings_Language, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Description="{x:Static spp:Strings.Settings_Language_RestartRequired}"
+            Header="{x:Static spp:Strings.Settings_Language}"
             Navigates="False">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
@@ -299,8 +299,8 @@
         </spp:OptionsDisplayItem>
 
         <spp:OptionsDisplayItem
-            Description="{Binding Path=Res.Settings_UI_DefaultFonts, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-            Header="{Binding Path=Res.Settings_Fonts, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Description="{x:Static spp:Strings.Settings_UI_DefaultFonts}"
+            Header="{x:Static spp:Strings.Settings_Fonts}"
             Icon="Font"
             Navigates="False">
             <spp:OptionsDisplayItem.ActionButton>
@@ -322,8 +322,8 @@
         </spp:OptionsDisplayItem>
 
         <spp:OptionsDisplayItem
-            Description="{Binding Path=Res.Settings_UI_WindowBackgroundStyle, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
-            Header="{Binding Path=Res.Settings_UI_WindowTransparencyMaterial, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Description="{x:Static spp:Strings.Settings_UI_WindowBackgroundStyle}"
+            Header="{x:Static spp:Strings.Settings_UI_WindowTransparencyMaterial}"
             Navigates="False">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF4A5;" />
@@ -345,7 +345,7 @@
             </spp:OptionsDisplayItem.ActionButton>
         </spp:OptionsDisplayItem>
 
-        <spp:OptionsDisplayItem Header="{Binding Path=Res.Settings_UI_BackgroundOpacity, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" Navigates="False">
+        <spp:OptionsDisplayItem Header="{x:Static spp:Strings.Settings_UI_BackgroundOpacity}" Navigates="False">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE706;" />
             </spp:OptionsDisplayItem.Icon>
@@ -360,7 +360,7 @@
 
         <spp:OptionsDisplayItem
             Expands="True"
-            Header="{Binding Path=Res.Settings_UI_CustomBackgroundImage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+            Header="{x:Static spp:Strings.Settings_UI_CustomBackgroundImage}"
             IsExpanded="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImage}, Path=Value, Mode=OneWay}"
             Navigates="False">
             <spp:OptionsDisplayItem.Icon>
@@ -375,7 +375,7 @@
                     <DockPanel LastChildFill="False" Margin="24,0,0,6">
                         <TextBlock
                             DockPanel.Dock="Left"
-                            Text="{Binding Path=Res.PreviewPictures, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Text="{x:Static spp:Strings.PreviewPictures}"
                             VerticalAlignment="Center" />
 
                         <Image
@@ -397,7 +397,7 @@
                     <DockPanel LastChildFill="False" Margin="24,6,0,6">
                         <TextBlock
                             DockPanel.Dock="Left"
-                            Text="{Binding Path=Res.Settings_UI_BackgroundImageOpacity, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Text="{x:Static spp:Strings.Settings_UI_BackgroundImageOpacity}"
                             VerticalAlignment="Center" />
                         <Slider
                             DockPanel.Dock="Right"
@@ -416,11 +416,11 @@
                     <DockPanel LastChildFill="False" Margin="24,6,0,6">
                         <TextBlock
                             DockPanel.Dock="Left"
-                            Text="{Binding Path=Res.SelectPicture, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Text="{x:Static spp:Strings.SelectPicture}"
                             VerticalAlignment="Center" />
                         <Button
                             Command="{Binding SelectImage_Click}"
-                            Content="{Binding Path=Res.Settings_UI_SelectImage, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Content="{x:Static spp:Strings.Settings_UI_SelectImage}"
                             DockPanel.Dock="Right"
                             MinWidth="150" />
                     </DockPanel>
@@ -433,7 +433,7 @@
                     <DockPanel LastChildFill="False" Margin="24,6,0,0">
                         <TextBlock
                             DockPanel.Dock="Left"
-                            Text="{Binding Path=Res.PictureZoom, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Text="{x:Static spp:Strings.PictureZoom}"
                             VerticalAlignment="Center" />
                         <ComboBox
                             DockPanel.Dock="Right"
@@ -451,7 +451,7 @@
             </spp:OptionsDisplayItem.Content>
         </spp:OptionsDisplayItem>
 
-        <ui:FASettingsExpander Description="拖拽调整所有插件的菜单顺序" Header="功能菜单排序">
+        <ui:FASettingsExpander Description="{x:Static spp:Strings.L10nApp_MenuOrderDescription}" Header="{x:Static spp:Strings.L10nApp_MenuOrder}">
             <ui:FASettingsExpander.IconSource>
                 <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Sort}" />
             </ui:FASettingsExpander.IconSource>

@@ -17,7 +17,7 @@
     <spp:ContentLoader
         IsLoading="False"
         IsShowNoResultText="{Binding IsAuthorizedListEmpty}"
-        NoResultMessage="{Binding Path=Res.SteamAccountPage_ShareEmpt, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+        NoResultMessage="{x:Static spp:Strings.SteamAccountPage_ShareEmpt}">
         <ScrollViewer>
             <ItemsControl Classes="DraggableOrder" ItemsSource="{Binding AuthorizedList}">
                 <ItemsControl.ItemsPanel>
@@ -30,7 +30,7 @@
                         <spp:AppItem
                             Title="{Binding SteamNickName}"
                             MaxHeight="92"
-                            Status="{Binding Path=Res.Disabled, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                            Status="{x:Static spp:Strings.Disabled}"
                             Tags="{Binding TimeusedTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}">
                             <spp:AppItem.MoreFlyout>
                                 <ui:FAMenuFlyout>
@@ -46,12 +46,12 @@
                                             Command="{Binding $parent[UserControl].((spp:SteamFamilyShareManagePageViewModel)DataContext).DownButton_Click}"
                                             CommandParameter="{Binding}"
                                             Text="下移" />-->
-                                    <ui:FAMenuFlyoutItem IsEnabled="False" Text="拖拽可排序" />
+                                    <ui:FAMenuFlyoutItem IsEnabled="False" Text="{x:Static spp:Strings.L10nGames_DragToSort}" />
                                     <ui:FAMenuFlyoutSeparator />
                                     <ui:FAMenuFlyoutItem
                                         Command="{Binding $parent[UserControl].((spp:SteamFamilyShareManagePageViewModel)DataContext).RemoveButton_Click}"
                                         CommandParameter="{Binding}"
-                                        Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                        Text="{x:Static spp:Strings.Delete}" />
                                 </ui:FAMenuFlyout>
                             </spp:AppItem.MoreFlyout>
                             <spp:AppItem.Status>

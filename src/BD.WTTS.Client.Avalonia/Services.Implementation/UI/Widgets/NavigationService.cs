@@ -27,21 +27,14 @@ public sealed class NavigationService : INavigationService
             name = viewModel.GetType().Name;
         }
 
-        var type = name switch
+        return name switch
         {
-            nameof(DebugPageViewModel) => typeof(DebugPage),
-            nameof(TextBoxWindowViewModel) => typeof(TextInputDialogPage),
-            nameof(MessageBoxWindowViewModel) => typeof(MessageBoxPage),
-            nameof(LoginOrRegisterWindowViewModel) => typeof(LoginOrRegisterPage),
+            nameof(DebugPageViewModel) => isCreateInstance ? new DebugPage() : typeof(DebugPage),
+            nameof(TextBoxWindowViewModel) => isCreateInstance ? new TextInputDialogPage() : typeof(TextInputDialogPage),
+            nameof(MessageBoxWindowViewModel) => isCreateInstance ? new MessageBoxPage() : typeof(MessageBoxPage),
+            nameof(LoginOrRegisterWindowViewModel) => isCreateInstance ? new LoginOrRegisterPage() : typeof(LoginOrRegisterPage),
             _ => null,
         };
-
-        if (isCreateInstance && type != null)
-        {
-            return Activator.CreateInstance(type);
-        }
-
-        return type;
     }
 
     public void SetFrame(Frame f)
@@ -60,6 +53,22 @@ public sealed class NavigationService : INavigationService
         }
     }
 
+    internal void ResetFrame()
+    {
+        if (_frame != null)
+            _frame.NavigationFailed -= OnNavigationFailed;
+        _frame = null;
+        _overlayHost?.Children.Clear();
+        _overlayHost = null;
+        pendingNavigation = null;
+    }
+
+    internal void DetachFrame(Frame frame)
+    {
+        if (ReferenceEquals(_frame, frame))
+            ResetFrame();
+    }
+
     static void OnNavigationFailed(object? sender, FluentAvalonia.UI.Navigation.FANavigationFailedEventArgs e)
     {
         Log.Error(nameof(NavigationService), e.Exception, "Page navigation failed.");
@@ -73,7 +82,7 @@ public sealed class NavigationService : INavigationService
         _overlayHost = p;
     }
 
-    public void Navigate(Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None, bool useCache = true)
+    public void Navigate([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None, bool useCache = true)
     {
         if (_frame == null)
         {

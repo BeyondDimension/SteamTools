@@ -90,7 +90,7 @@ partial class MacCatalystPlatformServiceImpl
                    "/Library/Keychains/System.keychain",
                    filePath
                    });
-        ShowRootCommandError(code, "安装证书：{0}");
+        ShowRootCommandError(code, Strings.L10nCore_CertificateInstallResult);
         return code == 0;
     }
 
@@ -125,7 +125,7 @@ partial class MacCatalystPlatformServiceImpl
         using (var auth = Authorization.Create(defaults))
         {
             if (auth == null)
-                Toast.Show(ToastIcon.Error, "获取授权出错");
+                Toast.Show(ToastIcon.Error, Strings.L10nCore_AuthorizationError);
             Console.WriteLine($"{path} {string.Join(" ", args)}");
             return auth.ExecuteWithPrivileges(path!, AuthorizationFlags.Defaults, args);
         }
@@ -140,11 +140,11 @@ partial class MacCatalystPlatformServiceImpl
             switch (authStatus)
             {
                 case AuthorizationStatus.Canceled:
-                    Toast.Show(ToastIcon.Warning, msg.Format("授权被取消!"));
+                    Toast.Show(ToastIcon.Warning, msg.Format(Strings.L10nCore_AuthorizationCanceled));
                     return;
                 case AuthorizationStatus.ToolExecuteFailure:
                 default:
-                    Toast.Show(ToastIcon.Error, msg.Format("执行命令失败!"));
+                    Toast.Show(ToastIcon.Error, msg.Format(Strings.L10nCore_CommandExecutionFailed));
                     return;
 
             }
@@ -164,7 +164,7 @@ partial class MacCatalystPlatformServiceImpl
             return;
         // -t 删除证书信任 -Z 删除证书  -c 根据名字删除证书
         var code = RunRootCommand(SecurityPath, new string[] { "delete-certificate", "-t", "-Z", cert.GetCertHashStringCompat(HashAlgorithmName.SHA1) });
-        ShowRootCommandError(code, "删除证书：{0}");
+        ShowRootCommandError(code, Strings.L10nCore_CertificateRemoveResult);
     }
     //public static int RemoveCertificate(X509CertificatePackable certificate2)
     //{

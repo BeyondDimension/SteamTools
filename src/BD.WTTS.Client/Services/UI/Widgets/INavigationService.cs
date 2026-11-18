@@ -6,7 +6,7 @@ public interface INavigationService
 
     object? GetViewModelToPageContent(object viewModel, bool isCreateInstance = true);
 
-    void Navigate(Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None, bool useCache = true);
+    void Navigate([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type? t, NavigationTransitionEffect effect = NavigationTransitionEffect.None, bool useCache = true);
 
     void GoBack(Type? t = null);
 

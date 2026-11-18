@@ -179,7 +179,7 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
         }
 
         using var viewModel = new SteamQrLoginPageViewModel(this);
-        await IWindowManager.Instance.ShowTaskDialogAsync(viewModel, "扫描二维码登录 Steam",
+        await IWindowManager.Instance.ShowTaskDialogAsync(viewModel, Strings.L10nAuthIdle_Text072,
             pageContent: new SteamQrLoginPage(), isOkButton: false);
     }
 

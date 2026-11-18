@@ -22,7 +22,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 
 namespace ArchiSteamFarm.IPC.Requests;
 
@@ -36,10 +36,11 @@ public sealed class BotGamesToRedeemInBackgroundRequest
     ///     Key in the map must be a valid and unique Steam cd-key.
     ///     Value in the map must be a non-null and non-empty name of the key (e.g. game's name, but can be anything).
     /// </remarks>
-    [JsonProperty(Required = Required.Always)]
+    [STJ.JsonInclude]
+    [STJ.JsonRequired]
     [Required]
     public OrderedDictionary GamesToRedeemInBackground { get; set; } = new();
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public BotGamesToRedeemInBackgroundRequest() { }
 }

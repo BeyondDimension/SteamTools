@@ -4,10 +4,16 @@ using static BD.WTTS.ApiConstants;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class ExternalLoginChannelViewModel : RIdTitleIconViewModel<string, ResIcon>
+public sealed class ExternalLoginChannelViewModel : IdTitleIconViewModel<string, ResIcon>
 {
     ExternalLoginChannelViewModel()
     {
+    }
+
+    public override string Title
+    {
+        get => GetTitleById(Id);
+        set => base.Title = value;
     }
 
     Color iconBgColor;
@@ -76,14 +82,9 @@ public sealed class ExternalLoginChannelViewModel : RIdTitleIconViewModel<string
     /// 创建实例
     /// </summary>
     /// <param name="id"></param>
-    /// <param name="vm"></param>
     /// <returns></returns>
-    public static ExternalLoginChannelViewModel Create(string id, IDisposableHolder vm)
-    {
-        ExternalLoginChannelViewModel r = new() { Id = id, };
-        r.OnBind(vm);
-        return r;
-    }
+    public static ExternalLoginChannelViewModel Create(string id)
+        => new() { Id = id };
 }
 
 public partial class LoginOrRegisterWindowViewModel

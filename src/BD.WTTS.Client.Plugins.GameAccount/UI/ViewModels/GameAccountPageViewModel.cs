@@ -76,10 +76,10 @@ public sealed partial class GameAccountPageViewModel
     {
         if (AssetLoader.Exists(PlatformsPath))
         {
-            var stream = AssetLoader.Open(PlatformsPath);
+            using var stream = AssetLoader.Open(PlatformsPath);
             if (stream == null) return null;
 
-            var platforms = SJsonSerializer.Deserialize<PlatformAccount[]>(stream);
+            var platforms = SJsonSerializer.Deserialize(stream, GameAccountJsonContext.Default.PlatformAccountArray);
             if (platforms == null) return null;
 
             foreach (var platform in platforms)

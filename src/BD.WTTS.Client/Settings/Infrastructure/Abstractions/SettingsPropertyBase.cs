@@ -65,8 +65,11 @@ public abstract class SettingsPropertyBase
     {
         lock (settingsStateLock)
         {
-            foreach (string item in SettingsProperties[settingsType])
-                SaveNameStatus[(settingsType, item)] = true;
+            if (SettingsProperties.TryGetValue(settingsType, out var propertyNames))
+            {
+                foreach (string item in propertyNames)
+                    SaveNameStatus[(settingsType, item)] = true;
+            }
         }
     }
 }

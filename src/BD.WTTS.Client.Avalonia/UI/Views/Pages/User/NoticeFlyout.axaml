@@ -17,12 +17,12 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             IsVisible="{Binding Path=!!!Notices.Count, Mode=OneWay, Source={x:Static s:NoticeService.Current}}"
-            Text="当前没有通知消息"
+            Text="{x:Static spp:Strings.L10nApp_NoNotifications}"
             Theme="{StaticResource BodyStrongTextBlockStyle}" />
         <DockPanel>
             <!--<Button
             Margin="0,0,0,5"
-            Content="{Binding Path=Res.Notice_AllMarkHasRead,Mode=OneWay,Source={x:Static s:ResourceService.Current}}"
+            Content="{x:Static spp:Strings.Notice_AllMarkHasRead}"
             Cursor="Hand"
             DockPanel.Dock="Top"
             Theme="{StaticResource HyperlinkButton}" />-->

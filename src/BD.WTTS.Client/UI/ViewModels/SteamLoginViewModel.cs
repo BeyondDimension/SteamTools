@@ -146,8 +146,9 @@ public sealed class SteamLoginViewModel : ViewModelBase
             GuardCode = null;
             NotifyChallenge();
             if (state.Success) await CompleteAsync(state, token);
-            else StatusMessage = state.Message ?? (RequiresManualGuardCode ? "请输入 Steam 令牌或邮箱验证码后继续。" :
-                RequiresGuardCode ? "自动令牌验证未完成，请重试或返回。" : "Steam 登录失败，请重试。");
+            else if (state.Message != null) StatusMessage = state.Message;
+            else StatusMessage = RequiresManualGuardCode ? Strings.L10nCore_SteamManualGuard :
+                RequiresGuardCode ? Strings.L10nCore_SteamAutomaticGuard : Strings.L10nCore_SteamLoginFailed;
         });
     }
 
@@ -171,7 +172,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
     {
         var code = provider(state)?.Trim();
         if (string.IsNullOrWhiteSpace(code))
-            throw new InvalidOperationException("无法获取当前令牌验证码，请检查令牌后重试。");
+            throw new InvalidOperationException(Strings.L10nCore_SteamGuardUnavailable);
         return code.ToUpperInvariant();
     }
 
@@ -209,7 +210,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
         var token = source.Token;
         IsQrBusy = true;
         HasQrError = false;
-        QrStatusMessage = "正在获取 Steam 登录二维码…";
+        QrStatusMessage = Strings.L10nCore_SteamQrLoading;
         SetQrImage(null);
         var uiScheduler = SynchronizationContext.Current == null ? TaskScheduler.Current : TaskScheduler.FromCurrentSynchronizationContext();
         try
@@ -223,13 +224,13 @@ public sealed class SteamLoginViewModel : ViewModelBase
                     token.ThrowIfCancellationRequested();
                     if (!Uri.TryCreate(response.ChallengeUrl, UriKind.Absolute, out var url) ||
                         url.Scheme != Uri.UriSchemeHttps || url.Host != "s.team" || !url.AbsolutePath.StartsWith("/q/", StringComparison.Ordinal))
-                        throw new InvalidOperationException("Steam 返回的登录二维码无效。");
+                        throw new InvalidOperationException(Strings.L10nCore_SteamQrInvalid);
                     var (result, stream, error) = QRCodeHelper.CreateLoginCode(response.ChallengeUrl);
                     if (result != QRCodeHelper.QRCodeCreateResult.Success || stream == null)
-                        throw new InvalidOperationException("无法生成 Steam 登录二维码。", error);
+                        throw new InvalidOperationException(Strings.L10nCore_SteamQrCreateFailed, error);
                     SetQrImage(stream);
                     rendered = true;
-                    QrStatusMessage = "请使用 Steam 手机客户端扫描，并在手机上确认登录。";
+                    QrStatusMessage = Strings.L10nCore_SteamQrScan;
                     return true;
                 }, token, TaskCreationOptions.None, uiScheduler);
                 var request = requireMobileSession
@@ -251,13 +252,13 @@ public sealed class SteamLoginViewModel : ViewModelBase
                 }
                 if (!rendered)
                 {
-                    QrStatusMessage = state.Message ?? "无法获取 Steam 登录二维码，请重试。";
+                    QrStatusMessage = state.Message ?? Strings.L10nCore_SteamQrUnavailable;
                     HasQrError = true;
                     return;
                 }
                 // Once displayed, the service returns without success when its challenge expires.
                 SetQrImage(null);
-                QrStatusMessage = "二维码已过期，正在重新获取…";
+                QrStatusMessage = Strings.L10nCore_SteamQrExpired;
                 await Task.Delay(TimeSpan.FromSeconds(1), token);
             }
         }
@@ -266,7 +267,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
         {
             if (!source.IsCancellationRequested)
             {
-                QrStatusMessage = ex is InvalidOperationException ? ex.Message : "无法获取 Steam 登录二维码，请检查网络后重试。";
+                QrStatusMessage = ex is InvalidOperationException ? ex.Message : Strings.L10nCore_SteamQrNetwork;
                 HasQrError = true;
             }
         }
@@ -300,7 +301,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
             token.ThrowIfCancellationRequested();
             SavedAccounts = accounts;
             if (SavedAccounts.Count == 0)
-                StatusMessage = "没有可用的交易确认登录状态。请先在令牌插件的“确认交易”中登录，然后重新读取令牌。";
+                StatusMessage = Strings.L10nCore_SteamNoSavedAccount;
         });
     }
 
@@ -313,9 +314,9 @@ public sealed class SteamLoginViewModel : ViewModelBase
             var session = await selected.CreateSessionAsync(token);
             token.ThrowIfCancellationRequested();
             if (session.SteamId != selected.SteamId.ToString(CultureInfo.InvariantCulture) || string.IsNullOrWhiteSpace(session.AccessToken))
-                throw new InvalidOperationException("返回的 Steam 登录状态与所选账号不匹配，请重新读取令牌。");
+                throw new InvalidOperationException(Strings.L10nCore_SteamAccountMismatch);
             if (!sessions.AddOrSetSeesion(session))
-                throw new InvalidOperationException("无法创建 Steam 登录会话。");
+                throw new InvalidOperationException(Strings.L10nCore_SteamSessionCreateFailed);
             UsedQrCode = HadTwoFactorChallenge = UsedAutomaticTwoFactor = false;
             await CompleteAsync(new SteamLoginState
             {
@@ -332,7 +333,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
         if (IsBusy || Disposed || !AllowCookieLogin) return;
         if (string.IsNullOrWhiteSpace(SessionId) || string.IsNullOrWhiteSpace(SteamLoginSecure))
         {
-            StatusMessage = "请输入 sessionid 和 steamLoginSecure。";
+            StatusMessage = Strings.L10nCore_SteamCookieRequired;
             return;
         }
         await RunAsync(async token =>
@@ -340,7 +341,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
             var parts = Uri.UnescapeDataString(SteamLoginSecure.Trim()).Split("||", StringSplitOptions.None);
             if (parts.Length != 2 || !ulong.TryParse(parts[0], out var steamId) || steamId == 0 || string.IsNullOrWhiteSpace(parts[1]))
             {
-                StatusMessage = "steamLoginSecure 格式无效。";
+                StatusMessage = Strings.L10nCore_SteamCookieInvalid;
                 return;
             }
             var cookies = new CookieContainer();
@@ -351,7 +352,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
             }
             var session = new SteamSession { SteamId = steamId.ToString(CultureInfo.InvariantCulture), AccessToken = parts[1], RefreshToken = string.Empty, CookieContainer = cookies };
             if (!sessions.AddOrSetSeesion(session))
-                throw new InvalidOperationException("无法创建 Steam 登录会话。");
+                throw new InvalidOperationException(Strings.L10nCore_SteamSessionCreateFailed);
             UsedQrCode = false;
             HadTwoFactorChallenge = false;
             UsedAutomaticTwoFactor = false;
@@ -363,7 +364,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
     {
         token.ThrowIfCancellationRequested();
         if (state.SteamId == 0 || string.IsNullOrEmpty(state.AccessToken))
-            throw new InvalidOperationException("Steam 未返回有效的登录会话。");
+            throw new InvalidOperationException(Strings.L10nCore_SteamSessionInvalid);
         var saved = true;
         if (RememberLogin)
         {
@@ -399,7 +400,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
         Password = GuardCode = null;
         pendingState = new();
         NotifyChallenge();
-        StatusMessage = saved ? "Steam 登录成功。" : "Steam 登录成功，但未能保存登录状态。";
+        StatusMessage = saved ? Strings.L10nCore_SteamLoginSuccess : Strings.L10nCore_SteamLoginSaveFailed;
         SetQrImage(null);
         try
         {
@@ -435,7 +436,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
             pendingState.TwofactorCode = pendingState.EmailCode = null;
             GuardCode = null;
             NotifyChallenge();
-            StatusMessage = ex is InvalidOperationException ? ex.Message : "无法完成 Steam 登录，请检查网络后重试。";
+            StatusMessage = ex is InvalidOperationException ? ex.Message : Strings.L10nCore_SteamLoginNetwork;
         }
         finally
         {
@@ -454,7 +455,7 @@ public sealed class SteamLoginViewModel : ViewModelBase
 
     public void Cancel()
     {
-        if (operation != null) StatusMessage = "已取消 Steam 登录，可以重新选择登录方式。";
+        if (operation != null) StatusMessage = Strings.L10nCore_SteamLoginCanceled;
         operation?.Cancel();
         pendingState = new();
         UsedAutomaticTwoFactor = false;

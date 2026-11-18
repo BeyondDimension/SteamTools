@@ -43,13 +43,13 @@
                                 <spp:AppItem.Status>
                                     <Panel>
                                         <Border Classes="Status" IsVisible="{Binding IsExist}">
-                                            <TextBlock Text="{Binding Path=Res.Installed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                            <TextBlock Text="{x:Static spp:Strings.Installed}" />
                                         </Border>
                                         <Button
                                             Classes="accent"
                                             Command="{Binding $parent[UserControl].((spp:ScriptStorePageViewModel)DataContext).DownloadScriptItemCommand}"
                                             CommandParameter="{Binding}"
-                                            Content="获取"
+                                            Content="{x:Static spp:Strings.L10nAccel_072}"
                                             IsVisible="{Binding DownloadButtonLoading}" />
                                         <ProgressBar
                                             Width="30"
@@ -65,11 +65,11 @@
                                             Command="{Binding $parent[UserControl].((spp:ScriptStorePageViewModel)DataContext).DownloadScriptItemCommand}"
                                             CommandParameter="{Binding}"
                                             IsVisible="{Binding IsUpdate}"
-                                            Text="更新" />
+                                            Text="{x:Static spp:Strings.L10nAccel_073}" />
                                         <ui:FAMenuFlyoutItem
                                             Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                                             CommandParameter="{Binding SourceLink}"
-                                            Text="{Binding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                            Text="{x:Static spp:Strings.Script_Home}" />
                                     </ui:FAMenuFlyout>
                                 </spp:AppItem.MoreFlyout>
                                 <spp:AppItem.Image>

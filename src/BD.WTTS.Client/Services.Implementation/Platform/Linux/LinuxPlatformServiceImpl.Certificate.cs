@@ -30,7 +30,7 @@ namespace BD.WTTS.Services.Implementation
             }
             catch (Exception e)
             {
-                Toast.Show(ToastIcon.Error, $"检测证书安装错误:{e}");
+                Toast.Show(ToastIcon.Error, string.Format(Strings.L10nCore_CertificateCheckError, e));
                 return false;
             }
         }
@@ -124,7 +124,7 @@ namespace BD.WTTS.Services.Implementation
             }
             catch (Exception e)
             {
-                Toast.Show(ToastIcon.Error, $"安装证书错误:{e}");
+                Toast.Show(ToastIcon.Error, string.Format(Strings.L10nCore_CertificateInstallError, e));
                 return false;
             }
         }
@@ -163,7 +163,7 @@ namespace BD.WTTS.Services.Implementation
             }
             catch (Exception e)
             {
-                Toast.Show(ToastIcon.Error, $"删除证书错误:{e}");
+                Toast.Show(ToastIcon.Error, string.Format(Strings.L10nCore_CertificateRemoveError, e));
                 return;
             }
         }

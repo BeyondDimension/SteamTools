@@ -120,6 +120,12 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
         NavView.IsBackButtonVisible = FrameView.BackStackDepth > 0;
     }
 
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        NavigationService.Instance.DetachFrame(FrameView);
+        base.OnDetachedFromVisualTree(e);
+    }
+
     private void OnNavigationViewBackRequested(object? sender, NavigationViewBackRequestedEventArgs e)
     {
         NavigationService.Instance.GoBack();

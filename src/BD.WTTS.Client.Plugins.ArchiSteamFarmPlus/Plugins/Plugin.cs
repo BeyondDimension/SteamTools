@@ -22,9 +22,13 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override string Name => BDStrings.ArchiSteamFarmPlus;
 
+    public override string? NameResourceKey => nameof(BD.WTTS.Client.Resources.Strings.ArchiSteamFarmPlus);
+
     protected sealed override string? AuthorOriginalString => null;
 
-    public sealed override string Description => moduleName + " 控制台功能实现";
+    public sealed override string Description => BD.WTTS.Client.Resources.Strings.L10nAsf_Text105;
+
+    public override string? DescriptionResourceKey => nameof(BD.WTTS.Client.Resources.Strings.L10nAsf_Text105);
 
     public sealed override object? Icon => Resources.asf;
 

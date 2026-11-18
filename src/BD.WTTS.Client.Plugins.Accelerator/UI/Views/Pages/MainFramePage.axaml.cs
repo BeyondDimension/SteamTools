@@ -11,9 +11,13 @@ public partial class MainFramePage : UserControl
     int lastIndex = -1;
     int waitingGeneration;
 
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(AcceleratorPage2))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(ScriptPage))]
     public MainFramePage()
     {
         InitializeComponent();
+        InnerNavFrame.NavigationFailed += (_, args) => Log.Error(nameof(MainFramePage), args.Exception,
+            "Could not navigate to nested page {page}.", args.SourcePageType?.FullName);
 
         //Tabs.Items.Add(new TabStripItem { Content = Strings.CommunityFix, Tag = typeof(AcceleratorPage) });
         //Tabs.Items.Add(new TabStripItem { Content = Strings.ScriptConfig, Tag = typeof(ScriptPage) });

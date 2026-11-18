@@ -13,9 +13,9 @@
     <Panel>
         <StackPanel Name="WaitingForService" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12" ZIndex="1" MaxWidth="420" Margin="20">
             <ProgressBar Name="ServiceProgress" Width="45" Height="45" Classes="Circle" IsIndeterminate="True" />
-            <TextBlock Name="ServiceLoadingText" HorizontalAlignment="Center" Text="{Binding Path=Res.Loading, Source={x:Static s:ResourceService.Current}}" />
-            <TextBlock Name="ServiceErrorText" IsVisible="False" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="无法连接加速服务。请检查加速组件是否正常启动，并允许管理员权限，然后重试。" />
-            <Button Name="RetryServiceButton" IsVisible="False" HorizontalAlignment="Center" Content="重试连接" Click="RetryServiceButton_Click" />
+            <TextBlock Name="ServiceLoadingText" HorizontalAlignment="Center" Text="{x:Static spp:Strings.Loading}" />
+            <TextBlock Name="ServiceErrorText" IsVisible="False" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="{x:Static spp:Strings.L10nAccel_068}" />
+            <Button Name="RetryServiceButton" IsVisible="False" HorizontalAlignment="Center" Content="{x:Static spp:Strings.L10nAccel_069}" Click="RetryServiceButton_Click" />
         </StackPanel>
         <TabStrip
             Name="Tabs"
@@ -47,13 +47,13 @@
                             Height="24"
                             Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/accelerator.ico" />
                     </Border>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.CommunityFix, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.CommunityFix}" />
                 </WrapPanel>
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:AcceleratorPage2" />
                 </TabStripItem.Tag>
             </TabStripItem>
-            <!--<TabStripItem Content="{Binding Path=Res.CommunityFix, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+            <!--<TabStripItem Content="{x:Static spp:Strings.CommunityFix}">
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:AcceleratorPage" />
                 </TabStripItem.Tag>
@@ -69,7 +69,7 @@
                             Height="24"
                             Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico" />
                     </Border>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Res.ScriptConfig, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.ScriptConfig}" />
                 </WrapPanel>
                 <TabStripItem.Tag>
                     <x:Type TypeName="spp:ScriptPage" />

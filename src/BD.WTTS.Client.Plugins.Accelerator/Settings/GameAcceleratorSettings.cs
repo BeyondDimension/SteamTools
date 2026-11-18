@@ -1,7 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings;
 
-[JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true)]
+[JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true, UseStringEnumConverter = true)]
 [JsonSerializable(typeof(GameAcceleratorSettings_))]
 internal partial class GameAcceleratorSettingsContext : JsonSerializerContext
 {

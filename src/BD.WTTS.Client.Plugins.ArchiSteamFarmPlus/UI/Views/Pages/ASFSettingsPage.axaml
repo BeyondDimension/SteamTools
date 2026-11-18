@@ -8,11 +8,11 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    Title="ASF 配置"
+    Title="{x:Static spp:Strings.L10nAsf_Text008}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="spp:ASFSettingsPageViewModel"
-    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Description="{x:Static spp:Strings.L10nAsf_Text105}"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
@@ -36,7 +36,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="导入配置" />
+                        Text="{x:Static spp:Strings.L10nAsf_Text009}" />
                 </Panel>
             </Button>
             <Button
@@ -55,7 +55,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="设置 ASF 安全密钥" />
+                        Text="{x:Static spp:Strings.L10nAsf_Text010}" />
                 </Panel>
             </Button>
             <Button
@@ -74,7 +74,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="刷新全局配置" />
+                        Text="{x:Static spp:Strings.L10nAsf_Text011}" />
                 </Panel>
             </Button>
         </StackPanel>
@@ -84,10 +84,10 @@
         <StackPanel Spacing="{StaticResource SettingsSpacing}">
             <TextBlock
                 Margin="0,0,0,10"
-                Text="ASF 全局配置"
+                Text="{x:Static spp:Strings.L10nAsf_Text012}"
                 Theme="{StaticResource SubtitleTextBlockStyle}" />
             <ui:FASettingsExpander
-                Header="文件位置"
+                Header="{x:Static spp:Strings.L10nAsf_Text013}"
                 IconSource="Globe"
                 IsClickEnabled="False"
                 IsExpanded="True">
@@ -98,37 +98,37 @@
                     <Button
                         Command="{Binding OpenASFFolder}"
                         CommandParameter="ASF"
-                        Content="打开文件所在位置" />
+                        Content="{x:Static spp:Strings.L10nAsf_Text014}" />
                 </ui:FASettingsExpander.Footer>
 
                 <ui:FASettingsExpanderItem
                     ActionIconSource="Open"
                     Command="{Binding OpenASFFolder}"
                     CommandParameter="config"
-                    Content="配置文件文件夹"
+                    Content="{x:Static spp:Strings.L10nAsf_Text015}"
                     IsClickEnabled="True"
-                    ToolTip.Tip="{Binding Path=., Mode=OneWay, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=config}" />
+                    ToolTip.Tip="{Binding Path=., Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=config}" />
                 <ui:FASettingsExpanderItem
                     ActionIconSource="Open"
                     Command="{Binding OpenASFFolder}"
                     CommandParameter="plugin"
-                    Content="插件文件夹"
+                    Content="{x:Static spp:Strings.L10nAsf_Text016}"
                     IsClickEnabled="True"
-                    ToolTip.Tip="{Binding Path=., Mode=OneWay, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=plugin}" />
+                    ToolTip.Tip="{Binding Path=., Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=plugin}" />
                 <ui:FASettingsExpanderItem
                     ActionIconSource="Open"
                     Command="{Binding OpenASFFolder}"
                     CommandParameter="Logs"
-                    Content="日志文件夹"
+                    Content="{x:Static spp:Strings.L10nAsf_Text017}"
                     IsClickEnabled="True"
-                    ToolTip.Tip="{Binding Path=., Mode=OneWay, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=Logs}" />
+                    ToolTip.Tip="{Binding Path=., Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=Logs}" />
                 <ui:FASettingsExpanderItem
                     ActionIconSource="Open"
                     Command="{Binding OpenASFFolder}"
                     CommandParameter="www"
-                    Content="WEBUI 文件夹"
+                    Content="{x:Static spp:Strings.L10nAsf_Text018}"
                     IsClickEnabled="True"
-                    ToolTip.Tip="{Binding Path=., Mode=OneWay, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=www}" />
+                    ToolTip.Tip="{Binding Path=., Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=www}" />
             </ui:FASettingsExpander>
 
             <!--<spp:OptionsDisplayItem Header="ASF 文件路径">
@@ -147,7 +147,7 @@
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>-->
 
-            <spp:OptionsDisplayItem Header="自动启动 ASF">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text019}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
                 </spp:OptionsDisplayItem.Icon>
@@ -156,7 +156,7 @@
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
-            <spp:OptionsDisplayItem Header="检查文件安全性">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text020}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE83D;" />
                 </spp:OptionsDisplayItem.Icon>
@@ -165,7 +165,7 @@
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
-            <spp:OptionsDisplayItem Header="ASF 监听端口">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text021}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE704;" />
                 </spp:OptionsDisplayItem.Icon>
@@ -174,7 +174,7 @@
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
-            <spp:OptionsDisplayItem Header="端口被占时随机端口号">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text022}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE770;" />
                 </spp:OptionsDisplayItem.Icon>
@@ -183,7 +183,7 @@
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
-            <spp:OptionsDisplayItem Header="控制台最大行数">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text023}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF2B7;" />
                 </spp:OptionsDisplayItem.Icon>
@@ -192,7 +192,7 @@
                 </spp:OptionsDisplayItem.ActionButton>
             </spp:OptionsDisplayItem>
 
-            <spp:OptionsDisplayItem Header="控制台字体大小">
+            <spp:OptionsDisplayItem Header="{x:Static spp:Strings.L10nAsf_Text024}">
                 <spp:OptionsDisplayItem.Icon>
                     <ui:FAFontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8E9;" />
                 </spp:OptionsDisplayItem.Icon>

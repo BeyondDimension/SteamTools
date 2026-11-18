@@ -30,10 +30,9 @@ public sealed partial class WindowCaptionButtons : UserControl
             subscriptions.Add(window.GetObservable(Window.WindowStateProperty).Subscribe(value =>
             {
                 MaximizeButton.Content = value == WindowState.Maximized ? "\uE923" : "\uE922";
-                MaximizeButton[!ToolTip.TipProperty] = new ReflectionBinding(value == WindowState.Maximized ? "Res.Restore" : "Res.Maximize")
-                {
-                    Source = ResourceService.Current,
-                };
+                ToolTip.SetTip(MaximizeButton, value == WindowState.Maximized
+                    ? BD.WTTS.Client.Resources.Strings.Restore
+                    : BD.WTTS.Client.Resources.Strings.Maximize);
                 IsVisible = value != WindowState.FullScreen;
             }));
         }

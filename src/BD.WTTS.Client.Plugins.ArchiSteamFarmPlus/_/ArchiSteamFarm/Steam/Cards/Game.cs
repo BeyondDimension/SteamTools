@@ -22,24 +22,24 @@
 #pragma warning disable IDE0130 // 命名空间与文件夹结构不匹配
 #pragma warning disable SA1600 // Elements should be documented
 
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 
 namespace ArchiSteamFarm.Steam.Cards;
 
 public sealed class Game : IEquatable<Game>
 {
-    [JsonProperty]
+    [STJ.JsonInclude]
     public uint AppID { get; private set; }
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     public string GameName { get; private set; } = string.Empty;
 
     internal readonly byte BadgeLevel;
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     public ushort CardsRemaining { get; internal set; }
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     public float HoursPlayed { get; internal set; }
 
     internal uint PlayableAppID { get; set; }
@@ -59,7 +59,7 @@ public sealed class Game : IEquatable<Game>
         PlayableAppID = appID;
     }
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public Game()
     {
     }

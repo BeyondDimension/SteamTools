@@ -183,7 +183,9 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
 
     internal static void ValidateNamedPipeClientConnection(object? s, NamedPipeClientConnectingEventArgs e)
     {
-#if WINDOWS
+        // The shared IPC library targets plain net11.0 and does not define WINDOWS.
+        if (!OperatingSystem.IsWindows())
+            return;
 #if DEBUG
         Log.Info(nameof(IPCSubProcessServiceImpl), "服务端正在校验命名管道客户端进程，{ClientProcessId}", e.ClientProcessId);
 #endif
@@ -202,7 +204,6 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
             Log.Error(nameof(IPCSubProcessServiceImpl), ex, "IpcConfiguration.NamedPipeClientConnecting fail");
             e.AllowConnection = false;
         }
-#endif
     }
 
     public async Task RunAsync(string moduleName, TaskCompletionSource tcs, string pipeName,
@@ -213,6 +214,9 @@ public sealed class IPCSubProcessServiceImpl : IPCSubProcessService
         {
             IpcLoggerProvider = _ => new IpcLogger_(loggerFactory, nameof(IPCSubProcessServiceImpl)),
         };
+#if WTTS_NATIVE_AOT
+        ipcCfg.IpcObjectSerializer = dotnetCampus.Ipc.Serialization.GeneratedIpcJsonSerializer.Instance;
+#endif
         ipcCfg.NamedPipeClientConnecting += ValidateNamedPipeClientConnection;
         ipcProvider = new IpcProvider(IPCSubProcessModuleService.Constants.GetClientPipeName(moduleName, pipeName), ipcCfg);
         ipcProvider.CreateIpcJoint<IPCSubProcessModuleService>(new IPCSubProcessModuleServiceImpl(this));

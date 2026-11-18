@@ -14,9 +14,13 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public sealed override string Name => Strings.UserFastChange;
 
+    public override string? NameResourceKey => nameof(Strings.UserFastChange);
+
     public sealed override string UniqueEnglishName => moduleName;
 
-    public sealed override string Description => "可支持自行添加多平台账号快速切换功能，Steam 可自动读取账号信息，其它平台请手动添加账号信息";
+    public sealed override string Description => Strings.L10nGames_AccountDescription;
+
+    public override string? DescriptionResourceKey => nameof(Strings.L10nGames_AccountDescription);
 
     protected sealed override string? AuthorOriginalString => null;
 

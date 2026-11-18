@@ -22,7 +22,7 @@ public partial class AcceleratorPathAskBox : ReactiveUserControl<MessageBoxWindo
 
         var folders = await toplevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions()
         {
-            Title = "选择文件夹",
+            Title = Strings.L10nAccel_147,
             AllowMultiple = false,
         });
 

@@ -15,42 +15,42 @@
     <Border Margin="{StaticResource PageMargin}">
         <StackPanel Spacing="10">
             <spp:Snackbar
-                Title="{Binding Path=Res.Notice_Tray_Title, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                Title="{x:Static spp:Strings.Notice_Tray_Title}"
                 VerticalAlignment="Top"
                 IsClosable="False"
                 IsOpen="True"
-                Message="{Binding Source={x:Static s:ResourceService.Current}, Path=Res.LocalAuth_SteamAppImportTip, Mode=OneWay}"
+                Message="{x:Static spp:Strings.LocalAuth_SteamAppImportTip}"
                 Severity="Warning">
                 <spp:Snackbar.ActionButton>
                     <StackPanel>
-                        <HyperlinkButton Content="[Rooted Android] 3.x 新版导出令牌的另一种思路" NavigateUri="https://github.com/BeyondDimension/SteamTools/issues/2276" />
-                        <HyperlinkButton Content="[Rooted Android] 3.x 新版导出令牌的另另一种思路" NavigateUri="https://github.com/BeyondDimension/SteamTools/issues/2598" />
+                        <HyperlinkButton Content="{x:Static spp:Strings.L10nAuthIdle_Text043}" NavigateUri="https://github.com/BeyondDimension/SteamTools/issues/2276" />
+                        <HyperlinkButton Content="{x:Static spp:Strings.L10nAuthIdle_Text044}" NavigateUri="https://github.com/BeyondDimension/SteamTools/issues/2598" />
                     </StackPanel>
                 </spp:Snackbar.ActionButton>
             </spp:Snackbar>
 
             <StackPanel Spacing="5">
-                <TextBlock Text="{Binding Path=Res.GeneralAuth_Name, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <TextBox Text="{Binding ImportAuthNewName}" PlaceholderText="{Binding Path=Res.Warning_PleaseEnterAuthName, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{x:Static spp:Strings.GeneralAuth_Name}" />
+                <TextBox Text="{Binding ImportAuthNewName}" PlaceholderText="{x:Static spp:Strings.Warning_PleaseEnterAuthName}" />
             </StackPanel>
             <StackPanel Spacing="5">
-                <TextBlock Text="{Binding Path=Res.SteamUUID, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                <TextBox Text="{Binding PhoneImportUuid}" PlaceholderText="{Binding Path=Res.LocalAuth_SteamuuidTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{x:Static spp:Strings.SteamUUID}" />
+                <TextBox Text="{Binding PhoneImportUuid}" PlaceholderText="{x:Static spp:Strings.LocalAuth_SteamuuidTip}" />
             </StackPanel>
             <StackPanel Spacing="5">
-                <TextBlock Text="{Binding Path=Res.SteamGuardData, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                <TextBlock Text="{x:Static spp:Strings.SteamGuardData}" />
                 <TextBox
                     Height="100"
                     AcceptsReturn="True"
                     Text="{Binding PhoneImportSteamGuard}"
-                    PlaceholderText="{Binding Path=Res.LocalAuth_SteamGuardTip, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                    PlaceholderText="{x:Static spp:Strings.LocalAuth_SteamGuardTip}" />
             </StackPanel>
 
             <Button
                 MinWidth="280"
                 HorizontalAlignment="Center"
                 Command="{Binding Import}"
-                Content="{Binding Path=Res.ConfirmImport, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                Content="{x:Static spp:Strings.ConfirmImport}" />
         </StackPanel>
     </Border>
 </UserControl>

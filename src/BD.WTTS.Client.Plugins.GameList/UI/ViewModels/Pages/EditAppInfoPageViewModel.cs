@@ -234,7 +234,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         //await MessageBox.ShowAsync("保存成功但还不会直接写入Steam文件, 请打开[保存Steam游戏自定义信息窗口]保存所有更改信息到Steam文件中。",
         //    ThisAssembly.AssemblyTrademark, MessageBox.Button.OK, MessageBox.Image.None, MessageBox.DontPromptType.SaveEditAppInfo);
 
-        Toast.Show(ToastIcon.Info, "保存成功但还不会直接写入 Steam 文件，请到右上角编辑列表中保存所有更改信息到 Steam 文件中，即可生效！");
+        Toast.Show(ToastIcon.Info, Strings.L10nGames_SaveEditNotice);
 
         this.Close?.Invoke(false);
     }
@@ -311,7 +311,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
             }
             return;
         }
-        Toast.Show(ToastIcon.Info, "图片下载需要一些时间，请稍后");
+        Toast.Show(ToastIcon.Info, Strings.L10nGames_ImageDownloadWait);
         var imageHttpClientService = Ioc.Get<IImageHttpClientService>();
         var stream = await imageHttpClientService.GetImageMemoryStreamAsync(SelectGrid.Url, default);
         switch (type)

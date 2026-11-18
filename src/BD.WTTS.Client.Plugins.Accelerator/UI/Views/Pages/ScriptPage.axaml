@@ -8,12 +8,12 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    Title="{Binding Path=Res.ScriptConfig, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+    Title="{x:Static spp:Strings.ScriptConfig}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:CompileBindings="True"
     x:DataType="spp:ScriptPageViewModel"
-    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Description="{x:Static spp:Strings.L10nAccel_076}"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.Styles>
@@ -42,7 +42,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.ScriptStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{x:Static spp:Strings.ScriptStore}" />
                 </Panel>
             </Button>
             <Separator
@@ -69,7 +69,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Import, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{x:Static spp:Strings.Import}" />
                 </Panel>
             </Button>
             <Button
@@ -88,7 +88,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{Binding Path=Res.Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        Text="{x:Static spp:Strings.Refresh}" />
                 </Panel>
             </Button>
             <DropDownButton
@@ -101,18 +101,15 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.Script_Settings, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.Script_Settings}" />-->
                         <!--<ui:FAMenuFlyoutSeparator />-->
-                        <ui:FAToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:ProxySettings.IsAutoCheckScriptUpdate}, Path=Value, Mode=TwoWay}" Text="{Binding Path=Res.Script_AutoUpdate, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:FAToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:ProxySettings.IsOnlyWorkSteamBrowser}, Path=Value, Mode=TwoWay}" Text="{Binding Path=Res.CommunityFix_OnlySteamBrowser, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                        <ui:FAToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:ProxySettings.IsAutoCheckScriptUpdate}, Path=Value, Mode=TwoWay}" Text="{x:Static spp:Strings.Script_AutoUpdate}" />
+                        <ui:FAToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:ProxySettings.IsOnlyWorkSteamBrowser}, Path=Value, Mode=TwoWay}" Text="{x:Static spp:Strings.CommunityFix_OnlySteamBrowser}" />
                         <ui:FAMenuFlyoutSeparator />
                         <ui:FAMenuFlyoutItem IsEnabled="False">
                             <ui:FAMenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
-                                    <CompiledBindingExtension
-                                        Mode="OneWay"
-                                        Path="Res.Plugin_Version"
-                                        Source="{x:Static s:ResourceService.Current}" />
+                                    <Binding Mode="OneTime" Source="{x:Static spp:Strings.Plugin_Version}" />
                                     <CompiledBindingExtension
                                         Mode="OneWay"
                                         Path="Version"
@@ -120,9 +117,9 @@
                                 </MultiBinding>
                             </ui:FAMenuFlyoutItem.Text>
                         </ui:FAMenuFlyoutItem>
-                        <!--<ui:FAMenuFlyoutItem Text="{Binding Path=Res.ViewInStore, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.UseHelp, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
-                        <ui:FAMenuFlyoutItem Text="{Binding Path=Res.AboutThisPlugin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />-->
+                        <!--<ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.ViewInStore}" />
+                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.UseHelp}" />
+                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.AboutThisPlugin}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -131,7 +128,7 @@
     <spp:ContentLoader
         IsLoading="False"
         IsShowNoResultText="{Binding !!!ProxyScripts.Count, Mode=OneWay}"
-        NoResultMessage="未检测到脚本文件，请先脚本工坊添加">
+        NoResultMessage="{x:Static spp:Strings.L10nAccel_070}">
         <ItemsRepeater Grid.Row="1" ItemsSource="{Binding ProxyScripts}">
             <ItemsRepeater.Layout>
                 <UniformGridLayout
@@ -170,10 +167,7 @@
                                     Theme="{DynamicResource TransparentButton}">
                                     <ToolTip.Tip>
                                         <MultiBinding StringFormat="{}{0} v{1}">
-                                            <CompiledBindingExtension
-                                                Mode="OneWay"
-                                                Path="Res.Script_Update"
-                                                Source="{x:Static s:ResourceService.Current}" />
+                                            <Binding Mode="OneTime" Source="{x:Static spp:Strings.Script_Update}" />
                                             <CompiledBindingExtension Mode="OneWay" Path="NewVersion" />
                                         </MultiBinding>
                                     </ToolTip.Tip>
@@ -192,7 +186,7 @@
                                     Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).EditScriptItemCommand}"
                                     CommandParameter="{Binding}"
                                     Theme="{DynamicResource TransparentButton}"
-                                    ToolTip.Tip="{Binding Path=Res.Script_Edit, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                    ToolTip.Tip="{x:Static spp:Strings.Script_Edit}">
                                     <Viewbox Width="16" Height="16">
                                         <ui:FASymbolIcon Symbol="CodeHTML" />
                                     </Viewbox>
@@ -201,7 +195,7 @@
                                     Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).RefreshScriptItemCommand}"
                                     CommandParameter="{Binding}"
                                     Theme="{DynamicResource TransparentButton}"
-                                    ToolTip.Tip="{Binding Path=Res.Script_Refresh, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                    ToolTip.Tip="{x:Static spp:Strings.Script_Refresh}">
                                     <Viewbox Width="16" Height="16">
                                         <ui:FASymbolIcon Symbol="Refresh" />
                                     </Viewbox>
@@ -213,29 +207,22 @@
                                 <!--<ui:FAMenuFlyoutItem
                                         Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).EditScriptItemButton}"
                                         CommandParameter="{Binding}"
-                                        Text="{Binding Path=Res.Script_Edit,
-                                                                 Mode=OneWay,
-                                                                 Source={x:Static s:ResourceService.Current}}" />
+                                        Text="{x:Static spp:Strings.Script_Edit}" />
                                     <ui:FAMenuFlyoutItem
                                         Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).RefreshScriptItemButton}"
                                         CommandParameter="{Binding}"
-                                        Text="{Binding Path=Res.Script_Refresh,
-                                                                 Mode=OneWay,
-                                                                 Source={x:Static s:ResourceService.Current}}" />-->
+                                        Text="{x:Static spp:Strings.Script_Refresh}" />-->
                                 <ui:FAMenuFlyoutItem
                                     Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
                                     CommandParameter="{Binding SourceLink}"
-                                    Text="{Binding Path=Res.Script_Home, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    Text="{x:Static spp:Strings.Script_Home}" />
                                 <ui:FAMenuFlyoutItem
                                     Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DownloadScriptItemCommand}"
                                     CommandParameter="{Binding}"
                                     IsVisible="{Binding IsUpdate}">
                                     <ui:FAMenuFlyoutItem.Text>
                                         <MultiBinding StringFormat="{}{0} v{1}">
-                                            <CompiledBindingExtension
-                                                Mode="OneWay"
-                                                Path="Res.Script_Update"
-                                                Source="{x:Static s:ResourceService.Current}" />
+                                            <Binding Mode="OneTime" Source="{x:Static spp:Strings.Script_Update}" />
                                             <CompiledBindingExtension Mode="OneWay" Path="NewVersion" />
                                         </MultiBinding>
                                     </ui:FAMenuFlyoutItem.Text>
@@ -245,7 +232,7 @@
                                     Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DeleteScriptItemCommand}"
                                     CommandParameter="{Binding}"
                                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                    Text="{Binding Path=Res.Delete, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    Text="{x:Static spp:Strings.Delete}" />
                             </ui:FAMenuFlyout>
                         </spp:AppItem.MoreFlyout>
                         <spp:AppItem.Image>
@@ -262,7 +249,7 @@
                                     Classes="Circle"
                                     IsIndeterminate="True"
                                     IsVisible="{Binding IsLoading}"
-                                    ToolTip.Tip="{Binding Path=Res.Script_ImportLoading, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                    ToolTip.Tip="{x:Static spp:Strings.Script_ImportLoading}" />
                             </Panel>
                         </spp:AppItem.Image>
                     </spp:AppItem>

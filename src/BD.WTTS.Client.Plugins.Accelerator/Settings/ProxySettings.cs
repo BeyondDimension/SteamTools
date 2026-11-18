@@ -17,7 +17,7 @@ using static BD.WTTS.Settings.Abstractions.IProxySettings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings;
 
-[JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true)]
+[JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true, UseStringEnumConverter = true)]
 [JsonSerializable(typeof(ProxySettings_))]
 internal partial class ProxySettingsContext : JsonSerializerContext
 {

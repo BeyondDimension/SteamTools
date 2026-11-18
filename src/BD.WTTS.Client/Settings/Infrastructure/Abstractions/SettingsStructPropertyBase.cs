@@ -20,12 +20,7 @@ public class SettingsStructPropertyBase<TValue, [DynamicallyAccessedMembers(Dyna
 
         AutoSave = autoSave;
         Default = @default;
-        ParameterExpression parameter = Expression.Parameter(settingsType, "obj");
-        MemberExpression property = Expression.Property(parameter, PropertyName);
-        ParameterExpression value = Expression.Parameter(typeof(TValue), "value");
-        BinaryExpression assign = Expression.Assign(property, value);
-        setter = Expression.Lambda<Action<TSettings, TValue>>(assign, parameter, value).Compile();
-        getter = Expression.Lambda<Func<TSettings, TValue>>(property, parameter).Compile();
+        (getter, setter) = SettingsPropertyAccessors<TSettings, TValue>.Get(PropertyName);
         monitor = Ioc.Get<IOptionsMonitor<TSettings>>();
         this.value = getter(monitor.CurrentValue);
         SetProperties(settingsType, propertyName);

@@ -21,7 +21,7 @@
         VerticalScrollBarVisibility="Auto">
         <StackPanel Spacing="8">
             <!--  NAT  -->
-            <ui:FASettingsExpander Header="NAT 类型检测" IsExpanded="True">
+            <ui:FASettingsExpander Header="{x:Static spp:Strings.L10nAccel_010}" IsExpanded="True">
                 <ui:FASettingsExpander.IconSource>
                     <ui:FAFontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE969;" />
                 </ui:FASettingsExpander.IconSource>
@@ -33,7 +33,7 @@
                             IsEnabled="{Binding !IsNATChecking}"
                             ItemsSource="{Binding STUNAddress}"
                             SelectedItem="{Binding SelectedSTUNAddress, Mode=TwoWay}"
-                            ToolTip.Tip="STUN 服务器地址">
+                            ToolTip.Tip="{x:Static spp:Strings.L10nAccel_011}">
                             <ui:FAComboBox.ItemTemplate>
                                 <DataTemplate DataType="sys:String">
                                     <TextBlock Text="{Binding}" />
@@ -45,12 +45,12 @@
                             Width="100"
                             Margin="0,0,0,4"
                             Command="{Binding NATCheckCommand}"
-                            Content="检测"
+                            Content="{x:Static spp:Strings.L10nAccel_012}"
                             IsEnabled="True" />
                     </WrapPanel>
                 </ui:FASettingsExpander.Footer>
 
-                <ui:FASettingsExpanderItem Content="NAT 类型：">
+                <ui:FASettingsExpanderItem Content="{x:Static spp:Strings.L10nAccel_013}">
                     <ui:FASettingsExpanderItem.Footer>
                         <Grid>
                             <ui:FAProgressRing
@@ -79,7 +79,7 @@
                     </ui:FASettingsExpanderItem.Footer>
                 </ui:FASettingsExpanderItem>
 
-                <ui:FASettingsExpanderItem Content="本机IP地址：">
+                <ui:FASettingsExpanderItem Content="{x:Static spp:Strings.L10nAccel_014}">
                     <ui:FASettingsExpanderItem.Footer>
                         <Grid>
                             <ui:FAProgressRing
@@ -98,8 +98,8 @@
                 <ui:FASettingsExpanderItem>
                     <TextBlock
                         VerticalAlignment="Center"
-                        Text="对外IP地址："
-                        ToolTip.Tip="若与您路由器 WAN IP 地址相同，则为公共网络" />
+                        Text="{x:Static spp:Strings.L10nAccel_015}"
+                        ToolTip.Tip="{x:Static spp:Strings.L10nAccel_016}" />
                     <ui:FASettingsExpanderItem.Footer>
                         <Grid>
                             <ui:FAProgressRing
@@ -115,7 +115,7 @@
                     </ui:FASettingsExpanderItem.Footer>
                 </ui:FASettingsExpanderItem>
 
-                <ui:FASettingsExpanderItem Content="互联网连通情况：">
+                <ui:FASettingsExpanderItem Content="{x:Static spp:Strings.L10nAccel_017}">
                     <ui:FASettingsExpanderItem.Footer>
                         <Grid>
                             <ui:FAProgressRing
@@ -156,43 +156,43 @@
                         Margin="-28,0,0,0"
                         VerticalAlignment="Center"
                         FontWeight="Bold"
-                        Text="相关链接" />
+                        Text="{x:Static spp:Strings.L10nAccel_018}" />
 
                     <WrapPanel Margin="-10,0,0,0">
                         <HyperlinkButton
                             VerticalAlignment="Center"
-                            Content="XBOX 关于 NAT 文档"
+                            Content="{x:Static spp:Strings.L10nAccel_019}"
                             NavigateUri="https://support.xbox.com/zh-CN/help/hardware-network/connect-network/xbox-one-nat-error" />
                         <HyperlinkButton
                             VerticalAlignment="Center"
-                            Content="PlayStation 关于 NAT 文档"
+                            Content="{x:Static spp:Strings.L10nAccel_020}"
                             NavigateUri="https://manuals.playstation.net/document/ct/ps4/settings/nw_test.html" />
                         <HyperlinkButton
                             VerticalAlignment="Center"
-                            Content="Nintendo Switch 关于 NAT 文档"
+                            Content="{x:Static spp:Strings.L10nAccel_021}"
                             NavigateUri="https://www.nintendoswitch.com.cn/support/faq/373.html" />
                         <HyperlinkButton
                             VerticalAlignment="Center"
-                            Content="Bungie 关于 NAT 文档"
+                            Content="{x:Static spp:Strings.L10nAccel_022}"
                             NavigateUri="https://help.bungie.net/hc/zh-cn/articles/360049496751-%E9%AB%98%E7%BA%A7%E7%96%91%E9%9A%BE%E6%8E%92%E8%A7%A3-%E9%80%9A%E7%94%A8%E5%8D%B3%E6%8F%92%E5%8D%B3%E7%94%A8-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E9%80%81%E4%B8%8E%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E7%B1%BB%E5%9E%8B" />
                         <HyperlinkButton
                             VerticalAlignment="Center"
-                            Content="Activision 关于 NAT 文档"
+                            Content="{x:Static spp:Strings.L10nAccel_023}"
                             NavigateUri="https://support.activision.com/tw/zh/articles/port-forward-and-nat-faq" />
                         <HyperlinkButton
                             VerticalAlignment="Center"
-                            Content="RockStar Games 关于 NAT 文档"
+                            Content="{x:Static spp:Strings.L10nAccel_024}"
                             NavigateUri="https://support.rockstargames.com/tw/articles/206210548/%E5%A6%82%E4%BD%95%E8%A7%A3%E6%B1%BA-GTA-%E7%B7%9A%E4%B8%8A%E6%A8%A1%E5%BC%8F%E4%B8%AD%E8%88%87%E5%9A%B4%E6%A0%BC-Strict-NAT-%E9%A1%9E%E5%9E%8B%E7%9B%B8%E9%97%9C%E7%9A%84%E9%8C%AF%E8%AA%A4" />
                         <HyperlinkButton
                             VerticalAlignment="Center"
-                            Content="迅游关于 NAT 文档"
+                            Content="{x:Static spp:Strings.L10nAccel_025}"
                             NavigateUri="https://cs.xunyou.com/html/282/15271.shtml" />
                     </WrapPanel>
                 </StackPanel>
             </ui:FASettingsExpander>
 
             <!--  DNS  -->
-            <ui:FASettingsExpander Header="DNS 检测" IsExpanded="True">
+            <ui:FASettingsExpander Header="{x:Static spp:Strings.L10nAccel_026}" IsExpanded="True">
                 <ui:FASettingsExpander.IconSource>
                     <ui:FAFontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xEDA3;" />
                 </ui:FASettingsExpander.IconSource>
@@ -200,16 +200,16 @@
                     <Button
                         Width="100"
                         Command="{Binding DNSCheckCommand}"
-                        Content="检测" />
+                        Content="{x:Static spp:Strings.L10nAccel_012}" />
                 </ui:FASettingsExpander.Footer>
 
                 <TextBlock
                     Margin="-28,0,0,-4"
                     VerticalAlignment="Center"
                     FontWeight="Bold"
-                    Text="检测项目" />
+                    Text="{x:Static spp:Strings.L10nAccel_027}" />
 
-                <ui:FASettingsExpanderItem Content="待检测的域名">
+                <ui:FASettingsExpanderItem Content="{x:Static spp:Strings.L10nAccel_028}">
                     <ui:FASettingsExpanderItem.Footer>
                         <TextBox
                             Width="220"
@@ -269,9 +269,9 @@
                     Margin="-28,0,0,-4"
                     VerticalAlignment="Center"
                     FontWeight="Bold"
-                    Text="测试结果" />
+                    Text="{x:Static spp:Strings.L10nAccel_029}" />
 
-                <ui:FASettingsExpanderItem Content="延迟">
+                <ui:FASettingsExpanderItem Content="{x:Static spp:Strings.L10nAccel_001}">
                     <ui:FASettingsExpanderItem.Footer>
                         <Grid>
                             <ui:FAProgressRing
@@ -283,7 +283,7 @@
                     </ui:FASettingsExpanderItem.Footer>
                 </ui:FASettingsExpanderItem>
 
-                <ui:FASettingsExpanderItem Content="解析地址">
+                <ui:FASettingsExpanderItem Content="{x:Static spp:Strings.L10nAccel_030}">
                     <ui:FASettingsExpanderItem.Footer>
                         <Grid>
                             <ui:FAProgressRing
@@ -297,7 +297,7 @@
             </ui:FASettingsExpander>
 
             <!--  IPV6  -->
-            <ui:FASettingsExpander Header="IPv6 检测" IsExpanded="True">
+            <ui:FASettingsExpander Header="{x:Static spp:Strings.L10nAccel_031}" IsExpanded="True">
                 <ui:FASettingsExpander.IconSource>
                     <ui:FAFontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE968;" />
                 </ui:FASettingsExpander.IconSource>
@@ -305,10 +305,10 @@
                     <Button
                         Width="100"
                         Command="{Binding IPv6CheckCommand}"
-                        Content="检测" />
+                        Content="{x:Static spp:Strings.L10nAccel_012}" />
                 </ui:FASettingsExpander.Footer>
 
-                <ui:FASettingsExpanderItem Content="支持情况">
+                <ui:FASettingsExpanderItem Content="{x:Static spp:Strings.L10nAccel_032}">
                     <ui:FASettingsExpanderItem.Footer>
                         <Grid>
                             <ui:FAProgressRing
@@ -319,17 +319,17 @@
                                 <TextBlock
                                     Foreground="{DynamicResource SystemFillColorSuccessBrush}"
                                     IsVisible="{Binding IsSupportIPv6}"
-                                    Text="已支持 IPv6 访问" />
+                                    Text="{x:Static spp:Strings.L10nAccel_033}" />
                                 <TextBlock
                                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                                     IsVisible="{Binding !IsSupportIPv6}"
-                                    Text="不支持 IPv6 访问" />
+                                    Text="{x:Static spp:Strings.L10nAccel_034}" />
                             </Grid>
                         </Grid>
                     </ui:FASettingsExpanderItem.Footer>
                 </ui:FASettingsExpanderItem>
 
-                <ui:FASettingsExpanderItem Content="IPv6 地址">
+                <ui:FASettingsExpanderItem Content="{x:Static spp:Strings.L10nAccel_035}">
                     <ui:FASettingsExpanderItem.Footer>
                         <Grid>
                             <ui:FAProgressRing

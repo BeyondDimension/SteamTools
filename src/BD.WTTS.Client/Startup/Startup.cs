@@ -298,6 +298,7 @@ public abstract partial class Startup
             WatchTrace.Record("CustomAppDomain.AssemblyLoad");
 #endif
 
+#if !WTTS_NATIVE_AOT
             // 自定义当前应用程序域程序集解析
             static string GetAssemblyLocation()
             {
@@ -357,6 +358,7 @@ public abstract partial class Startup
             };
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("CustomAppDomain.AssemblyResolve");
+#endif
 #endif
 #endif
 
@@ -484,7 +486,7 @@ Failed to initialize FileSystem, access denied.
                 return 0;
 
             // https://docs.microsoft.com/zh-cn/archive/msdn-magazine/2019/march/net-parse-the-command-line-with-system-commandline
-            var rootCommand = new RootCommand("命令行工具(Command Line Tools/CLT)");
+            var rootCommand = new RootCommand(Strings.L10nCore_CommandLineTools);
             ConfigureCommands(rootCommand);
 
             var exitCode = rootCommand.Parse(args).InvokeAsync().GetAwaiter().GetResult();

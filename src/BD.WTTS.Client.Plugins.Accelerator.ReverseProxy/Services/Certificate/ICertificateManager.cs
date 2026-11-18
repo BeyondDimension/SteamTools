@@ -147,7 +147,7 @@ public interface ICertificateManager
                     var packableBytes = certificateManager.RootCertificatePackable;
                     if (packableBytes.Any_Nullable())
                     {
-                        var result = Serializable.DMP2<X509CertificatePackable>(packableBytes);
+                        var result = MemoryPackSerializer.Deserialize<X509CertificatePackable>(packableBytes);
                         return result;
                     }
                 }

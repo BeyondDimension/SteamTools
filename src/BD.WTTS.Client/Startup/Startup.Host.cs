@@ -54,6 +54,13 @@ partial class Startup // 配置 Host
 
         #endregion
 
+        // Apply the saved culture before plugins and view models capture localized text.
+        if (ISettings<UISettings_>.Load(directoryExists, out var @delegate1, out var uiSettings))
+            InvalidConfigurationFileNames.Add(UISettings_.Name);
+        else
+            @delegate += @delegate1;
+        ResourceService.InitializeLanguage(uiSettings?.CurrentValue.Language);
+
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
         if (IsMainProcess || HasIPCRoot || loadModules.Length != 0)
         {
@@ -182,10 +189,6 @@ partial class Startup // 配置 Host
 
         #region 初始化【配置/设置】 Settings/Configuration
 
-        if (ISettings<UISettings_>.Load(directoryExists, out var @delegate1))
-            InvalidConfigurationFileNames.Add(UISettings_.Name);
-        else
-            @delegate += @delegate1;
         if (ISettings<SteamSettings_>.Load(directoryExists, out var @delegate2))
             InvalidConfigurationFileNames.Add(SteamSettings_.Name);
         else

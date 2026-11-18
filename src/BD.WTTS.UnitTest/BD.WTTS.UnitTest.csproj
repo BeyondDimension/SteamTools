@@ -71,6 +71,10 @@
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameAccount\BD.WTTS.Client.Plugins.GameAccount.csproj" />
 	</ItemGroup>
 
+    <ItemGroup>
+        <EmbeddedResource Include="..\BD.WTTS.Client.Avalonia\UI\Assets\Log.xshd" LogicalName="Log.xshd" />
+    </ItemGroup>
+
 	<Import Project="..\TFM_NETX_WINDOWS.props" />
 
 </Project>

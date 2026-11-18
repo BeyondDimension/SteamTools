@@ -8,6 +8,9 @@ namespace BD.WTTS.Services.Implementation;
 /// </summary>
 sealed class HttpProxyMiddleware
 {
+    static readonly ReadOnlyMemory<byte> http200 = "HTTP/1.1 200 Connection Established\r\n\r\n"u8.ToArray();
+    static readonly ReadOnlyMemory<byte> http400 = "HTTP/1.1 400 Bad Request\r\n\r\n"u8.ToArray();
+
     readonly HttpParser<HttpRequestHandler> httpParser = new();
 
     /// <summary>
@@ -37,7 +40,6 @@ sealed class HttpProxyMiddleware
                     if (request.ProxyProtocol == ProxyProtocol.TunnelProxy)
                     {
                         input.AdvanceTo(consumed);
-                        ReadOnlyMemory<byte> http200 = "HTTP/1.1 200 Connection Established\r\n\r\n"u8.ToArray();
                         await output.WriteAsync(http200, context.ConnectionClosed);
                     }
                     else
@@ -62,7 +64,6 @@ sealed class HttpProxyMiddleware
             }
             catch (Exception)
             {
-                ReadOnlyMemory<byte> http400 = "HTTP/1.1 400 Bad Request\r\n\r\n"u8.ToArray();
                 await output.WriteAsync(http400, context.ConnectionClosed);
                 break;
             }

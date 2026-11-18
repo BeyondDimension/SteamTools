@@ -20,7 +20,7 @@
 // limitations under the License.
 
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using STJ = System.Text.Json.Serialization;
 
 // ReSharper disable once CheckNamespace
 namespace ArchiSteamFarm.IPC.Responses;
@@ -30,16 +30,16 @@ public sealed class GamesToRedeemInBackgroundResponse
     /// <summary>
     ///     Keys that were redeemed and not used during the process, if available.
     /// </summary>
-    [JsonProperty]
+    [STJ.JsonInclude]
     public Dictionary<string, string>? UnusedKeys { get; private set; }
 
     /// <summary>
     ///     Keys that were redeemed and used during the process, if available.
     /// </summary>
-    [JsonProperty]
+    [STJ.JsonInclude]
     public Dictionary<string, string>? UsedKeys { get; private set; }
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public GamesToRedeemInBackgroundResponse()
     {
 

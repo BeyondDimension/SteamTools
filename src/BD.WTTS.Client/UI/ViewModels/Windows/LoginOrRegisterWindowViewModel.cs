@@ -109,13 +109,13 @@ public partial class LoginOrRegisterWindowViewModel : WindowViewModel, SendSmsUI
                 {
                     ExternalLoginChannel.Microsoft => nameof(ExternalLoginChannel.Xbox),
                     _ => item.ToString(),
-                }, this);
+                });
             }
         }
 
         if (!IApplication.IsDesktop())
         {
-            yield return ExternalLoginChannelViewModel.Create(ExternalLoginChannelViewModel.PhoneNumber, this);
+            yield return ExternalLoginChannelViewModel.Create(ExternalLoginChannelViewModel.PhoneNumber);
         }
     }
 

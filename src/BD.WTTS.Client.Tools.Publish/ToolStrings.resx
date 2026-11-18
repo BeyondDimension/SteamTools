@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="DirectoryDeleted" xml:space="preserve"><value>已删除目录：</value></data>
+  <data name="PublishingMain" xml:space="preserve"><value>开始发布【主项目】</value></data>
+  <data name="PublishedMain" xml:space="preserve"><value>发布成功【主项目】</value></data>
+  <data name="ValidatingAvalonia" xml:space="preserve"><value>开始验证【Avalonia.Base.dll 版本号必须为 11+】</value></data>
+  <data name="LinuxIcon" xml:space="preserve"><value>Linux 需要 Ico 导入系统图标</value></data>
+  <data name="LinuxScripts" xml:space="preserve"><value>Linux 复制启动 环境检查 卸载脚本</value></data>
+  <data name="ValidatedAvalonia" xml:space="preserve"><value>验证成功【Avalonia.Base.dll 版本号必须为 11+】</value></data>
+  <data name="RemovedCreateDump" xml:space="preserve"><value>已删除 CreateDump</value></data>
+  <data name="MoveNativeLibraries" xml:space="preserve"><value>移动本机库</value></data>
+  <data name="ProcessedJson" xml:space="preserve"><value>已处理 json 文件</value></data>
+  <data name="PublishingAppHost" xml:space="preserve"><value>开始发布【AppHost】</value></data>
+  <data name="PublishedAppHost" xml:space="preserve"><value>发布成功【AppHost】</value></data>
+  <data name="PublishingPlugins" xml:space="preserve"><value>开始发布【插件】</value></data>
+  <data name="PublishedPlugins" xml:space="preserve"><value>发布成功【插件】</value></data>
+  <data name="CopyingRuntime" xml:space="preserve"><value>开始复制运行时</value></data>
+  <data name="CopiedRuntime" xml:space="preserve"><value>完成复制运行时</value></data>
+  <data name="RemovedCache" xml:space="preserve"><value>已删除 AppData/Cache</value></data>
+  <data name="ScanningFiles" xml:space="preserve"><value>开始扫描文件</value></data>
+  <data name="ScannedFiles" xml:space="preserve"><value>完成扫描文件</value></data>
+  <data name="HashingFiles" xml:space="preserve"><value>开始文件计算哈希值</value></data>
+  <data name="HashedFiles" xml:space="preserve"><value>完成文件计算哈希值</value></data>
+  <data name="SigningCount" xml:space="preserve"><value>正在进行数字签名，文件数量：</value></data>
+  <data name="GeneratingMsix" xml:space="preserve"><value>开始生成【MSIX 包】</value></data>
+  <data name="GeneratedMsixSize" xml:space="preserve"><value>已生成【MSIX 包】，文件大小：</value></data>
+  <data name="PathSuffix" xml:space="preserve"><value>，路径：</value></data>
+  <data name="CreatingArchive" xml:space="preserve"><value>开始创建【压缩包】</value></data>
+  <data name="CreatedArchiveSize" xml:space="preserve"><value>创建成功【压缩包】，文件大小：</value></data>
+  <data name="GeneratedManifestSize" xml:space="preserve"><value>发布文件信息清单已生成，文件大小：</value></data>
+  <data name="GeneratingArchive" xml:space="preserve"><value>正在生成压缩包：{0}</value></data>
+  <data name="GeneratedArchive" xml:space="preserve"><value>压缩包已生成：{0}</value></data>
+  <data name="MissingNsisBuild" xml:space="preserve"><value>找不到 NSIS-Build 文件，值：{0}</value></data>
+  <data name="PatchTypeHelp" xml:space="preserve"><value>type 0:Create 1:Apply 2:UploadFile 3:传入版本号生成补丁</value></data>
+  <data name="GeneratingPatch" xml:space="preserve"><value>开始生成: {0} -&gt; {1} platform:{2}</value></data>
+  <data name="OldFileCount" xml:space="preserve"><value>旧版本文件数：{0}</value></data>
+  <data name="NewFileCount" xml:space="preserve"><value>新版本文件数：{0}</value></data>
+  <data name="DeletedFileCount" xml:space="preserve"><value>需要删除的文件数：{0}</value></data>
+  <data name="ChangedFileCount" xml:space="preserve"><value>变动文件数量：{0}</value></data>
+  <data name="Compressing" xml:space="preserve"><value>开始压缩</value></data>
+  <data name="Finished" xml:space="preserve"><value>结束</value></data>
+  <data name="DirectoryNotFound" xml:space="preserve"><value>文件夹不存在</value></data>
+</root>

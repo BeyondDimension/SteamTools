@@ -1,6 +1,5 @@
-using Avalonia.Markup.Xaml.MarkupExtensions;
-using Avalonia.Markup.Xaml.MarkupExtensions.CompiledBindings;
-using FluentAvalonia.Core;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace BD.WTTS.UI.Views.Controls;
 
@@ -36,107 +35,89 @@ public partial class AdControl : UserControl
         set => SetValue(StandardProperty, value);
     }
 
+    AdvertiseService? advertisementService;
+    ObservableCollection<AdvertisementDTO>? advertisements;
+    bool closed;
+
     public AdControl()
     {
         InitializeComponent();
-
-        if (CloseAdBtn != null)
+        CloseAdBtn.IsVisible = SupportClose;
+        AdBanner.AutoScroll = false;
+        CloseAdBtn.Click += (_, _) =>
         {
-            this.GetObservable(SupportCloseProperty)
-                .Subscribe(x => CloseAdBtn.IsVisible = x);
-
-            CloseAdBtn.Click += (s, e) =>
-            {
-                RemoveAd();
-            };
-        }
-
-        if (AdBanner != null)
-        {
-            this.GetObservable(StandardProperty)
-                .Subscribe(x =>
-                {
-                    var bind = new Binding()
-                    {
-                        Source = AdvertiseService.Current,
-                        Mode = BindingMode.OneWay,
-                    };
-
-                    if (Standard == AdvertisementOrientation.Vertical)
-                    {
-                        bind.Path = nameof(AdvertiseService.Current.VerticalBannerAdvertisements);
-                    }
-                    else
-                    {
-                        bind.Path = nameof(AdvertiseService.Current.HorizontalBannerAdvertisements);
-                    }
-                    AdBanner.Bind(CarouselBanner.ItemsSourceProperty, bind);
-                });
-
-            //AdBanner.ItemsSource.WhenAnyValue(x => x)
-            //    .Subscribe(x =>
-            //    {
-            //        CheckItems(x);
-            //    });
-
-            AdBanner.PropertyChanged += AdBanner_PropertyChanged;
-
-            //AdBanner.GetObservable(CarouselBanner.ItemsSourceProperty)
-            //    .Subscribe(CheckItems);
-
-            //banner.GetObservable(CarouselBanner.IsVisibleProperty)
-            //    .Subscribe(_ => CheckItems(banner.Items));
-
-            //UserService.Current.WhenValueChanged(x => x.User, false)
-            //      .Subscribe(_ => Check());
-
-            //AdvertiseService.Current.WhenValueChanged(x => x.IsShowAdvertise, false)
-            //      .Subscribe(_ => CheckItems(banner.Items));
-        }
+            closed = true;
+            RefreshAdvertisements();
+        };
     }
 
-    private void AdBanner_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
-        if (e.Property == Carousel.ItemsSourceProperty)
-        {
-            CheckItems(AdBanner.ItemsSource);
-        }
+        base.OnAttachedToVisualTree(e);
+        advertisementService = AdvertiseService.Current;
+        advertisementService.PropertyChanged += AdvertisementService_PropertyChanged;
+        RefreshAdvertisements();
     }
 
-    //protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
-    //{
-    //    base.OnApplyTemplate(e);
-
-    //    if (Standard == AdvertisementOrientation.Vertical)
-    //    {
-    //        AdBanner.ItemsSource = AdvertiseService.Current.VerticalBannerAdvertisements;
-    //    }
-    //    else
-    //    {
-    //        AdBanner.ItemsSource = AdvertiseService.Current.HorizontalBannerAdvertisements;
-    //    }
-    //}
-
-    void CheckItems(IEnumerable? x)
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
-        Dispatcher.UIThread.Post(() =>
-        {
-            if (AdvertiseService.Current.IsInitialized && x?.Cast<object>().Any() != true)
-            {
-                this.IsVisible = false;
-            }
-            else if (AdvertiseService.Current.IsShowAdvertise)
-            {
-                this.IsVisible = true;
-            }
-        });
+        if (advertisementService != null)
+            advertisementService.PropertyChanged -= AdvertisementService_PropertyChanged;
+        advertisementService = null;
+        SetAdvertisements(null);
+        AdBanner.ItemsSource = null;
+        AdBanner.AutoScroll = false;
+        IsVisible = false;
+        base.OnDetachedFromVisualTree(e);
     }
 
-    void RemoveAd()
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
-        Dispatcher.UIThread.Post(() =>
-        {
-            this.IsVisible = false;
-        });
+        base.OnPropertyChanged(change);
+        if (change.Property == StandardProperty)
+            RefreshAdvertisements();
+        else if (change.Property == SupportCloseProperty && CloseAdBtn != null)
+            CloseAdBtn.IsVisible = SupportClose;
+    }
+
+    void AdvertisementService_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (string.IsNullOrEmpty(e.PropertyName) ||
+            e.PropertyName is nameof(AdvertiseService.HorizontalBannerAdvertisements) or
+                nameof(AdvertiseService.VerticalBannerAdvertisements) or nameof(AdvertiseService.IsShowAdvertise))
+            ScheduleRefresh();
+    }
+
+    void Advertisements_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => ScheduleRefresh();
+
+    void ScheduleRefresh()
+    {
+        if (Dispatcher.UIThread.CheckAccess())
+            RefreshAdvertisements();
+        else
+            Dispatcher.UIThread.Post(RefreshAdvertisements);
+    }
+
+    void SetAdvertisements(ObservableCollection<AdvertisementDTO>? value)
+    {
+        if (ReferenceEquals(advertisements, value)) return;
+        if (advertisements != null)
+            advertisements.CollectionChanged -= Advertisements_CollectionChanged;
+        advertisements = value;
+        if (advertisements != null)
+            advertisements.CollectionChanged += Advertisements_CollectionChanged;
+    }
+
+    void RefreshAdvertisements()
+    {
+        var service = advertisementService;
+        if (service == null) return;
+        SetAdvertisements(Standard == AdvertisementOrientation.Vertical
+            ? service.VerticalBannerAdvertisements
+            : service.HorizontalBannerAdvertisements);
+        var visible = !closed && service.IsShowAdvertise && advertisements is { Count: > 0 };
+        AdBanner.ItemsSource = visible ? advertisements : null;
+        AdBanner.AutoScroll = visible;
+        IsVisible = visible;
     }
 }

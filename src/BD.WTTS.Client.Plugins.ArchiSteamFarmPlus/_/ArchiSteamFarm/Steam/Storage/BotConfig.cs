@@ -25,8 +25,7 @@ using ArchiSteamFarm.IPC.Integration;
 using ArchiSteamFarm.Steam.Data;
 using ArchiSteamFarm.Steam.Integration;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using STJ = System.Text.Json.Serialization;
 
 // ReSharper disable once CheckNamespace
 namespace ArchiSteamFarm.Steam.Storage;
@@ -139,82 +138,82 @@ public sealed class BotConfig
     [PublicAPI]
     public static readonly ImmutableHashSet<Asset.EType> DefaultTransferableTypes = ImmutableHashSet.Create(Asset.EType.BoosterPack, Asset.EType.FoilTradingCard, Asset.EType.TradingCard);
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public bool AcceptGifts { get; private set; } = DefaultAcceptGifts;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public bool AutoSteamSaleEvent { get; private set; } = DefaultAutoSteamSaleEvent;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public EBotBehaviour BotBehaviour { get; private set; } = DefaultBotBehaviour;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     [SwaggerValidValues(ValidIntValues = new[] { (int)Asset.EType.FoilTradingCard, (int)Asset.EType.TradingCard })]
     public ImmutableHashSet<Asset.EType> CompleteTypesToSend { get; private set; } = DefaultCompleteTypesToSend;
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     public string? CustomGamePlayedWhileFarming { get; private set; } = DefaultCustomGamePlayedWhileFarming;
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     public string? CustomGamePlayedWhileIdle { get; private set; } = DefaultCustomGamePlayedWhileIdle;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public bool Enabled { get; private set; } = DefaultEnabled;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public ImmutableList<EFarmingOrder> FarmingOrders { get; private set; } = DefaultFarmingOrders;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public bool FarmPriorityQueueOnly { get; private set; } = DefaultFarmPriorityQueueOnly;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     [MaxLength(ArchiHandler.MaxGamesPlayedConcurrently)]
     [SwaggerItemsMinMax(MinimumUint = 1, MaximumUint = uint.MaxValue)]
     [UnconditionalSuppressMessage("AssemblyLoadTrimming", "IL2026:RequiresUnreferencedCode", Justification = "This is optional, supportive attribute, we don't care if it gets trimmed or not")]
     public ImmutableList<uint> GamesPlayedWhileIdle { get; private set; } = DefaultGamesPlayedWhileIdle;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     [Range(byte.MinValue, byte.MaxValue)]
     public byte HoursUntilCardDrops { get; private set; } = DefaultHoursUntilCardDrops;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public ImmutableHashSet<Asset.EType> LootableTypes { get; private set; } = DefaultLootableTypes;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public ImmutableHashSet<Asset.EType> MatchableTypes { get; private set; } = DefaultMatchableTypes;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public EPersonaStateFlag OnlineFlags { get; private set; } = DefaultOnlineFlags;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public EPersonaState OnlineStatus { get; private set; } = DefaultOnlineStatus;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public ArchiCryptoHelper.ECryptoMethod PasswordFormat { get; internal set; } = DefaultPasswordFormat;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public bool Paused { get; private set; } = DefaultPaused;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public ERedeemingPreferences RedeemingPreferences { get; private set; } = DefaultRedeemingPreferences;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public ERemoteCommunication RemoteCommunication { get; private set; } = DefaultRemoteCommunication;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public bool SendOnFarmingFinished { get; private set; } = DefaultSendOnFarmingFinished;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     [Range(byte.MinValue, byte.MaxValue)]
     public byte SendTradePeriod { get; private set; } = DefaultSendTradePeriod;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public bool ShutdownOnFarmingFinished { get; private set; } = DefaultShutdownOnFarmingFinished;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public bool SkipRefundableGames { get; private set; } = DefaultSkipRefundableGames;
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     public string? SteamLogin
     {
         get => BackingSteamLogin;
@@ -226,12 +225,12 @@ public sealed class BotConfig
         }
     }
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     [SwaggerSteamIdentifier(AccountType = EAccountType.Clan)]
     [SwaggerValidValues(ValidIntValues = new[] { 0 })]
     public ulong SteamMasterClanID { get; private set; } = DefaultSteamMasterClanID;
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     [MaxLength(SteamParentalCodeLength)]
     [MinLength(SteamParentalCodeLength)]
     [SwaggerValidValues(ValidStringValues = new[] { "0" })]
@@ -247,7 +246,7 @@ public sealed class BotConfig
         }
     }
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     public string? SteamPassword
     {
         get => BackingSteamPassword;
@@ -259,33 +258,33 @@ public sealed class BotConfig
         }
     }
 
-    [JsonProperty]
+    [STJ.JsonInclude]
     [MaxLength(SteamTradeTokenLength)]
     [MinLength(SteamTradeTokenLength)]
     [UnconditionalSuppressMessage("AssemblyLoadTrimming", "IL2026:RequiresUnreferencedCode", Justification = "This is optional, supportive attribute, we don't care if it gets trimmed or not")]
     public string? SteamTradeToken { get; private set; } = DefaultSteamTradeToken;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public ImmutableDictionary<ulong, EAccess> SteamUserPermissions { get; private set; } = DefaultSteamUserPermissions;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     [Range(byte.MinValue, byte.MaxValue)]
     public byte TradeCheckPeriod { get; private set; } = DefaultTradeCheckPeriod;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public ETradingPreferences TradingPreferences { get; private set; } = DefaultTradingPreferences;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public ImmutableHashSet<Asset.EType> TransferableTypes { get; private set; } = DefaultTransferableTypes;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public bool UseLoginKeys { get; private set; } = DefaultUseLoginKeys;
 
-    [JsonProperty(Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
     public ArchiHandler.EUserInterfaceMode UserInterfaceMode { get; private set; } = DefaultUserInterfaceMode;
 
-    [JsonExtensionData]
-    internal Dictionary<string, JToken>? AdditionalProperties
+    [STJ.JsonInclude, STJ.JsonExtensionData]
+    internal Dictionary<string, System.Text.Json.JsonElement>? AdditionalProperties
     {
         get;
         [UsedImplicitly]
@@ -304,7 +303,8 @@ public sealed class BotConfig
     private string? BackingSteamParentalCode = DefaultSteamParentalCode;
     private string? BackingSteamPassword = DefaultSteamPassword;
 
-    [JsonProperty($"{SharedInfo.UlongCompatibilityStringPrefix}{nameof(SteamMasterClanID)}", Required = Required.DisallowNull)]
+    [STJ.JsonInclude]
+    [STJ.JsonPropertyName("s_SteamMasterClanID")]
     private string SSteamMasterClanID
     {
         get => SteamMasterClanID.ToString(CultureInfo.InvariantCulture);
@@ -322,7 +322,7 @@ public sealed class BotConfig
         }
     }
 
-    [JsonConstructor]
+    [STJ.JsonConstructor]
     public BotConfig() { }
 
     [UsedImplicitly]

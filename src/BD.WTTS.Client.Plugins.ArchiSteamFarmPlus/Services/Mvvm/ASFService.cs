@@ -1,5 +1,5 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
-using Newtonsoft.Json;
+using BD.WTTS.Services.Implementation;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace
@@ -253,7 +253,7 @@ public sealed class ASFService : ReactiveObject
                     if (file.Name != SharedInfo.GlobalConfigFileName)
                     {
                         if (!allowBot) continue;
-                        var botConfig = JsonConvert.DeserializeObject<BotConfig>(json);
+                        var botConfig = System.Text.Json.JsonSerializer.Deserialize(json, ArchiSteamFarmJson.TypeInfo<BotConfig>());
                         if (botConfig == null)
                         {
                             ASF.ArchiLogger.LogNullError(botConfig);
@@ -268,7 +268,7 @@ public sealed class ASFService : ReactiveObject
                     else
                     {
                         if (!allowGlobal) continue;
-                        var globalConfig = JsonConvert.DeserializeObject<GlobalConfig>(json);
+                        var globalConfig = System.Text.Json.JsonSerializer.Deserialize(json, ArchiSteamFarmJson.TypeInfo<GlobalConfig>());
                         if (globalConfig == null)
                         {
                             ASF.ArchiLogger.LogNullError(globalConfig);
@@ -389,12 +389,12 @@ public sealed class ASFService : ReactiveObject
                 ZipFile.ExtractToDirectory(downloadSavingPath, downloadSavingDir);
                 ASFSettings.ArchiSteamFarmExePath.Value = Path.Combine(downloadSavingDir, "ArchiSteamFarm.exe");
                 progress?.Report(100);
-                Toast.Show(ToastIcon.Success, "ASF 下载成功");
+                Toast.Show(ToastIcon.Success, BD.WTTS.Client.Resources.Strings.L10nAsf_Text097);
             }
         }
         catch (Exception ex)
         {
-            Toast.LogAndShowT(ex, "ASF 文件下载异常");
+            Toast.LogAndShowT(ex, BD.WTTS.Client.Resources.Strings.L10nAsf_Text098);
         }
     }
 }

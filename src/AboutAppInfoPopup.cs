@@ -529,11 +529,15 @@ namespace System.Application.UI
             b.Append(GetAssemblyVersion(typeof(ServiceCollection).Assembly));
             b.AppendLine();
 
+#if WTTS_SIMD_SKIA
+            b.Append("[simdskia.ver] ");
+#else
             b.Append("[skia.ver] ");
+#endif
             b.Append(GetAssemblyVersion(typeof(SkiaSharp.SKColor).Assembly));
             b.AppendLine();
 
-#if AVALONIA
+#if AVALONIA && !WTTS_SIMD_SKIA
             b.Append("[harfbuzz.ver] ");
             b.Append(GetAssemblyVersion(typeof(HarfBuzzSharp.NativeObject).Assembly));
             b.AppendLine();

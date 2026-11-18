@@ -13,14 +13,14 @@ public interface IViewModelManager : IDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    T Get<T>() where T : ViewModelBase;
+    T Get<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>() where T : ViewModelBase;
 
     /// <summary>
     /// 获取视图模型
     /// </summary>
     /// <param name="vmType"></param>
     /// <returns></returns>
-    ViewModelBase Get(Type vmType);
+    ViewModelBase Get([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type vmType);
 
     /// <summary>
     /// 释放一个视图模型

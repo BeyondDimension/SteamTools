@@ -18,6 +18,11 @@
 		<DebugType>none</DebugType>
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="ToolStrings.resx" ManifestResourceName="ToolStrings" />
+		<EmbeddedResource Update="ToolStrings.en.resx" ManifestResourceName="ToolStrings.en" />
+	</ItemGroup>
+
 
 	<ItemGroup>
 		<Compile Include="..\AssemblyInfo.Constants.cs">

@@ -183,7 +183,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
                     if (await DownloadASFRelease(downloadUrl, savePath))
                         ZipFile.ExtractToDirectory(savePath, saveDir);
                     else
-                        Toast.Show(ToastIcon.Error, "比对文件下载失败");
+                        Toast.Show(ToastIcon.Error, BD.WTTS.Client.Resources.Strings.L10nAsf_Text096);
                 }
 
                 if (CalculateFileHash(SharedInfo.ASFExecuteFilePath) == CalculateFileHash(destination_asfPath))
@@ -411,7 +411,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         else
         {
             var iPCConfig = new IPCConfig(ipcUrl);
-            File.WriteAllText(customConfigPath, System.Text.Json.JsonSerializer.Serialize(iPCConfig));
+            File.WriteAllText(customConfigPath, System.Text.Json.JsonSerializer.Serialize(iPCConfig, ArchiSteamFarmJsonContext.Default.IPCConfig));
         }
         CurrentIPCPortValue = ipcUrl.Port;
         return ipcUrl.OriginalString;

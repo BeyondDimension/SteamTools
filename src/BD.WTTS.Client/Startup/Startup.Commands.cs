@@ -18,9 +18,9 @@ partial class Startup // 自定义控制台命令参数
         var debug_args = new Option<string>("-args")
         {
             DefaultValueFactory = _ => "",
-            Description = "测试参数",
+            Description = Strings.L10nCore_CmdTestArgs,
         };
-        var debug = new Command("debug", "调试")
+        var debug = new Command("debug", Strings.L10nCore_CmdDebug)
         {
             debug_args,
         };
@@ -55,22 +55,22 @@ partial class Startup // 自定义控制台命令参数
         var devtools_disable_gpu = new Option<bool>("-disable_gpu")
         {
             DefaultValueFactory = _ => false,
-            Description = "禁用 GPU 硬件加速",
+            Description = Strings.L10nCore_CmdDisableGpu,
         };
         var devtools_use_wgl = new Option<bool>("-use_wgl")
         {
             DefaultValueFactory = _ => false,
-            Description = "使用 Native OpenGL（仅 Windows）",
+            Description = Strings.L10nCore_CmdNativeOpenGl,
         };
         var devtools_use_localhost = new Option<bool>("-use_localhost")
         {
             DefaultValueFactory = _ => false,
-            Description = "使用本机服务端",
+            Description = Strings.L10nCore_CmdLocalServer,
         };
         var devtools_steamrun = new Option<bool>("-steamrun")
         {
             DefaultValueFactory = _ => false,
-            Description = "Steam 内启动",
+            Description = Strings.L10nCore_CmdSteamRun,
         };
         var devtools = new Command("devtools")
         {
@@ -104,12 +104,12 @@ partial class Startup // 自定义控制台命令参数
         var common_silence = new Option<bool>("-silence")
         {
             DefaultValueFactory = _ => false,
-            Description = "静默启动（不弹窗口）",
+            Description = Strings.L10nCore_CmdSilent,
         };
         var common_steamrun = new Option<bool>("-steamrun")
         {
             DefaultValueFactory = _ => false,
-            Description = "Steam 内启动",
+            Description = Strings.L10nCore_CmdSteamRun,
         };
         var common = new Command("c", "common")
         {
@@ -133,9 +133,9 @@ partial class Startup // 自定义控制台命令参数
         // -clt steam -account
         var steamuser_account = new Option<string>("-account")
         {
-            Description = "指定对应 Steam 用户名",
+            Description = Strings.L10nCore_CmdSteamAccount,
         };
-        var steamuser = new Command("steam", "Steam 相关操作")
+        var steamuser = new Command("steam", Strings.L10nCore_CmdSteam)
         {
             steamuser_account,
         };
@@ -182,22 +182,22 @@ partial class Startup // 自定义控制台命令参数
         // -clt app -id 282800 -achievement
         var app_id = new Option<int>("-id")
         {
-            Description = "指定一个 Steam 游戏 Id",
+            Description = Strings.L10nCore_CmdGameId,
         };
         var app_achievement = new Option<bool>("-achievement")
         {
-            Description = "打开成就解锁窗口",
+            Description = Strings.L10nCore_CmdAchievements,
         };
         var app_cloudmanager = new Option<bool>("-cloudmanager")
         {
-            Description = "打开云存档管理窗口",
+            Description = Strings.L10nCore_CmdCloudManager,
         };
         var app_silence = new Option<bool>("-silence")
         {
             DefaultValueFactory = _ => false,
-            Description = "挂运行服务，不加载窗口，内存占用更小",
+            Description = Strings.L10nCore_CmdIdle,
         };
-        var run_SteamApp = new Command("app", "运行 Steam 应用")
+        var run_SteamApp = new Command("app", Strings.L10nCore_CmdRunGame)
         {
             app_id, app_achievement, app_cloudmanager, app_silence,
         };
@@ -250,9 +250,9 @@ partial class Startup // 自定义控制台命令参数
         // -clt show -config -cert
         var show_cert = new Option<bool>("-cert")
         {
-            Description = "显示当前根证书信息",
+            Description = Strings.L10nCore_CmdCertificateInfo,
         };
-        var show = new Command("show", "显示信息")
+        var show = new Command("show", Strings.L10nCore_CmdShowInfo)
         {
             show_cert,
         };
@@ -351,13 +351,13 @@ partial class Startup // 自定义控制台命令参数
         //Linux 可以自定义用户文件夹
         var linux_ceri = new Option<string>("-ceri")
         {
-            Description = "安装证书 参数为 AppDataDirectory",
+            Description = Strings.L10nCore_CmdInstallCert,
         };
         var linux_cerd = new Option<string>("-cerd")
         {
-            Description = "删除证书 参数为 AppDataDirectory",
+            Description = Strings.L10nCore_CmdRemoveCert,
         };
-        var linux = new Command("linux", "Linux 平台 Root 权限 操作指令")
+        var linux = new Command("linux", Strings.L10nCore_CmdLinuxRoot)
         {
             linux_ceri, linux_cerd,
         };
@@ -387,13 +387,13 @@ partial class Startup // 自定义控制台命令参数
         // -clt proxy -on
         var proxy_on = new Option<bool>("-on")
         {
-            Description = "开启代理服务",
+            Description = Strings.L10nCore_CmdProxyOn,
         };
         var proxy_off = new Option<bool>("-off")
         {
-            Description = "关闭代理服务",
+            Description = Strings.L10nCore_CmdProxyOff,
         };
-        var proxy = new Command(key_proxy, "启用代理服务，静默启动（不弹窗口）")
+        var proxy = new Command(key_proxy, Strings.L10nCore_CmdProxySilent)
         {
             proxy_on, proxy_off,
         };
@@ -415,7 +415,7 @@ partial class Startup // 自定义控制台命令参数
         rootCommand.Subcommands.Add(proxy);
 
         // -clt shutdown
-        var shutdown = new Command(key_shutdown, "安全结束正在运行的程序")
+        var shutdown = new Command(key_shutdown, Strings.L10nCore_CmdShutdown)
         {
         };
         shutdown.SetAction(async parseResult =>
@@ -428,13 +428,13 @@ partial class Startup // 自定义控制台命令参数
         // -clt sudo
         var sudo_n = new Option<string>(IPlatformService.IPCRoot.args_PipeName)
         {
-            Description = "IPC 管道名",
+            Description = Strings.L10nCore_CmdPipeName,
         };
         var sudo_p = new Option<string>(IPlatformService.IPCRoot.args_ProcessId)
         {
-            Description = "主进程 Id",
+            Description = Strings.L10nCore_CmdProcessId,
         };
-        var sudo = new Command(IPlatformService.IPCRoot.CommandName, "使用管理员权限启动 IPC 服务进程")
+        var sudo = new Command(IPlatformService.IPCRoot.CommandName, Strings.L10nCore_CmdSudo)
         {
             sudo_n, sudo_p,
         };
@@ -516,21 +516,21 @@ partial class Startup // 自定义控制台命令参数
         };
         var plugins_m = new Option<string>("-m")
         {
-            Description = "需要加载的模块名称",
+            Description = Strings.L10nCore_CmdModuleName,
         };
         var plugins_a = new Option<string>("-a")
         {
-            Description = "需要解析的参数，使用 HttpUtility.UrlDecode 解码",
+            Description = Strings.L10nCore_CmdModuleArgs,
         };
         var plugins_n = new Option<string>(IPlatformService.IPCRoot.args_PipeName)
         {
-            Description = "IPC 管道名",
+            Description = Strings.L10nCore_CmdPipeName,
         };
         var plugins_p = new Option<string>(IPlatformService.IPCRoot.args_ProcessId)
         {
-            Description = "主进程 Id",
+            Description = Strings.L10nCore_CmdProcessId,
         };
-        var plugins = new Command("plugins", "插件使用的 IPC 服务进程")
+        var plugins = new Command("plugins", Strings.L10nCore_CmdPluginIpc)
         {
             plugins_l, plugins_m, plugins_a, plugins_n, plugins_p,
         };

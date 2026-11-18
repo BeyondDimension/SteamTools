@@ -17,7 +17,7 @@ using static BD.WTTS.Settings.Abstractions.IGeneralSettings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Settings;
 
-[JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true)]
+[JsonSourceGenerationOptions(WriteIndented = true, IgnoreReadOnlyProperties = true, UseStringEnumConverter = true)]
 [JsonSerializable(typeof(GeneralSettings_))]
 internal partial class GeneralSettingsContext : JsonSerializerContext
 {

@@ -214,7 +214,7 @@
 													<TextBlock
                                                         VerticalAlignment="Center"
                                                         IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}}"
-                                                        Text="{Binding Path=Res.User_UnLogin, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+                                                        Text="{x:Static spp:Strings.User_UnLogin}" />
 
 													<StackPanel VerticalAlignment="Center" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
 														<TextBlock Text="{Binding Path=User?.NickName, Mode=OneWay, Source={x:Static s:UserService.Current}}" />
@@ -234,7 +234,7 @@
                                                                 VerticalAlignment="Center"
                                                                 FontSize="10"
                                                                 Foreground="White"
-                                                                Text="{Binding Path=Res.User_Sponsor, Mode=OneWay, Source={x:Static s:ResourceService.Current}, StringFormat={}❤️{0}}" />
+                                                                Text="{Binding Mode=OneTime, Source={x:Static spp:Strings.User_Sponsor}, StringFormat={}❤️{0}}" />
 														</Border>
 
 													</StackPanel>
@@ -244,14 +244,14 @@
                                                 <Button Margin="5,0" FontSize="10">
                                                     <ToolTip.Tip>
                                                         <MultiBinding StringFormat="{}{0} : {1} / {2}">
-                                                            <CompiledBindingExtension Path="Res.User_Experience" Source="{x:Static s:ResourceService.Current}" />
+                                                            <Binding Mode="OneTime" Source="{x:Static spp:Strings.User_Experience}" />
                                                             <CompiledBindingExtension Path="User.Experience" Source="{x:Static s:UserService.Current}" />
                                                             <CompiledBindingExtension Path="User.NextExperience" Source="{x:Static s:UserService.Current}" />
                                                         </MultiBinding>
                                                     </ToolTip.Tip>
                                                     <Button.Content>
                                                         <MultiBinding StringFormat="{}{0} : Lv.{1}">
-                                                            <CompiledBindingExtension Path="Res.User_Level" Source="{x:Static s:ResourceService.Current}" />
+                                                            <Binding Mode="OneTime" Source="{x:Static spp:Strings.User_Level}" />
                                                             <CompiledBindingExtension Path="User.Level" Source="{x:Static s:UserService.Current}" />
                                                         </MultiBinding>
                                                     </Button.Content>
@@ -259,17 +259,17 @@
                                                 <Button
                                                     Margin="5,0"
                                                     Command="{Binding Path=SignInAsync, Mode=OneWay, Source={x:Static s:UserService.Current}}"
-                                                    Content="{Binding Path=Res.Sign, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                                    Content="{x:Static spp:Strings.Sign}"
                                                     FontSize="10"
                                                     IsVisible="{Binding Path=!User.IsSignIn, Mode=OneWay, Source={x:Static s:UserService.Current}}" />
                                                 <Button
                                                     Margin="5,0"
                                                     FontSize="10"
                                                     IsVisible="{Binding Path=User.IsSignIn, Mode=OneWay, Source={x:Static s:UserService.Current}}"
-                                                    ToolTip.Tip="{Binding Path=Res.Signed, Mode=OneWay, Source={x:Static s:ResourceService.Current}}">
+                                                    ToolTip.Tip="{x:Static spp:Strings.Signed}">
                                                     <Button.Content>
                                                         <MultiBinding StringFormat="{}{0} : {1}">
-                                                            <CompiledBindingExtension Path="Res.User_EngineOil" Source="{x:Static s:ResourceService.Current}" />
+                                                            <Binding Mode="OneTime" Source="{x:Static spp:Strings.User_EngineOil}" />
                                                             <CompiledBindingExtension Path="User.Balance" Source="{x:Static s:UserService.Current}" />
                                                         </MultiBinding>
                                                     </Button.Content>
@@ -282,33 +282,31 @@
 								<MenuItem
                                     Command="{Binding Path=OpenAuthOfficialCommand, Source={x:Static s:UserService.Current}}"
                                     CommandParameter="https://steampp.net/account/center/info"
-                                    Header="{Binding Path=Res.PersonalCenter, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                    Header="{x:Static spp:Strings.PersonalCenter}"
                                     IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
-								<!--<MenuItem Header="{Binding Path=Res.MyOrder, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />-->
+								<!--<MenuItem Header="{x:Static spp:Strings.MyOrder}" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />-->
 								<MenuItem
                                     Command="{Binding Path=OpenAuthOfficialCommand, Source={x:Static s:UserService.Current}}"
                                     CommandParameter="https://steampp.net/account/center/bind"
-                                    Header="{Binding Path=Res.BindThirdPartyAccount, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                    Header="{x:Static spp:Strings.BindThirdPartyAccount}"
                                     IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
 								<MenuItem
                                     Command="{Binding Path=OpenAuthOfficialCommand, Source={x:Static s:UserService.Current}}"
                                     CommandParameter="https://steampp.net/account/center/safe"
-                                    Header="{Binding Path=Res.PersonalSafe, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                    Header="{x:Static spp:Strings.PersonalSafe}"
                                     IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
 								<MenuItem Header="-" IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
 								<MenuItem
                                     Command="{Binding Path=SignOut, Mode=OneWay, Source={x:Static s:UserService.Current}}"
                                     Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                    Header="{Binding Path=Res.SignOut, Mode=OneWay, Source={x:Static s:ResourceService.Current}}"
+                                    Header="{x:Static spp:Strings.SignOut}"
                                     IsVisible="{Binding Path=User, Mode=OneWay, Source={x:Static s:UserService.Current}, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
 								<!--<MenuItem
                                     Command="{Binding Path=ShowWindow,
                                                                 Source={x:Static s:UserService.Current}}"
                                     CommandParameter="{x:Static spp:AppEndPoint.LoginOrRegister}"
                                     Foreground="{DynamicResource SystemFillColorAttentionBrush}"
-                                    Header="{Binding Path=Res.LoginAndRegister,
-                                                               Mode=OneWay,
-                                                               Source={x:Static s:ResourceService.Current}}"
+                                    Header="{x:Static spp:Strings.LoginAndRegister}"
                                     IsVisible="{Binding Path=User,
                                                                   Mode=OneWay,
                                                                   Source={x:Static s:UserService.Current},
@@ -346,7 +344,7 @@
 				</Style>
 				<Style Selector="Grid#PaneToggleButtonGrid">
 					<Setter Property="Margin" Value="5 0 0 0" />
-					<Setter Property="ToolTip.Tip" Value="{Binding Path=Res.Back, Mode=OneWay, Source={x:Static s:ResourceService.Current}}" />
+					<Setter Property="ToolTip.Tip" Value="{x:Static spp:Strings.Back}" />
 					<Setter Property="ToolTip.Placement" Value="Bottom" />
 				</Style>
 			</ui:FANavigationView.Styles>

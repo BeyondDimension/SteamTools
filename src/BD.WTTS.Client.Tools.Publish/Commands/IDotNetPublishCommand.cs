@@ -1,5 +1,4 @@
 using BD.WTTS.Client.Tools.Publish.Helpers;
-using System.Reflection;
 using System;
 using System.Security.Policy;
 using static BD.WTTS.Client.Tools.Publish.Helpers.DotNetCLIHelper;
@@ -72,85 +71,6 @@ interface IDotNetPublishCommand : ICommand
         }
     }
 
-    const string DllSystemDrawingCommon = "System.Drawing.Common.dll";
-    const string DllMicrosoftWin32SystemEvents = "Microsoft.Win32.SystemEvents.dll";
-    const string DllSystemManagement = "System.Management.dll";
-    const string DllSplatDrawing = "Splat.Drawing.dll";
-    const string DllSystemReactive = "System.Reactive.dll";
-
-    static readonly Lazy<string> nugetPkgPath = new(() =>
-        Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-            ".nuget",
-            "packages"));
-
-    static string GetMatchTfmDir(string dllPath)
-    {
-        var versions = from m in Directory.GetDirectories(dllPath)
-                       let dirName = Path.GetFileName(m)
-                       let ver = Version.TryParse(dirName.TrimStart("net"), out var ver_) ? ver_ : null
-                       where ver != null && ver.Major <= Environment.Version.Major
-                       orderby ver descending
-                       select (ver, m);
-        var path = versions.FirstOrDefault().m;
-        return path;
-    }
-
-    static bool MatchPackageVersion(string dllName, Version ver, FileVersionInfo? fvi = null) => dllName switch
-    {
-        DllSystemDrawingCommon => ver.Major <= Environment.Version.Major,
-        _ => fvi == null || (!Version.TryParse(fvi.FileVersion, out var fVer) || (ver.Major <= fVer.Major)),
-    };
-
-    static void CopyWindowsDlls(string publishDir)
-    {
-        // 修复：存在 Microsoft.WindowsDesktop.App 依赖时不会将 System.Drawing.Common.dll 复制到输出目录
-        string[] copyToDlls = [DllSystemDrawingCommon, DllMicrosoftWin32SystemEvents, DllSystemManagement];
-        foreach (var copyToDll in copyToDlls)
-        {
-            var dllExistsPath = Path.Combine(publishDir, copyToDll);
-            if (!File.Exists(dllExistsPath))
-            {
-                var pkgDir = Path.Combine(nugetPkgPath.Value, copyToDll.TrimEnd(".dll", StringComparison.OrdinalIgnoreCase));
-                var versions = from m in Directory.GetDirectories(pkgDir)
-                               let dirName = Path.GetFileName(m)
-                               let ver = Version.TryParse(dirName, out var ver_) ? ver_ : null
-                               where ver != null && MatchPackageVersion(copyToDll, ver)
-                               orderby ver descending
-                               select (ver, m);
-                var path = versions.FirstOrDefault().m;
-                var dllPath = Path.Combine(path, "lib");
-                dllPath = GetMatchTfmDir(dllPath);
-                dllPath = Path.Combine(dllPath, copyToDll);
-                File.Copy(dllPath, dllExistsPath);
-            }
-        }
-
-        // 修复：Splat.Drawing 包存在 WPF 的依赖项
-        // 修复：System.Reactive 包存在 System.Windows.Forms 的依赖项
-        string[] replaceToDlls = [DllSplatDrawing, DllSystemReactive];
-        foreach (var replaceToDll in replaceToDlls)
-        {
-            var dllExistsPath = Path.Combine(publishDir, replaceToDll);
-            if (File.Exists(dllExistsPath))
-            {
-                var fvi = FileVersionInfo.GetVersionInfo(dllExistsPath);
-                var pkgDir = Path.Combine(nugetPkgPath.Value, replaceToDll.TrimEnd(".dll", StringComparison.OrdinalIgnoreCase));
-                var versions = from m in Directory.GetDirectories(pkgDir)
-                               let dirName = Path.GetFileName(m)
-                               let ver = Version.TryParse(dirName, out var ver_) ? ver_ : null
-                               where ver != null && MatchPackageVersion(replaceToDll, ver, fvi)
-                               orderby ver descending
-                               select (ver, m);
-                var path = versions.FirstOrDefault().m;
-                var dllPath = Path.Combine(path, "lib");
-                dllPath = GetMatchTfmDir(dllPath);
-                dllPath = Path.Combine(dllPath, replaceToDll);
-                File.Delete(dllExistsPath);
-                File.Copy(dllPath, dllExistsPath);
-            }
-        }
-    }
 
     internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload, bool hsm_sign)
     {
@@ -227,22 +147,22 @@ interface IDotNetPublishCommand : ICommand
                 //}
                 DirTryDelete(rootPublishDir);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.Write("已删除目录：");
+                Console.Write(ToolStrings.Get("DirectoryDeleted"));
                 Console.WriteLine(rootPublishDir);
                 ResetConsoleColor();
 
                 // 发布主体
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始发布【主项目】");
+                Console.WriteLine(ToolStrings.Get("PublishingMain"));
                 ResetConsoleColor();
                 ProcessHelper.StartAndWaitForExit(psi);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("发布成功【主项目】");
+                Console.WriteLine(ToolStrings.Get("PublishedMain"));
                 ResetConsoleColor();
 
                 // 验证 Avalonia.Base.dll 版本号必须为 11+
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始验证【Avalonia.Base.dll 版本号必须为 11+】");
+                Console.WriteLine(ToolStrings.Get("ValidatingAvalonia"));
                 ResetConsoleColor();
                 if (arg.SingleFile.HasValue && !arg.SingleFile.Value)
                 {
@@ -258,7 +178,7 @@ interface IDotNetPublishCommand : ICommand
 
                 if (info.Platform == Platform.Linux)
                 {
-                    Console.WriteLine("Linux 需要 Ico 导入系统图标");
+                    Console.WriteLine(ToolStrings.Get("LinuxIcon"));
                     var ico_path = Path.Combine(ProjectUtils.ProjPath, "res", "icons", "app", "v3", "Logo_512.png");
                     var save_dir_path = Path.Combine(rootPublishDir, "Icons");
                     if (File.Exists(ico_path))
@@ -267,20 +187,25 @@ interface IDotNetPublishCommand : ICommand
                         // 不能使用下划线
                         File.Copy(ico_path, Path.Combine(save_dir_path, "Watt-Toolkit.png"), true);
                     }
-                    Console.WriteLine("Linux 复制启动 环境检查 卸载脚本");
+                    Console.WriteLine(ToolStrings.Get("LinuxScripts"));
                     var script_path = Path.Combine(rootPublishDir, "..", "ShellScript", "Linux");//Path.Combine(ProjectUtils.ProjPath, "build", "linux");
                     CopyDirectory(script_path, Path.Combine(rootPublishDir, "script"), true);
+                    var localizedScripts = Path.Combine(ProjectUtils.ProjPath, "build", "linux");
+                    var destinationScripts = Path.Combine(rootPublishDir, "script");
+                    foreach (var script in new[] { "Steam++.sh", "environment_check.sh", "offline_init.sh", "online_install.sh", "uninstall.sh" })
+                        File.Copy(Path.Combine(localizedScripts, script), Path.Combine(destinationScripts, script), true);
+                    CopyDirectory(Path.Combine(localizedScripts, "locale"), Path.Combine(destinationScripts, "locale"), true);
                     File.Move(Path.Combine(rootPublishDir, "script", "Steam++.sh"), Path.Combine(rootPublishDir, "Steam++.sh"));
                 }
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("验证成功【Avalonia.Base.dll 版本号必须为 11+】");
+                Console.WriteLine(ToolStrings.Get("ValidatedAvalonia"));
                 ResetConsoleColor();
 
                 // 删除 CreateDump
                 RemoveCreateDump(publishDir);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("已删除 CreateDump");
+                Console.WriteLine(ToolStrings.Get("RemovedCreateDump"));
                 ResetConsoleColor();
 
                 // 移动本机库
@@ -295,46 +220,45 @@ interface IDotNetPublishCommand : ICommand
                     }
                 }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("移动本机库");
+                Console.WriteLine(ToolStrings.Get("MoveNativeLibraries"));
                 ResetConsoleColor();
 
                 // 处理 json 文件
                 var runtimeconfigjsonpath = Path.Combine(publishDir, runtimeconfigjsonfilename);
-                ILaunchAppTestCommand.HandlerJsonFiles(runtimeconfigjsonpath, info.Platform);
+                ILaunchAppTestCommand.HandlerJsonFiles(runtimeconfigjsonpath);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("已处理 json 文件");
+                Console.WriteLine(ToolStrings.Get("ProcessedJson"));
                 ResetConsoleColor();
 
                 if (isWindows)
                 {
                     // 发布 apphost
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                    Console.WriteLine("开始发布【AppHost】");
+                    Console.WriteLine(ToolStrings.Get("PublishingAppHost"));
                     ResetConsoleColor();
                     PublishAppHost(publishDir, info.Platform, debug);
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                    Console.WriteLine("发布成功【AppHost】");
+                    Console.WriteLine(ToolStrings.Get("PublishedAppHost"));
                     ResetConsoleColor();
 
-                    CopyWindowsDlls(publishDir);
                 }
 
                 // 发布插件
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始发布【插件】");
+                Console.WriteLine(ToolStrings.Get("PublishingPlugins"));
                 ResetConsoleColor();
                 PublishPlugins(debug, info.Platform, info.Architecture, publishDir, arg.Configuration, arg.Framework);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("发布成功【插件】");
+                Console.WriteLine(ToolStrings.Get("PublishedPlugins"));
                 ResetConsoleColor();
 
                 // 复制运行时
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始复制运行时");
+                Console.WriteLine(ToolStrings.Get("CopyingRuntime"));
                 ResetConsoleColor();
                 CopyRuntime(rootPublishDir, info.Platform, isCopyRuntime, info.Architecture);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("完成复制运行时");
+                Console.WriteLine(ToolStrings.Get("CopiedRuntime"));
                 ResetConsoleColor();
 
                 var appPublish = new AppPublishInfo()
@@ -347,21 +271,21 @@ interface IDotNetPublishCommand : ICommand
                 IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_AppData));
                 IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_Cache));
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("已删除 AppData/Cache");
+                Console.WriteLine(ToolStrings.Get("RemovedCache"));
                 ResetConsoleColor();
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始扫描文件");
+                Console.WriteLine(ToolStrings.Get("ScanningFiles"));
                 ResetConsoleColor();
                 IScanPublicDirectoryCommand.ScanPathCore(appPublish.DirectoryPath,
                     appPublish.Files,
                     ignoreRootDirNames: ignoreDirNames);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("完成扫描文件");
+                Console.WriteLine(ToolStrings.Get("ScannedFiles"));
                 ResetConsoleColor();
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始文件计算哈希值");
+                Console.WriteLine(ToolStrings.Get("HashingFiles"));
                 ResetConsoleColor();
                 if (sha256)
                 {
@@ -380,7 +304,7 @@ interface IDotNetPublishCommand : ICommand
                     }
                 }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.WriteLine("完成文件计算哈希值");
+                Console.WriteLine(ToolStrings.Get("HashedFiles"));
                 ResetConsoleColor();
 
                 if (OperatingSystem.IsWindows() && isWindows)
@@ -412,7 +336,7 @@ interface IDotNetPublishCommand : ICommand
                     if (toBeSignedFilePaths.Count != 0)
                     {
                         SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                        Console.Write("正在进行数字签名，文件数量：");
+                        Console.Write(ToolStrings.Get("SigningCount"));
                         Console.WriteLine(toBeSignedFilePaths.Count);
                         ResetConsoleColor();
                         var fileNames = string.Join(' ', toBeSignedFilePaths.Select(x =>
@@ -451,7 +375,7 @@ $"""
                     }
 
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                    Console.WriteLine("开始生成【MSIX 包】");
+                    Console.WriteLine(ToolStrings.Get("GeneratingMsix"));
                     ResetConsoleColor();
                     // 生成清单文件
                     MSIXHelper.MakeAppx.GenerateAppxManifestXml(rootPublishDir, AppVersion4, info.Architecture);
@@ -491,15 +415,15 @@ $"""
                     appPublish.SingleFile.Add(CloudFileType.MsixBundle, msixInfo);
 
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                    Console.Write("已生成【MSIX 包】，文件大小：");
+                    Console.Write(ToolStrings.Get("GeneratedMsixSize"));
                     Console.Write(IOPath.GetDisplayFileSizeString(msixInfo.Length));
-                    Console.Write("，路径：");
+                    Console.Write(ToolStrings.Get("PathSuffix"));
                     Console.WriteLine(msixFilePath);
                     ResetConsoleColor();
                 }
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
-                Console.WriteLine("开始创建【压缩包】");
+                Console.WriteLine(ToolStrings.Get("CreatingArchive"));
                 ResetConsoleColor();
                 string? packPath = null;
                 string GetPackPathWithTryDelete(string fileEx)
@@ -566,7 +490,7 @@ $"""
                     ICompressedPackageCommand.CreateZipPack(GetPackPathWithTryDelete(".stmupload.zip"), stmUploads);
                 }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.Write("创建成功【压缩包】，文件大小：");
+                Console.Write(ToolStrings.Get("CreatedArchiveSize"));
                 if (packPath != null)
                 {
                     Console.Write(IOPath.GetDisplayFileSizeString(new FileInfo(packPath).Length));
@@ -575,7 +499,7 @@ $"""
                 {
                     Console.Write(0);
                 }
-                Console.Write("，路径：");
+                Console.Write(ToolStrings.Get("PathSuffix"));
                 Console.WriteLine(packPath);
                 ResetConsoleColor();
 
@@ -590,9 +514,9 @@ $"""
                 jsonFileStream.SetLength(jsonFileStream.Position);
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
-                Console.Write("发布文件信息清单已生成，文件大小：");
+                Console.Write(ToolStrings.Get("GeneratedManifestSize"));
                 Console.Write(IOPath.GetDisplayFileSizeString(appPublish.Files.Sum(x => x.Length)));
-                Console.Write("，路径：");
+                Console.Write(ToolStrings.Get("PathSuffix"));
                 Console.WriteLine(jsonFilePath);
                 ResetConsoleColor();
             }
@@ -617,108 +541,12 @@ $"""
     static string AppVersion4 => _AppVersion4.Value;
 
     /// <summary>
-    /// 将运行时复制到发布根目录下
+    /// 按生成的 runtimeconfig 依赖闭包复制共享运行时，不裁剪框架内部程序集。
     /// </summary>
-    /// <param name="rootPublishDir"></param>
-    /// <param name="isWindows"></param>
-    /// <param name="architecture"></param>
     static void CopyRuntime(string rootPublishDir, Platform platform, bool isCopyRuntime, Architecture architecture)
     {
-        string? preOrRcString = null;
-        var infoVer = typeof(object).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
-        if (!string.IsNullOrWhiteSpace(infoVer))
-        {
-            var index = infoVer.IndexOf('-');
-            if (index > 4) // x.y.z-abc
-            {
-                var index2 = infoVer.IndexOf('+');
-                if (index2 > 0)
-                {
-                    preOrRcString = infoVer.Substring(index + 1, index2 - index - 1);
-                }
-                else
-                {
-                    preOrRcString = infoVer[(index + 1)..];
-                }
-            }
-        }
-
-        var specific_version = $"{Environment.Version.Major}.{Environment.Version.Minor}.{Environment.Version.Build}{(preOrRcString == null ? null : $"-{preOrRcString}")}";
-
-        switch (platform)
-        {
-            case Platform.UWP:
-            case Platform.WinUI:
-            case Platform.Windows:
-                if (isCopyRuntime)
-                {
-                    //if (architecture == Architecture.Arm64 &&
-                    //    RuntimeInformation.OSArchitecture != Architecture.Arm64)
-                    //{
-                    //    // TODO
-                    //    return;
-                    //}
-
-                    var programFiles = Environment.GetFolderPath(
-                        architecture == Architecture.X86 ?
-                        Environment.SpecialFolder.ProgramFilesX86 :
-                        Environment.SpecialFolder.ProgramFiles);
-
-                    string get_hostfxr_path(string rootPath) => Path.Combine(rootPath,
-                        "dotnet",
-                        "host",
-                        "fxr",
-                        specific_version,
-                        "hostfxr.dll");
-
-                    var hostfxr_path = get_hostfxr_path(programFiles);
-
-                    string get_aspnetcore_path(string rootPath) => Path.Combine(rootPath,
-                        "dotnet",
-                        "shared",
-                        "Microsoft.AspNetCore.App",
-                        specific_version);
-
-                    var aspnetcore_path = get_aspnetcore_path(programFiles);
-
-                    string get_win_desktop_path(string rootPath) => Path.Combine(rootPath,
-                        "dotnet",
-                        "shared",
-                        "Microsoft.WindowsDesktop.App",
-                        specific_version);
-
-                    var win_desktop_path = get_win_desktop_path(programFiles);
-
-                    string get_netcore_path(string rootPath) => Path.Combine(rootPath,
-                        "dotnet",
-                        "shared",
-                        "Microsoft.NETCore.App",
-                        specific_version);
-
-                    var netcore_path = get_netcore_path(programFiles);
-
-                    if (Directory.Exists(netcore_path) &&
-                        Directory.Exists(aspnetcore_path) &&
-                        File.Exists(hostfxr_path))
-                    {
-                        var dest_hostfxr_path = get_hostfxr_path(rootPublishDir);
-                        IOPath.DirCreateByNotExists(Path.GetDirectoryName(dest_hostfxr_path)!);
-                        File.Copy(hostfxr_path, dest_hostfxr_path);
-                        CopyDirectory(netcore_path, get_netcore_path(rootPublishDir), true);
-                        CopyDirectory(aspnetcore_path, get_aspnetcore_path(rootPublishDir), true);
-                        CopyDirectory(win_desktop_path, get_win_desktop_path(rootPublishDir), true);
-                    }
-                }
-                break;
-            case Platform.Linux:
-                if (isCopyRuntime)
-                {
-                    var dotnet_path = Path.Combine(rootPublishDir, "..", "dotnet-Runtime", $"{Platform.Linux}-{architecture}");
-                    CopyDirectory(dotnet_path, Path.Combine(rootPublishDir, "dotnet"), true);
-                    // TODO
-                }
-                break;
-        }
+        if (isCopyRuntime)
+            BundledRuntimeHelper.Copy(rootPublishDir, platform, architecture);
     }
 
     /// <summary>
@@ -851,7 +679,7 @@ $"""
                         arg.RuntimeIdentifier = $"win-{ArchToString(architecture)}";
                         arg.UseAppHost = false;
                         arg.SingleFile = false;
-                        arg.ReadyToRun = false;
+                        arg.ReadyToRun = !isDebug;
                         arg.Trimmed = false;
                         arg.SelfContained = false;
                         break;
@@ -1336,6 +1164,15 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 ProcessHelper.StartAndWaitForExit(psi);
 
                 var publishDir = Path.Combine(projRootPath, arg.PublishDir);
+
+                // Single-file embeds this file; retain the generated declaration for shared-runtime packaging.
+                if (arg.SelfContained == false)
+                {
+                    var runtimeConfigName = $"Steam++.{pluginName}.runtimeconfig.json";
+                    var runtimeConfigPath = Path.Combine(projRootPath, "bin", arg.Configuration,
+                        arg.Framework, arg.RuntimeIdentifier, runtimeConfigName);
+                    File.Copy(runtimeConfigPath, Path.Combine(destinationDir, runtimeConfigName), true);
+                }
 
                 var aspnetcorev2_inprocess = Path.Combine(publishDir, "aspnetcorev2_inprocess.dll");
                 IOPath.FileTryDelete(aspnetcorev2_inprocess);

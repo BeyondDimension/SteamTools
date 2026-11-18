@@ -1,6 +1,6 @@
 namespace BD.WTTS.Repositories;
 
-public abstract class CacheRepository<[DynamicallyAccessedMembers(IEntity.DynamicallyAccessedMemberTypes)] TEntity, TPrimaryKey> : Repository<TEntity, TPrimaryKey>
+public abstract class CacheRepository<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TEntity, TPrimaryKey> : Repository<TEntity, TPrimaryKey>
     where TEntity : class, IEntity<TPrimaryKey>, new()
     where TPrimaryKey : IEquatable<TPrimaryKey>
 {

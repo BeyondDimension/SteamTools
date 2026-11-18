@@ -40,31 +40,25 @@
             VerticalAlignment="Center"
             FontSize="12"
             IsHitTestVisible="False"
-            Text="{ReflectionBinding Title,
-                                     RelativeSource={RelativeSource FindAncestor,
-                                                                    AncestorType=Window}}"
+            Text="{Binding $parent[Window].Title}"
             TextWrapping="Wrap" />
 
         <Border
             Grid.Column="2"
             Padding="6"
             VerticalAlignment="Center"
-            IsVisible="{ReflectionBinding IsShowSearchBox,
-                                          RelativeSource={RelativeSource FindAncestor,
-                                                                         AncestorType=UserControl}}">
+            IsVisible="{Binding $parent[spp:TitleBar].IsShowSearchBox}">
             <AutoCompleteBox
                 Name="SearchBox"
                 MaxWidth="500"
                 VerticalAlignment="Center"
                 WindowDecorationProperties.ElementRole="User"
                 Classes="Search"
-                Text="{ReflectionBinding SearchText,
-                                         RelativeSource={RelativeSource FindAncestor,
-                                                                        AncestorType=UserControl}}" />
+                Text="{Binding $parent[spp:TitleBar].SearchText, Mode=TwoWay}" />
         </Border>
 
-        <DockPanel Grid.Column="3" WindowDecorationProperties.ElementRole="User" IsVisible="{ReflectionBinding ActionContent, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
-            <ContentControl Content="{ReflectionBinding ActionContent, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" DockPanel.Dock="Left" />
+        <DockPanel Grid.Column="3" WindowDecorationProperties.ElementRole="User" IsVisible="{Binding $parent[spp:TitleBar].ActionContent, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+            <ContentControl Content="{Binding $parent[spp:TitleBar].ActionContent}" DockPanel.Dock="Left" />
 
             <Separator
                 Height="18"

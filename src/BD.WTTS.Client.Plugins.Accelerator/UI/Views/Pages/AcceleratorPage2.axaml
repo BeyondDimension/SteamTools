@@ -13,12 +13,12 @@
 	xmlns:spp="https://steampp.net/ui"
 	xmlns:sys="using:System"
 	xmlns:ui="using:FluentAvalonia.UI.Controls"
-	Title="{Binding Name, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+	Title="{x:Static spp:Strings.CommunityFix}"
 	d:DesignHeight="650"
 	d:DesignWidth="800"
 	x:CompileBindings="True"
 	x:DataType="spp:AcceleratorPageViewModel"
-	Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+	Description="{x:Static spp:Strings.L10nAccel_076}"
 	OpenPaneLength="335"
 	ScrollViewer.VerticalScrollBarVisibility="Disabled"
 	Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
@@ -61,7 +61,7 @@
 								<ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource SpeedHigh}" />
 							</Viewbox>
 							<TextBlock VerticalAlignment="Center" FontWeight="SemiBold"
-							           Text="{Binding Path=Res.CommunityFix_StartProxy, Source={x:Static s:ResourceService.Current}, Mode=OneWay}" />
+							           Text="{x:Static spp:Strings.CommunityFix_StartProxy}" />
 						</StackPanel>
 						<StackPanel Orientation="Horizontal" Spacing="9"
 						            IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}">
@@ -69,7 +69,7 @@
 								<ui:FASymbolIcon Symbol="StopFilled" />
 							</Viewbox>
 							<TextBlock VerticalAlignment="Center" FontWeight="SemiBold"
-							           Text="{Binding Path=Res.CommunityFix_StopProxy, Source={x:Static s:ResourceService.Current}, Mode=OneWay}" />
+							           Text="{x:Static spp:Strings.CommunityFix_StopProxy}" />
 							<Border Padding="6,2" Background="{DynamicResource SubtleFillColorSecondaryBrush}" CornerRadius="4">
 								<TextBlock FontSize="12" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
 								           Text="{Binding Source={x:Static s:ProxyService.Current}, Path=AccelerateTime, Mode=OneWay, Converter={StaticResource StringFormatConverter}}" />
@@ -97,12 +97,12 @@
 							VerticalAlignment="Center"
 							FontWeight="SemiBold"
 							IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStopping, Mode=OneWay}"
-							Text="{Binding Path=Res.CommunityFix_Starting, Source={x:Static s:ResourceService.Current}, Mode=OneWay}" />
+							Text="{x:Static spp:Strings.CommunityFix_Starting}" />
 						<TextBlock
 							VerticalAlignment="Center"
 							FontWeight="SemiBold"
 							IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStopping, Mode=OneWay}"
-							Text="{Binding Path=Res.CommunityFix_Stopping, Source={x:Static s:ResourceService.Current}, Mode=OneWay}" />
+							Text="{x:Static spp:Strings.CommunityFix_Stopping}" />
 					</StackPanel>
 				</Border>
 			</Grid>
@@ -120,8 +120,8 @@
 				Padding="8,4"
 				Command="{Binding RefreshCommand}"
 				DockPanel.Dock="Right"
-				AutomationProperties.Name="{Binding Path=Res.Refresh, Source={x:Static s:ResourceService.Current}, Mode=OneWay}"
-				ToolTip.Tip="{Binding Path=Res.Refresh, Source={x:Static s:ResourceService.Current}, Mode=OneWay}"
+				AutomationProperties.Name="{x:Static spp:Strings.Refresh}"
+				ToolTip.Tip="{x:Static spp:Strings.Refresh}"
 				Theme="{StaticResource TransparentButton}">
 				<Panel>
 					<Viewbox
@@ -143,8 +143,8 @@
 				Padding="8,4"
 				DockPanel.Dock="Right"
 				IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
-				AutomationProperties.Name="{Binding Path=Res.CommunityFix_MenuName, Source={x:Static s:ResourceService.Current}, Mode=OneWay}"
-				ToolTip.Tip="{Binding Path=Res.CommunityFix_MenuName, Source={x:Static s:ResourceService.Current}, Mode=OneWay}"
+				AutomationProperties.Name="{x:Static spp:Strings.CommunityFix_MenuName}"
+				ToolTip.Tip="{x:Static spp:Strings.CommunityFix_MenuName}"
 				Theme="{StaticResource TransparentToggleButton}">
 				<Panel>
 					<Viewbox
@@ -256,9 +256,7 @@
                 <ToggleButton
                     Padding="8"
                     Theme="{StaticResource TransparentToggleButton}"
-                    ToolTip.Tip="{Binding Path=Res.GameList_OnlyInstalled,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{x:Static spp:Strings.GameList_OnlyInstalled}">
                     <Viewbox Width="20" Height="20">
                         <ui:FASymbolIcon Symbol="Play" />
                     </Viewbox>
@@ -267,9 +265,7 @@
                 <ToggleButton
                     Padding="8"
                     Theme="{StaticResource TransparentToggleButton}"
-                    ToolTip.Tip="{Binding Path=Res.GameList_OnlyCloudArchive,
-                                                    Mode=OneWay,
-                                                    Source={x:Static s:ResourceService.Current}}">
+                    ToolTip.Tip="{x:Static spp:Strings.GameList_OnlyCloudArchive}">
                     <Viewbox Width="20" Height="20">
                         <ui:FASymbolIcon Symbol="CloudSyncComplete" />
                     </Viewbox>
@@ -296,7 +292,7 @@
 					<Button
 						HorizontalAlignment="Stretch"
 						Command="{Binding ShowCertificateCommand}"
-						Content="查看证书信息" />
+						Content="{x:Static spp:Strings.L10nAccel_049}" />
 					<Button
 						HorizontalAlignment="Stretch"
 						Command="{Binding OpenCertificateDirCommand}"
@@ -328,7 +324,7 @@
 					<Button
 						HorizontalAlignment="Stretch"
 						Command="{Binding OpenLogFileCommand}"
-						Content="打开加速日志文件夹" />
+						Content="{x:Static spp:Strings.L10nAccel_050}" />
 				</ItemsControl.Items>
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
@@ -348,7 +344,7 @@
 			<StackPanel IsVisible="{x:Static spp:XunYouSDK.IsSupported}}" Spacing="10">
 				<Separator Margin="0,8" Classes="Horizontal" />
 
-				<TextBlock Text="Watt 加速器相关" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+				<TextBlock Text="{x:Static spp:Strings.L10nAccel_051}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
 
 				<ToggleSwitch
 					VerticalAlignment="Center"
@@ -441,10 +437,10 @@
 						ClassName="wide" />
 				</spp:AdaptiveBehavior>
 			</i:Interaction.Behaviors>
-			<TabStripItem Content="平台加速"
+			<TabStripItem Content="{x:Static spp:Strings.L10nAccel_052}"
 			              IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=!ProxyStatus, Mode=OneWay}">
 				<!--<WrapPanel>-->
-				<TextBlock Text="平台加速" />
+				<TextBlock Text="{x:Static spp:Strings.L10nAccel_052}" />
 				<!--<Border
                         Margin="5,0,0,0"
                         Padding="5,1"
@@ -466,7 +462,7 @@
 			</TabStripItem>
 			<TabStripItem Content="{x:Static spp:Strings.CommunityFix_Services}"
 			              IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
-			<TabStripItem Content="加速脚本"
+			<TabStripItem Content="{x:Static spp:Strings.L10nAccel_053}"
 			              IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=IsAnyProxyScripts, Mode=OneWay}" />
 			<TabStripItem Content="{x:Static spp:Strings.CommunityFix_ProxyLog}"
 			              IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
@@ -474,7 +470,7 @@
 			              IsVisible="{Binding Source={x:Static s:ProxyService.Current}, Path=ProxyStatus, Mode=OneWay}" />
 			<TabStripItem Name="GameAccTab">
 				<!--<WrapPanel>-->
-				<TextBlock Text="游戏加速" />
+				<TextBlock Text="{x:Static spp:Strings.L10nAccel_054}" />
 				<!--<Border
                         Margin="5,0,0,0"
                         Padding="5,1"
@@ -494,7 +490,7 @@
                     </Border>-->
 				<!--</WrapPanel>-->
 			</TabStripItem>
-			<TabStripItem Content="网络检测" IsVisible="True" />
+			<TabStripItem Content="{x:Static spp:Strings.L10nAccel_055}" IsVisible="True" />
 			<TabStripItem Content="dummy_tab_for_transisit_animation" IsVisible="False" />
 		</TabStrip>
 		<Carousel
@@ -552,7 +548,7 @@
 																		Padding="5,0"
 																		CornerRadius="5"
 																		IsVisible="{Binding ProxyType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static enum:ProxyType.ServerAccelerate}}"
-																		ToolTip.Tip="Beta 测试加速项，不稳定且随时可能调整">
+																		ToolTip.Tip="{x:Static spp:Strings.L10nAccel_047}">
 																		<Border.Background>
 																			<LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
 																				<GradientStop Offset="0.0" Color="#43cbff" />
@@ -649,7 +645,7 @@
 								<TextBlock
 									HorizontalAlignment="Center"
 									VerticalAlignment="Center"
-									Text="已经到底啦! 没有找到想加速的游戏的话可以搜索添加哦~" />
+									Text="{x:Static spp:Strings.L10nAccel_056}" />
 							</StackPanel>
 						</StackPanel>
 					</ScrollViewer>
@@ -707,7 +703,7 @@
 				CommandParameter="https://steampp.net/customer/service"
 				Cursor="Hand"
 				Theme="{StaticResource TransparentButton}"
-				ToolTip.Tip="联系客服">
+				ToolTip.Tip="{x:Static spp:Strings.L10nAccel_057}">
 				<ui:FAFontIcon FontSize="22" Glyph="&#xE95B;" />
 			</Button>
 			<AutoCompleteBox
@@ -793,26 +789,26 @@
 			<Button Theme="{StaticResource TransparentButton}" ToolTip.ShowDelay="0">
 				<ToolTip.Tip>
 					<TextBlock>
-						<Run FontSize="16" Text="Q：为什么加速后流量一直显示 0KB ？" />
+						<Run FontSize="16" Text="{x:Static spp:Strings.L10nAccel_058}" />
 						<LineBreak />
 						<Run
-							Text="A：流量统计图表是用于查看实时流量数据信息，您需要先访问对应的网站，这边才会有相应的流量波动数据，请检查是否已经选择了对应的网站加速项目，如果确定有正常勾选加速项目并且访问网站依然无流量，则可能是加速的监听服务没有启用成功，尝试更换加速模式。" />
+							Text="{x:Static spp:Strings.L10nAccel_059}" />
 						<LineBreak />
 						<LineBreak />
-						<Run FontSize="16" Text="Q：加速后对应网站打不开显示 SSL 错误或者 Steam 浏览器显示 -100 错误？" />
+						<Run FontSize="16" Text="{x:Static spp:Strings.L10nAccel_060}" />
 						<LineBreak />
-						<Run Text="A：可以尝试执行以下操作进行修复，关闭加速，点击加速设置-移除证书再安装证书，重开加速。或者加速设置 - 代理设置- 尝试更换 doh 地址或者关闭 doh 使用 dns 等方案。" />
+						<Run Text="{x:Static spp:Strings.L10nAccel_061}" />
 						<LineBreak />
 						<LineBreak />
-						<Run FontSize="16" Text="Q：为什么加速经常不可用？还要自己去改设置或重新安装证书？" />
+						<Run FontSize="16" Text="{x:Static spp:Strings.L10nAccel_062}" />
 						<LineBreak />
 						<Run
-							Text="A：Steam++ 的加速与游戏加速器的加速功能不同，加速是完全运行于你电脑本地的，所以会受到你电脑本地网络环境，系统环境各种因素影响，也正因如此才有这么多加速相关的选项，请合理根据情况适进行测试以及更改对应的选项以便加速能正常使用。" />
+							Text="{x:Static spp:Strings.L10nAccel_063}" />
 					</TextBlock>
 				</ToolTip.Tip>
 				<StackPanel Orientation="Horizontal" Spacing="5">
 					<ui:FAFontIcon FontSize="20" Glyph="&#xE82F;" />
-					<TextBlock Text="加速不能用?" />
+					<TextBlock Text="{x:Static spp:Strings.L10nAccel_064}" />
 				</StackPanel>
 			</Button>
 			<TextBlock Text="{x:Static spp:Strings.CommunityFix_ProxyMode}" />

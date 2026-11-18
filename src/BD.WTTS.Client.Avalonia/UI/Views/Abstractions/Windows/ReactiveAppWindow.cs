@@ -39,9 +39,11 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
         }
 #endif
 
-        // This WhenActivated block calls ViewModel's WhenActivated
-        // block if the ViewModel implements IActivatableViewModel.
-        this.WhenActivated(disposables => { });
+#if WTTS_NATIVE_AOT
+        NativeViewModelActivation.Attach(this);
+#else
+        this.WhenActivated(_ => { });
+#endif
         this.GetObservable(DataContextProperty).Subscribe(OnDataContextChanged);
         this.GetObservable(ViewModelProperty).Subscribe(OnViewModelChanged);
 

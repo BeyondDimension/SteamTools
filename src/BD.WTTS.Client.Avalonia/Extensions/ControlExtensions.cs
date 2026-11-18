@@ -2,7 +2,7 @@ namespace BD.WTTS.UI;
 
 public static class ControlExtensions
 {
-    public static void SetViewModel<T>(this Control c, bool useCache = false) where T : ViewModelBase, new()
+    public static void SetViewModel<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] T>(this Control c, bool useCache = false) where T : ViewModelBase, new()
     {
         if (c.DataContext == null || c.DataContext.GetType() != typeof(T))
         {

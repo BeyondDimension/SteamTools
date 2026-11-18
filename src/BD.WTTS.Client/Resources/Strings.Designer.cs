@@ -6882,6 +6882,15 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
+        ///   Bilingual notice to fully restart the application after changing its language.
+        /// </summary>
+        public static string Settings_Language_RestartRequired {
+            get {
+                return ResourceManager.GetString("Settings_Language_RestartRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to 显示/隐藏.
         /// </summary>
         public static string ShowHide {
@@ -8694,5 +8703,4982 @@ namespace BD.WTTS.Client.Resources {
                 return ResourceManager.GetString("YouNeedSignInToGetUID_", resourceCulture);
             }
         }
+        /// <summary>
+        ///   Looks up a localized string similar to 使用令牌交易确认登录.
+        /// </summary>
+        public static string L10nApp_TokenConfirmationLogin {
+            get {
+                return ResourceManager.GetString("L10nApp_TokenConfirmationLogin", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 选择已登录交易确认的 Steam 令牌账号。.
+        /// </summary>
+        public static string L10nApp_SelectConfirmedTokenAccount {
+            get {
+                return ResourceManager.GetString("L10nApp_SelectConfirmedTokenAccount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 选择 Steam 令牌账号.
+        /// </summary>
+        public static string L10nApp_SelectTokenAccount {
+            get {
+                return ResourceManager.GetString("L10nApp_SelectTokenAccount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 刷新令牌账号.
+        /// </summary>
+        public static string L10nApp_RefreshTokenAccounts {
+            get {
+                return ResourceManager.GetString("L10nApp_RefreshTokenAccounts", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 使用所选账号登录.
+        /// </summary>
+        public static string L10nApp_LoginSelectedAccount {
+            get {
+                return ResourceManager.GetString("L10nApp_LoginSelectedAccount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 令牌登录.
+        /// </summary>
+        public static string L10nApp_TokenLogin {
+            get {
+                return ResourceManager.GetString("L10nApp_TokenLogin", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 当前使用的程序版本为测试版本，可能会有各种各样不可言明的 Bug，遇到问题请理性反馈，谢谢。.
+        /// </summary>
+        public static string L10nApp_TestVersionWarning {
+            get {
+                return ResourceManager.GetString("L10nApp_TestVersionWarning", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 如果您不喜欢当前主页为默认启动页面可以在【设置-界面设置-启动时默认打开页面】处更改.
+        /// </summary>
+        public static string L10nApp_DefaultHomeTip {
+            get {
+                return ResourceManager.GetString("L10nApp_DefaultHomeTip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 检测到你没有安装插件，请去下载插件即可使用更多功能。.
+        /// </summary>
+        public static string L10nApp_NoPluginsWarning {
+            get {
+                return ResourceManager.GetString("L10nApp_NoPluginsWarning", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 阅读更多.
+        /// </summary>
+        public static string L10nApp_ReadMore {
+            get {
+                return ResourceManager.GetString("L10nApp_ReadMore", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 欢迎回来.
+        /// </summary>
+        public static string L10nApp_WelcomeBack {
+            get {
+                return ResourceManager.GetString("L10nApp_WelcomeBack", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加载首页数据失败.
+        /// </summary>
+        public static string L10nApp_HomeLoadFailed {
+            get {
+                return ResourceManager.GetString("L10nApp_HomeLoadFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 最新消息.
+        /// </summary>
+        public static string L10nApp_LatestNews {
+            get {
+                return ResourceManager.GetString("L10nApp_LatestNews", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 查看更多.
+        /// </summary>
+        public static string L10nApp_ViewMore {
+            get {
+                return ResourceManager.GetString("L10nApp_ViewMore", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 暂无最新消息.
+        /// </summary>
+        public static string L10nApp_NoLatestNews {
+            get {
+                return ResourceManager.GetString("L10nApp_NoLatestNews", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已安装功能.
+        /// </summary>
+        public static string L10nApp_InstalledFeatures {
+            get {
+                return ResourceManager.GetString("L10nApp_InstalledFeatures", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 插件商店是什么？.
+        /// </summary>
+        public static string L10nApp_PluginStoreHeading {
+            get {
+                return ResourceManager.GetString("L10nApp_PluginStoreHeading", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 3.0 版本的计划是将所有功能插件化，拆分后按需下载安装，每个人都可以只下载自己需要的插件功能使用，并且支持所有人都可以开发插件，等等还有许多暂时不方便说的内容，因为计划的过于异想天开，且遇到的问题有点多，所以开发难度有点点大，这个功能上线还需要一点时间，上线后 3.0 也将正式发布正式版，对一直等待的大家说声抱歉麻烦在多等等了 😭，如果您不习惯启动后是插件商店页面也可以在界面设置中修改启动默认页。.
+        /// </summary>
+        public static string L10nApp_PluginStoreDescription {
+            get {
+                return ResourceManager.GetString("L10nApp_PluginStoreDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启用消息推送通知.
+        /// </summary>
+        public static string L10nApp_EnablePushNotifications {
+            get {
+                return ResourceManager.GetString("L10nApp_EnablePushNotifications", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Windows 颜色.
+        /// </summary>
+        public static string L10nApp_WindowsColors {
+            get {
+                return ResourceManager.GetString("L10nApp_WindowsColors", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 拖拽调整所有插件的菜单顺序.
+        /// </summary>
+        public static string L10nApp_MenuOrderDescription {
+            get {
+                return ResourceManager.GetString("L10nApp_MenuOrderDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 功能菜单排序.
+        /// </summary>
+        public static string L10nApp_MenuOrder {
+            get {
+                return ResourceManager.GetString("L10nApp_MenuOrder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 当前没有通知消息.
+        /// </summary>
+        public static string L10nApp_NoNotifications {
+            get {
+                return ResourceManager.GetString("L10nApp_NoNotifications", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 打开链接失败.
+        /// </summary>
+        public static string L10nApp_OpenLinkFailed {
+            get {
+                return ResourceManager.GetString("L10nApp_OpenLinkFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 复制内容失败.
+        /// </summary>
+        public static string L10nApp_CopyFailed {
+            get {
+                return ResourceManager.GetString("L10nApp_CopyFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 当前已是登录状态.
+        /// </summary>
+        public static string L10nApp_AlreadyLoggedIn {
+            get {
+                return ResourceManager.GetString("L10nApp_AlreadyLoggedIn", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 延迟.
+        /// </summary>
+        public static string L10nAccel_001 {
+            get {
+                return ResourceManager.GetString("L10nAccel_001", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 丢包率.
+        /// </summary>
+        public static string L10nAccel_002 {
+            get {
+                return ResourceManager.GetString("L10nAccel_002", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 从上到下依次尝试。修改会立即保存，重启加速后生效。.
+        /// </summary>
+        public static string L10nAccel_003 {
+            get {
+                return ResourceManager.GetString("L10nAccel_003", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to IPv4、IPv6 或 HTTPS DoH 地址.
+        /// </summary>
+        public static string L10nAccel_004 {
+            get {
+                return ResourceManager.GetString("L10nAccel_004", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 服务器地址.
+        /// </summary>
+        public static string L10nAccel_005 {
+            get {
+                return ResourceManager.GetString("L10nAccel_005", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 添加.
+        /// </summary>
+        public static string L10nAccel_006 {
+            get {
+                return ResourceManager.GetString("L10nAccel_006", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 添加系统默认地址.
+        /// </summary>
+        public static string L10nAccel_007 {
+            get {
+                return ResourceManager.GetString("L10nAccel_007", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 服务器顺序.
+        /// </summary>
+        public static string L10nAccel_008 {
+            get {
+                return ResourceManager.GetString("L10nAccel_008", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 删除全部时恢复默认列表。DoH 请使用 RFC 8484 二进制端点（通常为 /dns-query）.
+        /// </summary>
+        public static string L10nAccel_009 {
+            get {
+                return ResourceManager.GetString("L10nAccel_009", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NAT 类型检测.
+        /// </summary>
+        public static string L10nAccel_010 {
+            get {
+                return ResourceManager.GetString("L10nAccel_010", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to STUN 服务器地址.
+        /// </summary>
+        public static string L10nAccel_011 {
+            get {
+                return ResourceManager.GetString("L10nAccel_011", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 检测.
+        /// </summary>
+        public static string L10nAccel_012 {
+            get {
+                return ResourceManager.GetString("L10nAccel_012", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NAT 类型：.
+        /// </summary>
+        public static string L10nAccel_013 {
+            get {
+                return ResourceManager.GetString("L10nAccel_013", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 本机IP地址：.
+        /// </summary>
+        public static string L10nAccel_014 {
+            get {
+                return ResourceManager.GetString("L10nAccel_014", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 对外IP地址：.
+        /// </summary>
+        public static string L10nAccel_015 {
+            get {
+                return ResourceManager.GetString("L10nAccel_015", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 若与您路由器 WAN IP 地址相同，则为公共网络.
+        /// </summary>
+        public static string L10nAccel_016 {
+            get {
+                return ResourceManager.GetString("L10nAccel_016", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 互联网连通情况：.
+        /// </summary>
+        public static string L10nAccel_017 {
+            get {
+                return ResourceManager.GetString("L10nAccel_017", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 相关链接.
+        /// </summary>
+        public static string L10nAccel_018 {
+            get {
+                return ResourceManager.GetString("L10nAccel_018", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to XBOX 关于 NAT 文档.
+        /// </summary>
+        public static string L10nAccel_019 {
+            get {
+                return ResourceManager.GetString("L10nAccel_019", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to PlayStation 关于 NAT 文档.
+        /// </summary>
+        public static string L10nAccel_020 {
+            get {
+                return ResourceManager.GetString("L10nAccel_020", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Nintendo Switch 关于 NAT 文档.
+        /// </summary>
+        public static string L10nAccel_021 {
+            get {
+                return ResourceManager.GetString("L10nAccel_021", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Bungie 关于 NAT 文档.
+        /// </summary>
+        public static string L10nAccel_022 {
+            get {
+                return ResourceManager.GetString("L10nAccel_022", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Activision 关于 NAT 文档.
+        /// </summary>
+        public static string L10nAccel_023 {
+            get {
+                return ResourceManager.GetString("L10nAccel_023", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to RockStar Games 关于 NAT 文档.
+        /// </summary>
+        public static string L10nAccel_024 {
+            get {
+                return ResourceManager.GetString("L10nAccel_024", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 迅游关于 NAT 文档.
+        /// </summary>
+        public static string L10nAccel_025 {
+            get {
+                return ResourceManager.GetString("L10nAccel_025", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to DNS 检测.
+        /// </summary>
+        public static string L10nAccel_026 {
+            get {
+                return ResourceManager.GetString("L10nAccel_026", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 检测项目.
+        /// </summary>
+        public static string L10nAccel_027 {
+            get {
+                return ResourceManager.GetString("L10nAccel_027", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 待检测的域名.
+        /// </summary>
+        public static string L10nAccel_028 {
+            get {
+                return ResourceManager.GetString("L10nAccel_028", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 测试结果.
+        /// </summary>
+        public static string L10nAccel_029 {
+            get {
+                return ResourceManager.GetString("L10nAccel_029", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 解析地址.
+        /// </summary>
+        public static string L10nAccel_030 {
+            get {
+                return ResourceManager.GetString("L10nAccel_030", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to IPv6 检测.
+        /// </summary>
+        public static string L10nAccel_031 {
+            get {
+                return ResourceManager.GetString("L10nAccel_031", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 支持情况.
+        /// </summary>
+        public static string L10nAccel_032 {
+            get {
+                return ResourceManager.GetString("L10nAccel_032", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已支持 IPv6 访问.
+        /// </summary>
+        public static string L10nAccel_033 {
+            get {
+                return ResourceManager.GetString("L10nAccel_033", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 不支持 IPv6 访问.
+        /// </summary>
+        public static string L10nAccel_034 {
+            get {
+                return ResourceManager.GetString("L10nAccel_034", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to IPv6 地址.
+        /// </summary>
+        public static string L10nAccel_035 {
+            get {
+                return ResourceManager.GetString("L10nAccel_035", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to DNS / DoH 服务器.
+        /// </summary>
+        public static string L10nAccel_036 {
+            get {
+                return ResourceManager.GetString("L10nAccel_036", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 从上到下依次尝试.
+        /// </summary>
+        public static string L10nAccel_037 {
+            get {
+                return ResourceManager.GetString("L10nAccel_037", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 添加或管理 DNS 服务器.
+        /// </summary>
+        public static string L10nAccel_038 {
+            get {
+                return ResourceManager.GetString("L10nAccel_038", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 添加 / 管理.
+        /// </summary>
+        public static string L10nAccel_039 {
+            get {
+                return ResourceManager.GetString("L10nAccel_039", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已配置的 DNS 服务器.
+        /// </summary>
+        public static string L10nAccel_040 {
+            get {
+                return ResourceManager.GetString("L10nAccel_040", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 下载 Watt加速器.
+        /// </summary>
+        public static string L10nAccel_041 {
+            get {
+                return ResourceManager.GetString("L10nAccel_041", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 拒绝游戏延迟，提高稳定性.
+        /// </summary>
+        public static string L10nAccel_042 {
+            get {
+                return ResourceManager.GetString("L10nAccel_042", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 安装路径.
+        /// </summary>
+        public static string L10nAccel_043 {
+            get {
+                return ResourceManager.GetString("L10nAccel_043", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 立即下载.
+        /// </summary>
+        public static string L10nAccel_044 {
+            get {
+                return ResourceManager.GetString("L10nAccel_044", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 自定义安装.
+        /// </summary>
+        public static string L10nAccel_045 {
+            get {
+                return ResourceManager.GetString("L10nAccel_045", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 连通性测试.
+        /// </summary>
+        public static string L10nAccel_046 {
+            get {
+                return ResourceManager.GetString("L10nAccel_046", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Beta 测试加速项，不稳定且随时可能调整.
+        /// </summary>
+        public static string L10nAccel_047 {
+            get {
+                return ResourceManager.GetString("L10nAccel_047", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 此数值代表测试网页打开访问所需时间，请以实际浏览器访问网页状况为准.
+        /// </summary>
+        public static string L10nAccel_048 {
+            get {
+                return ResourceManager.GetString("L10nAccel_048", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 查看证书信息.
+        /// </summary>
+        public static string L10nAccel_049 {
+            get {
+                return ResourceManager.GetString("L10nAccel_049", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 打开加速日志文件夹.
+        /// </summary>
+        public static string L10nAccel_050 {
+            get {
+                return ResourceManager.GetString("L10nAccel_050", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Watt 加速器相关.
+        /// </summary>
+        public static string L10nAccel_051 {
+            get {
+                return ResourceManager.GetString("L10nAccel_051", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 平台加速.
+        /// </summary>
+        public static string L10nAccel_052 {
+            get {
+                return ResourceManager.GetString("L10nAccel_052", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加速脚本.
+        /// </summary>
+        public static string L10nAccel_053 {
+            get {
+                return ResourceManager.GetString("L10nAccel_053", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 游戏加速.
+        /// </summary>
+        public static string L10nAccel_054 {
+            get {
+                return ResourceManager.GetString("L10nAccel_054", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 网络检测.
+        /// </summary>
+        public static string L10nAccel_055 {
+            get {
+                return ResourceManager.GetString("L10nAccel_055", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已经到底啦! 没有找到想加速的游戏的话可以搜索添加哦~.
+        /// </summary>
+        public static string L10nAccel_056 {
+            get {
+                return ResourceManager.GetString("L10nAccel_056", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 联系客服.
+        /// </summary>
+        public static string L10nAccel_057 {
+            get {
+                return ResourceManager.GetString("L10nAccel_057", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Q：为什么加速后流量一直显示 0KB ？.
+        /// </summary>
+        public static string L10nAccel_058 {
+            get {
+                return ResourceManager.GetString("L10nAccel_058", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A：流量统计图表是用于查看实时流量数据信息，您需要先访问对应的网站，这边才会有相应的流量波动数据，请检查是否已经选择了对应的网站加速项目，如果确定有正常勾选加速项目并且访问网站依然无流量，则可能是加速的监听服务没有启用成功，尝试更换加速模式。.
+        /// </summary>
+        public static string L10nAccel_059 {
+            get {
+                return ResourceManager.GetString("L10nAccel_059", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Q：加速后对应网站打不开显示 SSL 错误或者 Steam 浏览器显示 -100 错误？.
+        /// </summary>
+        public static string L10nAccel_060 {
+            get {
+                return ResourceManager.GetString("L10nAccel_060", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A：可以尝试执行以下操作进行修复，关闭加速，点击加速设置-移除证书再安装证书，重开加速。或者加速设置 - 代理设置- 尝试更换 doh 地址或者关闭 doh 使用 dns 等方案。.
+        /// </summary>
+        public static string L10nAccel_061 {
+            get {
+                return ResourceManager.GetString("L10nAccel_061", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Q：为什么加速经常不可用？还要自己去改设置或重新安装证书？.
+        /// </summary>
+        public static string L10nAccel_062 {
+            get {
+                return ResourceManager.GetString("L10nAccel_062", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A：Steam++ 的加速与游戏加速器的加速功能不同，加速是完全运行于你电脑本地的，所以会受到你电脑本地网络环境，系统环境各种因素影响，也正因如此才有这么多加速相关的选项，请合理根据情况适进行测试以及更改对应的选项以便加速能正常使用。.
+        /// </summary>
+        public static string L10nAccel_063 {
+            get {
+                return ResourceManager.GetString("L10nAccel_063", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加速不能用?.
+        /// </summary>
+        public static string L10nAccel_064 {
+            get {
+                return ResourceManager.GetString("L10nAccel_064", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启动加速时检查 DNS 可用性.
+        /// </summary>
+        public static string L10nAccel_065 {
+            get {
+                return ResourceManager.GetString("L10nAccel_065", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to *该选项勾选后会导致程序的加速失效，请确认是配合二级代理实现仅需要脚本功能后再启用.
+        /// </summary>
+        public static string L10nAccel_066 {
+            get {
+                return ResourceManager.GetString("L10nAccel_066", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to *请在有正确二级代理的情况下才考虑启用该选项，否则会导致程序的加速失效，改动后需重启加速才能生效.
+        /// </summary>
+        public static string L10nAccel_067 {
+            get {
+                return ResourceManager.GetString("L10nAccel_067", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 无法连接加速服务。请检查加速组件是否正常启动，并允许管理员权限，然后重试。.
+        /// </summary>
+        public static string L10nAccel_068 {
+            get {
+                return ResourceManager.GetString("L10nAccel_068", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 重试连接.
+        /// </summary>
+        public static string L10nAccel_069 {
+            get {
+                return ResourceManager.GetString("L10nAccel_069", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未检测到脚本文件，请先脚本工坊添加.
+        /// </summary>
+        public static string L10nAccel_070 {
+            get {
+                return ResourceManager.GetString("L10nAccel_070", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 立即加速.
+        /// </summary>
+        public static string L10nAccel_071 {
+            get {
+                return ResourceManager.GetString("L10nAccel_071", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 获取.
+        /// </summary>
+        public static string L10nAccel_072 {
+            get {
+                return ResourceManager.GetString("L10nAccel_072", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 更新.
+        /// </summary>
+        public static string L10nAccel_073 {
+            get {
+                return ResourceManager.GetString("L10nAccel_073", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 没有可测试的项目.
+        /// </summary>
+        public static string L10nAccel_074 {
+            get {
+                return ResourceManager.GetString("L10nAccel_074", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 当前测试项全部未通过，请检查网络链接状况，以及代理设置里的设置项是否正常。.
+        /// </summary>
+        public static string L10nAccel_075 {
+            get {
+                return ResourceManager.GetString("L10nAccel_075", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 提供一些游戏相关网站服务的加速及脚本注入功能.
+        /// </summary>
+        public static string L10nAccel_076 {
+            get {
+                return ResourceManager.GetString("L10nAccel_076", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未找到 hosts 文件.
+        /// </summary>
+        public static string L10nAccel_077 {
+            get {
+                return ResourceManager.GetString("L10nAccel_077", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未获取到网络适配器信息!.
+        /// </summary>
+        public static string L10nAccel_078 {
+            get {
+                return ResourceManager.GetString("L10nAccel_078", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未获取到可用的以太网,无线网络适配器.
+        /// </summary>
+        public static string L10nAccel_079 {
+            get {
+                return ResourceManager.GetString("L10nAccel_079", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未启用网卡.
+        /// </summary>
+        public static string L10nAccel_080 {
+            get {
+                return ResourceManager.GetString("L10nAccel_080", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 获取网络信息失败!.
+        /// </summary>
+        public static string L10nAccel_081 {
+            get {
+                return ResourceManager.GetString("L10nAccel_081", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 网络适配器未启用TCP/IP服务.
+        /// </summary>
+        public static string L10nAccel_082 {
+            get {
+                return ResourceManager.GetString("L10nAccel_082", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 获取LSP信息失败!.
+        /// </summary>
+        public static string L10nAccel_083 {
+            get {
+                return ResourceManager.GetString("L10nAccel_083", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to LSP响应异常!.
+        /// </summary>
+        public static string L10nAccel_084 {
+            get {
+                return ResourceManager.GetString("L10nAccel_084", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已禁用.
+        /// </summary>
+        public static string L10nAccel_086 {
+            get {
+                return ResourceManager.GetString("L10nAccel_086", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未运行.
+        /// </summary>
+        public static string L10nAccel_087 {
+            get {
+                return ResourceManager.GetString("L10nAccel_087", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 无法生成或加载加速证书：Windows 的 CNG Key Isolation 服务{0}。 点击确定打开 Windows 服务设置，请将该服务设为手动并启动，然后返回重试。.
+        /// </summary>
+        public static string L10nAccel_088 {
+            get {
+                return ResourceManager.GetString("L10nAccel_088", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 证书服务不可用.
+        /// </summary>
+        public static string L10nAccel_089 {
+            get {
+                return ResourceManager.GetString("L10nAccel_089", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加速证书未能安装或信任，请检查系统证书权限后重试。.
+        /// </summary>
+        public static string L10nAccel_090 {
+            get {
+                return ResourceManager.GetString("L10nAccel_090", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 无法生成或加载加速证书，请检查证书文件和系统加密服务。详细错误已记录在加速服务日志中。.
+        /// </summary>
+        public static string L10nAccel_091 {
+            get {
+                return ResourceManager.GetString("L10nAccel_091", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加速证书不可用.
+        /// </summary>
+        public static string L10nAccel_092 {
+            get {
+                return ResourceManager.GetString("L10nAccel_092", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 新用户免费试用.
+        /// </summary>
+        public static string L10nAccel_093 {
+            get {
+                return ResourceManager.GetString("L10nAccel_093", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启动游戏成功.
+        /// </summary>
+        public static string L10nAccel_094 {
+            get {
+                return ResourceManager.GetString("L10nAccel_094", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启动游戏失败.
+        /// </summary>
+        public static string L10nAccel_095 {
+            get {
+                return ResourceManager.GetString("L10nAccel_095", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 获取会员时间失败.
+        /// </summary>
+        public static string L10nAccel_096 {
+            get {
+                return ResourceManager.GetString("L10nAccel_096", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 游戏加速会员有效期 {0:yyyy-MM-dd}.
+        /// </summary>
+        public static string L10nAccel_097 {
+            get {
+                return ResourceManager.GetString("L10nAccel_097", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加速成功.
+        /// </summary>
+        public static string L10nAccel_098 {
+            get {
+                return ResourceManager.GetString("L10nAccel_098", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 发送测速指令.
+        /// </summary>
+        public static string L10nAccel_099 {
+            get {
+                return ResourceManager.GetString("L10nAccel_099", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 需要登录账号才能使用游戏加速功能!.
+        /// </summary>
+        public static string L10nAccel_100 {
+            get {
+                return ResourceManager.GetString("L10nAccel_100", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 获取游戏信息失败.
+        /// </summary>
+        public static string L10nAccel_101 {
+            get {
+                return ResourceManager.GetString("L10nAccel_101", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - 区服选择.
+        /// </summary>
+        public static string L10nAccel_102 {
+            get {
+                return ResourceManager.GetString("L10nAccel_102", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在加速中....
+        /// </summary>
+        public static string L10nAccel_103 {
+            get {
+                return ResourceManager.GetString("L10nAccel_103", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加速启动失败.
+        /// </summary>
+        public static string L10nAccel_104 {
+            get {
+                return ResourceManager.GetString("L10nAccel_104", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在停止加速中....
+        /// </summary>
+        public static string L10nAccel_105 {
+            get {
+                return ResourceManager.GetString("L10nAccel_105", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 停止加速失败，请尝试去加速器客户端停止加速.
+        /// </summary>
+        public static string L10nAccel_106 {
+            get {
+                return ResourceManager.GetString("L10nAccel_106", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已移除.
+        /// </summary>
+        public static string L10nAccel_107 {
+            get {
+                return ResourceManager.GetString("L10nAccel_107", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已添加到游戏列表.
+        /// </summary>
+        public static string L10nAccel_108 {
+            get {
+                return ResourceManager.GetString("L10nAccel_108", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已安装Watt加速器.
+        /// </summary>
+        public static string L10nAccel_109 {
+            get {
+                return ResourceManager.GetString("L10nAccel_109", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 下载插件.
+        /// </summary>
+        public static string L10nAccel_110 {
+            get {
+                return ResourceManager.GetString("L10nAccel_110", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 下载 Watt 加速器 插件.
+        /// </summary>
+        public static string L10nAccel_111 {
+            get {
+                return ResourceManager.GetString("L10nAccel_111", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在初始化，请稍候.
+        /// </summary>
+        public static string L10nAccel_112 {
+            get {
+                return ResourceManager.GetString("L10nAccel_112", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在下载 {0}%.
+        /// </summary>
+        public static string L10nAccel_113 {
+            get {
+                return ResourceManager.GetString("L10nAccel_113", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 下载完成，正在安装....
+        /// </summary>
+        public static string L10nAccel_114 {
+            get {
+                return ResourceManager.GetString("L10nAccel_114", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已安装.
+        /// </summary>
+        public static string L10nAccel_115 {
+            get {
+                return ResourceManager.GetString("L10nAccel_115", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未安装，不需要卸载.
+        /// </summary>
+        public static string L10nAccel_116 {
+            get {
+                return ResourceManager.GetString("L10nAccel_116", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 卸载成功.
+        /// </summary>
+        public static string L10nAccel_117 {
+            get {
+                return ResourceManager.GetString("L10nAccel_117", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 卸载失败.
+        /// </summary>
+        public static string L10nAccel_118 {
+            get {
+                return ResourceManager.GetString("L10nAccel_118", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启动 {0} 失败.
+        /// </summary>
+        public static string L10nAccel_119 {
+            get {
+                return ResourceManager.GetString("L10nAccel_119", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to DNS 预检查未通过或超时，加速仍会按配置顺序尝试服务器；请检查网络或解析设置。.
+        /// </summary>
+        public static string L10nAccel_120 {
+            get {
+                return ResourceManager.GetString("L10nAccel_120", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 无法监听代理端口（{0}）。请检查端口是否被其他程序占用或被系统保留，以及安全软件是否阻止监听。.
+        /// </summary>
+        public static string L10nAccel_121 {
+            get {
+                return ResourceManager.GetString("L10nAccel_121", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启动.
+        /// </summary>
+        public static string L10nAccel_122 {
+            get {
+                return ResourceManager.GetString("L10nAccel_122", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 停止.
+        /// </summary>
+        public static string L10nAccel_123 {
+            get {
+                return ResourceManager.GetString("L10nAccel_123", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请在终端手动运行:environment_check.sh 安装依赖环境.
+        /// </summary>
+        public static string L10nAccel_124 {
+            get {
+                return ResourceManager.GetString("L10nAccel_124", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 环境检查错误:{0}.
+        /// </summary>
+        public static string L10nAccel_125 {
+            get {
+                return ResourceManager.GetString("L10nAccel_125", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 证书信息.
+        /// </summary>
+        public static string L10nAccel_126 {
+            get {
+                return ResourceManager.GetString("L10nAccel_126", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 管理 DNS / DoH 服务器.
+        /// </summary>
+        public static string L10nAccel_127 {
+            get {
+                return ResourceManager.GetString("L10nAccel_127", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 一次只能添加一个服务器地址。.
+        /// </summary>
+        public static string L10nAccel_128 {
+            get {
+                return ResourceManager.GetString("L10nAccel_128", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请输入有效的 IPv4、IPv6 地址、HTTPS DoH 地址或选择 System Default。.
+        /// </summary>
+        public static string L10nAccel_129 {
+            get {
+                return ResourceManager.GetString("L10nAccel_129", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请先选择一个服务器。.
+        /// </summary>
+        public static string L10nAccel_130 {
+            get {
+                return ResourceManager.GetString("L10nAccel_130", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未知.
+        /// </summary>
+        public static string L10nAccel_131 {
+            get {
+                return ResourceManager.GetString("L10nAccel_131", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未知类型.
+        /// </summary>
+        public static string L10nAccel_132 {
+            get {
+                return ResourceManager.GetString("L10nAccel_132", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 开放 NAT.
+        /// </summary>
+        public static string L10nAccel_133 {
+            get {
+                return ResourceManager.GetString("L10nAccel_133", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 您可与在其网络上具有任意 NAT 类型的用户玩多人游戏和发起多人游戏。.
+        /// </summary>
+        public static string L10nAccel_134 {
+            get {
+                return ResourceManager.GetString("L10nAccel_134", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 中等 NAT.
+        /// </summary>
+        public static string L10nAccel_135 {
+            get {
+                return ResourceManager.GetString("L10nAccel_135", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 您可与一些用户玩多人游戏；但是，并且通常你将不会被选为比赛的主持人。.
+        /// </summary>
+        public static string L10nAccel_136 {
+            get {
+                return ResourceManager.GetString("L10nAccel_136", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 严格 NAT.
+        /// </summary>
+        public static string L10nAccel_137 {
+            get {
+                return ResourceManager.GetString("L10nAccel_137", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 您只能与具有开放 NAT 类型的用户玩多人游戏。您不能被选为比赛的主持人。.
+        /// </summary>
+        public static string L10nAccel_138 {
+            get {
+                return ResourceManager.GetString("L10nAccel_138", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 不可用 NAT.
+        /// </summary>
+        public static string L10nAccel_139 {
+            get {
+                return ResourceManager.GetString("L10nAccel_139", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 如果 NAT 不可用，您将无法使用群聊天或连接到某些 Xbox 游戏的多人游戏。.
+        /// </summary>
+        public static string L10nAccel_140 {
+            get {
+                return ResourceManager.GetString("L10nAccel_140", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0}（服务器：{1}）.
+        /// </summary>
+        public static string L10nAccel_141 {
+            get {
+                return ResourceManager.GetString("L10nAccel_141", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to DNS 检测总超时（正在检测：{0}）.
+        /// </summary>
+        public static string L10nAccel_142 {
+            get {
+                return ResourceManager.GetString("L10nAccel_142", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 所有 DNS 服务器检测失败或超时.
+        /// </summary>
+        public static string L10nAccel_143 {
+            get {
+                return ResourceManager.GetString("L10nAccel_143", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 所有 DNS 服务器检测失败.
+        /// </summary>
+        public static string L10nAccel_144 {
+            get {
+                return ResourceManager.GetString("L10nAccel_144", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 重置成功.
+        /// </summary>
+        public static string L10nAccel_145 {
+            get {
+                return ResourceManager.GetString("L10nAccel_145", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 脚本商店需要登录账号才可访问.
+        /// </summary>
+        public static string L10nAccel_146 {
+            get {
+                return ResourceManager.GetString("L10nAccel_146", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 选择文件夹.
+        /// </summary>
+        public static string L10nAccel_147 {
+            get {
+                return ResourceManager.GetString("L10nAccel_147", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请填入不带分隔符 &quot;/&quot; 的域名.
+        /// </summary>
+        public static string L10nAccel_148 {
+            get {
+                return ResourceManager.GetString("L10nAccel_148", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 更新中.
+        /// </summary>
+        public static string L10nAccel_149 {
+            get {
+                return ResourceManager.GetString("L10nAccel_149", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 更新失败.
+        /// </summary>
+        public static string L10nAccel_150 {
+            get {
+                return ResourceManager.GetString("L10nAccel_150", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 更新成功.
+        /// </summary>
+        public static string L10nAccel_151 {
+            get {
+                return ResourceManager.GetString("L10nAccel_151", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启动中.
+        /// </summary>
+        public static string L10nAccel_152 {
+            get {
+                return ResourceManager.GetString("L10nAccel_152", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启动失败.
+        /// </summary>
+        public static string L10nAccel_153 {
+            get {
+                return ResourceManager.GetString("L10nAccel_153", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启动成功.
+        /// </summary>
+        public static string L10nAccel_154 {
+            get {
+                return ResourceManager.GetString("L10nAccel_154", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录中.
+        /// </summary>
+        public static string L10nAccel_155 {
+            get {
+                return ResourceManager.GetString("L10nAccel_155", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录成功.
+        /// </summary>
+        public static string L10nAccel_156 {
+            get {
+                return ResourceManager.GetString("L10nAccel_156", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录失败.
+        /// </summary>
+        public static string L10nAccel_157 {
+            get {
+                return ResourceManager.GetString("L10nAccel_157", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未加速.
+        /// </summary>
+        public static string L10nAccel_158 {
+            get {
+                return ResourceManager.GetString("L10nAccel_158", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加速中.
+        /// </summary>
+        public static string L10nAccel_159 {
+            get {
+                return ResourceManager.GetString("L10nAccel_159", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加速已完成.
+        /// </summary>
+        public static string L10nAccel_160 {
+            get {
+                return ResourceManager.GetString("L10nAccel_160", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 停止加速中.
+        /// </summary>
+        public static string L10nAccel_161 {
+            get {
+                return ResourceManager.GetString("L10nAccel_161", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加速已断开.
+        /// </summary>
+        public static string L10nAccel_162 {
+            get {
+                return ResourceManager.GetString("L10nAccel_162", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加速失败.
+        /// </summary>
+        public static string L10nAccel_163 {
+            get {
+                return ResourceManager.GetString("L10nAccel_163", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未知加速状态（{0}）.
+        /// </summary>
+        public static string L10nAccel_164 {
+            get {
+                return ResourceManager.GetString("L10nAccel_164", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 未返回有效的账号 ID，请重试登录。.
+        /// </summary>
+        public static string L10nAuthIdle_Text001 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text001", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录账号与此令牌的 SteamID 不匹配，请使用令牌对应的 Steam 账号。.
+        /// </summary>
+        public static string L10nAuthIdle_Text002 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text002", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录账号与此令牌的账号名称不匹配，请使用令牌对应的 Steam 账号。.
+        /// </summary>
+        public static string L10nAuthIdle_Text003 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text003", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 此令牌缺少 SteamID 和账号名称，无法核对登录账号。.
+        /// </summary>
+        public static string L10nAuthIdle_Text004 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text004", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录账号与此令牌不匹配，未保存任何登录状态。.
+        /// </summary>
+        public static string L10nAuthIdle_Text005 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text005", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 此令牌缺少 SteamID，请使用账号密码登录并自动验证当前令牌后重试。.
+        /// </summary>
+        public static string L10nAuthIdle_Text006 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text006", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 此令牌的数据格式无效，无法保存 SteamID。.
+        /// </summary>
+        public static string L10nAuthIdle_Text007 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text007", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 仅已在“交易确认”中登录并保存登录状态的 Steam 令牌可使用扫码登录。请先打开此令牌的“确认交易”，登录并勾选记住登录后重试。.
+        /// </summary>
+        public static string L10nAuthIdle_Text008 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text008", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 交易确认保存的登录状态已失效或不支持移动端确认。请先到此令牌的“确认交易”重新登录并保存状态，再使用扫码。.
+        /// </summary>
+        public static string L10nAuthIdle_Text009 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text009", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 桌面客户端.
+        /// </summary>
+        public static string L10nAuthIdle_Text010 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text010", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 网页浏览器.
+        /// </summary>
+        public static string L10nAuthIdle_Text011 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text011", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 移动应用.
+        /// </summary>
+        public static string L10nAuthIdle_Text012 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text012", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 未提供设备类型.
+        /// </summary>
+        public static string L10nAuthIdle_Text013 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text013", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 未提供位置.
+        /// </summary>
+        public static string L10nAuthIdle_Text014 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text014", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 此 IP 曾成功登录此账号.
+        /// </summary>
+        public static string L10nAuthIdle_Text015 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text015", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 此 IP 没有成功登录此账号的历史.
+        /// </summary>
+        public static string L10nAuthIdle_Text016 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text016", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录请求位置与当前确认位置不一致.
+        /// </summary>
+        public static string L10nAuthIdle_Text017 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text017", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 此登录请求近期使用频繁.
+        /// </summary>
+        public static string L10nAuthIdle_Text018 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text018", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to IP 曾登录.
+        /// </summary>
+        public static string L10nAuthIdle_Text019 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text019", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to IP 无登录记录.
+        /// </summary>
+        public static string L10nAuthIdle_Text020 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text020", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 位置不一致.
+        /// </summary>
+        public static string L10nAuthIdle_Text021 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text021", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录请求频繁.
+        /// </summary>
+        public static string L10nAuthIdle_Text022 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text022", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 目标设备请求保持登录.
+        /// </summary>
+        public static string L10nAuthIdle_Text023 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text023", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 目标设备请求临时登录.
+        /// </summary>
+        public static string L10nAuthIdle_Text024 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text024", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 未提供保持登录偏好.
+        /// </summary>
+        public static string L10nAuthIdle_Text025 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text025", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请特别核实此登录请求.
+        /// </summary>
+        public static string L10nAuthIdle_Text026 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text026", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请确认这是你本人发起的登录.
+        /// </summary>
+        public static string L10nAuthIdle_Text027 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text027", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 未提供.
+        /// </summary>
+        public static string L10nAuthIdle_Text028 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text028", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 提供多平台多账号令牌管理、加密、确认交易、云同步等功能.
+        /// </summary>
+        public static string L10nAuthIdle_Text029 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text029", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未命名 Steam 账号.
+        /// </summary>
+        public static string L10nAuthIdle_Text030 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text030", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to SteamID 缺失.
+        /// </summary>
+        public static string L10nAuthIdle_Text031 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text031", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 准备就绪，请扫描屏幕二维码。.
+        /// </summary>
+        public static string L10nAuthIdle_Text032 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text032", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 游戏快速挂卡，需要启动 Steam 客户端并登录对应账号，支持多种算法逻辑挂卡，掉卡速度更快。.
+        /// </summary>
+        public static string L10nAuthIdle_Text033 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text033", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 令牌插件不可用，请启用令牌插件后重新读取，或使用其他登录方式。.
+        /// </summary>
+        public static string L10nAuthIdle_Text034 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text034", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示或隐藏验证码.
+        /// </summary>
+        public static string L10nAuthIdle_Text035 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text035", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 加密方式.
+        /// </summary>
+        public static string L10nAuthIdle_Text036 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text036", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 令牌刷新间隔时间.
+        /// </summary>
+        public static string L10nAuthIdle_Text037 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text037", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 令牌位数.
+        /// </summary>
+        public static string L10nAuthIdle_Text038 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text038", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 如果有初始值，请输入到下面Code框内，单击“验证”按钮后会生成上次使用的代码。.
+        /// </summary>
+        public static string L10nAuthIdle_Text039 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text039", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 搜索令牌.
+        /// </summary>
+        public static string L10nAuthIdle_Text040 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text040", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已有令牌.
+        /// </summary>
+        public static string L10nAuthIdle_Text041 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text041", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 市场.
+        /// </summary>
+        public static string L10nAuthIdle_Text042 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text042", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to [Rooted Android] 3.x 新版导出令牌的另一种思路.
+        /// </summary>
+        public static string L10nAuthIdle_Text043 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text043", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to [Rooted Android] 3.x 新版导出令牌的另另一种思路.
+        /// </summary>
+        public static string L10nAuthIdle_Text044 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text044", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请完整显示本人发起的 Steam 登录二维码，截图仅在本机识别，不保存、不上传。.
+        /// </summary>
+        public static string L10nAuthIdle_Text045 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text045", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 扫描屏幕二维码.
+        /// </summary>
+        public static string L10nAuthIdle_Text046 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text046", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 当前屏幕扫码仅支持 Windows。.
+        /// </summary>
+        public static string L10nAuthIdle_Text047 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text047", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 选择已识别的登录请求.
+        /// </summary>
+        public static string L10nAuthIdle_Text048 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text048", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 读取所选请求的设备信息.
+        /// </summary>
+        public static string L10nAuthIdle_Text049 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text049", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 地区.
+        /// </summary>
+        public static string L10nAuthIdle_Text050 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text050", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请确认在安全环境登录，Steam 提示不代表安全保证。.
+        /// </summary>
+        public static string L10nAuthIdle_Text051 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text051", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 目标设备保持登录.
+        /// </summary>
+        public static string L10nAuthIdle_Text052 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text052", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 确认登录 Steam.
+        /// </summary>
+        public static string L10nAuthIdle_Text053 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text053", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 更多请求详情.
+        /// </summary>
+        public static string L10nAuthIdle_Text054 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text054", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录历史.
+        /// </summary>
+        public static string L10nAuthIdle_Text055 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text055", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 位置核对.
+        /// </summary>
+        public static string L10nAuthIdle_Text056 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text056", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请求频率.
+        /// </summary>
+        public static string L10nAuthIdle_Text057 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text057", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录偏好.
+        /// </summary>
+        public static string L10nAuthIdle_Text058 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text058", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 位置数据.
+        /// </summary>
+        public static string L10nAuthIdle_Text059 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text059", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请求编号.
+        /// </summary>
+        public static string L10nAuthIdle_Text060 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text060", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 协议版本.
+        /// </summary>
+        public static string L10nAuthIdle_Text061 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text061", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 信息读取时间.
+        /// </summary>
+        public static string L10nAuthIdle_Text062 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text062", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 优先运行此游戏.
+        /// </summary>
+        public static string L10nAuthIdle_Text063 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text063", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 移入挂卡黑名单.
+        /// </summary>
+        public static string L10nAuthIdle_Text064 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text064", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 移出挂卡黑名单.
+        /// </summary>
+        public static string L10nAuthIdle_Text065 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text065", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 挂卡规则.
+        /// </summary>
+        public static string L10nAuthIdle_Text066 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text066", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 挂卡顺序.
+        /// </summary>
+        public static string L10nAuthIdle_Text067 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text067", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 最大并行挂时长游戏数量.
+        /// </summary>
+        public static string L10nAuthIdle_Text068 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text068", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 快速切换游戏间隔时间(毫秒).
+        /// </summary>
+        public static string L10nAuthIdle_Text069 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text069", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 游戏最小运行时间(小时).
+        /// </summary>
+        public static string L10nAuthIdle_Text070 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text070", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 自动刷新徽章数据时间间隔(分钟).
+        /// </summary>
+        public static string L10nAuthIdle_Text071 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text071", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 扫描二维码登录 Steam.
+        /// </summary>
+        public static string L10nAuthIdle_Text072 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text072", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已取消解锁令牌；可以返回其他登录方式或重新读取令牌。.
+        /// </summary>
+        public static string L10nAuthIdle_Text073 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text073", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 令牌二级密码不正确，请重新读取并解锁。.
+        /// </summary>
+        public static string L10nAuthIdle_Text074 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text074", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 令牌登录状态已更改，请重新读取令牌后重试。.
+        /// </summary>
+        public static string L10nAuthIdle_Text075 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text075", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 交易确认登录状态已更改，请重新读取令牌后重试。.
+        /// </summary>
+        public static string L10nAuthIdle_Text076 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text076", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 交易确认登录状态已过期，请在令牌插件中重新登录交易确认。.
+        /// </summary>
+        public static string L10nAuthIdle_Text077 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text077", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 交易确认登录状态已过期或不支持网页登录，请重新登录交易确认。.
+        /// </summary>
+        public static string L10nAuthIdle_Text078 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text078", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 未接受该网页登录状态，请在令牌插件中重新登录交易确认。.
+        /// </summary>
+        public static string L10nAuthIdle_Text079 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text079", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导入失败、请检查数据正确.
+        /// </summary>
+        public static string L10nAuthIdle_Text080 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text080", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 只绑定邮箱的情况下无法直接替换令牌.
+        /// </summary>
+        public static string L10nAuthIdle_Text081 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text081", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在检查交易确认保存的登录状态….
+        /// </summary>
+        public static string L10nAuthIdle_Text082 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text082", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在扫描屏幕…请勿关闭或刷新 Steam 登录二维码。.
+        /// </summary>
+        public static string L10nAuthIdle_Text083 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text083", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未发现 Steam 登录二维码。请将二维码完整显示，避免被其他窗口遮挡，然后重试。.
+        /// </summary>
+        public static string L10nAuthIdle_Text084 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text084", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已识别二维码，正在读取目标设备信息….
+        /// </summary>
+        public static string L10nAuthIdle_Text085 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text085", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 发现多个 Steam 登录二维码，请选择要确认的请求，再读取设备信息。.
+        /// </summary>
+        public static string L10nAuthIdle_Text086 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text086", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已识别二维码，但读取登录请求失败。请刷新二维码重试；若交易确认状态已失效，请先到交易确认重新登录。.
+        /// </summary>
+        public static string L10nAuthIdle_Text087 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text087", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Windows 屏幕截图失败（错误 {0}）。请在已解锁的本地桌面重试。.
+        /// </summary>
+        public static string L10nAuthIdle_Text088 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text088", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未知程序集.
+        /// </summary>
+        public static string L10nAuthIdle_Text089 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text089", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 缺少运行依赖 {0}。请使用完整构建或发布目录启动，不要仅替换令牌插件 DLL。.
+        /// </summary>
+        public static string L10nAuthIdle_Text090 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text090", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 检查交易确认状态或屏幕扫码失败。请确认网络与程序依赖完整；本页面不会要求重新登录。.
+        /// </summary>
+        public static string L10nAuthIdle_Text091 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text091", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 读取登录请求失败，二维码可能已过期。请刷新二维码；若登录状态失效，请到交易确认重新登录。.
+        /// </summary>
+        public static string L10nAuthIdle_Text092 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text092", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请核对以下登录请求。只有点击“确认登录 Steam”才会批准；不是本人发起请关闭窗口。.
+        /// </summary>
+        public static string L10nAuthIdle_Text093 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text093", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 交易确认的登录状态已变化，请重新读取登录请求后再确认。.
+        /// </summary>
+        public static string L10nAuthIdle_Text094 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text094", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已确认登录。请回到 Steam 客户端或网页查看结果。.
+        /// </summary>
+        public static string L10nAuthIdle_Text095 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text095", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 确认登录失败，二维码可能已过期。请重新扫描；若登录状态失效，请到交易确认重新登录。.
+        /// </summary>
+        public static string L10nAuthIdle_Text096 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text096", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 无法获取此令牌的 Steam 验证码，请检查令牌后重试。.
+        /// </summary>
+        public static string L10nAuthIdle_Text097 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text097", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 此令牌的 Steam 验证码不可用，请检查令牌后重试。.
+        /// </summary>
+        public static string L10nAuthIdle_Text098 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text098", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 检查交易确认登录状态失败，请检查网络或重新登录。.
+        /// </summary>
+        public static string L10nAuthIdle_Text099 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text099", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录状态已续期，但保存失败；本次仍可使用。.
+        /// </summary>
+        public static string L10nAuthIdle_Text100 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text100", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 此令牌不可用，未保存任何登录状态。.
+        /// </summary>
+        public static string L10nAuthIdle_Text101 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text101", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 已登录，但登录状态保存失败。请重试保存后再使用扫码。.
+        /// </summary>
+        public static string L10nAuthIdle_Text102 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text102", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 已登录，但读取交易确认失败。请检查网络并刷新，不要反复重新登录。.
+        /// </summary>
+        public static string L10nAuthIdle_Text103 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text103", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 私密游戏(不掉卡) + 已拉黑.
+        /// </summary>
+        public static string L10nAuthIdle_Text104 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text104", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 私密游戏(不掉卡).
+        /// </summary>
+        public static string L10nAuthIdle_Text105 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text105", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已拉黑.
+        /// </summary>
+        public static string L10nAuthIdle_Text106 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text106", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 该游戏已被排除，不参与挂卡。请先取消拉黑或移除私密限制。.
+        /// </summary>
+        public static string L10nAuthIdle_Text107 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text107", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在检测 Steam 登录状态….
+        /// </summary>
+        public static string L10nAuthIdle_Text108 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text108", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在加载徽章数据….
+        /// </summary>
+        public static string L10nAuthIdle_Text109 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text109", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 扫描屏幕二维码登录 Steam.
+        /// </summary>
+        public static string L10nAuthIdle_Text110 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text110", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 详情与导出.
+        /// </summary>
+        public static string L10nAuthIdle_Text111 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text111", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 松开放置.
+        /// </summary>
+        public static string L10nAuthIdle_Text112 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text112", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to  张剩余卡牌掉落.
+        /// </summary>
+        public static string L10nAuthIdle_Text113 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text113", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 估算价值 ¥ .
+        /// </summary>
+        public static string L10nAuthIdle_Text114 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text114", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 当前 Steam 客户端登录账号：.
+        /// </summary>
+        public static string L10nAuthIdle_Text115 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text115", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 挂卡进度 .
+        /// </summary>
+        public static string L10nAuthIdle_Text116 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text116", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to  个游戏正在运行.
+        /// </summary>
+        public static string L10nAuthIdle_Text117 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text117", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 挂卡游戏列表.
+        /// </summary>
+        public static string L10nAuthIdle_Text118 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text118", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 未获取到挂卡游戏数据.
+        /// </summary>
+        public static string L10nAuthIdle_Text119 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text119", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 共 {0} 个令牌.
+        /// </summary>
+        public static string L10nAuthIdle_Text120 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text120", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录请求 {0}.
+        /// </summary>
+        public static string L10nAuthIdle_Text121 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text121", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 确认账号：{0}.
+        /// </summary>
+        public static string L10nAuthIdle_Text122 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text122", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 快速掉卡模式（推荐）.
+        /// </summary>
+        public static string L10nAuthIdle_Text123 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text123", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 按顺序运行.
+        /// </summary>
+        public static string L10nAuthIdle_Text124 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text124", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 先挂卡已满（游戏最小运行时间）的游戏，然后再并行挂时长.
+        /// </summary>
+        public static string L10nAuthIdle_Text125 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text125", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 先并行挂时长满（游戏最小运行时间）后再挂卡.
+        /// </summary>
+        public static string L10nAuthIdle_Text126 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text126", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 默认（按字母顺序）.
+        /// </summary>
+        public static string L10nAuthIdle_Text127 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text127", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 按卡片数量最少优先.
+        /// </summary>
+        public static string L10nAuthIdle_Text128 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text128", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 按卡片数量最多优先.
+        /// </summary>
+        public static string L10nAuthIdle_Text129 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text129", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 按卡片价值最高优先.
+        /// </summary>
+        public static string L10nAuthIdle_Text130 {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_Text130", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 检测到 {0} 个私密游戏，这些游戏将自动排除，不参与挂卡。.
+        /// </summary>
+        public static string L10nAuthIdle_PrivateExclusion {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_PrivateExclusion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} · 长按拖拽排序.
+        /// </summary>
+        public static string L10nAuthIdle_DragTooltip {
+            get {
+                return ResourceManager.GetString("L10nAuthIdle_DragTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 管理 Steam 库存游戏信息，Steam 启动时加载当前账号库存，未启动时加载 Steam 本地缓存数据.
+        /// </summary>
+        public static string L10nGames_ListDescription {
+            get {
+                return ResourceManager.GetString("L10nGames_ListDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 可支持自行添加多平台账号快速切换功能，Steam 可自动读取账号信息，其它平台请手动添加账号信息.
+        /// </summary>
+        public static string L10nGames_AccountDescription {
+            get {
+                return ResourceManager.GetString("L10nGames_AccountDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 通用游戏工具.
+        /// </summary>
+        public static string L10nGames_ToolsDescription {
+            get {
+                return ResourceManager.GetString("L10nGames_ToolsDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 保存成功但还不会直接写入 Steam 文件，请到右上角编辑列表中保存所有更改信息到 Steam 文件中，即可生效！.
+        /// </summary>
+        public static string L10nGames_SaveEditNotice {
+            get {
+                return ResourceManager.GetString("L10nGames_SaveEditNotice", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 图片下载需要一些时间，请稍后.
+        /// </summary>
+        public static string L10nGames_ImageDownloadWait {
+            get {
+                return ResourceManager.GetString("L10nGames_ImageDownloadWait", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 没有可导出的已修改游戏数据。.
+        /// </summary>
+        public static string L10nGames_ExportEmpty {
+            get {
+                return ResourceManager.GetString("L10nGames_ExportEmpty", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导出编辑游戏数据备份.
+        /// </summary>
+        public static string L10nGames_ExportTitle {
+            get {
+                return ResourceManager.GetString("L10nGames_ExportTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导出失败：没有可序列化的修改数据。.
+        /// </summary>
+        public static string L10nGames_ExportNoData {
+            get {
+                return ResourceManager.GetString("L10nGames_ExportNoData", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导出失败，请检查文件权限后重试。.
+        /// </summary>
+        public static string L10nGames_ExportFailed {
+            get {
+                return ResourceManager.GetString("L10nGames_ExportFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导入编辑游戏数据备份.
+        /// </summary>
+        public static string L10nGames_ImportTitle {
+            get {
+                return ResourceManager.GetString("L10nGames_ImportTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导入文件中没有可还原的数据。.
+        /// </summary>
+        public static string L10nGames_ImportEmpty {
+            get {
+                return ResourceManager.GetString("L10nGames_ImportEmpty", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导入完成，但未匹配到可还原的游戏。 请确认账号或游戏库与备份来源一致。.
+        /// </summary>
+        public static string L10nGames_ImportNoMatches {
+            get {
+                return ResourceManager.GetString("L10nGames_ImportNoMatches", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导入失败，文件格式可能不正确。.
+        /// </summary>
+        public static string L10nGames_ImportFailed {
+            get {
+                return ResourceManager.GetString("L10nGames_ImportFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 下载监控.
+        /// </summary>
+        public static string L10nGames_DownloadTitle {
+            get {
+                return ResourceManager.GetString("L10nGames_DownloadTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 监听 Steam 下载任务并提供下载安装完成后执行睡眠、休眠、关机功能.
+        /// </summary>
+        public static string L10nGames_DownloadDescription {
+            get {
+                return ResourceManager.GetString("L10nGames_DownloadDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启用此按钮才会启动监听 Steam 下载数据并在下载完时执行对应操作！.
+        /// </summary>
+        public static string L10nGames_DownloadWatchTip {
+            get {
+                return ResourceManager.GetString("L10nGames_DownloadWatchTip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 游戏修改.
+        /// </summary>
+        public static string L10nGames_EditTitle {
+            get {
+                return ResourceManager.GetString("L10nGames_EditTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 可以修改 Steam 游戏名称、发行商、封面图片、启动项等信息，并且保存生效至 Steam。.
+        /// </summary>
+        public static string L10nGames_EditDescription {
+            get {
+                return ResourceManager.GetString("L10nGames_EditDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 挂时长.
+        /// </summary>
+        public static string L10nGames_IdleTitle {
+            get {
+                return ResourceManager.GetString("L10nGames_IdleTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 不需要真正启动游戏即可让 Steam 认为你在同时运行多个游戏，达到运行时长增长目的.
+        /// </summary>
+        public static string L10nGames_IdleDescription {
+            get {
+                return ResourceManager.GetString("L10nGames_IdleDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 切换到此账号.
+        /// </summary>
+        public static string L10nGames_SwitchAccount {
+            get {
+                return ResourceManager.GetString("L10nGames_SwitchAccount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 以离线模式启动.
+        /// </summary>
+        public static string L10nGames_StartOffline {
+            get {
+                return ResourceManager.GetString("L10nGames_StartOffline", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 登录为.
+        /// </summary>
+        public static string L10nGames_LoginAs {
+            get {
+                return ResourceManager.GetString("L10nGames_LoginAs", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 隐身.
+        /// </summary>
+        public static string L10nGames_Invisible {
+            get {
+                return ResourceManager.GetString("L10nGames_Invisible", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 离线.
+        /// </summary>
+        public static string L10nGames_Offline {
+            get {
+                return ResourceManager.GetString("L10nGames_Offline", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 在线.
+        /// </summary>
+        public static string L10nGames_Online {
+            get {
+                return ResourceManager.GetString("L10nGames_Online", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 忙碌.
+        /// </summary>
+        public static string L10nGames_Busy {
+            get {
+                return ResourceManager.GetString("L10nGames_Busy", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 离开.
+        /// </summary>
+        public static string L10nGames_Away {
+            get {
+                return ResourceManager.GetString("L10nGames_Away", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 打盹.
+        /// </summary>
+        public static string L10nGames_Snooze {
+            get {
+                return ResourceManager.GetString("L10nGames_Snooze", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 想交易.
+        /// </summary>
+        public static string L10nGames_LookingToTrade {
+            get {
+                return ResourceManager.GetString("L10nGames_LookingToTrade", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 想玩游戏.
+        /// </summary>
+        public static string L10nGames_LookingToPlay {
+            get {
+                return ResourceManager.GetString("L10nGames_LookingToPlay", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 复制个人资料.
+        /// </summary>
+        public static string L10nGames_CopyProfile {
+            get {
+                return ResourceManager.GetString("L10nGames_CopyProfile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 社区 URL.
+        /// </summary>
+        public static string L10nGames_CommunityUrl {
+            get {
+                return ResourceManager.GetString("L10nGames_CommunityUrl", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 昵称.
+        /// </summary>
+        public static string L10nGames_SteamNickname {
+            get {
+                return ResourceManager.GetString("L10nGames_SteamNickname", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 复制 SteamID.
+        /// </summary>
+        public static string L10nGames_CopySteamId {
+            get {
+                return ResourceManager.GetString("L10nGames_CopySteamId", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 社区.
+        /// </summary>
+        public static string L10nGames_SteamCommunity {
+            get {
+                return ResourceManager.GetString("L10nGames_SteamCommunity", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 修改备注名.
+        /// </summary>
+        public static string L10nGames_EditRemark {
+            get {
+                return ResourceManager.GetString("L10nGames_EditRemark", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 修改头像图片.
+        /// </summary>
+        public static string L10nGames_ChangeAvatar {
+            get {
+                return ResourceManager.GetString("L10nGames_ChangeAvatar", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 创建桌面快捷方式.
+        /// </summary>
+        public static string L10nGames_CreateShortcut {
+            get {
+                return ResourceManager.GetString("L10nGames_CreateShortcut", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 双击可快速切换到此账号登录.
+        /// </summary>
+        public static string L10nGames_DoubleClickSwitch {
+            get {
+                return ResourceManager.GetString("L10nGames_DoubleClickSwitch", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 平台设置.
+        /// </summary>
+        public static string L10nGames_PlatformSettings {
+            get {
+                return ResourceManager.GetString("L10nGames_PlatformSettings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示用户名.
+        /// </summary>
+        public static string L10nGames_ShowUsername {
+            get {
+                return ResourceManager.GetString("L10nGames_ShowUsername", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 拖拽可排序.
+        /// </summary>
+        public static string L10nGames_DragToSort {
+            get {
+                return ResourceManager.GetString("L10nGames_DragToSort", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 游戏无边框窗口化.
+        /// </summary>
+        public static string L10nGames_BorderlessTitle {
+            get {
+                return ResourceManager.GetString("L10nGames_BorderlessTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 该功能可以获取游戏窗口句柄执行一些对应操作.
+        /// </summary>
+        public static string L10nGames_BorderlessDescription {
+            get {
+                return ResourceManager.GetString("L10nGames_BorderlessDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 查看捕获窗口记录.
+        /// </summary>
+        public static string L10nGames_ViewWindowHistory {
+            get {
+                return ResourceManager.GetString("L10nGames_ViewWindowHistory", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 历史记录.
+        /// </summary>
+        public static string L10nGames_History {
+            get {
+                return ResourceManager.GetString("L10nGames_History", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 窗口信息.
+        /// </summary>
+        public static string L10nGames_WindowInfo {
+            get {
+                return ResourceManager.GetString("L10nGames_WindowInfo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to CS:GO VAC 修复.
+        /// </summary>
+        public static string L10nGames_VacTitle {
+            get {
+                return ResourceManager.GetString("L10nGames_VacTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 该功能可为玩家修复 CS:GO VAC 屏蔽问题.
+        /// </summary>
+        public static string L10nGames_VacDescription {
+            get {
+                return ResourceManager.GetString("L10nGames_VacDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 修复.
+        /// </summary>
+        public static string L10nGames_Repair {
+            get {
+                return ResourceManager.GetString("L10nGames_Repair", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 修复中.
+        /// </summary>
+        public static string L10nGames_Repairing {
+            get {
+                return ResourceManager.GetString("L10nGames_Repairing", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 重启.
+        /// </summary>
+        public static string L10nGames_Restart {
+            get {
+                return ResourceManager.GetString("L10nGames_Restart", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 仅 Windows 可用.
+        /// </summary>
+        public static string L10nGames_WindowsOnly {
+            get {
+                return ResourceManager.GetString("L10nGames_WindowsOnly", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to CPU 游戏调度优化.
+        /// </summary>
+        public static string L10nGames_CpuScheduling {
+            get {
+                return ResourceManager.GetString("L10nGames_CpuScheduling", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 功能尚未开放.
+        /// </summary>
+        public static string L10nGames_NotAvailable {
+            get {
+                return ResourceManager.GetString("L10nGames_NotAvailable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to info - ※ 修复 Steam Services 失败 .
+        /// </summary>
+        public static string L10nGames_RepairServicesFailed {
+            get {
+                return ResourceManager.GetString("L10nGames_RepairServicesFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to info - ※ 请检查您的防火墙设置(关闭 &quot;不允许例外&quot; 选项)再次尝试 .
+        /// </summary>
+        public static string L10nGames_RepairFirewall {
+            get {
+                return ResourceManager.GetString("L10nGames_RepairFirewall", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导出成功，共 {0} 条修改数据。.
+        /// </summary>
+        public static string L10nGames_ExportSuccess {
+            get {
+                return ResourceManager.GetString("L10nGames_ExportSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导入成功，已还原 {0} 个游戏的修改数据。.
+        /// </summary>
+        public static string L10nGames_ImportSuccess {
+            get {
+                return ResourceManager.GetString("L10nGames_ImportSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} 平台设置.
+        /// </summary>
+        public static string L10nGames_PlatformSettingsFormat {
+            get {
+                return ResourceManager.GetString("L10nGames_PlatformSettingsFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} 路径.
+        /// </summary>
+        public static string L10nGames_PlatformPathFormat {
+            get {
+                return ResourceManager.GetString("L10nGames_PlatformPathFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Info - ※&gt;&gt;&gt; 执行修复启动器服务项.
+        /// </summary>
+        public static string L10nGames_RepairLauncherService {
+            get {
+                return ResourceManager.GetString("L10nGames_RepairLauncherService", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Info - ※ 恢复DEP默认启动设置.
+        /// </summary>
+        public static string L10nGames_RestoreDep {
+            get {
+                return ResourceManager.GetString("L10nGames_RestoreDep", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Info - ※&gt;&gt;&gt; 重启 Steam.
+        /// </summary>
+        public static string L10nGames_RestartSteam {
+            get {
+                return ResourceManager.GetString("L10nGames_RestartSteam", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Info - ※ 执行完毕.
+        /// </summary>
+        public static string L10nGames_RepairComplete {
+            get {
+                return ResourceManager.GetString("L10nGames_RepairComplete", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ArchiSteamFarm 启动文件设置.
+        /// </summary>
+        public static string L10nAsf_Text001 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text001", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ASF 文件路径.
+        /// </summary>
+        public static string L10nAsf_Text002 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text002", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 选择路径.
+        /// </summary>
+        public static string L10nAsf_Text003 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text003", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 下载并设置 ASF 路径.
+        /// </summary>
+        public static string L10nAsf_Text004 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text004", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 还没有下载过ASF？请点击下载.
+        /// </summary>
+        public static string L10nAsf_Text005 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text005", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 一键下载.
+        /// </summary>
+        public static string L10nAsf_Text006 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text006", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 输入指令或消息内容.
+        /// </summary>
+        public static string L10nAsf_Text007 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text007", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ASF 配置.
+        /// </summary>
+        public static string L10nAsf_Text008 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text008", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导入配置.
+        /// </summary>
+        public static string L10nAsf_Text009 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text009", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 设置 ASF 安全密钥.
+        /// </summary>
+        public static string L10nAsf_Text010 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text010", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 刷新全局配置.
+        /// </summary>
+        public static string L10nAsf_Text011 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text011", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ASF 全局配置.
+        /// </summary>
+        public static string L10nAsf_Text012 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text012", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 文件位置.
+        /// </summary>
+        public static string L10nAsf_Text013 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text013", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 打开文件所在位置.
+        /// </summary>
+        public static string L10nAsf_Text014 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text014", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 配置文件文件夹.
+        /// </summary>
+        public static string L10nAsf_Text015 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text015", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 插件文件夹.
+        /// </summary>
+        public static string L10nAsf_Text016 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text016", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 日志文件夹.
+        /// </summary>
+        public static string L10nAsf_Text017 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text017", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to WEBUI 文件夹.
+        /// </summary>
+        public static string L10nAsf_Text018 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text018", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 自动启动 ASF.
+        /// </summary>
+        public static string L10nAsf_Text019 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text019", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 检查文件安全性.
+        /// </summary>
+        public static string L10nAsf_Text020 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text020", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ASF 监听端口.
+        /// </summary>
+        public static string L10nAsf_Text021 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text021", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 端口被占时随机端口号.
+        /// </summary>
+        public static string L10nAsf_Text022 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text022", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 控制台最大行数.
+        /// </summary>
+        public static string L10nAsf_Text023 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text023", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 控制台字体大小.
+        /// </summary>
+        public static string L10nAsf_Text024 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text024", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 打开 WebUI.
+        /// </summary>
+        public static string L10nAsf_Text025 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text025", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 设置.
+        /// </summary>
+        public static string L10nAsf_Text026 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text026", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 用户输入.
+        /// </summary>
+        public static string L10nAsf_Text027 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text027", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Bot 账号.
+        /// </summary>
+        public static string L10nAsf_Text028 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text028", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 打开 Bot 配置.
+        /// </summary>
+        public static string L10nAsf_Text029 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text029", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 编辑 Json 文件.
+        /// </summary>
+        public static string L10nAsf_Text030 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text030", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 删除.
+        /// </summary>
+        public static string L10nAsf_Text031 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text031", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 导入 Bot.
+        /// </summary>
+        public static string L10nAsf_Text032 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text032", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 刷新 Bot.
+        /// </summary>
+        public static string L10nAsf_Text033 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text033", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请先启动 ArchiSteamFarm.
+        /// </summary>
+        public static string L10nAsf_Text034 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text034", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 当前列表没有 Bot 账号.
+        /// </summary>
+        public static string L10nAsf_Text035 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text035", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 恢复挂卡.
+        /// </summary>
+        public static string L10nAsf_Text036 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text036", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 暂停挂卡.
+        /// </summary>
+        public static string L10nAsf_Text037 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text037", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启用或禁用该 Bot.
+        /// </summary>
+        public static string L10nAsf_Text038 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text038", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 控制台.
+        /// </summary>
+        public static string L10nAsf_Text039 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text039", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 为指定机器人生成临时的​两步验证​令牌。.
+        /// </summary>
+        public static string L10nAsf_Text040 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text040", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 为指定机器人拒绝所有等待操作的​两步验证​交易确认。.
+        /// </summary>
+        public static string L10nAsf_Text041 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text041", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 为指定机器人接受所有等待操作的​两步验证​交易确认。.
+        /// </summary>
+        public static string L10nAsf_Text042 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text042", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 为指定机器人激活给定的 Licenses （许可），该参数解释详见​下文。.
+        /// </summary>
+        public static string L10nAsf_Text043 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text043", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示指定机器人的 Steam 钱包余额。.
+        /// </summary>
+        public static string L10nAsf_Text044 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text044", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示指定机器人的 BGR（后台游戏激活器）队列信息。.
+        /// </summary>
+        public static string L10nAsf_Text045 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text045", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 以给定的加密方式加密字符串——详见​下文的解释。.
+        /// </summary>
+        public static string L10nAsf_Text046 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text046", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 重新启动指定机器人的挂卡模块。.
+        /// </summary>
+        public static string L10nAsf_Text047 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text047", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 列出指定机器人的自动挂卡黑名单。.
+        /// </summary>
+        public static string L10nAsf_Text048 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text048", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将给定的 AppIDs 加入指定机器人的自动挂卡黑名单。.
+        /// </summary>
+        public static string L10nAsf_Text049 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text049", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将给定的 AppIDs 从指定机器人的自动挂卡黑名单中移除。.
+        /// </summary>
+        public static string L10nAsf_Text050 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text050", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 列出指定机器人的优先挂卡队列。.
+        /// </summary>
+        public static string L10nAsf_Text051 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text051", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将给定的 AppIDs 加入指定机器人的优先挂卡队列。.
+        /// </summary>
+        public static string L10nAsf_Text052 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text052", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将给定的 AppIDs 从指定机器人的优先挂卡队列中移除。.
+        /// </summary>
+        public static string L10nAsf_Text053 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text053", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 以指定的加密方式生成给定字符串的哈希值——详见​下文的解释。.
+        /// </summary>
+        public static string L10nAsf_Text054 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text054", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示帮助（指向此页面的链接）。.
+        /// </summary>
+        public static string L10nAsf_Text055 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text055", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 为指定机器人填写给定的输入值，仅在 Headless 模式中可用——详见​下文的解释。.
+        /// </summary>
+        public static string L10nAsf_Text056 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text056", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示指定机器人的 Steam 帐户等级。.
+        /// </summary>
+        public static string L10nAsf_Text057 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text057", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将指定机器人的所有 LootableTypes 社区物品拾取到其 SteamUserPermissions 属性中设置的 Master 用户（如果有多个则取 steamID 最小的）。.
+        /// </summary>
+        public static string L10nAsf_Text058 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text058", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将指定机器人的所有符合给定 AppIDs 的 LootableTypes 社区物品拾取到其 SteamUserPermissions 属性中设置的 Master 用户（如果有多个则取 steamID 最小的）。 此命令与 loot% 相反。.
+        /// </summary>
+        public static string L10nAsf_Text059 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text059", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将指定机器人的所有不符合给定 AppIDs 的 LootableTypes 社区物品拾取到其 SteamUserPermissions 属性中设置的 Master 用户（如果有多个则取 steamID 最小的）。 此命令与 loot@ 相反。.
+        /// </summary>
+        public static string L10nAsf_Text060 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text060", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将指定机器人的 ContextID 库存分类中符合给定 AppID 的物品拾取到其 SteamUserPermissions 属性中设置的 Master 用户（如果有多个则取 steamID 最小的）。.
+        /// </summary>
+        public static string L10nAsf_Text061 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text061", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 列出 MatchActively 自动交易的 App 黑名单。.
+        /// </summary>
+        public static string L10nAsf_Text062 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text062", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将给定的 AppIDs 加入到 MatchActively 自动交易的 App 黑名单。.
+        /// </summary>
+        public static string L10nAsf_Text063 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text063", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将给定的 AppIDs 从 MatchActively 自动交易 App 黑名单中移除。.
+        /// </summary>
+        public static string L10nAsf_Text064 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text064", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将指定机器人的昵称更改为 Nickname。.
+        /// </summary>
+        public static string L10nAsf_Text065 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text065", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 检查指定机器人是否已拥有 Games，该参数解释详见​下文。.
+        /// </summary>
+        public static string L10nAsf_Text066 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text066", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 永久暂停指定机器人的自动挂卡模块。 ASF 在本次会话中将不会再尝试对此帐户进行挂卡，除非您手动 resume 或者重启 ASF。.
+        /// </summary>
+        public static string L10nAsf_Text067 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text067", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 临时暂停指定机器人的自动挂卡模块。 挂卡进程将会在下次游戏事件或者机器人断开连接时自动恢复。 您可以 resume 以恢复挂卡。.
+        /// </summary>
+        public static string L10nAsf_Text068 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text068", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 临时暂停指定机器人的自动挂卡模块 Seconds 秒。 之后，挂卡模块会自动恢复。.
+        /// </summary>
+        public static string L10nAsf_Text069 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text069", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 切换到手动挂卡——使指定机器人运行给定的 AppIDs，并且可选自定义 GameName 为游戏名称。 若要此功能正常工作，您的 Steam 帐户必须拥有所有您指定的 AppIDs 的有效许可，包括免费游戏。 使用 reset 或 resume 命令恢复。.
+        /// </summary>
+        public static string L10nAsf_Text070 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text070", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示指定机器人的 Steam 商店​点数余额。.
+        /// </summary>
+        public static string L10nAsf_Text071 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text071", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 更改指定机器人的 Steam 隐私设置，可用选项见​下文。.
+        /// </summary>
+        public static string L10nAsf_Text072 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text072", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 为指定机器人激活给定的游戏序列号或钱包充值码。.
+        /// </summary>
+        public static string L10nAsf_Text073 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text073", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 以 Modes 模式为指定机器人激活给定的游戏序列号或钱包充值码，模式详见下文的​解释。.
+        /// </summary>
+        public static string L10nAsf_Text074 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text074", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 重置为原始（之前的）游玩状态，用来配合 play 命令的手动挂卡模式使用。.
+        /// </summary>
+        public static string L10nAsf_Text075 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text075", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 恢复指定机器人的自动挂卡进程。.
+        /// </summary>
+        public static string L10nAsf_Text076 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text076", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启动指定机器人。.
+        /// </summary>
+        public static string L10nAsf_Text077 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text077", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示进程统计信息，例如托管内存用量。.
+        /// </summary>
+        public static string L10nAsf_Text078 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text078", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示指定机器人的状态。.
+        /// </summary>
+        public static string L10nAsf_Text079 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text079", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 停止指定机器人。.
+        /// </summary>
+        public static string L10nAsf_Text080 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text080", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 列出指定机器人的交易黑名单用户。.
+        /// </summary>
+        public static string L10nAsf_Text081 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text081", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将给定的 SteamIDs 加入指定机器人的交易黑名单。.
+        /// </summary>
+        public static string L10nAsf_Text082 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text082", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将给定的 SteamIDs 从指定机器人的交易黑名单中移除。.
+        /// </summary>
+        public static string L10nAsf_Text083 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text083", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将指定机器人的所有 TransferableTypes 社区物品转移到一个目标机器人。.
+        /// </summary>
+        public static string L10nAsf_Text084 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text084", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将指定机器人的所有符合给定 AppIDs 的 TransferableTypes 社区物品转移到一个目标机器人。 此命令与 transfer% 相反。.
+        /// </summary>
+        public static string L10nAsf_Text085 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text085", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将指定机器人的所有不符合给定 AppIDs 的 TransferableTypes 社区物品转移到一个目标机器人。 此命令与 transfer@ 相反。.
+        /// </summary>
+        public static string L10nAsf_Text086 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text086", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 将指定机器人的 ContextID 库存分类中符合给定 AppID 的物品转移到一个目标机器人。.
+        /// </summary>
+        public static string L10nAsf_Text087 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text087", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 拆开指定机器人库存中的所有补充包。.
+        /// </summary>
+        public static string L10nAsf_Text088 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text088", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示 ASF 的版本号。.
+        /// </summary>
+        public static string L10nAsf_Text089 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text089", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 昵称：{0} 钱包余额：{1} {2} 挂卡游戏：{3}.
+        /// </summary>
+        public static string L10nAsf_Text090 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text090", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 禁用.
+        /// </summary>
+        public static string L10nAsf_Text091 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text091", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 离线.
+        /// </summary>
+        public static string L10nAsf_Text092 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text092", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 在线.
+        /// </summary>
+        public static string L10nAsf_Text093 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text093", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在挂卡.
+        /// </summary>
+        public static string L10nAsf_Text094 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text094", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 等待输入.
+        /// </summary>
+        public static string L10nAsf_Text095 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text095", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 比对文件下载失败.
+        /// </summary>
+        public static string L10nAsf_Text096 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text096", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ASF 下载成功.
+        /// </summary>
+        public static string L10nAsf_Text097 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text097", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ASF 文件下载异常.
+        /// </summary>
+        public static string L10nAsf_Text098 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text098", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 开始下载 ASF .
+        /// </summary>
+        public static string L10nAsf_Text099 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text099", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 等待后台下载文件.
+        /// </summary>
+        public static string L10nAsf_Text100 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text100", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 下载插件.
+        /// </summary>
+        public static string L10nAsf_Text101 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text101", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 开始下载 ASF.
+        /// </summary>
+        public static string L10nAsf_Text102 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text102", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在初始化，请稍候.
+        /// </summary>
+        public static string L10nAsf_Text103 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text103", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在下载 {0}%.
+        /// </summary>
+        public static string L10nAsf_Text104 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text104", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ArchiSteamFarmPlus 控制台功能实现.
+        /// </summary>
+        public static string L10nAsf_Text105 {
+            get {
+                return ResourceManager.GetString("L10nAsf_Text105", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请输入 Steam 令牌或邮箱验证码后继续。.
+        /// </summary>
+        public static string L10nCore_SteamManualGuard {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamManualGuard", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 自动令牌验证未完成，请重试或返回。.
+        /// </summary>
+        public static string L10nCore_SteamAutomaticGuard {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamAutomaticGuard", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 登录失败，请重试。.
+        /// </summary>
+        public static string L10nCore_SteamLoginFailed {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamLoginFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 无法获取当前令牌验证码，请检查令牌后重试。.
+        /// </summary>
+        public static string L10nCore_SteamGuardUnavailable {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamGuardUnavailable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 正在获取 Steam 登录二维码….
+        /// </summary>
+        public static string L10nCore_SteamQrLoading {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamQrLoading", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 返回的登录二维码无效。.
+        /// </summary>
+        public static string L10nCore_SteamQrInvalid {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamQrInvalid", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 无法生成 Steam 登录二维码。.
+        /// </summary>
+        public static string L10nCore_SteamQrCreateFailed {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamQrCreateFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请使用 Steam 手机客户端扫描，并在手机上确认登录。.
+        /// </summary>
+        public static string L10nCore_SteamQrScan {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamQrScan", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 无法获取 Steam 登录二维码，请重试。.
+        /// </summary>
+        public static string L10nCore_SteamQrUnavailable {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamQrUnavailable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 二维码已过期，正在重新获取….
+        /// </summary>
+        public static string L10nCore_SteamQrExpired {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamQrExpired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 无法获取 Steam 登录二维码，请检查网络后重试。.
+        /// </summary>
+        public static string L10nCore_SteamQrNetwork {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamQrNetwork", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 没有可用的交易确认登录状态。请先在令牌插件的“确认交易”中登录，然后重新读取令牌。.
+        /// </summary>
+        public static string L10nCore_SteamNoSavedAccount {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamNoSavedAccount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 返回的 Steam 登录状态与所选账号不匹配，请重新读取令牌。.
+        /// </summary>
+        public static string L10nCore_SteamAccountMismatch {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamAccountMismatch", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 无法创建 Steam 登录会话。.
+        /// </summary>
+        public static string L10nCore_SteamSessionCreateFailed {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamSessionCreateFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 请输入 sessionid 和 steamLoginSecure。.
+        /// </summary>
+        public static string L10nCore_SteamCookieRequired {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamCookieRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to steamLoginSecure 格式无效。.
+        /// </summary>
+        public static string L10nCore_SteamCookieInvalid {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamCookieInvalid", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 未返回有效的登录会话。.
+        /// </summary>
+        public static string L10nCore_SteamSessionInvalid {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamSessionInvalid", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 登录成功。.
+        /// </summary>
+        public static string L10nCore_SteamLoginSuccess {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamLoginSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 登录成功，但未能保存登录状态。.
+        /// </summary>
+        public static string L10nCore_SteamLoginSaveFailed {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamLoginSaveFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 无法完成 Steam 登录，请检查网络后重试。.
+        /// </summary>
+        public static string L10nCore_SteamLoginNetwork {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamLoginNetwork", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已取消 Steam 登录，可以重新选择登录方式。.
+        /// </summary>
+        public static string L10nCore_SteamLoginCanceled {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamLoginCanceled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 可添加自定义的参数来启动 Steam.
+        /// </summary>
+        public static string L10nCore_SteamLaunchParametersHint {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamLaunchParametersHint", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 检测证书安装错误:{0}.
+        /// </summary>
+        public static string L10nCore_CertificateCheckError {
+            get {
+                return ResourceManager.GetString("L10nCore_CertificateCheckError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 安装证书错误:{0}.
+        /// </summary>
+        public static string L10nCore_CertificateInstallError {
+            get {
+                return ResourceManager.GetString("L10nCore_CertificateInstallError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 删除证书错误:{0}.
+        /// </summary>
+        public static string L10nCore_CertificateRemoveError {
+            get {
+                return ResourceManager.GetString("L10nCore_CertificateRemoveError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 安装证书：{0}.
+        /// </summary>
+        public static string L10nCore_CertificateInstallResult {
+            get {
+                return ResourceManager.GetString("L10nCore_CertificateInstallResult", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 获取授权出错.
+        /// </summary>
+        public static string L10nCore_AuthorizationError {
+            get {
+                return ResourceManager.GetString("L10nCore_AuthorizationError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 授权被取消!.
+        /// </summary>
+        public static string L10nCore_AuthorizationCanceled {
+            get {
+                return ResourceManager.GetString("L10nCore_AuthorizationCanceled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 执行命令失败!.
+        /// </summary>
+        public static string L10nCore_CommandExecutionFailed {
+            get {
+                return ResourceManager.GetString("L10nCore_CommandExecutionFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 删除证书：{0}.
+        /// </summary>
+        public static string L10nCore_CertificateRemoveResult {
+            get {
+                return ResourceManager.GetString("L10nCore_CertificateRemoveResult", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 已自动后台运行挂时长 {0} 个游戏.
+        /// </summary>
+        public static string L10nCore_SteamIdleStarted {
+            get {
+                return ResourceManager.GetString("L10nCore_SteamIdleStarted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 测试参数.
+        /// </summary>
+        public static string L10nCore_CmdTestArgs {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdTestArgs", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 调试.
+        /// </summary>
+        public static string L10nCore_CmdDebug {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdDebug", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 禁用 GPU 硬件加速.
+        /// </summary>
+        public static string L10nCore_CmdDisableGpu {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdDisableGpu", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 使用 Native OpenGL（仅 Windows）.
+        /// </summary>
+        public static string L10nCore_CmdNativeOpenGl {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdNativeOpenGl", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 使用本机服务端.
+        /// </summary>
+        public static string L10nCore_CmdLocalServer {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdLocalServer", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 内启动.
+        /// </summary>
+        public static string L10nCore_CmdSteamRun {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdSteamRun", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 静默启动（不弹窗口）.
+        /// </summary>
+        public static string L10nCore_CmdSilent {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdSilent", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 指定对应 Steam 用户名.
+        /// </summary>
+        public static string L10nCore_CmdSteamAccount {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdSteamAccount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Steam 相关操作.
+        /// </summary>
+        public static string L10nCore_CmdSteam {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdSteam", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 指定一个 Steam 游戏 Id.
+        /// </summary>
+        public static string L10nCore_CmdGameId {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdGameId", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 打开成就解锁窗口.
+        /// </summary>
+        public static string L10nCore_CmdAchievements {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdAchievements", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 打开云存档管理窗口.
+        /// </summary>
+        public static string L10nCore_CmdCloudManager {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdCloudManager", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 挂运行服务，不加载窗口，内存占用更小.
+        /// </summary>
+        public static string L10nCore_CmdIdle {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdIdle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 运行 Steam 应用.
+        /// </summary>
+        public static string L10nCore_CmdRunGame {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdRunGame", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示当前根证书信息.
+        /// </summary>
+        public static string L10nCore_CmdCertificateInfo {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdCertificateInfo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 显示信息.
+        /// </summary>
+        public static string L10nCore_CmdShowInfo {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdShowInfo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 安装证书 参数为 AppDataDirectory.
+        /// </summary>
+        public static string L10nCore_CmdInstallCert {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdInstallCert", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 删除证书 参数为 AppDataDirectory.
+        /// </summary>
+        public static string L10nCore_CmdRemoveCert {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdRemoveCert", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Linux 平台 Root 权限 操作指令.
+        /// </summary>
+        public static string L10nCore_CmdLinuxRoot {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdLinuxRoot", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 开启代理服务.
+        /// </summary>
+        public static string L10nCore_CmdProxyOn {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdProxyOn", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 关闭代理服务.
+        /// </summary>
+        public static string L10nCore_CmdProxyOff {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdProxyOff", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 启用代理服务，静默启动（不弹窗口）.
+        /// </summary>
+        public static string L10nCore_CmdProxySilent {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdProxySilent", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 安全结束正在运行的程序.
+        /// </summary>
+        public static string L10nCore_CmdShutdown {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdShutdown", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to IPC 管道名.
+        /// </summary>
+        public static string L10nCore_CmdPipeName {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdPipeName", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 主进程 Id.
+        /// </summary>
+        public static string L10nCore_CmdProcessId {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdProcessId", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 使用管理员权限启动 IPC 服务进程.
+        /// </summary>
+        public static string L10nCore_CmdSudo {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdSudo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 需要加载的模块名称.
+        /// </summary>
+        public static string L10nCore_CmdModuleName {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdModuleName", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 需要解析的参数，使用 HttpUtility.UrlDecode 解码.
+        /// </summary>
+        public static string L10nCore_CmdModuleArgs {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdModuleArgs", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 插件使用的 IPC 服务进程.
+        /// </summary>
+        public static string L10nCore_CmdPluginIpc {
+            get {
+                return ResourceManager.GetString("L10nCore_CmdPluginIpc", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to 命令行工具(Command Line Tools/CLT).
+        /// </summary>
+        public static string L10nCore_CommandLineTools {
+            get {
+                return ResourceManager.GetString("L10nCore_CommandLineTools", resourceCulture);
+            }
+        }
+
     }
 }

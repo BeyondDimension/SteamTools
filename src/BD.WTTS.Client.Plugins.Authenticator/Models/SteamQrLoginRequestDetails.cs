@@ -4,19 +4,19 @@ namespace BD.WTTS.Models;
 
 public sealed class SteamQrLoginRequestDetails
 {
-    public SteamQrLoginRequestDetails(CAuthentication_GetAuthSessionInfo_Response info, SteamLoginQrChallenge challenge)
+    public SteamQrLoginRequestDetails(CAuthentication_GetAuthSessionInfo_Response info, SteamLoginQrChallenge challenge, string? readAt = null)
     {
         DeviceName = Display(info.DeviceFriendlyName);
         HasDeviceName = !string.IsNullOrWhiteSpace(info.DeviceFriendlyName);
         Platform = info.PlatformType switch
         {
-            EAuthTokenPlatformType.KEauthTokenPlatformTypeSteamClient => "Steam 桌面客户端",
-            EAuthTokenPlatformType.KEauthTokenPlatformTypeWebBrowser => "网页浏览器",
-            EAuthTokenPlatformType.KEauthTokenPlatformTypeMobileApp => "移动应用",
-            _ => "Steam 未提供设备类型",
+            EAuthTokenPlatformType.KEauthTokenPlatformTypeSteamClient => Strings.L10nAuthIdle_Text010,
+            EAuthTokenPlatformType.KEauthTokenPlatformTypeWebBrowser => Strings.L10nAuthIdle_Text011,
+            EAuthTokenPlatformType.KEauthTokenPlatformTypeMobileApp => Strings.L10nAuthIdle_Text012,
+            _ => Strings.L10nAuthIdle_Text013,
         };
         Location = string.Join(" / ", new[] { info.Country, info.State, info.City }.Where(x => !string.IsNullOrWhiteSpace(x)));
-        if (Location.Length == 0) Location = "Steam 未提供位置";
+        if (Location.Length == 0) Location = Strings.L10nAuthIdle_Text014;
         Geolocation = Display(info.Geoloc);
         HasLocation = !string.IsNullOrWhiteSpace(info.Country) || !string.IsNullOrWhiteSpace(info.State) || !string.IsNullOrWhiteSpace(info.City);
         HasGeolocation = info.HasRequestorLocationMismatch && info.RequestorLocationMismatch && !string.IsNullOrWhiteSpace(info.Geoloc);
@@ -26,40 +26,40 @@ public sealed class SteamQrLoginRequestDetails
         IpAddress = Display(info.Ip);
         LoginHistory = info.HasLoginHistory ? info.LoginHistory switch
         {
-            EAuthSessionSecurityHistory.KEauthSessionSecurityHistoryUsedPreviously => "此 IP 曾成功登录此账号",
-            EAuthSessionSecurityHistory.KEauthSessionSecurityHistoryNoPriorHistory => "此 IP 没有成功登录此账号的历史",
+            EAuthSessionSecurityHistory.KEauthSessionSecurityHistoryUsedPreviously => Strings.L10nAuthIdle_Text015,
+            EAuthSessionSecurityHistory.KEauthSessionSecurityHistoryNoPriorHistory => Strings.L10nAuthIdle_Text016,
             _ => null,
         } : null;
         LocationAssessment = info.HasRequestorLocationMismatch && info.RequestorLocationMismatch
-            ? "登录请求位置与当前确认位置不一致" : null;
+            ? Strings.L10nAuthIdle_Text017 : null;
         UsageAssessment = info.HasHighUsageLogin && info.HighUsageLogin
-            ? "此登录请求近期使用频繁" : null;
+            ? Strings.L10nAuthIdle_Text018 : null;
         SecuritySummary = string.Join(" · ", new[]
         {
             !info.HasLoginHistory ? null : info.LoginHistory switch
             {
-                EAuthSessionSecurityHistory.KEauthSessionSecurityHistoryUsedPreviously => "IP 曾登录",
-                EAuthSessionSecurityHistory.KEauthSessionSecurityHistoryNoPriorHistory => "IP 无登录记录",
+                EAuthSessionSecurityHistory.KEauthSessionSecurityHistoryUsedPreviously => Strings.L10nAuthIdle_Text019,
+                EAuthSessionSecurityHistory.KEauthSessionSecurityHistoryNoPriorHistory => Strings.L10nAuthIdle_Text020,
                 _ => null,
             },
-            info.HasRequestorLocationMismatch && info.RequestorLocationMismatch ? "位置不一致" : null,
-            info.HasHighUsageLogin && info.HighUsageLogin ? "登录请求频繁" : null,
+            info.HasRequestorLocationMismatch && info.RequestorLocationMismatch ? Strings.L10nAuthIdle_Text021 : null,
+            info.HasHighUsageLogin && info.HighUsageLogin ? Strings.L10nAuthIdle_Text022 : null,
         }.Where(x => x != null));
         HasRequestedPersistence = info.HasRequestedPersistence && info.RequestedPersistence is
             ESessionPersistence.KEsessionPersistencePersistent or ESessionPersistence.KEsessionPersistenceEphemeral;
         RequestedPersistence = info.RequestedPersistence switch
         {
-            ESessionPersistence.KEsessionPersistencePersistent => "目标设备请求保持登录",
-            ESessionPersistence.KEsessionPersistenceEphemeral => "目标设备请求临时登录",
-            _ => "Steam 未提供保持登录偏好",
+            ESessionPersistence.KEsessionPersistencePersistent => Strings.L10nAuthIdle_Text023,
+            ESessionPersistence.KEsessionPersistenceEphemeral => Strings.L10nAuthIdle_Text024,
+            _ => Strings.L10nAuthIdle_Text025,
         };
         IsRiskReported = (info.HasRequestorLocationMismatch && info.RequestorLocationMismatch) ||
             (info.HasHighUsageLogin && info.HighUsageLogin) ||
             (info.HasLoginHistory && info.LoginHistory == EAuthSessionSecurityHistory.KEauthSessionSecurityHistoryNoPriorHistory);
-        RiskSummary = IsRiskReported ? "请特别核实此登录请求" : "请确认这是你本人发起的登录";
+        RiskSummary = IsRiskReported ? Strings.L10nAuthIdle_Text026 : Strings.L10nAuthIdle_Text027;
         RequestId = challenge.ClientId.ToString(CultureInfo.InvariantCulture);
         ProtocolVersion = challenge.Version.ToString(CultureInfo.InvariantCulture);
-        ReadAt = DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz", CultureInfo.InvariantCulture);
+        ReadAt = readAt ?? DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz", CultureInfo.InvariantCulture);
     }
 
     public string DeviceName { get; }
@@ -88,5 +88,5 @@ public sealed class SteamQrLoginRequestDetails
     public string ProtocolVersion { get; }
     public string ReadAt { get; }
 
-    static string Display(string? value) => string.IsNullOrWhiteSpace(value) ? "Steam 未提供" : value;
+    static string Display(string? value) => string.IsNullOrWhiteSpace(value) ? Strings.L10nAuthIdle_Text028 : value;
 }

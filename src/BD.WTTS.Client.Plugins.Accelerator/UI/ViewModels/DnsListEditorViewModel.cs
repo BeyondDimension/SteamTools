@@ -56,8 +56,8 @@ public sealed partial class DnsListEditorViewModel : ViewModelBase
         Input = string.Empty;
         Error = string.Empty;
         SelectedIndex = Servers.Count > 0 ? 0 : -1;
-        _ = IWindowManager.Instance.ShowTaskDialogAsync(this, "管理 DNS / DoH 服务器",
-            pageContent: new DnsListManager { DataContext = this }, okButtonText: "完成");
+        _ = IWindowManager.Instance.ShowTaskDialogAsync(this, Strings.L10nAccel_127,
+            pageContent: new DnsListManager { DataContext = this }, okButtonText: Strings.Btn_Text_Complete);
     }
 
     void Reload()
@@ -81,14 +81,14 @@ public sealed partial class DnsListEditorViewModel : ViewModelBase
         var value = Input?.Trim() ?? string.Empty;
         if (value.Contains('\r') || value.Contains('\n'))
         {
-            Error = "一次只能添加一个服务器地址。";
+            Error = Strings.L10nAccel_128;
             return;
         }
         if (!IPAddress.TryParse(value, out _) &&
             !string.Equals(value, "System Default", StringComparison.OrdinalIgnoreCase) &&
             (!Uri.TryCreate(value, UriKind.Absolute, out var uri) || uri.Scheme != Uri.UriSchemeHttps || string.IsNullOrEmpty(uri.Host)))
         {
-            Error = "请输入有效的 IPv4、IPv6 地址、HTTPS DoH 地址或选择 System Default。";
+            Error = Strings.L10nAccel_129;
             return;
         }
         if (string.Equals(value, "System Default", StringComparison.OrdinalIgnoreCase))
@@ -109,7 +109,7 @@ public sealed partial class DnsListEditorViewModel : ViewModelBase
     {
         if (SelectedIndex < 0 || SelectedIndex >= Servers.Count)
         {
-            Error = "请先选择一个服务器。";
+            Error = Strings.L10nAccel_130;
             return;
         }
         var index = SelectedIndex;

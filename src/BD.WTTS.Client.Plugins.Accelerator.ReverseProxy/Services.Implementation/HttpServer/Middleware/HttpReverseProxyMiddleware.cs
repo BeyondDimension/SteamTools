@@ -13,20 +13,25 @@ namespace BD.WTTS.Services.Implementation;
 sealed partial class HttpReverseProxyMiddleware
 {
     static readonly IDomainConfig defaultDomainConfig = new DomainConfig() { TlsSni = true, };
+    static readonly ReadOnlyMemory<byte> scriptXmlStart = Encoding.ASCII.GetBytes($"<script type=\"text/javascript\" src=\"{IReverseProxyService.Constants.InjectScriptPathPrefix}");
+    static readonly ReadOnlyMemory<byte> scriptXmlEnd = ".js\"></script>"u8.ToArray();
 
     readonly IHttpForwarder httpForwarder;
     readonly IReverseProxyHttpClientFactory httpClientFactory;
     readonly IReverseProxyConfig reverseProxyConfig;
+    readonly IPCToastService toast;
     readonly ILogger<HttpReverseProxyMiddleware> logger;
 
     public HttpReverseProxyMiddleware(
         IHttpForwarder httpForwarder,
         IReverseProxyHttpClientFactory httpClientFactory,
         IReverseProxyConfig reverseProxyConfig,
+        IPCToastService toast,
         ILogger<HttpReverseProxyMiddleware> logger)
     {
         this.httpForwarder = httpForwarder;
         this.httpClientFactory = httpClientFactory;
+        this.toast = toast;
         this.reverseProxyConfig = reverseProxyConfig;
         this.logger = logger;
     }
@@ -74,7 +79,7 @@ Actual value was {actualValue}.
             context.Response.Body = memoryStream;
         }
 
-        if (TryGetDomainConfig(url.Remove(0, context.Request.Scheme.Length + 3), out var domainConfig) == false)
+        if (TryGetDomainConfig(url.Remove(0, context.Request.Scheme.Length + 3), out var domainConfig, out var unknownHost) == false)
         {
             if (reverseProxyConfig.Service.TwoLevelAgentEnable)
             {
@@ -97,6 +102,14 @@ Actual value was {actualValue}.
             return;
         }
 
+        string? dnsWarning = null;
+        if (unknownHost != null)
+        {
+            dnsWarning = await toast.GetTextAsync(IPCToastService.ToastText.CommunityFix_DnsPollutionResponse)
+                ?? BD.WTTS.Client.Resources.ProxyStrings.DnsPollution(null);
+            logger.LogWarning("{DnsWarning}", string.Format(dnsWarning, unknownHost));
+        }
+
         if (domainConfig == defaultDomainConfig &&
             !reverseProxyConfig.Service.OnlyEnableProxyScript)
         {
@@ -105,7 +118,7 @@ Actual value was {actualValue}.
             if (ip == null || IPAddress.IsLoopback(ip))
             {
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                await context.Response.WriteAsync($"域名 {context.Request.Host.Host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。", Encoding.UTF8);
+                await context.Response.WriteAsync(string.Format(dnsWarning!, context.Request.Host.Host), Encoding.UTF8);
                 return;
             }
         }
@@ -194,9 +207,10 @@ Actual value was {actualValue}.
         return domainConfig;
     }
 
-    bool TryGetDomainConfig(string uri, [MaybeNullWhen(false)] out IDomainConfig domainConfig)
+    bool TryGetDomainConfig(string uri, [MaybeNullWhen(false)] out IDomainConfig domainConfig, out string? unknownHost)
     {
         domainConfig = null;
+        unknownHost = null;
 
         if (!reverseProxyConfig.Service.OnlyEnableProxyScript && reverseProxyConfig.TryGetDomainConfig(uri, out domainConfig) == true)
         {
@@ -207,8 +221,7 @@ Actual value was {actualValue}.
         // 未配置的域名，但仍然被解析到本机 IP 的域名
         if (IsDomain(host))
         {
-            logger.LogWarning(
-                "域名 {host} 可能已经被 DNS 污染，如果域名为本机域名，请解析为非回环 IP。", host);
+            unknownHost = host;
             domainConfig = defaultDomainConfig;
             return true;
         }
@@ -313,15 +326,18 @@ Actual value was {actualValue}.
                 body.Seek(0, SeekOrigin.Begin);
                 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding
                 var contentCompression = context.Response.Headers.ContentEncoding.ToString().ToLowerInvariant();
-                using Stream bodyDecompress = GetStreamByContentCompression(body, contentCompression, CompressionMode.Decompress, true) ?? body;
+                using Stream? bodyDecompress = GetStreamByContentCompression(body, contentCompression, CompressionMode.Decompress, true);
 
-                var buffer_ = await bodyDecompress.ToByteArrayAsync();
+                // The uncompressed body is already buffered; inspect its written range without copying it.
+                ReadOnlyMemory<byte> buffer_ = bodyDecompress == null
+                    ? body.GetBuffer().AsMemory(0, checked((int)body.Length))
+                    : await bodyDecompress.ToByteArrayAsync();
 
                 // https://github.com/dotnet/runtime/blob/v6.0.6/src/libraries/System.Net.Http/src/System/Net/Http/HttpContent.cs#L175
                 Encoding? encoding = context.Response.ContentTextEncoding();
                 if (encoding == null)
                 {
-                    if (!TryDetectEncoding(buffer_, out encoding))
+                    if (!TryDetectEncoding(buffer_.Span, out encoding))
                     {
                         encoding = Encoding.UTF8;
                     }
@@ -355,13 +371,11 @@ Actual value was {actualValue}.
                         //                        var html_start_string = encoding.GetString(html_start.Span);
                         //#endif
                         await bodyCoreWriter.WriteAsync(html_start);
-                        var script_xml_start = Encoding.ASCII.GetBytes($"<script type=\"text/javascript\" src=\"{IReverseProxyService.Constants.InjectScriptPathPrefix}");
-                        ReadOnlyMemory<byte> script_xml_end = ".js\"></script>"u8.ToArray();
                         foreach (var script in scripts)
                         {
-                            await bodyCoreWriter.WriteAsync(script_xml_start);
+                            await bodyCoreWriter.WriteAsync(scriptXmlStart);
                             await bodyCoreWriter.WriteAsync(encoding.GetBytes(script.LocalId.ToString()));
-                            await bodyCoreWriter.WriteAsync(script_xml_end);
+                            await bodyCoreWriter.WriteAsync(scriptXmlEnd);
                         }
                         var html_end = buffer[position..];
                         //#if DEBUG
@@ -422,11 +436,11 @@ Actual value was {actualValue}.
         _ => null,
     };
 
-    static bool TryDetectEncoding(byte[] data, [NotNullWhen(true)] out Encoding? encoding/*, out int preambleLength*/)
+    static bool TryDetectEncoding(ReadOnlySpan<byte> data, [NotNullWhen(true)] out Encoding? encoding/*, out int preambleLength*/)
     {
         // https://github.com/dotnet/runtime/blob/v6.0.6/src/libraries/System.Net.Http/src/System/Net/Http/HttpContent.cs#L773
 
-        const long offset = 0L;
+        const int offset = 0;
         var dataLength = data.Length;
 
         if (dataLength >= 2)

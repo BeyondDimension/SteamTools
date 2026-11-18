@@ -25,7 +25,6 @@ partial class Startup // OnStartup
         var a = IApplication.Instance;
 
         UISettings.Theme.Subscribe(x => a.Theme = x);
-        UISettings.Language.Subscribe(ResourceService.ChangeLanguage);
 
         GeneralSettings.GPU.Subscribe(x =>
         {

@@ -154,25 +154,35 @@ sealed class ReverseProxyHttpClientHandler : DelegatingHandler
         await stream.WriteAsync(connectBytes, cancellationToken);
 
         // Do not consume tunnel bytes past the CONNECT response headers.
-        var buffer = new byte[8192];
-        var length = 0;
-        var headersComplete = false;
-        while (length < buffer.Length)
+        const int maxHeaderLength = 8192;
+        var buffer = System.Buffers.ArrayPool<byte>.Shared.Rent(maxHeaderLength);
+        try
         {
-            await stream.ReadExactlyAsync(buffer.AsMemory(length, 1), cancellationToken);
-            length++;
-            if (length >= 4 && buffer[length - 4] == '\r' && buffer[length - 3] == '\n' &&
-                buffer[length - 2] == '\r' && buffer[length - 1] == '\n')
+            var length = 0;
+            var headersComplete = false;
+            while (length < maxHeaderLength)
             {
-                headersComplete = true;
-                break;
+                await stream.ReadExactlyAsync(buffer.AsMemory(length, 1), cancellationToken);
+                length++;
+                if (length >= 4 && buffer[length - 4] == '\r' && buffer[length - 3] == '\n' &&
+                    buffer[length - 2] == '\r' && buffer[length - 1] == '\n')
+                {
+                    headersComplete = true;
+                    break;
+                }
             }
+            var statusLineLength = buffer.AsSpan(0, length).IndexOf((byte)'\n');
+            if (statusLineLength < 0)
+                statusLineLength = length;
+            var statusLine = Encoding.ASCII.GetString(buffer, 0, statusLineLength).TrimEnd('\r');
+            var status = statusLine.Split(' ', 3, StringSplitOptions.RemoveEmptyEntries);
+            if (!headersComplete || status.Length < 2 || !status[0].StartsWith("HTTP/1.", StringComparison.Ordinal) || status[1] != "200")
+                throw new IOException($"Proxy connection failed: {statusLine}");
         }
-        var response = Encoding.ASCII.GetString(buffer, 0, length);
-        var statusLine = response.Split('\n', 2)[0].TrimEnd('\r');
-        var status = statusLine.Split(' ', 3, StringSplitOptions.RemoveEmptyEntries);
-        if (!headersComplete || status.Length < 2 || !status[0].StartsWith("HTTP/1.", StringComparison.Ordinal) || status[1] != "200")
-            throw new IOException($"Proxy connection failed: {statusLine}");
+        finally
+        {
+            System.Buffers.ArrayPool<byte>.Shared.Return(buffer, clearArray: true);
+        }
     }
 
     private async Task ConnectSocks4Proxy(NetworkStream stream, SocketsHttpConnectionContext context, CancellationToken cancellationToken)

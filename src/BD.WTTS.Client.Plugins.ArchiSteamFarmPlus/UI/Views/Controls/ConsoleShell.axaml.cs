@@ -7,8 +7,6 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
 using AvaloniaEdit;
-using AvaloniaEdit.TextMate;
-using TextMateSharp.Grammars;
 
 namespace BD.WTTS.UI.Views.Controls;
 
@@ -169,15 +167,7 @@ public partial class ConsoleShell : UserControl
         this.GetObservable(IsMaskProperty)
             .Subscribe(x => ((IPseudoClasses)commandTextbox.Classes).Set(":password", x));
 
-        //Here we initialize RegistryOptions with the theme we want to use.
-        var registryOptions = new TextMateSharp.Grammars.RegistryOptions(ThemeName.Dark);
-
-        //Initial setup of TextMate.
-        var textMateInstallation = logTextbox.InstallTextMate(registryOptions);
-
-        //Here we are getting the language by the extension and right after that we are initializing grammar with this language.
-        //And that's all 😀, you are ready to use AvaloniaEdit with syntax highlighting!
-        textMateInstallation.SetGrammar(registryOptions.GetScopeByLanguageId(registryOptions.GetLanguageByExtension(".log").Id));
+        LogSyntaxHighlighting.Apply(logTextbox);
 
         this.GetObservable(LogTextProperty)
             .Subscribe(x =>

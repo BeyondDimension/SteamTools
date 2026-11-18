@@ -44,10 +44,10 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
                     try { code = _steamAuthenticator.CurrentCode; }
                     catch (Exception ex)
                     {
-                        throw new InvalidOperationException("无法获取此令牌的 Steam 验证码，请检查令牌后重试。", ex);
+                        throw new InvalidOperationException(Strings.L10nAuthIdle_Text097, ex);
                     }
                     if (string.IsNullOrWhiteSpace(code))
-                        throw new InvalidOperationException("此令牌的 Steam 验证码不可用，请检查令牌后重试。");
+                        throw new InvalidOperationException(Strings.L10nAuthIdle_Text098);
                     return code;
                 };
 
@@ -74,6 +74,8 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         }
     }
 
+    void SetLoginStatus(string? text) => LoginStatus = text;
+
     public override async Task Initialize()
     {
         if (IsLoading || Disposed)
@@ -90,7 +92,7 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         catch
         {
             IsLogged = false;
-            LoginStatus = "检查交易确认登录状态失败，请检查网络或重新登录。";
+            SetLoginStatus(Strings.L10nAuthIdle_Text099);
         }
         finally { IsLoading = false; }
     }
@@ -118,7 +120,7 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         {
             _steamAuthenticator.SessionData = _steamClient.Session!.ToString();
             if (!await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto))
-                LoginStatus = "登录状态已续期，但保存失败；本次仍可使用。";
+                SetLoginStatus(Strings.L10nAuthIdle_Text100);
         }
         return true;
     }
@@ -144,13 +146,13 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
     {
         lifetimeToken.ThrowIfCancellationRequested();
         if (_steamAuthenticator is null)
-            throw new InvalidOperationException("此令牌不可用，未保存任何登录状态。");
+            throw new InvalidOperationException(Strings.L10nAuthIdle_Text101);
         if (!Login.UsedQrCode)
             SteamAuthenticatorIdentity.ValidateCredentialAccount(_steamAuthenticator, state);
         SteamAuthenticatorIdentity.ConfirmAuthenticatedAccount(_steamAuthenticator, state, Login.UsedAutomaticTwoFactor);
 
         IsLoading = true;
-        LoginStatus = null;
+        SetLoginStatus(null);
         try
         {
             var session = new WSteamClient.SteamSession
@@ -165,7 +167,7 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
             _steamClient.SessionSet(session.ToString(), ResourceService.GetCurrentCultureSteamLanguageName());
             _steamAuthenticator.SessionData = RememberLogin ? _steamClient.Session!.ToString() : null;
             if (!await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto))
-                LoginStatus = "Steam 已登录，但登录状态保存失败。请重试保存后再使用扫码。";
+                SetLoginStatus(Strings.L10nAuthIdle_Text102);
             lifetimeToken.ThrowIfCancellationRequested();
             IsLogged = true;
             await GetConfirmations(_steamClient);
@@ -215,11 +217,11 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
                 _steamAuthenticator.SessionData = null;
             Confirmations.Clear();
             IsLogged = false;
-            LoginStatus = AppResources.LocalAuth_AuthTrade_GetError3;
+            SetLoginStatus(AppResources.LocalAuth_AuthTrade_GetError3);
         }
         catch
         {
-            LoginStatus = "Steam 已登录，但读取交易确认失败。请检查网络并刷新，不要反复重新登录。";
+            SetLoginStatus(Strings.L10nAuthIdle_Text103);
         }
         finally { IsLoading = false; }
 

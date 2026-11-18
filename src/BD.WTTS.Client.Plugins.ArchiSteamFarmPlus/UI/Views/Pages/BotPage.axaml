@@ -8,11 +8,11 @@
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    Title="Bot 账号"
+    Title="{x:Static spp:Strings.L10nAsf_Text028}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="spp:BotPageViewModel"
-    Description="{Binding Description, Source={x:Static s:Plugin.Instance}, Mode=OneWay}"
+    Description="{x:Static spp:Strings.L10nAsf_Text105}"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
@@ -24,20 +24,20 @@
                 Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).GoToBotSettings}"
                 CommandParameter="{Binding Bot}"
                 IconSource="Globe"
-                Text="打开 Bot 配置" />
+                Text="{x:Static spp:Strings.L10nAsf_Text029}" />
             <ui:FAMenuFlyoutSeparator />
             <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).EditBotFile}"
                 CommandParameter="{Binding Bot}"
                 IconSource="Edit"
-                Text="编辑 Json 文件" />
+                Text="{x:Static spp:Strings.L10nAsf_Text030}" />
             <ui:FAMenuFlyoutSeparator />
             <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).DeleteBot}"
                 CommandParameter="{Binding Bot}"
                 Foreground="{DynamicResource SystemFillColorCriticalBrush}"
                 IconSource="Delete"
-                Text="删除" />
+                Text="{x:Static spp:Strings.L10nAsf_Text031}" />
         </ui:FAMenuFlyout>
     </spp:PageBase.Resources>
     <spp:PageBase.ActionContent>
@@ -58,7 +58,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="导入 Bot" />
+                        Text="{x:Static spp:Strings.L10nAsf_Text032}" />
                 </Panel>
             </Button>
             <Button
@@ -77,7 +77,7 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="新增 Bot" />
+                        Text="{x:Static spp:Strings.ASF_AddBot}" />
                 </Panel>
             </Button>
             <Button
@@ -96,16 +96,16 @@
                         Margin="28,4,0,4"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="刷新 Bot" />
+                        Text="{x:Static spp:Strings.L10nAsf_Text033}" />
                 </Panel>
             </Button>
         </StackPanel>
     </spp:PageBase.ActionContent>
     <spp:ContentLoader
-        CustomLoadingText="请先启动 ArchiSteamFarm"
+        CustomLoadingText="{x:Static spp:Strings.L10nAsf_Text034}"
         IsLoading="False"
         IsShowNoResultText="{Binding !!!SteamBots.Count}"
-        NoResultMessage="当前列表没有 Bot 账号">
+        NoResultMessage="{x:Static spp:Strings.L10nAsf_Text035}">
         <spp:ContentLoader.GestureRecognizers>
             <ScrollGestureRecognizer CanHorizontallyScroll="True" CanVerticallyScroll="True" />
         </spp:ContentLoader.GestureRecognizers>
@@ -180,14 +180,14 @@
                                                 FontSize="18"
                                                 Glyph="&#xF5B0;"
                                                 IsVisible="{Binding Bot.CardsFarmer.Paused}"
-                                                ToolTip.Tip="恢复挂卡" />
+                                                ToolTip.Tip="{x:Static spp:Strings.L10nAsf_Text036}" />
                                             <ui:FAFontIcon
                                                 VerticalAlignment="Center"
                                                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                                                 FontSize="18"
                                                 Glyph="&#xE769;"
                                                 IsVisible="{Binding !Bot.CardsFarmer.Paused}"
-                                                ToolTip.Tip="暂停挂卡" />
+                                                ToolTip.Tip="{x:Static spp:Strings.L10nAsf_Text037}" />
                                         </StackPanel>
                                     </Button.Content>
                                 </Button>
@@ -198,7 +198,7 @@
                                     Command="{Binding $parent[spp:PageBase].((spp:BotPageViewModel)DataContext).EnableOrDisableBot}"
                                     CommandParameter="{Binding Bot}"
                                     Theme="{StaticResource TransparentButton}"
-                                    ToolTip.Tip="启用或禁用该 Bot">
+                                    ToolTip.Tip="{x:Static spp:Strings.L10nAsf_Text038}">
                                     <Button.Content>
                                         <Panel>
                                             <ui:FAFontIcon

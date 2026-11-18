@@ -127,7 +127,7 @@ public sealed partial class AcceleratorPageViewModel
         if (exitCode == 200)
             return true;
         platformService.OpenFolder(Path.Combine(IOPath.BaseDirectory, "script"));
-        MessageBox.Show("请在终端手动运行:environment_check.sh 安装依赖环境");
+        MessageBox.Show(Strings.L10nAccel_124);
         return false;
     }
 
@@ -141,7 +141,7 @@ public sealed partial class AcceleratorPageViewModel
         }
         catch (Exception e)
         {
-            MessageBox.Show($"环境检查错误:{e}");
+            MessageBox.Show(string.Format(Strings.L10nAccel_125, e));
             return false;
         }
     }
@@ -156,7 +156,7 @@ public sealed partial class AcceleratorPageViewModel
         }
         catch (Exception e)
         {
-            MessageBox.Show($"环境检查错误:{e}");
+            MessageBox.Show(string.Format(Strings.L10nAccel_125, e));
             return false;
         }
     }
@@ -221,6 +221,6 @@ public sealed partial class AcceleratorPageViewModel
     void ShowCertificate_OnClick()
     {
         var certInfo = certificateManager.GetCertificateInfo();
-        MessageBox.Show(certInfo, "证书信息");
+        MessageBox.Show(certInfo, Strings.L10nAccel_126);
     }
 }
