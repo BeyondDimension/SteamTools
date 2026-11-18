@@ -32,7 +32,7 @@ sealed class LinuxFileSystem : IOPath.FileSystemBase
             FileSystem2.BaseDirectory.CacheDirectory);
     }
 
-    static string AppDataDirectory
+    internal static string AppDataDirectory
     {
         get
         {

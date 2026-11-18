@@ -38,6 +38,7 @@ public partial class AdControl : UserControl
     AdvertiseService? advertisementService;
     ObservableCollection<AdvertisementDTO>? advertisements;
     bool closed;
+    bool detachedCleanupQueued;
 
     public AdControl()
     {
@@ -65,10 +66,23 @@ public partial class AdControl : UserControl
             advertisementService.PropertyChanged -= AdvertisementService_PropertyChanged;
         advertisementService = null;
         SetAdvertisements(null);
-        AdBanner.ItemsSource = null;
         AdBanner.AutoScroll = false;
-        IsVisible = false;
+        // Ancestors may still be traversing the carousel's generated visual children.
+        if (!detachedCleanupQueued)
+        {
+            detachedCleanupQueued = true;
+            Dispatcher.UIThread.Post(ReleaseDetachedAdvertisements, DispatcherPriority.Background);
+        }
         base.OnDetachedFromVisualTree(e);
+    }
+
+    void ReleaseDetachedAdvertisements()
+    {
+        detachedCleanupQueued = false;
+        // One queued cleanup serves repeated detaches, but must not affect a new attachment.
+        if (advertisementService != null) return;
+        AdBanner.ItemsSource = null;
+        IsVisible = false;
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)

@@ -722,23 +722,7 @@ public sealed partial class IdleCardPageViewModel
             return;
 
         CurrentIdle = item;
-        SteamConnectService.Current.RuningSteamApps.TryGetValue(item.AppId, out var runState);
-        if (runState == null)
-        {
-            item.App.StartSteamAppProcess();
-            SteamConnectService.Current.RuningSteamApps.TryAdd(item.AppId, item.App);
-        }
-        else
-        {
-            if (runState.Process == null || !runState.Process.HasExited)
-            {
-                runState.StartSteamAppProcess();
-            }
-            else
-            {
-                item.App.Process = runState.Process;
-            }
-        }
+        item.App = SteamConnectService.Current.StartIdleApp(item.App);
     }
 
     private void StartMultipleIdle()
@@ -766,30 +750,15 @@ public sealed partial class IdleCardPageViewModel
     {
         foreach (var item in IdleGameList)
         {
-            SteamConnectService.Current.RuningSteamApps.TryGetValue(item.AppId, out var runState);
-            if (runState != null)
-            {
-                runState.Process?.KillEntireProcessTree();
-                SteamConnectService.Current.RuningSteamApps.TryRemove(item.AppId, out var remove);
-            }
+            SteamConnectService.Current.StopIdleApp(item.AppId);
             item.App.Process = null;
         }
     }
 
     private void StopSoloIdle(SteamApp item)
     {
-        SteamConnectService.Current.RuningSteamApps.TryGetValue(item.AppId, out var runState);
-        if (runState != null)
-        {
-            runState.Process?.KillEntireProcessTree();
-            SteamConnectService.Current.RuningSteamApps.TryRemove(item.AppId, out var remove);
-            item.Process = null;
-        }
-        else
-        {
-            item.Process = null;
-            SteamConnectService.Current.RuningSteamApps.TryAdd(item.AppId, item);
-        }
+        SteamConnectService.Current.StopIdleApp(item.AppId);
+        item.Process = null;
     }
 
     #region AutoNext

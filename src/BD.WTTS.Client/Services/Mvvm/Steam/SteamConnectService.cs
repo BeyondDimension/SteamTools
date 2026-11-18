@@ -6,7 +6,7 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
-public sealed class SteamConnectService
+public sealed partial class SteamConnectService
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     : ReactiveObject, IDisposable
 #endif
@@ -45,11 +45,12 @@ public sealed class SteamConnectService
     }
 
     internal SteamConnectService(ISteamService steamService, ISteamworksLocalApiService localService,
-        ISteamworksWebApiService webService)
+        ISteamworksWebApiService webService, Func<SteamApp, Process?>? startIdleProcess = null)
     {
         stmService = steamService;
         swLocalService = localService;
         swWebService = webService;
+        this.startIdleProcess = startIdleProcess ?? (static app => app.StartSteamAppProcess());
         SteamApps = new(t => t.AppId);
         DownloadApps = new(t => t.AppId);
         SteamUsers = new(t => t.SteamId64);
@@ -298,30 +299,21 @@ public sealed class SteamConnectService
 
     public void RunAFKApps()
     {
-        var aFKAppList = Ioc.Get_Nullable<IPartialGameLibrarySettings>()?.AFKAppList;
-        if (aFKAppList?.Count > 0)
+        var configured = Ioc.Get_Nullable<IPartialGameLibrarySettings>()?.AFKAppList;
+        if (configured is not { Count: > 0 }) return;
+        var snapshot = configured.ToArray();
+        Task2.InBackground(() =>
         {
-            foreach (var item in aFKAppList)
-            {
-                RuningSteamApps.TryGetValue(item.Key, out var runState);
-                if (runState == null)
-                    RuningSteamApps.TryAdd(item.Key, new SteamApp { AppId = item.Key, Name = item.Value, });
-            }
-
-            Toast.Show(ToastIcon.Success, string.Format(Strings.L10nCore_SteamIdleStarted, aFKAppList.Count));
-            Task2.InBackground(() =>
-            {
-                foreach (var item in RuningSteamApps.Values)
-                {
-                    if (item.Process == null || item.Process.HasExited)
-                        item.StartSteamAppProcess();
-                }
-            });
-        }
+            var started = StartConfiguredIdleApps(snapshot);
+            if (started > 0)
+                Toast.Show(ToastIcon.Success, string.Format(Strings.L10nCore_SteamIdleStarted, started));
+        });
     }
 
     public void Initialize()
     {
+        ObjectDisposedException.ThrowIf(disposedValue, this);
+        if (Interlocked.CompareExchange(ref connectionMonitorStarted, 1, 0) != 0) return;
         if (!stmService.IsRunningSteamProcess && SteamSettings.IsAutoRunSteam.Value)
             stmService.StartSteamWithParameter();
 
@@ -332,51 +324,9 @@ public sealed class SteamConnectService
             {
                 try
                 {
-                    var pathGeneration = Volatile.Read(ref steamPathGeneration);
-                    var processId = stmService.GetSteamProcessPid();
-                    IsRunningSteamProcess = processId != 0;
-                    if (processId != observedProcessId)
-                    {
-                        observedProcessId = processId;
-                        IsConnectToSteam = false;
-                        CurrentSteamUser = null;
-                        InvalidateGameList(clear: processId != 0);
-                    }
-
-                    if (processId == 0 || IsConnectToSteam || !steamClientGate.Wait(0))
+                    if (!TryInitializeSteamConnection(ref observedProcessId, out var connection))
                         continue;
-                    long id = 0;
-                    string country = string.Empty;
-                    DateTimeOffset serverTime = default;
-
-                    try
-                    {
-                        if (!IsDisposedClient) DisposeSteamClient();
-                        if (!swLocalService.Initialize()) continue;
-                        IsDisposedClient = false;
-                        id = swLocalService.GetSteamId64();
-                        if (id <= 0 || id == SteamIdConvert.UndefinedId) continue;
-                        country = swLocalService.GetIPCountry();
-                        serverTime = ((long)swLocalService.GetServerRealTime()).ToDateTimeOffsetS();
-                    }
-                    finally
-                    {
-                        try { DisposeSteamClient(); }
-                        finally { steamClientGate.Release(); }
-                    }
-
-                    if (pathGeneration != Volatile.Read(ref steamPathGeneration) ||
-                        processId != stmService.GetSteamProcessPid()) continue;
-                    if (ShouldRefreshGameList(processId, id))
-                        _ = RefreshGamesListAsync(showToast: false);
-
-                    var user = swWebService.GetUserInfo(id).GetAwaiter().GetResult();
-                    if (pathGeneration != Volatile.Read(ref steamPathGeneration) ||
-                        processId != stmService.GetSteamProcessPid()) continue;
-                    user.IPCountry = country;
-                    CurrentSteamUser = user;
-                    IsSteamChinaLauncher = stmService.IsSteamChinaLauncher();
-                    IsConnectToSteam = true;
+                    var (user, country, serverTime) = connection;
 
                     if (SteamSettings.IsEnableSteamLaunchNotification.Value)
                         INotificationService.Instance.Notify(
@@ -388,7 +338,7 @@ public sealed class SteamConnectService
                         RunAFKApps();
                     }
 
-                    if (!SteamUsers.Lookup(id).HasValue)
+                    if (!SteamUsers.Lookup(user.SteamId64).HasValue)
                     {
                         RefreshSteamUsers();
                         _ = RefreshSteamUsersInfo();
@@ -404,6 +354,74 @@ public sealed class SteamConnectService
                 }
             }
         }, true);
+    }
+
+    // A successful native session is independent of optional launcher command-line metadata.
+    // The monitor alone performs launch effects when this returns true for a new connection.
+    internal bool TryInitializeSteamConnection(ref int observedProcessId,
+        out (SteamUser User, string Country, DateTimeOffset ServerTime) connection)
+    {
+        connection = default;
+        if (disposedValue) return false;
+        var pathGeneration = Volatile.Read(ref steamPathGeneration);
+        var processId = stmService.GetSteamProcessPid();
+        IsRunningSteamProcess = processId != 0;
+        if (processId != observedProcessId)
+        {
+            observedProcessId = processId;
+            IsConnectToSteam = false;
+            CurrentSteamUser = null;
+            IsSteamChinaLauncher = false;
+            InvalidateGameList(clear: processId != 0);
+        }
+
+        if (processId == 0 || IsConnectToSteam || !steamClientGate.Wait(0))
+            return false;
+
+        long id;
+        string country;
+        DateTimeOffset serverTime;
+        try
+        {
+            if (!IsDisposedClient) DisposeSteamClient();
+            if (!swLocalService.Initialize()) return false;
+            IsDisposedClient = false;
+            id = swLocalService.GetSteamId64();
+            if (id <= 0 || id == SteamIdConvert.UndefinedId) return false;
+            country = swLocalService.GetIPCountry();
+            serverTime = ((long)swLocalService.GetServerRealTime()).ToDateTimeOffsetS();
+        }
+        finally
+        {
+            try { DisposeSteamClient(); }
+            finally { steamClientGate.Release(); }
+        }
+
+        if (pathGeneration != Volatile.Read(ref steamPathGeneration) ||
+            processId != stmService.GetSteamProcessPid()) return false;
+        if (ShouldRefreshGameList(processId, id))
+            _ = RefreshGamesListAsync(showToast: false);
+
+        var user = swWebService.GetUserInfo(id).GetAwaiter().GetResult();
+        var isSteamChinaLauncher = false;
+        try
+        {
+            isSteamChinaLauncher = stmService.IsSteamChinaLauncher();
+        }
+        catch (Exception ex)
+        {
+            // Classification is optional; report its failure without retrying a valid native session.
+            Log.Warn(nameof(SteamConnectService), ex, "Steam launcher classification unavailable.");
+        }
+
+        if (disposedValue || pathGeneration != Volatile.Read(ref steamPathGeneration) ||
+            processId != stmService.GetSteamProcessPid()) return false;
+        user.IPCountry = country;
+        CurrentSteamUser = user;
+        IsSteamChinaLauncher = isSteamChinaLauncher;
+        IsConnectToSteam = true;
+        connection = (user, country, serverTime);
+        return true;
     }
 
     public bool Initialize(int appid)
@@ -856,10 +874,11 @@ public sealed class SteamConnectService
         if (disposing)
         {
             lock (gameListSync) gameListCancellation?.Cancel();
-            foreach (var app in RuningSteamApps.Values)
+            lock (idleProcessGate)
             {
-                if (app.Process != null && !app.Process.HasExited)
-                    app.Process.KillEntireProcessTree();
+                foreach (var app in RuningSteamApps.Values)
+                    app.StopSteamAppProcess();
+                RuningSteamApps.Clear();
             }
 
             steamClientGate.Wait();

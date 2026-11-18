@@ -165,7 +165,7 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
         string GetCacheDirectory() => cacheDirectory;
     }
 
-    static string AppDataDirectory
+    internal static string AppDataDirectory
     {
         get
         {

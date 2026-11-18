@@ -57,17 +57,12 @@ static partial class MouseHook
         }
     }
 
-    static int MouseHookProc(int nCode, nint wParam, nint lParam)
+    static unsafe int MouseHookProc(int nCode, nint wParam, nint lParam)
     {
-        if (nCode >= 0)
+        if (nCode >= 0 && wParam == WM_LBUTTONUP)
         {
-            var mouseHookStructObj = Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
-            if (mouseHookStructObj == null) throw new ArgumentNullException(nameof(mouseHookStructObj));
-            var mouseHookStruct = (MSLLHOOKSTRUCT)mouseHookStructObj;
-            if (wParam == WM_LBUTTONUP)
-            {
-                MouseUp?.Invoke(null, new PointDouble(mouseHookStruct.pt.X, mouseHookStruct.pt.Y));
-            }
+            var mouseHookStruct = (MSLLHOOKSTRUCT*)lParam;
+            MouseUp?.Invoke(null, new PointDouble(mouseHookStruct->pt.X, mouseHookStruct->pt.Y));
         }
         if (_mouseHookHandle != null)
         {

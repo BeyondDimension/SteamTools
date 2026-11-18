@@ -231,8 +231,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
         }
 
         Toast.Show(ToastIcon.Info, Strings.GameList_RuningWait);
-        app.StartSteamAppProcess(SteamAppRunType.CloudManager);
-        SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
+        using var process = app.StartSteamAppProcess(SteamAppRunType.CloudManager);
     }
 
     public static async void UnlockAchievement_Click(SteamApp app)
@@ -252,8 +251,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
                 {
                     Toast.Show(ToastIcon.Info, Strings.GameList_RuningWait);
                     NavAppToSteamView(app);
-                    app.StartSteamAppProcess(SteamAppRunType.UnlockAchievement);
-                    SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
+                    using var process = app.StartSteamAppProcess(SteamAppRunType.UnlockAchievement);
                 }
                 break;
             default:

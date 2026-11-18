@@ -44,6 +44,9 @@ partial class Program
 
         #endregion
 
+        if (TryRunHeadlessIdle(args, out var idleExitCode))
+            return idleExitCode;
+
         instance = new(args);
         var exitCode = instance.StartAsync().GetAwaiter().GetResult();
         return CompleteExit(exitCode);
@@ -67,7 +70,13 @@ partial class Program
             throw new ArgumentOutOfRangeException(nameof(appCtxBaseDir),
                 appCtxBaseDir ?? "null", null);
         AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", appCtxBaseDir);
-        instance = new() { IsCustomEntryPoint = true, };
+        // The legacy native host passes no managed argument payload. The process command line
+        // includes the host executable; unlike Main's args, its first element must be removed.
+        var commandLineArgs = Environment.GetCommandLineArgs();
+        var managedArgs = commandLineArgs.Length > 0 ? commandLineArgs[1..] : Array.Empty<string>();
+        if (TryRunHeadlessIdle(managedArgs, out var idleExitCode))
+            return idleExitCode;
+        instance = new(managedArgs) { IsCustomEntryPoint = true, };
         var exitCode = instance.StartAsync().GetAwaiter().GetResult();
         return CompleteExit(exitCode);
     }

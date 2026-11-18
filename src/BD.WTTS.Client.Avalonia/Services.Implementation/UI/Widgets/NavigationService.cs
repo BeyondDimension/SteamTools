@@ -58,7 +58,7 @@ public sealed class NavigationService : INavigationService
         if (_frame != null)
             _frame.NavigationFailed -= OnNavigationFailed;
         _frame = null;
-        _overlayHost?.Children.Clear();
+        // Detach may be traversing the host's children; release ownership without changing its tree.
         _overlayHost = null;
         pendingNavigation = null;
     }

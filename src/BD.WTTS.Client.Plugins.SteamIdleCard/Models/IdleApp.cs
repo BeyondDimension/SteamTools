@@ -8,7 +8,13 @@ public class IdleApp : ReactiveObject
     private bool isBlacklisted;
     private bool isPrivateGame;
 
-    public SteamApp App { get; }
+    SteamApp app = null!;
+
+    public SteamApp App
+    {
+        get => app;
+        internal set => this.RaiseAndSetIfChanged(ref app, value);
+    }
 
     public Badge Badge { get; }
 

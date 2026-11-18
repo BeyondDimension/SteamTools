@@ -635,6 +635,7 @@ iOSInjectionProject/
 /pkg
 !**/BD.WTTS.Client.Avalonia.App
 /ref/DirectoryPackages
+/tests/
 
 # Keep native publishing sources visible without tracking generated build output.
 !/build/

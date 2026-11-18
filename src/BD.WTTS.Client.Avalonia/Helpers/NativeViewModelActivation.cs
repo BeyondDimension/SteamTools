@@ -10,6 +10,7 @@ internal sealed class NativeViewModelActivation
     IDisposable? activation;
     bool attached;
 
+    Window? ownerWindow;
     NativeViewModelActivation(Control control)
     {
         view = (IViewFor)control;
@@ -25,10 +26,30 @@ internal sealed class NativeViewModelActivation
 
     internal static void Attach(Control control) => _ = new NativeViewModelActivation(control);
 
-    void OnAttached(object? sender, VisualTreeAttachmentEventArgs args) => SetAttached(true);
-    void OnDetached(object? sender, VisualTreeAttachmentEventArgs args) => SetAttached(false);
-    void OnOpened(object? sender, EventArgs args) => SetAttached(true);
-    void OnClosed(object? sender, EventArgs args) => SetAttached(false);
+    void OnAttached(object? sender, VisualTreeAttachmentEventArgs args)
+    {
+        ownerWindow = TopLevel.GetTopLevel((Control)sender!) as Window;
+        SetAttached(true);
+    }
+
+    void OnDetached(object? sender, VisualTreeAttachmentEventArgs args)
+    {
+        attached = false;
+        Update(deferDeactivation: true);
+        ownerWindow = null;
+    }
+
+    void OnOpened(object? sender, EventArgs args)
+    {
+        ownerWindow = (Window)sender!;
+        SetAttached(true);
+    }
+
+    void OnClosed(object? sender, EventArgs args)
+    {
+        SetAttached(false);
+        ownerWindow = null;
+    }
 
     void SetAttached(bool value)
     {
@@ -42,16 +63,43 @@ internal sealed class NativeViewModelActivation
             Update();
     }
 
-    void Update()
+    void Update(bool deferDeactivation = false)
     {
         var next = attached ? view.ViewModel as IActivatableViewModel : null;
         if (ReferenceEquals(next, activeViewModel)) return;
-        activation?.Dispose();
+        var previous = activation;
         activation = null;
         activeViewModel = null;
-        if (next == null) return;
-        activation = next.Activator.Activate();
+        if (previous != null)
+        {
+            if (deferDeactivation) ReleaseAfterDetach(previous);
+            else previous.Dispose();
+        }
+        next = attached ? view.ViewModel as IActivatableViewModel : null;
+        if (next == null || ReferenceEquals(next, activeViewModel)) return;
         activeViewModel = next;
+        activation = next.Activator.Activate();
+    }
+
+    void ReleaseAfterDetach(IDisposable lease)
+    {
+        var window = ownerWindow;
+        IDisposable? pending = lease;
+        EventHandler? closed = null;
+        void Release()
+        {
+            var retired = pending;
+            if (retired == null) return;
+            pending = null;
+            if (window != null) window.Closed -= closed;
+            retired.Dispose();
+        }
+
+        // Deactivation may remove a sibling while Avalonia is walking a cached child count.
+        // Window.Closed also drains the old lease if application shutdown stops the queue.
+        closed = (_, _) => Release();
+        if (window != null) window.Closed += closed;
+        Dispatcher.UIThread.Post(Release, DispatcherPriority.Background);
     }
 }
 #endif
