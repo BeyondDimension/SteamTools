@@ -34,6 +34,26 @@ dotnet run --project .\src\BD.WTTS.Client.Tools.Publish\BD.WTTS.Client.Tools.Pub
 - 分发时保留完整目录结构。AOT 按清单核对文件及 SHA-256 并随包保留清单；不要打包用户数据、缓存、日志或调试符号。
 - 重新发布前关闭程序。Windows 脚本可以原地迁移旧布局：先校验旧根目录清单和每项 SHA-256，再替换清单拥有的文件。不会清理 `AppData`、`Cache`、`Log`/`Logs` 或用户压缩包。若已有生成文件未登记、缺失或被修改，改用新的 `-OutputDirectory`。
 
+## macOS Native AOT
+
+在 Mac 上安装 `global.json` 要求的 .NET SDK、`macos` 工作负载、匹配的 Xcode 和 PowerShell 7，然后在仓库根目录执行。
+
+```bash
+pwsh -NoProfile -File ./build/publish-native.ps1 -RuntimeIdentifier osx-arm64
+
+# DTLS 0.5.1 缺少 Intel 原生资产。安装 Rust 后，先从该版本的源码构建这些资产。
+bash ./build/native-dtls/build-macos-x64.sh
+pwsh -NoProfile -File ./build/publish-native.ps1 -RuntimeIdentifier osx-x64
+```
+
+每个架构的目录 `build/publish/native/<RID>/` 包含 `Steam++.app` 和 SHA-256 清单。加速子进程位于 `Steam++.app/Contents/MonoBundle/modules/Accelerator/`。脚本使用 ad hoc 签名。本机可以用 `codesign --verify --deep --strict` 检查应用包，公开分发前需要 Developer ID 签名与公证。
+
+macOS 发布默认从 `~/Documents/安装 Steam++.dmg` 读取安装布局。模板存在时，脚本会把新版 `Steam++.app` 打入 `build/publish/native/osx-arm64.dmg` 或 `build/publish/native/osx-x64.dmg`，并保留模板的窗口背景和卷图标。挂载后，将 `Steam++.app` 拖到「应用程序」即可安装。
+
+可用 `-DiskImageTemplate "/绝对路径/安装 Steam++.dmg"` 指定该模板的位置。没有模板时，新的输出目录只生成应用包。更新已有 DMG 时需要提供模板。使用自定义 `-OutputDirectory` 时，DMG 路径为 `<OutputDirectory>.dmg`。
+
+如果使用自定义 `-BuildRoot`，将 `<BuildRoot>/artifacts/native-dependencies/dtls/osx-x64` 作为 Intel 资产构建脚本的输出目录传入。
+
 ## Windows AOT 布局验证
 
 可用以下命令单独发布主程序和加速子进程。请使用新的空目录；直接发布不负责生成打包清单、迁移旧包或合并两个输出目录。

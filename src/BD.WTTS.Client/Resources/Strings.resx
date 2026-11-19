@@ -1771,7 +1771,7 @@
     <value>令牌导入</value>
   </data>
 	<data name="Auth_AddMachineValidation" xml:space="preserve">
-    <value>已启用系统内置加密验证</value>
+    <value>启用本机加密</value>
   </data>
 	<data name="Auth_AddPasswordProtect" xml:space="preserve">
     <value>启用自定义密码保护</value>
@@ -1807,7 +1807,7 @@
     <value>您的令牌具有密码保护，请先进行密码验证</value>
   </data>
 	<data name="Auth_RemoveMachineValidation" xml:space="preserve">
-    <value>已禁用系统内置加密验证</value>
+    <value>关闭本机加密</value>
   </data>
 	<data name="Auth_RemovePasswordProtect" xml:space="preserve">
     <value>移除自定义密码保护</value>
@@ -5017,4 +5017,43 @@
 	<data name="Tray_TrafficDetails" xml:space="preserve">
     <value>本次加速的实时速率 · 累计流量</value>
   </data>
+	<data name="Auth_VaultChangePassword" xml:space="preserve"><value>更改自定义密码</value></data>
+	<data name="Auth_VaultNewPassword" xml:space="preserve"><value>设置新的令牌密码</value></data>
+	<data name="Auth_VaultPasswordGuidance" xml:space="preserve"><value>请输入 12–256 个字符，建议使用不与其他账户共用的长密码。密码无法找回，请保留可用备份。</value></data>
+	<data name="Auth_VaultPasswordFailed" xml:space="preserve"><value>令牌密码不正确，或受保护的数据已损坏。</value></data>
+	<data name="Auth_VaultRemovePasswordTip" xml:space="preserve"><value>移除后，解锁本地令牌将不再要求自定义密码。已有备份不受影响。</value></data>
+	<data name="Auth_VaultLocalRecoveryTip" xml:space="preserve"><value>本机加密限制数据在原设备解密；Windows 上还绑定当前用户。换机、重装或更换 Windows 用户前，请导出仅使用密码、不使用本机加密的备份。</value></data>
+	<data name="Auth_VaultLocalReadFailed" xml:space="preserve"><value>无法解开本机加密。请在原设备和原用户下重试，或导入未启用本机加密的备份。</value></data>
+	<data name="Auth_VaultRemoveLocalTip" xml:space="preserve"><value>关闭后，令牌不再绑定此设备。若没有设置自定义密码，复制的数据库可能被他人读取。</value></data>
+	<data name="Auth_VaultReadFailed" xml:space="preserve"><value>无法读取全部令牌，原数据未被修改。请检查数据或使用有效备份。</value></data>
+	<data name="Auth_VaultChangeFailed" xml:space="preserve"><value>未能更改令牌保护。</value></data>
+	<data name="Auth_VaultUpgrade" xml:space="preserve"><value>升级旧版令牌加密</value></data>
+	<data name="Auth_VaultUpgradeTip" xml:space="preserve"><value>使用当前保护设置重新加密所有令牌。更改前建议导出可用备份；旧版本程序可能无法读取升级后的数据库。</value></data>
+	<data name="Auth_VaultHelloEnable" xml:space="preserve"><value>使用 Windows Hello</value></data>
+	<data name="Auth_VaultHelloDisable" xml:space="preserve"><value>关闭 Windows Hello</value></data>
+	<data name="Auth_VaultHelloEnabled" xml:space="preserve"><value>已改用 Windows Hello 解锁。</value></data>
+	<data name="Auth_VaultHelloDisabled" xml:space="preserve"><value>已关闭 Windows Hello，仍保留当前 Windows 账户加密。</value></data>
+	<data name="Auth_VaultHelloPrompt" xml:space="preserve"><value>验证身份以访问 Watt Toolkit 的本地令牌。</value></data>
+	<data name="Auth_VaultHelloUnavailable" xml:space="preserve"><value>Windows Hello 不可用。请检查 Windows 11「设置 → 账户 → 登录选项」及系统策略。</value></data>
+	<data name="Auth_VaultHelloFailed" xml:space="preserve"><value>Windows Hello 未能完成验证，令牌仍未解锁。</value></data>
+	<data name="Auth_VaultHelloEnableTip" xml:space="preserve"><value>此设备上将使用 Windows Hello 解锁，替代自定义密码（如已设置）。令牌将绑定当前 Windows 账户。换机或重装前，请先导出不使用本机加密的密码备份。</value></data>
+	<data name="Auth_VaultHelloDisableTip" xml:space="preserve"><value>关闭后打开应用不会再要求验证；当前 Windows 账户加密仍会保留。若希望继续锁定，请选择使用自定义密码。</value></data>
+	<data name="Auth_VaultHelloLocked" xml:space="preserve"><value>令牌已锁定。使用 Windows Hello 验证身份即可解锁。</value></data>
+	<data name="Auth_VaultHelloRecovery" xml:space="preserve"><value>用原密码解锁</value></data>
+	<data name="Auth_VaultHelloRecoveryTip" xml:space="preserve"><value>该令牌库仍使用旧版密码加密。成功输入原密码后，会关闭旧版的双重验证，保留现有加密。您可以再从设置中切换到 Windows Hello。</value></data>
+	<data name="Auth_VaultHelloHelp" xml:space="preserve"><value>Windows 11 上可选择 Windows Hello（PIN、指纹或人脸）或自定义密码作为解锁方式。Hello 负责应用内验证；令牌文件由当前 Windows 账户加密，并非由 Hello 加密。</value></data>
+	<data name="Auth_VaultBackupTip" xml:space="preserve"><value>跨设备恢复请选择「使用密码」，不要勾选「仅本机可解密」。请在安全位置保存备份，并记住备份密码。</value></data>
+	<data name="Auth_VaultUnprotectedExport" xml:space="preserve"><value>这个备份没有密码或本机保护。任何获得文件的人都可能读取令牌。确定要导出吗？</value></data>
+	<data name="Auth_VaultHelloUnlock" xml:space="preserve"><value>使用 Windows Hello 解锁</value></data>
+	<data name="Auth_VaultLegacyHelloLocked" xml:space="preserve"><value>此令牌库仍使用原密码加密。请用原密码解锁，再到令牌设置切换解锁方式。</value></data>
+	<data name="Auth_VaultSwitchToPasswordTip" xml:space="preserve"><value>设置后，将改用自定义密码解锁，不再请求 Windows Hello。当前 Windows 账户加密仍会保留。</value></data>
+	<data name="Auth_VaultHelloSummary" xml:space="preserve"><value>当前解锁方式：Windows Hello</value></data>
+	<data name="Auth_VaultPasswordSummary" xml:space="preserve"><value>当前解锁方式：自定义密码</value></data>
+	<data name="Auth_VaultNoLockSummary" xml:space="preserve"><value>尚未设置应用内锁定方式</value></data>
+	<data name="Auth_VaultHelpLabel" xml:space="preserve"><value>帮助</value></data>
+	<data name="Auth_VaultUnlockMethods" xml:space="preserve"><value>解锁方式</value></data>
+	<data name="Auth_VaultHelloDescription" xml:space="preserve"><value>用 Windows PIN、指纹或人脸解锁，无需另外记密码。</value></data>
+	<data name="Auth_VaultPasswordLabel" xml:space="preserve"><value>自定义密码</value></data>
+	<data name="Auth_VaultStorageLabel" xml:space="preserve"><value>数据加密</value></data>
+	<data name="Auth_VaultHelloLocalDescription" xml:space="preserve"><value>已绑定当前 Windows 账户。使用 Windows Hello 时保留此加密。</value></data>
 </root>

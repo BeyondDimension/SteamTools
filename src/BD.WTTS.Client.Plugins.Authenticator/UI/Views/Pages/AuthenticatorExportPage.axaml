@@ -18,20 +18,22 @@
             VerticalAlignment="Top"
             IsClosable="False"
             IsOpen="True"
-            Message="{x:Static spp:Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip}"
+            Message="{x:Static spp:Strings.Auth_VaultBackupTip}"
             Severity="Warning" />
 
-        <StackPanel Grid.Row="1" Spacing="10">
+        <StackPanel Grid.Row="1" IsEnabled="{Binding !IsExporting}" Spacing="10">
             <TextBox
                 Classes="revealPasswordButton"
                 IsEnabled="{Binding HasPasswordProtection}"
                 PasswordChar="{StaticResource PasswordChar}"
+                MaxLength="256"
                 Text="{Binding Password}"
                 PlaceholderText="{x:Static spp:Strings.LocalAuth_ProtectionAuth_Password}" />
             <TextBox
                 Classes="revealPasswordButton"
                 IsEnabled="{Binding HasPasswordProtection}"
                 PasswordChar="{StaticResource PasswordChar}"
+                MaxLength="256"
                 Text="{Binding VerifyPassword}"
                 PlaceholderText="{x:Static spp:Strings.LocalAuth_ProtectionAuth_VerifyPassword}" />
             <Grid ColumnDefinitions="*,*">

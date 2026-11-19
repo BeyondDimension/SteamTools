@@ -72,7 +72,9 @@ public interface IAccountPlatformAuthenticatorRepository
     /// <param name="sources"></param>
     /// <param name="secondaryPassword"></param>
     /// <returns></returns>
-    Task<List<IAuthenticatorDTO>> ConvertToListAsync(IEnumerable<AccountPlatformAuthenticator> sources, string? secondaryPassword = null);
+    /// <exception cref="AuthenticatorReadException">A row could not be read; no partial list is returned.</exception>
+    Task<List<IAuthenticatorDTO>> ConvertToListAsync(IEnumerable<AccountPlatformAuthenticator> sources, string? secondaryPassword = null,
+        bool verifiedWithHello = false);
 
     /// <summary>
     /// 插入或更新一条到本地，插入前需要判断当前值是否超过了 <see cref="MaxValue"/>
@@ -81,16 +83,12 @@ public interface IAccountPlatformAuthenticatorRepository
     /// <param name="isLocal"></param>
     /// <param name="secondaryPassword"></param>
     /// <returns></returns>
-    Task<(bool isSuccess, bool isUpdate)> InsertOrUpdateAsync(IAuthenticatorDTO item, bool isLocal, string? secondaryPassword = null);
+    Task<(bool isSuccess, bool isUpdate)> InsertOrUpdateAsync(IAuthenticatorDTO item, bool isLocal, string? secondaryPassword = null,
+        bool verifiedWithHello = false);
 
     /// <inheritdoc cref="InsertOrUpdateAsync(IAuthenticatorDTO, bool, string?)"/>
-    async Task InsertOrUpdateAsync(IEnumerable<IAuthenticatorDTO> items, bool isLocal, string? secondaryPassword = null)
-    {
-        foreach (var item in items)
-        {
-            await InsertOrUpdateAsync(item, isLocal, secondaryPassword);
-        }
-    }
+    Task InsertOrUpdateAsync(IEnumerable<IAuthenticatorDTO> items, bool isLocal, string? secondaryPassword = null,
+        bool verifiedWithHello = false);
 
     /// <summary>
     /// 验证源数据内令牌是否已存在
@@ -130,18 +128,22 @@ public interface IAccountPlatformAuthenticatorRepository
     /// </summary>
     /// <param name="source"></param>
     /// <param name="name"></param>
-    /// <param name="isLocal"></param>
+    /// <param name="isLocal">Legacy caller hint; the persisted row determines the mode.</param>
+    /// <param name="secondaryPassword">The current password, if the row requires it.</param>
     /// <returns></returns>
-    Task RenameAsync(AccountPlatformAuthenticator source, string name, bool isLocal);
+    Task RenameAsync(AccountPlatformAuthenticator source, string name, bool isLocal, string? secondaryPassword = null,
+        bool verifiedWithHello = false);
 
     /// <summary>
     /// 根据本地 Id 修改显示名称
     /// </summary>
     /// <param name="id"></param>
     /// <param name="name"></param>
-    /// <param name="isLocal"></param>
+    /// <param name="isLocal">Legacy caller hint; the persisted row determines the mode.</param>
+    /// <param name="secondaryPassword">The current password, if the row requires it.</param>
     /// <returns></returns>
-    Task RenameAsync(ushort id, string name, bool isLocal);
+    Task RenameAsync(ushort id, string name, bool isLocal, string? secondaryPassword = null,
+        bool verifiedWithHello = false);
 
     /// <summary>
     /// 根据本地 Id 设置云同步 Id
@@ -154,14 +156,14 @@ public interface IAccountPlatformAuthenticatorRepository
     /// <inheritdoc cref="SetServerIdAsync(ushort, Guid)"/>
     Task SetServerIdAsync(AccountPlatformAuthenticator source, Guid serverId);
 
-    /// <summary>
-    /// 切换加密模式，对已有的整个数据重新加密，调用前必须判断值不一样才能调用，如果耗时太长要搞一个转圈或进度条
-    /// </summary>
-    /// <param name="isLocal"></param>
-    /// <param name="secondaryPassword"></param>
-    /// <param name="items">可传递当前在视图模型上的数据，也可以传递 <see langword="null"/> 重新从数据库中查询</param>
-    /// <returns></returns>
-    Task SwitchEncryptionModeAsync(bool isLocal, string? secondaryPassword, IEnumerable<IAuthenticatorDTO>? items = null);
+    /// <summary>Read and re-encrypt the entire persisted vault atomically.</summary>
+    /// <param name="isLocal">The new local protection setting.</param>
+    /// <param name="currentPassword">The current vault password, if required.</param>
+    /// <param name="newPassword">The new vault password, or null to remove it.</param>
+    /// <param name="windowsHello">Require Windows Hello for subsequent reads of the rewritten vault.</param>
+    /// <param name="verifiedWithHello">The application verified the user with Windows Hello for this operation.</param>
+    Task SwitchEncryptionModeAsync(bool isLocal, string? currentPassword, string? newPassword,
+        bool windowsHello = false, bool verifiedWithHello = false);
 
     /// <summary>
     /// 导出一组 DTO 模型
@@ -230,5 +232,7 @@ public interface IAccountPlatformAuthenticatorRepository
 
         /// <inheritdoc cref="DResultCode.UTF8GetStringFail"/>
         UTF8GetStringFail = DResultCode.UTF8GetStringFail,
+
+        WindowsHelloRequired = 450,
     }
 }

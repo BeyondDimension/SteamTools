@@ -107,8 +107,17 @@ internal static class SharedSqliteNativeLibrary
         return Path.Combine(GetPackageDirectory(executableDirectory), sqliteFilename);
     }
 
-    static string GetPackageDirectory(string directory)
+    internal static string GetPackageDirectory(string directory)
     {
+#if MACOS
+        if (Path.GetFileName(directory) == "MacOS" &&
+            Directory.GetParent(directory) is { Name: "Contents" } contentsDirectory)
+        {
+            var bundleLibraries = Path.Combine(contentsDirectory.FullName, "MonoBundle");
+            if (Directory.Exists(bundleLibraries))
+                return bundleLibraries;
+        }
+#endif
 #if APP_REVERSE_PROXY
         // Standalone publish has its own libraries. Installed helpers share the parent package.
 #if WINDOWS

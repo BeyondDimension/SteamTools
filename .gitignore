@@ -636,14 +636,21 @@ iOSInjectionProject/
 !**/BD.WTTS.Client.Avalonia.App
 /ref/DirectoryPackages
 /tests/
+/.artifacts/*
 
 # Keep native publishing sources visible without tracking generated build output.
 !/build/
 /build/*
 !/build/publish-native.ps1
+!/build/macos/
+/build/macos/*
+!/build/macos/create-dmg.sh
 !/build/native-graphics/
 /build/native-graphics/*
 !/build/native-graphics/StaticGraphics.targets
 !/build/native-graphics/build-static-graphics.ps1
 !/build/native-graphics/sources.props
 !/build/native-graphics/args.win.gn
+!/build/native-dtls/
+/build/native-dtls/*
+!/build/native-dtls/build-macos-x64.sh

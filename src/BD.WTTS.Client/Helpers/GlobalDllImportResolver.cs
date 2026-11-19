@@ -1,4 +1,8 @@
 #if WINDOWS || LINUX
+#if WINDOWS && !WTTS_NATIVE_AOT
+using System.Runtime.Loader;
+#endif
+
 //#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
@@ -91,6 +95,39 @@ public static partial class GlobalDllImportResolver
 #else
 #endif
 
+#if WINDOWS && !WTTS_NATIVE_AOT
+    internal static void RegisterJitResolver()
+    {
+        // HostFXR can load the app in a component context rather than the default one.
+        var context = AssemblyLoadContext.GetLoadContext(typeof(GlobalDllImportResolver).Assembly);
+        if (context != null)
+            context.ResolvingUnmanagedDll += ResolvePackagedLibrary;
+    }
+
+    static nint ResolvePackagedLibrary(Assembly assembly, string libraryName)
+    {
+        var name = libraryName.EndsWith(fileExtension_, StringComparison.OrdinalIgnoreCase)
+            ? libraryName[..^fileExtension_.Length]
+            : libraryName;
+        if (!libraryNames.Contains(name))
+            return 0;
+
+        // SDK probing runs first. Only the publisher and driver installer use these extra paths.
+        var path = GetLibraryPath(name + fileExtension_);
+        if (!File.Exists(path))
+            return 0;
+
+        const DllImportSearchPath flags = DllImportSearchPath.UseDllDirectoryForDependencies | DllImportSearchPath.System32;
+        var handle = LoadLibraryExW(path, 0, flags);
+        if (handle == 0)
+            throw new DllNotFoundException(path, new System.ComponentModel.Win32Exception(Marshal.GetLastPInvokeError()));
+        return handle;
+    }
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = true)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    static extern nint LoadLibraryExW(string path, nint file, DllImportSearchPath flags);
+#else
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static string GetLibraryFileName(string libraryName, string? fileExtension = null)
     {
@@ -190,61 +227,6 @@ public static partial class GlobalDllImportResolver
         // Otherwise, fallback to default import resolver.
 
         return TryLoad(libraryName, assembly, searchPath, out var handle2) ? handle2 : default;
-    }
-
-#if DEBUG
-    /// <summary>
-    /// 调试时加载本机库之前将本机库位置移动到预设文件夹中
-    /// </summary>
-    public static void MoveFiles()
-    {
-        //Console.WriteLine("MoveFiles");
-        foreach (var libraryName in libraryNames)
-        {
-            var libraryFileName = GetLibraryFileName(libraryName);
-            MoveFiles(libraryFileName);
-#if LINUX || MACCATALYST || MACOS
-            if (!libraryFileName.StartsWith("lib"))
-            {
-                libraryFileName = $"lib{libraryFileName}";
-                MoveFiles(libraryFileName);
-            }
-#endif
-        }
-
-#if WINDOWS
-        MoveFiles(GetLibraryFileName(WinDivert32, ".sys"));
-        MoveFiles(GetLibraryFileName(WinDivert64, ".sys"));
-#endif
-
-        static void MoveFiles(string libraryName)
-        {
-            var rootLibraryPath = Path.Combine(BaseDirectory, libraryName);
-            //Console.WriteLine($"rootLibraryPath: {rootLibraryPath}");
-            var rootLibraryFileExists = File.Exists(rootLibraryPath);
-            if (!rootLibraryFileExists)
-            {
-                rootLibraryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location!)!, libraryName);
-                //Console.WriteLine($"rootLibraryPath: {rootLibraryPath}");
-                rootLibraryFileExists = File.Exists(rootLibraryPath);
-            }
-            if (!rootLibraryFileExists)
-            {
-                rootLibraryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location!)!, "runtimes", RID, "native", libraryName);
-                rootLibraryFileExists = File.Exists(rootLibraryPath);
-            }
-            if (rootLibraryFileExists)
-            {
-                var destLibraryPath = GetLibraryPath(libraryName);
-                IOPath.FileTryDelete(destLibraryPath);
-                var libraryDirPath = Path.GetDirectoryName(destLibraryPath);
-                if (libraryDirPath != null)
-                    IOPath.DirCreateByNotExists(libraryDirPath);
-
-                Console.WriteLine($"MoveFiles rootLibraryPath: {rootLibraryPath}, destLibraryPath: {destLibraryPath}");
-                File.Move(rootLibraryPath, destLibraryPath, true);
-            }
-        }
     }
 #endif
 }

@@ -30,6 +30,12 @@ static partial class VisualStudioAppCenterSDK
 #pragma warning disable CS0612 // 类型或成员已过时
             BD_AppCenter.SetApplicationSettingsFactory(utils);
 #pragma warning restore CS0612 // 类型或成员已过时
+#if MACOS && WTTS_NATIVE_AOT
+            // A fresh profile can yield a relative SDK path. Keep the database out of the signed app bundle.
+            var databasePath = BD.AppCenter.Utils.Constants.AppCenterDatabasePath;
+            if (!Path.IsPathFullyQualified(databasePath))
+                BD.AppCenter.Utils.Constants.AppCenterDatabasePath = Path.Combine(IOPath.AppDataDirectory, databasePath);
+#endif
 #if DEBUG
             BD_AppCenter.SetLogUrl(Constants.Urls.BaseUrl_API_Development);
 #endif

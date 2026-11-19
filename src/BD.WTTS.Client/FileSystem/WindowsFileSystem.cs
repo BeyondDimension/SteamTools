@@ -14,46 +14,9 @@ sealed class WindowsFileSystem : IOPath.FileSystemBase
 {
     private WindowsFileSystem() => throw new NotSupportedException();
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static void TryDeleteRootPathObsoleteFiles()
-    {
-        // 删除早期版本在根目录下的本机库，避免因旧版本文件存在，可能从根目录上加载了旧的本机库
-        var rootDeleteFiles = new[]
-        {
-            "7z.dll",
-            "aspnetcorev2_inprocess.dll",
-            "av_libglesv2.dll",
-            "e_sqlite3.dll",
-            "libHarfBuzzSharp.dll",
-            "libSkiaSharp.dll",
-            "WebView2Loader.dll",
-            "WinDivert.dll",
-            "WinDivert64.sys",
-            "Steam++.VisualElementsManifest.xml",
-            "Steam++.Launcher.exe",
-            "Steam++.Launcher.exe.config",
-        };
-        string path;
-        foreach (var item in rootDeleteFiles)
-        {
-            path = Path.Combine(IOPath.BaseDirectory, item);
-            IOPath.FileTryDelete(path);
-        }
-        path = Path.Combine(IOPath.BaseDirectory, "Assets");
-        IOPath.DirTryDelete(path);
-    }
-
     /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
     public static void InitFileSystem()
     {
-#if !WTTS_NATIVE_AOT
-        var isPrivilegedProcess = WindowsPlatformServiceImpl.IsPrivilegedProcess;
-        if (isPrivilegedProcess)
-        {
-            TryDeleteRootPathObsoleteFiles();
-        }
-#endif
-
         if (WindowsPlatformServiceImpl.CurrentAppIsInstallVersion)
         {
             /* 安装版将使用以下路径，但如果根目录上有文件夹则会优先使用根目录上的文件夹(从 2.7.0+ 开始)

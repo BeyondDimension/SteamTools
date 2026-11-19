@@ -35,7 +35,8 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                                                 if (await AuthenticatorHelper.VerifyMaxValue())
                                                 {
                                                     var r = await AuthenticatorHelper.GetCurrentPassword();
-                                                    await ImportFromWattToolKitV2(password: r.password, isLocalProtect: r.hasLocalPcEncrypt);
+                                                    if (!r.authorized) return;
+                                                    await ImportFromWattToolKitV2(r.password, r.hasLocalPcEncrypt, r.verifiedWithHello);
                                                 }
                                             })),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.WattToolKitV1), Strings.LocalAuth_WattToolKitV1Import,
@@ -44,7 +45,8 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                                                 if (await AuthenticatorHelper.VerifyMaxValue())
                                                 {
                                                     var r = await AuthenticatorHelper.GetCurrentPassword();
-                                                    await ImportFromWattToolKitV1(password: r.password, isLocalProtect: r.hasLocalPcEncrypt);
+                                                    if (!r.authorized) return;
+                                                    await ImportFromWattToolKitV1(r.password, r.hasLocalPcEncrypt, r.verifiedWithHello);
                                                 }
                                             })),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.WinAuth), Strings.LocalAuth_WinAuthImport,
@@ -53,7 +55,8 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                                                 if (await AuthenticatorHelper.VerifyMaxValue())
                                                 {
                                                     var r = await AuthenticatorHelper.GetCurrentPassword();
-                                                    await ImportFromWinAuthFile(password: r.password, isLocalProtect: r.hasLocalPcEncrypt);
+                                                    if (!r.authorized) return;
+                                                    await ImportFromWinAuthFile(r.password, r.hasLocalPcEncrypt, r.verifiedWithHello);
                                                 }
                                             })),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.Google), Strings.LocalAuth_GoogleImport,
@@ -111,49 +114,52 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
         }
     }
 
-    static async Task ImportFromWattToolKitV2(string? exportPassword = null, string? password = null, bool? isLocalProtect = null, string? filePath = null)
+    static async Task ImportFromWattToolKitV2(string? password, bool isLocalProtect, bool verifiedWithHello)
     {
-        filePath ??= await AuthenticatorHelper.SelectFolderPath(FileEx.MPO);
+        var filePath = await AuthenticatorHelper.SelectFolderPath(FileEx.MPO);
 
         if (string.IsNullOrEmpty(filePath)) return;
 
         var metadata = await IOPath.TryReadAllBytesAsync(filePath);
         if (!metadata.success || metadata.byteArray == null) return;
-        var result = await AuthenticatorHelper.ImportAsync(exportPassword, metadata.byteArray);
-        switch (result.resultCode)
+        string? exportPassword = null;
+        while (true)
         {
-            case IAccountPlatformAuthenticatorRepository.ImportResultCode.Success
-                or IAccountPlatformAuthenticatorRepository.ImportResultCode.PartSuccess:
-                foreach (var item in result.result)
-                {
-                    await AuthenticatorHelper.SaveAuthenticator(item, password, isLocalProtect);
-                }
-                Toast.Show(ToastIcon.Success, result.resultCode == IAccountPlatformAuthenticatorRepository.ImportResultCode.Success
-                    ? Strings.LocalAuth_AddAuthSuccess
-                    : Strings.LocalAuth_AddAuth_PartSuccess);
-                break;
+            var result = await AuthenticatorHelper.ImportAsync(exportPassword, metadata.byteArray);
+            if (result.resultCode == IAccountPlatformAuthenticatorRepository.ImportResultCode.SecondaryPasswordFail)
+            {
+                if (exportPassword != null)
+                    Toast.Show(ToastIcon.Warning, Strings.Auth_VaultPasswordFailed);
+                exportPassword = await AuthenticatorHelper.RequestPasswordAsync(Strings.ModelContent_ExportPassword);
+                if (string.IsNullOrWhiteSpace(exportPassword)) return;
+                continue;
+            }
 
-            case IAccountPlatformAuthenticatorRepository.ImportResultCode.SecondaryPasswordFail:
-                Toast.Show(ToastIcon.Warning, Strings.LocalAuth_ProtectionAuth_PasswordErrorTip);
-                var textViewModel =
-                    new TextBoxWindowViewModel { InputType = TextBoxWindowViewModel.TextBoxInputType.Password };
-                if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewModel, Strings.ModelContent_ExportPassword, isDialog: false,
-                        isCancelButton: true))
-                {
-                    if (textViewModel.Value == null)
-                        return; // 弹窗点击了取消跳出
-                    exportPassword = textViewModel.Value;
-                }
-                await ImportFromWattToolKitV2(exportPassword, password, isLocalProtect, filePath);
-                break;
+            if (result.resultCode != IAccountPlatformAuthenticatorRepository.ImportResultCode.Success)
+            {
+                Toast.Show(ToastIcon.Error, AuthenticatorHelper.ReadErrorText(result.resultCode));
+                return;
+            }
 
-            default:
-                Toast.Show(ToastIcon.Error, Strings.LocalAuth_ExportAuth_Error.Format(result.resultCode));
-                break;
+            try
+            {
+                await AuthenticatorHelper.SaveImportedAuthenticatorsAsync(result.result, isLocalProtect, password, verifiedWithHello);
+                Toast.Show(ToastIcon.Success, Strings.LocalAuth_AddAuthSuccess);
+            }
+            catch (AuthenticatorReadException ex)
+            {
+                Toast.Show(ToastIcon.Warning, AuthenticatorHelper.ReadErrorText(ex.ResultCode));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(AuthenticatorImportPageViewModel), ex, "Could not import the token backup.");
+                Toast.Show(ToastIcon.Error, Strings.Auth_VaultChangeFailed);
+            }
+            return;
         }
     }
 
-    static async Task ImportFromWattToolKitV1(string? password = null, bool? isLocalProtect = null)
+    static async Task ImportFromWattToolKitV1(string? password, bool isLocalProtect, bool verifiedWithHello)
     {
         var filePath = await AuthenticatorHelper.SelectFolderPath(FileEx.DAT);
 
@@ -193,7 +199,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                         if (reader.Name != "WinAuthAuthenticator") continue;
                         var authDto = new AuthenticatorDTO();
                         AuthenticatorHelper.ReadXml(authDto, reader, null);
-                        await AuthenticatorHelper.SaveAuthenticator(authDto, password, isLocalProtect);
+                        if (!await AuthenticatorHelper.SaveAuthenticator(authDto, password, isLocalProtect, verifiedWithHello)) return;
                     }
                     else
                     {
@@ -205,7 +211,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
         }
     }
 
-    static async Task ImportFromWinAuthFile(string? password = null, bool? isLocalProtect = null)
+    static async Task ImportFromWinAuthFile(string? password, bool isLocalProtect, bool verifiedWithHello)
     {
         static IEnumerable<string> ReadUrlsByFilePath(string filePath)
         {
@@ -399,7 +405,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                 Toast.Show(ToastIcon.Info, Strings.LocalAuth_AddAuthSyncTip, ToastLength.Short);
                 authenticatorDto.Value.Sync();
 
-                await AuthenticatorHelper.SaveAuthenticator(authenticatorDto, password, isLocalProtect);
+                if (!await AuthenticatorHelper.SaveAuthenticator(authenticatorDto, password, isLocalProtect, verifiedWithHello)) return;
             }
             Toast.Show(ToastIcon.Success, Strings.LocalAuth_AddAuthSuccess);
         }

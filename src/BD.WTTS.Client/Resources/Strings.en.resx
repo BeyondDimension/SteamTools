@@ -2280,7 +2280,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Author=kotovasia5120</comment>
   </data>
   <data name="Auth_AddMachineValidation" xml:space="preserve">
-    <value>System built-in encryption authentication enabled</value>
+    <value>Enable local encryption</value>
     <comment>Author=kotovasia5120</comment>
   </data>
   <data name="Auth_AddPasswordProtect" xml:space="preserve">
@@ -2328,7 +2328,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Author=kotovasia5120</comment>
   </data>
   <data name="Auth_RemoveMachineValidation" xml:space="preserve">
-    <value>System built-in encryption authentication disabled</value>
+    <value>Turn off local encryption</value>
     <comment>Author=kotovasia5120</comment>
   </data>
   <data name="Auth_RemovePasswordProtect" xml:space="preserve">
@@ -6841,4 +6841,43 @@ Farming games: {3}</value>
   <data name="Tray_TrafficDetails" xml:space="preserve">
     <value>Current rate · Session traffic</value>
   </data>
+  <data name="Auth_VaultChangePassword" xml:space="preserve"><value>Change custom password</value></data>
+  <data name="Auth_VaultNewPassword" xml:space="preserve"><value>Set a new token password</value></data>
+  <data name="Auth_VaultPasswordGuidance" xml:space="preserve"><value>Use 12–256 characters and a password you do not use elsewhere. Keep a working backup; the password cannot be recovered.</value></data>
+  <data name="Auth_VaultPasswordFailed" xml:space="preserve"><value>The token password is incorrect or the protected data is damaged.</value></data>
+  <data name="Auth_VaultRemovePasswordTip" xml:space="preserve"><value>Unlocking the local vault will no longer require a custom password. Existing backups are not affected.</value></data>
+  <data name="Auth_VaultLocalRecoveryTip" xml:space="preserve"><value>Local encryption binds data to this device and, on Windows, to this user. Before moving or reinstalling Windows, export a backup with a password and without local encryption.</value></data>
+  <data name="Auth_VaultLocalReadFailed" xml:space="preserve"><value>Could not decrypt locally protected tokens. Try the original device and user account, or import a backup without local encryption.</value></data>
+  <data name="Auth_VaultRemoveLocalTip" xml:space="preserve"><value>The tokens will no longer be bound to this device. Without a custom password, a copied database may be readable by others.</value></data>
+  <data name="Auth_VaultReadFailed" xml:space="preserve"><value>Could not read all tokens. No data was changed. Check your data or use a working backup.</value></data>
+  <data name="Auth_VaultChangeFailed" xml:space="preserve"><value>Could not change token protection.</value></data>
+  <data name="Auth_VaultUpgrade" xml:space="preserve"><value>Upgrade legacy encryption</value></data>
+  <data name="Auth_VaultUpgradeTip" xml:space="preserve"><value>Re-encrypt all tokens with your current settings. Export a working backup first; older versions may not be able to read the upgraded database.</value></data>
+  <data name="Auth_VaultHelloEnable" xml:space="preserve"><value>Use Windows Hello</value></data>
+  <data name="Auth_VaultHelloDisable" xml:space="preserve"><value>Turn off Windows Hello</value></data>
+  <data name="Auth_VaultHelloEnabled" xml:space="preserve"><value>Windows Hello now unlocks your local tokens.</value></data>
+  <data name="Auth_VaultHelloDisabled" xml:space="preserve"><value>Windows Hello is off. Encryption for this Windows account remains on.</value></data>
+  <data name="Auth_VaultHelloPrompt" xml:space="preserve"><value>Verify your identity to access local tokens in Watt Toolkit.</value></data>
+  <data name="Auth_VaultHelloUnavailable" xml:space="preserve"><value>Windows Hello is unavailable. Check Sign-in options in Windows 11 Settings and your system policy.</value></data>
+  <data name="Auth_VaultHelloFailed" xml:space="preserve"><value>Windows Hello did not verify your identity. The vault is still locked.</value></data>
+  <data name="Auth_VaultHelloEnableTip" xml:space="preserve"><value>Windows Hello will replace the custom password, if set, for unlocking on this device. The vault will be encrypted for this Windows account. Export a password-protected backup without local encryption before moving or reinstalling Windows.</value></data>
+  <data name="Auth_VaultHelloDisableTip" xml:space="preserve"><value>The app will no longer ask for verification when opened. Account-bound encryption stays on. Choose a custom password if you still want an in-app lock.</value></data>
+  <data name="Auth_VaultHelloLocked" xml:space="preserve"><value>The vault is locked. Verify your identity with Windows Hello to unlock it.</value></data>
+  <data name="Auth_VaultHelloRecovery" xml:space="preserve"><value>Unlock with existing password</value></data>
+  <data name="Auth_VaultHelloRecoveryTip" xml:space="preserve"><value>This vault is still encrypted with its existing password. A successful unlock turns off the old two-step check without changing encryption. You can then switch to Windows Hello in token settings.</value></data>
+  <data name="Auth_VaultHelloHelp" xml:space="preserve"><value>On Windows 11, choose either Windows Hello (PIN, fingerprint, or face) or a custom password to unlock. Hello verifies access in the app; Windows account encryption protects the files.</value></data>
+  <data name="Auth_VaultBackupTip" xml:space="preserve"><value>For a portable backup, use a password and leave local encryption off. Keep the backup safe and remember its password.</value></data>
+  <data name="Auth_VaultUnprotectedExport" xml:space="preserve"><value>This backup has no password or local protection. Anyone who obtains it may be able to read the tokens. Export anyway?</value></data>
+  <data name="Auth_VaultHelloUnlock" xml:space="preserve"><value>Unlock with Windows Hello</value></data>
+  <data name="Auth_VaultLegacyHelloLocked" xml:space="preserve"><value>This vault still uses its original password for encryption. Unlock with that password, then change the unlock method in token settings.</value></data>
+  <data name="Auth_VaultSwitchToPasswordTip" xml:space="preserve"><value>A custom password will replace Windows Hello for unlocking. Encryption for this Windows account stays on.</value></data>
+  <data name="Auth_VaultHelloSummary" xml:space="preserve"><value>Unlock method: Windows Hello</value></data>
+  <data name="Auth_VaultPasswordSummary" xml:space="preserve"><value>Unlock method: custom password</value></data>
+  <data name="Auth_VaultNoLockSummary" xml:space="preserve"><value>No in-app lock configured</value></data>
+  <data name="Auth_VaultHelpLabel" xml:space="preserve"><value>Help</value></data>
+  <data name="Auth_VaultUnlockMethods" xml:space="preserve"><value>Unlock method · Choose one</value></data>
+  <data name="Auth_VaultHelloDescription" xml:space="preserve"><value>Use your Windows PIN, fingerprint, or face. No separate password needed.</value></data>
+  <data name="Auth_VaultPasswordLabel" xml:space="preserve"><value>Custom password</value></data>
+  <data name="Auth_VaultStorageLabel" xml:space="preserve"><value>Data encryption</value></data>
+  <data name="Auth_VaultHelloLocalDescription" xml:space="preserve"><value>Bound to this Windows account. This encryption stays on with Windows Hello.</value></data>
 </root>

@@ -372,7 +372,8 @@ public sealed partial class SteamConnectService
             IsConnectToSteam = false;
             CurrentSteamUser = null;
             IsSteamChinaLauncher = false;
-            InvalidateGameList(clear: processId != 0);
+            if (InvalidateGameList(clear: processId != 0) && processId == 0)
+                _ = RefreshGamesListAsync(showToast: false);
         }
 
         if (processId == 0 || IsConnectToSteam || !steamClientGate.Wait(0))
@@ -434,16 +435,17 @@ public sealed partial class SteamConnectService
         return false;
     }
 
-    // Steam 退出时保留缓存，启动新进程时清除旧账号的游戏。
-    void InvalidateGameList(bool clear)
+    // Steam 退出后重新读取本地缓存，启动新进程时清除旧账号的游戏。
+    bool InvalidateGameList(bool clear)
     {
         lock (gameListSync)
         {
-            if (!gameListRequested) return;
+            if (!gameListRequested) return false;
             gameListProcessId = -1;
             gameListSteamId = -1;
             gameListCancellation?.Cancel();
             if (clear) SteamApps.Clear();
+            return true;
         }
     }
 
@@ -627,7 +629,7 @@ public sealed partial class SteamConnectService
     async Task LoadGameListAsync(CancellationTokenSource cancellation)
     {
         var token = cancellation.Token;
-        var processId = stmService.IsRunningSteamProcess ? stmService.GetSteamProcessPid() : 0;
+        var processId = stmService.GetSteamProcessPid();
         var clientAcquired = false;
         var attemptedInitialize = false;
         long steamId = 0;
@@ -639,13 +641,15 @@ public sealed partial class SteamConnectService
                 clientAcquired = true;
                 if (!IsDisposedClient) DisposeSteamClient();
                 attemptedInitialize = true;
-                if (!swLocalService.Initialize())
-                    throw new InvalidOperationException(AppResources.Error_SteamGetUserInfo);
-                IsDisposedClient = false;
-                steamId = swLocalService.GetSteamId64();
-                if (steamId <= 0 || steamId == SteamIdConvert.UndefinedId)
-                    throw new OperationCanceledException();
-                if (CurrentSteamUser is { } current && current.SteamId64 != steamId)
+                if (swLocalService.Initialize())
+                {
+                    IsDisposedClient = false;
+                    var id = swLocalService.GetSteamId64();
+                    if (id > 0 && id != SteamIdConvert.UndefinedId)
+                        steamId = id;
+                }
+
+                if (steamId == 0 || (CurrentSteamUser is { } current && current.SteamId64 != steamId))
                 {
                     CurrentSteamUser = null;
                     IsConnectToSteam = false;
@@ -662,6 +666,8 @@ public sealed partial class SteamConnectService
             }
 
             var modifications = stmService.GetAppInfoEdits();
+            // Steam can start before it has an account session. Use the local cache in that case.
+            var hasLiveSession = steamId != 0;
 
             long nextSessionCheck = 0;
 
@@ -672,15 +678,15 @@ public sealed partial class SteamConnectService
                 if (!force && now < nextSessionCheck) return;
                 nextSessionCheck = now + 500;
                 if (stmService.GetSteamProcessPid() != processId ||
-                    (processId != 0 && swLocalService.GetSteamId64() != steamId))
+                    (hasLiveSession && swLocalService.GetSteamId64() != steamId))
                     throw new OperationCanceledException();
             }
 
             await stmService.ReadAppInfosInBatchesAsync(batch =>
             {
                 CheckSession();
-                var owned = processId != 0 ? new List<SteamApp>(batch.Count) : null;
-                foreach (var app in processId != 0 ? swLocalService.OwnsApps(batch) : batch)
+                var owned = hasLiveSession ? new List<SteamApp>(batch.Count) : null;
+                foreach (var app in hasLiveSession ? swLocalService.OwnsApps(batch) : batch)
                 {
                     if (modifications.TryGetValue(app.AppId, out var edit))
                         app.ApplyAppInfoEdit(edit);

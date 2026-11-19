@@ -17,6 +17,12 @@ partial class Program
     {
         #region 尝试修正 AppContext.BaseDirectory
 
+#if MACOS && WTTS_NATIVE_AOT
+        var executableDirectory = Path.TrimEndingDirectorySeparator(AppContext.BaseDirectory);
+        var packageDirectory = SharedSqliteNativeLibrary.GetPackageDirectory(executableDirectory);
+        if (packageDirectory != executableDirectory)
+            AppContext.SetData("APP_CONTEXT_BASE_DIRECTORY", packageDirectory + Path.DirectorySeparatorChar);
+#else
         try
         {
             var appCtxBaseDir = AppContext.BaseDirectory;
@@ -41,6 +47,7 @@ partial class Program
         {
             Console.WriteLine(ex);
         }
+#endif
 
         #endregion
 

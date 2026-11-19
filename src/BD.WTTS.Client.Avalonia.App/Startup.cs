@@ -55,6 +55,11 @@ sealed partial class Program : Startup
         services.AddRepositoryPreferences();
 #endif
 
+#if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+        // Steam plugins register the remaining account services after app startup configuration.
+        services.TryAddSteamSessionService();
+#endif
+
         // 添加主线程助手(MainThreadDesktop)
         services.AddMainThreadPlatformService();
 

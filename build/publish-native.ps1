@@ -6,10 +6,12 @@ Publishes the native UI and accelerator without touching portable user data.
 Relative paths are repository-relative, irrespective of the caller's location.
 BuildRoot defaults to build. Renderer defaults to Skia; native/<RID> is selected
 under publish, artifacts and logs. -Renderer SimdSkia selects the optional managed
-renderer under native-simdskia/<RID>. OutputDirectory overrides only the package.
+renderer under native-simdskia/<RID>. OutputDirectory overrides the package and
+the location of its adjacent macOS disk image. DiskImageTemplate defaults to
+the Steam++ installer template in the macOS user's Documents directory.
 
 Only files recorded in the package manifest with matching SHA256 hashes may be
-replaced. AppData, Cache, Log/Logs and archives are never package-owned or modified.
+replaced. AppData, Cache, Log/Logs and user archives are never package-owned or modified.
 An intact Windows manifest from the previous root-DLL layout can be migrated in place.
 Other unowned files cause a refusal rather than adoption of an old managed package.
 Close the published application before replacing its generated payload. Failed builds
@@ -24,7 +26,8 @@ param(
     [ValidateSet('Skia', 'SimdSkia')]
     [string]$Renderer = 'Skia',
     [ValidateSet('Skia', 'HarfBuzz')]
-    [string[]]$StaticGraphicsComponents = @()
+    [string[]]$StaticGraphicsComponents = @(),
+    [string]$DiskImageTemplate
 )
 
 $ErrorActionPreference = 'Stop'
@@ -41,6 +44,9 @@ $phase = 'prerequisites'
 $lock = $null
 $packageLock = $null
 $runDirectory = $null
+$diskImagePath = $null
+$diskImageWork = $null
+$stagedDiskImage = $null
 
 function Resolve-RepositoryPath([string]$Path) {
     if (-not [IO.Path]::IsPathRooted($Path)) { $Path = Join-Path $root $Path }
@@ -59,7 +65,8 @@ function Assert-NoReparsePoint([string]$Path) {
 
 function Test-UserPath([string]$Path) {
     return $Path -match '(^|/)(AppData|Cache|Logs?)(/|$)' -or
-        $Path -match '\.(7z|zip|rar|tar|gz|bz2|xz|zst|log)$'
+        $Path -match '\.(7z|zip|rar|tar|gz|bz2|xz|zst|log)$' -or
+        ($RuntimeIdentifier.StartsWith('osx-') -and $Path -match '(^|/)\.DS_Store$')
 }
 
 function Get-PayloadPath([string]$Base, [string]$RelativePath) {
@@ -84,7 +91,12 @@ function Get-PackageFiles([string]$Directory, [string]$Prefix = '') {
     foreach ($item in Get-ChildItem -LiteralPath $Directory -Force) {
         $relativePath = $Prefix + $item.Name
         # Never traverse portable data, even if it contains junctions or locked databases.
-        if (Test-UserPath $relativePath) { continue }
+        if (Test-UserPath $relativePath) {
+            if ($RuntimeIdentifier.StartsWith('osx-') -and $relativePath.StartsWith('Steam++.app/', [StringComparison]::OrdinalIgnoreCase)) {
+                throw "User-owned path inside the signed app bundle: $relativePath. Use a new OutputDirectory."
+            }
+            continue
+        }
         if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {
             throw "Refusing an unowned symbolic link or junction in package: $relativePath"
         }
@@ -104,6 +116,7 @@ function Get-ExistingManifest {
 
 function Read-PayloadManifest {
     $owned = @{}
+    $manifest = $null
     $existingManifest = Get-ExistingManifest
     if ($existingManifest) {
         $manifestPath = Join-Path $OutputDirectory $existingManifest
@@ -129,7 +142,22 @@ function Read-PayloadManifest {
             throw "Unowned file in package; refusing to mix native/managed or overwrite user files: $relativePath. Use a new OutputDirectory."
         }
     }
-    return @{ Files = $owned; ManifestPath = $existingManifest }
+    $hasDiskImage = $false
+    if ($diskImagePath) {
+        Assert-NoReparsePoint $diskImagePath
+        $hasDiskImage = Test-Path -LiteralPath $diskImagePath
+        if ($hasDiskImage -and (
+            -not (Test-Path -LiteralPath $diskImagePath -PathType Leaf) -or
+            $manifest.DiskImageSha256 -notmatch '^[0-9A-Fa-f]{64}$' -or
+            (Get-FileHash -LiteralPath $diskImagePath -Algorithm SHA256).Hash -ne $manifest.DiskImageSha256
+        )) {
+            throw "Disk image is unowned or modified; preserving it: $diskImagePath. Use a new OutputDirectory."
+        }
+        if ($hasDiskImage -and -not $DiskImageTemplate) {
+            throw "Specify -DiskImageTemplate to update the existing installer: $diskImagePath"
+        }
+    }
+    return @{ Files = $owned; ManifestPath = $existingManifest; HasDiskImage = $hasDiskImage }
 }
 
 function Invoke-DotNet([string]$Name, [string[]]$Arguments) {
@@ -173,6 +201,11 @@ function Assert-NativeExecutable([string]$Path) {
             $reader.BaseStream.Position = $peOffset + 24 + 112 + (14 * 8)
             if ($reader.ReadUInt64() -ne 0) { throw "Managed executable found instead of Native AOT: $Path" }
         } finally { $reader.Dispose() }
+    } elseif ($RuntimeIdentifier.StartsWith('osx-')) {
+        $architecture = 'arm64'
+        if ($RuntimeIdentifier -eq 'osx-x64') { $architecture = 'x86_64' }
+        & lipo -verify_arch $architecture $Path
+        if ($LASTEXITCODE -ne 0) { throw "Executable architecture differs from ${RuntimeIdentifier}: $Path" }
     }
 }
 
@@ -206,8 +239,20 @@ function Merge-NativeLibraries([string]$Package, [string]$Module) {
         return
     }
 
+    if ($RuntimeIdentifier.StartsWith('osx-')) {
+        # The Apple SDK changes the library's install name when it embeds it in the app.
+        foreach ($path in @(
+            (Join-Path $Package 'Steam++.app/Contents/MonoBundle/libe_sqlite3.dylib'),
+            (Join-Path $Module 'libe_sqlite3.dylib')
+        )) {
+            if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
+                throw "SQLite library is missing: $path"
+            }
+        }
+        return
+    }
+
     $name = 'libe_sqlite3.so'
-    if ($RuntimeIdentifier.StartsWith('osx-')) { $name = 'libe_sqlite3.dylib' }
     $shared = Join-Path $Package $name
     $duplicate = Join-Path $Module $name
     if (-not (Test-Path -LiteralPath $shared -PathType Leaf)) {
@@ -230,6 +275,25 @@ try {
     if ($Renderer -eq 'SimdSkia') { $flavor = 'native-simdskia' }
     if (-not $OutputDirectory) { $OutputDirectory = Join-Path $BuildRoot "publish/$flavor/$RuntimeIdentifier" }
     $OutputDirectory = Resolve-RepositoryPath $OutputDirectory
+    if ($RuntimeIdentifier.StartsWith('osx-')) {
+        $diskImagePath = "$OutputDirectory.dmg"
+        if ($DiskImageTemplate) {
+            $DiskImageTemplate = Resolve-RepositoryPath $DiskImageTemplate
+            if (-not (Test-Path -LiteralPath $DiskImageTemplate -PathType Leaf)) {
+                throw "macOS installer template not found: $DiskImageTemplate"
+            }
+        } else {
+            $defaultTemplate = Join-Path $HOME 'Documents/安装 Steam++.dmg'
+            if (Test-Path -LiteralPath $defaultTemplate -PathType Leaf) {
+                $DiskImageTemplate = $defaultTemplate
+            } else {
+                Write-Warning "macOS installer template not found at $defaultTemplate. Supply -DiskImageTemplate to generate a DMG."
+            }
+        }
+        if ($DiskImageTemplate -eq $diskImagePath) {
+            throw 'The macOS installer template must be separate from the output disk image.'
+        }
+    }
     $artifacts = Resolve-RepositoryPath (Join-Path $BuildRoot "artifacts/$flavor/$RuntimeIdentifier")
     $logs = Resolve-RepositoryPath (Join-Path $BuildRoot "logs/$flavor/$RuntimeIdentifier")
     foreach ($path in @($OutputDirectory, $artifacts, $logs)) { Assert-NoReparsePoint $path }
@@ -308,6 +372,12 @@ try {
     # PublishAot belongs only to the two executable projects, never to netstandard/analyzer dependencies.
     $common = @('-c', 'Release', '-r', $RuntimeIdentifier, '-p:WttsNativeAot=true',
         '-p:GeneratePackageOnBuild=false', "-p:WttsDesktopTargetFrameworks=$framework", "-p:ArtifactsPath=$artifacts")
+    if ($RuntimeIdentifier -eq 'osx-x64') {
+        $dtlsAssets = Join-Path $BuildRoot 'artifacts/native-dependencies/dtls/osx-x64'
+        if (Test-Path -LiteralPath $dtlsAssets -PathType Container) {
+            $common += "-p:WttsMacOSX64DtlsAssets=$dtlsAssets"
+        }
+    }
     if ($Renderer -eq 'SimdSkia') { $common += '-p:WttsUseSimdSkia=true' }
     else { $common += '-p:WttsUseSimdSkia=false' }
     $graphics = @('-p:WttsStaticGraphics=false')
@@ -315,11 +385,23 @@ try {
         $components = ($StaticGraphicsComponents | Select-Object -Unique) -join '%3B'
         $graphics = @('-p:WttsStaticGraphics=true', "-p:WttsStaticGraphicsComponents=$components")
     }
-    $phase = 'native-ui'
-    Invoke-DotNet $phase (@('publish', (Join-Path $root 'src/BD.WTTS.Client.Avalonia.App/BD.WTTS.Client.Avalonia.App.csproj')) + $common + $graphics + @('-f', $framework, '-o', $stage))
-    $phase = 'native-accelerator'
+    $uiArguments = $common + $graphics + @('-f', $framework, '-o', $stage)
     $proxyOutput = Join-Path $stage 'modules/Accelerator'
-    Invoke-DotNet $phase (@('publish', (Join-Path $root 'src/BD.WTTS.Client.Plugins.Accelerator.ReverseProxy/BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj')) + $common + @('-f', 'net11.0', '-o', $proxyOutput))
+    $proxyArguments = $common + @('-f', 'net11.0')
+    $appBundle = $null
+    if ($hostPlatform -eq 'osx') {
+        $appBundle = Join-Path $stage 'Steam++.app'
+        # The macOS SDK publishes a .pkg by default. Keep the bundle and its generated symbols in separate directories.
+        $builtAppBundle = Join-Path $runDirectory 'Steam++.app'
+        $uiArguments += @("-p:AppBundleDir=$builtAppBundle", '-p:CreatePackage=false', '-p:CopyDSYMToPublishDirectory=false')
+        $proxyOutput = Join-Path $appBundle 'Contents/MonoBundle/modules/Accelerator'
+        $proxyArguments += '-p:CopyOutputSymbolsToPublishDirectory=false'
+    }
+    $phase = 'native-ui'
+    Invoke-DotNet $phase (@('publish', (Join-Path $root 'src/BD.WTTS.Client.Avalonia.App/BD.WTTS.Client.Avalonia.App.csproj')) + $uiArguments)
+    if ($appBundle) { [IO.Directory]::Move($builtAppBundle, $appBundle) }
+    $phase = 'native-accelerator'
+    Invoke-DotNet $phase (@('publish', (Join-Path $root 'src/BD.WTTS.Client.Plugins.Accelerator.ReverseProxy/BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj')) + $proxyArguments + @('-o', $proxyOutput))
     $phase = 'native-libraries'
     Merge-NativeLibraries $stage $proxyOutput
 
@@ -327,11 +409,24 @@ try {
     $executableSuffix = ''
     if ($hostPlatform -eq 'win') { $executableSuffix = '.exe' }
     $uiExecutable = Join-Path $stage ('Steam++' + $executableSuffix)
-    if ($hostPlatform -eq 'osx' -and -not (Test-Path -LiteralPath $uiExecutable)) {
-        $uiExecutable = Join-Path $stage 'Steam++.app/Contents/MacOS/Steam++'
+    if ($appBundle) {
+        $uiExecutable = Join-Path $appBundle 'Contents/MacOS/Steam++'
     }
+    $proxyExecutable = Join-Path $proxyOutput ('Steam++.Accelerator' + $executableSuffix)
     Assert-NativeExecutable $uiExecutable
-    Assert-NativeExecutable (Join-Path $proxyOutput ('Steam++.Accelerator' + $executableSuffix))
+    Assert-NativeExecutable $proxyExecutable
+    if ($appBundle) {
+        $phase = 'sign-app-bundle'
+        foreach ($path in @($proxyExecutable, (Join-Path $proxyOutput 'libe_sqlite3.dylib'))) {
+            & codesign --force --sign - $path
+            if ($LASTEXITCODE -ne 0) { throw "Could not sign $path" }
+        }
+        & codesign --force --sign - --preserve-metadata=entitlements $appBundle
+        if ($LASTEXITCODE -ne 0) { throw "Could not sign $appBundle" }
+        & codesign --verify --deep --strict $appBundle
+        if ($LASTEXITCODE -ne 0) { throw "Invalid code signature: $appBundle" }
+        $phase = 'validate-payload'
+    }
     if ($hostPlatform -eq 'win') {
         foreach ($file in Get-ChildItem -LiteralPath $stage -File -Force) {
             if ($file.Name -ne 'Steam++.exe') { throw "Unexpected file beside main executable: $($file.Name)" }
@@ -354,8 +449,19 @@ try {
         }
         $entries += [ordered]@{ Path = $relativePath; Sha256 = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash }
     }
-    [ordered]@{ Schema = 1; RuntimeIdentifier = $RuntimeIdentifier; Files = $entries } |
-        ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $stage $manifestName) -Encoding UTF8
+    $manifest = [ordered]@{ Schema = 1; RuntimeIdentifier = $RuntimeIdentifier; Files = $entries }
+    if ($diskImagePath -and $DiskImageTemplate) {
+        $phase = 'create-disk-image'
+        # Keep the final rename and any rollback on the output volume.
+        $diskImageWork = Join-Path $packageParent ('.native-disk-image-' + $runId)
+        Assert-NoReparsePoint $diskImageWork
+        New-Item -ItemType Directory -Path $diskImageWork | Out-Null
+        $stagedDiskImage = Join-Path $diskImageWork 'package.dmg'
+        & /bin/bash (Join-Path $PSScriptRoot 'macos/create-dmg.sh') $DiskImageTemplate $appBundle $stagedDiskImage
+        if ($LASTEXITCODE -ne 0) { throw "Could not create the macOS installer from $DiskImageTemplate (exit $LASTEXITCODE)." }
+        $manifest.DiskImageSha256 = (Get-FileHash -LiteralPath $stagedDiskImage -Algorithm SHA256).Hash
+    }
+    $manifest | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $stage $manifestName) -Encoding UTF8
 
     $phase = 'promote-payload'
     # Revalidate after compilation: user changes during a long build must never be overwritten.
@@ -364,7 +470,13 @@ try {
     New-Item -ItemType Directory -Path $OutputDirectory, $backup -Force | Out-Null
     $moved = New-Object 'System.Collections.Generic.List[string]'
     $installed = New-Object 'System.Collections.Generic.List[string]'
+    $previousDiskImage = $null
     try {
+        if ($previousPayload.HasDiskImage) {
+            $diskImageBackup = Join-Path $diskImageWork 'previous.dmg'
+            [IO.File]::Move($diskImagePath, $diskImageBackup)
+            $previousDiskImage = $diskImageBackup
+        }
         $previousPaths = @($previousPayload.Files.Keys)
         # Back up the validated manifest in its original location for rollback,
         # including packages whose manifest and DLLs lived at the root.
@@ -384,6 +496,14 @@ try {
             [IO.File]::Move((Join-Path $stage $relativePath), $destination)
             $installed.Add($relativePath)
         }
+        if ($appBundle) {
+            $installedBundle = Join-Path $OutputDirectory 'Steam++.app'
+            & codesign --verify --deep --strict $installedBundle
+            if ($LASTEXITCODE -ne 0) { throw "Invalid code signature after promotion: $installedBundle" }
+        }
+        if ($stagedDiskImage) {
+            [IO.File]::Move($stagedDiskImage, $diskImagePath)
+        }
     } catch {
         $promotionError = $_
         try {
@@ -395,18 +515,23 @@ try {
             foreach ($relativePath in $moved) {
                 [IO.File]::Move((Join-Path $backup $relativePath), (Join-Path $OutputDirectory $relativePath))
             }
+            if ($previousDiskImage) { [IO.File]::Move($previousDiskImage, $diskImagePath) }
         } catch {
-            throw "Promotion failed: $promotionError. Rollback also failed: $_. Previous generated payload remains in $backup; do not remove it. User data was not touched."
+            throw "Promotion failed: $promotionError. Rollback also failed: $_. Keep the publication backups in $backup and $diskImageWork."
         }
         throw "Promotion failed and generated payload was rolled back: $promotionError. Close the application and retry."
     }
     # Backups are for rollback of failed promotion, not an ever-growing release archive.
-    try { Remove-Item -LiteralPath $runDirectory -Recurse -Force }
-    catch { Write-Warning "Publication succeeded; close old processes before removing staging/backup $runDirectory. $($_.Exception.Message)" }
+    foreach ($directory in @($runDirectory, $diskImageWork)) {
+        if (-not $directory) { continue }
+        try { Remove-Item -LiteralPath $directory -Recurse -Force }
+        catch { Write-Warning "Publication succeeded; close old processes before removing staging/backup $directory. $($_.Exception.Message)" }
+    }
     $bytes = ($entries | ForEach-Object { (Get-Item -LiteralPath (Join-Path $OutputDirectory $_.Path)).Length } | Measure-Object -Sum).Sum
     Write-Host ("Native package: {0}; {1:N2} MiB ({2} generated files). Logs: {3}" -f $OutputDirectory, ($bytes / 1MB), $entries.Count, $runLogs)
+    if ($stagedDiskImage) { Write-Host "macOS disk image: $diskImagePath" }
 } catch {
-    throw "Native publication failed in phase '$phase': $($_.Exception.Message) Staging/backup: $runDirectory"
+    throw "Native publication failed in phase '$phase': $($_.Exception.Message) Staging/backup: $runDirectory $diskImageWork"
 } finally {
     if ($packageLock) { $packageLock.Dispose() }
     if ($lock) { $lock.Dispose() }

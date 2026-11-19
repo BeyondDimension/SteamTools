@@ -29,14 +29,14 @@ partial class ScheduledTaskServiceImpl
     {
         if (!taskNames.Any_Nullable()) return;
 
-        StringBuilder builder = new();
+        // An already-disabled auto-start entry is a normal state on a fresh installation.
+        // Enumerate once and remove only existing tasks created in the root folder.
+        StringBuilder builder = new("$names = @(");
         foreach (var taskName in taskNames)
         {
-            var taskName_ = Escape(taskName);
-            builder.Append($"Unregister-ScheduledTask -TaskName '{taskName_}' -Confirm:$false");
-            builder.Append(';');
+            builder.Append($"'{Escape(taskName)}';");
         }
-        builder.Append("exit");
+        builder.Append(");Get-ScheduledTask | Where-Object { $_.TaskPath -eq '\\' -and $_.TaskName -in $names } | Unregister-ScheduledTask -Confirm:$false;exit");
         var arguments = builder.ToString();
         await RunPowerShellSinglePipeAsync(arguments);
     }

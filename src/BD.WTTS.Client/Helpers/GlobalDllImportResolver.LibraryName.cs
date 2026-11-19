@@ -73,7 +73,11 @@ static partial class GlobalDllImportResolver
 
 #pragma warning disable SA1304 // Non-private readonly fields should begin with upper-case letter
 #pragma warning disable SA1307 // Accessible fields should begin with upper-case letter
+#if WINDOWS
+    internal static readonly HashSet<string> libraryNames = new(GetLibraryNames(), StringComparer.OrdinalIgnoreCase);
+#else
     internal static readonly HashSet<string> libraryNames = new(GetLibraryNames());
+#endif
 #pragma warning restore SA1307 // Accessible fields should begin with upper-case letter
 #pragma warning restore SA1304 // Non-private readonly fields should begin with upper-case letter
 }

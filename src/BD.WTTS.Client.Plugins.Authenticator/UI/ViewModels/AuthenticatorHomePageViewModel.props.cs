@@ -22,13 +22,13 @@ public partial class AuthenticatorHomePageViewModel : TabItemViewModel
     //public AuthenticatorItemModel? SelectedAuth { get; set; }
 
     [Reactive]
-    public bool HasPasswordEncrypt { get; set; } = false;
+    public bool HasPasswordEncrypt { get; private set; }
 
     [Reactive]
-    public bool HasLocalPcEncrypt { get; set; } = false;
+    public bool HasLocalPcEncrypt { get; private set; }
 
     [Reactive]
-    public bool IsVerificationPass { get; set; }
+    public bool IsVerificationPass { get; private set; }
 
     [Reactive]
     public string? SearchText { get; set; }

@@ -149,9 +149,17 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
         //        Toast.Show(ToastIcon.Warning, Strings.Error_UpdateCloudData);
         //}
 
-        AuthName = newName;
-        await AuthenticatorHelper.SaveEditAuthNameAsync(AuthData, newName);
-        Toast.Show(ToastIcon.Success, Strings.Success_LocalAuthUpdateSuccessful);
+        try
+        {
+            if (disposed || !await AuthenticatorHelper.SaveEditAuthNameAsync(AuthData, newName)) return;
+            AuthName = newName;
+            Toast.Show(ToastIcon.Success, Strings.Success_LocalAuthUpdateSuccessful);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(AuthenticatorItemModel), ex, "Could not save token name.");
+            Toast.Show(ToastIcon.Error, Strings.Auth_VaultChangeFailed);
+        }
     }
 
     public async void ShowSteamTradeWindow()

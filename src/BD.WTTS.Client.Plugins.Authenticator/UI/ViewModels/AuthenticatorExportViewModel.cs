@@ -1,13 +1,9 @@
-using AppResources = BD.WTTS.Client.Resources.Strings;
-
 namespace BD.WTTS.UI.ViewModels;
 
 public class AuthenticatorExportViewModel : ViewModelBase
 {
-    //SaveFileResult? _exportFile;
-
     [Reactive]
-    public bool HasPasswordProtection { get; set; }
+    public bool HasPasswordProtection { get; set; } = true;
 
     [Reactive]
     public bool HasLocalProtection { get; set; }
@@ -18,62 +14,49 @@ public class AuthenticatorExportViewModel : ViewModelBase
     [Reactive]
     public string? VerifyPassword { get; set; }
 
-    //public SaveFileResult? ExportFile
-    //{
-    //    get => _exportFile;
-    //    set
-    //    {
-    //        if (_exportFile != null)
-    //        {
-    //            _exportFile.Dispose();
-    //        }
-    //        _exportFile = value;
-    //    }
-    //}
-
-    public AuthenticatorExportViewModel()
-    {
-
-    }
+    [Reactive]
+    public bool IsExporting { get; private set; }
 
     public async Task Export()
     {
-        if (string.IsNullOrWhiteSpace(VerifyPassword) && VerifyPassword != Password)
+        if (IsExporting) return;
+        var exportPassword = HasPasswordProtection ? Password : null;
+        var local = HasLocalProtection;
+        if (HasPasswordProtection && !AuthenticatorHelper.IsValidNewPassword(exportPassword))
+        {
+            Toast.Show(ToastIcon.Warning, Strings.Auth_VaultPasswordGuidance);
+            return;
+        }
+        if (HasPasswordProtection && !string.Equals(exportPassword, VerifyPassword, StringComparison.Ordinal))
         {
             Toast.Show(ToastIcon.Warning, Strings.LocalAuth_ProtectionAuth_PasswordErrorTip);
             return;
         }
 
-        var sourceData = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
-        var r = AuthenticatorHelper.HasEncrypt(sourceData);
-
-        string? password = null;
-        if (r.haspassword)
+        IsExporting = true;
+        try
         {
-            var textViewmodel = new TextBoxWindowViewModel()
-            {
-                InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
-            };
-            if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, Strings.Title_InputAuthPassword, isDialog: false,
-                  isCancelButton: true) &&
-              textViewmodel.Value != null)
-            {
-                password = textViewmodel.Value;
-            }
+            if (!local && exportPassword == null && !await IWindowManager.Instance.ShowTaskDialogAsync(
+                    new MessageBoxWindowViewModel { Content = Strings.Auth_VaultUnprotectedExport },
+                    Strings.ExportAuth, isCancelButton: true)) return;
+
+            Password = VerifyPassword = null;
+            var access = await AuthenticatorHelper.ReadAuthorizedVaultAsync(await AuthenticatorHelper.GetAllSourceAuthenticatorAsync());
+            if (access == null || access.Value.items.Count == 0) return;
+
+            var exportFile = await AuthenticatorHelper.ExportAsync($"WattToolkit Authenticators {DateTime.Now.ToString(DateTimeFormat.File)}",
+                local, access.Value.items, exportPassword);
+            if (exportFile != null)
+                Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(exportFile.ToString()));
         }
-
-        var auths = await AuthenticatorHelper.GetAllAuthenticatorsAsync(sourceData, password);
-
-        if (!auths.Any_Nullable())
+        catch (Exception ex)
         {
-            Toast.Show(ToastIcon.Warning, Strings.Warning_PasswordError);
-            return;
+            Log.Error(nameof(AuthenticatorExportViewModel), ex, "Could not export tokens.");
+            Toast.Show(ToastIcon.Error, Strings.LocalAuth_ExportAuth_Error.Format(Strings.Auth_VaultReadFailed));
         }
-
-        var exportFile = await AuthenticatorHelper.ExportAsync($"WattToolkit Authenticators {DateTime.Now.ToString(DateTimeFormat.File)}", HasLocalProtection, auths, VerifyPassword);
-        if (exportFile == null) return;
-        Toast.Show(ToastIcon.Success, Strings.ExportedToPath_.Format(exportFile?.ToString()));
-
-        //ExportFile = null;
+        finally
+        {
+            IsExporting = false;
+        }
     }
 }

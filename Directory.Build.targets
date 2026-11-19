@@ -72,6 +72,22 @@
     </ItemGroup>
   </Target>
 
+  <Target Name="WttsSupplyMacOSX64Dtls" BeforeTargets="_DTLSValidateStaticNativeLibrary"
+          DependsOnTargets="ResolvePackageAssets"
+          Condition="'$(WttsNativeAot)' == 'true' AND '$(PublishAot)' == 'true' AND '$(RuntimeIdentifier)' == 'osx-x64' AND '$(WttsMacOSX64DtlsAssets)' != ''">
+    <ItemGroup>
+      <_WttsDtlsReference Include="@(ResolvedCompileFileDefinitions)"
+                          Condition="'%(NuGetPackageId)' == 'DTLS' AND '%(NuGetPackageVersion)' == '0.5.1'" />
+      <_WttsDtlsNativeAsset Include="@(NativeCopyLocalItems)" Condition="'%(NuGetPackageId)' == 'DTLS'" />
+    </ItemGroup>
+    <ItemGroup Condition="'@(_WttsDtlsReference)' != '' AND '@(_WttsDtlsNativeAsset)' == ''">
+      <NativeCopyLocalItems Include="$(WttsMacOSX64DtlsAssets)/native/libdtls_native.dylib">
+        <NuGetPackageId>DTLS</NuGetPackageId>
+        <NuGetPackageVersion>0.5.1</NuGetPackageVersion>
+      </NativeCopyLocalItems>
+    </ItemGroup>
+  </Target>
+
   <!-- Precompile startup-heavy assemblies, not every SDK/API surface. Keep independent
        IL assemblies and dynamic plugins; composite R2R and global trimming stay off. -->
   <Target Name="WttsSelectStartupReadyToRunAssemblies" BeforeTargets="_PrepareForReadyToRunCompilation"
@@ -91,6 +107,10 @@
   <!-- Limit platform projects when validating one desktop without changing plain .NET/resource projects. -->
   <PropertyGroup Condition="'$(WttsDesktopTargetFrameworks)' != '' AND $(TargetFrameworks.Contains('-windows')) AND $(TargetFrameworks.Contains('-macos'))">
     <TargetFrameworks>$([System.Text.RegularExpressions.Regex]::Replace('$(WttsDesktopTargetFrameworks)', '-.*', ''));$(WttsDesktopTargetFrameworks)</TargetFrameworks>
+  </PropertyGroup>
+  <!-- Restore all compatible library targets without requiring mobile workloads for macOS Native AOT. -->
+  <PropertyGroup Condition="'$(WttsNativeAot)' == 'true' AND $([MSBuild]::GetTargetPlatformIdentifier('$(WttsDesktopTargetFrameworks)')) == 'macos' AND $(TargetFrameworks.Contains('-macos'))">
+    <TargetFrameworks>$([MSBuild]::Unescape($([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', 'net[0-9.]+-(?!macos)[^;]+;?', '').TrimEnd(';'))))</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(MSBuildProjectName)' == 'BD.WTTS.Client.Avalonia' OR ($([System.String]::Copy('$(MSBuildProjectName)').StartsWith('BD.WTTS.Client.Plugins.')) AND '$(MSBuildProjectName)' != 'BD.WTTS.Client.Plugins.Accelerator.ReverseProxy' AND '$(MSBuildProjectName)' != 'BD.WTTS.Client.Plugins.Update')">
