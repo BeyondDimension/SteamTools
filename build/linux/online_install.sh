@@ -270,7 +270,7 @@ Get_NewVer() {
 
 Download_File() {
     # 删除旧的文件
-    rm -rf $tar_path
+    rm -rf "$tar_path"
     title="安装"
     # 检查 o_sha384 是否为空
     if [ -z "$o_sha384" ]; then
