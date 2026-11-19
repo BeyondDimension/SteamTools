@@ -58,8 +58,13 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     readonly TaskCompletionSource<ICertificateManager> certificateManager = new(TaskCreationOptions.RunContinuationsAsynchronously);
     readonly BehaviorSubject<TrayToggleState> trayPreparation = new(TrayToggleState.Loading);
     int proxyInitializationState;
-    internal Task ServicesReady => Task.WhenAll(reverseProxyService.Task, certificateManager.Task);
+    internal Task ServicesReady { get; }
     //readonly TaskCompletionSource<IAcceleratorService> acceleratorService = new();
+
+    public Plugin()
+    {
+        ServicesReady = Task.WhenAll(reverseProxyService.Task, certificateManager.Task);
+    }
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {

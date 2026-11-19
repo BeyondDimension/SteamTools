@@ -7,13 +7,14 @@ public partial class Settings_Plugin : ReactiveUserControl<SettingsPageViewModel
     public Settings_Plugin()
     {
         InitializeComponent();
-        DataContext = new SettingsPageViewModel();
     }
 
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
 
-        ViewModel?.LoadPlugins();
+        this.SetViewModel<SettingsPageViewModel>();
+        if (DataContext is SettingsPageViewModel { Plugins: null } settings)
+            settings.LoadPlugins();
     }
 }

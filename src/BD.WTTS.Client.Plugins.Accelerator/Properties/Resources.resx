@@ -121,7 +121,4 @@
   <data name="accelerator" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\UI\Assets\accelerator.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="script" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\UI\Assets\script.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
 </root>

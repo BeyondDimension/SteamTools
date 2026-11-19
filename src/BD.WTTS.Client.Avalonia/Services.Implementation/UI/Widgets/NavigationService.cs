@@ -200,7 +200,7 @@ public sealed class NavigationService : INavigationService
             },
             NavigationTransitionEffect.DrillIn => new DrillInNavigationTransitionInfo(),
             NavigationTransitionEffect.Entrance => new EntranceNavigationTransitionInfo(),
-            _ => new SuppressNavigationTransitionInfo(),
+            _ => FrameEffect.NoTransition,
         };
 
         return transitionInfo;

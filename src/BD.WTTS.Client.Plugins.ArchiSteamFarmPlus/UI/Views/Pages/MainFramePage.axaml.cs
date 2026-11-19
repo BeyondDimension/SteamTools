@@ -1,14 +1,11 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-using FluentAvalonia.UI.Media.Animation;
 
 namespace BD.WTTS.UI.Views.Pages;
 
 public partial class MainFramePage : UserControl
 {
-    int lastIndex = -1;
-
     [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(ArchiSteamFarmPage))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(BotPage))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(ASFSettingsPage))]
@@ -38,13 +35,7 @@ public partial class MainFramePage : UserControl
             if (InnerNavFrame.CurrentSourcePageType == t)
                 return;
 
-            InnerNavFrame.Navigate(t, null, new SlideNavigationTransitionInfo
-            {
-                Effect = FrameEffect.GetEffect(lastIndex, Tabs.SelectedIndex),
-                FromHorizontalOffset = 70,
-            });
-
-            lastIndex = Tabs.SelectedIndex;
+            InnerNavFrame.Navigate(t, null, FrameEffect.NoTransition);
         }
     }
 }

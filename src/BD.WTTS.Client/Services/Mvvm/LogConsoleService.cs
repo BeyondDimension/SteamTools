@@ -1,6 +1,5 @@
 #if !ANDROID && !IOS
 using Avalonia.Threading;
-using Utf8StringInterpolation;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
@@ -18,44 +17,37 @@ public sealed partial class LogConsoleService : ReactiveObject
 
     #region UI 进程部分
 
-    readonly string?[] logMessages = new string?[2];
+    readonly Source accelerator = new();
+    readonly Source backend = new();
 
     /// <summary>
     /// 加速进程的日志
     /// </summary>
-    public string? LogMessageAccelerator => logMessages[0];
+    public string? LogMessageAccelerator => accelerator.ToString();
 
     /// <summary>
     /// 后端进程的日志
     /// </summary>
-    public string? LogMessageBackEnd => logMessages[1];
-
-    /// <summary>
-    /// 日志源
-    /// </summary>
-    readonly Dictionary<string, Source> sources = new();
+    public string? LogMessageBackEnd => backend.ToString();
 
     partial class Source
     {
+        int notificationPending;
+
         /// <summary>
         /// 追加收到的日志 UTF-8 字节并触发属性通知
         /// </summary>
-        public void AppendWithPropertyChanged(IReactiveObject o, byte[]? value,
-            string propertyName, ref string? propertyValue)
+        public void AppendWithPropertyChanged(IReactiveObject o, byte[] value, string propertyName)
         {
-            if (value != null && value.Length > 0)
+            Append(value);
+            if (Interlocked.Exchange(ref notificationPending, 1) != 0)
+                return;
+
+            Dispatcher.UIThread.Post(() =>
             {
-                Append(value);
-
-                var logAllMessage = ToString();
-                propertyValue = logAllMessage;
-
-                Dispatcher.UIThread.Invoke(() =>
-                {
-                    o.RaisePropertyChanged(propertyName);
-                });
-
-            }
+                Interlocked.Exchange(ref notificationPending, 0);
+                o.RaisePropertyChanged(propertyName);
+            });
         }
     }
 
@@ -66,30 +58,17 @@ public sealed partial class LogConsoleService : ReactiveObject
     /// <param name="value"></param>
     internal void WriteMessage(string? moduleName, byte[]? value)
     {
-        if (!string.IsNullOrWhiteSpace(moduleName) &&
-            value != null && value.Length > 0)
-        {
-            if (!sources.TryGetValue(moduleName, out var source))
-            {
-                source = new(
-#if DEBUG
-                    moduleName
-#endif
-                    );
-                sources.Add(moduleName, source);
-            }
+        if (value is not { Length: > 0 })
+            return;
 
-            switch (moduleName)
-            {
-                case AssemblyInfo.Accelerator:
-                    source.AppendWithPropertyChanged(this, value,
-                        nameof(LogMessageAccelerator), ref logMessages[0]);
-                    break;
-                case IPlatformService.IPCRoot.moduleName:
-                    source.AppendWithPropertyChanged(this, value,
-                        nameof(LogMessageBackEnd), ref logMessages[1]);
-                    break;
-            }
+        switch (moduleName)
+        {
+            case AssemblyInfo.Accelerator:
+                accelerator.AppendWithPropertyChanged(this, value, nameof(LogMessageAccelerator));
+                break;
+            case IPlatformService.IPCRoot.moduleName:
+                backend.AppendWithPropertyChanged(this, value, nameof(LogMessageBackEnd));
+                break;
         }
     }
 

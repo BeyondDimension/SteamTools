@@ -120,82 +120,52 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
     }
 #endif
 
-    ///// <summary>
-    ///// 开始计算指定文件夹大小
-    ///// </summary>
-    ///// <param name="isStartCacheSizeCalc"></param>
-    ///// <param name="sizeFormat"></param>
-    ///// <param name="action"></param>
-    //[Obsolete("use StartSizeCalcByCacheSize or StartSizeCalcByLogSize")]
-    //public static void StartCacheSizeCalc(ref bool isStartCacheSizeCalc, string sizeFormat, Action<string> action, CancellationToken cancellationToken = default)
-    //{
-    //    if (isStartCacheSizeCalc) return;
-    //    isStartCacheSizeCalc = true;
-    //    string? dirPath;
-    //    if (sizeFormat == AppResources.Settings_General_CacheSize)
-    //    {
-    //        dirPath = IOPath.CacheDirectory;
-    //    }
-    //    else if (sizeFormat == AppResources.Settings_General_LogSize)
-    //    {
-    //        dirPath = IApplication.LogDirPath;
-    //    }
-    //    else
-    //    {
-    //        dirPath = null;
-    //    }
-    //    if (dirPath != null)
-    //    {
-    //        StartCacheSizeCalc2(dirPath, value => action(sizeFormat.Format(value)), cancellationToken);
-    //    }
-    //}
-
-    static void StartCacheSizeCalc2(string dirPath, Action<string> action, CancellationToken cancellationToken = default)
+    internal sealed class DirectorySizeMeasurement(TimeSpan maxAge)
     {
-        action(AppResources.Settings_General_Calcing);
-        try
-        {
-            Task.Run(async () =>
-            {
-                var length = IOPath.GetDirectorySize(dirPath);
-                var lenString = IOPath.GetDisplayFileSizeString(length);
-                await MainThread2.InvokeOnMainThreadAsync(() =>
-                {
-                    action(lenString);
-                });
-            }, cancellationToken);
-        }
-        catch (OperationCanceledException)
-        {
+        readonly object sync = new();
+        string? directory;
+        Task<long>? scan;
+        long startedAt;
 
+        public Task<long> GetAsync(string path)
+        {
+            lock (sync)
+            {
+                if (directory == path && scan != null &&
+                    (!scan.IsCompleted || (scan.IsCompletedSuccessfully && Stopwatch.GetElapsedTime(startedAt) < maxAge)))
+                    return scan;
+
+                directory = path;
+                startedAt = Stopwatch.GetTimestamp();
+                return scan = Task.Run(() => IOPath.GetDirectorySize(path));
+            }
         }
     }
 
-    static readonly Dictionary<string, string> cacheSizeCalcCache = new();
+    static readonly DirectorySizeMeasurement cacheSize = new(TimeSpan.FromSeconds(30));
+    static readonly DirectorySizeMeasurement logSize = new(TimeSpan.FromSeconds(30));
 
-    static void StartCacheSizeCalc2(string dirPath, Func<string> getResString, Action<string> action)
+    static async Task ShowDirectorySizeAsync(Task<long> scan, string format, Action<string> show)
     {
-        if (cacheSizeCalcCache.TryGetValue(dirPath, out var value))
-        {
-            action(Action(value));
-        }
-        else
-        {
-            StartCacheSizeCalc2(dirPath, value => action(Action(value)));
-        }
+        if (!scan.IsCompleted)
+            show(format.Format(AppResources.Settings_General_Calcing));
 
-        string Action(string value) => getResString().Format(value);
+        string size;
+        try
+        {
+            size = IOPath.GetDisplayFileSizeString(await scan.ConfigureAwait(false));
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(SettingsPageViewModel), ex, "Could not measure directory size.");
+            size = AppResources.Error;
+        }
+        await MainThread2.InvokeOnMainThreadAsync(() => show(format.Format(size)));
     }
 
     public static void StartSizeCalcByCacheSize(Action<string> action)
-        => StartCacheSizeCalc2(
-            IOPath.CacheDirectory,
-            () => AppResources.Settings_General_CacheSize,
-            action);
+        => _ = ShowDirectorySizeAsync(cacheSize.GetAsync(IOPath.CacheDirectory), AppResources.Settings_General_CacheSize, action);
 
     public static void StartSizeCalcByLogSize(Action<string> action)
-        => StartCacheSizeCalc2(
-            IApplication.LogDirPath,
-            () => AppResources.Settings_General_LogSize,
-            action);
+        => _ = ShowDirectorySizeAsync(logSize.GetAsync(IApplication.LogDirPath), AppResources.Settings_General_LogSize, action);
 }

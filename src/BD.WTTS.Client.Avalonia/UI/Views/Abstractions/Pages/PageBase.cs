@@ -152,8 +152,8 @@ public class PageBase : UserControl
         base.OnLoaded(e);
         _backgroundSubscription ??= UISettings.WindowBackgroundCustomImage.Subscribe(x => IsShowBackgroundImage = !x);
         _hasLoaded = true;
-        SetDetailsAnimation();
-        SetTabsAnimation();
+        EnsureOffsetAnimation(_detailsPanel);
+        EnsureOffsetAnimation(_tabsHost);
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)
@@ -229,13 +229,13 @@ public class PageBase : UserControl
         _cts = null;
     }
 
-    private void SetTabsAnimation()
+    private static void EnsureOffsetAnimation(Visual? host)
     {
-        if (_tabsHost == null)
+        if (host == null)
             return;
 
-        var ec = ElementComposition.GetElementVisual(_tabsHost);
-        if (ec == null)
+        var ec = ElementComposition.GetElementVisual(host);
+        if (ec == null || ec.ImplicitAnimations?.ContainsKey("Offset") == true)
             return;
         var compositor = ec.Compositor;
 
@@ -244,31 +244,8 @@ public class PageBase : UserControl
         offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
         offsetAnimation.Duration = TimeSpan.FromMilliseconds(250);
 
-        var ani = compositor.CreateImplicitAnimationCollection();
-        ani["Offset"] = offsetAnimation;
-
-        ec.ImplicitAnimations = ani;
-    }
-
-    private void SetDetailsAnimation()
-    {
-        if (_detailsPanel == null)
-            return;
-
-        var ec = ElementComposition.GetElementVisual(_detailsPanel);
-        if (ec == null)
-            return;
-        var compositor = ec.Compositor;
-
-        var offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
-        offsetAnimation.Target = "Offset";
-        offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue");
-        offsetAnimation.Duration = TimeSpan.FromMilliseconds(250);
-
-        var ani = compositor.CreateImplicitAnimationCollection();
-        ani["Offset"] = offsetAnimation;
-
-        ec.ImplicitAnimations = ani;
+        var animations = ec.ImplicitAnimations ??= compositor.CreateImplicitAnimationCollection();
+        animations["Offset"] = offsetAnimation;
     }
 
     //private void FrameNavigatingFrom(object? sender, NavigatingCancelEventArgs e)

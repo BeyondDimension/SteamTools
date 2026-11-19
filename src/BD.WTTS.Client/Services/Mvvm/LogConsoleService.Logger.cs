@@ -16,109 +16,73 @@ partial class LogConsoleService
     /// <summary>
     /// 日志源
     /// </summary>
-    [DebuggerDisplay("{DebuggerDisplay(),nq}")]
+    [DebuggerDisplay("Log bytes = {length}")]
     internal sealed partial class Source
     {
-        List<byte[]>? chunk;
-        (string? str, long byteLength)? message = null;
+        readonly object sync = new();
+        byte[] buffer = [];
+        int length;
+        string? snapshot;
 
-#if DEBUG
-        readonly string moduleName;
-
-        public Source(string moduleName)
-        {
-            this.moduleName = moduleName;
-        }
-
-        string DebuggerDisplay() =>
-$"""
-moduleName: {moduleName}
-ByteLength: {ByteLength}
-{ToString()}
-""";
-#endif
-
-        public long ByteLength { get; private set; }
-
-        public void BuilderAppend(byte[] value)
-        {
-            (chunk ??= new()).Add(value);
-            ByteLength += value.Length;
-        }
-
-        void BuilderClear()
-        {
-            if (chunk != null && chunk.Count > 1)
-            {
-                // 保留最后 21.3% 的日志
-                var keppLength = (int)MathF.Floor(chunk.Count * .213f);
-                if (keppLength <= 0 || keppLength >= chunk.Count)
-                {
-                    keppLength = 1;
-                }
-                chunk = chunk.TakeLast(keppLength).ToList();
-            }
-
-            message = null;
-            ByteLength = 0;
-        }
-
-        /// <summary>
-        /// 追加收到的日志 UTF-8 字节
-        /// </summary>
         public void Append(byte[]? value)
         {
-            if (value != null && value.Length > 0)
+            if (value is not { Length: > 0 })
+                return;
+
+            lock (sync)
             {
-                if (ByteLength > ConsoleMaxByteCount)
+                var previousLength = length;
+                ReadOnlySpan<byte> entry = value;
+                if (entry.Length > ConsoleMaxByteCount)
                 {
-                    BuilderClear();
+                    length = 0;
+                    entry = entry[^ConsoleMaxByteCount..];
+                    entry = entry[Utf8StartOffset(entry)..];
                 }
 
-                // 追加收到的日志 UTF-8 字节
-                BuilderAppend(value);
+                if (length > ConsoleMaxByteCount - entry.Length)
+                {
+                    // Leave room for new entries and keep recent complete log lines.
+                    var keep = Math.Min(ConsoleMaxByteCount / 5, ConsoleMaxByteCount - entry.Length);
+                    var tail = buffer.AsSpan(length - keep, keep);
+                    if (keep > 0 && buffer[length - keep - 1] != (byte)'\n')
+                    {
+                        var newline = tail.IndexOf((byte)'\n');
+                        var start = newline >= 0 ? newline + 1 : Utf8StartOffset(tail);
+                        tail = tail[start..];
+                    }
+                    tail.CopyTo(buffer);
+                    length = tail.Length;
+                }
+
+                var required = length + entry.Length;
+                if (required > buffer.Length)
+                {
+                    var grownCapacity = Math.Max(256, buffer.Length * 2);
+                    Array.Resize(ref buffer, Math.Clamp(grownCapacity, required, ConsoleMaxByteCount));
+                }
+
+                entry.CopyTo(buffer.AsSpan(length));
+                if (required < previousLength)
+                    buffer.AsSpan(required, previousLength - required).Clear();
+                length = required;
+                snapshot = null;
             }
+        }
+
+        static int Utf8StartOffset(ReadOnlySpan<byte> bytes)
+        {
+            // A cut through a multi-byte character must skip its continuation bytes.
+            var index = 0;
+            while (index < bytes.Length && (bytes[index] & 0xc0) == 0x80)
+                index++;
+            return index;
         }
 
         public override string? ToString()
         {
-            if (message != null)
-            {
-                if (ByteLength == message.Value.byteLength)
-                {
-                    // 根据 len 判断是否使用缓存
-                    return message.Value.str;
-                }
-            }
-
-            if (chunk == null)
-            {
-                return null;
-            }
-            else if (chunk.Count <= 0)
-            {
-                return string.Empty;
-            }
-
-            using var buffer = Utf8String.CreateWriter(out var writer);
-
-            foreach (var it in chunk)
-            {
-                // 拼接字符串
-                writer.AppendUtf8(it);
-            }
-
-            writer.Flush();
-
-            var u8_bytes = buffer.ToArray();
-
-            chunk = [u8_bytes];
-
-            var result = Encoding.UTF8.GetString(u8_bytes);
-
-            // 设置缓存值
-            message = new(result, ByteLength);
-            return result;
+            lock (sync)
+                return length == 0 ? null : snapshot ??= Encoding.UTF8.GetString(buffer, 0, length);
         }
     }
 
@@ -258,11 +222,7 @@ ByteLength: {ByteLength}
     }
 
 #if APP_REVERSE_PROXY
-    internal static readonly Source Builder = new(
-#if DEBUG
-        AssemblyInfo.Accelerator
-#endif
-        );
+    internal static readonly Source Builder = new();
 #endif
 
     internal sealed class Utf8StringLogger(string name) : ILogger

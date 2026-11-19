@@ -1,7 +1,5 @@
 using Avalonia.Controls;
 using BD.WTTS.Enums;
-using FluentAvalonia.Core;
-using FluentAvalonia.UI.Media.Animation;
 using FluentAvalonia.UI.Navigation;
 
 namespace BD.WTTS.UI.Views.Pages;
@@ -18,7 +16,6 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
 #endif
 
         NavView.ItemInvoked += NavView_ItemInvoked;
-
         FrameView.Navigated += OnFrameViewNavigated;
         NavView.BackRequested += OnNavigationViewBackRequested;
     }
@@ -27,85 +24,34 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
     {
         if (e.InvokedItemContainer is NavigationViewItem nvi)
         {
-            if (nvi.DataContext is MenuTabItemViewModel menu && menu.PageType != null)
-            {
-                if (menu.PageType == FrameView?.Content?.GetType())
-                    return;
-                NavigationService.Instance.Navigate(menu.PageType, NavigationTransitionEffect.FromBottom);
-                return;
-            }
-
-            NavigationService.Instance.Navigate(typeof(ErrorPage), NavigationTransitionEffect.Entrance);
+            if (nvi.DataContext is MenuTabItemViewModel { PageType: { } pageType })
+                NavigationService.Instance.Navigate(pageType);
+            else
+                NavigationService.Instance.Navigate(typeof(ErrorPage), NavigationTransitionEffect.Entrance);
         }
     }
 
-    //private void NavView_SelectionChanged(object? sender, NavigationViewSelectionChangedEventArgs e)
-    //{
-    //    if (e.SelectedItem is MenuTabItemViewModel menu && menu.PageType != null)
-    //    {
-    //        if (menu.PageType == FrameView?.Content?.GetType())
-    //            return;
-    //        NavigationService.Instance.Navigate(menu.PageType, NavigationTransitionEffect.FromBottom);
-    //        return;
-    //    }
-
-    //    NavigationService.Instance.Navigate(typeof(ErrorPage), NavigationTransitionEffect.Entrance);
-    //    //FrameView?.Navigate(typeof(ErrorPage), info);
-    //}
-
     private void OnFrameViewNavigated(object? sender, NavigationEventArgs e)
     {
-        var page = e.Content as Control;
-        if (page == null)
-            return;
-        if (page.GetType() == typeof(ErrorPage))
+        if (e.Content is not Control page)
             return;
 
-        var dc = page.DataContext;
+        UpdateBackButton();
+        if (page is ErrorPage || MatchesPage(NavView.SelectedItem))
+            return;
 
-        ViewModelBase? mainPage = dc switch
+        NavView.SelectedItem = FindMenuItem(NavView.MenuItemsSource) ?? FindMenuItem(NavView.FooterMenuItemsSource);
+
+        bool MatchesPage(object? item) => item is TabItemViewModel tab &&
+            (ReferenceEquals(tab, page.DataContext) || tab is MenuTabItemViewModel menu && menu.PageType == page.GetType());
+
+        object? FindMenuItem(System.Collections.IEnumerable? items)
         {
-            MenuTabItemViewModel mtvm => mtvm,
-            TabItemViewModel tvm => tvm,
-            ViewModelBase b => b,
-            _ => null,
-        };
-
-        NavView.SelectedItem = null;
-
-        var menuItemsSource = NavView.MenuItemsSource;
-        if (menuItemsSource != null)
-            foreach (var nvi in menuItemsSource)
-            {
-                SetSelectedItem(nvi);
-            }
-
-        var footerMenuItemsSource = NavView.FooterMenuItemsSource;
-        if (footerMenuItemsSource != null)
-            foreach (var nvi in footerMenuItemsSource)
-            {
-                SetSelectedItem(nvi);
-            }
-
-        if (FrameView.BackStackDepth > 0 && !NavView.IsBackButtonVisible)
-        {
-            AnimateContentForBackButton(true);
-        }
-        else if (FrameView.BackStackDepth == 0 && NavView.IsBackButtonVisible)
-        {
-            AnimateContentForBackButton(false);
-        }
-
-        void SetSelectedItem(object? nvi)
-        {
-            if (nvi == mainPage)
-            {
-                NavView.SelectedItem = nvi;
-            }
-            else if (nvi is MenuTabItemViewModel menu && menu.PageType == page.GetType())
-            {
-                NavView.SelectedItem = nvi;
-            }
+            if (items != null)
+                foreach (var item in items)
+                    if (MatchesPage(item))
+                        return item;
+            return null;
         }
     }
 
@@ -117,7 +63,7 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
         if (top != null)
             AvaloniaToastServiceImpl.Instance.SetSnackbarManager(top);
         NavigationService.Instance.SetFrame(FrameView);
-        NavView.IsBackButtonVisible = FrameView.BackStackDepth > 0;
+        UpdateBackButton();
     }
 
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
@@ -131,74 +77,10 @@ public sealed partial class MainView : ReactiveUserControl<MainWindowViewModel>
         NavigationService.Instance.GoBack();
     }
 
-    private async void AnimateContentForBackButton(bool show)
+    private void UpdateBackButton()
     {
-        if (!TitleBarHost.WindowIcon.IsVisible)
-            return;
-
-        if (show)
-        {
-            var ani = new Animation
-            {
-                Duration = TimeSpan.FromMilliseconds(250),
-                FillMode = FillMode.Forward,
-                Children =
-                {
-                    new KeyFrame
-                    {
-                        Cue = new Cue(0d),
-                        Setters =
-                        {
-                            new Setter(MarginProperty, new Thickness(18, 4, 10, 4))
-                        }
-                    },
-                    new KeyFrame
-                    {
-                        Cue = new Cue(1d),
-                        KeySpline = new KeySpline(0, 0, 0, 1),
-                        Setters =
-                        {
-                            new Setter(MarginProperty, new Thickness(48, 4, 10, 4))
-                        }
-                    }
-                }
-            };
-
-            await ani.RunAsync(TitleBarHost.WindowIcon);
-
-            NavView.IsBackButtonVisible = true;
-        }
-        else
-        {
-            NavView.IsBackButtonVisible = false;
-
-            var ani = new Animation
-            {
-                Duration = TimeSpan.FromMilliseconds(250),
-                FillMode = FillMode.Forward,
-                Children =
-                {
-                    new KeyFrame
-                    {
-                        Cue = new Cue(0d),
-                        Setters =
-                        {
-                            new Setter(MarginProperty, new Thickness(48, 4, 10, 4))
-                        }
-                    },
-                    new KeyFrame
-                    {
-                        Cue = new Cue(1d),
-                        KeySpline = new KeySpline(0, 0, 0, 1),
-                        Setters =
-                        {
-                            new Setter(MarginProperty, new Thickness(18, 4, 10, 4))
-                        }
-                    }
-                }
-            };
-
-            await ani.RunAsync(TitleBarHost.WindowIcon);
-        }
+        var canGoBack = FrameView.CanGoBack;
+        NavView.IsBackButtonVisible = canGoBack;
+        TitleBarHost.WindowIcon.Margin = new Thickness(canGoBack ? 48 : 18, 4, 10, 4);
     }
 }

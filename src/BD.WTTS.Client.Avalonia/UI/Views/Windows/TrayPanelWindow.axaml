@@ -199,16 +199,16 @@
 							ToolTip.Tip="{x:Static spp:Strings.Retry}">
 							<ui:FASymbolIcon FontSize="14" Symbol="Refresh" />
 						</Button>
-						<Button
-							Grid.Column="2"
-							MinHeight="28"
-							Padding="6,2"
-							FontSize="12"
-							Click="DismissAfterAction"
-							Command="{Binding ManageAccountsCommand}"
-							CommandParameter="{Binding ManageAccountsCommandParameter}"
-							Content="{x:Static spp:Strings.Tray_ManageAccounts}"
-							Theme="{StaticResource TransparentButton}" />
+						<!-- <Button -->
+						<!-- 	Grid.Column="2" -->
+						<!-- 	MinHeight="28" -->
+						<!-- 	Padding="6,2" -->
+						<!-- 	FontSize="12" -->
+						<!-- 	Click="DismissAfterAction" -->
+						<!-- 	Command="{Binding ManageAccountsCommand}" -->
+						<!-- 	CommandParameter="{Binding ManageAccountsCommandParameter}" -->
+						<!-- 	Content="{x:Static spp:Strings.Tray_ManageAccounts}" -->
+						<!-- 	Theme="{StaticResource TransparentButton}" /> -->
 					</Grid>
 					<ScrollViewer
 						x:Name="AccountScroll"
@@ -284,6 +284,7 @@
 			</Grid>
 
 			<StackPanel Grid.Row="2">
+				<Border Height="1" Margin="0,3" Background="{DynamicResource CardStrokeColorDefaultBrush}" />
 				<Button
 					x:Name="MainPanelButton"
 					AutomationProperties.Name="{x:Static spp:Strings.OpenMainWindow}"
@@ -306,6 +307,7 @@
 						<TextBlock Grid.Column="1" Classes="trayMenuLabel" Text="{Binding SteamActionText}" />
 					</Grid>
 				</Button>
+				<Border Height="1" Margin="0,3" Background="{DynamicResource CardStrokeColorDefaultBrush}" />
 				<Button
 					x:Name="PluginActionsButton"
 					AutomationProperties.Name="{x:Static spp:Strings.More}"
