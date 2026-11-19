@@ -28,7 +28,7 @@ public sealed class SteamGameLibraryLoadingTest
 
         steam.SetupGet(x => x.IsRunningSteamProcess).Returns(true);
         steam.Setup(x => x.GetSteamProcessPid()).Returns(() => Volatile.Read(ref processId));
-        steam.Setup(x => x.GetModifiedApps()).Returns((List<ModifiedApp>?)null);
+        steam.Setup(x => x.GetAppInfoEdits()).Returns(new Dictionary<uint, SteamAppEdit>());
         steam.Setup(x => x.GetDownloadingAppList()).Returns(new List<SteamApp>());
         steam.Setup(x => x.ReadAppInfosInBatchesAsync(It.IsAny<Action<IReadOnlyList<SteamApp>>>(), It.IsAny<CancellationToken>()))
             .Returns<Action<IReadOnlyList<SteamApp>>, CancellationToken>(async (publish, token) =>
@@ -83,7 +83,7 @@ public sealed class SteamGameLibraryLoadingTest
         var readCount = 0;
         steam.SetupGet(x => x.IsRunningSteamProcess).Returns(() => processId != 0);
         steam.Setup(x => x.GetSteamProcessPid()).Returns(() => processId);
-        steam.Setup(x => x.GetModifiedApps()).Returns((List<ModifiedApp>?)null);
+        steam.Setup(x => x.GetAppInfoEdits()).Returns(new Dictionary<uint, SteamAppEdit>());
         steam.Setup(x => x.GetDownloadingAppList()).Returns(new List<SteamApp>());
         steam.Setup(x => x.ReadAppInfosInBatchesAsync(It.IsAny<Action<IReadOnlyList<SteamApp>>>(), It.IsAny<CancellationToken>()))
             .Returns<Action<IReadOnlyList<SteamApp>>, CancellationToken>((publish, _) =>
@@ -140,7 +140,7 @@ public sealed class SteamGameLibraryLoadingTest
         var readCount = 0;
         steam.SetupGet(x => x.IsRunningSteamProcess).Returns(false);
         steam.Setup(x => x.GetSteamProcessPid()).Returns(0);
-        steam.Setup(x => x.GetModifiedApps()).Returns((List<ModifiedApp>?)null);
+        steam.Setup(x => x.GetAppInfoEdits()).Returns(new Dictionary<uint, SteamAppEdit>());
         steam.Setup(x => x.GetDownloadingAppList()).Returns(new List<SteamApp>());
         steam.Setup(x => x.ReadAppInfosInBatchesAsync(It.IsAny<Action<IReadOnlyList<SteamApp>>>(), It.IsAny<CancellationToken>()))
             .Returns<Action<IReadOnlyList<SteamApp>>, CancellationToken>(async (publish, token) =>

@@ -457,37 +457,60 @@ public sealed partial class SteamConnectService
         }
     }
 
-    public int ApplyModifiedApps(IEnumerable<ModifiedApp>? modifiedApps)
+    public async Task SaveGameAppEditAsync(SteamApp app, SteamAppEdit edit)
     {
-        var appliedCount = 0;
-        if (!modifiedApps.Any_Nullable())
+        await gameListGate.WaitAsync();
+        try
         {
-            return appliedCount;
+            // The cached app can change while its editor is open (account or path switch).
+            var current = SteamApps.Lookup(app.AppId);
+            if (!current.HasValue || !ReferenceEquals(current.Value, app))
+                throw new InvalidOperationException("The Steam library changed while editing this game.");
+
+            await stmService.SaveLocalAppInfoEditsAsync(new Dictionary<uint, SteamAppEdit> { [app.AppId] = edit });
+            app.ApplyAppInfoEdit(edit);
+            SteamApps.Refresh(app);
         }
-
-        SteamApps.Edit(updater =>
+        finally
         {
-            foreach (var modifiedApp in modifiedApps)
+            gameListGate.Release();
+        }
+    }
+
+    public async Task<int> ImportGameAppEditsAsync(IReadOnlyDictionary<uint, SteamAppEdit> edits)
+    {
+        await gameListGate.WaitAsync();
+        try
+        {
+            var changes = new Dictionary<uint, SteamAppEdit>();
+            foreach (var (id, edit) in edits)
             {
-                modifiedApp.ReadChanges();
-
-                if (modifiedApp.Changes == null)
+                var app = SteamApps.Lookup(id);
+                if (!app.HasValue || edit.IsEmpty)
                     continue;
-
-                var optional = updater.Lookup(modifiedApp.AppId);
-                if (!optional.HasValue)
-                    continue;
-
-                var value = optional.Value;
-                value.ExtractReaderProperty(modifiedApp.Changes);
-                value.OriginalData = modifiedApp.OriginalData;
-                value.IsEdited = true;
-                updater.Refresh(value);
-                appliedCount++;
+                var original = app.Value.GetOriginalEditValues();
+                changes[id] = SteamAppEdit.Capture(app.Value).WithOverrides(edit).Diff(original);
             }
-        });
 
-        return appliedCount;
+            if (changes.Count == 0)
+                return 0;
+            await stmService.SaveLocalAppInfoEditsAsync(changes);
+            SteamApps.Edit(updater =>
+            {
+                foreach (var (id, edit) in changes)
+                {
+                    var current = updater.Lookup(id);
+                    if (!current.HasValue) continue;
+                    current.Value.ApplyAppInfoEdit(edit);
+                    updater.Refresh(current.Value);
+                }
+            });
+            return changes.Count;
+        }
+        finally
+        {
+            gameListGate.Release();
+        }
     }
 
 
@@ -638,15 +661,7 @@ public sealed partial class SteamConnectService
                 SteamApps.Clear();
             }
 
-            var modifications = new Dictionary<uint, ModifiedApp>();
-            if (stmService.GetModifiedApps() is { } modifiedApps)
-            {
-                foreach (var modified in modifiedApps)
-                {
-                    modified.ReadChanges();
-                    if (modified.Changes != null) modifications[modified.AppId] = modified;
-                }
-            }
+            var modifications = stmService.GetAppInfoEdits();
 
             long nextSessionCheck = 0;
 
@@ -667,12 +682,8 @@ public sealed partial class SteamConnectService
                 var owned = processId != 0 ? new List<SteamApp>(batch.Count) : null;
                 foreach (var app in processId != 0 ? swLocalService.OwnsApps(batch) : batch)
                 {
-                    if (modifications.TryGetValue(app.AppId, out var modified))
-                    {
-                        app.ExtractReaderProperty(modified.Changes!);
-                        app.OriginalData = modified.OriginalData;
-                        app.IsEdited = true;
-                    }
+                    if (modifications.TryGetValue(app.AppId, out var edit))
+                        app.ApplyAppInfoEdit(edit);
                     owned?.Add(app);
                 }
 

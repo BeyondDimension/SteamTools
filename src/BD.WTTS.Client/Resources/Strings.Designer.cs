@@ -11728,13 +11728,17 @@ namespace BD.WTTS.Client.Resources {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to 保存成功但还不会直接写入 Steam 文件，请到右上角编辑列表中保存所有更改信息到 Steam 文件中，即可生效！.
+        ///   Looks up a localized string similar to 游戏信息已保存在本地。请完全退出 Steam，然后在编辑列表中选择“应用到 Steam”。.
         /// </summary>
         public static string L10nGames_SaveEditNotice {
             get {
                 return ResourceManager.GetString("L10nGames_SaveEditNotice", resourceCulture);
             }
         }
+
+        public static string L10nGames_SaveLocalEdit => ResourceManager.GetString("L10nGames_SaveLocalEdit", resourceCulture);
+
+        public static string L10nGames_ExitSteamBeforeApply => ResourceManager.GetString("L10nGames_ExitSteamBeforeApply", resourceCulture);
 
         /// <summary>
         ///   Looks up a localized string similar to 图片下载需要一些时间，请稍后.

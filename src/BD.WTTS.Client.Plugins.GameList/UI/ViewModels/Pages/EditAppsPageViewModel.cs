@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -20,6 +19,10 @@ public sealed class EditAppsPageViewModel : ViewModelBase
     public bool IsExportingBackup { get; set; }
 
     public ICommand EditAppInfoClickCommand { get; }
+    public ICommand ApplyToSteamCommand { get; }
+    public ICommand RefreshCommand { get; }
+    public ICommand ExportCommand { get; }
+    public ICommand ImportCommand { get; }
 
     public EditAppsPageViewModel()
     {
@@ -32,6 +35,10 @@ public sealed class EditAppsPageViewModel : ViewModelBase
           .Subscribe(_ => this.RaisePropertyChanged(nameof(IsSteamEditedAppsEmpty)));
 
         EditAppInfoClickCommand = ReactiveCommand.Create<SteamApp>(GameListPageViewModel.EditAppInfoClick);
+        ApplyToSteamCommand = ReactiveCommand.CreateFromTask(SaveSteamEditedApps);
+        RefreshCommand = ReactiveCommand.Create(LoadSteamEditedApps);
+        ExportCommand = ReactiveCommand.CreateFromTask(ExportSteamEditedAppsBackup);
+        ImportCommand = ReactiveCommand.CreateFromTask(ImportSteamEditedAppsBackup);
 
         LoadSteamEditedApps();
     }
@@ -43,18 +50,25 @@ public sealed class EditAppsPageViewModel : ViewModelBase
 
     public async Task SaveSteamEditedApps()
     {
-        var stmService = ISteamService.Instance;
-        if (await stmService.SaveAppInfosToSteam())
+        var steam = ISteamService.Instance;
+        try
         {
-            if (await MessageBox.ShowAsync(Strings.SaveEditedAppInfo_RestartSteamTip, AssemblyInfo.Trademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
+            if (steam.IsRunningSteamProcess)
             {
-                await stmService.TryKillSteamProcess();
-                stmService.StartSteamWithParameter();
+                Toast.Show(ToastIcon.Warning, Strings.L10nGames_ExitSteamBeforeApply);
+                return;
             }
-            Toast.Show(ToastIcon.Success, Strings.SaveEditedAppInfo_SaveToSteamSuccess);
+
+            if (await steam.SaveAppInfosToSteam())
+                Toast.Show(ToastIcon.Success, Strings.SaveEditedAppInfo_SaveToSteamSuccess);
+            else if (steam.IsRunningSteamProcess)
+                Toast.Show(ToastIcon.Warning, Strings.L10nGames_ExitSteamBeforeApply);
+            else
+                Toast.Show(ToastIcon.Error, Strings.SaveEditedAppInfo_SaveToSteamFailed);
         }
-        else
+        catch (Exception ex)
         {
+            Log.Error(nameof(EditAppsPageViewModel), ex, "Unable to apply game edits to Steam.");
             Toast.Show(ToastIcon.Error, Strings.SaveEditedAppInfo_SaveToSteamFailed);
         }
     }
@@ -66,58 +80,30 @@ public sealed class EditAppsPageViewModel : ViewModelBase
             return;
         }
 
-        if (!SteamEditedApps.Any())
-        {
-            Toast.Show(ToastIcon.Warning, Strings.L10nGames_ExportEmpty);
-            return;
-        }
-
-        var result = await FilePicker2.SaveAsync(new PickOptions
-        {
-            PickerTitle = Strings.L10nGames_ExportTitle,
-            InitialFileName = $"steam-edited-apps-{DateTime.Now:yyyyMMddHHmmss}.stmbak",
-        });
-
-        if (result == null)
-        {
-            return;
-        }
-
         try
         {
             IsExportingBackup = true;
-            var exportData = await Task.Run(async () =>
+            var edits = await Task.Run(() => ISteamService.Instance.GetAppInfoEdits()
+                .Where(entry => !entry.Value.IsEmpty).ToDictionary(entry => entry.Key, entry => entry.Value));
+            if (edits.Count == 0)
             {
-                var stmService = ISteamService.Instance;
-                var applist = await stmService.GetAppInfos(true);
-                var editApps = SteamConnectService.Current.SteamApps.Items
-                    .Where(s => s.IsEdited)
-                    .ToDictionary(s => s.AppId, s => s);
-                var modifiedApps = new List<ModifiedApp>();
-
-                foreach (var app in applist)
-                {
-                    if (editApps.TryGetValue(app.AppId, out var editApp))
-                    {
-                        app.SetEditProperty(editApp);
-                        modifiedApps.Add(new ModifiedApp(app));
-                    }
-                }
-
-                return (ModifiedApps: modifiedApps, Bytes: Serializable.SMP(modifiedApps));
-            });
-
-            if (!exportData.ModifiedApps.Any())
-            {
-                Toast.Show(ToastIcon.Error, Strings.L10nGames_ExportNoData);
+                Toast.Show(ToastIcon.Warning, Strings.L10nGames_ExportEmpty);
                 return;
             }
 
+            var result = await FilePicker2.SaveAsync(new PickOptions
+            {
+                PickerTitle = Strings.L10nGames_ExportTitle,
+                InitialFileName = $"steam-edited-apps-{DateTime.Now:yyyyMMddHHmmss}.stmbak",
+            });
+            if (result == null)
+                return;
+
             using var stream = result.OpenWrite();
-            await stream.WriteAsync(exportData.Bytes, 0, exportData.Bytes.Length);
+            await Task.Run(() => SteamAppEditBackup.Write(stream, edits));
             await stream.FlushAsync();
 
-            Toast.Show(ToastIcon.Success, string.Format(Strings.L10nGames_ExportSuccess, exportData.ModifiedApps.Count));
+            Toast.Show(ToastIcon.Success, string.Format(Strings.L10nGames_ExportSuccess, edits.Count));
         }
         catch
         {
@@ -131,27 +117,24 @@ public sealed class EditAppsPageViewModel : ViewModelBase
 
     public async Task ImportSteamEditedAppsBackup()
     {
-        var file = await FilePicker2.PickAsync(new PickOptions
-        {
-            PickerTitle = Strings.L10nGames_ImportTitle,
-        });
-
-        if (file == null)
-        {
-            return;
-        }
-
         try
         {
+            var file = await FilePicker2.PickAsync(new PickOptions
+            {
+                PickerTitle = Strings.L10nGames_ImportTitle,
+            });
+            if (file == null)
+                return;
+
             await using var stream = await file.OpenReadAsync();
-            var modifiedApps = Serializable.DMP<List<ModifiedApp>>(stream);
-            if (!modifiedApps.Any_Nullable())
+            var edits = await Task.Run(() => SteamAppEditBackup.Read(stream));
+            if (edits.Count == 0)
             {
                 Toast.Show(ToastIcon.Warning, Strings.L10nGames_ImportEmpty);
                 return;
             }
 
-            var applyCount = SteamConnectService.Current.ApplyModifiedApps(modifiedApps);
+            var applyCount = await SteamConnectService.Current.ImportGameAppEditsAsync(edits);
             if (applyCount <= 0)
             {
                 Toast.Show(ToastIcon.Warning, Strings.L10nGames_ImportNoMatches);
@@ -166,12 +149,4 @@ public sealed class EditAppsPageViewModel : ViewModelBase
             Toast.Show(ToastIcon.Error, Strings.L10nGames_ImportFailed);
         }
     }
-
-    //public async Task ClearSteamEditedApps()
-    //{
-    //    if (await MessageBox.ShowAsync("确定要重置所有的已修改数据吗？(该操作不可还原)", AssemblyInfo.Trademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
-    //    {
-
-    //    }
-    //}
 }

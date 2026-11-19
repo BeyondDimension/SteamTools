@@ -11,8 +11,12 @@ sealed class SevenZipHelper : ISevenZipHelper
     static void Initialize()
     {
         if (IsInitialized) return;
-        // ✅ AppContext.BaseDirectory
         var sevenZipLibraryPath = Path.Combine(AppContext.BaseDirectory, "7z.dll");
+#if WTTS_NATIVE_AOT
+        var packagedPath = SharedSqliteNativeLibrary.GetPackageLibraryPath("7z.dll");
+        if (File.Exists(packagedPath))
+            sevenZipLibraryPath = packagedPath;
+#endif
         if (!File.Exists(sevenZipLibraryPath))
         {
             sevenZipLibraryPath = Path.Combine(AppContext.BaseDirectory, "runtimes", RuntimeInformation.ProcessArchitecture switch

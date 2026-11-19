@@ -15,8 +15,275 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
 
     public SteamApp App { get; }
 
-    [Reactive]
-    public SteamGridItem? SelectGrid { get; set; }
+    public SteamApp Draft { get; }
+    readonly SteamAppEdit originals;
+    readonly SteamAppEdit openingValues;
+    readonly CancellationTokenSource mediaLifetime = new();
+    readonly HashSet<SteamGridItemType> changedImages = [];
+    readonly Dictionary<SteamGridItemType, Stream> images = [];
+    bool closed;
+
+    [Reactive] public int DraftTabIndex { get; set; }
+    [Reactive] public string? DraftName { get; set; }
+    [Reactive] public bool IsChangingImage { get; set; }
+
+    public ICommand ResetEditAppInfoCommand { get; }
+    public ICommand ResetImageCommand { get; }
+    public ICommand AddLaunchItemCommand { get; }
+    public ICommand OpenFolderCommand { get; }
+    public ICommand ManageCloudArchiveCommand { get; }
+
+    public Stream? EditHeaderLogoStream
+    {
+        get => images.GetValueOrDefault(SteamGridItemType.Header);
+        set => SetImage(SteamGridItemType.Header, value);
+    }
+
+    public Stream? EditLibraryLogoStream
+    {
+        get => images.GetValueOrDefault(SteamGridItemType.Logo);
+        set => SetImage(SteamGridItemType.Logo, value);
+    }
+
+    public Stream? EditLibraryHeroStream
+    {
+        get => images.GetValueOrDefault(SteamGridItemType.Hero);
+        set => SetImage(SteamGridItemType.Hero, value);
+    }
+
+    public Stream? EditLibraryGridStream
+    {
+        get => images.GetValueOrDefault(SteamGridItemType.Grid);
+        set => SetImage(SteamGridItemType.Grid, value);
+    }
+    static readonly SteamGridItemType[] ImageTypes =
+        [SteamGridItemType.Header, SteamGridItemType.Logo, SteamGridItemType.Hero, SteamGridItemType.Grid];
+
+    static SteamApp.LibCacheType CacheType(SteamGridItemType type) => type switch
+    {
+        SteamGridItemType.Header => SteamApp.LibCacheType.Header,
+        SteamGridItemType.Logo => SteamApp.LibCacheType.Logo,
+        SteamGridItemType.Hero => SteamApp.LibCacheType.Library_Hero,
+        _ => SteamApp.LibCacheType.Library_Grid,
+    };
+
+    void SetImage(SteamGridItemType type, Stream? stream, bool changed = true)
+    {
+        var previous = images.GetValueOrDefault(type);
+        if (ReferenceEquals(previous, stream) && stream != null)
+            return;
+        if (closed)
+        {
+            stream?.Dispose();
+            return;
+        }
+
+        if (changed)
+            changedImages.Add(type);
+        if (stream != null)
+            images[type] = stream;
+        else
+            images.Remove(type);
+        this.RaisePropertyChanged(type switch
+        {
+            SteamGridItemType.Header => nameof(EditHeaderLogoStream),
+            SteamGridItemType.Logo => nameof(EditLibraryLogoStream),
+            SteamGridItemType.Hero => nameof(EditLibraryHeroStream),
+            _ => nameof(EditLibraryGridStream),
+        });
+        previous?.Dispose();
+    }
+
+    Task LoadMediaAsync() => Task.WhenAll(ImageTypes.Select(LoadImageAsync));
+
+    async Task LoadImageAsync(SteamGridItemType type)
+    {
+        try
+        {
+            var stream = await ISteamService.Instance.GetAppImageAsync(App, CacheType(type), mediaLifetime.Token);
+            if (closed || changedImages.Contains(type))
+                stream?.Dispose();
+            else
+                SetImage(type, stream, changed: false);
+        }
+        catch (OperationCanceledException) when (closed) { }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(EditAppInfoPageViewModel), ex, "Unable to load the game cover.");
+        }
+    }
+
+    static SteamUser? GetCurrentSteamUser()
+    {
+        var users = SteamConnectService.Current.SteamUsers.Items;
+        return users.FirstOrDefault(s => s.MostRecent) ?? users.FirstOrDefault(s => s.AutoLogin);
+    }
+
+    string? GetCustomImagePath(SteamUser user, SteamGridItemType type)
+    {
+        var steamPath = ISteamService.Instance.SteamDirPath;
+        if (string.IsNullOrEmpty(steamPath))
+            return null;
+
+        var suffix = type switch
+        {
+            SteamGridItemType.Logo => "_logo",
+            SteamGridItemType.Hero => "_hero",
+            SteamGridItemType.Grid => "p",
+            _ => "",
+        };
+        return Path.Combine(steamPath, "userdata", user.SteamId32.ToString(), "config", "grid", $"{App.AppId}{suffix}.png");
+    }
+
+    void ResetImage(SteamGridItemType type)
+    {
+        if (GetCurrentSteamUser() is { } user && File.Exists(GetCustomImagePath(user, type)))
+            SetImage(type, null);
+        else if (changedImages.Remove(type))
+        {
+            SetImage(type, null, changed: false);
+            _ = LoadImageAsync(type);
+        }
+    }
+
+    public async Task SaveEditAppInfoAsync()
+    {
+        try
+        {
+            var edited = SteamAppEdit.Capture(Draft) with { Name = DraftName ?? string.Empty };
+            if (!edited.Diff(openingValues).IsEmpty)
+            {
+                await SteamConnectService.Current.SaveGameAppEditAsync(App, edited.Diff(originals));
+                Toast.Show(ToastIcon.Info, Strings.L10nGames_SaveEditNotice);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(EditAppInfoPageViewModel), ex, "Unable to save the local game edit.");
+            Toast.Show(ToastIcon.Error, Strings.SaveEditedAppInfo_SaveFailed);
+        }
+
+        if (changedImages.Count == 0)
+            return;
+
+        var user = GetCurrentSteamUser();
+        if (user == null)
+        {
+            Toast.Show(ToastIcon.Error, Strings.SaveEditedAppInfo_SteamUserNullTip);
+            return;
+        }
+
+        foreach (var type in changedImages)
+        {
+            try
+            {
+                var stream = images.GetValueOrDefault(type);
+                var target = GetCustomImagePath(user, type);
+                if (stream == null && !File.Exists(target))
+                    continue;
+                if (target != null && stream is FileStream file && string.Equals(Path.GetFullPath(file.Name), Path.GetFullPath(target),
+                    OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
+                    continue;
+                if (await ISteamService.Instance.SaveAppImageToSteamFile(stream, user, App.AppId, type))
+                {
+                    App.RaisePropertyChanged(type switch
+                    {
+                        SteamGridItemType.Header => nameof(App.HeaderLogoStream),
+                        SteamGridItemType.Logo => nameof(App.LibraryLogoStream),
+                        SteamGridItemType.Hero => nameof(App.LibraryHeroStream),
+                        _ => nameof(App.LibraryGridStream),
+                    });
+                    continue;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(EditAppInfoPageViewModel), ex, "Unable to save the game cover.");
+            }
+            Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, type));
+        }
+    }
+
+    void ResetEditAppInfo()
+    {
+        originals.ApplyTo(Draft);
+        DraftName = Draft.Name;
+        Draft.RaisePropertyChanged(nameof(Draft.Developer));
+        Draft.RaisePropertyChanged(nameof(Draft.Publisher));
+    }
+
+    public async void RefreshSteamGridItemList(SteamGridItemType type)
+    {
+        IsLoadingSteamGrid = true;
+        _SteamGridItemSourceList.Clear();
+        try
+        {
+            var grid = await ISteamGridDBWebApiServiceImpl.Instance.GetSteamGridAppBySteamAppId(App.AppId);
+            if (grid == null || closed)
+                return;
+            var items = await ISteamGridDBWebApiServiceImpl.Instance.GetSteamGridItemsByGameId(grid.Id, type);
+            if (!closed && items.Any_Nullable())
+                _SteamGridItemSourceList.AddOrUpdate(items);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(EditAppInfoPageViewModel), ex, "Unable to load SteamGridDB results.");
+        }
+        finally
+        {
+            if (!closed)
+                IsLoadingSteamGrid = false;
+        }
+    }
+
+    public async Task ApplyCustomImageToApp(SteamGridItemType type, SteamGridItem item)
+    {
+        IsChangingImage = true;
+        try
+        {
+            Toast.Show(ToastIcon.Info, Strings.L10nGames_ImageDownloadWait);
+            var stream = await Ioc.Get<IImageHttpClientService>().GetImageMemoryStreamAsync(item.Url, cancellationToken: mediaLifetime.Token);
+            if (stream != null)
+                SetImage(type, stream);
+            else if (!closed)
+                Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, type));
+        }
+        catch (OperationCanceledException) when (closed) { }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(EditAppInfoPageViewModel), ex, "Unable to download the game cover.");
+            if (!closed)
+                Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, type));
+        }
+        finally
+        {
+            IsChangingImage = false;
+        }
+    }
+
+    public override void OnClosing(object? sender, CancelEventArgs e)
+    {
+        if (!e.Cancel)
+            StopMedia();
+    }
+
+    void StopMedia()
+    {
+        if (closed)
+            return;
+        closed = true;
+        mediaLifetime.Cancel();
+        _SteamGridItemSourceList.Dispose();
+    }
+
+    public void DisposeEditor()
+    {
+        StopMedia();
+        mediaLifetime.Dispose();
+        foreach (var stream in images.Values)
+            stream.Dispose();
+        images.Clear();
+    }
 
     [Reactive]
     public bool IsLoadingSteamGrid { get; set; }
@@ -35,11 +302,21 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
 
     public ICommand OpenSteamGridDBAuthorUrlCommand { get; }
 
-    public EditAppInfoPageViewModel(ref SteamApp app)
+    public EditAppInfoPageViewModel(SteamApp app)
     {
         App = app;
-
-        App.RefreshEditImage();
+        Draft = new SteamApp(app.AppId);
+        originals = app.GetOriginalEditValues();
+        openingValues = SteamAppEdit.Capture(app);
+        openingValues.ApplyTo(Draft);
+        DraftName = Draft.Name;
+        ResetEditAppInfoCommand = ReactiveCommand.Create(ResetEditAppInfo);
+        ResetImageCommand = ReactiveCommand.Create<SteamGridItemType>(ResetImage);
+        AddLaunchItemCommand = ReactiveCommand.Create(AddLaunchItem);
+        OpenFolderCommand = ReactiveCommand.Create<object?>(OpenFolder);
+        ManageCloudArchiveCommand = ReactiveCommand.Create(ManageCloudArchive_Click);
+        this.WhenAnyValue(x => x.DraftTabIndex).Where(index => index == 1)
+            .Take(1).Subscribe(index => { _ = LoadMediaAsync(); });
 
         if (App.SaveFiles.Any_Nullable())
             foreach (var file in App.SaveFiles)
@@ -66,26 +343,20 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
 
     public void AddLaunchItem()
     {
-        if (App.LaunchItems == null)
-        {
-            App.LaunchItems = new ObservableCollection<SteamAppLaunchItem> { new() };
-        }
+        if (Draft.LaunchItems == null)
+            Draft.LaunchItems = new ObservableCollection<SteamAppLaunchItem> { new() };
         else
-        {
-            App.LaunchItems.Add(new());
-        }
+            Draft.LaunchItems.Add(new());
     }
 
     void MoveLaunchItem(in SteamAppLaunchItem item, bool isUp)
     {
-        if (App.LaunchItems != null)
+        if (Draft.LaunchItems is { } items)
         {
-            var oldindex = App.LaunchItems.IndexOf(item);
-            if (isUp ? oldindex == 0 : oldindex == App.LaunchItems.Count - 1)
-            {
-                return;
-            }
-            App.LaunchItems.Move(oldindex, isUp ? oldindex - 1 : oldindex + 1);
+            var oldIndex = items.IndexOf(item);
+            var newIndex = isUp ? oldIndex - 1 : oldIndex + 1;
+            if (oldIndex >= 0 && newIndex >= 0 && newIndex < items.Count)
+                items.Move(oldIndex, newIndex);
         }
     }
 
@@ -101,239 +372,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
 
     public void DeleteLaunchItem(SteamAppLaunchItem item)
     {
-        if (App.LaunchItems != null)
-        {
-            App.LaunchItems.Remove(item);
-        }
-    }
-
-    static async Task<bool> IsImageUnchangedAsync(Stream? edited, Task<Stream?> originalTask)
-    {
-        var original = await originalTask;
-        try
-        {
-            if (ReferenceEquals(edited, original))
-                return true;
-            if (edited is FileStream e && original is FileStream o)
-                return e.Name == o.Name;
-            if (edited is MemoryStream me && original is MemoryStream mo &&
-                me.TryGetBuffer(out var a) && mo.TryGetBuffer(out var b))
-                return a.AsSpan().SequenceEqual(b.AsSpan());
-            return false;
-        }
-        finally
-        {
-            if (!ReferenceEquals(edited, original))
-                original?.Dispose();
-        }
-    }
-
-    void ReleaseEditImages()
-    {
-        var streams = new[] { App.EditHeaderLogoStream, App.EditLibraryLogoStream, App.EditLibraryHeroStream, App.EditLibraryGridStream };
-        App.EditHeaderLogoStream = null;
-        App.EditLibraryLogoStream = null;
-        App.EditLibraryHeroStream = null;
-        App.EditLibraryGridStream = null;
-        foreach (var s in streams)
-            s?.Dispose();
-    }
-
-    static SteamUser? GetCurrentSteamUser()
-    {
-        var users = SteamConnectService.Current.SteamUsers.Items;
-        // 新版 Steam 无 MostRecent，回退使用 AutoLogin
-        return users.FirstOrDefault(s => s.MostRecent) ?? users.FirstOrDefault(s => s.AutoLogin);
-    }
-
-    static bool CheckCurrentSteamUserStats(in SteamUser? user)
-    {
-        if (user == null)
-        {
-            Toast.Show(ToastIcon.Error, Strings.SaveEditedAppInfo_SteamUserNullTip);
-            return false;
-        }
-        return true;
-    }
-
-    public async void SaveEditAppInfo()
-    {
-        try
-        {
-            await SaveEditAppInfoCore();
-        }
-        finally
-        {
-            ReleaseEditImages();
-        }
-    }
-
-    async Task SaveEditAppInfoCore()
-    {
-        #region 自定义图片保存
-        //var mostRecentUser = ISteamService.Instance.GetRememberUserList().Where(s => s.MostRecent).FirstOrDefault();
-        var mostRecentUser = GetCurrentSteamUser();
-        if (!await IsImageUnchangedAsync(App.EditHeaderLogoStream, App.HeaderLogoStream))
-        {
-            if (!CheckCurrentSteamUserStats(mostRecentUser))
-                return;
-
-            if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditHeaderLogoStream,
-             mostRecentUser!, App.AppId, SteamGridItemType.Header) == false)
-            {
-                Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Header)));
-            }
-            else
-                App.RaisePropertyChanged(nameof(App.HeaderLogoStream));
-        }
-        if (!await IsImageUnchangedAsync(App.EditLibraryLogoStream, App.LibraryLogoStream))
-        {
-            if (!CheckCurrentSteamUserStats(mostRecentUser))
-                return;
-
-            if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryLogoStream,
-             mostRecentUser!, App.AppId, SteamGridItemType.Logo) == false)
-            {
-                Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Logo)));
-            }
-            else
-                App.RaisePropertyChanged(nameof(App.LibraryLogoStream));
-        }
-        if (!await IsImageUnchangedAsync(App.EditLibraryHeroStream, App.LibraryHeroStream))
-        {
-            if (!CheckCurrentSteamUserStats(mostRecentUser))
-                return;
-
-            if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryHeroStream,
-             mostRecentUser!, App.AppId, SteamGridItemType.Hero) == false)
-            {
-                Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Hero)));
-            }
-            else
-                App.RaisePropertyChanged(nameof(App.LibraryHeroStream));
-        }
-        if (!await IsImageUnchangedAsync(App.EditLibraryGridStream, App.LibraryGridStream))
-        {
-            if (!CheckCurrentSteamUserStats(mostRecentUser))
-                return;
-
-            if (await ISteamService.Instance.SaveAppImageToSteamFile(App.EditLibraryGridStream,
-                mostRecentUser!, App.AppId, SteamGridItemType.Grid) == false)
-            {
-                Toast.Show(ToastIcon.Error, string.Format(Strings.SaveImageFileFailed, nameof(SteamGridItemType.Grid)));
-            }
-            else
-                App.RaisePropertyChanged(nameof(App.LibraryGridStream));
-        }
-        #endregion
-
-        App.IsEdited = true;
-
-        SteamConnectService.Current.SteamApps.AddOrUpdate(App);
-
-        //await MessageBox.ShowAsync("保存成功但还不会直接写入Steam文件, 请打开[保存Steam游戏自定义信息窗口]保存所有更改信息到Steam文件中。",
-        //    ThisAssembly.AssemblyTrademark, MessageBox.Button.OK, MessageBox.Image.None, MessageBox.DontPromptType.SaveEditAppInfo);
-
-        Toast.Show(ToastIcon.Info, Strings.L10nGames_SaveEditNotice);
-
-        this.Close?.Invoke(false);
-    }
-
-    public void CancelEditAppInfo()
-    {
-        ReleaseEditImages();
-        this.Close?.Invoke(false);
-    }
-
-    public void ResetEditAppInfo()
-    {
-        //if (await MessageBox.ShowAsync("确定要重置当前App所有更改吗？(不会重置自定义图片)", ThisAssembly.AssemblyTrademark, MessageBox.Button.OKCancel) == MessageBox.Result.OK)
-        //{
-        App.RefreshEditImage();
-        if (App.OriginalData != null)
-        {
-            using BinaryReader reader = new BinaryReader(new MemoryStream(App.OriginalData), Encoding.UTF8, true);
-            reader.BaseStream.Seek(40L, SeekOrigin.Current);
-            var table = reader.ReadPropertyTable();
-
-            App.ExtractReaderProperty(table);
-
-            App.IsEdited = true;
-            SteamConnectService.Current.SteamApps.AddOrUpdate(App);
-        }
-        //}
-    }
-
-    public async void RefreshSteamGridItemList(SteamGridItemType type = SteamGridItemType.Grid)
-    {
-        IsLoadingSteamGrid = true;
-        _SteamGridItemSourceList.Clear();
-
-        var grid = await ISteamGridDBWebApiServiceImpl.Instance.GetSteamGridAppBySteamAppId(App.AppId);
-
-        if (grid != null)
-        {
-            var items = await ISteamGridDBWebApiServiceImpl.Instance.GetSteamGridItemsByGameId(grid.Id, type);
-
-            if (items.Any_Nullable())
-            {
-                _SteamGridItemSourceList.AddOrUpdate(items);
-            }
-        }
-
-        IsLoadingSteamGrid = false;
-    }
-
-    public async void ApplyCustomImageToApp(SteamGridItemType type)
-    {
-        if (SelectGrid == null)
-        {
-            //Toast.Show(ToastIcon.Warning, Strings.SaveEditedAppInfo_SelectImageFailed);
-            var mostRecentUser = GetCurrentSteamUser();
-            if (!CheckCurrentSteamUserStats(mostRecentUser))
-                return;
-            await ISteamService.Instance.SaveAppImageToSteamFile(null, mostRecentUser!, App.AppId, type);
-
-            switch (type)
-            {
-                case SteamGridItemType.Header:
-                    App.EditHeaderLogoStream = (await App.HeaderLogoStream);
-                    break;
-                case SteamGridItemType.Grid:
-                    App.EditLibraryGridStream = (await App.LibraryGridStream);
-                    break;
-                case SteamGridItemType.Hero:
-                    App.EditLibraryHeroStream = (await App.LibraryHeroStream);
-                    break;
-                case SteamGridItemType.Logo:
-                    App.EditLibraryLogoStream = (await App.LibraryLogoStream);
-                    break;
-            }
-            return;
-        }
-        Toast.Show(ToastIcon.Info, Strings.L10nGames_ImageDownloadWait);
-        var imageHttpClientService = Ioc.Get<IImageHttpClientService>();
-        var stream = await imageHttpClientService.GetImageMemoryStreamAsync(SelectGrid.Url, default);
-        switch (type)
-        {
-            case SteamGridItemType.Header:
-                App.EditHeaderLogoStream = stream;
-                break;
-            case SteamGridItemType.Grid:
-                App.EditLibraryGridStream = stream;
-                break;
-            case SteamGridItemType.Hero:
-                App.EditLibraryHeroStream = stream;
-                break;
-            case SteamGridItemType.Logo:
-                App.EditLibraryLogoStream = stream;
-                break;
-        }
-    }
-
-    public override void OnClosing(object? sender, CancelEventArgs e)
-    {
-        _SteamGridItemSourceList.Dispose();
+        Draft.LaunchItems?.Remove(item);
     }
 
     public async void OpenSteamGridDBImageUrl(SteamGridItem item)

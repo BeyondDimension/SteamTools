@@ -22,7 +22,8 @@
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
                 Padding="8,4"
-                Command="{Binding SaveSteamEditedApps}"
+                Command="{Binding ApplyToSteamCommand}"
+                ToolTip.Tip="{x:Static spp:Strings.L10nGames_ExitSteamBeforeApply}"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox
@@ -40,7 +41,7 @@
             </Button>
             <Button
                 Padding="8,4"
-                Command="{Binding LoadSteamEditedApps}"
+                Command="{Binding RefreshCommand}"
                 DockPanel.Dock="Right"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
@@ -68,11 +69,11 @@
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
                         <ui:FAMenuFlyoutItem
-                            Command="{Binding ExportSteamEditedAppsBackup}"
+                            Command="{Binding ExportCommand}"
                             IsEnabled="{Binding !IsExportingBackup}"
                             Text="{x:Static spp:Strings.Export}" />
                         <ui:FAMenuFlyoutItem
-                            Command="{Binding ImportSteamEditedAppsBackup}"
+                            Command="{Binding ImportCommand}"
                             Text="{x:Static spp:Strings.Import}" />
                         <ui:FAMenuFlyoutSeparator />
                         <!--<ui:FAMenuFlyoutItem

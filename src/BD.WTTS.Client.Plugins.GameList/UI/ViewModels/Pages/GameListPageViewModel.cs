@@ -208,17 +208,17 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     public static async void EditAppInfoClick(SteamApp app)
     {
         if (app == null) return;
-        var vm = new EditAppInfoPageViewModel(ref app);
-        var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.GameList_EditAppInfo,
-            pageContent: new EditAppInfoPage(), okButtonText: Strings.Save, isCancelButton: true, disableScroll: true);
-
-        if (result)
+        var vm = new EditAppInfoPageViewModel(app);
+        try
         {
-            vm.SaveEditAppInfo();
+            if (await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.GameList_EditAppInfo,
+                pageContent: new EditAppInfoPage(), okButtonText: Strings.L10nGames_SaveLocalEdit,
+                isCancelButton: true, cancelCloseAction: () => vm.IsChangingImage, disableScroll: true))
+                await vm.SaveEditAppInfoAsync();
         }
-        else
+        finally
         {
-            vm.CancelEditAppInfo();
+            vm.DisposeEditor();
         }
     }
 

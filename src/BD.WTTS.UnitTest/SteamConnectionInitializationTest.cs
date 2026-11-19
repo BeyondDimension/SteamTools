@@ -172,7 +172,7 @@ public sealed class SteamConnectionInitializationTest
         local.Setup(x => x.GetSteamId64()).Returns(() => steamId);
         local.Setup(x => x.OwnsApps(It.IsAny<IEnumerable<SteamApp>>()))
             .Returns<IEnumerable<SteamApp>>(apps => apps);
-        steam.Setup(x => x.GetModifiedApps()).Returns((List<ModifiedApp>?)null);
+        steam.Setup(x => x.GetAppInfoEdits()).Returns(new Dictionary<uint, SteamAppEdit>());
         steam.Setup(x => x.GetDownloadingAppList()).Returns(new List<SteamApp>());
         steam.Setup(x => x.ReadAppInfosInBatchesAsync(It.IsAny<Action<IReadOnlyList<SteamApp>>>(), It.IsAny<CancellationToken>()))
             .Returns(Task.CompletedTask);

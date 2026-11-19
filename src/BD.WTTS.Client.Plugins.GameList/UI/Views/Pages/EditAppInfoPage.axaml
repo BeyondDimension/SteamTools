@@ -99,7 +99,7 @@
 		</Style>
 	</UserControl.Styles>
 
-	<TabControl x:Name="EditorTabs" Padding="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+	<TabControl x:Name="EditorTabs" SelectedIndex="{Binding DraftTabIndex, Mode=TwoWay}" Padding="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
 		<!--  信息  -->
 		<TabItem Header="{x:Static spp:Strings.Info}">
 			<ScrollViewer Classes="page-scroll">
@@ -109,23 +109,25 @@
 							<Grid Classes="field" RowDefinitions="Auto,Auto">
 								<TextBlock Classes="label"
 								           Text="{x:Static spp:Strings.Name}" />
-								<TextBox Text="{Binding App.Name}" />
+								<TextBox Text="{Binding DraftName}" />
 							</Grid>
 							<Grid Classes="field" RowDefinitions="Auto,Auto">
 								<TextBlock Classes="label"
 								           Text="{x:Static spp:Strings.SortAs}" />
-								<TextBox Text="{Binding App.SortAs}" />
+								<TextBox Text="{Binding Draft.SortAs}" />
 							</Grid>
 							<Grid Classes="field" RowDefinitions="Auto,Auto">
 								<TextBlock Classes="label"
 								           Text="{x:Static spp:Strings.Developer}" />
-								<TextBox Text="{Binding App.Developer}" />
+								<TextBox Text="{Binding Draft.Developer}" />
 							</Grid>
 							<Grid Classes="field" RowDefinitions="Auto,Auto">
 								<TextBlock Classes="label"
 								           Text="{x:Static spp:Strings.Publisher}" />
-								<TextBox Text="{Binding App.Publisher}" />
+								<TextBox Text="{Binding Draft.Publisher}" />
 							</Grid>
+							<Button HorizontalAlignment="Right" Command="{Binding ResetEditAppInfoCommand}"
+							        Content="{x:Static spp:Strings.Reset}" />
 						</StackPanel>
 					</Border>
 
@@ -158,7 +160,7 @@
 									Grid.Column="1"
 									Padding="0"
 									HorizontalAlignment="Stretch"
-									Command="{Binding OpenFolder}"
+									Command="{Binding OpenFolderCommand}"
 									CommandParameter="{Binding App.InstalledDir}"
 									ToolTip.Tip="{Binding Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Mode=OneTime, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Null}}">
 									<TextBlock Text="{Binding App.InstalledDir}" TextWrapping="Wrap" TextTrimming="None" />
@@ -260,7 +262,7 @@
 					</spp:ContentLoader>
 				</Grid>
 
-				<ScrollViewer x:Name="MediaContent" Classes="page-scroll" Container.Name="media" Container.Sizing="Width">
+				<ScrollViewer x:Name="MediaContent" Classes="page-scroll" Container.Name="media" Container.Sizing="Width" IsEnabled="{Binding !IsChangingImage}">
 					<Grid
 						Margin="0,12,12,16"
 						ColumnDefinitions="*,*"
@@ -305,8 +307,8 @@
 										</Button>
 										<Button
 											Classes="tool"
-											Click="ResetGridImage_Click"
-											Tag="{x:Static spp:SteamGridItemType.Header}"
+											Command="{Binding ResetImageCommand}"
+											CommandParameter="{x:Static spp:SteamGridItemType.Header}"
 											ToolTip.Tip="{x:Static spp:Strings.Reset}">
 											<ui:FASymbolIcon FontSize="18" Symbol="Redo" />
 										</Button>
@@ -316,11 +318,11 @@
 									<spp:CustomFilePicker
 										MinWidth="0"
 										Height="132"
-										FileStream="{Binding App.EditHeaderLogoStream, Mode=TwoWay}">
+										FileStream="{Binding EditHeaderLogoStream, Mode=TwoWay}">
 										<spp:Image2
 											DecodeHeight="220"
 											KeepSourceStreamOpen="True"
-											Source="{Binding App.EditHeaderLogoStream}"
+											Source="{Binding EditHeaderLogoStream}"
 											Stretch="Uniform" />
 									</spp:CustomFilePicker>
 								</Border>
@@ -355,8 +357,8 @@
 										</Button>
 										<Button
 											Classes="tool"
-											Click="ResetGridImage_Click"
-											Tag="{x:Static spp:SteamGridItemType.Hero}"
+											Command="{Binding ResetImageCommand}"
+											CommandParameter="{x:Static spp:SteamGridItemType.Hero}"
 											ToolTip.Tip="{x:Static spp:Strings.Reset}">
 											<ui:FASymbolIcon FontSize="18" Symbol="Redo" />
 										</Button>
@@ -366,11 +368,11 @@
 									<spp:CustomFilePicker
 										MinWidth="0"
 										Height="112"
-										FileStream="{Binding App.EditLibraryHeroStream, Mode=TwoWay}">
+										FileStream="{Binding EditLibraryHeroStream, Mode=TwoWay}">
 										<spp:Image2
 											DecodeHeight="180"
 											KeepSourceStreamOpen="True"
-											Source="{Binding App.EditLibraryHeroStream}"
+											Source="{Binding EditLibraryHeroStream}"
 											Stretch="Uniform" />
 									</spp:CustomFilePicker>
 								</Border>
@@ -402,8 +404,8 @@
 										</Button>
 										<Button
 											Classes="tool"
-											Click="ResetGridImage_Click"
-											Tag="{x:Static spp:SteamGridItemType.Grid}"
+											Command="{Binding ResetImageCommand}"
+											CommandParameter="{x:Static spp:SteamGridItemType.Grid}"
 											ToolTip.Tip="{x:Static spp:Strings.Reset}">
 											<ui:FASymbolIcon FontSize="18" Symbol="Redo" />
 										</Button>
@@ -413,11 +415,11 @@
 									<spp:CustomFilePicker
 										MinWidth="0"
 										Height="176"
-										FileStream="{Binding App.EditLibraryGridStream, Mode=TwoWay}">
+										FileStream="{Binding EditLibraryGridStream, Mode=TwoWay}">
 										<spp:Image2
 											DecodeHeight="300"
 											KeepSourceStreamOpen="True"
-											Source="{Binding App.EditLibraryGridStream}"
+											Source="{Binding EditLibraryGridStream}"
 											Stretch="Uniform" />
 									</spp:CustomFilePicker>
 								</Border>
@@ -451,8 +453,8 @@
 										</Button>
 										<Button
 											Classes="tool"
-											Click="ResetGridImage_Click"
-											Tag="{x:Static spp:SteamGridItemType.Logo}"
+											Command="{Binding ResetImageCommand}"
+											CommandParameter="{x:Static spp:SteamGridItemType.Logo}"
 											ToolTip.Tip="{x:Static spp:Strings.Reset}">
 											<ui:FASymbolIcon FontSize="18" Symbol="Redo" />
 										</Button>
@@ -462,11 +464,11 @@
 									<spp:CustomFilePicker
 										MinWidth="0"
 										Height="176"
-										FileStream="{Binding App.EditLibraryLogoStream, Mode=TwoWay}">
+										FileStream="{Binding EditLibraryLogoStream, Mode=TwoWay}">
 										<spp:Image2
 											DecodeHeight="300"
 											KeepSourceStreamOpen="True"
-											Source="{Binding App.EditLibraryLogoStream}"
+											Source="{Binding EditLibraryLogoStream}"
 											Stretch="Uniform" />
 									</spp:CustomFilePicker>
 								</Border>
@@ -482,7 +484,7 @@
 		         IsVisible="{Binding App.IsInstalled}">
 			<ScrollViewer Classes="page-scroll">
 				<StackPanel Margin="0,12,12,16" Spacing="12">
-					<ItemsControl ItemsSource="{Binding App.LaunchItems}">
+					<ItemsControl ItemsSource="{Binding Draft.LaunchItems}">
 						<ItemsControl.ItemsPanel>
 							<ItemsPanelTemplate>
 								<StackPanel Orientation="Vertical" Spacing="10" />
@@ -553,7 +555,7 @@
 					<Button
 						HorizontalAlignment="Stretch"
 						HorizontalContentAlignment="Center"
-						Command="{Binding AddLaunchItem}"
+						Command="{Binding AddLaunchItemCommand}"
 						Cursor="Hand">
 						<StackPanel Orientation="Horizontal" Spacing="8">
 							<ui:FASymbolIcon FontSize="18" Symbol="Add" />
@@ -582,7 +584,7 @@
 									<Button
 										Grid.Column="1"
 										Classes="tool"
-										Command="{Binding ManageCloudArchive_Click}"
+										Command="{Binding ManageCloudArchiveCommand}"
 										ToolTip.Tip="{x:Static spp:Strings.GameList_CloudArchiveManager}">
 										<ui:FASymbolIcon FontSize="18" Symbol="CloudBackup" />
 									</Button>
@@ -632,7 +634,7 @@
 												Grid.Column="1"
 												Padding="0"
 												HorizontalAlignment="Stretch"
-												Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenFolder}"
+												Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenFolderCommand}"
 												CommandParameter="{Binding FormatDirPath}"
 												ToolTip.Tip="{Binding Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Mode=OneTime, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Null}}">
 												<TextBlock Text="{Binding FormatDirPath}" TextWrapping="Wrap" TextTrimming="None" />

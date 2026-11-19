@@ -8,8 +8,9 @@ BuildRoot defaults to build. Renderer defaults to Skia; native/<RID> is selected
 under publish, artifacts and logs. -Renderer SimdSkia selects the optional managed
 renderer under native-simdskia/<RID>. OutputDirectory overrides only the package.
 
-Only files recorded in .wtts-native-manifest.json with matching SHA256 hashes may be
+Only files recorded in the package manifest with matching SHA256 hashes may be
 replaced. AppData, Cache, Log/Logs and archives are never package-owned or modified.
+An intact Windows manifest from the previous root-DLL layout can be migrated in place.
 Other unowned files cause a refusal rather than adoption of an old managed package.
 Close the published application before replacing its generated payload. Failed builds
 leave the existing package untouched; failed promotion rolls back generated files.
@@ -33,7 +34,9 @@ if ($StaticGraphicsComponents.Count -gt 0 -and $Renderer -ne 'Skia') {
     throw 'Static graphics components apply only to the original SkiaSharp backend.'
 }
 $root = Split-Path $PSScriptRoot -Parent
-$manifestName = '.wtts-native-manifest.json'
+$legacyManifestName = '.wtts-native-manifest.json'
+$manifestName = $legacyManifestName
+if ($RuntimeIdentifier.StartsWith('win-')) { $manifestName = "native/$legacyManifestName" }
 $phase = 'prerequisites'
 $lock = $null
 $packageLock = $null
@@ -61,9 +64,12 @@ function Test-UserPath([string]$Path) {
 
 function Get-PayloadPath([string]$Base, [string]$RelativePath) {
     if ([string]::IsNullOrWhiteSpace($RelativePath) -or $RelativePath.Contains('\') -or
-        [IO.Path]::IsPathRooted($RelativePath) -or $RelativePath -match '(^|/)\.\.?(/|$)|[:*?\[\]]' -or
-        $RelativePath -eq $manifestName -or (Test-UserPath $RelativePath)) {
+        [IO.Path]::IsPathRooted($RelativePath) -or $RelativePath -match '(^/|//|/$)|(^|/)\.\.?(/|$)|[:*?\[\]]' -or
+        $RelativePath -in @($manifestName, $legacyManifestName) -or (Test-UserPath $RelativePath)) {
         throw "Invalid or user-owned path in native payload: $RelativePath"
+    }
+    if ($RuntimeIdentifier.StartsWith('win-') -and $RelativePath -match '[. ](/|$)') {
+        throw "Non-canonical Windows payload path: $RelativePath"
     }
     $fullPath = [IO.Path]::GetFullPath((Join-Path $Base $RelativePath))
     if (-not $fullPath.StartsWith($Base + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
@@ -87,10 +93,20 @@ function Get-PackageFiles([string]$Directory, [string]$Prefix = '') {
     }
 }
 
+function Get-ExistingManifest {
+    $current = Test-Path -LiteralPath (Join-Path $OutputDirectory $manifestName) -PathType Leaf
+    $legacy = $legacyManifestName -ne $manifestName -and
+        (Test-Path -LiteralPath (Join-Path $OutputDirectory $legacyManifestName) -PathType Leaf)
+    if ($current -and $legacy) { throw 'Multiple native payload manifests found. Use a new OutputDirectory.' }
+    if ($current) { return $manifestName }
+    if ($legacy) { return $legacyManifestName }
+}
+
 function Read-PayloadManifest {
     $owned = @{}
-    $manifestPath = Join-Path $OutputDirectory $manifestName
-    if (Test-Path -LiteralPath $manifestPath) {
+    $existingManifest = Get-ExistingManifest
+    if ($existingManifest) {
+        $manifestPath = Join-Path $OutputDirectory $existingManifest
         Assert-NoReparsePoint $manifestPath
         $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
         if ($manifest.Schema -ne 1 -or $manifest.RuntimeIdentifier -ne $RuntimeIdentifier -or -not $manifest.Files) {
@@ -109,11 +125,11 @@ function Read-PayloadManifest {
         }
     }
     foreach ($relativePath in @(Get-PackageFiles $OutputDirectory)) {
-        if ($relativePath -ne $manifestName -and -not $owned.ContainsKey($relativePath)) {
+        if ($relativePath -ne $existingManifest -and -not $owned.ContainsKey($relativePath)) {
             throw "Unowned file in package; refusing to mix native/managed or overwrite user files: $relativePath. Use a new OutputDirectory."
         }
     }
-    return $owned
+    return @{ Files = $owned; ManifestPath = $existingManifest }
 }
 
 function Invoke-DotNet([string]$Name, [string[]]$Arguments) {
@@ -160,10 +176,38 @@ function Assert-NativeExecutable([string]$Path) {
     }
 }
 
-function Merge-SharedSqliteLibrary([string]$Package, [string]$Module) {
+function Merge-NativeLibraries([string]$Package, [string]$Module) {
+    if ($RuntimeIdentifier.StartsWith('win-')) {
+        $nativePath = "native/$RuntimeIdentifier"
+        $shared = Join-Path $Package $nativePath
+        $moduleNative = Join-Path $Module $nativePath
+        if (-not (Test-Path -LiteralPath (Join-Path $shared 'e_sqlite3.dll') -PathType Leaf)) {
+            throw "Shared SQLite library is missing from $shared"
+        }
+        if (-not (Test-Path -LiteralPath (Join-Path $moduleNative 'e_sqlite3.dll') -PathType Leaf)) {
+            throw "Standalone accelerator SQLite library is missing from $moduleNative"
+        }
+        foreach ($file in Get-ChildItem -LiteralPath $moduleNative -Force) {
+            if ($file.PSIsContainer -or $file.Extension -ne '.dll' -or
+                ($file.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+                throw "Unexpected file in the accelerator RID directory: $($file.FullName)"
+            }
+            $destination = Join-Path $shared $file.Name
+            if (Test-Path -LiteralPath $destination -PathType Leaf) {
+                if ((Get-FileHash -LiteralPath $destination -Algorithm SHA256).Hash -ne
+                    (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash) {
+                    throw "Native dependency $($file.Name) is different in the main and accelerator outputs."
+                }
+                Remove-Item -LiteralPath $file.FullName
+            } else {
+                [IO.File]::Move($file.FullName, $destination)
+            }
+        }
+        return
+    }
+
     $name = 'libe_sqlite3.so'
-    if ($RuntimeIdentifier.StartsWith('win-')) { $name = 'e_sqlite3.dll' }
-    elseif ($RuntimeIdentifier.StartsWith('osx-')) { $name = 'libe_sqlite3.dylib' }
+    if ($RuntimeIdentifier.StartsWith('osx-')) { $name = 'libe_sqlite3.dylib' }
     $shared = Join-Path $Package $name
     $duplicate = Join-Path $Module $name
     if (-not (Test-Path -LiteralPath $shared -PathType Leaf)) {
@@ -250,7 +294,7 @@ try {
     $packageLockPath = Join-Path $packageParent ('.' + (Split-Path $OutputDirectory -Leaf) + '.publish.lock')
     Assert-NoReparsePoint $packageLockPath
     $packageLock = [IO.File]::Open($packageLockPath, [IO.FileMode]::OpenOrCreate, [IO.FileAccess]::ReadWrite, [IO.FileShare]::None)
-    $owned = Read-PayloadManifest
+    $null = Read-PayloadManifest
     $runId = [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff') + '-' + [Guid]::NewGuid().ToString('N').Substring(0, 8)
     $runDirectory = Resolve-RepositoryPath (Join-Path $artifacts "staging/$runId")
     $stage = Resolve-RepositoryPath (Join-Path $runDirectory 'package')
@@ -276,8 +320,8 @@ try {
     $phase = 'native-accelerator'
     $proxyOutput = Join-Path $stage 'modules/Accelerator'
     Invoke-DotNet $phase (@('publish', (Join-Path $root 'src/BD.WTTS.Client.Plugins.Accelerator.ReverseProxy/BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj')) + $common + @('-f', 'net11.0', '-o', $proxyOutput))
-    $phase = 'shared-sqlite'
-    Merge-SharedSqliteLibrary $stage $proxyOutput
+    $phase = 'native-libraries'
+    Merge-NativeLibraries $stage $proxyOutput
 
     $phase = 'validate-payload'
     $executableSuffix = ''
@@ -288,10 +332,19 @@ try {
     }
     Assert-NativeExecutable $uiExecutable
     Assert-NativeExecutable (Join-Path $proxyOutput ('Steam++.Accelerator' + $executableSuffix))
+    if ($hostPlatform -eq 'win') {
+        foreach ($file in Get-ChildItem -LiteralPath $stage -File -Force) {
+            if ($file.Name -ne 'Steam++.exe') { throw "Unexpected file beside main executable: $($file.Name)" }
+        }
+    }
     $entries = @()
     foreach ($file in Get-ChildItem -LiteralPath $stage -Recurse -File -Force) {
         $relativePath = $file.FullName.Substring($stage.Length + 1).Replace('\', '/')
         $null = Get-PayloadPath $stage $relativePath
+        if ($hostPlatform -eq 'win' -and $file.Extension -eq '.dll' -and
+            $relativePath -notmatch "^native/$RuntimeIdentifier/[^/]+\.dll$") {
+            throw "DLL outside the common native dependency directory: $relativePath"
+        }
         if ($file.Name -match '\.(deps|runtimeconfig)\.json$' -or $file.Name -in @('Steam++.dll', 'Steam++.Accelerator.dll', 'coreclr.dll', 'libcoreclr.so', 'libcoreclr.dylib')) {
             throw "Managed runtime artifact found in native staging: $relativePath"
         }
@@ -306,14 +359,16 @@ try {
 
     $phase = 'promote-payload'
     # Revalidate after compilation: user changes during a long build must never be overwritten.
-    $owned = Read-PayloadManifest
+    $previousPayload = Read-PayloadManifest
     $backup = Join-Path $runDirectory 'previous-payload'
     New-Item -ItemType Directory -Path $OutputDirectory, $backup -Force | Out-Null
     $moved = New-Object 'System.Collections.Generic.List[string]'
     $installed = New-Object 'System.Collections.Generic.List[string]'
     try {
-        $previousPaths = @($owned.Keys)
-        if (Test-Path -LiteralPath (Join-Path $OutputDirectory $manifestName)) { $previousPaths += $manifestName }
+        $previousPaths = @($previousPayload.Files.Keys)
+        # Back up the validated manifest in its original location for rollback,
+        # including packages whose manifest and DLLs lived at the root.
+        if ($previousPayload.ManifestPath) { $previousPaths += $previousPayload.ManifestPath }
         foreach ($relativePath in $previousPaths) {
             $source = Join-Path $OutputDirectory $relativePath
             $destination = Join-Path $backup $relativePath

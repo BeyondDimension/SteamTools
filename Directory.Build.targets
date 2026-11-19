@@ -111,4 +111,17 @@
     <ProjectReference Include="$(MSBuildThisFileDirectory)ref\Common\src\BD.Common.ModelValidator\BD.Common.ModelValidator.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)build/native-graphics/StaticGraphics.targets" Condition="'$(MSBuildProjectName)' == 'BD.WTTS.Client.Avalonia.App'" />
+
+  <!-- .NET 11 NativeCompile and LinkNative's static-graphics hook have already run.
+       Change the final copy metadata before the SDK checks duplicate destinations. -->
+  <Target Name="WttsPlaceWindowsNativeDependencies" AfterTargets="ComputeFilesToPublish"
+          BeforeTargets="_HandleFileConflictsForPublish"
+          Condition="'$(WttsNativeAot)' == 'true' AND '$(PublishAot)' == 'true' AND $(RuntimeIdentifier.StartsWith('win-')) AND ('$(MSBuildProjectName)' == 'BD.WTTS.Client.Avalonia.App' OR '$(MSBuildProjectName)' == 'BD.WTTS.Client.Plugins.Accelerator.ReverseProxy')">
+    <ItemGroup>
+      <!-- Steamworks and the optional XunYou SDK arrive as project content, not RID assets. -->
+      <ResolvedFileToPublish Condition="'%(ResolvedFileToPublish.Extension)' == '.dll' AND '%(ResolvedFileToPublish.PostprocessAssembly)' != 'true' AND ('%(ResolvedFileToPublish.AssetType)' == 'native' OR ('%(ResolvedFileToPublish.AssetType)' == '' AND ('%(ResolvedFileToPublish.RelativePath)' == 'steam_api64.dll' OR '%(ResolvedFileToPublish.RelativePath)' == 'xunyoucall64.dll')))">
+        <RelativePath>native/$(RuntimeIdentifier)/%(ResolvedFileToPublish.Filename)%(ResolvedFileToPublish.Extension)</RelativePath>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
 </Project>

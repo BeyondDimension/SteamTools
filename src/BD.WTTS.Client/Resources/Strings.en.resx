@@ -3362,7 +3362,7 @@ Once the transaction is confirmed, it cannot be revoked, please choose carefully
     <comment>Author=kotovasia5120</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
-    <value>Save all changes to Steam</value>
+    <value>Apply to Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
@@ -3374,7 +3374,7 @@ Once the transaction is confirmed, it cannot be revoked, please choose carefully
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
-    <value>Saving data to Steam succeeds</value>
+    <value>Changes applied to Steam. You can now open Steam yourself.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
@@ -6285,7 +6285,13 @@ Click OK to open Windows Services. Set this service to Manual and start it, then
     <value>General game tools</value>
   </data>
   <data name="L10nGames_SaveEditNotice" xml:space="preserve">
-    <value>Saved successfully, but not yet written to Steam files. Open the edit list in the upper right and save all changes to Steam files to apply them.</value>
+    <value>Game details saved locally. Fully exit Steam, then choose Apply to Steam in the edit list.</value>
+  </data>
+  <data name="L10nGames_SaveLocalEdit" xml:space="preserve">
+    <value>Save locally</value>
+  </data>
+  <data name="L10nGames_ExitSteamBeforeApply" xml:space="preserve">
+    <value>Fully exit Steam, then click Apply to Steam.</value>
   </data>
   <data name="L10nGames_ImageDownloadWait" xml:space="preserve">
     <value>Downloading images may take some time. Please wait.</value>
@@ -6328,7 +6334,7 @@ Make sure the account or game library matches the backup source.</value>
     <value>Edit Steam games</value>
   </data>
   <data name="L10nGames_EditDescription" xml:space="preserve">
-    <value>Change Steam game names, publishers, cover images, launch options, and other details, then save the changes to Steam.</value>
+    <value>Game details and launch options are saved locally. Fully exit Steam before applying these changes. Custom covers are saved separately.</value>
   </data>
   <data name="L10nGames_IdleTitle" xml:space="preserve">
     <value>Steam playtime idling</value>
@@ -6456,7 +6462,7 @@ Make sure the account or game library matches the backup source.</value>
     <value>Exported successfully: {0} edited records.</value>
   </data>
   <data name="L10nGames_ImportSuccess" xml:space="preserve">
-    <value>Imported successfully: restored edits for {0} games.</value>
+    <value>Imported local edits for {0} games. Fully exit Steam before applying them.</value>
   </data>
   <data name="L10nGames_PlatformSettingsFormat" xml:space="preserve">
     <value>{0} platform settings</value>
