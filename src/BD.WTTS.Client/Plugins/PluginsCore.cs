@@ -224,6 +224,11 @@ public static partial class PluginsCore
     }
 
 #if !WTTS_NATIVE_AOT
+    static bool IsModuleSupported(string name) =>
+        OperatingSystem.IsWindows() ||
+        (!string.Equals(name, GameTools, StringComparison.OrdinalIgnoreCase) &&
+         !string.Equals(name, ArchiSteamFarmPlus, StringComparison.OrdinalIgnoreCase));
+
     //static readonly HashSet<string> ignoreDirNames = new(StringComparer.OrdinalIgnoreCase)
     //{
     //    Update,
@@ -266,6 +271,9 @@ public static partial class PluginsCore
             };
             foreach (var item in modules)
             {
+                if (!IsModuleSupported(item))
+                    continue;
+
                 var disable = disablePluginNames != null && disablePluginNames.Contains(item);
 
                 //HashSet<string?>? entryAssemblyNames_ = null;
@@ -326,7 +334,7 @@ public static partial class PluginsCore
                 {
                     dirName = new DirectoryInfo(directory).Name;
                 }
-                if (string.IsNullOrEmpty(dirName))
+                if (string.IsNullOrEmpty(dirName) || !IsModuleSupported(dirName))
                 {
                     return true;
                 }

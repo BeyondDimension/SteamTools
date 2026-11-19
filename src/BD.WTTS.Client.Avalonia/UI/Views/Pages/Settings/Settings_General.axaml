@@ -19,7 +19,10 @@
             Margin="0,0,0,10"
             Text="{x:Static spp:Strings.Settings_General}"
             Theme="{StaticResource SubtitleTextBlockStyle}" />
-        <spp:OptionsDisplayItem Description="{x:Static spp:Strings.Settings_StartupAutoRun}" Header="{x:Static spp:Strings.Settings_General_StartAutoRun}">
+        <spp:OptionsDisplayItem
+            Description="{x:Static spp:Strings.Settings_StartupAutoRun}"
+            Header="{x:Static spp:Strings.Settings_General_StartAutoRun}"
+            IsVisible="{spp:OnPlatform Windows}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
             </spp:OptionsDisplayItem.Icon>

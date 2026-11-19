@@ -19,7 +19,10 @@ public sealed partial class AuthenticatorHomePageViewModel
     [Reactive]
     public string? VaultReadError { get; private set; }
 
-    public bool ShowWindowsHello => OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000) || WindowsHelloEnabled;
+    public bool ShowWindowsHello => OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000) ||
+        (OperatingSystem.IsWindows() && WindowsHelloEnabled);
+
+    public bool CanUnlockVault => OperatingSystem.IsWindows() || !WindowsHelloEnabled;
 
     public bool CanLockVault => WindowsHelloEnabled || HasPasswordEncrypt;
 
@@ -32,6 +35,7 @@ public sealed partial class AuthenticatorHomePageViewModel
 
     public string VaultLockedMessage => unlockMethod switch
     {
+        VaultUnlockMethod.WindowsHello when !CanUnlockVault => Strings.Auth_VaultLocalReadFailed,
         VaultUnlockMethod.WindowsHello => Strings.Auth_VaultHelloLocked,
         VaultUnlockMethod.LegacyPassword => Strings.Auth_VaultLegacyHelloLocked,
         _ => Strings.Auth_PasswordProtectedVerifyFirst,
@@ -65,7 +69,7 @@ public sealed partial class AuthenticatorHomePageViewModel
         var verifiedWithHello = WindowsHelloEnabled && sessionVerifiedWithHello;
         if (!IsVerificationPass && unlockMethod != VaultUnlockMethod.None)
         {
-            if (!unlock) return;
+            if (!unlock || !CanUnlockVault) return;
             var access = await RequestVaultUnlockAsync(unlockMethod);
             if (Disposed || !access.authorized) return;
             (password, verifiedWithHello) = (access.password, access.verifiedWithHello);
@@ -109,6 +113,7 @@ public sealed partial class AuthenticatorHomePageViewModel
     void RaiseProtectionPresentation()
     {
         this.RaisePropertyChanged(nameof(ShowWindowsHello));
+        this.RaisePropertyChanged(nameof(CanUnlockVault));
         this.RaisePropertyChanged(nameof(CanLockVault));
         this.RaisePropertyChanged(nameof(UnlockVaultText));
         this.RaisePropertyChanged(nameof(VaultLockedMessage));

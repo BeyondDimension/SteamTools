@@ -261,7 +261,8 @@ public sealed partial class App : Application
                     UISettings.UseSystemThemeAccent.Value ? bool.TrueString : UISettings.ThemeAccent.Value),
             !UISettings.UseSystemThemeAccent.Value);
 
-        GeneralSettings.AutoRunOnStartup.Subscribe(IApplication.SetBootAutoStart);
+        if (OperatingSystem.IsWindows())
+            GeneralSettings.AutoRunOnStartup.Subscribe(IApplication.SetBootAutoStart);
 
         UISettings.WindowBackgroundMaterial.Subscribe(SetAllWindowransparencyMateria, false);
 

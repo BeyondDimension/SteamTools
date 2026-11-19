@@ -242,7 +242,7 @@
             <TextBlock Text="{Binding VaultReadError}" IsVisible="{Binding !!VaultReadError}"
                        Foreground="{DynamicResource SystemFillColorCriticalBrush}" TextAlignment="Center" TextWrapping="Wrap" />
             <Button Classes="accent" HorizontalAlignment="Center" Command="{Binding UnlockVaultAsync}"
-                    Content="{Binding UnlockVaultText}" IsEnabled="{Binding !IsLoading}" />
+                    Content="{Binding UnlockVaultText}" IsEnabled="{Binding !IsLoading}" IsVisible="{Binding CanUnlockVault}" />
         </StackPanel>
 
         <spp:ContentLoader

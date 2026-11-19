@@ -145,9 +145,11 @@
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameAccount\BD.WTTS.Client.Plugins.GameAccount.csproj" Aliases="GameAccountPlugin" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameList\BD.WTTS.Client.Plugins.GameList.csproj" Aliases="GameListPlugin" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.Authenticator\BD.WTTS.Client.Plugins.Authenticator.csproj" Aliases="AuthenticatorPlugin" />
-		<ProjectReference Include="..\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus.csproj" Aliases="ArchiSteamFarmPlusPlugin" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.SteamIdleCard\BD.WTTS.Client.Plugins.SteamIdleCard.csproj" Aliases="SteamIdleCardPlugin" />
-		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameTools\BD.WTTS.Client.Plugins.GameTools.csproj" Aliases="GameToolsPlugin" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus.csproj" Aliases="ArchiSteamFarmPlusPlugin"
+						  Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameTools\BD.WTTS.Client.Plugins.GameTools.csproj" Aliases="GameToolsPlugin"
+						  Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(WttsNativeAot)' != 'true' AND '$(Configuration)' == 'Debug' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
