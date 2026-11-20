@@ -39,18 +39,79 @@ interface IDotNetPublishCommand : ICommand
 
     static Command ICommand.GetCommand()
     {
-        var debug = CommandCompat.GetOption<bool>("--debug", "Defines the build configuration");
-        var rids = CommandCompat.GetOption<string[]>("--rids", "RID is short for runtime identifier");
-        var force_sign = CommandCompat.GetOption<bool>("--force-sign", GetDefForceSign, "Mandatory verification must be digitally signed");
-        var hsm_sign = CommandCompat.GetOption<bool>("--hsm-sign", "");
-        var sha256 = CommandCompat.GetOption<bool>("--sha256", () => true, "Calculate file hash value");
-        var sha384 = CommandCompat.GetOption<bool>("--sha384", () => true, "Calculate file hash value");
-        var stm_upload = CommandCompat.GetOption<bool>("--stm-upload", "Steam upload zip file");
-        var command = new Command(commandName, "DotNet publish app")
+        var mode = CommandCompat.GetOption("--mode", () => "jit", "Publish JIT, Native AOT, or both (default: jit)");
+        mode.AcceptOnlyFromAmong("jit", "aot", "both");
+        var debug = CommandCompat.GetOption<bool>("--debug", "Build the JIT variant in Debug; Native AOT always uses Release");
+        var rids = CommandCompat.GetOption<string[]>("--rids", "Target runtime identifiers");
+        rids.Required = true;
+        rids.Arity = ArgumentArity.OneOrMore;
+        rids.AllowMultipleArgumentsPerToken = true;
+        rids.AcceptOnlyFromAmong(all_rids);
+        var formats = CommandCompat.GetOption<string[]>("--formats", "Windows package formats for the selected modes; default: 7z msix for JIT, all three for AOT or both");
+        formats.Arity = ArgumentArity.OneOrMore;
+        formats.AllowMultipleArgumentsPerToken = true;
+        formats.AcceptOnlyFromAmong("7z", "exe", "msix");
+        var output = CommandCompat.GetOption<string>("--output", "Override the Native AOT output root; does not move JIT output");
+        var nsisBuild = CommandCompat.GetOption<string>("--nsis-build", "Path to the NSIS-Build checkout (default: ../NSIS-Build)");
+        var makensis = CommandCompat.GetOption<string>("--makensis", "Override the NSIS-Build compiler (optional)");
+        var thumbprint = CommandCompat.GetOption<string>("--sign-thumbprint", "Certificate in CurrentUser\\My for signing Windows EXE and MSIX packages (optional)");
+        var force_sign = CommandCompat.GetOption<bool>("--force-sign", GetDefForceSign, "Require signing in the JIT workflow");
+        var hsm_sign = CommandCompat.GetOption<bool>("--hsm-sign", "Use the JIT workflow's hardware signing certificate");
+        var sha256 = CommandCompat.GetOption<bool>("--sha256", () => true, "Calculate SHA-256 in the JIT manifest");
+        var sha384 = CommandCompat.GetOption<bool>("--sha384", () => true, "Calculate SHA-384 in the JIT manifest");
+        var stm_upload = CommandCompat.GetOption<bool>("--stm-upload", "Build the JIT Steam upload zip");
+        var command = new Command(commandName, "Build and package Watt Toolkit as JIT, Native AOT, or both")
         {
-           debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign,
+            mode, rids, formats, output, nsisBuild, makensis, thumbprint,
+            debug, force_sign, sha256, sha384, stm_upload, hsm_sign,
         };
-        command.SetHandler(Handler, debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign);
+        command.SetAction(args =>
+        {
+            var selectedMode = args.GetValue(mode);
+            var publishJit = selectedMode != "aot";
+            var publishAot = selectedMode != "jit";
+            var targets = args.GetValue(rids)!.Distinct(StringComparer.Ordinal).ToArray();
+            var windowsPackages = OperatingSystem.IsWindows() && targets.All(static rid => rid.StartsWith("win-", StringComparison.Ordinal));
+            if (publishAot)
+            {
+                var os = OperatingSystem.IsWindows() ? "win" : OperatingSystem.IsLinux() ? "linux" : OperatingSystem.IsMacOS() ? "osx" : null;
+                if (os is null || targets.Any(rid => rid != $"{os}-x64" && rid != $"{os}-arm64"))
+                    throw new ArgumentException("Native AOT requires an x64 or arm64 RID for the host OS.");
+            }
+
+            var selectedFormats = args.GetValue(formats) ?? [];
+            if (selectedFormats.Length != 0 && !windowsPackages)
+                throw new ArgumentException("--formats is only supported when packaging Windows RIDs on Windows.");
+
+            var nativeOutput = args.GetValue(output);
+            if (nativeOutput is not null && !publishAot)
+                throw new ArgumentException("--output requires --mode aot or --mode both.");
+
+            var defaultFormats = selectedFormats.Length == 0;
+            var archive = defaultFormats || selectedFormats.Contains("7z");
+            var msix = defaultFormats || selectedFormats.Contains("msix");
+            var exe = windowsPackages && (defaultFormats ? publishAot : selectedFormats.Contains("exe"));
+            var nsisPath = args.GetValue(nsisBuild);
+            var nsisCompiler = args.GetValue(makensis);
+            if (!exe && (nsisPath is not null || nsisCompiler is not null))
+                throw new ArgumentException("--nsis-build and --makensis require EXE packaging.");
+
+            var certificate = args.GetValue(thumbprint);
+            if (certificate is not null)
+            {
+                if (!windowsPackages || (!exe && !msix))
+                    throw new ArgumentException("--sign-thumbprint requires Windows EXE or MSIX packaging.");
+                MSIXHelper.SignTool.ValidateSigningCertificate(certificate, msix);
+            }
+
+            var installer = exe ? new NsisInstaller(nsisPath ?? Path.Combine(ProjectUtils.ProjPath, "..", "NSIS-Build"), nsisCompiler) : null;
+            if (publishJit)
+                Handler(args.GetValue(debug), targets, args.GetValue(force_sign), args.GetValue(sha256), args.GetValue(sha384),
+                    args.GetValue(stm_upload), args.GetValue(hsm_sign), archive, msix, installer, certificate);
+            // The JIT and AOT builds write to different artifact trees. Run them in order so a failure stops the command.
+            if (publishAot)
+                NativeAotPublisher.Publish(targets, archive, msix, nativeOutput, installer, certificate);
+        });
         return command;
     }
 
@@ -72,7 +133,8 @@ interface IDotNetPublishCommand : ICommand
     }
 
 
-    internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload, bool hsm_sign)
+    static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload, bool hsm_sign,
+        bool archive, bool msix, NsisInstaller? installer, string? thumbprint)
     {
         if (ProjectUtils.ProjPath.Contains("actions-runner"))
         {
@@ -188,14 +250,10 @@ interface IDotNetPublishCommand : ICommand
                         File.Copy(ico_path, Path.Combine(save_dir_path, "Watt-Toolkit.png"), true);
                     }
                     Console.WriteLine(ToolStrings.Get("LinuxScripts"));
-                    var script_path = Path.Combine(rootPublishDir, "..", "ShellScript", "Linux");//Path.Combine(ProjectUtils.ProjPath, "build", "linux");
-                    CopyDirectory(script_path, Path.Combine(rootPublishDir, "script"), true);
-                    var localizedScripts = Path.Combine(ProjectUtils.ProjPath, "build", "linux");
-                    var destinationScripts = Path.Combine(rootPublishDir, "script");
-                    foreach (var script in new[] { "Steam++.sh", "environment_check.sh", "offline_init.sh", "online_install.sh", "uninstall.sh" })
-                        File.Copy(Path.Combine(localizedScripts, script), Path.Combine(destinationScripts, script), true);
-                    CopyDirectory(Path.Combine(localizedScripts, "locale"), Path.Combine(destinationScripts, "locale"), true);
-                    File.Move(Path.Combine(rootPublishDir, "script", "Steam++.sh"), Path.Combine(rootPublishDir, "Steam++.sh"));
+                    var scriptSource = Path.Combine(ProjectUtils.ProjPath, "build", "linux");
+                    var scriptDestination = Path.Combine(rootPublishDir, "script");
+                    CopyDirectory(scriptSource, scriptDestination, true);
+                    File.Move(Path.Combine(scriptDestination, "Steam++.sh"), Path.Combine(rootPublishDir, "Steam++.sh"));
                 }
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
@@ -373,7 +431,10 @@ $"""
                             }
                         }
                     }
+                }
 
+                if (OperatingSystem.IsWindows() && isWindows && msix)
+                {
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                     Console.WriteLine(ToolStrings.Get("GeneratingMsix"));
                     ResetConsoleColor();
@@ -393,7 +454,10 @@ $"""
 
                     // 签名 msix 包
                     // msix 签名证书名必须与包名一致
-                    MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+                    if (thumbprint is not null)
+                        MSIXHelper.SignTool.SignWithThumbprint(msixFilePath, thumbprint);
+                    else
+                        MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
 
                     var msixBundleFilePath = $"{rootPublishDir}.msixbundle";
                     MSIXHelper.MakeAppx.StartBundle(msixBundleFilePath, msixDir, AppVersion4);
@@ -401,7 +465,10 @@ $"""
 
                     // 签名 msix 包
                     // msix 签名证书名必须与包名一致
-                    MSIXHelper.SignTool.Start(force_sign, $"\"{msixBundleFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+                    if (thumbprint is not null)
+                        MSIXHelper.SignTool.SignWithThumbprint(msixBundleFilePath, thumbprint);
+                    else
+                        MSIXHelper.SignTool.Start(force_sign, $"\"{msixBundleFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
 
                     using var msixFileStream = File.OpenRead(msixBundleFilePath);
 
@@ -434,15 +501,43 @@ $"""
                 }
                 switch (info.Platform)
                 {
+                    case Platform.Windows or Platform.UWP or Platform.WinUI when !archive:
+                        break;
                     case Platform.Windows:
                     case Platform.UWP:
                     case Platform.WinUI:
-                    case Platform.Apple:
                         ICompressedPackageCommand.CreateSevenZipPack(packPath = GetPackPathWithTryDelete(FileEx._7Z), appPublish.Files);
+                        break;
+                    case Platform.Apple:
+                        ICompressedPackageCommand.CreateSevenZipPack(packPath = GetPackPathWithTryDelete(FileEx._7Z), appPublish.Files, rootPublishDir);
                         break;
                     case Platform.Linux:
                         ICompressedPackageCommand.CreateGZipPack(packPath = GetPackPathWithTryDelete(FileEx.TAR_GZ), appPublish.Files);
                         break;
+                }
+                if (isWindows && installer is not null)
+                {
+                    var setup = GetPackPathWithTryDelete(FileEx.EXE);
+                    if (packPath is not null)
+                    {
+                        INSISBuildCommand.BuildInstaller(installer, packPath, setup, debug, force_sign, hsm_sign, thumbprint);
+                    }
+                    else
+                    {
+                        // An EXE still embeds a 7z payload, even when the standalone archive is not requested.
+                        var temporary = Directory.CreateTempSubdirectory("wtts-nsis-payload-");
+                        try
+                        {
+                            var payload = Path.Combine(temporary.FullName, Path.GetFileName(rootPublishDir) + FileEx._7Z);
+                            ICompressedPackageCommand.CreateSevenZipPack(payload, appPublish.Files);
+                            INSISBuildCommand.BuildInstaller(installer, payload, setup, debug, force_sign, hsm_sign, thumbprint);
+                        }
+                        finally
+                        {
+                            temporary.Delete(recursive: true);
+                        }
+                    }
+                    Console.WriteLine($"JIT installer ({rid}): {setup}");
                 }
                 if (stm_upload)
                 {

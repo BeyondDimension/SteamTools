@@ -1,3 +1,4 @@
+using BD.WTTS.Client.Tools.Publish.Helpers;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip.Compression;
@@ -202,6 +203,33 @@ interface ICompressedPackageCommand : ICommand
         compressor.CompressFileDictionary(dict, packPath);
         compressor.FileCompressionStarted -= FileCompressionStarted;
         compressor = null;
+    }
+
+    static void CreateSevenZipPack(string packPath, IEnumerable<AppPublishFileInfo> files, string sourceDirectory)
+    {
+        if (OperatingSystem.IsWindows())
+        {
+            CreateSevenZipPack(packPath, files);
+            return;
+        }
+
+        // The bundled 7-Zip library is Windows-only. Pass the same file selection to 7zz.
+        var listFile = Path.GetTempFileName();
+        try
+        {
+            File.WriteAllLines(listFile, files.Select(static file => file.RelativePath));
+            var start = new ProcessStartInfo("7zz")
+            {
+                WorkingDirectory = sourceDirectory,
+                UseShellExecute = false,
+                ArgumentList = { "a", "-t7z", "-m0=lzma2", "-mx=9", "-spd", "-scsUTF-8", Path.GetFullPath(packPath), $"@{listFile}" },
+            };
+            ProcessHelper.StartAndWaitForExit(start);
+        }
+        finally
+        {
+            File.Delete(listFile);
+        }
     }
 
     static void CreateZstdPack(string packPath, IEnumerable<AppPublishFileInfo> files)

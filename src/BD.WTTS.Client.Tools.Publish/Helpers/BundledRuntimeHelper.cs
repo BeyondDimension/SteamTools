@@ -43,8 +43,7 @@ static class BundledRuntimeHelper
         if (requirements.Length == 0) return; // includedFrameworks belong to self-contained executables, not this runtime.
 
         var errors = new List<Exception>();
-        IEnumerable<string> sourceRoots = isWindows ? GetWindowsRoots(runtimeArchitecture) :
-            [Path.GetFullPath(Path.Combine(rootPublishDir, "..", "dotnet-Runtime", $"{Platform.Linux}-{architecture}"))];
+        var sourceRoots = isWindows ? GetWindowsRoots(runtimeArchitecture) : GetLinuxRoots(rootPublishDir, runtimeArchitecture);
         foreach (var sourceRoot in sourceRoots.Distinct(StringComparer.OrdinalIgnoreCase))
         {
             try
@@ -187,6 +186,13 @@ static class BundledRuntimeHelper
         var value = name.Split('+', 2)[0].Split('-', 2);
         return Version.TryParse(value[0], out var version) ?
             new(name, version, value.Length == 1 ? [] : value[1].Split('.')) : null;
+    }
+
+    static IEnumerable<string> GetLinuxRoots(string packagePath, Architecture architecture)
+    {
+        yield return Path.GetFullPath(Path.Combine(packagePath, "..", "dotnet-Runtime", $"{Platform.Linux}-{architecture}"));
+        if (OperatingSystem.IsLinux() && RuntimeInformation.ProcessArchitecture == architecture)
+            yield return Path.GetFullPath(Path.Combine(RuntimeEnvironment.GetRuntimeDirectory(), "..", "..", ".."));
     }
 
     static IEnumerable<string> GetWindowsRoots(Architecture architecture)

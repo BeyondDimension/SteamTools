@@ -1,5 +1,9 @@
 ## 客户端发布命令行工具
 
+### 发布应用
+
+用 `pub run --mode jit|aot|both --rids <RID>` 选择发布模式；省略 `--mode` 时仅发布 JIT。完整调用方式、安装包参数和输出位置见[发布说明](../../doc/publish.md)。
+
 ### DotNet 发布命令
 ```
 pub run --rids win-x64
