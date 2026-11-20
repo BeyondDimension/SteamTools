@@ -94,22 +94,16 @@ public interface ISettings
         }
     }
 
-    static JsonSerializerOptions GetDefaultOptions()
+    // Settings contexts provide source-generated enum converters in both JIT and AOT builds.
+    static JsonSerializerOptions GetDefaultOptions() => new()
     {
-        var o = new JsonSerializerOptions()
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.Never,
-            IgnoreReadOnlyFields = false,
-            IgnoreReadOnlyProperties = true,
-            IncludeFields = false,
-            WriteIndented = true,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        };
-#if !WTTS_NATIVE_AOT
-        o.Converters.Add(new JsonStringEnumConverter());
-#endif
-        return o;
-    }
+        DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+        IgnoreReadOnlyFields = false,
+        IgnoreReadOnlyProperties = true,
+        IncludeFields = false,
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static TSettings? Deserialize<TSettings>(string settingsFilePath) where TSettings : ISettings
