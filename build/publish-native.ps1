@@ -1,4 +1,4 @@
-#requires -Version 5.1
+﻿#requires -Version 5.1
 <#
 .SYNOPSIS
 Publishes the native UI and accelerator without touching portable user data.
@@ -47,6 +47,9 @@ $runDirectory = $null
 $diskImagePath = $null
 $diskImageWork = $null
 $stagedDiskImage = $null
+$utf8 = [Text.UTF8Encoding]::new($false)
+$previousConsoleEncoding = [Console]::OutputEncoding
+$previousDotnetUtf8 = $env:DOTNET_CLI_FORCE_UTF8_ENCODING
 
 function Resolve-RepositoryPath([string]$Path) {
     if (-not [IO.Path]::IsPathRooted($Path)) { $Path = Join-Path $root $Path }
@@ -163,7 +166,7 @@ function Read-PayloadManifest {
 function Invoke-DotNet([string]$Name, [string[]]$Arguments) {
     $logPath = Join-Path $runLogs ($Name + '.log')
     Write-Host "[$Name] dotnet $($Arguments -join ' ')"
-    $writer = [IO.StreamWriter]::new($logPath, $false, [Text.UTF8Encoding]::new($false))
+    $writer = [IO.StreamWriter]::new($logPath, $false, $utf8)
     $savedPreference = $ErrorActionPreference
     try {
         $ErrorActionPreference = 'Continue'
@@ -269,6 +272,10 @@ function Merge-NativeLibraries([string]$Package, [string]$Module) {
 
 Push-Location -LiteralPath $root
 try {
+    # PowerShell decodes piped native output using Console.OutputEncoding, even when dotnet writes UTF-8.
+    [Console]::OutputEncoding = $utf8
+    $env:DOTNET_CLI_FORCE_UTF8_ENCODING = '1'
+
     if (-not $BuildRoot) { $BuildRoot = $PSScriptRoot }
     $BuildRoot = Resolve-RepositoryPath $BuildRoot
     $flavor = 'native'
@@ -330,7 +337,7 @@ try {
         $component = 'Microsoft.VisualStudio.Component.VC.Tools.x86.x64'
         if ($RuntimeIdentifier -eq 'win-arm64') { $component = 'Microsoft.VisualStudio.Component.VC.Tools.ARM64' }
         if (-not (Test-Path -LiteralPath $vswhere)) { throw 'Install Visual Studio Build Tools with Desktop development with C++ and Windows SDK.' }
-        $vsPath = @(& $vswhere -latest -products '*' -requires $component -property installationPath)
+        $vsPath = @(& $vswhere -utf8 -latest -products '*' -requires $component -property installationPath)
         if ($LASTEXITCODE -ne 0 -or -not $vsPath) { throw "Visual Studio C++ tools for $RuntimeIdentifier are missing ($component)." }
         $targetArchitecture = $RuntimeIdentifier.Substring(4)
         $sdkRoot = (Get-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Kits\Installed Roots' -ErrorAction SilentlyContinue).KitsRoot10
@@ -535,5 +542,7 @@ try {
 } finally {
     if ($packageLock) { $packageLock.Dispose() }
     if ($lock) { $lock.Dispose() }
+    $env:DOTNET_CLI_FORCE_UTF8_ENCODING = $previousDotnetUtf8
+    [Console]::OutputEncoding = $previousConsoleEncoding
     Pop-Location
 }
