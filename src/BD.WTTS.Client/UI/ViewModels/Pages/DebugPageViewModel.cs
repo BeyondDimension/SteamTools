@@ -1,3 +1,5 @@
+using BD.WTTS.Logging;
+
 // ReSharper disable once CheckNamespace
 
 namespace BD.WTTS.UI.ViewModels;
@@ -13,21 +15,15 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
 
     public DebugPageViewModel() { }
 
-    string _DebugString = string.Empty;
-
-    [Utf8StringFormatter]
-    public string DebugString
-    {
-        get => _DebugString;
-        set => this.RaiseAndSetIfChanged(ref _DebugString, value);
-    }
+    [MP2Ignore]
+    public LogTextBuffer ConsoleLogs { get; } = new();
 
     sealed class D : Repository<Common.Entities.KeyValuePair, string>
     {
 
     }
 
-    public async void Debug(string? cmd)
+    public async Task Debug(string? cmd)
     {
         if (string.IsNullOrEmpty(cmd))
             return;
@@ -41,8 +37,7 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
                 var isDialog = cmds.Length > 1 && cmds[1].Contains('1');
                 var textModel = new TextBoxWindowViewModel();
                 var result = await IWindowManager.Instance.ShowTaskDialogAsync(textModel, "Window Title", subHeader: title, isDialog: isDialog, isCancelButton: true);
-                DebugString += "ShowTaskDialogAsync Result: " + result + Environment.NewLine
-                            + "Text Result: " + textModel.Value + Environment.NewLine;
+                ConsoleLogs.Append($"ShowTaskDialogAsync Result: {result}{Environment.NewLine}Text Result: {textModel.Value}{Environment.NewLine}");
                 break;
             case "toast":
                 Toast.Show(title);
@@ -62,13 +57,13 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
                 await IWindowManager.Instance.ShowAsync(AppEndPoint.Content, vm, isParent: false);
                 break;
             case "asm":
-                DebugString = string.Join(Environment.NewLine, AppDomain.CurrentDomain.GetAssemblies().Select(x => x.FullName).OrderBy(x => x));
+                ConsoleLogs.Replace(string.Join(Environment.NewLine, AppDomain.CurrentDomain.GetAssemblies().Select(x => x.FullName).OrderBy(x => x)));
                 break;
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
             case "plu":
-                DebugString = Startup.Instance.TryGetPlugins(out var loadedPlugins)
+                ConsoleLogs.Replace(Startup.Instance.TryGetPlugins(out var loadedPlugins)
                     ? string.Join(Environment.NewLine, loadedPlugins.Select(x => x.GetType().Assembly.FullName).OrderBy(x => x))
-                    : string.Empty;
+                    : null);
                 break;
 #endif
             case "acc":
@@ -83,7 +78,7 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
                 }
                 catch (Exception ex)
                 {
-                    DebugString = ex.ToString();
+                    ConsoleLogs.Append(ex + Environment.NewLine);
                 }
                 break;
             case "updatetray":
@@ -136,7 +131,7 @@ public sealed partial class DebugPageViewModel : TabItemViewModel
                 }
                 break;
             default:
-                DebugString += "未知命令" + Environment.NewLine;
+                ConsoleLogs.Append("未知命令" + Environment.NewLine);
                 break;
         }
     }

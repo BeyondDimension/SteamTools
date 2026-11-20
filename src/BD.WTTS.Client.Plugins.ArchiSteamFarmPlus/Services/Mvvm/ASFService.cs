@@ -1,4 +1,5 @@
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
+using BD.WTTS.Logging;
 using BD.WTTS.Services.Implementation;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
@@ -21,15 +22,7 @@ public sealed class ASFService : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref _IPCUrl, value);
     }
 
-    string? _ConsoleLogText;
-
-    public string? ConsoleLogText
-    {
-        get => _ConsoleLogText;
-        set => this.RaiseAndSetIfChanged(ref _ConsoleLogText, value);
-    }
-
-    public IConsoleBuilder ConsoleLogBuilder { get; } = new ConsoleBuilder();
+    public LogTextBuffer ConsoleLogs { get; } = new();
 
     public SourceCache<BotViewModel, string> SteamBotsSourceList;
 
@@ -48,25 +41,9 @@ public sealed class ASFService : ReactiveObject
         SteamBotsSourceList = new SourceCache<BotViewModel, string>(t => t.Bot.BotName);
 
         archiSteamFarmService.OnConsoleWirteLine += OnConsoleWriteLine;
-
-        ASFSettings.ConsoleMaxLine.Subscribe(x =>
-        {
-            var line = x;
-            if (x < ASFSettings.MinRangeConsoleMaxLine) line = ASFSettings.MinRangeConsoleMaxLine;
-            if (x > ASFSettings.MaxRangeConsoleMaxLine) line = ASFSettings.MaxRangeConsoleMaxLine;
-            ConsoleLogBuilder.MaxLine = line;
-        });
     }
 
-    void OnConsoleWriteLine(string message)
-    {
-        MainThread2.BeginInvokeOnMainThread(() =>
-        {
-            //ConsoleLogBuilder.Append(message); // message 包含换行
-            //var text = ConsoleLogBuilder.ToString();
-            ConsoleLogText += message;
-        });
-    }
+    void OnConsoleWriteLine(string message) => ConsoleLogs.Append(message);
 
     public void ShellMessageInput(string? input)
     {
@@ -92,7 +69,7 @@ public sealed class ASFService : ReactiveObject
 
         IsASFRunOrStoping = true;
 
-        ConsoleLogText = string.Empty;
+        ConsoleLogs.Clear();
         (var isOk, var ipcURL) = await archiSteamFarmService.StartAsync();
         if (!isOk)
         {

@@ -54,6 +54,14 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             }
             else // ASF 命令
             {
+                // The slash is a console alias, not part of the ASF protocol. Leave raw prompted input untouched.
+                if (data.StartsWith('/'))
+                {
+                    var command = data.AsSpan(1).TrimStart();
+                    if (command.IsEmpty) return;
+                    data = string.Concat("!", command);
+                }
+
                 var result = await ExecuteCommandAsync(data);
                 if (!string.IsNullOrEmpty(result))
                     OnConsoleWirteLine?.Invoke(Environment.NewLine + result);
@@ -112,7 +120,6 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         ASFProcess = StartAsync(SharedInfo.ASFExecuteFilePath);
         ASFProcessId = ASFProcess?.Id;
 
-        ASFService.Current.ConsoleLogText = string.Empty;
         Task2.InBackground(ReadOutPutData, true);
         AppDomain.CurrentDomain.ProcessExit += ExitHandler;
         AppDomain.CurrentDomain.UnhandledException += ExitHandler;

@@ -32,6 +32,7 @@ dotnet run --project .\src\BD.WTTS.Client.Tools.Publish\BD.WTTS.Client.Tools.Pub
 - `-Renderer SimdSkia` 需要 `ref/FluentAvalonia` 源码，默认输出为 `build/publish/native-simdskia/<RID>/`。
 - Windows JIT 打包需 MSIX 工具、混淆工具和签名配置；启动器依赖 .NET Framework。
 - 分发时保留完整目录结构。AOT 按清单核对文件及 SHA-256 并随包保留清单；不要打包用户数据、缓存、日志或调试符号。
+- 主程序和加速子进程须从同一版本发布；不要单独覆盖其中一个，否则实时日志的 IPC 接口可能不匹配。
 - 重新发布前关闭程序。Windows 脚本可以原地迁移旧布局：先校验旧根目录清单和每项 SHA-256，再替换清单拥有的文件。不会清理 `AppData`、`Cache`、`Log`/`Logs` 或用户压缩包。若已有生成文件未登记、缺失或被修改，改用新的 `-OutputDirectory`。
 
 ## macOS Native AOT

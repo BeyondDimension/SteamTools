@@ -30,13 +30,7 @@ public class ArchiSteamFarmCommandHistory
         get
         { return currentCommand; }
 
-        set
-        {
-            if (!string.IsNullOrEmpty(value))
-            {
-                currentCommand = value;
-            }
-        }
+        set => currentCommand = value;
     }
 
     /// <summary>

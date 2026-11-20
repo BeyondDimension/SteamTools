@@ -14957,5 +14957,22 @@ namespace BD.WTTS.Client.Resources {
                 return ResourceManager.GetString("银行转账", resourceCulture);
             }
         }
+
+        public static string LogConsole_Title => ResourceManager.GetString(nameof(LogConsole_Title), resourceCulture);
+        public static string LogConsole_Wrap => ResourceManager.GetString(nameof(LogConsole_Wrap), resourceCulture);
+        public static string LogConsole_Follow => ResourceManager.GetString(nameof(LogConsole_Follow), resourceCulture);
+        public static string LogConsole_CopyTip => ResourceManager.GetString(nameof(LogConsole_CopyTip), resourceCulture);
+        public static string LogConsole_Empty => ResourceManager.GetString(nameof(LogConsole_Empty), resourceCulture);
+        public static string LogConsole_LineCount => ResourceManager.GetString(nameof(LogConsole_LineCount), resourceCulture);
+        public static string LogConsole_ViewLogs => ResourceManager.GetString(nameof(LogConsole_ViewLogs), resourceCulture);
+        public static string LogConsole_ViewLogsDescription => ResourceManager.GetString(nameof(LogConsole_ViewLogsDescription), resourceCulture);
+        public static string LogConsole_NoFiles => ResourceManager.GetString(nameof(LogConsole_NoFiles), resourceCulture);
+        public static string LogConsole_ReadError => ResourceManager.GetString(nameof(LogConsole_ReadError), resourceCulture);
+        public static string LogConsole_EmptyFile => ResourceManager.GetString(nameof(LogConsole_EmptyFile), resourceCulture);
+        public static string LogConsole_FileTail => ResourceManager.GetString(nameof(LogConsole_FileTail), resourceCulture);
+        public static string LogConsole_Send => ResourceManager.GetString(nameof(LogConsole_Send), resourceCulture);
+        public static string LogConsole_CommandHint => ResourceManager.GetString(nameof(LogConsole_CommandHint), resourceCulture);
+        public static string Settings_Storage_AppFolder => ResourceManager.GetString(nameof(Settings_Storage_AppFolder), resourceCulture);
+        public static string Settings_Storage_OpenFolder => ResourceManager.GetString(nameof(Settings_Storage_OpenFolder), resourceCulture);
     }
 }

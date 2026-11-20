@@ -4,19 +4,30 @@ namespace BD.WTTS.UI.Views.Pages;
 
 public partial class DebugPage : PageBase<DebugPageViewModel>
 {
+    public static IReadOnlyList<string> CommandSuggestions { get; } =
+        ["/asm", "/dialog", "/gc", "/messagebox", "/notify", "/plu", "/toast", "/window"];
+
     public DebugPage()
     {
         InitializeComponent();
         this.SetViewModel<DebugPageViewModel>();
+    }
 
-        CommandTextBox.KeyUp += (s, e) =>
+    void Send_OnClick(object? sender, RoutedEventArgs e) => CommandInput.Submit();
+
+    async void CommandInput_CommandSubmitted(object? sender, string text)
+    {
+        if (ViewModel is not { } model) return;
+        var command = text.AsSpan().Trim();
+        if (!command.IsEmpty && command[0] == '/') command = command[1..].TrimStart();
+        if (command.IsEmpty) return;
+        try
         {
-            if (e.Key == Key.Enter)
-            {
-                var command = CommandTextBox.Text;
-                CommandTextBox.Text = null;
-                this.ViewModel?.Debug(command);
-            }
-        };
+            await model.Debug(command.Length == text.Length ? text : command.ToString());
+        }
+        catch (Exception ex)
+        {
+            model.ConsoleLogs.Append(ex + Environment.NewLine);
+        }
     }
 }

@@ -6880,4 +6880,20 @@ Farming games: {3}</value>
   <data name="Auth_VaultPasswordLabel" xml:space="preserve"><value>Custom password</value></data>
   <data name="Auth_VaultStorageLabel" xml:space="preserve"><value>Data encryption</value></data>
   <data name="Auth_VaultHelloLocalDescription" xml:space="preserve"><value>Bound to this Windows account. This encryption stays on with Windows Hello.</value></data>
+  <data name="LogConsole_Title" xml:space="preserve"><value>Log console</value></data>
+  <data name="LogConsole_Wrap" xml:space="preserve"><value>Wrap lines</value></data>
+  <data name="LogConsole_Follow" xml:space="preserve"><value>Follow latest</value></data>
+  <data name="LogConsole_CopyTip" xml:space="preserve"><value>Copy the selection, or copy the displayed log if nothing is selected.</value></data>
+  <data name="LogConsole_Empty" xml:space="preserve"><value>No log output yet</value></data>
+  <data name="LogConsole_LineCount" xml:space="preserve"><value>Showing {0:N0} lines</value></data>
+  <data name="LogConsole_ViewLogs" xml:space="preserve"><value>View logs</value></data>
+  <data name="LogConsole_ViewLogsDescription" xml:space="preserve"><value>View local application and plugin logs in Watt Toolkit.</value></data>
+  <data name="LogConsole_NoFiles" xml:space="preserve"><value>No log files found.</value></data>
+  <data name="LogConsole_ReadError" xml:space="preserve"><value>Could not read the log. The file may have moved or be in use.</value></data>
+  <data name="LogConsole_EmptyFile" xml:space="preserve"><value>The log file is empty.</value></data>
+  <data name="LogConsole_FileTail" xml:space="preserve"><value>Loaded up to the last {0:N0} bytes. The full log remains in the original file.</value></data>
+  <data name="LogConsole_Send" xml:space="preserve"><value>Send</value></data>
+  <data name="LogConsole_CommandHint" xml:space="preserve"><value>Enter a command, or type / for suggestions</value></data>
+  <data name="Settings_Storage_AppFolder" xml:space="preserve"><value>Application folder</value></data>
+  <data name="Settings_Storage_OpenFolder" xml:space="preserve"><value>Open folder</value></data>
 </root>

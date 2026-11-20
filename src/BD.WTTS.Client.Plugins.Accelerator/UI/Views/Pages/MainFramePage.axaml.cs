@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using BD.WTTS.UI.Views.Controls;
 
 namespace BD.WTTS.UI.Views.Pages;
 
@@ -42,7 +43,7 @@ public partial class MainFramePage : UserControl
         ServiceProgress.IsVisible = waiting;
         ServiceLoadingText.IsVisible = waiting;
         ServiceErrorText.IsVisible = !waiting;
-        RetryServiceButton.IsVisible = !waiting;
+        ServiceFailureActions.IsVisible = !waiting;
     }
 
     private async void RetryServiceButton_Click(object? sender, RoutedEventArgs e)
@@ -67,6 +68,9 @@ public partial class MainFramePage : UserControl
             RetryServiceButton.IsEnabled = true;
         }
     }
+
+    private async void ViewServiceLogsButton_Click(object? sender, RoutedEventArgs e) => await LogFilesDialog.ShowAsync(this,
+        Path.Combine(IApplication.LogDirPath, AssemblyInfo.Accelerator), Strings.CommunityFix_ProxyLog);
 
     private void Tabs_SelectionChanged(object? sender, SelectionChangedEventArgs e) => ShowSelectedPage();
 

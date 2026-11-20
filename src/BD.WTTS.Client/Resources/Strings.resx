@@ -5056,4 +5056,20 @@
 	<data name="Auth_VaultPasswordLabel" xml:space="preserve"><value>自定义密码</value></data>
 	<data name="Auth_VaultStorageLabel" xml:space="preserve"><value>数据加密</value></data>
 	<data name="Auth_VaultHelloLocalDescription" xml:space="preserve"><value>已绑定当前 Windows 账户。使用 Windows Hello 时保留此加密。</value></data>
+	<data name="LogConsole_Title" xml:space="preserve"><value>日志控制台</value></data>
+	<data name="LogConsole_Wrap" xml:space="preserve"><value>自动换行</value></data>
+	<data name="LogConsole_Follow" xml:space="preserve"><value>跟随最新</value></data>
+	<data name="LogConsole_CopyTip" xml:space="preserve"><value>复制选中的文本；未选中时复制当前显示的日志。</value></data>
+	<data name="LogConsole_Empty" xml:space="preserve"><value>暂无日志</value></data>
+	<data name="LogConsole_LineCount" xml:space="preserve"><value>显示 {0:N0} 行</value></data>
+	<data name="LogConsole_ViewLogs" xml:space="preserve"><value>查看日志</value></data>
+	<data name="LogConsole_ViewLogsDescription" xml:space="preserve"><value>在应用内查看主程序及插件的本地日志。</value></data>
+	<data name="LogConsole_NoFiles" xml:space="preserve"><value>没有找到可查看的日志文件。</value></data>
+	<data name="LogConsole_ReadError" xml:space="preserve"><value>无法读取日志。文件可能已移动，或正在被其他程序占用。</value></data>
+	<data name="LogConsole_EmptyFile" xml:space="preserve"><value>日志文件为空。</value></data>
+	<data name="LogConsole_FileTail" xml:space="preserve"><value>仅加载文件末尾 {0:N0} 字节，完整日志保留在原文件中。</value></data>
+	<data name="LogConsole_Send" xml:space="preserve"><value>发送</value></data>
+	<data name="LogConsole_CommandHint" xml:space="preserve"><value>输入指令，键入 / 查看建议</value></data>
+	<data name="Settings_Storage_AppFolder" xml:space="preserve"><value>程序目录</value></data>
+	<data name="Settings_Storage_OpenFolder" xml:space="preserve"><value>打开文件夹</value></data>
 </root>

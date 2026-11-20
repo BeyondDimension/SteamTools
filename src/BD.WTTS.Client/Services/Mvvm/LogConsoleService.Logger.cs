@@ -7,43 +7,37 @@ namespace BD.WTTS.Services;
 partial class LogConsoleService
 {
     /// <summary>
-    /// 控制台显示最大字符数
-    /// </summary>
-    const int ConsoleMaxCharCount = 10_0000;
-
-    static readonly int ConsoleMaxByteCount = Encoding.UTF8.GetMaxByteCount(ConsoleMaxCharCount);
-
-    /// <summary>
     /// 日志源
     /// </summary>
     [DebuggerDisplay("Log bytes = {length}")]
     internal sealed partial class Source
     {
+        internal const int MaxBytes = 256 * 1024;
+
         readonly object sync = new();
         byte[] buffer = [];
         int length;
+        long end;
         string? snapshot;
 
-        public void Append(byte[]? value)
+        public void Append(ReadOnlySpan<byte> entry)
         {
-            if (value is not { Length: > 0 })
-                return;
+            if (entry.IsEmpty) return;
 
             lock (sync)
             {
-                var previousLength = length;
-                ReadOnlySpan<byte> entry = value;
-                if (entry.Length > ConsoleMaxByteCount)
+                end += entry.Length;
+                if (entry.Length > MaxBytes)
                 {
                     length = 0;
-                    entry = entry[^ConsoleMaxByteCount..];
+                    entry = entry[^MaxBytes..];
                     entry = entry[Utf8StartOffset(entry)..];
                 }
 
-                if (length > ConsoleMaxByteCount - entry.Length)
+                if (length > MaxBytes - entry.Length)
                 {
                     // Leave room for new entries and keep recent complete log lines.
-                    var keep = Math.Min(ConsoleMaxByteCount / 5, ConsoleMaxByteCount - entry.Length);
+                    var keep = Math.Min(MaxBytes / 5, MaxBytes - entry.Length);
                     var tail = buffer.AsSpan(length - keep, keep);
                     if (keep > 0 && buffer[length - keep - 1] != (byte)'\n')
                     {
@@ -59,14 +53,23 @@ partial class LogConsoleService
                 if (required > buffer.Length)
                 {
                     var grownCapacity = Math.Max(256, buffer.Length * 2);
-                    Array.Resize(ref buffer, Math.Clamp(grownCapacity, required, ConsoleMaxByteCount));
+                    Array.Resize(ref buffer, Math.Clamp(grownCapacity, required, MaxBytes));
                 }
 
                 entry.CopyTo(buffer.AsSpan(length));
-                if (required < previousLength)
-                    buffer.AsSpan(required, previousLength - required).Clear();
                 length = required;
                 snapshot = null;
+            }
+        }
+
+        internal (long End, bool Reset, byte[] Utf8) ReadSince(long offset)
+        {
+            lock (sync)
+            {
+                var first = end - length;
+                var reset = offset < first || offset > end;
+                var start = reset ? 0 : (int)(offset - first);
+                return (end, reset, start == length ? [] : buffer.AsSpan(start, length - start).ToArray());
             }
         }
 
@@ -163,18 +166,16 @@ partial class LogConsoleService
             logBuilder.AppendLine(exception.ToString());
     }
 
-    static byte[] CreateDefaultLogMessageWithNLogFileLayout(LogLevel logLevel, string logName, int eventId, string? message, Exception? exception)
+#if APP_REVERSE_PROXY
+    static void CaptureProxyLog(LogLevel logLevel, string logName, string? message, Exception? exception)
     {
         // Layout = "
         // ${longdate}|
         // ${level}|
         // ${logger}|${message} |${all-event-properties} ${exception:format=tostring}",
 
-        using var buffer = Utf8String.CreateWriter(out var logBuilder);
-
-        logBuilder.Append(DateTime.Now.ToString(
-            "yyyy-MM-dd HH:mm:ss.fff",
-            CultureInfo.InvariantCulture));
+        using var buffer = Utf8String.CreateWriter(out var logBuilder, CultureInfo.InvariantCulture);
+        logBuilder.AppendFormatted(DateTime.Now, format: "yyyy-MM-dd HH:mm:ss.fff");
         logBuilder.AppendUtf8("|"u8);
 
         switch (logLevel) // see NLog.LogLevel
@@ -206,20 +207,32 @@ partial class LogConsoleService
         }
         logBuilder.AppendUtf8("|"u8);
 
-        logBuilder.Append(logName);
+        logBuilder.AppendFormatted(Tail(logName, 128));
         logBuilder.AppendUtf8("|"u8);
 
-        logBuilder.Append(message);
+        // Cap the preview before encoding so a single large message cannot grow the pooled writer indefinitely.
+        const int maxEntryCharacters = 32 * 1024;
+        var detail = Tail(exception?.ToString(), maxEntryCharacters);
+        logBuilder.AppendFormatted(Tail(message, maxEntryCharacters - detail.Length));
         logBuilder.AppendUtf8("| "u8);
 
-        logBuilder.Append(exception?.ToString());
+        logBuilder.AppendFormatted(detail);
         logBuilder.AppendLine();
 
         logBuilder.Flush();
 
-        var result = buffer.ToArray();
-        return result;
+        Builder.Append(logBuilder.GetBufferWriter().WrittenSpan);
     }
+
+    static ReadOnlySpan<char> Tail(string? text, int maxCharacters)
+    {
+        var span = text.AsSpan();
+        if (maxCharacters == 0) return [];
+        if (span.Length <= maxCharacters) return span;
+        var start = span.Length - maxCharacters;
+        return span[(char.IsLowSurrogate(span[start]) ? start + 1 : start)..];
+    }
+#endif
 
 #if APP_REVERSE_PROXY
     internal static readonly Source Builder = new();
@@ -258,17 +271,11 @@ partial class LogConsoleService
             {
 
 #if APP_REVERSE_PROXY
-                var logMessageU8 = CreateDefaultLogMessageWithNLogFileLayout(logLevel, name, eventId.Id, message, exception);
-                Builder.Append(logMessageU8);
+                CaptureProxyLog(logLevel, name, message, exception);
 #else
                 try
                 {
-#if APP_REVERSE_PROXY
-                    //var s = IReverseProxyService.Instance;
-                    // TODO Ipc
-#else
                     var s = IPCMainProcessService.Instance;
-#endif
                     var logMessage = CreateDefaultLogMessage(name, eventId.Id, message, exception);
                     s.WriteMessage(Utf8StringLoggerProvider.ModuleName, logMessage);
                 }

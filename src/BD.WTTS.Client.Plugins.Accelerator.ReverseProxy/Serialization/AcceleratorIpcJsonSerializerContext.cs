@@ -7,6 +7,7 @@ namespace BD.WTTS.Serialization;
 [JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Metadata)]
 [JsonSerializable(typeof(StartProxyResult))]
 [JsonSerializable(typeof(StartProxyResultCode))]
+[JsonSerializable(typeof(ProxyLogUpdate))]
 [JsonSerializable(typeof(IReadOnlyCollection<ScriptIPCDTO>))]
 internal sealed partial class AcceleratorIpcJsonSerializerContext : JsonSerializerContext
 {

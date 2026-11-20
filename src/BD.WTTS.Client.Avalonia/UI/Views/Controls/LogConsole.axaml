@@ -1,0 +1,73 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.LogConsole"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:edit="using:AvaloniaEdit"
+    xmlns:spp="https://steampp.net/ui"
+    x:Name="ConsoleView"
+    x:CompileBindings="True"
+    FontSize="13">
+    <UserControl.Styles>
+        <Style Selector="Button.log-tool, ToggleButton.log-tool">
+            <Setter Property="Width" Value="28" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style Selector="ToggleButton.log-tool:checked">
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AccentTextFillColorPrimaryBrush}" />
+        </Style>
+    </UserControl.Styles>
+    <Border
+        Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        ClipToBounds="True"
+        CornerRadius="8">
+        <Grid RowDefinitions="Auto,*,Auto">
+            <Border x:Name="LogToolbar" Padding="8,2" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="0,0,0,1">
+                <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                    <TextBlock VerticalAlignment="Center" Text="{Binding #ConsoleView.Title}"
+                               Theme="{StaticResource BodyStrongTextBlockStyle}" TextTrimming="CharacterEllipsis" />
+                    <TextBlock x:Name="LogStatus" Grid.Column="1" VerticalAlignment="Center"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               Theme="{StaticResource CaptionTextBlockStyle}" />
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="2">
+                        <Button x:Name="FindLog" Classes="log-tool" Theme="{StaticResource TransparentButton}"
+                                AutomationProperties.Name="{x:Static spp:Strings.Search}"
+                                Click="FindLog_OnClick" Content="&#xE721;" ToolTip.Tip="{x:Static spp:Strings.Search}" />
+                        <Button x:Name="CopyLog" Classes="log-tool" Theme="{StaticResource TransparentButton}"
+                                AutomationProperties.Name="{x:Static spp:Strings.Copy}"
+                                Click="CopyLog_OnClick" Content="&#xE8C8;" ToolTip.Tip="{x:Static spp:Strings.LogConsole_CopyTip}" />
+                        <ToggleButton x:Name="WrapLog" Classes="log-tool"
+                                      AutomationProperties.Name="{x:Static spp:Strings.LogConsole_Wrap}"
+                                      Content="&#xE751;" IsChecked="True" ToolTip.Tip="{x:Static spp:Strings.LogConsole_Wrap}" />
+                        <ToggleButton x:Name="FollowLog" Classes="log-tool"
+                                      AutomationProperties.Name="{x:Static spp:Strings.LogConsole_Follow}"
+                                      Click="FollowLog_OnClick" Content="&#xE74B;" IsChecked="True" ToolTip.Tip="{x:Static spp:Strings.LogConsole_Follow}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Grid.Row="1" Background="{DynamicResource SolidBackgroundFillColorBaseBrush}" Padding="8,4,6,4">
+                <Panel>
+                    <edit:TextEditor x:Name="Editor" AutomationProperties.Name="{Binding #ConsoleView.Title}"
+                                     FontFamily="Cascadia Mono, Consolas, Menlo, monospace" FontSize="{Binding #ConsoleView.FontSize}"
+                                     HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                                     Background="Transparent" Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                     IsReadOnly="True" ShowLineNumbers="True" LineNumbersForeground="{DynamicResource TextFillColorSecondaryBrush}"
+                                     WordWrap="{Binding #WrapLog.IsChecked}" />
+                    <TextBlock x:Name="EmptyLog" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}" IsHitTestVisible="False" Margin="12"
+                               Text="{x:Static spp:Strings.LogConsole_Empty}" TextAlignment="Center" TextWrapping="Wrap" />
+                </Panel>
+            </Border>
+            <Border Grid.Row="2" BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="0,1,0,0"
+                    IsVisible="{Binding !!#ConsoleView.CommandContent}">
+                <ContentPresenter Content="{Binding #ConsoleView.CommandContent}" HorizontalContentAlignment="Stretch" />
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>
