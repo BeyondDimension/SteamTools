@@ -14,15 +14,16 @@ interface INSISBuildCommand : ICommand
         var timestamp = CommandCompat.GetOption<string>("--t", "Release timestamp");
         var force_sign = CommandCompat.GetOption<bool>("--force-sign", GetDefForceSign, "Mandatory verification must be digitally signed");
         var hsm_sign = CommandCompat.GetOption<bool>("--hsm-sign", "");
+        var aot = CommandCompat.GetOption<bool>("--aot", () => true, "");
         var command = new Command(commandName, "NSIS build generate")
         {
-           debug, rids, timestamp, force_sign, hsm_sign,
+           debug, rids, timestamp, force_sign, hsm_sign, aot,
         };
-        command.SetHandler(Handler, debug, rids, timestamp, force_sign, hsm_sign);
+        command.SetHandler(Handler, debug, rids, timestamp, force_sign, hsm_sign, aot);
         return command;
     }
 
-    internal static void Handler(bool debug, string[] rids, string timestamp, bool force_sign, bool hsm_sign)
+    internal static void Handler(bool debug, string[] rids, string timestamp, bool force_sign, bool hsm_sign, bool aot)
     {
         if (ProjectUtils.ProjPath.Contains("actions-runner"))
         {
@@ -66,44 +67,88 @@ interface INSISBuildCommand : ICommand
             return;
         }
 
-        var installer = new NsisInstaller(rootDirPath);
+        var nsiFileContent = File.ReadAllText(nsiFilePath);
+        var nsiFileContentBak = nsiFileContent;
+
+        var appFileDirPath = Path.Combine(rootDirPath, "AppCode", "Steampp");
+        var nsisExeFilePath = Path.Combine(rootDirPath, "NSIS", "makensis.exe");
 
         foreach (var rid in rids)
         {
-            var info = DeconstructRuntimeIdentifier(rid);
-            if (info == default) continue;
+            for (int i = 0; i < 2; i++)
+            {
+                if (i == 1 && !aot)
+                {
+                    continue;
+                }
 
-            var arg = SetPublishCommandArgumentList(debug, info.Platform, info.DeviceIdiom, info.Architecture);
-            var publishDir = Path.Combine(projRootPath, arg.PublishDir);
-            Console.WriteLine(publishDir);
-            var rootPublishDir = Path.GetFullPath(Path.Combine(publishDir, ".."));
-            var packPath = $"{rootPublishDir}{FileEx._7Z}";
+                try
+                {
+                    var info = DeconstructRuntimeIdentifier(rid);
+                    if (info == default) continue;
 
-            var outputFilePath = Path.ChangeExtension(packPath, FileEx.EXE);
-            IOPath.FileTryDelete(outputFilePath);
-            BuildInstaller(installer, packPath, outputFilePath, debug, force_sign, hsm_sign);
-        }
-    }
+                    var arg = SetPublishCommandArgumentList(debug, info.Platform, info.DeviceIdiom, info.Architecture);
+                    var publishDir = Path.Combine(projRootPath, i == 0 ? arg.PublishDir : arg.GetPublishDirWithAssemblies(true));
+                    Console.WriteLine(publishDir);
+                    var rootPublishDir = Path.GetFullPath(Path.Combine(publishDir, ".."));
+                    var packPath = $"{rootPublishDir}{FileEx._7Z}";
 
-    internal static void BuildInstaller(NsisInstaller installer, string archive, string output, bool debug, bool forceSign, bool hsmSign, string? thumbprint = null)
-    {
-        installer.Build(archive, output, AppVersion4);
-        if (thumbprint is not null)
-        {
-            MSIXHelper.SignTool.SignWithThumbprint(output, thumbprint);
-            return;
-        }
-        if (debug)
-            return;
+                    var install7zFilePath = packPath;
+                    var install7zFileName = Path.GetFileName(install7zFilePath);
+                    var outputFileName = Path.GetFileNameWithoutExtension(install7zFilePath) + FileEx.EXE;
+                    var outputFilePath = Path.Combine(new FileInfo(install7zFilePath).DirectoryName!, outputFileName);
+                    IOPath.FileTryDelete(outputFilePath);
+                    var exeName = "Steam++.exe";
 
-        var fileNames = $"\"{output}\"";
-        try
-        {
-            MSIXHelper.SignTool.Start(forceSign, fileNames, hsmSign ? MSIXHelper.SignTool.pfxFilePath_HSM_CodeSigning : null);
-        }
-        catch when (hsmSign)
-        {
-            MSIXHelper.SignTool.Start(forceSign, fileNames, MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning);
+                    var nsiFileContent2 = nsiFileContent
+                             .Replace("${{ Steam++_Company }}", AssemblyInfo.Company)
+                             .Replace("${{ Steam++_Copyright }}", AssemblyInfo.Copyright)
+                             .Replace("${{ Steam++_ProductName }}", AssemblyInfo.Trademark)
+                             .Replace("${{ Steam++_ExeName }}", exeName)
+                             .Replace("${{ Steam++_Version }}", AppVersion4)
+                             .Replace("${{ Steam++_OutPutFileName }}", outputFileName)
+                             .Replace("${{ Steam++_AppFileDir }}", appFileDirPath)
+                             .Replace("${{ Steam++_7zFilePath }}", install7zFilePath)
+                             .Replace("${{ Steam++_7zFileName }}", install7zFileName)
+                             .Replace("${{ Steam++_OutPutFilePath }}", outputFilePath)
+                             .Replace("${{ Steam++_UninstFileName }}", Path.Combine(appFileDirPath, "app", "uninst.exe"))
+                             ;
+                    File.WriteAllText(nsiFilePath, nsiFileContent2);
+
+                    var process = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = nsisExeFilePath,
+                        Arguments = $" /DINSTALL_WITH_NO_NSIS7Z=1 \"{nsiFilePath}\"",
+                        UseShellExecute = false,
+                    });
+                    process!.WaitForExit();
+
+                    if (!debug) // 调试模式不进行数字签名
+                    {
+                        var fileNames =
+        $"""
+"{outputFilePath}"
+""";
+                        var pfxFilePath = hsm_sign ? MSIXHelper.SignTool.pfxFilePath_HSM_CodeSigning : null;
+                        try
+                        {
+                            MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
+                        }
+                        catch
+                        {
+                            if (debug)
+                                throw;
+                            pfxFilePath = MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning;
+                            MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
+                        }
+                    }
+                }
+                finally
+                {
+                    File.WriteAllText(nsiFilePath, nsiFileContentBak);
+                }
+
+            }
         }
     }
 }

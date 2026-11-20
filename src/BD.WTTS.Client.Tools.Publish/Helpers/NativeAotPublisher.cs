@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BD.WTTS.Client.Tools.Publish.Helpers;
 
@@ -9,22 +10,25 @@ static class NativeAotPublisher
     const string Manifest = "native/.wtts-native-manifest.json";
     const string Accelerator = "modules/Accelerator/Steam++.Accelerator.exe";
 
-    internal static void Publish(string[] rids, bool archive, bool msix, string? output, NsisInstaller? installer, string? thumbprint)
+    internal static void Publish(string[] rids, string[] formats, string? output, string? makensis, string? thumbprint)
     {
+        if (!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException("Native AOT EXE, 7z and MSIX packaging runs on Windows. Use build/publish-native.ps1 on Linux or macOS.");
+        if (rids.Length == 0 || rids.Any(rid => rid is not ("win-x64" or "win-arm64")))
+            throw new ArgumentException("Specify win-x64 or win-arm64 for --rids.");
+        if (formats.Length == 0 || formats.Any(format => format is not ("7z" or "exe" or "msix")))
+            throw new ArgumentException("Specify 7z, exe or msix for --formats.");
+
+        bool archive = formats.Contains("7z"), installer = formats.Contains("exe"), msix = formats.Contains("msix");
         var root = ProjectUtils.ProjPath;
         if (string.IsNullOrEmpty(root))
             throw new DirectoryNotFoundException("Run the publish tool from its SteamTools checkout.");
-        if (!OperatingSystem.IsWindows())
-        {
-            foreach (var rid in rids)
-                PublishPayload(root, rid, output is null ? null : Path.GetFullPath(Path.Combine(output, rid), root));
-            return;
-        }
         var outputRoot = Path.GetFullPath(output ?? "build/publish/aot-packages", root);
-        var exe = installer is not null;
+        var nsis = installer ? ResolveMakeNsis(makensis) : null;
+        var publisher = thumbprint is not null && (installer || msix) ? GetSigningPublisher(thumbprint) : null;
         var runId = $"{DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fff", CultureInfo.InvariantCulture)}-{Guid.NewGuid():N}";
 
-        foreach (var rid in rids)
+        foreach (var rid in rids.Distinct(StringComparer.Ordinal))
         {
             var ridRoot = Path.Combine(outputRoot, rid);
             var work = Directory.CreateDirectory(Path.Combine(ridRoot, $".staging-{runId}")).FullName;
@@ -32,28 +36,25 @@ static class NativeAotPublisher
             var payload = Path.Combine(work, "payload");
             try
             {
-                PublishPayload(root, rid, payload);
+                Run("pwsh.exe", root, "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File",
+                    Path.Combine(root, "build/publish-native.ps1"), "-RuntimeIdentifier", rid, "-OutputDirectory", payload);
                 var files = ReadPayload(payload, rid);
                 var stem = $"Steam++_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}_aot";
-                var installerStem = $"Steam++_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}";
-                var archivePath = Path.Combine(work, installerStem + ".7z");
-                if (archive || exe)
-                    ICompressedPackageCommand.CreateSevenZipPack(archivePath, files);
-                if (installer is not null)
-                {
-                    var setup = Path.Combine(release, installerStem + ".exe");
-                    installer.Build(archivePath, setup, AssemblyInfo.FileVersion);
-                    if (thumbprint is not null)
-                        MSIXHelper.SignTool.SignWithThumbprint(setup, thumbprint);
-                }
                 if (archive)
-                    File.Move(archivePath, Path.Combine(release, stem + ".7z"));
+                    ICompressedPackageCommand.CreateSevenZipPack(Path.Combine(release, stem + ".7z"), files);
+                if (installer)
+                {
+                    var setup = Path.Combine(release, stem + "_setup.exe");
+                    BuildInstaller(nsis!, root, work, setup, rid, files);
+                    if (publisher is not null)
+                        MSIXHelper.SignTool.SignWithThumbprint(setup, thumbprint!);
+                }
                 if (msix)
                 {
                     var package = Path.Combine(release, stem + ".msix");
-                    BuildMsix(work, package, rid, files);
-                    if (thumbprint is not null)
-                        MSIXHelper.SignTool.SignWithThumbprint(package, thumbprint);
+                    BuildMsix(work, package, rid, files, publisher);
+                    if (publisher is not null)
+                        MSIXHelper.SignTool.SignWithThumbprint(package, thumbprint!);
                     else
                         Console.WriteLine("MSIX is unsigned. Sign it with a certificate trusted by the target device before installing.");
                 }
@@ -117,11 +118,91 @@ static class NativeAotPublisher
         return Convert.ToHexString(SHA256.HashData(stream));
     }
 
-    static void BuildMsix(string work, string output, string rid, AppPublishFileInfo[] files)
+    static string ResolveMakeNsis(string? explicitPath)
+    {
+        if (explicitPath is not null)
+        {
+            var fullPath = Path.GetFullPath(explicitPath);
+            if (File.Exists(fullPath))
+                return fullPath;
+            throw new FileNotFoundException("MakeNSIS executable does not exist.", fullPath);
+        }
+
+        foreach (var folder in new[] { Environment.SpecialFolder.ProgramFilesX86, Environment.SpecialFolder.ProgramFiles })
+        {
+            var path = Path.Combine(Environment.GetFolderPath(folder), "NSIS", "makensis.exe");
+            if (File.Exists(path))
+                return path;
+        }
+        foreach (var folder in (Environment.GetEnvironmentVariable("PATH") ?? string.Empty).Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries))
+        {
+            if (Path.IsPathFullyQualified(folder))
+            {
+                var path = Path.Combine(folder, "makensis.exe");
+                if (File.Exists(path))
+                    return path;
+            }
+        }
+        throw new FileNotFoundException("Install NSIS or pass --makensis <path to makensis.exe> to build an EXE installer.");
+    }
+
+    static string GetSigningPublisher(string thumbprint)
+    {
+        if (thumbprint.Length != 40 || !thumbprint.All(Uri.IsHexDigit))
+            throw new ArgumentException("--sign-thumbprint must be a 40-character hexadecimal certificate thumbprint.");
+        using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+        store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
+        var matches = store.Certificates.Find(X509FindType.FindByThumbprint, thumbprint, validOnly: false);
+        try
+        {
+            if (matches.Count != 1 || !matches[0].HasPrivateKey)
+                throw new InvalidOperationException("The signing certificate and its private key must be available in CurrentUser\\My.");
+            return matches[0].Subject;
+        }
+        finally
+        {
+            foreach (var certificate in matches)
+                certificate.Dispose();
+        }
+    }
+
+    static void BuildInstaller(string makensis, string root, string work, string output, string rid, AppPublishFileInfo[] files)
+    {
+        static string Encode(string path) => path.Replace("$", "$$", StringComparison.Ordinal);
+        using (var include = new StreamWriter(Path.Combine(work, "payload.nsh"), false, new UTF8Encoding(true)))
+        {
+            include.WriteLine("!macro InstallPayload");
+            foreach (var file in files)
+            {
+                var path = Encode(file.RelativePath.Replace('/', '\\'));
+                var folder = Path.GetDirectoryName(path);
+                include.WriteLine(string.IsNullOrEmpty(folder) ? "SetOutPath \"$INSTDIR\"" : $"SetOutPath \"$INSTDIR\\{folder}\"");
+                include.WriteLine($"File \"payload\\{path}\"");
+            }
+            include.WriteLine("!macroend");
+            include.WriteLine("!macro UninstallPayload");
+            var folders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var file in files)
+            {
+                var path = Encode(file.RelativePath.Replace('/', '\\'));
+                include.WriteLine($"Delete \"$INSTDIR\\{path}\"");
+                for (var folder = Path.GetDirectoryName(path); !string.IsNullOrEmpty(folder); folder = Path.GetDirectoryName(folder))
+                    folders.Add(folder);
+            }
+            foreach (var folder in folders.OrderByDescending(path => path.Length).ThenBy(path => path, StringComparer.Ordinal))
+                include.WriteLine($"RMDir \"$INSTDIR\\{folder}\"");
+            include.WriteLine("!macroend");
+        }
+        Run(makensis, work, "/NOCD", "/NOCONFIG", "/INPUTCHARSET", "UTF8", "/V2", "/WX",
+            $"/DAPP_VERSION={AssemblyInfo.FileVersion}", $"/DAPP_ARCH={rid[4..]}", $"/DOUTPUT={Path.GetRelativePath(work, output)}",
+            Path.Combine(root, "packaging/watt-toolkit-aot.nsi"));
+    }
+
+    static void BuildMsix(string work, string output, string rid, AppPublishFileInfo[] files, string? publisher)
     {
         var metadata = Directory.CreateDirectory(Path.Combine(work, "msix")).FullName;
         var architecture = rid == "win-arm64" ? Architecture.Arm64 : Architecture.X64;
-        MSIXHelper.MakeAppx.GenerateAppxManifestXml(metadata, AssemblyInfo.FileVersion, architecture);
+        MSIXHelper.MakeAppx.GenerateAppxManifestXml(metadata, AssemblyInfo.FileVersion, architecture, publisher);
         MSIXHelper.MakePri.Start(metadata);
         var mapping = Path.Combine(work, "msix-files.txt");
         using (var writer = new StreamWriter(mapping, false, Encoding.Unicode))
@@ -135,25 +216,11 @@ static class NativeAotPublisher
         MSIXHelper.MakeAppx.PackMapped(output, mapping);
     }
 
-    static void PublishPayload(string directory, string rid, string? output)
+    internal static void Run(string executable, string directory, params string[] arguments)
     {
-        var start = new ProcessStartInfo(OperatingSystem.IsWindows() ? "pwsh.exe" : "pwsh")
-        {
-            WorkingDirectory = directory,
-            UseShellExecute = false,
-        };
-        if (OperatingSystem.IsWindows())
-        {
-            start.ArgumentList.Add("-ExecutionPolicy");
-            start.ArgumentList.Add("Bypass");
-        }
-        foreach (var argument in new[] { "-NoProfile", "-NonInteractive", "-File", Path.Combine(directory, "build/publish-native.ps1"), "-RuntimeIdentifier", rid })
+        var start = new ProcessStartInfo(executable) { WorkingDirectory = directory, UseShellExecute = false };
+        foreach (var argument in arguments)
             start.ArgumentList.Add(argument);
-        if (output is not null)
-        {
-            start.ArgumentList.Add("-OutputDirectory");
-            start.ArgumentList.Add(output);
-        }
         ProcessHelper.StartAndWaitForExit(start);
     }
 }
