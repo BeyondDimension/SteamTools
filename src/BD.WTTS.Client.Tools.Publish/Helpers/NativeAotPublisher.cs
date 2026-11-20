@@ -200,20 +200,21 @@ static class NativeAotPublisher
 
     static void BuildMsix(string work, string output, string rid, AppPublishFileInfo[] files, string? publisher)
     {
-        var metadata = Directory.CreateDirectory(Path.Combine(work, "msix")).FullName;
-        var architecture = rid == "win-arm64" ? Architecture.Arm64 : Architecture.X64;
-        MSIXHelper.MakeAppx.GenerateAppxManifestXml(metadata, AssemblyInfo.FileVersion, architecture, publisher);
-        MSIXHelper.MakePri.Start(metadata);
-        var mapping = Path.Combine(work, "msix-files.txt");
-        using (var writer = new StreamWriter(mapping, false, Encoding.Unicode))
-        {
-            writer.WriteLine("[Files]");
-            foreach (var file in files)
-                writer.WriteLine($"\"{file.FilePath}\" \"{file.RelativePath.Replace('/', '\\')}\"");
-            foreach (var file in Directory.EnumerateFiles(metadata, "*", SearchOption.AllDirectories))
-                writer.WriteLine($"\"{file}\" \"{Path.GetRelativePath(metadata, file)}\"");
-        }
-        MSIXHelper.MakeAppx.PackMapped(output, mapping);
+        return;
+        //var metadata = Directory.CreateDirectory(Path.Combine(work, "msix")).FullName;
+        //var architecture = rid == "win-arm64" ? Architecture.Arm64 : Architecture.X64;
+        //MSIXHelper.MakeAppx.GenerateAppxManifestXml(metadata, AssemblyInfo.FileVersion, architecture, publisher);
+        //MSIXHelper.MakePri.Start(metadata);
+        //var mapping = Path.Combine(work, "msix-files.txt");
+        //using (var writer = new StreamWriter(mapping, false, Encoding.Unicode))
+        //{
+        //    writer.WriteLine("[Files]");
+        //    foreach (var file in files)
+        //        writer.WriteLine($"\"{file.FilePath}\" \"{file.RelativePath.Replace('/', '\\')}\"");
+        //    foreach (var file in Directory.EnumerateFiles(metadata, "*", SearchOption.AllDirectories))
+        //        writer.WriteLine($"\"{file}\" \"{Path.GetRelativePath(metadata, file)}\"");
+        //}
+        //MSIXHelper.MakeAppx.PackMapped(output, mapping);
     }
 
     internal static void Run(string executable, string directory, params string[] arguments)
