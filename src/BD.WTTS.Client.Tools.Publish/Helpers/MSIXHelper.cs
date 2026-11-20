@@ -137,6 +137,14 @@ pack /v /h SHA256 /d "{rootPublicPath}" /p "{msixPath}"
             ProcessHelper.StartAndWaitForExit(psi);
         }
 
+        internal static void PackMapped(string msixPath, string mappingPath)
+        {
+            var start = new ProcessStartInfo(GetMakeAppxPath()) { UseShellExecute = false };
+            foreach (var arg in new[] { "pack", "/h", "SHA256", "/f", mappingPath, "/p", msixPath })
+                start.ArgumentList.Add(arg);
+            ProcessHelper.StartAndWaitForExit(start);
+        }
+
         public static void StartBundle(
             string msixPath,
             string dirPath,
@@ -173,7 +181,8 @@ bundle /v /bv {version4} /d "{dirPath}" /p "{msixPath}"
         public static void GenerateAppxManifestXml(
             string rootPublicPath,
             string version4,
-            Architecture processorArchitecture)
+            Architecture processorArchitecture,
+            string? publisher = null)
         {
             // https://learn.microsoft.com/zh-cn/windows/msix/desktop/desktop-to-uwp-manual-conversion
 
@@ -246,6 +255,8 @@ Version="{version4}" ProcessorArchitecture="{processorArchitecture.ToString().To
 """;
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(xmlString);
+            if (publisher is not null)
+                ((XmlElement)xmlDoc.DocumentElement!.FirstChild!).SetAttribute("Publisher", publisher);
             var xmlStringMini = xmlDoc.InnerXml;
             var xmlFilePath = Path.Combine(rootPublicPath, "AppxManifest.xml");
             File.WriteAllText(xmlFilePath, xmlStringMini);
@@ -414,6 +425,14 @@ sign /a /fd SHA256 /f "{pfxFilePath}"{(string.IsNullOrEmpty(pwdS) ? null : $" /p
             if (!string.IsNullOrWhiteSpace(workingDirectory))
                 psi.WorkingDirectory = workingDirectory;
             ProcessHelper.StartAndWaitForExit(psi);
+        }
+
+        internal static void SignWithThumbprint(string filePath, string thumbprint)
+        {
+            var start = new ProcessStartInfo(GetSignToolPath()) { UseShellExecute = false };
+            foreach (var arg in new[] { "sign", "/fd", "SHA256", "/sha1", thumbprint, filePath })
+                start.ArgumentList.Add(arg);
+            ProcessHelper.StartAndWaitForExit(start);
         }
     }
 

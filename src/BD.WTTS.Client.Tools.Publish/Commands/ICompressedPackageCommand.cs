@@ -170,7 +170,11 @@ interface ICompressedPackageCommand : ICommand
 
     static readonly Lazy<object?> SetSevenZipLibraryPath = new(() =>
     {
-        var libPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "7-Zip", "7z.dll");
+        // Use the tool process's RID, not the architecture of the app being packaged.
+        var rid = $"win-{RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()}";
+        var libPath = Path.Combine(AppContext.BaseDirectory, "runtimes", rid, "native", "7z.dll");
+        if (!File.Exists(libPath))
+            libPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "7-Zip", "7z.dll");
         SevenZipBase.SetLibraryPath(libPath);
         return null;
     });
