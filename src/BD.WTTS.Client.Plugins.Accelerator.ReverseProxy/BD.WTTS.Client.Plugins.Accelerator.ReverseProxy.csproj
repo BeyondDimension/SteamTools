@@ -11,6 +11,12 @@
 		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 	</PropertyGroup>
 
+	<!-- Keep executable host settings local so restore can evaluate the IPC library's legacy targets. -->
+	<PropertyGroup Condition="'$(WttsPublishReverseProxySingleFile)' == 'true'">
+		<UseAppHost>true</UseAppHost>
+		<PublishSingleFile>true</PublishSingleFile>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(WttsNativeAot)' == 'true'">
 		<PublishAot>true</PublishAot>
 		<SelfContained>true</SelfContained>

@@ -1199,8 +1199,6 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 }
 
                 arg.Framework = $"net{Environment.Version.Major}.{Environment.Version.Minor}";
-                arg.UseAppHost = true;
-                arg.SingleFile = true;
                 arg.ReadyToRun = false;
                 arg.Trimmed = false;
                 if (isMacOS)
@@ -1222,8 +1220,6 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                     switch (platform)
                     {
                         case Platform.Linux:
-                            arg.UseAppHost = true;
-                            arg.SingleFile = true;
                             arg.SelfContained = false;
                             arg.RuntimeIdentifier = $"linux-{ArchToString(architecture)}";
                             break;
@@ -1236,7 +1232,6 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
 
                 if (isWinArm64)
                 {
-                    arg.SingleFile = true;
                     arg.SelfContained = true;
                 }
 
@@ -1245,6 +1240,7 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 CleanProjDir(projRootPath);
                 var psi = GetProcessStartInfo(projRootPath);
                 SetPublishCommandArgumentList(psi.ArgumentList, arg);
+                psi.ArgumentList.Add("-p:WttsPublishReverseProxySingleFile=true");
                 //if (!isWindows)
                 //{
                 //    psi.ArgumentList.Add("-p:\"DefineConstants=NOT_WINDOWS;$(DefineConstants)\"");
