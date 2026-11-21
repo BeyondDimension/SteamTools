@@ -1,5 +1,6 @@
 // https://github.com/dotnetcore/FastGithub/blob/2.1.4/FastGithub.HttpServer/CertGenerator.cs
 
+using System.Formats.Asn1;
 using X509Certificate2 = System.Security.Cryptography.X509Certificates.X509Certificate2;
 
 // ReSharper disable once CheckNamespace
@@ -97,7 +98,8 @@ public static class CertGenerator
         IEnumerable<string>? extraDnsNames = default,
         DateTimeOffset? notBefore = default,
         DateTimeOffset? notAfter = default,
-        int rsaKeySizeInBits = 2048)
+        int rsaKeySizeInBits = 2048,
+        string? crlDistributionPointUrl = default)
     {
         using var rsa = RSA.Create(rsaKeySizeInBits);
         var request = new CertificateRequest(subjectName, rsa, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
@@ -132,6 +134,11 @@ public static class CertGenerator
         var dnsNames = dnsBuilder.Build();
         request.CertificateExtensions.Add(dnsNames);
 
+        if (!string.IsNullOrEmpty(crlDistributionPointUrl))
+        {
+            request.CertificateExtensions.Add(CreateCrlDistributionPointExtension(crlDistributionPointUrl));
+        }
+
         if (notBefore == null || notBefore.Value < issuerCertificate.NotBefore)
         {
             notBefore = issuerCertificate.NotBefore;
@@ -145,6 +152,39 @@ public static class CertGenerator
         var serialNumber = BitConverter.GetBytes(Random.Shared.NextInt64());
         using var certOnly = request.Create(issuerCertificate, notBefore.Value, notAfter.Value, serialNumber);
         return certOnly.CopyWithPrivateKey(rsa);
+    }
+
+    /// <summary>
+    /// 创建 CRL 分发点扩展（OID 2.5.29.31），使 Schannel 等客户端可获取本地 CRL 完成吊销检查
+    /// </summary>
+    /// <param name="crlUrl">CRL 的 HTTP 地址</param>
+    /// <returns></returns>
+    static X509Extension CreateCrlDistributionPointExtension(string crlUrl)
+    {
+        // CRLDistributionPoints ::= SEQUENCE OF DistributionPoint
+        // DistributionPoint ::= SEQUENCE {
+        //   distributionPoint [0] DistributionPointName OPTIONAL,
+        //   ... }
+        // DistributionPointName ::= CHOICE { fullName [0] GeneralNames }
+        // GeneralName ::= CHOICE { uniformResourceIdentifier [6] IA5String }
+        var writer = new AsnWriter(AsnEncodingRules.DER);
+        using (writer.PushSequence()) // CRLDistributionPoints
+        {
+            using (writer.PushSequence()) // DistributionPoint
+            {
+                using (writer.PushSequence(new Asn1Tag(TagClass.ContextSpecific, 0))) // distributionPoint [0]
+                {
+                    using (writer.PushSequence(new Asn1Tag(TagClass.ContextSpecific, 0))) // fullName [0]
+                    {
+                        writer.WriteCharacterString(
+                            UniversalTagNumber.IA5String,
+                            crlUrl,
+                            new Asn1Tag(TagClass.ContextSpecific, 6)); // uniformResourceIdentifier
+                    }
+                }
+            }
+        }
+        return new X509Extension("2.5.29.31", writer.Encode(), critical: false);
     }
 
     private static void Add(this SubjectAlternativeNameBuilder builder, string name)

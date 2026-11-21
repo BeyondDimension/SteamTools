@@ -207,6 +207,10 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
                 //options.ListenGitReverseProxy();
 #endif
 
+                // CRL 服务与代理模式无关：系统代理模式下 ListenHttpProxy 的 UseTls 同样会 MITM，
+                // 客户端仍需吊销信息，故两种模式都必须提供
+                options.ListenCrlReverseProxy();
+
                 if (ProxyMode is ProxyMode.System or ProxyMode.PAC or ProxyMode.VPN)
                 {
                     options.ListenHttpProxy();
