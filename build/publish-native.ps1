@@ -10,9 +10,10 @@ renderer under native-simdskia/<RID>. OutputDirectory overrides the package and
 the location of its adjacent macOS disk image. DiskImageTemplate defaults to
 the installer template at build/macos/installer-template.dmg.
 
-Only files recorded in the package manifest with matching SHA256 hashes may be
-replaced. AppData, Cache, Log/Logs and user archives are never package-owned or modified.
-An intact Windows manifest from the previous root-DLL layout can be migrated in place.
+Only files recorded in the package state with matching SHA256 hashes may be
+replaced. The state is stored under the build artifacts. AppData, Cache, Log/Logs
+and user archives are never package-owned or modified. An intact legacy manifest
+inside a package can be migrated in place.
 Other unowned files cause a refusal rather than adoption of an old managed package.
 Close the published application before replacing its generated payload. Failed builds
 leave the existing package untouched; failed promotion rolls back generated files.
@@ -38,8 +39,6 @@ if ($StaticGraphicsComponents.Count -gt 0 -and $Renderer -ne 'Skia') {
 }
 $root = Split-Path $PSScriptRoot -Parent
 $legacyManifestName = '.wtts-native-manifest.json'
-$manifestName = $legacyManifestName
-if ($RuntimeIdentifier.StartsWith('win-')) { $manifestName = "native/$legacyManifestName" }
 $phase = 'prerequisites'
 $lock = $null
 $packageLock = $null
@@ -54,6 +53,17 @@ $previousDotnetUtf8 = $env:DOTNET_CLI_FORCE_UTF8_ENCODING
 function Resolve-RepositoryPath([string]$Path) {
     if (-not [IO.Path]::IsPathRooted($Path)) { $Path = Join-Path $root $Path }
     return [IO.Path]::GetFullPath($Path).TrimEnd([IO.Path]::DirectorySeparatorChar, [IO.Path]::AltDirectorySeparatorChar)
+}
+
+function Get-PackageStatePath([string]$Artifacts, [string]$Package) {
+    if ($RuntimeIdentifier.StartsWith('win-')) { $Package = $Package.ToUpperInvariant() }
+    $sha256 = [Security.Cryptography.SHA256]::Create()
+    try {
+        $key = [BitConverter]::ToString($sha256.ComputeHash($utf8.GetBytes($Package))).Replace('-', '')
+        return Join-Path $Artifacts "package-state/$key.json"
+    } finally {
+        $sha256.Dispose()
+    }
 }
 
 function Assert-NoReparsePoint([string]$Path) {
@@ -75,7 +85,7 @@ function Test-UserPath([string]$Path) {
 function Get-PayloadPath([string]$Base, [string]$RelativePath) {
     if ([string]::IsNullOrWhiteSpace($RelativePath) -or $RelativePath.Contains('\') -or
         [IO.Path]::IsPathRooted($RelativePath) -or $RelativePath -match '(^/|//|/$)|(^|/)\.\.?(/|$)|[:*?\[\]]' -or
-        $RelativePath -in @($manifestName, $legacyManifestName) -or (Test-UserPath $RelativePath)) {
+        [IO.Path]::GetFileName($RelativePath) -eq $legacyManifestName -or (Test-UserPath $RelativePath)) {
         throw "Invalid or user-owned path in native payload: $RelativePath"
     }
     if ($RuntimeIdentifier.StartsWith('win-') -and $RelativePath -match '[. ](/|$)') {
@@ -108,25 +118,36 @@ function Get-PackageFiles([string]$Directory, [string]$Prefix = '') {
     }
 }
 
-function Get-ExistingManifest {
-    $current = Test-Path -LiteralPath (Join-Path $OutputDirectory $manifestName) -PathType Leaf
-    $legacy = $legacyManifestName -ne $manifestName -and
-        (Test-Path -LiteralPath (Join-Path $OutputDirectory $legacyManifestName) -PathType Leaf)
-    if ($current -and $legacy) { throw 'Multiple native payload manifests found. Use a new OutputDirectory.' }
-    if ($current) { return $manifestName }
-    if ($legacy) { return $legacyManifestName }
-}
-
 function Read-PayloadManifest {
     $owned = @{}
     $manifest = $null
-    $existingManifest = Get-ExistingManifest
+    Assert-NoReparsePoint $packageStatePath
+    $hasPackageState = Test-Path -LiteralPath $packageStatePath
+    $legacyManifests = @(@($legacyManifestName, "native/$legacyManifestName") | Where-Object {
+        Test-Path -LiteralPath (Join-Path $OutputDirectory $_)
+    })
+    if ($legacyManifests.Count -gt 1 -or ($legacyManifests.Count -eq 1 -and $hasPackageState)) {
+        throw 'Multiple native payload manifests found. Use a new OutputDirectory.'
+    }
+    $legacyManifest = $legacyManifests | Select-Object -First 1
+    $existingManifest = if ($legacyManifest) { Join-Path $OutputDirectory $legacyManifest }
+        elseif ($hasPackageState) { $packageStatePath }
+    $hasDiskImage = $false
+    if ($diskImagePath) {
+        Assert-NoReparsePoint $diskImagePath
+        $hasDiskImage = Test-Path -LiteralPath $diskImagePath
+    }
     if ($existingManifest) {
-        $manifestPath = Join-Path $OutputDirectory $existingManifest
-        Assert-NoReparsePoint $manifestPath
-        $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
+        Assert-NoReparsePoint $existingManifest
+        if (-not (Test-Path -LiteralPath $existingManifest -PathType Leaf)) {
+            throw "Native payload manifest is not a file: $existingManifest"
+        }
+    }
+    # Allow recreation after the entire package and its disk image have been removed.
+    if ($existingManifest -and ((Test-Path -LiteralPath $OutputDirectory) -or $hasDiskImage)) {
+        $manifest = Get-Content -LiteralPath $existingManifest -Raw | ConvertFrom-Json
         if ($manifest.Schema -ne 1 -or $manifest.RuntimeIdentifier -ne $RuntimeIdentifier -or -not $manifest.Files) {
-            throw "Unsupported native payload manifest: $manifestPath"
+            throw "Unsupported native payload manifest: $existingManifest"
         }
         foreach ($entry in $manifest.Files) {
             $path = Get-PayloadPath $OutputDirectory $entry.Path
@@ -141,21 +162,16 @@ function Read-PayloadManifest {
         }
     }
     foreach ($relativePath in @(Get-PackageFiles $OutputDirectory)) {
-        if ($relativePath -ne $existingManifest -and -not $owned.ContainsKey($relativePath)) {
+        if ($relativePath -ne $legacyManifest -and -not $owned.ContainsKey($relativePath)) {
             throw "Unowned file in package; refusing to mix native/managed or overwrite user files: $relativePath. Use a new OutputDirectory."
         }
     }
-    $hasDiskImage = $false
-    if ($diskImagePath) {
-        Assert-NoReparsePoint $diskImagePath
-        $hasDiskImage = Test-Path -LiteralPath $diskImagePath
-        if ($hasDiskImage -and (
-            -not (Test-Path -LiteralPath $diskImagePath -PathType Leaf) -or
-            $manifest.DiskImageSha256 -notmatch '^[0-9A-Fa-f]{64}$' -or
-            (Get-FileHash -LiteralPath $diskImagePath -Algorithm SHA256).Hash -ne $manifest.DiskImageSha256
-        )) {
-            throw "Disk image is unowned or modified; preserving it: $diskImagePath. Use a new OutputDirectory."
-        }
+    if ($hasDiskImage -and (
+        -not (Test-Path -LiteralPath $diskImagePath -PathType Leaf) -or
+        $manifest.DiskImageSha256 -notmatch '^[0-9A-Fa-f]{64}$' -or
+        (Get-FileHash -LiteralPath $diskImagePath -Algorithm SHA256).Hash -ne $manifest.DiskImageSha256
+    )) {
+        throw "Disk image is unowned or modified; preserving it: $diskImagePath. Use a new OutputDirectory."
     }
     return @{ Files = $owned; ManifestPath = $existingManifest; HasDiskImage = $hasDiskImage }
 }
@@ -294,6 +310,7 @@ try {
     }
     $artifacts = Resolve-RepositoryPath (Join-Path $BuildRoot "artifacts/$flavor/$RuntimeIdentifier")
     $logs = Resolve-RepositoryPath (Join-Path $BuildRoot "logs/$flavor/$RuntimeIdentifier")
+    $packageStatePath = Get-PackageStatePath $artifacts $OutputDirectory
     foreach ($path in @($OutputDirectory, $artifacts, $logs)) { Assert-NoReparsePoint $path }
     foreach ($path in @($artifacts, $logs)) {
         if ($OutputDirectory -eq $path -or $OutputDirectory.StartsWith($path + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase) -or
@@ -459,34 +476,39 @@ try {
         if ($LASTEXITCODE -ne 0) { throw "Could not create the macOS installer from $DiskImageTemplate (exit $LASTEXITCODE)." }
         $manifest.DiskImageSha256 = (Get-FileHash -LiteralPath $stagedDiskImage -Algorithm SHA256).Hash
     }
-    $manifest | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $stage $manifestName) -Encoding UTF8
+    $stagedManifest = Join-Path $runDirectory 'package-state.json'
+    $manifest | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $stagedManifest -Encoding UTF8
 
     $phase = 'promote-payload'
     # Revalidate after compilation: user changes during a long build must never be overwritten.
     $previousPayload = Read-PayloadManifest
     $backup = Join-Path $runDirectory 'previous-payload'
-    New-Item -ItemType Directory -Path $OutputDirectory, $backup -Force | Out-Null
+    New-Item -ItemType Directory -Path $OutputDirectory, $backup, (Split-Path $packageStatePath -Parent) -Force | Out-Null
     $moved = New-Object 'System.Collections.Generic.List[string]'
     $installed = New-Object 'System.Collections.Generic.List[string]'
     $previousDiskImage = $null
+    $previousManifest = $null
+    $installedManifest = $false
     try {
         if ($previousPayload.HasDiskImage) {
             $diskImageBackup = Join-Path $diskImageWork 'previous.dmg'
             [IO.File]::Move($diskImagePath, $diskImageBackup)
             $previousDiskImage = $diskImageBackup
         }
-        $previousPaths = @($previousPayload.Files.Keys)
-        # Back up the validated manifest in its original location for rollback,
-        # including packages whose manifest and DLLs lived at the root.
-        if ($previousPayload.ManifestPath) { $previousPaths += $previousPayload.ManifestPath }
-        foreach ($relativePath in $previousPaths) {
+        if ($previousPayload.ManifestPath) {
+            $manifestBackup = Join-Path $runDirectory 'previous-package-state.json'
+            Assert-NoReparsePoint $previousPayload.ManifestPath
+            [IO.File]::Move($previousPayload.ManifestPath, $manifestBackup)
+            $previousManifest = $manifestBackup
+        }
+        foreach ($relativePath in $previousPayload.Files.Keys) {
             $source = Join-Path $OutputDirectory $relativePath
             $destination = Join-Path $backup $relativePath
             New-Item -ItemType Directory -Path (Split-Path $destination -Parent) -Force | Out-Null
             [IO.File]::Move($source, $destination)
             $moved.Add($relativePath)
         }
-        foreach ($relativePath in (@($entries | ForEach-Object { $_.Path }) + @($manifestName))) {
+        foreach ($relativePath in ($entries | ForEach-Object { $_.Path })) {
             $destination = Join-Path $OutputDirectory $relativePath
             Assert-NoReparsePoint $destination
             New-Item -ItemType Directory -Path (Split-Path $destination -Parent) -Force | Out-Null
@@ -499,12 +521,16 @@ try {
             & codesign --verify --deep --strict $installedBundle
             if ($LASTEXITCODE -ne 0) { throw "Invalid code signature after promotion: $installedBundle" }
         }
+        Assert-NoReparsePoint $packageStatePath
+        [IO.File]::Move($stagedManifest, $packageStatePath)
+        $installedManifest = $true
         if ($stagedDiskImage) {
             [IO.File]::Move($stagedDiskImage, $diskImagePath)
         }
     } catch {
         $promotionError = $_
         try {
+            if ($installedManifest) { [IO.File]::Move($packageStatePath, $stagedManifest) }
             foreach ($relativePath in $installed) {
                 $destination = Join-Path $stage $relativePath
                 New-Item -ItemType Directory -Path (Split-Path $destination -Parent) -Force | Out-Null
@@ -512,6 +538,10 @@ try {
             }
             foreach ($relativePath in $moved) {
                 [IO.File]::Move((Join-Path $backup $relativePath), (Join-Path $OutputDirectory $relativePath))
+            }
+            if ($previousManifest) {
+                Assert-NoReparsePoint $previousPayload.ManifestPath
+                [IO.File]::Move($previousManifest, $previousPayload.ManifestPath)
             }
             if ($previousDiskImage) { [IO.File]::Move($previousDiskImage, $diskImagePath) }
         } catch {

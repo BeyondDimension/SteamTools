@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -7,7 +8,6 @@ namespace BD.WTTS.Client.Tools.Publish.Helpers;
 
 static class NativeAotPublisher
 {
-    const string Manifest = "native/.wtts-native-manifest.json";
     const string Accelerator = "modules/Accelerator/Steam++.Accelerator.exe";
 
     internal static void Publish(string[] rids, string[] formats, string? output, string? makensis, string? thumbprint)
@@ -36,9 +36,8 @@ static class NativeAotPublisher
             var payload = Path.Combine(work, "payload");
             try
             {
-                Run("pwsh.exe", root, "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File",
-                    Path.Combine(root, "build/publish-native.ps1"), "-RuntimeIdentifier", rid, "-OutputDirectory", payload);
-                var files = ReadPayload(payload, rid);
+                RunPublishScript(rid, payload);
+                var files = ReadPayload(root, payload, rid);
                 var stem = $"Steam++_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}_aot";
                 if (archive)
                     ICompressedPackageCommand.CreateSevenZipPack(Path.Combine(release, stem + ".7z"), files);
@@ -79,15 +78,21 @@ static class NativeAotPublisher
         }
     }
 
-    static AppPublishFileInfo[] ReadPayload(string directory, string rid)
+    static AppPublishFileInfo[] ReadPayload(string root, string directory, string rid)
     {
         var paths = Directory.EnumerateFiles(directory, "*", new EnumerationOptions
         {
             RecurseSubdirectories = true,
             AttributesToSkip = FileAttributes.ReparsePoint,
         }).ToDictionary(path => Path.GetRelativePath(directory, path).Replace('\\', '/'), StringComparer.OrdinalIgnoreCase);
-        if (!paths.Remove(Manifest, out var manifestPath))
-            throw new InvalidDataException("Native AOT payload manifest is missing.");
+        // Keep the state key in sync with build/publish-native.ps1.
+        var canonicalOutput = Path.GetFullPath(directory)
+            .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+            .ToUpperInvariant();
+        var stateKey = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(canonicalOutput)));
+        var manifestPath = Path.Combine(root, "build", "artifacts", "native", rid, "package-state", $"{stateKey}.json");
+        if (!File.Exists(manifestPath) || (File.GetAttributes(manifestPath) & FileAttributes.ReparsePoint) != 0)
+            throw new InvalidDataException($"Native AOT payload manifest is missing or not a regular file: {manifestPath}");
 
         using var manifest = JsonDocument.Parse(File.ReadAllText(manifestPath));
         var info = manifest.RootElement;
@@ -96,9 +101,8 @@ static class NativeAotPublisher
             throw new InvalidDataException($"Incomplete or incompatible Native AOT payload for {rid}.");
 
         var entries = info.GetProperty("Files");
-        var files = new AppPublishFileInfo[entries.GetArrayLength() + 1];
-        files[0] = new() { FilePath = manifestPath, RelativePath = Manifest };
-        int i = 1;
+        var files = new AppPublishFileInfo[entries.GetArrayLength()];
+        int i = 0;
         foreach (var entry in entries.EnumerateArray())
         {
             var name = entry.GetProperty("Path").GetString();
@@ -215,6 +219,51 @@ static class NativeAotPublisher
         //        writer.WriteLine($"\"{file}\" \"{Path.GetRelativePath(metadata, file)}\"");
         //}
         //MSIXHelper.MakeAppx.PackMapped(output, mapping);
+    }
+
+    internal static void RunPublishScript(string rid, string directory)
+    {
+        var root = ProjectUtils.ProjPath;
+        if (string.IsNullOrEmpty(root))
+            throw new DirectoryNotFoundException("Run the publish tool from its SteamTools checkout.");
+
+        string[] arguments =
+        [
+            "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File",
+            Path.Combine(root, "build", "publish-native.ps1"), "-RuntimeIdentifier", rid, "-OutputDirectory", directory,
+        ];
+
+        if (!OperatingSystem.IsWindows())
+        {
+            Run("pwsh", root, arguments);
+            return;
+        }
+
+        try
+        {
+            Run("pwsh.exe", root, arguments);
+            return;
+        }
+        catch (Win32Exception ex) when (ex.NativeErrorCode is 2 or 3) // File or path not found.
+        {
+            // Visual Studio can inherit a PATH from before PowerShell 7 was installed.
+        }
+
+        var programFiles = Environment.GetEnvironmentVariable("ProgramW6432") ??
+            Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+        var powerShell7 = Path.Combine(programFiles, "PowerShell", "7", "pwsh.exe");
+        if (File.Exists(powerShell7))
+        {
+            Run(powerShell7, root, arguments);
+            return;
+        }
+
+        // Sysnative bypasses WOW64 redirection because this script needs a 64-bit shell.
+        var systemDirectory = Environment.Is64BitOperatingSystem && !Environment.Is64BitProcess
+            ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "Sysnative")
+            : Environment.GetFolderPath(Environment.SpecialFolder.System);
+        var windowsPowerShell = Path.Combine(systemDirectory, "WindowsPowerShell", "v1.0", "powershell.exe");
+        Run(windowsPowerShell, root, arguments);
     }
 
     internal static void Run(string executable, string directory, params string[] arguments)

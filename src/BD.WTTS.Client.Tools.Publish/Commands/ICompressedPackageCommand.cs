@@ -18,7 +18,7 @@ interface ICompressedPackageCommand : ICommand
 
     static Command ICommand.GetCommand()
     {
-        var sevenzip = CommandCompat.GetOption<bool>("--7z", "Create 7z compressed");
+        var sevenzip = CommandCompat.GetOption<bool>("--7z", "Create a 7z archive on Windows");
         var zip = CommandCompat.GetOption<bool>("--zip", "Create Zip compressed");
         var tgz = CommandCompat.GetOption<bool>("--gz", "Create tgz compressed");
         var zstd = CommandCompat.GetOption<bool>("--zstd", "Create tar.zst compressed");
@@ -33,6 +33,11 @@ interface ICompressedPackageCommand : ICommand
 
     internal static void Handler(bool sevenzip, bool zip, bool tgz, bool zstd, string[] rids)
     {
+        if (sevenzip && rids.Any(static rid => DeconstructRuntimeIdentifier(rid).Platform == Platform.Apple))
+            throw new ArgumentException("Use pub run to publish a macOS DMG.", nameof(rids));
+        if (sevenzip && !OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException("The --7z option requires Windows.");
+
         var tasks = AppPublishInfo.Instance.
             Where(x => rids.Contains(x.RuntimeIdentifier)).
             Select(x =>
@@ -205,33 +210,6 @@ interface ICompressedPackageCommand : ICommand
         compressor.CompressFileDictionary(dict, packPath);
         compressor.FileCompressionStarted -= FileCompressionStarted;
         compressor = null;
-    }
-
-    static void CreateSevenZipPack(string packPath, IEnumerable<AppPublishFileInfo> files, string sourceDirectory)
-    {
-        if (OperatingSystem.IsWindows())
-        {
-            CreateSevenZipPack(packPath, files);
-            return;
-        }
-
-        // The bundled 7-Zip library is Windows-only. Pass the same file selection to 7zz.
-        var listFile = Path.GetTempFileName();
-        try
-        {
-            File.WriteAllLines(listFile, files.Select(static file => file.RelativePath));
-            var start = new ProcessStartInfo("7zz")
-            {
-                WorkingDirectory = sourceDirectory,
-                UseShellExecute = false,
-                ArgumentList = { "a", "-t7z", "-m0=lzma2", "-mx=9", "-spd", "-scsUTF-8", Path.GetFullPath(packPath), $"@{listFile}" },
-            };
-            ProcessHelper.StartAndWaitForExit(start);
-        }
-        finally
-        {
-            File.Delete(listFile);
-        }
     }
 
     static void CreateZstdPack(string packPath, IEnumerable<AppPublishFileInfo> files)

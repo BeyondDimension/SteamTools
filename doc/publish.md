@@ -1,12 +1,14 @@
 # Steam++ 发布说明
 
-在仓库根目录执行以下命令。首次发布前，运行 `git submodule update --init --recursive` 并安装仓库指定的 .NET SDK。Native AOT 需要将 PowerShell 7（`pwsh`）加入 PATH，并在目标操作系统上构建。 [SDK 版本](../global.json)
+在仓库根目录执行以下命令。首次发布前，运行 `git submodule update --init --recursive` 并安装仓库指定的 .NET SDK。Native AOT 在目标操作系统上构建。Linux 和 macOS 的 Native AOT 发布需要将 PowerShell 7（`pwsh`）加入 PATH。 [SDK 版本](../global.json)
 
-`pub run --aot true` 同时发布 JIT 和 Native AOT，这是默认行为。只发布 JIT 时使用 `--aot false`。以下命令覆盖当前 GitHub Actions 的发布目标。
+在 Windows 和 Linux 上，`pub run` 默认同时发布 JIT 和 Native AOT，使用 `--aot false` 可只发布 JIT。以下命令覆盖当前 GitHub Actions 的发布目标。
 
 ## Windows
 
 安装 Visual Studio 或 Build Tools 的「使用 C++ 的桌面开发」工作负载及 Windows SDK。生成 EXE 安装包时，将 NSIS-Build 放在 SteamTools 仓库旁边的 `../NSIS-Build`。 [NSIS-Build](https://github.com/SteamTools-Team/NSIS-Build)
+
+Windows Native AOT 发布优先使用 PowerShell 7，找不到时使用系统自带的 Windows PowerShell 5.1（`powershell.exe`）。
 
 ```powershell
 $pub = './src/BD.WTTS.Client.Tools.Publish/BD.WTTS.Client.Tools.Publish.csproj'
@@ -47,13 +49,12 @@ dotnet run --project "$pub" -c Release --no-launch-profile -- run --rids linux-a
 
 ## macOS
 
-安装与 .NET macOS 工作负载匹配的完整 Xcode，当前 GitHub Actions 使用 Xcode 27.0。下面以 `/Applications/Xcode.app` 为例。生成 7z 包需要 `7zz`。Native AOT 打包使用 PowerShell 7 以及 macOS 自带的 `hdiutil` 和 `codesign`。构建 Intel 版还需要 Rust（`rustup` 和 `cargo`），用于预先生成 x64 的 DTLS 原生库。
+安装与 .NET macOS 工作负载匹配的完整 Xcode，当前 GitHub Actions 使用 Xcode 27.0。下面以 `/Applications/Xcode.app` 为例。Native AOT 打包使用 PowerShell 7 以及 macOS 自带的 `hdiutil` 和 `codesign`。构建 Intel 版还需要 Rust（`rustup` 和 `cargo`），用于预先生成 x64 的 DTLS 原生库。
 
 ```bash
 export DEVELOPER_DIR='/Applications/Xcode.app/Contents/Developer'
 xcodebuild -version
 dotnet workload install macos --skip-manifest-update
-brew install sevenzip
 brew install --cask powershell
 
 pub='./src/BD.WTTS.Client.Tools.Publish/BD.WTTS.Client.Tools.Publish.csproj'
@@ -62,19 +63,19 @@ pub='./src/BD.WTTS.Client.Tools.Publish/BD.WTTS.Client.Tools.Publish.csproj'
 发布 Apple Silicon 版时执行下面的命令。
 
 ```bash
-dotnet run --project "$pub" -c Release --no-launch-profile -- run --rids osx-arm64 --aot true
+dotnet run --project "$pub" -c Release --no-launch-profile -- run --rids osx-arm64
 ```
 
 发布 Intel 版时执行下面的命令。
 
 ```bash
 bash ./build/native-dtls/build-macos-x64.sh
-dotnet run --project "$pub" -c Release --no-launch-profile -- run --rids osx-x64 --aot true
+dotnet run --project "$pub" -c Release --no-launch-profile -- run --rids osx-x64
 ```
 
-这两条 `pub run` 命令都会生成 JIT 和 Native AOT 的 `.7z`，并用仓库自带的模板生成 Native AOT 的 `.dmg`。镜像与同一批次的 Native AOT 程序目录和 `.7z` 位于同一层。模板保存 Finder 安装布局、背景和图标，打包时加入本次构建的 `Steam++.app` 和「应用程序」快捷方式。 [仓库模板](../build/macos/installer-template.dmg)
+以上命令默认生成 JIT 和 Native AOT 两个 `.dmg`，等同于显式传入 `--aot true`。只需要 JIT 安装包时，在命令末尾添加 `--aot false`。两种安装包都使用仓库自带的模板来保留 Finder 安装布局、背景和图标，并放入本次构建的 `Steam++.app` 和「应用程序」快捷方式。 [仓库模板](../build/macos/installer-template.dmg)
 
-只发布 Native AOT 时，可直接调用脚本。以下命令生成 `build/publish/native/osx-arm64/` 和同级的 `build/publish/native/osx-arm64.dmg`。
+单独运行 Native AOT 发布脚本时，默认使用 `build/publish/native/`。以下命令生成 `build/publish/native/osx-arm64/` 和同级的 `build/publish/native/osx-arm64.dmg`。
 
 ```bash
 pwsh -NoProfile -File ./build/publish-native.ps1 -RuntimeIdentifier osx-arm64
@@ -84,13 +85,18 @@ pwsh -NoProfile -File ./build/publish-native.ps1 -RuntimeIdentifier osx-arm64
 
 ## 发布产物
 
-以上 `pub` 命令的产物位于 `src/BD.WTTS.Client.Avalonia.App/bin/Release/Publish/`。程序目录、归档和 JSON 发布清单以应用版本、目标架构和构建时间戳命名，Native AOT 版本带有 `(Native AOT)` 标记。
+以上 `pub` 命令的产物位于 `src/BD.WTTS.Client.Avalonia.App/bin/Release/Publish/`。程序目录和发布包以应用版本、目标架构和构建时间戳命名。macOS 的文件名格式如下。
+
+- JIT `[Release] Steam++_v<版本>_osx_<架构>_<时间戳>.dmg`
+- Native AOT `[Release] Steam++(Native AOT)_v<版本>_osx_<架构>_<时间戳>.dmg`
+
+Native AOT 的内部校验记录位于 `build/artifacts/`。
 
 | 平台 | `pub run` 生成的包 | 后续打包 |
 | --- | --- | --- |
 | Windows x64 | `.7z`、MSIX 和 `.msixbundle` | `pub nsis` 生成 `.exe` 安装包 |
 | Linux x64、ARM64 | `.tar.gz` | GitHub Actions 以 `.tgz` 文件名上传 |
-| macOS Intel、Apple Silicon | JIT 和 Native AOT 的 `.7z`，Native AOT 的 `.dmg` | — |
+| macOS Intel、Apple Silicon | JIT 和 Native AOT `.dmg` | — |
 
 手动运行 Publish 工作流会构建并上传三端安装包和压缩包。推送标签时，工作流还会制作 Windows EXE 安装包，汇总产物并生成 `SHA256SUMS.txt`，然后创建草稿 Release。 [发布工作流](../.github/workflows/publish.yml)
 

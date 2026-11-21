@@ -2,7 +2,7 @@
 
 ### 发布应用
 
-`pub run --aot true` 同时构建 JIT 和 Native AOT，`--aot false` 仅构建 JIT。以下命令适用于已编译的发布工具。各平台的依赖、从源码调用方式和产物路径见[发布说明](../../doc/publish.md)。
+`pub run` 默认同时构建 JIT 和 Native AOT，等同于 `--aot true`。`--aot false` 仅构建 JIT。macOS 为每种构建模式生成一个 `.dmg` 安装包。以下命令适用于已编译的发布工具。 [依赖和产物路径](../../doc/publish.md)
 
 ```sh
 # Windows x64
@@ -14,8 +14,8 @@ pub run --rids linux-x64 --aot true
 pub run --rids linux-arm64 --aot true
 
 # macOS（构建 Intel 包前先准备 x64 的 DTLS 原生库）
-pub run --rids osx-arm64 --aot true
-pub run --rids osx-x64 --aot true
+pub run --rids osx-arm64
+pub run --rids osx-x64
 ```
 
 ### 扫描发布文件夹命令
@@ -38,5 +38,4 @@ pub launch --rids osx-x64 osx-arm64
 ```
 pub compressed --7z --rids win-x64 win-x86 win-arm64
 pub compressed --zstd --rids linux-x64 linux-arm64
-pub compressed --7z --rids osx-x64 osx-arm64
 ```

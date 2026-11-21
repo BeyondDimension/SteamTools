@@ -63,9 +63,6 @@ jobs:
         run: |
           sudo xcode-select --switch /Applications/Xcode_27.0.app/Contents/Developer
           dotnet workload install macos --skip-manifest-update
-          if ! command -v 7zz >/dev/null; then
-            brew install sevenzip
-          fi
 
       - name: Build Intel macOS DTLS libraries
         if: matrix.rid == 'osx-x64'
@@ -81,7 +78,7 @@ jobs:
           token: ${{ secrets.REPO_TOKEN }}
           persist-credentials: false
 
-      - name: Publish JIT and Native AOT packages
+      - name: Publish packages
         run: dotnet run --project $env:PUBLISH_PROJECT --configuration Release --no-launch-profile -- run --rids $env:PUBLISH_RID --aot true
 
       - name: Build Windows installers
@@ -93,7 +90,11 @@ jobs:
           $publishDir = 'src/BD.WTTS.Client.Avalonia.App/bin/Release/Publish'
           $assetsDir = New-Item -ItemType Directory -Path ../release-assets -Force
           $rid = $env:PUBLISH_RID.Replace('-', '_')
-          $extensions = if ($env:RUNNER_OS -eq 'Linux') { '.tar.gz' } else { '.7z' }
+          $extensions = switch ($env:RUNNER_OS) {
+            'Linux' { '.tar.gz' }
+            'macOS' { '.dmg' }
+            default { '.7z' }
+          }
           if ($env:RUNNER_OS -eq 'Windows' -and $env:GITHUB_EVENT_NAME -eq 'push') {
             $extensions = @($extensions, '.exe')
           }
@@ -103,12 +104,7 @@ jobs:
             $product = if ($mode -eq 'AOT') { 'Steam++(Native AOT)' } else { 'Steam++' }
             $suffix = if ($mode -eq 'AOT') { '_aot' } else { '' }
             $escapedProduct = [regex]::Escape($product)
-            $packageExtensions = @($extensions)
-            if ($env:RUNNER_OS -eq 'macOS' -and $mode -eq 'AOT') {
-              $packageExtensions += '.dmg'
-            }
-
-            foreach ($extension in $packageExtensions) {
+            foreach ($extension in $extensions) {
               $pattern = "^\[Release\] ${escapedProduct}_v(?<version>[^_]+)_${rid}_\d{6}_\d+$([regex]::Escape($extension))$"
               $packages = @($files | Where-Object Name -Match $pattern)
               if ($packages.Count -ne 1 -or $packages[0].Length -eq 0) {
