@@ -2,24 +2,20 @@
 
 ### 发布应用
 
-用 `pub run --mode jit|aot|both --rids <RID>` 选择发布模式；省略 `--mode` 时仅发布 JIT。完整调用方式、安装包参数和输出位置见[发布说明](../../doc/publish.md)。
+`pub run --aot true` 同时构建 JIT 和 Native AOT，`--aot false` 仅构建 JIT。以下命令适用于已编译的发布工具。各平台的依赖、从源码调用方式和产物路径见[发布说明](../../doc/publish.md)。
 
-### DotNet 发布命令
-```
-pub run --rids win-x64
-pub run --rids win-x86
-pub run --rids win-arm64
-pub run --rids linux-x64
-pub run --rids linux-arm64
-pub run --rids osx-x64
-pub run --rids osx-arm64
-pub run --debug --rids win-x64
-pub run --debug --rids win-x86
-pub run --debug --rids win-arm64
-pub run --debug --rids linux-x64
-pub run --debug --rids linux-arm64
-pub run --debug --rids osx-x64
-pub run --debug --rids osx-arm64
+```sh
+# Windows x64
+pub run --rids win-x64 --aot true
+pub nsis --rids win-x64 --t latest --aot true
+
+# Linux（按宿主架构选一条）
+pub run --rids linux-x64 --aot true
+pub run --rids linux-arm64 --aot true
+
+# macOS（构建 Intel 包前先准备 x64 的 DTLS 原生库）
+pub run --rids osx-arm64 --aot true
+pub run --rids osx-x64 --aot true
 ```
 
 ### 扫描发布文件夹命令

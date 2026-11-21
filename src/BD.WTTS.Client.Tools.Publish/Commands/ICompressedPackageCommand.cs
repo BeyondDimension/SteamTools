@@ -144,6 +144,8 @@ interface ICompressedPackageCommand : ICommand
 #endif
             var entry = TarEntry.CreateEntryFromFile(file.FilePath);
             entry.Name = file.RelativePath;
+            if (!OperatingSystem.IsWindows())
+                entry.TarHeader.Mode = (int)File.GetUnixFileMode(file.FilePath);
             if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
                 entry.Name = entry.Name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
             archive.WriteEntry(entry, false);

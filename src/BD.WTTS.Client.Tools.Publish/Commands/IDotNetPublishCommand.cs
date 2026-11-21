@@ -129,6 +129,7 @@ interface IDotNetPublishCommand : ICommand
                     arg.PublishDir = arg.PublishDir.Replace("win-x64", "win-arm64");
                 }
                 SetPublishCommandArgumentList(psi.ArgumentList, arg);
+                psi.ArgumentList.Add($"-p:WttsDesktopTargetFrameworks={arg.Framework}");
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                 Console.Write("[");
@@ -194,14 +195,19 @@ interface IDotNetPublishCommand : ICommand
                         File.Copy(ico_path, Path.Combine(save_dir_path, "Watt-Toolkit.png"), true);
                     }
                     Console.WriteLine(ToolStrings.Get("LinuxScripts"));
-                    var script_path = Path.Combine(rootPublishDir, "..", "ShellScript", "Linux");//Path.Combine(ProjectUtils.ProjPath, "build", "linux");
-                    CopyDirectory(script_path, Path.Combine(rootPublishDir, "script"), true);
+                    var legacyScripts = Path.Combine(rootPublishDir, "..", "ShellScript", "Linux");
                     var localizedScripts = Path.Combine(ProjectUtils.ProjPath, "build", "linux");
                     var destinationScripts = Path.Combine(rootPublishDir, "script");
-                    foreach (var script in new[] { "Steam++.sh", "environment_check.sh", "offline_init.sh", "online_install.sh", "uninstall.sh" })
-                        File.Copy(Path.Combine(localizedScripts, script), Path.Combine(destinationScripts, script), true);
-                    CopyDirectory(Path.Combine(localizedScripts, "locale"), Path.Combine(destinationScripts, "locale"), true);
-                    File.Move(Path.Combine(rootPublishDir, "script", "Steam++.sh"), Path.Combine(rootPublishDir, "Steam++.sh"));
+                    if (Directory.Exists(legacyScripts))
+                        CopyDirectory(legacyScripts, destinationScripts, true);
+                    CopyDirectory(localizedScripts, destinationScripts, true);
+                    if (OperatingSystem.IsLinux())
+                    {
+                        const UnixFileMode executable = UnixFileMode.UserExecute | UnixFileMode.GroupExecute | UnixFileMode.OtherExecute;
+                        foreach (var script in Directory.EnumerateFiles(destinationScripts, "*.sh"))
+                            File.SetUnixFileMode(script, File.GetUnixFileMode(script) | executable);
+                    }
+                    File.Move(Path.Combine(destinationScripts, "Steam++.sh"), Path.Combine(rootPublishDir, "Steam++.sh"));
                 }
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
@@ -504,10 +510,10 @@ $"""
                     case Platform.WinUI:
                     case Platform.Apple:
                         {
-                            ICompressedPackageCommand.CreateSevenZipPack(packPath = GetPackPathWithTryDelete(FileEx._7Z), appPublish.Files);
+                            ICompressedPackageCommand.CreateSevenZipPack(packPath = GetPackPathWithTryDelete(FileEx._7Z), appPublish.Files, appPublish.DirectoryPath);
                             if (appPublish_Aot != null)
                             {
-                                ICompressedPackageCommand.CreateSevenZipPack(packPath = GetPackPathWithTryDelete(FileEx._7Z, aot: true), appPublish_Aot.Files);
+                                ICompressedPackageCommand.CreateSevenZipPack(packPath = GetPackPathWithTryDelete(FileEx._7Z, aot: true), appPublish_Aot.Files, appPublish_Aot.DirectoryPath);
                             }
                             break;
                         }
@@ -1142,25 +1148,14 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
         foreach (var pluginName in GetPluginNames(platform))
         {
             var projRootPath = Path.Combine(ProjectUtils.ProjPath, "src", $"BD.WTTS.Client.Plugins.{pluginName}");
-            StartProcessAndWaitForExit(projRootPath, $"build -c {configuration} --nologo -v q /property:WarningLevel=1");
+            StartProcessAndWaitForExit(projRootPath,
+                $"build -c {configuration} -f {framework} -p:WttsDesktopTargetFrameworks={framework} --nologo -v q /property:WarningLevel=1");
 
             var dllFileName = $"BD.WTTS.Client.Plugins.{pluginName}.dll";
             var pluginBuildDir = Path.Combine(projRootPath, "bin", configuration);
             var dllPath = Path.Combine(pluginBuildDir, framework, dllFileName);
             if (!File.Exists(dllPath))
-            {
-                framework = framework.Split('-').FirstOrDefault()!;
-                if (!string.IsNullOrEmpty(framework))
-                {
-                    dllPath = Path.Combine(pluginBuildDir, framework, dllFileName);
-                    if (!File.Exists(dllPath))
-                        throw new FileNotFoundException(null, dllPath);
-                }
-                else
-                {
-                    throw new FileNotFoundException(null, dllPath);
-                }
-            }
+                throw new FileNotFoundException(null, dllPath);
             var pluginDir = Path.Combine(publishDir, "..", "modules", pluginName);
             IOPath.DirCreateByNotExists(pluginDir);
             var destFileName = Path.Combine(pluginDir, dllFileName);
