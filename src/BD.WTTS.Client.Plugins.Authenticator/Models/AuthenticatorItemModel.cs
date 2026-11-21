@@ -174,26 +174,22 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
         await IWindowManager.Instance.ShowTaskDialogAsync(viewModel,
             Strings.ConfirmTransaction, pageContent: new SteamTradePage(), isOkButton: false, disableScroll: true, wide: true);
         AuthData = authData;
-        this.RaisePropertyChanged(nameof(CanScanSteamQrLogin));
     }
-
-    public bool CanScanSteamQrLogin => !disposed && AuthData.Value is WinAuth.SteamAuthenticator authenticator &&
-        SteamQrLoginSession.CanUse(authenticator);
 
     public async Task ShowSteamQrLoginWindow()
     {
-        if (!IsSteamAuthenticator)
+        if (disposed || !IsSteamAuthenticator)
             return;
-        if (!CanScanSteamQrLogin)
+        if (AuthData.Value is not WinAuth.SteamAuthenticator authenticator || !SteamQrLoginSession.CanUse(authenticator))
         {
-            Toast.Show(ToastIcon.Warning, SteamQrLoginSession.LoginRequiredMessage);
+            using var notice = new MessageBoxWindowViewModel { Content = SteamQrLoginSession.LoginRequiredMessage };
+            await IWindowManager.Instance.ShowTaskDialogAsync(notice, Strings.L10nAuthIdle_Text072);
             return;
         }
 
         using var viewModel = new SteamQrLoginPageViewModel(this);
         await IWindowManager.Instance.ShowTaskDialogAsync(viewModel, Strings.L10nAuthIdle_Text072,
             pageContent: new SteamQrLoginPage(), isOkButton: false);
-        this.RaisePropertyChanged(nameof(CanScanSteamQrLogin));
     }
 
     public async Task ShowDetailData()

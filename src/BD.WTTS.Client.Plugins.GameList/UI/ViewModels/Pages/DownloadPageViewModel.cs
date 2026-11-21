@@ -8,6 +8,8 @@ public sealed class DownloadPageViewModel : ViewModelBase
     private bool? isAllCheck;
     private bool changingSelection;
 
+    public SteamConnectService SteamConnection { get; } = SteamConnectService.Current;
+
     public ReadOnlyObservableCollection<SteamApp> DownloadingApps => _DownloadingApps;
 
     public bool? IsAllCheck
@@ -34,7 +36,7 @@ public sealed class DownloadPageViewModel : ViewModelBase
 
     public DownloadPageViewModel()
     {
-        SteamConnectService.Current.DownloadApps
+        SteamConnection.DownloadApps
            .Connect()
            .Filter(p => p.IsDownloading)
            .Sort(SortExpressionComparer<SteamApp>.Ascending(x => x.AppId).ThenBy(x => x.DisplayName))
@@ -47,7 +49,7 @@ public sealed class DownloadPageViewModel : ViewModelBase
             .AutoRefreshOnObservable(static app => app.ObserveValue(nameof(app.IsWatchDownloading), static x => x.IsWatchDownloading).Skip(1))
             .Subscribe(changes =>
             {
-                var watchedIds = SteamConnectService.Current.WatchDownloadingSteamAppIds;
+                var watchedIds = SteamConnection.WatchDownloadingSteamAppIds;
                 foreach (var change in changes)
                 {
                     // A finished download can leave this list before the service checks the watched ID.
@@ -79,10 +81,8 @@ public sealed class DownloadPageViewModel : ViewModelBase
         base.Activation();
         Task2.InBackground(() =>
         {
-            if (!SteamConnectService.Current.IsWatchSteamDownloading)
-            {
-                SteamConnectService.Current.InitializeDownloadGameList();
-            }
+            if (!SteamConnection.IsWatchSteamDownloading)
+                SteamConnection.InitializeDownloadGameList();
         });
     }
 }
