@@ -149,10 +149,6 @@ interface IDotNetPublishCommand : ICommand
                 //        break;
                 //}
                 DirTryDelete(rootPublishDir);
-                if (rootPublishDir_Aot != null)
-                {
-                    DirTryDelete(rootPublishDir_Aot);
-                }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                 Console.Write(ToolStrings.Get("DirectoryDeleted"));
                 Console.WriteLine(rootPublishDir);
@@ -276,6 +272,7 @@ interface IDotNetPublishCommand : ICommand
                 // 发布 AOT 版本
                 if (aot && rootPublishDir_Aot != null)
                 {
+                    // The native script validates the existing package and its adjacent disk image before replacing them.
                     var aotBuildScriptFilePath = Path.Combine(ProjectUtils.ProjPath, "build", "publish-native.ps1");
                     NativeAotPublisher.Run("pwsh", ProjectUtils.ProjPath, "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", aotBuildScriptFilePath, "-RuntimeIdentifier", rid, "-OutputDirectory", rootPublishDir_Aot);
                 }

@@ -103,7 +103,12 @@ jobs:
             $product = if ($mode -eq 'AOT') { 'Steam++(Native AOT)' } else { 'Steam++' }
             $suffix = if ($mode -eq 'AOT') { '_aot' } else { '' }
             $escapedProduct = [regex]::Escape($product)
-            foreach ($extension in $extensions) {
+            $packageExtensions = @($extensions)
+            if ($env:RUNNER_OS -eq 'macOS' -and $mode -eq 'AOT') {
+              $packageExtensions += '.dmg'
+            }
+
+            foreach ($extension in $packageExtensions) {
               $pattern = "^\[Release\] ${escapedProduct}_v(?<version>[^_]+)_${rid}_\d{6}_\d+$([regex]::Escape($extension))$"
               $packages = @($files | Where-Object Name -Match $pattern)
               if ($packages.Count -ne 1 -or $packages[0].Length -eq 0) {

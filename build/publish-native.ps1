@@ -8,7 +8,7 @@ BuildRoot defaults to build. Renderer defaults to Skia; native/<RID> is selected
 under publish, artifacts and logs. -Renderer SimdSkia selects the optional managed
 renderer under native-simdskia/<RID>. OutputDirectory overrides the package and
 the location of its adjacent macOS disk image. DiskImageTemplate defaults to
-the Steam++ installer template in the macOS user's Documents directory.
+the installer template at build/macos/installer-template.dmg.
 
 Only files recorded in the package manifest with matching SHA256 hashes may be
 replaced. AppData, Cache, Log/Logs and user archives are never package-owned or modified.
@@ -156,9 +156,6 @@ function Read-PayloadManifest {
         )) {
             throw "Disk image is unowned or modified; preserving it: $diskImagePath. Use a new OutputDirectory."
         }
-        if ($hasDiskImage -and -not $DiskImageTemplate) {
-            throw "Specify -DiskImageTemplate to update the existing installer: $diskImagePath"
-        }
     }
     return @{ Files = $owned; ManifestPath = $existingManifest; HasDiskImage = $hasDiskImage }
 }
@@ -284,18 +281,12 @@ try {
     $OutputDirectory = Resolve-RepositoryPath $OutputDirectory
     if ($RuntimeIdentifier.StartsWith('osx-')) {
         $diskImagePath = "$OutputDirectory.dmg"
-        if ($DiskImageTemplate) {
-            $DiskImageTemplate = Resolve-RepositoryPath $DiskImageTemplate
-            if (-not (Test-Path -LiteralPath $DiskImageTemplate -PathType Leaf)) {
-                throw "macOS installer template not found: $DiskImageTemplate"
-            }
-        } else {
-            $defaultTemplate = Join-Path $HOME 'Documents/安装 Steam++.dmg'
-            if (Test-Path -LiteralPath $defaultTemplate -PathType Leaf) {
-                $DiskImageTemplate = $defaultTemplate
-            } else {
-                Write-Warning "macOS installer template not found at $defaultTemplate. Supply -DiskImageTemplate to generate a DMG."
-            }
+        if (-not $DiskImageTemplate) {
+            $DiskImageTemplate = Join-Path $PSScriptRoot 'macos/installer-template.dmg'
+        }
+        $DiskImageTemplate = Resolve-RepositoryPath $DiskImageTemplate
+        if (-not (Test-Path -LiteralPath $DiskImageTemplate -PathType Leaf)) {
+            throw "macOS installer template not found: $DiskImageTemplate"
         }
         if ($DiskImageTemplate -eq $diskImagePath) {
             throw 'The macOS installer template must be separate from the output disk image.'
@@ -457,7 +448,7 @@ try {
         $entries += [ordered]@{ Path = $relativePath; Sha256 = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash }
     }
     $manifest = [ordered]@{ Schema = 1; RuntimeIdentifier = $RuntimeIdentifier; Files = $entries }
-    if ($diskImagePath -and $DiskImageTemplate) {
+    if ($diskImagePath) {
         $phase = 'create-disk-image'
         # Keep the final rename and any rollback on the output volume.
         $diskImageWork = Join-Path $packageParent ('.native-disk-image-' + $runId)

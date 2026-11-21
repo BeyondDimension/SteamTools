@@ -47,11 +47,14 @@ dotnet run --project "$pub" -c Release --no-launch-profile -- run --rids linux-a
 
 ## macOS
 
-选择与 .NET macOS 工作负载匹配的 Xcode，当前 GitHub Actions 使用 Xcode 27.0。生成 7z 包需要 `7zz`。构建 Intel 版还需要 Rust（`rustup` 和 `cargo`），用于预先生成 x64 的 DTLS 原生库。
+安装与 .NET macOS 工作负载匹配的完整 Xcode，当前 GitHub Actions 使用 Xcode 27.0。下面以 `/Applications/Xcode.app` 为例。生成 7z 包需要 `7zz`。Native AOT 打包使用 PowerShell 7 以及 macOS 自带的 `hdiutil` 和 `codesign`。构建 Intel 版还需要 Rust（`rustup` 和 `cargo`），用于预先生成 x64 的 DTLS 原生库。
 
 ```bash
+export DEVELOPER_DIR='/Applications/Xcode.app/Contents/Developer'
+xcodebuild -version
 dotnet workload install macos --skip-manifest-update
 brew install sevenzip
+brew install --cask powershell
 
 pub='./src/BD.WTTS.Client.Tools.Publish/BD.WTTS.Client.Tools.Publish.csproj'
 ```
@@ -69,11 +72,15 @@ bash ./build/native-dtls/build-macos-x64.sh
 dotnet run --project "$pub" -c Release --no-launch-profile -- run --rids osx-x64 --aot true
 ```
 
-需要单独构建原生目录时，可直接调用 `build/publish-native.ps1`，默认输出到 `build/publish/native/<RID>/`。在 macOS 上可通过 `-DiskImageTemplate` 指定已有模板，脚本也会查找 `~/Documents/安装 Steam++.dmg`。使用模板生成的镜像与输出目录同级，示例会生成 `build/publish/native/osx-arm64.dmg`。
+这两条 `pub run` 命令都会生成 JIT 和 Native AOT 的 `.7z`，并用仓库自带的模板生成 Native AOT 的 `.dmg`。镜像与同一批次的 Native AOT 程序目录和 `.7z` 位于同一层。模板保存 Finder 安装布局、背景和图标，打包时加入本次构建的 `Steam++.app` 和「应用程序」快捷方式。 [仓库模板](../build/macos/installer-template.dmg)
+
+只发布 Native AOT 时，可直接调用脚本。以下命令生成 `build/publish/native/osx-arm64/` 和同级的 `build/publish/native/osx-arm64.dmg`。
 
 ```bash
-pwsh -NoProfile -File ./build/publish-native.ps1 -RuntimeIdentifier osx-arm64 -DiskImageTemplate "/path/to/安装 Steam++.dmg"
+pwsh -NoProfile -File ./build/publish-native.ps1 -RuntimeIdentifier osx-arm64
 ```
+
+要使用自定义模板，可在这条命令后附加 `-DiskImageTemplate "/path/to/安装 Steam++.dmg"`。自定义模板需包含 `.DS_Store`、`.VolumeIcon.icns`、`b.png`、`l.icns` 和卷的 Finder 图标属性。 [镜像打包脚本](../build/macos/create-dmg.sh)
 
 ## 发布产物
 
@@ -83,9 +90,9 @@ pwsh -NoProfile -File ./build/publish-native.ps1 -RuntimeIdentifier osx-arm64 -D
 | --- | --- | --- |
 | Windows x64 | `.7z`、MSIX 和 `.msixbundle` | `pub nsis` 生成 `.exe` 安装包 |
 | Linux x64、ARM64 | `.tar.gz` | GitHub Actions 以 `.tgz` 文件名上传 |
-| macOS Intel、Apple Silicon | `.7z` | 带模板运行独立的原生发布脚本可生成 `.dmg` |
+| macOS Intel、Apple Silicon | JIT 和 Native AOT 的 `.7z`，Native AOT 的 `.dmg` | — |
 
-推送标签时，Publish 工作流汇总三端的 JIT 和 Native AOT 包，生成 `SHA256SUMS.txt` 并创建草稿 Release。 [发布工作流](../.github/workflows/publish.yml)
+手动运行 Publish 工作流会构建并上传三端安装包和压缩包。推送标签时，工作流还会制作 Windows EXE 安装包，汇总产物并生成 `SHA256SUMS.txt`，然后创建草稿 Release。 [发布工作流](../.github/workflows/publish.yml)
 
 ## 参考链接
 

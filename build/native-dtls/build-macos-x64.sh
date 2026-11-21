@@ -15,14 +15,18 @@ fi
 working_directory="$(mktemp -d "${TMPDIR:-/tmp}/wtts-dtls.XXXXXXXX")"
 trap 'rm -rf -- "$working_directory"' EXIT
 source_directory="$working_directory/source"
-git init --quiet "$source_directory"
-git -C "$source_directory" fetch --quiet --depth 1 https://github.com/HMBSbige/DTLS.git "$source_revision"
-git -C "$source_directory" checkout --quiet --detach FETCH_HEAD
+source_archive="$working_directory/dtls.tar.gz"
+curl --fail --location --silent --show-error --retry 3 --connect-timeout 15 \
+    "https://codeload.github.com/HMBSbige/DTLS/tar.gz/$source_revision" -o "$source_archive"
+mkdir "$source_directory"
+tar -xzf "$source_archive" -C "$source_directory" --strip-components=1
 
 export MACOSX_DEPLOYMENT_TARGET="${MACOSX_DEPLOYMENT_TARGET:-14.0}"
 rustup target add "$target"
 (
     cd "$source_directory/native"
+    # Older Rust toolchains can produce stripped dylibs that macOS 27 cannot load.
+    export CARGO_PROFILE_RELEASE_STRIP=none
     cargo rustc --release --locked --target "$target" --target-dir "$working_directory/target" --color never -- --print=native-static-libs
 ) 2>&1 | tee "$working_directory/build.log"
 

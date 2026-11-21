@@ -645,6 +645,7 @@ iOSInjectionProject/
 !/build/macos/
 /build/macos/*
 !/build/macos/create-dmg.sh
+!/build/macos/installer-template.dmg
 !/build/native-graphics/
 /build/native-graphics/*
 !/build/native-graphics/StaticGraphics.targets
