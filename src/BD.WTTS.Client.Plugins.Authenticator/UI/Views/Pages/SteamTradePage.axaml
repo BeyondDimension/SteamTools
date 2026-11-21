@@ -12,19 +12,41 @@
     x:CompileBindings="True"
     x:DataType="spp:SteamTradePageViewModel"
     mc:Ignorable="d">
+    <Grid RowDefinitions="*,Auto">
     <spp:ContentLoader CustomLoadingText="{x:Static spp:Strings.EnableAccelerationPrompt}" IsLoading="{Binding IsLoading}">
         <Panel>
             <!--  登录  -->
-            <Grid RowDefinitions="*,Auto" RowSpacing="10">
+            <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10">
                 <Grid.IsVisible>
                     <MultiBinding Converter="{x:Static BoolConverters.And}">
                         <CompiledBindingExtension Path="!IsLogged" />
                         <CompiledBindingExtension Path="!IsLoading" />
                     </MultiBinding>
                 </Grid.IsVisible>
-                <spp:SteamLoginView DataContext="{Binding Login}" ShowRememberLogin="True"
+                <Border Padding="12" CornerRadius="8" Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                    <StackPanel Spacing="6">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                            <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" Theme="{StaticResource BodyStrongTextBlockStyle}"
+                                       Text="{x:Static spp:Strings.SteamTradeLoginMode}" />
+                            <ComboBox x:Name="TradeLoginMode" Grid.Column="1" VerticalAlignment="Center"
+                                      AutomationProperties.Name="{x:Static spp:Strings.SteamTradeLoginMode}"
+                                      SelectedIndex="{Binding LoginModeIndex, Mode=TwoWay}" IsEnabled="{Binding !Login.IsBusy}">
+                                <ComboBoxItem Content="{x:Static spp:Strings.SteamTradeWebLogin}" />
+                                <ComboBoxItem Content="{x:Static spp:Strings.SteamTradeAppLogin}" />
+                            </ComboBox>
+                        </Grid>
+                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" TextWrapping="Wrap"
+                                   Text="{x:Static spp:Strings.SteamTradeMobileLoginHint}" />
+                        <spp:Snackbar x:Name="TradeAppLoginWarning" IsVisible="{Binding Login.RequireMobileSession}"
+                                      IsOpen="True" IsClosable="False" Severity="Warning"
+                                      Message="{x:Static spp:Strings.SteamTradeMobileLoginWarning}" />
+                    </StackPanel>
+                </Border>
+                <spp:SteamLoginView Grid.Row="1" DataContext="{Binding Login}" ShowRememberLogin="True"
                                     RememberLogin="{Binding $parent[spp:SteamTradePage].((spp:SteamTradePageViewModel)DataContext).RememberLogin, Mode=TwoWay}" />
-                <TextBlock Grid.Row="1" Text="{Binding LoginStatus}" TextWrapping="Wrap" HorizontalAlignment="Center" />
+                <TextBlock Grid.Row="2" Text="{Binding LoginStatus}" TextWrapping="Wrap" HorizontalAlignment="Center"
+                           IsVisible="{Binding LoginStatus, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}" />
             </Grid>
 
             <!--  确认交易  -->
@@ -154,4 +176,8 @@
             </Grid>
         </Panel>
     </spp:ContentLoader>
+        <Button Grid.Row="1" Margin="0,8,0,0" HorizontalAlignment="Center"
+            IsVisible="{Binding IsLoading}" Command="{Binding Logout}"
+            Content="{x:Static spp:Strings.Logout}" />
+        </Grid>
 </UserControl>

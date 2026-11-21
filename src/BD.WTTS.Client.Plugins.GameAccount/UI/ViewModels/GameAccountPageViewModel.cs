@@ -46,7 +46,7 @@ public sealed partial class GameAccountPageViewModel
 
         LoadPlatforms();
 
-        this.WhenAnyValue(x => x.SelectedPlatform)
+        this.ObserveValue(nameof(SelectedPlatform), static x => x.SelectedPlatform)
             .Subscribe(_ =>
             {
                 this.RaisePropertyChanged(nameof(IsSelectedSteam));

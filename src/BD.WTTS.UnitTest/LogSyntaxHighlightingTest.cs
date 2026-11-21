@@ -9,6 +9,9 @@ public sealed class LogSyntaxHighlightingTest
 {
     [TestCase("2026-11-15 10:20:30.123 +08:00 [INFO] 中文", "10:20:30.123 +08:00", "Date")]
     [TestCase("[Error] failure", "[Error]", "Error")]
+    [TestCase("2026-11-15 10:20:30.123|Warn|Microsoft.Hosting.Lifetime|started", "Warn", "Warning")]
+    [TestCase("2026-11-15 10:20:30.123|Warn|Microsoft.Hosting.Lifetime|started", "Microsoft.Hosting.Lifetime", "Category")]
+    [TestCase("2026-11-15 10:20:30.123|Warn|Microsoft.Hosting.Lifetime|started", "|", "Separator")]
     [TestCase("value \"ERROR within a quoted string\"", "ERROR", "String")]
     [TestCase("   at Example.Run()", "   at Example.Run()", "Stack")]
     [TestCase("System.IO.IOException", "System.IO.IOException", "Exception")]

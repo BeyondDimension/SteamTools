@@ -44,7 +44,7 @@ public sealed class AdvertiseService : ReactiveObject
 
         ClickAdvertisementCommand = ReactiveCommand.Create<AdvertisementDTO>(ClickAdvertisement);
 
-        UserService.Current.WhenValueChanged(x => x.User, false)
+        UserService.Current.ObserveValue(nameof(UserService.User), static x => x.User).Skip(1)
                 .Subscribe(_ => CheckShow());
 
         //AdvertisementsSource.CountChanged

@@ -26,11 +26,11 @@
             CornerRadius="{StaticResource ControlCornerRadius}"
             ItemContainerTheme="{StaticResource TabItemStyle}"
             Theme="{StaticResource TabStripStyle}">
-            <TabStripItem Content="{x:Static spp:Strings.Settings_General}" Tag="Settings_General" />
-            <TabStripItem Content="{x:Static spp:Strings.Settings_UI}" Tag="Settings_UI" />
-            <TabStripItem Content="{x:Static spp:Strings.Settings_Plugin}" Tag="Settings_Plugin" />
-            <TabStripItem Content="{x:Static spp:Strings.Settings_Steam}" Tag="Settings_Steam" />
-            <TabStripItem Content="{x:Static spp:Strings.About}" Tag="AboutPage" />
+            <TabStripItem Content="{x:Static spp:Strings.Settings_General}" />
+            <TabStripItem Content="{x:Static spp:Strings.Settings_UI}" />
+            <TabStripItem Content="{x:Static spp:Strings.Settings_Plugin}" />
+            <TabStripItem Content="{x:Static spp:Strings.Settings_Steam}" />
+            <TabStripItem Content="{x:Static spp:Strings.About}" />
         </TabStrip>
     </spp:PageBase.TabContent>
     <!--<spp:PageBase.ActionContent>
@@ -68,11 +68,36 @@
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>-->
-    <StackPanel Name="SettingPanel" Spacing="10">
-        <spp:Settings_General Name="Settings_General" />
-        <spp:Settings_UI Name="Settings_UI" />
-        <spp:Settings_Plugin Name="Settings_Plugin" />
-        <spp:Settings_Steam Name="Settings_Steam" />
-        <spp:AboutPage Name="AboutPage" />
-    </StackPanel>
+    <ItemsControl Name="SettingsSections">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <VirtualizingStackPanel CacheLength="0" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ContentControl Margin="0,0,0,10">
+            <ContentControl.Template>
+                <ControlTemplate><spp:Settings_General /></ControlTemplate>
+            </ContentControl.Template>
+        </ContentControl>
+        <ContentControl Margin="0,0,0,10">
+            <ContentControl.Template>
+                <ControlTemplate><spp:Settings_UI /></ControlTemplate>
+            </ContentControl.Template>
+        </ContentControl>
+        <ContentControl Margin="0,0,0,10">
+            <ContentControl.Template>
+                <ControlTemplate><spp:Settings_Plugin /></ControlTemplate>
+            </ContentControl.Template>
+        </ContentControl>
+        <ContentControl Margin="0,0,0,10">
+            <ContentControl.Template>
+                <ControlTemplate><spp:Settings_Steam /></ControlTemplate>
+            </ContentControl.Template>
+        </ContentControl>
+        <ContentControl>
+            <ContentControl.Template>
+                <ControlTemplate><spp:AboutPage /></ControlTemplate>
+            </ContentControl.Template>
+        </ContentControl>
+    </ItemsControl>
 </spp:PageBase>

@@ -284,10 +284,14 @@ sealed partial class YarpReverseProxyServiceImpl : ReverseProxyServiceImpl, IRev
         return bytes;
     }
 
-    public string? GetLogAllMessage()
+    static readonly Guid logStreamId = Guid.NewGuid();
+
+    public Task<ProxyLogUpdate?> GetLogUpdateAsync(Guid streamId, long offset)
     {
-        var result = LogConsoleService.Builder;
-        return result.ToString();
+        var (end, reset, utf8) = LogConsoleService.Builder.ReadSince(streamId == logStreamId ? offset : -1);
+        return Task.FromResult<ProxyLogUpdate?>(reset || utf8.Length != 0
+            ? new(logStreamId, end, reset, utf8)
+            : null);
     }
 
     // IDisposable

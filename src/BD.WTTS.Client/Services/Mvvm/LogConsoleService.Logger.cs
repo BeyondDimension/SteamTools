@@ -7,118 +7,85 @@ namespace BD.WTTS.Services;
 partial class LogConsoleService
 {
     /// <summary>
-    /// 控制台显示最大字符数
-    /// </summary>
-    const int ConsoleMaxCharCount = 10_0000;
-
-    static readonly int ConsoleMaxByteCount = Encoding.UTF8.GetMaxByteCount(ConsoleMaxCharCount);
-
-    /// <summary>
     /// 日志源
     /// </summary>
-    [DebuggerDisplay("{DebuggerDisplay(),nq}")]
+    [DebuggerDisplay("Log bytes = {length}")]
     internal sealed partial class Source
     {
-        List<byte[]>? chunk;
-        (string? str, long byteLength)? message = null;
+        internal const int MaxBytes = 256 * 1024;
 
-#if DEBUG
-        readonly string moduleName;
+        readonly object sync = new();
+        byte[] buffer = [];
+        int length;
+        long end;
+        string? snapshot;
 
-        public Source(string moduleName)
+        public void Append(ReadOnlySpan<byte> entry)
         {
-            this.moduleName = moduleName;
-        }
+            if (entry.IsEmpty) return;
 
-        string DebuggerDisplay() =>
-$"""
-moduleName: {moduleName}
-ByteLength: {ByteLength}
-{ToString()}
-""";
-#endif
-
-        public long ByteLength { get; private set; }
-
-        public void BuilderAppend(byte[] value)
-        {
-            (chunk ??= new()).Add(value);
-            ByteLength += value.Length;
-        }
-
-        void BuilderClear()
-        {
-            if (chunk != null && chunk.Count > 1)
+            lock (sync)
             {
-                // 保留最后 21.3% 的日志
-                var keppLength = (int)MathF.Floor(chunk.Count * .213f);
-                if (keppLength <= 0 || keppLength >= chunk.Count)
+                end += entry.Length;
+                if (entry.Length > MaxBytes)
                 {
-                    keppLength = 1;
-                }
-                chunk = chunk.TakeLast(keppLength).ToList();
-            }
-
-            message = null;
-            ByteLength = 0;
-        }
-
-        /// <summary>
-        /// 追加收到的日志 UTF-8 字节
-        /// </summary>
-        public void Append(byte[]? value)
-        {
-            if (value != null && value.Length > 0)
-            {
-                if (ByteLength > ConsoleMaxByteCount)
-                {
-                    BuilderClear();
+                    length = 0;
+                    entry = entry[^MaxBytes..];
+                    entry = entry[Utf8StartOffset(entry)..];
                 }
 
-                // 追加收到的日志 UTF-8 字节
-                BuilderAppend(value);
+                if (length > MaxBytes - entry.Length)
+                {
+                    // Leave room for new entries and keep recent complete log lines.
+                    var keep = Math.Min(MaxBytes / 5, MaxBytes - entry.Length);
+                    var tail = buffer.AsSpan(length - keep, keep);
+                    if (keep > 0 && buffer[length - keep - 1] != (byte)'\n')
+                    {
+                        var newline = tail.IndexOf((byte)'\n');
+                        var start = newline >= 0 ? newline + 1 : Utf8StartOffset(tail);
+                        tail = tail[start..];
+                    }
+                    tail.CopyTo(buffer);
+                    length = tail.Length;
+                }
+
+                var required = length + entry.Length;
+                if (required > buffer.Length)
+                {
+                    var grownCapacity = Math.Max(256, buffer.Length * 2);
+                    Array.Resize(ref buffer, Math.Clamp(grownCapacity, required, MaxBytes));
+                }
+
+                entry.CopyTo(buffer.AsSpan(length));
+                length = required;
+                snapshot = null;
             }
+        }
+
+        internal (long End, bool Reset, byte[] Utf8) ReadSince(long offset)
+        {
+            lock (sync)
+            {
+                var first = end - length;
+                var reset = offset < first || offset > end;
+                var start = reset ? 0 : (int)(offset - first);
+                return (end, reset, start == length ? [] : buffer.AsSpan(start, length - start).ToArray());
+            }
+        }
+
+        static int Utf8StartOffset(ReadOnlySpan<byte> bytes)
+        {
+            // A cut through a multi-byte character must skip its continuation bytes.
+            var index = 0;
+            while (index < bytes.Length && (bytes[index] & 0xc0) == 0x80)
+                index++;
+            return index;
         }
 
         public override string? ToString()
         {
-            if (message != null)
-            {
-                if (ByteLength == message.Value.byteLength)
-                {
-                    // 根据 len 判断是否使用缓存
-                    return message.Value.str;
-                }
-            }
-
-            if (chunk == null)
-            {
-                return null;
-            }
-            else if (chunk.Count <= 0)
-            {
-                return string.Empty;
-            }
-
-            using var buffer = Utf8String.CreateWriter(out var writer);
-
-            foreach (var it in chunk)
-            {
-                // 拼接字符串
-                writer.AppendUtf8(it);
-            }
-
-            writer.Flush();
-
-            var u8_bytes = buffer.ToArray();
-
-            chunk = [u8_bytes];
-
-            var result = Encoding.UTF8.GetString(u8_bytes);
-
-            // 设置缓存值
-            message = new(result, ByteLength);
-            return result;
+            lock (sync)
+                return length == 0 ? null : snapshot ??= Encoding.UTF8.GetString(buffer, 0, length);
         }
     }
 
@@ -199,18 +166,16 @@ ByteLength: {ByteLength}
             logBuilder.AppendLine(exception.ToString());
     }
 
-    static byte[] CreateDefaultLogMessageWithNLogFileLayout(LogLevel logLevel, string logName, int eventId, string? message, Exception? exception)
+#if APP_REVERSE_PROXY
+    static void CaptureProxyLog(LogLevel logLevel, string logName, string? message, Exception? exception)
     {
         // Layout = "
         // ${longdate}|
         // ${level}|
         // ${logger}|${message} |${all-event-properties} ${exception:format=tostring}",
 
-        using var buffer = Utf8String.CreateWriter(out var logBuilder);
-
-        logBuilder.Append(DateTime.Now.ToString(
-            "yyyy-MM-dd HH:mm:ss.fff",
-            CultureInfo.InvariantCulture));
+        using var buffer = Utf8String.CreateWriter(out var logBuilder, CultureInfo.InvariantCulture);
+        logBuilder.AppendFormatted(DateTime.Now, format: "yyyy-MM-dd HH:mm:ss.fff");
         logBuilder.AppendUtf8("|"u8);
 
         switch (logLevel) // see NLog.LogLevel
@@ -242,27 +207,35 @@ ByteLength: {ByteLength}
         }
         logBuilder.AppendUtf8("|"u8);
 
-        logBuilder.Append(logName);
+        logBuilder.AppendFormatted(Tail(logName, 128));
         logBuilder.AppendUtf8("|"u8);
 
-        logBuilder.Append(message);
+        // Cap the preview before encoding so a single large message cannot grow the pooled writer indefinitely.
+        const int maxEntryCharacters = 32 * 1024;
+        var detail = Tail(exception?.ToString(), maxEntryCharacters);
+        logBuilder.AppendFormatted(Tail(message, maxEntryCharacters - detail.Length));
         logBuilder.AppendUtf8("| "u8);
 
-        logBuilder.Append(exception?.ToString());
+        logBuilder.AppendFormatted(detail);
         logBuilder.AppendLine();
 
         logBuilder.Flush();
 
-        var result = buffer.ToArray();
-        return result;
+        Builder.Append(logBuilder.GetBufferWriter().WrittenSpan);
     }
 
-#if APP_REVERSE_PROXY
-    internal static readonly Source Builder = new(
-#if DEBUG
-        AssemblyInfo.Accelerator
+    static ReadOnlySpan<char> Tail(string? text, int maxCharacters)
+    {
+        var span = text.AsSpan();
+        if (maxCharacters == 0) return [];
+        if (span.Length <= maxCharacters) return span;
+        var start = span.Length - maxCharacters;
+        return span[(char.IsLowSurrogate(span[start]) ? start + 1 : start)..];
+    }
 #endif
-        );
+
+#if APP_REVERSE_PROXY
+    internal static readonly Source Builder = new();
 #endif
 
     internal sealed class Utf8StringLogger(string name) : ILogger
@@ -298,17 +271,11 @@ ByteLength: {ByteLength}
             {
 
 #if APP_REVERSE_PROXY
-                var logMessageU8 = CreateDefaultLogMessageWithNLogFileLayout(logLevel, name, eventId.Id, message, exception);
-                Builder.Append(logMessageU8);
+                CaptureProxyLog(logLevel, name, message, exception);
 #else
                 try
                 {
-#if APP_REVERSE_PROXY
-                    //var s = IReverseProxyService.Instance;
-                    // TODO Ipc
-#else
                     var s = IPCMainProcessService.Instance;
-#endif
                     var logMessage = CreateDefaultLogMessage(name, eventId.Id, message, exception);
                     s.WriteMessage(Utf8StringLoggerProvider.ModuleName, logMessage);
                 }

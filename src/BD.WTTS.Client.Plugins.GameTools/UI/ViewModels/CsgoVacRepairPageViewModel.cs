@@ -1,43 +1,106 @@
-using static System.Net.Mime.MediaTypeNames;
+using Avalonia.Threading;
 
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class CsgoVacRepairPageViewModel : ViewModelBase
 {
+    static int repairInProgress;
     string _OutputString = string.Empty;
+    bool _Repairing;
+
+    public CsgoVacRepairPageViewModel()
+    {
+        var repair = ReactiveCommand.CreateFromTask(Repairs_Click, Observable.Return(IsRepairSupported));
+        repair.AddTo(this);
+        RepairCommand = repair;
+    }
+
+    public ICommand RepairCommand { get; }
+
+    public bool IsRepairSupported
+    {
+        get
+        {
+#if WINDOWS
+            return OperatingSystem.IsWindows();
+#else
+            return false;
+#endif
+        }
+    }
 
     public string OutputString
     {
         get => _OutputString;
-        set => this.RaiseAndSetIfChanged(ref _OutputString, value);
+        set
+        {
+            if (_OutputString == value) return;
+            this.RaisePropertyChanging(nameof(OutputString));
+            _OutputString = value;
+            this.RaisePropertyChanged(nameof(OutputString));
+        }
     }
 
-    [Reactive]
-    public bool Repairing { get; set; } = false;
-
-#if WINDOWS
-
-    readonly ISteamService steamService = ISteamService.Instance;
-
-    string BatPath = Path.Combine(Plugin.Instance.AppDataDirectory, "BAT", $"CSGOVAC_REPAIR{FileEx.BAT}");
-
-    public async Task Repairs_Click()
+    public bool Repairing
     {
+        get => _Repairing;
+        set
+        {
+            if (_Repairing == value) return;
+            this.RaisePropertyChanging(nameof(Repairing));
+            _Repairing = value;
+            this.RaisePropertyChanged(nameof(Repairing));
+        }
+    }
+
+    public Task Repairs_Click() => RunRepairAsync(null);
+
+    async Task RunRepairAsync(string? arg)
+    {
+        // The script changes shared system state, so also guard calls from another page instance.
+        if (Interlocked.CompareExchange(ref repairInProgress, 1, 0) != 0) return;
+
         try
         {
-            Repairing = true;
-            var installPath = $"\"{Path.GetDirectoryName(steamService.SteamProgramPath)}\\bin\"";
-            await ExcuteBatCommand(installPath);
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                Repairing = true;
+                OutputString = string.Empty;
+            });
+#if WINDOWS
+            arg ??= $"\"{Path.GetDirectoryName(ISteamService.Instance.SteamProgramPath)}\\bin\"";
+            await ExecuteScriptAsync(arg).ConfigureAwait(false);
+#else
+            throw new PlatformNotSupportedException();
+#endif
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(CsgoVacRepairPageViewModel), ex, "VAC repair failed.");
+            await Dispatcher.UIThread.InvokeAsync(() =>
+                OutHandle(string.Format(CultureInfo.CurrentCulture, Strings.Error_Exception_, ex.Message)));
         }
         finally
         {
-            Repairing = false;
+            try
+            {
+                await Dispatcher.UIThread.InvokeAsync(() => Repairing = false);
+            }
+            finally
+            {
+                Interlocked.Exchange(ref repairInProgress, 0);
+            }
         }
     }
 
-    public async Task ExcuteBatCommand(string arg)
+#if WINDOWS
+
+    readonly string BatPath = Path.Combine(Plugin.Instance.AppDataDirectory, "BAT", $"CSGOVAC_REPAIR{FileEx.BAT}");
+
+    public Task ExcuteBatCommand(string arg) => RunRepairAsync(arg);
+
+    async Task ExecuteScriptAsync(string arg)
     {
-        OutputString = string.Empty;
         if (!File.Exists(BatPath))
         {
             GenerateFixScript(BatPath);
@@ -47,29 +110,34 @@ public sealed partial class CsgoVacRepairPageViewModel : ViewModelBase
         {
             StartInfo =
             {
-                FileName = BatPath,
+                FileName = Path.Combine(Environment.SystemDirectory, "cmd.exe"),
+                // /s strips only the outer quotes, preserving quoted batch and Steam paths.
+                Arguments = $"/d /s /v:off /c \"\"{BatPath}\" {arg}\"",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 StandardOutputEncoding = Encoding.UTF8,
                 StandardErrorEncoding = Encoding.UTF8,
                 UseShellExecute = false,
                 CreateNoWindow = true,
-                Arguments = arg,
-                Verb = "runas",
             }
         };
         p.Start();
-        _ = ConsumeReader(p.StandardOutput);
-        _ = ConsumeReader(p.StandardError);
-        await p.WaitForExitAsync();
+        var output = ConsumeReader(p.StandardOutput);
+        var error = ConsumeReader(p.StandardError);
+        await Task.WhenAll(output, error, p.WaitForExitAsync()).ConfigureAwait(false);
+        if (p.ExitCode != 0)
+        {
+            throw new InvalidOperationException($"VAC repair script exited with code {p.ExitCode}.");
+        }
     }
 
     async Task ConsumeReader(TextReader reader)
     {
         string? text;
-        while ((text = await reader.ReadLineAsync()) != null)
+        while ((text = await reader.ReadLineAsync().ConfigureAwait(false)) != null)
         {
-            OutHandle(text);
+            var line = text;
+            await Dispatcher.UIThread.InvokeAsync(() => OutHandle(line));
         }
     }
 
@@ -135,6 +203,8 @@ public sealed partial class CsgoVacRepairPageViewModel : ViewModelBase
         stream.SetLength(stream.Position);
     }
 
+#endif
+
     void OutHandle(string? msg)
     {
         if (!string.IsNullOrEmpty(msg))
@@ -156,5 +226,4 @@ public sealed partial class CsgoVacRepairPageViewModel : ViewModelBase
         }
     }
 
-#endif
 }

@@ -38,19 +38,15 @@
 
     <Style Selector="ProgressBar:horizontal">
         <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Height" Value="24" />
     </Style>
     <Style Selector="ProgressBar:vertical">
         <Setter Property="MinHeight" Value="0" />
-        <Setter Property="Width" Value="24" />
     </Style>
 
     <Style Selector="ProgressBar:horizontal:not(.Circle)">
-        <Setter Property="MinWidth" Value="0" />
         <Setter Property="Height" Value="{DynamicResource ProgressBarMinHeight}" />
     </Style>
     <Style Selector="ProgressBar:vertical:not(.Circle)">
-        <Setter Property="MinHeight" Value="0" />
         <Setter Property="Width" Value="{DynamicResource ProgressBarMinHeight}" />
     </Style>
 
@@ -67,46 +63,48 @@
 
     <!--  Circular Progress indicator  -->
 
-    <Style Selector="ProgressBar.ParentSize">
-        <Setter Property="Width" Value="{ReflectionBinding $parent.Width}" />
-        <Setter Property="Height" Value="{ReflectionBinding $parent.Height}" />
-    </Style>
-
     <Style Selector="ProgressBar.Circle">
-        <Setter Property="Foreground" Value="{DynamicResource ProgressBarForeground}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <!--<Setter Property="Width" Value="24" />
-        <Setter Property="Height" Value="24" />-->
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Border
-                        Name="PART_RootBorder"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
-                        <Panel Name="PART_RootPanel">
-                            <Panel.RenderTransform>
-                                <ScaleTransform />
-                            </Panel.RenderTransform>
+        <!-- The default FluentAvalonia theme forces a horizontal bar to three pixels high. -->
+        <Setter Property="Theme">
+            <ControlTheme TargetType="ProgressBar">
+                <Setter Property="Foreground" Value="{DynamicResource ProgressBarForeground}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="Template">
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Border
+                            Name="PART_RootBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <Panel Name="PART_RootPanel">
+                                <Panel.RenderTransform>
+                                    <ScaleTransform />
+                                </Panel.RenderTransform>
 
-                            <Arc Name="PART_Animation" Stroke="{TemplateBinding Foreground}" />
+                                <Arc Name="PART_Animation" Stroke="{TemplateBinding Foreground}" />
 
-                            <Arc Name="PART_Arc" Stroke="{TemplateBinding Foreground}" />
+                                <Arc
+                                    Name="PART_Arc"
+                                    IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Stroke="{TemplateBinding Foreground}">
+                                    <Arc.SweepAngle>
+                                        <MultiBinding Converter="{StaticResource RangeToSweep}">
+                                            <CompiledBindingExtension Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <CompiledBindingExtension Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <CompiledBindingExtension Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}" />
+                                        </MultiBinding>
+                                    </Arc.SweepAngle>
+                                </Arc>
 
-                            <!--  create a dummy indicator to avoid avaloniaUI crash  -->
-                            <Border
-                                Name="PART_Indicator"
-                                Background="{x:Null}"
-                                ClipToBounds="False"
-                                IsEnabled="False"
-                                IsVisible="False" />
-                        </Panel>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
+                                <!-- Required by ProgressBar; the arcs render the actual indicator. -->
+                                <Border Name="PART_Indicator" IsVisible="False" />
+                            </Panel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter>
+            </ControlTheme>
         </Setter>
     </Style>
 
@@ -128,13 +126,6 @@
             We must correct back to 12'0 position
         -->
         <Setter Property="StartAngle" Value="-90" />
-        <Setter Property="SweepAngle">
-            <MultiBinding Converter="{StaticResource RangeToSweep}">
-                <Binding Path="Value" RelativeSource="{RelativeSource AncestorType=ProgressBar}" />
-                <Binding Path="Minimum" RelativeSource="{RelativeSource AncestorType=ProgressBar}" />
-                <Binding Path="Maximum" RelativeSource="{RelativeSource AncestorType=ProgressBar}" />
-            </MultiBinding>
-        </Setter>
     </Style>
 
     <Style Selector="ProgressBar.Circle /template/ Panel#PART_RootPanel">

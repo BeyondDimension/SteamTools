@@ -5,6 +5,9 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static partial class ServiceCollectionExtensions
 {
+    internal static void TryAddSteamSessionService(this IServiceCollection services)
+        => services.TryAddSingleton<ISteamSessionService, SteamSessionService>();
+
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     /// <summary>
     /// 添加 Steam 相关助手、工具类服务

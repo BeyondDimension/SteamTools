@@ -146,6 +146,7 @@ interface IScanPublicDirectoryCommand : ICommand
         var files = from x in Directory.EnumerateFiles(dirPath)
                     let fileEx = Path.GetExtension(x)
                     where fileEx != ".pdb" && fileEx != ".xml"
+                    && !Path.GetFileName(x).Equals(".wtts-native-manifest.json", StringComparison.OrdinalIgnoreCase)
                     && !x.EndsWith(".runtimeconfig.dev.json", StringComparison.OrdinalIgnoreCase)
                     select new AppPublishFileInfo(x, relativeTo, fileEx);
         if (files.Any())

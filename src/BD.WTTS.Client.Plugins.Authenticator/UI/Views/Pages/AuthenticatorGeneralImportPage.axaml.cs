@@ -1,6 +1,4 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using BD.WTTS.Enums;
 using ReactiveUI.Avalonia;
 
 namespace BD.WTTS.UI.Views.Pages;
@@ -10,6 +8,10 @@ public partial class AuthenticatorGeneralImportPage : ReactiveUserControl<Authen
     public AuthenticatorGeneralImportPage()
     {
         InitializeComponent();
-        //DataContext ??= new AuthenticatorGeneralImportPageViewModel();
+    }
+
+    public AuthenticatorGeneralImportPage(AuthenticatorPlatform platform) : this()
+    {
+        DataContext = new AuthenticatorGeneralImportPageViewModel(platform);
     }
 }

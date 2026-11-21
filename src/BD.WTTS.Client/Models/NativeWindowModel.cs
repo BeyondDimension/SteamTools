@@ -1,4 +1,3 @@
-#if WINDOWS7_0_OR_GREATER
 namespace BD.WTTS.Models;
 
 /// <summary>
@@ -10,7 +9,6 @@ namespace BD.WTTS.Models;
 /// <param name="Process">进程</param>
 /// <param name="Path">路径</param>
 /// <param name="Name">名称</param>
-[SupportedOSPlatform("Windows")]
 public record class NativeWindowModel(
     IntPtr Handle,
     string? Title,
@@ -19,6 +17,7 @@ public record class NativeWindowModel(
     string? Path,
     string? Name);
 
+#if WINDOWS7_0_OR_GREATER
 [SupportedOSPlatform("Windows")]
 public static class HandleWindowExtensions
 {

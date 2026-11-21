@@ -34,16 +34,17 @@ public sealed class SteamQrLoginPageViewModel : WindowViewModel
         ApproveCommand = approve;
         ReviewCommand = review;
         Challenges.CollectionChanged += (_, _) => this.RaisePropertyChanged(nameof(HasMultipleChallenges));
-        this.WhenAnyValue(x => x.SelectedChallenge)
+        this.ObserveValue(nameof(SelectedChallenge), static x => x.SelectedChallenge)
             .Subscribe(_ => ClearReview())
             .AddTo(this);
-        this.WhenAnyValue(x => x.IsBusy, x => x.IsApproved, x => x.HasSavedSession)
-            .Subscribe(_ =>
+        PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName is null or "" or nameof(IsBusy) or nameof(IsApproved) or nameof(HasSavedSession))
             {
                 this.RaisePropertyChanged(nameof(CanApprove));
                 this.RaisePropertyChanged(nameof(CanScan));
-            })
-            .AddTo(this);
+            }
+        };
         ValidateSavedSession();
     }
 

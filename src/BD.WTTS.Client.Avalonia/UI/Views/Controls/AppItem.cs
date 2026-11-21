@@ -25,7 +25,7 @@ public class AppItem : TemplatedControl
         AvaloniaProperty.Register<AppItem, Stretch>(nameof(ImageStretch), Stretch.UniformToFill);
 
     public static readonly StyledProperty<bool> ExpandsProperty =
-        AvaloniaProperty.Register<OptionsDisplayItem, bool>(nameof(Expands));
+        AvaloniaProperty.Register<AppItem, bool>(nameof(Expands));
 
     public static readonly StyledProperty<object?> TagsProperty =
         AvaloniaProperty.Register<AppItem, object?>(nameof(Tags));
@@ -124,7 +124,7 @@ public class AppItem : TemplatedControl
     }
 
     public static readonly RoutedEvent<RoutedEventArgs> NavigationRequestedEvent =
-        RoutedEvent.Register<OptionsDisplayItem, RoutedEventArgs>(nameof(NavigationRequested), RoutingStrategies.Bubble);
+        RoutedEvent.Register<AppItem, RoutedEventArgs>(nameof(NavigationRequested), RoutingStrategies.Bubble);
 
     public event EventHandler<RoutedEventArgs> NavigationRequested
     {
@@ -153,6 +153,14 @@ public class AppItem : TemplatedControl
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
+        if (_layoutRoot != null)
+        {
+            _layoutRoot.PointerPressed -= OnLayoutRootPointerPressed;
+            _layoutRoot.PointerReleased -= OnLayoutRootPointerReleased;
+            _layoutRoot.PointerCaptureLost -= OnLayoutRootPointerCaptureLost;
+        }
+        _isPressed = false;
+        PseudoClasses.Set(":pressed", false);
         base.OnApplyTemplate(e);
 
         _layoutRoot = e.NameScope.Find<Border>("LayoutRoot");
@@ -166,7 +174,9 @@ public class AppItem : TemplatedControl
 
     private void OnLayoutRootPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed)
+        if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed &&
+            (Expands || ClickCommand?.CanExecute(ClickCommandParameter) == true) &&
+            (ActionButton is not Control action || !action.IsEffectivelyVisible || !new Rect(action.Bounds.Size).Contains(e.GetPosition(action))))
         {
             _isPressed = true;
             PseudoClasses.Set(":pressed", true);
@@ -182,13 +192,16 @@ public class AppItem : TemplatedControl
 
             PseudoClasses.Set(":pressed", false);
 
-            if (Expands)
-                IsExpanded = !IsExpanded;
+            if (_layoutRoot is null || !new Rect(_layoutRoot.Bounds.Size).Contains(e.GetPosition(_layoutRoot))) return;
 
-            if (ClickCommand != null)
+            if (Expands)
+                SetCurrentValue(IsExpandedProperty, !IsExpanded);
+
+            var parameter = ClickCommandParameter;
+            if (ClickCommand is { } command && command.CanExecute(parameter))
             {
                 RaiseEvent(new RoutedEventArgs(NavigationRequestedEvent, this));
-                ClickCommand.Execute(ClickCommandParameter);
+                command.Execute(parameter);
             }
         }
     }

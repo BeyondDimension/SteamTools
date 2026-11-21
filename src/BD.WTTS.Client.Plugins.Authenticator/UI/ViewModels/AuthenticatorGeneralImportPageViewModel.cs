@@ -13,14 +13,25 @@ public partial class AuthenticatorGeneralImportPageViewModel
 
     public AuthenticatorPlatform Platform { get; }
 
-    public AuthenticatorGeneralImportPageViewModel()
+    public ICommand GenerateCodeCommand { get; }
+
+    public ICommand ImportCommand { get; }
+
+    public AuthenticatorGeneralImportPageViewModel() : this(AuthenticatorPlatform.HOTP)
     {
-        Platform = AuthenticatorPlatform.HOTP;
     }
 
     public AuthenticatorGeneralImportPageViewModel(AuthenticatorPlatform platform)
     {
         Platform = platform;
+
+        var generateCode = ReactiveCommand.CreateFromTask(GenerateCode);
+        var import = ReactiveCommand.CreateFromTask(Import);
+        CompositeDisposable.Add(generateCode);
+        CompositeDisposable.Add(import);
+        CompositeDisposable.Add(import.ThrownExceptions.Subscribe(static ex => ex.LogAndShowT()));
+        GenerateCodeCommand = generateCode;
+        ImportCommand = import;
     }
 
     //TODO: 待完善
@@ -228,7 +239,7 @@ public partial class AuthenticatorGeneralImportPageViewModel
         }
     }
 
-    public async Task Import(string? password)
+    async Task Import()
     {
         if (importAuthenticatorValueDto == null)
         {
@@ -249,7 +260,7 @@ public partial class AuthenticatorGeneralImportPageViewModel
             Created = DateTimeOffset.Now,
         };
 
-        if (await AuthenticatorHelper.SaveAuthenticator(iAuthenticatorDtoDto, password))
+        if (await AuthenticatorHelper.SaveAuthenticator(iAuthenticatorDtoDto))
             Toast.Show(ToastIcon.Success, Strings.ModelContent_ImportSuccessful_.Format(iAuthenticatorDtoDto.Name));
     }
 }

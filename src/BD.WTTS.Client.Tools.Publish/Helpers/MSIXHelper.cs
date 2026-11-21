@@ -1,4 +1,5 @@
 using System.Management.Automation;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BD.WTTS.Client.Tools.Publish.Helpers;
 
@@ -137,6 +138,14 @@ pack /v /h SHA256 /d "{rootPublicPath}" /p "{msixPath}"
             ProcessHelper.StartAndWaitForExit(psi);
         }
 
+        internal static void PackMapped(string msixPath, string mappingPath)
+        {
+            var start = new ProcessStartInfo(GetMakeAppxPath()) { UseShellExecute = false };
+            foreach (var arg in new[] { "pack", "/h", "SHA256", "/f", mappingPath, "/p", msixPath })
+                start.ArgumentList.Add(arg);
+            ProcessHelper.StartAndWaitForExit(start);
+        }
+
         public static void StartBundle(
             string msixPath,
             string dirPath,
@@ -159,7 +168,7 @@ bundle /v /bv {version4} /d "{dirPath}" /p "{msixPath}"
         }
 
         const string IdentityName = "4651ED44255E.47979655102CE";
-        const string Publisher = "CN=A90E406B-B2D3-4A23-B061-0FA1D65C4F66";
+        internal const string Publisher = "CN=A90E406B-B2D3-4A23-B061-0FA1D65C4F66";
         //const string Publisher = "CN=徐州繁星网络科技有限公司";
         const string DisplayName = "Watt Toolkit";
         const string PublisherDisplayName = "软妹币玩家";
@@ -414,6 +423,35 @@ sign /a /fd SHA256 /f "{pfxFilePath}"{(string.IsNullOrEmpty(pwdS) ? null : $" /p
             if (!string.IsNullOrWhiteSpace(workingDirectory))
                 psi.WorkingDirectory = workingDirectory;
             ProcessHelper.StartAndWaitForExit(psi);
+        }
+
+        internal static void ValidateSigningCertificate(string thumbprint, bool msix)
+        {
+            if (thumbprint.Length != 40 || !thumbprint.All(Uri.IsHexDigit))
+                throw new ArgumentException("--sign-thumbprint must be a 40-character hexadecimal certificate thumbprint.");
+            using var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
+            var matches = store.Certificates.Find(X509FindType.FindByThumbprint, thumbprint, validOnly: false);
+            try
+            {
+                if (matches.Count != 1 || !matches[0].HasPrivateKey)
+                    throw new InvalidOperationException("The signing certificate and its private key must be available in CurrentUser\\My.");
+                if (msix && !string.Equals(matches[0].Subject, MakeAppx.Publisher, StringComparison.Ordinal))
+                    throw new InvalidOperationException($"Use an MSIX certificate with subject '{MakeAppx.Publisher}'. Changing the Publisher would create a different package family and lose access to existing settings.");
+            }
+            finally
+            {
+                foreach (var certificate in matches)
+                    certificate.Dispose();
+            }
+        }
+
+        internal static void SignWithThumbprint(string filePath, string thumbprint)
+        {
+            var start = new ProcessStartInfo(GetSignToolPath()) { UseShellExecute = false };
+            foreach (var arg in new[] { "sign", "/fd", "SHA256", "/sha1", thumbprint, filePath })
+                start.ArgumentList.Add(arg);
+            ProcessHelper.StartAndWaitForExit(start);
         }
     }
 

@@ -19,6 +19,6 @@ public sealed class PluginStorePageViewModel : TabItemViewModel
 
     public void NavgationToMenuPage(TabItemViewModel tabItem)
     {
-        INavigationService.Instance.Navigate(tabItem.PageType, NavigationTransitionEffect.FromBottom);
+        INavigationService.Instance.Navigate(tabItem.PageType);
     }
 }

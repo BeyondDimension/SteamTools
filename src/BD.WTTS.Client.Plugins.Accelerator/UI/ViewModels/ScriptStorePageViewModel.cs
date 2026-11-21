@@ -4,6 +4,8 @@ namespace BD.WTTS.UI.ViewModels;
 
 public partial class ScriptStorePageViewModel : ViewModelBase
 {
+    int searchVersion;
+
     public ScriptStorePageViewModel()
     {
         _ScriptsSourceList = new SourceList<ScriptDTO>();
@@ -14,15 +16,12 @@ public partial class ScriptStorePageViewModel : ViewModelBase
             .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Sort(SortExpressionComparer<ScriptDTO>.Ascending(x => x.Order).ThenBy(x => x.Name))
             .Bind(out _Scripts)
-            .Subscribe(_ => this.RaisePropertyChanged(nameof(IsScriptsEmpty)));
+            .Subscribe(_ => this.RaisePropertyChanged(nameof(IsScriptsEmpty))).AddTo(this);
 
         DownloadScriptItemCommand = ReactiveCommand.Create<ScriptDTO>(DownloadScriptItem);
 
-        this.WhenAnyValue(x => x.SearchText)
-            .Subscribe(x =>
-            {
-                InitializeScriptList();
-            });
+        this.ObserveValue(nameof(SearchText), static x => x.SearchText)
+            .Subscribe(query => _ = InitializeScriptListAsync(query)).AddTo(this);
     }
 
     public void DownloadScriptItem(ScriptDTO model)
@@ -30,30 +29,45 @@ public partial class ScriptStorePageViewModel : ViewModelBase
         ProxyService.Current.DownloadScript(model);
     }
 
-    async void InitializeScriptList()
+    async Task InitializeScriptListAsync(string? query)
     {
-        var client = IMicroServiceClient.Instance.Script;
-        var response = await client.Query(name: SearchText, pageSize: 100, errorAppendText: Strings.ScriptShop_GetTableError);
-        if (!response.IsSuccess || response.Content == null)
+        var version = ++searchVersion;
+        IsLoading = true;
+        try
         {
-            return;
-        }
-        response.Content.DataSource.ForEach(item =>
-        {
-            var old = ProxyService.Current.ProxyScripts.Items.FirstOrDefault(x => x.Id == item.Id);
-            if (old != null)
+            var response = await IMicroServiceClient.Instance.Script.Query(name: query, pageSize: 100, errorAppendText: Strings.ScriptShop_GetTableError);
+            if (Disposed || version != searchVersion) return;
+
+            _ScriptsSourceList.Edit(items =>
             {
-                item.LocalId = old.LocalId;
-                item.IsExist = true;
-                if (old.Version != item.Version)
+                items.Clear();
+                if (!response.IsSuccess || response.Content is null) return;
+
+                foreach (var item in response.Content.DataSource)
                 {
-                    item.IsUpdate = true;
-                    item.NewVersion = item.Version;
-                    item.Version = old.Version;
+                    var installed = ProxyService.Current.ProxyScripts.Items.FirstOrDefault(x => x.Id == item.Id);
+                    if (installed != null)
+                    {
+                        item.LocalId = installed.LocalId;
+                        item.IsExist = true;
+                        if (installed.Version != item.Version)
+                        {
+                            item.IsUpdate = true;
+                            item.NewVersion = item.Version;
+                            item.Version = installed.Version;
+                        }
+                    }
+                    items.Add(item);
                 }
-            }
-        });
-        _ScriptsSourceList.Clear();
-        _ScriptsSourceList.AddRange(response.Content.DataSource);
+            });
+        }
+        catch (Exception ex)
+        {
+            if (!Disposed && version == searchVersion) ex.LogAndShowT();
+        }
+        finally
+        {
+            if (!Disposed && version == searchVersion) IsLoading = false;
+        }
     }
 }

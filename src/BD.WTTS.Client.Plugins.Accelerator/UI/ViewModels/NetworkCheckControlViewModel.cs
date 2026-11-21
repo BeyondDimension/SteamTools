@@ -119,7 +119,7 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
             .Merge(hidePingResultStream)
             .ToProperty(this, nameof(PingErrorVisible));
 
-        var canDNSCheck = this.WhenAnyValue(x => x.DomainPendingTest)
+        var canDNSCheck = this.ObserveValue(nameof(DomainPendingTest), static x => x.DomainPendingTest)
             .Select(domain => domain == string.Empty || DomainRegExp().IsMatch(domain));
         DNSCheckCommand = ReactiveCommand.CreateFromTask(DNSCheckAsync, canDNSCheck);
         isDNSChecking = DNSCheckCommand

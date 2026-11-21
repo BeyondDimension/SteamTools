@@ -175,7 +175,7 @@ Sei davvero sicuro?</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
-    <value>Modifica delle statistiche</value>
+    <value>Statistiche</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Achievement_StoreTip" xml:space="preserve">
@@ -187,7 +187,7 @@ Sei davvero sicuro?</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">
-    <value>conquista sbloccata</value>
+    <value>Obiettivi</value>
     <comment>Comment=;Author=Zhengye</comment>
   </data>
   <data name="Achievement_Warning_1" xml:space="preserve">

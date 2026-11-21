@@ -125,9 +125,15 @@
     <value>On</value>
     <comment>Author=kotovasia5120</comment>
   </data>
+  <data name="Achievement_Archived" xml:space="preserve">
+    <value>Archived</value>
+  </data>
   <data name="Achievement_Description" xml:space="preserve">
     <value>Description</value>
     <comment>Comment=;Author=沙中金</comment>
+  </data>
+  <data name="Achievement_DlcOwnershipChanged" xml:space="preserve">
+    <value>Access to the required DLC could no longer be confirmed. Refresh and try again.</value>
   </data>
   <data name="Achievement_EditSucces" xml:space="preserve">
     <value>Modified {0} achievements and {1} statistics</value>
@@ -145,6 +151,9 @@
     <value>Load achievements and statistics...</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
+  <data name="Achievement_LoadSchemaFailed" xml:space="preserve">
+    <value>Could not load the achievement and statistics definitions. Refresh and try again.</value>
+  </data>
   <data name="Achievement_LoadSucces" xml:space="preserve">
     <value>Retrieved {0} achievements and {1} statistics</value>
     <comment>Comment=;Author=沙中金</comment>
@@ -157,9 +166,18 @@
     <value>Name</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
+  <data name="Achievement_NoVisibleAchievements" xml:space="preserve">
+    <value>No achievements to display.</value>
+  </data>
+  <data name="Achievement_Progress" xml:space="preserve">
+    <value>Overall achievement progress</value>
+  </data>
   <data name="Achievement_RefreshTip" xml:space="preserve">
     <value>Refresh achievements and statistics</value>
     <comment>Comment=;Author=沙中金</comment>
+  </data>
+  <data name="Achievement_RequestStatsFailed" xml:space="preserve">
+    <value>Could not retrieve achievements and statistics from Steam. Refresh and try again.</value>
   </data>
   <data name="Achievement_ResetTip" xml:space="preserve">
     <value>Reset achievements and statistics</value>
@@ -182,9 +200,21 @@ Are you really sure?</value>
     <value>Reminder: Unlocking achievements may be deemed as cheating by game developers</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
+  <data name="Achievement_SetAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Achievement_SetBaseGame" xml:space="preserve">
+    <value>Base Game</value>
+  </data>
+  <data name="Achievement_SetFilter" xml:space="preserve">
+    <value>Achievement set</value>
+  </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
-    <value>Statistics modifier</value>
+    <value>Statistics</value>
     <comment>Comment=;Author=沙中金</comment>
+  </data>
+  <data name="Achievement_StoreFailed" xml:space="preserve">
+    <value>Could not save achievements and statistics. Refresh and try again.</value>
   </data>
   <data name="Achievement_StoreTip" xml:space="preserve">
     <value>Save and apply achievement progress and game statistics</value>
@@ -194,9 +224,15 @@ Are you really sure?</value>
     <value>Unlocked at {0:yyyy-MM-dd HH:mm:ss}</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
+  <data name="Achievement_TotalCount" xml:space="preserve">
+    <value>Total achievements</value>
+  </data>
   <data name="Achievement_Unlock" xml:space="preserve">
-    <value>Achievement unlocker</value>
+    <value>Achievements</value>
     <comment>Comment=;Author=沙中金</comment>
+  </data>
+  <data name="Achievement_UnlockedCount" xml:space="preserve">
+    <value>Unlocked</value>
   </data>
   <data name="Achievement_Warning_1" xml:space="preserve">
     <value>Failed to establish connections with Steam. This could be because this game does not have achievements, or because you do not own this game.</value>
@@ -2244,7 +2280,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Author=kotovasia5120</comment>
   </data>
   <data name="Auth_AddMachineValidation" xml:space="preserve">
-    <value>System built-in encryption authentication enabled</value>
+    <value>Enable local encryption</value>
     <comment>Author=kotovasia5120</comment>
   </data>
   <data name="Auth_AddPasswordProtect" xml:space="preserve">
@@ -2292,7 +2328,7 @@ The system will {1} after {0} seconds.</value>
     <comment>Author=kotovasia5120</comment>
   </data>
   <data name="Auth_RemoveMachineValidation" xml:space="preserve">
-    <value>System built-in encryption authentication disabled</value>
+    <value>Turn off local encryption</value>
     <comment>Author=kotovasia5120</comment>
   </data>
   <data name="Auth_RemovePasswordProtect" xml:space="preserve">
@@ -3326,7 +3362,7 @@ Once the transaction is confirmed, it cannot be revoked, please choose carefully
     <comment>Author=kotovasia5120</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
-    <value>Save all changes to Steam</value>
+    <value>Apply to Steam</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
@@ -3338,7 +3374,7 @@ Once the transaction is confirmed, it cannot be revoked, please choose carefully
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
-    <value>Saving data to Steam succeeds</value>
+    <value>Changes applied to Steam. You can now open Steam yourself.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
@@ -5865,10 +5901,10 @@ Click OK to open Windows Services. Set this service to Manual and start it, then
     <value>The authenticator data format is invalid. The SteamID cannot be saved.</value>
   </data>
   <data name="L10nAuthIdle_Text008" xml:space="preserve">
-    <value>QR login is available only for Steam authenticators with a saved Trade Confirmations session. Open this authenticator's Trade Confirmations, sign in with Remember login selected, then try again.</value>
+    <value>Scanning a QR code on the screen requires a valid app session. In this authenticator's Trade Confirmations, select Simulate app sign-in and enable Remember login.</value>
   </data>
   <data name="L10nAuthIdle_Text009" xml:space="preserve">
-    <value>The saved Trade Confirmations session has expired or does not support mobile confirmations. Sign in again and save the session in this authenticator's Trade Confirmations before scanning.</value>
+    <value>The saved app session has expired. Sign in again and save the app session in this authenticator's Trade Confirmations.</value>
   </data>
   <data name="L10nAuthIdle_Text010" xml:space="preserve">
     <value>Steam desktop client</value>
@@ -6137,6 +6173,27 @@ Click OK to open Windows Services. Set this service to Manual and start it, then
   <data name="L10nAuthIdle_Text098" xml:space="preserve">
     <value>This authenticator's Steam verification code is unavailable. Check the authenticator and try again.</value>
   </data>
+  <data name="SteamTradeLoginTwoFactorCodeMismatch" xml:space="preserve">
+    <value>The Steam Guard code did not match (EResult 88). Check that the selected authenticator is the one currently linked to this Steam account, then try again.</value>
+  </data>
+  <data name="SteamTradeLoginThrottled" xml:space="preserve">
+    <value>Too many Steam sign-in attempts (EResult 87). Try again later.</value>
+  </data>
+  <data name="SteamTradeLoginMode" xml:space="preserve">
+    <value>Sign-in mode</value>
+  </data>
+  <data name="SteamTradeWebLogin" xml:space="preserve">
+    <value>Simulate web sign-in</value>
+  </data>
+  <data name="SteamTradeAppLogin" xml:space="preserve">
+    <value>Simulate app sign-in</value>
+  </data>
+  <data name="SteamTradeMobileLoginHint" xml:space="preserve">
+    <value>Both modes support trade confirmations. Signing in by scanning a QR code on the screen requires a saved app session.</value>
+  </data>
+  <data name="SteamTradeMobileLoginWarning" xml:space="preserve">
+    <value>Simulating app sign-in with an authenticator imported using Steam App coexistence may sign out the original device.</value>
+  </data>
   <data name="L10nAuthIdle_Text099" xml:space="preserve">
     <value>Could not check the Trade Confirmations session. Check your network or sign in again.</value>
   </data>
@@ -6249,7 +6306,13 @@ Click OK to open Windows Services. Set this service to Manual and start it, then
     <value>General game tools</value>
   </data>
   <data name="L10nGames_SaveEditNotice" xml:space="preserve">
-    <value>Saved successfully, but not yet written to Steam files. Open the edit list in the upper right and save all changes to Steam files to apply them.</value>
+    <value>Game details saved locally. Fully exit Steam, then choose Apply to Steam in the edit list.</value>
+  </data>
+  <data name="L10nGames_SaveLocalEdit" xml:space="preserve">
+    <value>Save locally</value>
+  </data>
+  <data name="L10nGames_ExitSteamBeforeApply" xml:space="preserve">
+    <value>Fully exit Steam, then click Apply to Steam.</value>
   </data>
   <data name="L10nGames_ImageDownloadWait" xml:space="preserve">
     <value>Downloading images may take some time. Please wait.</value>
@@ -6292,7 +6355,7 @@ Make sure the account or game library matches the backup source.</value>
     <value>Edit Steam games</value>
   </data>
   <data name="L10nGames_EditDescription" xml:space="preserve">
-    <value>Change Steam game names, publishers, cover images, launch options, and other details, then save the changes to Steam.</value>
+    <value>Game details and launch options are saved locally. Fully exit Steam before applying these changes. Custom covers are saved separately.</value>
   </data>
   <data name="L10nGames_IdleTitle" xml:space="preserve">
     <value>Steam playtime idling</value>
@@ -6420,7 +6483,7 @@ Make sure the account or game library matches the backup source.</value>
     <value>Exported successfully: {0} edited records.</value>
   </data>
   <data name="L10nGames_ImportSuccess" xml:space="preserve">
-    <value>Imported successfully: restored edits for {0} games.</value>
+    <value>Imported local edits for {0} games. Fully exit Steam before applying them.</value>
   </data>
   <data name="L10nGames_PlatformSettingsFormat" xml:space="preserve">
     <value>{0} platform settings</value>
@@ -6757,4 +6820,101 @@ Farming games: {3}</value>
   <data name="L10nAsf_Text105" xml:space="preserve">
     <value>ArchiSteamFarmPlus console functionality</value>
   </data>
+  <data name="Tray_QuickActions" xml:space="preserve">
+    <value>Quick actions</value>
+  </data>
+  <data name="Tray_AcceleratorLoading" xml:space="preserve">
+    <value>Waiting for the accelerator…</value>
+  </data>
+  <data name="Tray_AcceleratorUnavailable" xml:space="preserve">
+    <value>Accelerator unavailable</value>
+  </data>
+  <data name="Tray_AcceleratorStarting" xml:space="preserve">
+    <value>Starting acceleration…</value>
+  </data>
+  <data name="Tray_AcceleratorStopping" xml:space="preserve">
+    <value>Stopping acceleration…</value>
+  </data>
+  <data name="Tray_CurrentAccount" xml:space="preserve">
+    <value>Signed in</value>
+  </data>
+  <data name="Tray_NoSavedAccounts" xml:space="preserve">
+    <value>No saved Steam accounts</value>
+  </data>
+  <data name="Tray_ManageAccounts" xml:space="preserve">
+    <value>Manage accounts</value>
+  </data>
+  <data name="Tray_AcceleratorPreparing" xml:space="preserve">
+    <value>Loading settings…</value>
+  </data>
+  <data name="Tray_AccountReadFailed" xml:space="preserve">
+    <value>Could not read Steam accounts</value>
+  </data>
+  <data name="Tray_AccelerationDuration" xml:space="preserve">
+    <value>Elapsed time</value>
+  </data>
+  <data name="Tray_AccelerationProjects" xml:space="preserve">
+    <value>Acceleration projects</value>
+  </data>
+  <data name="Tray_NoActiveProjects" xml:space="preserve">
+    <value>No active acceleration projects</value>
+  </data>
+  <data name="Tray_TrafficDetails" xml:space="preserve">
+    <value>Current rate · Session traffic</value>
+  </data>
+  <data name="Auth_VaultChangePassword" xml:space="preserve"><value>Change custom password</value></data>
+  <data name="Auth_VaultNewPassword" xml:space="preserve"><value>Set a new token password</value></data>
+  <data name="Auth_VaultPasswordGuidance" xml:space="preserve"><value>Use 12–256 characters and a password you do not use elsewhere. Keep a working backup; the password cannot be recovered.</value></data>
+  <data name="Auth_VaultPasswordFailed" xml:space="preserve"><value>The token password is incorrect or the protected data is damaged.</value></data>
+  <data name="Auth_VaultRemovePasswordTip" xml:space="preserve"><value>Unlocking the local vault will no longer require a custom password. Existing backups are not affected.</value></data>
+  <data name="Auth_VaultLocalRecoveryTip" xml:space="preserve"><value>Local encryption binds data to this device and, on Windows, to this user. Before moving or reinstalling Windows, export a backup with a password and without local encryption.</value></data>
+  <data name="Auth_VaultLocalReadFailed" xml:space="preserve"><value>Could not decrypt locally protected tokens. Try the original device and user account, or import a backup without local encryption.</value></data>
+  <data name="Auth_VaultRemoveLocalTip" xml:space="preserve"><value>The tokens will no longer be bound to this device. Without a custom password, a copied database may be readable by others.</value></data>
+  <data name="Auth_VaultReadFailed" xml:space="preserve"><value>Could not read all tokens. No data was changed. Check your data or use a working backup.</value></data>
+  <data name="Auth_VaultChangeFailed" xml:space="preserve"><value>Could not change token protection.</value></data>
+  <data name="Auth_VaultUpgrade" xml:space="preserve"><value>Upgrade legacy encryption</value></data>
+  <data name="Auth_VaultUpgradeTip" xml:space="preserve"><value>Re-encrypt all tokens with your current settings. Export a working backup first; older versions may not be able to read the upgraded database.</value></data>
+  <data name="Auth_VaultHelloEnable" xml:space="preserve"><value>Use Windows Hello</value></data>
+  <data name="Auth_VaultHelloDisable" xml:space="preserve"><value>Turn off Windows Hello</value></data>
+  <data name="Auth_VaultHelloEnabled" xml:space="preserve"><value>Windows Hello now unlocks your local tokens.</value></data>
+  <data name="Auth_VaultHelloDisabled" xml:space="preserve"><value>Windows Hello is off. Encryption for this Windows account remains on.</value></data>
+  <data name="Auth_VaultHelloPrompt" xml:space="preserve"><value>Verify your identity to access local tokens in Watt Toolkit.</value></data>
+  <data name="Auth_VaultHelloUnavailable" xml:space="preserve"><value>Windows Hello is unavailable. Check Sign-in options in Windows 11 Settings and your system policy.</value></data>
+  <data name="Auth_VaultHelloFailed" xml:space="preserve"><value>Windows Hello did not verify your identity. The vault is still locked.</value></data>
+  <data name="Auth_VaultHelloEnableTip" xml:space="preserve"><value>Windows Hello will replace the custom password, if set, for unlocking on this device. The vault will be encrypted for this Windows account. Export a password-protected backup without local encryption before moving or reinstalling Windows.</value></data>
+  <data name="Auth_VaultHelloDisableTip" xml:space="preserve"><value>The app will no longer ask for verification when opened. Account-bound encryption stays on. Choose a custom password if you still want an in-app lock.</value></data>
+  <data name="Auth_VaultHelloLocked" xml:space="preserve"><value>The vault is locked. Verify your identity with Windows Hello to unlock it.</value></data>
+  <data name="Auth_VaultHelloRecovery" xml:space="preserve"><value>Unlock with existing password</value></data>
+  <data name="Auth_VaultHelloRecoveryTip" xml:space="preserve"><value>This vault is still encrypted with its existing password. A successful unlock turns off the old two-step check without changing encryption. You can then switch to Windows Hello in token settings.</value></data>
+  <data name="Auth_VaultHelloHelp" xml:space="preserve"><value>On Windows 11, choose either Windows Hello (PIN, fingerprint, or face) or a custom password to unlock. Hello verifies access in the app; Windows account encryption protects the files.</value></data>
+  <data name="Auth_VaultBackupTip" xml:space="preserve"><value>For a portable backup, use a password and leave local encryption off. Keep the backup safe and remember its password.</value></data>
+  <data name="Auth_VaultUnprotectedExport" xml:space="preserve"><value>This backup has no password or local protection. Anyone who obtains it may be able to read the tokens. Export anyway?</value></data>
+  <data name="Auth_VaultHelloUnlock" xml:space="preserve"><value>Unlock with Windows Hello</value></data>
+  <data name="Auth_VaultLegacyHelloLocked" xml:space="preserve"><value>This vault still uses its original password for encryption. Unlock with that password, then change the unlock method in token settings.</value></data>
+  <data name="Auth_VaultSwitchToPasswordTip" xml:space="preserve"><value>A custom password will replace Windows Hello for unlocking. Encryption for this Windows account stays on.</value></data>
+  <data name="Auth_VaultHelloSummary" xml:space="preserve"><value>Unlock method: Windows Hello</value></data>
+  <data name="Auth_VaultPasswordSummary" xml:space="preserve"><value>Unlock method: custom password</value></data>
+  <data name="Auth_VaultNoLockSummary" xml:space="preserve"><value>No in-app lock configured</value></data>
+  <data name="Auth_VaultHelpLabel" xml:space="preserve"><value>Help</value></data>
+  <data name="Auth_VaultUnlockMethods" xml:space="preserve"><value>Unlock method · Choose one</value></data>
+  <data name="Auth_VaultHelloDescription" xml:space="preserve"><value>Use your Windows PIN, fingerprint, or face. No separate password needed.</value></data>
+  <data name="Auth_VaultPasswordLabel" xml:space="preserve"><value>Custom password</value></data>
+  <data name="Auth_VaultStorageLabel" xml:space="preserve"><value>Data encryption</value></data>
+  <data name="Auth_VaultHelloLocalDescription" xml:space="preserve"><value>Bound to this Windows account. This encryption stays on with Windows Hello.</value></data>
+  <data name="LogConsole_Title" xml:space="preserve"><value>Log console</value></data>
+  <data name="LogConsole_Wrap" xml:space="preserve"><value>Wrap lines</value></data>
+  <data name="LogConsole_Follow" xml:space="preserve"><value>Follow latest</value></data>
+  <data name="LogConsole_CopyTip" xml:space="preserve"><value>Copy the selection, or copy the displayed log if nothing is selected.</value></data>
+  <data name="LogConsole_Empty" xml:space="preserve"><value>No log output yet</value></data>
+  <data name="LogConsole_LineCount" xml:space="preserve"><value>Showing {0:N0} lines</value></data>
+  <data name="LogConsole_ViewLogs" xml:space="preserve"><value>View logs</value></data>
+  <data name="LogConsole_ViewLogsDescription" xml:space="preserve"><value>View local application and plugin logs in Watt Toolkit.</value></data>
+  <data name="LogConsole_NoFiles" xml:space="preserve"><value>No log files found.</value></data>
+  <data name="LogConsole_ReadError" xml:space="preserve"><value>Could not read the log. The file may have moved or be in use.</value></data>
+  <data name="LogConsole_EmptyFile" xml:space="preserve"><value>The log file is empty.</value></data>
+  <data name="LogConsole_FileTail" xml:space="preserve"><value>Loaded up to the last {0:N0} bytes. The full log remains in the original file.</value></data>
+  <data name="LogConsole_Send" xml:space="preserve"><value>Send</value></data>
+  <data name="LogConsole_CommandHint" xml:space="preserve"><value>Enter a command, or type / for suggestions</value></data>
+  <data name="Settings_Storage_AppFolder" xml:space="preserve"><value>Application folder</value></data>
+  <data name="Settings_Storage_OpenFolder" xml:space="preserve"><value>Open folder</value></data>
 </root>

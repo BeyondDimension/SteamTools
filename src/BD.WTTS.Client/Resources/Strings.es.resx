@@ -175,7 +175,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
-    <value>Modificación de las estadísticas</value>
+    <value>Estadísticas</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="Achievement_StoreTip" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">
-    <value>Desbloqueado de logros</value>
+    <value>Logros</value>
     <comment>Comment=;Author=EspRoy</comment>
   </data>
   <data name="Achievement_Warning_1" xml:space="preserve">

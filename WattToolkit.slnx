@@ -107,8 +107,10 @@
     <Project Path="ref/Common/src/BD.Common.Pinyin/BD.Common.Pinyin.csproj" />
     <Project Path="ref/Common/src/BD.Common.Primitives/BD.Common.Primitives.csproj" />
     <Project Path="ref/Common/src/BD.Common.Repositories.SQLitePCL/BD.Common.Repositories.SQLitePCL.csproj" />
+    <Project Path="ref/Common/src/BD.Common.Repositories/BD.Common.Repositories.csproj" />
     <Project Path="ref/Common/src/BD.Common.Security/BD.Common.Security.csproj" />
     <Project Path="ref/Common/src/BD.Common.Settings/BD.Common.Settings.csproj" />
+    <Project Path="ref/Common/src/BD.Common.Toast/BD.Common.Toast.csproj" />
     <Project Path="ref/Common/src/BD.Common/BD.Common.csproj" />
   </Folder>
   <Folder Name="/2.Reference/Ipc/">

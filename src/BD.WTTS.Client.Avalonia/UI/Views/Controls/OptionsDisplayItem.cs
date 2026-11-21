@@ -124,6 +124,14 @@ public class OptionsDisplayItem : TemplatedControl
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
+        if (_layoutRoot != null)
+        {
+            _layoutRoot.PointerPressed -= OnLayoutRootPointerPressed;
+            _layoutRoot.PointerReleased -= OnLayoutRootPointerReleased;
+            _layoutRoot.PointerCaptureLost -= OnLayoutRootPointerCaptureLost;
+        }
+        _isPressed = false;
+        PseudoClasses.Set(":pressed", false);
         base.OnApplyTemplate(e);
 
         _layoutRoot = e.NameScope.Find<Border>("LayoutRoot");
@@ -137,7 +145,9 @@ public class OptionsDisplayItem : TemplatedControl
 
     private void OnLayoutRootPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed)
+        if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == PointerUpdateKind.LeftButtonPressed &&
+            (Expands || Navigates) &&
+            (ActionButton is not Control action || !action.IsEffectivelyVisible || !new Rect(action.Bounds.Size).Contains(e.GetPosition(action))))
         {
             _isPressed = true;
             PseudoClasses.Set(":pressed", true);
@@ -153,13 +163,16 @@ public class OptionsDisplayItem : TemplatedControl
 
             PseudoClasses.Set(":pressed", false);
 
-            if (Expands)
-                IsExpanded = !IsExpanded;
+            if (_layoutRoot is null || !new Rect(_layoutRoot.Bounds.Size).Contains(e.GetPosition(_layoutRoot))) return;
 
-            if (Navigates)
+            if (Expands)
+                SetCurrentValue(IsExpandedProperty, !IsExpanded);
+
+            var command = NavigationCommand;
+            if (Navigates && (command is null || command.CanExecute(null)))
             {
                 RaiseEvent(new RoutedEventArgs(NavigationRequestedEvent, this));
-                NavigationCommand?.Execute(null);
+                command?.Execute(null);
             }
         }
     }

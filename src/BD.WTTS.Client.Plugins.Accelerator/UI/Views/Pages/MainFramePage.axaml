@@ -15,7 +15,10 @@
             <ProgressBar Name="ServiceProgress" Width="45" Height="45" Classes="Circle" IsIndeterminate="True" />
             <TextBlock Name="ServiceLoadingText" HorizontalAlignment="Center" Text="{x:Static spp:Strings.Loading}" />
             <TextBlock Name="ServiceErrorText" IsVisible="False" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Text="{x:Static spp:Strings.L10nAccel_068}" />
-            <Button Name="RetryServiceButton" IsVisible="False" HorizontalAlignment="Center" Content="{x:Static spp:Strings.L10nAccel_069}" Click="RetryServiceButton_Click" />
+            <WrapPanel Name="ServiceFailureActions" IsVisible="False" HorizontalAlignment="Center" ItemSpacing="8" LineSpacing="6">
+                <Button Name="RetryServiceButton" Classes="accent" Content="{x:Static spp:Strings.L10nAccel_069}" Click="RetryServiceButton_Click" />
+                <Button Name="ViewServiceLogsButton" Content="{x:Static spp:Strings.LogConsole_ViewLogs}" Click="ViewServiceLogsButton_Click" />
+            </WrapPanel>
         </StackPanel>
         <TabStrip
             Name="Tabs"
@@ -36,7 +39,7 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem>
+            <TabStripItem Name="AcceleratorTab">
                 <WrapPanel>
                     <Border
                         Margin="-5,0,3,0"
@@ -49,16 +52,8 @@
                     </Border>
                     <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.CommunityFix}" />
                 </WrapPanel>
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:AcceleratorPage2" />
-                </TabStripItem.Tag>
             </TabStripItem>
-            <!--<TabStripItem Content="{x:Static spp:Strings.CommunityFix}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:AcceleratorPage" />
-                </TabStripItem.Tag>
-            </TabStripItem>-->
-            <TabStripItem>
+            <TabStripItem Name="ScriptTab">
                 <WrapPanel>
                     <Border
                         Margin="-5,0,3,0"
@@ -71,9 +66,6 @@
                     </Border>
                     <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.ScriptConfig}" />
                 </WrapPanel>
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:ScriptPage" />
-                </TabStripItem.Tag>
             </TabStripItem>
         </TabStrip>
         <ui:FAFrame Name="InnerNavFrame" IsNavigationStackEnabled="False" />

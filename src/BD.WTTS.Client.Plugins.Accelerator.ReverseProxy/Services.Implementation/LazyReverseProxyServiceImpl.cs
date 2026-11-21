@@ -23,7 +23,7 @@ sealed class LazyReverseProxyServiceImpl : IReverseProxyService
 
     public byte[]? GetFlowStatistics_Bytes() => impl().GetFlowStatistics_Bytes();
 
-    public string? GetLogAllMessage() => impl().GetLogAllMessage();
+    public Task<ProxyLogUpdate?> GetLogUpdateAsync(Guid streamId, long offset) => impl().GetLogUpdateAsync(streamId, offset);
 
     public async Task<StartProxyResult> StartProxyAsync(byte[] reverseProxySettings)
     {

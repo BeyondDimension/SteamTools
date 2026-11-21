@@ -3,8 +3,6 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="using:Avalonia.Xaml.Interactivity"
-    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
@@ -213,12 +211,12 @@
                     <DataTemplate DataType="spp:IAccount">
                         <Border Margin="5" spp:Animations.EnableAnimations="False">
                             <spp:AppItem
-                                x:Name="Item"
                                 Title="{Binding DisplayName}"
                                 MaxWidth="128"
                                 Classes="Vertical"
                                 ContextFlyout="{StaticResource SharedMenuFlyout}"
                                 Description="{Binding LastLoginTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
+                                DoubleTapped="AccountItem_DoubleTapped"
                                 MoreFlyout="{StaticResource SharedMenuFlyout}">
                                 <spp:AppItem.Tags>
                                     <WrapPanel>
@@ -243,11 +241,6 @@
                                         <ui:FASymbolIcon FontSize="14" Foreground="{DynamicResource SystemFillColorSuccessBrush}" IsVisible="{Binding RememberPassword}" Symbol="Checkmark" ToolTip.Tip="{x:Static spp:Strings.UserChange_RememberMe}" />
                                     </StackPanel>
                                 </spp:AppItem.Status>
-                                <i:Interaction.Behaviors>
-                                    <ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="Item">
-                                        <ia:InvokeCommandAction Command="{Binding $parent[UserControl].((spp:PlatformAccount)DataContext).SwapToAccountCommand}" CommandParameter="{Binding}" />
-                                    </ia:EventTriggerBehavior>
-                                </i:Interaction.Behaviors>
                                 <spp:AppItem.Image>
                                     <Panel>
                                         <spp:Image2

@@ -1,4 +1,5 @@
 using DynamicData;
+using System.IO.Enumeration;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 // ReSharper disable once CheckNamespace
@@ -10,7 +11,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
     public SettingsPageViewModel()
     {
         SelectLanguage = ResourceService.GetSelectLanguage();
-        this.WhenValueChanged(x => x.SelectLanguage, false)
+        this.ObserveValue(nameof(SelectLanguage), static x => x.SelectLanguage).Skip(1)
               .Subscribe(x =>
               {
                   if (string.Equals(UISettings.Language.Value, x.Key, StringComparison.OrdinalIgnoreCase))
@@ -35,7 +36,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         if (IApplication.IsDesktop())
         {
             SelectFont = ResourceService.GetSelectFont();
-            this.WhenValueChanged(x => x.SelectFont, false)
+            this.ObserveValue(nameof(SelectFont), static x => x.SelectFont).Skip(1)
                   .Subscribe(x => UISettings.FontName.Value = x.Value);
 
             SelectImage_Click = ReactiveCommand.CreateFromTask(async () =>
@@ -50,19 +51,21 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
 
     public void OpenFolder(string tag)
     {
-        var path = tag switch
-        {
-            IOPath.DirName_AppData => IOPath.AppDataDirectory,
-            IOPath.DirName_Cache => IOPath.CacheDirectory,
-            IPCSubProcessFileSystem.LogDirName => IApplication.LogDirPath,
-            _ => IOPath.BaseDirectory,
-        };
+        var path = GetFolderPath(tag);
         var hasKey = clickOpenFolderTimeRecord.TryGetValue(path, out var dt);
         var now = DateTime.Now;
         if (hasKey && (now - dt).TotalSeconds <= clickOpenFolderIntervalSeconds) return;
         IPlatformService.Instance.OpenFolder(path);
         if (!clickOpenFolderTimeRecord.TryAdd(path, now)) clickOpenFolderTimeRecord[path] = now;
     }
+
+    static string GetFolderPath(string tag) => tag switch
+    {
+        IOPath.DirName_AppData => IOPath.AppDataDirectory,
+        IOPath.DirName_Cache => IOPath.CacheDirectory,
+        IPCSubProcessFileSystem.LogDirName => IApplication.LogDirPath,
+        _ => IOPath.BaseDirectory,
+    };
 
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
     public async void SelectSteamProgramLocation()
@@ -120,82 +123,77 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
     }
 #endif
 
-    ///// <summary>
-    ///// 开始计算指定文件夹大小
-    ///// </summary>
-    ///// <param name="isStartCacheSizeCalc"></param>
-    ///// <param name="sizeFormat"></param>
-    ///// <param name="action"></param>
-    //[Obsolete("use StartSizeCalcByCacheSize or StartSizeCalcByLogSize")]
-    //public static void StartCacheSizeCalc(ref bool isStartCacheSizeCalc, string sizeFormat, Action<string> action, CancellationToken cancellationToken = default)
-    //{
-    //    if (isStartCacheSizeCalc) return;
-    //    isStartCacheSizeCalc = true;
-    //    string? dirPath;
-    //    if (sizeFormat == AppResources.Settings_General_CacheSize)
-    //    {
-    //        dirPath = IOPath.CacheDirectory;
-    //    }
-    //    else if (sizeFormat == AppResources.Settings_General_LogSize)
-    //    {
-    //        dirPath = IApplication.LogDirPath;
-    //    }
-    //    else
-    //    {
-    //        dirPath = null;
-    //    }
-    //    if (dirPath != null)
-    //    {
-    //        StartCacheSizeCalc2(dirPath, value => action(sizeFormat.Format(value)), cancellationToken);
-    //    }
-    //}
-
-    static void StartCacheSizeCalc2(string dirPath, Action<string> action, CancellationToken cancellationToken = default)
+    internal sealed class DirectorySizeMeasurement(TimeSpan maxAge)
     {
-        action(AppResources.Settings_General_Calcing);
+        readonly object sync = new();
+        string? directory;
+        Task<long>? scan;
+        long startedAt;
+
+        public Task<long> GetAsync(string path)
+        {
+            lock (sync)
+            {
+                if (directory == path && scan != null &&
+                    (!scan.IsCompleted || (scan.IsCompletedSuccessfully && Stopwatch.GetElapsedTime(startedAt) < maxAge)))
+                    return scan;
+
+                directory = path;
+                startedAt = Stopwatch.GetTimestamp();
+                return scan = Task.Run(() => Measure(path));
+            }
+        }
+
+        static long Measure(string path)
+        {
+            if (string.IsNullOrEmpty(path)) return 0;
+            try
+            {
+                var files = new FileSystemEnumerable<long>(path, static (ref FileSystemEntry entry) => entry.Length,
+                    new System.IO.EnumerationOptions
+                    {
+                        RecurseSubdirectories = true,
+                        AttributesToSkip = FileAttributes.ReparsePoint,
+                        IgnoreInaccessible = false,
+                    })
+                {
+                    ShouldIncludePredicate = static (ref FileSystemEntry entry) => !entry.IsDirectory,
+                };
+                long size = 0;
+                foreach (var length in files)
+                    size += length;
+                return size;
+            }
+            catch (DirectoryNotFoundException) when (!Directory.Exists(path))
+            {
+                return 0;
+            }
+        }
+    }
+
+    static readonly DirectorySizeMeasurement appSize = new(TimeSpan.FromSeconds(30));
+    static readonly DirectorySizeMeasurement appDataSize = new(TimeSpan.FromSeconds(30));
+    static readonly DirectorySizeMeasurement cacheSize = new(TimeSpan.FromSeconds(30));
+    static readonly DirectorySizeMeasurement logSize = new(TimeSpan.FromSeconds(30));
+
+    internal static async Task<string> GetStorageSizeAsync(string tag)
+    {
+        var measurement = tag switch
+        {
+            IOPath.DirName_AppData => appDataSize,
+            IOPath.DirName_Cache => cacheSize,
+            IPCSubProcessFileSystem.LogDirName => logSize,
+            _ => appSize,
+        };
         try
         {
-            Task.Run(async () =>
-            {
-                var length = IOPath.GetDirectorySize(dirPath);
-                var lenString = IOPath.GetDisplayFileSizeString(length);
-                await MainThread2.InvokeOnMainThreadAsync(() =>
-                {
-                    action(lenString);
-                });
-            }, cancellationToken);
+            var size = await measurement.GetAsync(GetFolderPath(tag)).ConfigureAwait(false);
+            return IOPath.GetDisplayFileSizeString(size);
         }
-        catch (OperationCanceledException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException)
         {
-
+            Log.Error(nameof(SettingsPageViewModel), ex, "Could not measure storage folder {tag}.", tag);
+            return AppResources.Error;
         }
     }
-
-    static readonly Dictionary<string, string> cacheSizeCalcCache = new();
-
-    static void StartCacheSizeCalc2(string dirPath, Func<string> getResString, Action<string> action)
-    {
-        if (cacheSizeCalcCache.TryGetValue(dirPath, out var value))
-        {
-            action(Action(value));
-        }
-        else
-        {
-            StartCacheSizeCalc2(dirPath, value => action(Action(value)));
-        }
-
-        string Action(string value) => getResString().Format(value);
-    }
-
-    public static void StartSizeCalcByCacheSize(Action<string> action)
-        => StartCacheSizeCalc2(
-            IOPath.CacheDirectory,
-            () => AppResources.Settings_General_CacheSize,
-            action);
-
-    public static void StartSizeCalcByLogSize(Action<string> action)
-        => StartCacheSizeCalc2(
-            IApplication.LogDirPath,
-            () => AppResources.Settings_General_LogSize,
-            action);
 }

@@ -1,3 +1,5 @@
+using dotnetCampus.Ipc.CompilerServices.Attributes;
+
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
@@ -14,14 +16,16 @@ partial interface IReverseProxyService
     /// 获取流量统计信息
     /// </summary>
     /// <returns></returns>
+    [IpcMethod(Timeout = 2000)]
     byte[]? GetFlowStatistics_Bytes();
 
-    /// <summary>
-    /// 获取所有日志信息
-    /// </summary>
-    /// <returns></returns>
-    string? GetLogAllMessage();
+    /// <summary>Read only new log bytes, or replace the view if the stream restarted or the cursor expired.</summary>
+    [IpcMethod(Timeout = 2000)]
+    Task<ProxyLogUpdate?> GetLogUpdateAsync(Guid streamId, long offset);
 }
+
+/// <summary>A bounded UTF-8 log batch and the next cursor, with null used for an unchanged stream.</summary>
+public sealed record ProxyLogUpdate(Guid StreamId, long End, bool Reset, byte[] Utf8);
 
 public static partial class ReverseProxyServiceExtensions
 {

@@ -180,38 +180,9 @@ partial class Startup // 自定义控制台命令参数
         rootCommand.Subcommands.Add(steamuser);
 
         // -clt app -id 282800 -achievement
-        var app_id = new Option<int>("-id")
+        var run_SteamApp = CreateSteamAppCommand(async (id, achievement, cloudmanager, silence) =>
         {
-            Description = Strings.L10nCore_CmdGameId,
-        };
-        var app_achievement = new Option<bool>("-achievement")
-        {
-            Description = Strings.L10nCore_CmdAchievements,
-        };
-        var app_cloudmanager = new Option<bool>("-cloudmanager")
-        {
-            Description = Strings.L10nCore_CmdCloudManager,
-        };
-        var app_silence = new Option<bool>("-silence")
-        {
-            DefaultValueFactory = _ => false,
-            Description = Strings.L10nCore_CmdIdle,
-        };
-        var run_SteamApp = new Command("app", Strings.L10nCore_CmdRunGame)
-        {
-            app_id, app_achievement, app_cloudmanager, app_silence,
-        };
-        run_SteamApp.SetAction(async parseResult =>
-        {
-            var id = parseResult.GetValue(app_id);
-            var achievement = parseResult.GetValue(app_achievement);
-            var cloudmanager = parseResult.GetValue(app_cloudmanager);
-            var silence = parseResult.GetValue(app_silence);
-
             int exitCode = default;
-            if (id <= 0)
-                return -1;
-
             if (cloudmanager || achievement)
             {
                 RunUIApplication(AppServicesLevel.UI |
@@ -234,17 +205,11 @@ partial class Startup // 自定义控制台命令参数
             }
             else
             {
-                RunUIApplication(AppServicesLevel.Steam);
-                await WaitConfiguredServices;
-
-                if (SteamConnectService.Current.Initialize(id))
-                {
-                    await new TaskCompletionSource().Task;
-                }
+                return HeadlessSteamIdleWorker.Run(id);
             }
 
             return exitCode;
-        });
+        }, out _, out _);
         rootCommand.Subcommands.Add(run_SteamApp);
 
         // -clt show -config -cert
@@ -640,6 +605,81 @@ partial class Startup // 自定义控制台命令参数
         //            }),
         //        };
         //        rootCommand.Subcommands.Add(types);
+    }
+
+    static Command CreateSteamAppCommand(
+        Func<int, bool, bool, bool, Task<int>> action,
+        out Option<bool> achievement,
+        out Option<bool> cloudmanager)
+    {
+        var id = new Option<int>("-id")
+        {
+            Required = true,
+            Description = Strings.L10nCore_CmdGameId,
+        };
+        achievement = new Option<bool>("-achievement")
+        {
+            Description = Strings.L10nCore_CmdAchievements,
+        };
+        cloudmanager = new Option<bool>("-cloudmanager")
+        {
+            Description = Strings.L10nCore_CmdCloudManager,
+        };
+        var silence = new Option<bool>("-silence")
+        {
+            DefaultValueFactory = _ => false,
+            Description = Strings.L10nCore_CmdIdle,
+        };
+        var command = new Command("app", Strings.L10nCore_CmdRunGame)
+        {
+            id, achievement, cloudmanager, silence,
+        };
+        var achievementOption = achievement;
+        var cloudmanagerOption = cloudmanager;
+        command.SetAction(async parseResult =>
+        {
+            var appId = parseResult.GetValue(id);
+            if (appId <= 0)
+            {
+                Console.Error.WriteLine("-id must be a positive 32-bit Steam AppID.");
+                return -1;
+            }
+            return await action(appId,
+                parseResult.GetValue(achievementOption),
+                parseResult.GetValue(cloudmanagerOption),
+                parseResult.GetValue(silence));
+        });
+        return command;
+    }
+
+    /// <summary>Dispatches plain Steam idling before application services are initialized.</summary>
+    public static bool TryRunHeadlessIdle(string[] args, out int exitCode)
+    {
+        exitCode = 0;
+        if (args.Length != 0)
+            args = GetArgsByCustomUrlScheme(args[0]) ?? args;
+        if (args.Length < 2 || !string.Equals(args[0], clt_, StringComparison.OrdinalIgnoreCase) ||
+            args[1] != "app")
+            return false;
+
+        try
+        {
+            var command = CreateSteamAppCommand(
+                static (id, _, _, _) => Task.FromResult(HeadlessSteamIdleWorker.Run(id)),
+                out var achievement, out var cloudmanager);
+            var root = new RootCommand { command };
+            var result = root.Parse(args[1..]);
+            if (result.Errors.Count == 0 &&
+                (result.GetValue(achievement) || result.GetValue(cloudmanager)))
+                return false;
+            exitCode = result.InvokeAsync().GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine(ex);
+            exitCode = 1;
+        }
+        return true;
     }
 #endif
 

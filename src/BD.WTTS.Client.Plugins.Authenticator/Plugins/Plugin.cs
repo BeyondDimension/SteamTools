@@ -41,7 +41,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     public override IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(
         bool directoryExists)
     {
-        return base.GetConfiguration(directoryExists);
+        yield return GetConfiguration<AuthenticatorSettings_>(directoryExists);
     }
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)

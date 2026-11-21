@@ -250,21 +250,9 @@ public abstract partial class Startup
             #region CustomAppDomain 自定义应用程序域
 
 #if WINDOWS || LINUX
-#if DEBUG
-            try
-            {
-                // 调试时移动本机库到 native，通常指定了单个 RID(RuntimeIdentifier)
-                // 后本机库将位于程序根目录上否则将位于 runtimes 文件夹中
-                GlobalDllImportResolver.MoveFiles();
-            }
-            catch
-            {
-
-            }
-#if STARTUP_WATCH_TRACE || DEBUG
-            WatchTrace.Record("CustomAppDomain.MoveFiles");
-#endif
-#endif
+#if WINDOWS && !WTTS_NATIVE_AOT
+            GlobalDllImportResolver.RegisterJitResolver();
+#else
             // 监听当前应用程序域的程序集加载
             AppDomain.CurrentDomain.AssemblyLoad += (_, args)
                 => CurrentDomain_AssemblyLoad(args.LoadedAssembly);
@@ -294,6 +282,7 @@ public abstract partial class Startup
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (var assembly in assemblies)
                 CurrentDomain_AssemblyLoad(assembly);
+#endif
 #if STARTUP_WATCH_TRACE || DEBUG
             WatchTrace.Record("CustomAppDomain.AssemblyLoad");
 #endif

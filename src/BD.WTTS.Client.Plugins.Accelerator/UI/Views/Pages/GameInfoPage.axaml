@@ -7,13 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
-    MinWidth="410"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="spp:GameInfoPageViewModel"
     mc:Ignorable="d">
     <Grid RowDefinitions="Auto,*,Auto">
-        <StackPanel Orientation="Horizontal" Spacing="5">
+        <WrapPanel Orientation="Horizontal" ItemSpacing="5">
             <Button
                 Width="36"
                 Height="36"
@@ -28,10 +27,10 @@
                 VerticalAlignment="Center"
                 IsVisible="{Binding !!XunYouGame.SelectedServer}"
                 Text="{Binding XunYouGame.SelectedServer.Name, StringFormat={}/ {0}}" />
-        </StackPanel>
+        </WrapPanel>
         <!--<TabControl Grid.Row="1">
             <TabItem Header="区服">-->
-        <ScrollViewer Grid.Row="1" Padding="0,10">
+        <ScrollViewer Grid.Row="1" Padding="0,10" HorizontalScrollBarVisibility="Disabled">
             <Panel>
                 <ListBox
                     IsVisible="{Binding !IsShowSelectServerUI}"
@@ -75,26 +74,15 @@
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             Fill="{DynamicResource AccentFillColorDefaultBrush}"
-                                            IsVisible="False"
                                             RadiusX="2"
                                             RadiusY="2"
-                                            RenderTransform="scaleY(0)"
-                                            UseLayoutRounding="False">
-                                            <Rectangle.Transitions>
-                                                <Transitions>
-                                                    <TransformOperationsTransition
-                                                        Easing="0,0 0,1"
-                                                        Property="RenderTransform"
-                                                        Duration="00:00:00.167" />
-                                                </Transitions>
-                                            </Rectangle.Transitions>
-                                        </Rectangle>
+                                            UseLayoutRounding="False" />
                                     </Panel>
                                 </ControlTemplate>
                             </Setter>
                         </Style>
 
-                        <Style Selector="ListBoxItem /template/ Border#SelectionIndicator">
+                        <Style Selector="ListBoxItem /template/ Rectangle#SelectionIndicator">
                             <Setter Property="IsVisible" Value="False" />
                         </Style>
                         <Style Selector="ListBoxItem:pointerover /template/ Border#Root">
@@ -104,7 +92,7 @@
                         <Style Selector="ListBoxItem:selected /template/ Border#Root">
                             <Setter Property="Background" Value="{DynamicResource SystemFillColorAttentionBrush}" />
                         </Style>
-                        <Style Selector="ListBoxItem:selected /template/ Border#SelectionIndicator">
+                        <Style Selector="ListBoxItem:selected /template/ Rectangle#SelectionIndicator">
                             <Setter Property="IsVisible" Value="True" />
                         </Style>
                     </ListBox.Styles>
@@ -152,26 +140,15 @@
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Center"
                                             Fill="{DynamicResource AccentFillColorDefaultBrush}"
-                                            IsVisible="False"
                                             RadiusX="2"
                                             RadiusY="2"
-                                            RenderTransform="scaleY(0)"
-                                            UseLayoutRounding="False">
-                                            <Rectangle.Transitions>
-                                                <Transitions>
-                                                    <TransformOperationsTransition
-                                                        Easing="0,0 0,1"
-                                                        Property="RenderTransform"
-                                                        Duration="00:00:00.167" />
-                                                </Transitions>
-                                            </Rectangle.Transitions>
-                                        </Rectangle>
+                                            UseLayoutRounding="False" />
                                     </Panel>
                                 </ControlTemplate>
                             </Setter>
                         </Style>
 
-                        <Style Selector="ListBoxItem /template/ Border#SelectionIndicator">
+                        <Style Selector="ListBoxItem /template/ Rectangle#SelectionIndicator">
                             <Setter Property="IsVisible" Value="False" />
                         </Style>
                         <Style Selector="ListBoxItem:pointerover /template/ Border#Root">
@@ -181,7 +158,7 @@
                         <Style Selector="ListBoxItem:selected /template/ Border#Root">
                             <Setter Property="Background" Value="{DynamicResource SystemFillColorAttentionBrush}" />
                         </Style>
-                        <Style Selector="ListBoxItem:selected /template/ Border#SelectionIndicator">
+                        <Style Selector="ListBoxItem:selected /template/ Rectangle#SelectionIndicator">
                             <Setter Property="IsVisible" Value="True" />
                         </Style>
                     </ListBox.Styles>
@@ -215,10 +192,11 @@
 
         <Button
             Grid.Row="2"
-            Width="180"
+            MaxWidth="180"
             Height="42"
             Margin="0,16"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
             Classes="accent"
             Command="{Binding ImmediatelyAccelerate}"
             Content="{x:Static spp:Strings.L10nAccel_071}"

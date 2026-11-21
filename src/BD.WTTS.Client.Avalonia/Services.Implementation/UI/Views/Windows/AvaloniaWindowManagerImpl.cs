@@ -5,10 +5,8 @@ using System.Collections.Immutable;
 namespace BD.WTTS.Services.Implementation;
 
 /// <inheritdoc cref="IWindowManager"/>
-public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
+public sealed class AvaloniaWindowManagerImpl : IWindowManager
 {
-    Type? IWindowManagerImpl.WindowType => typeof(Window);
-
     public static TopLevel? GetWindowTopLevel()
     {
         if (App.Instance.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -43,25 +41,18 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         return GetWindowTopLevel() ?? throw new InvalidOperationException("No main window is available for user interaction.");
     }
 
-    Type GetWindowType(AppEndPoint customWindow)
+    [return: DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
+    static Type GetWindowType(AppEndPoint endpoint) => endpoint switch
     {
-        IWindowManagerImpl @this = this;
-        return @this.GetWindowType(customWindow, typeof(AvaloniaWindowManagerImpl).Assembly);
-    }
+        AppEndPoint.Content => typeof(ContentWindow),
+        _ => throw new ArgumentOutOfRangeException(nameof(endpoint), endpoint, "No standalone window is registered for this endpoint."),
+    };
 
-    Type GetWindowViewModelType(AppEndPoint customWindow)
+    [return: DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
+    static Type GetWindowViewModelType(AppEndPoint endpoint) => endpoint switch
     {
-        IWindowManagerImpl @this = this;
-        return @this.GetWindowViewModelType(customWindow, typeof(WindowViewModel).Assembly);
-    }
-
-    static bool IsSingletonWindow(AppEndPoint customWindow) => customWindow switch
-    {
-        AppEndPoint.MessageBox or
-        AppEndPoint.TextBox or
-        AppEndPoint.AuthTrade or
-        AppEndPoint.ShowAuth => false,
-        _ => true,
+        AppEndPoint.Content => typeof(ContentWindowViewModel),
+        _ => throw new ArgumentOutOfRangeException(nameof(endpoint), endpoint, "No standalone window is registered for this endpoint."),
     };
 
     static bool TryShowSingletonWindow(Type windowType)
@@ -107,7 +98,8 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         string? retryButtonText = null,
         string? moreInfoText = null,
         Func<bool>? cancelCloseAction = null,
-        bool disableScroll = false)
+        bool disableScroll = false,
+        bool wide = false)
         where TPageViewModel : ViewModelBase
     {
         return await MainThread2.InvokeOnMainThreadAsync(async () =>
@@ -165,13 +157,17 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         {
             td.Classes.Add("disableScroll");
         }
+        if (wide)
+        {
+            td.Classes.Add("wide");
+        }
         //td.DataTemplates.Add(new FuncDataTemplate<DebugPageViewModel>((x, _) => new DebugPage(), true));
 
         object? result = null;
         void OnClosing(TaskDialog s, TaskDialogClosingEventArgs args)
         {
             result = args.Result;
-            if (result is not TaskDialogStandardResult.Cancel or TaskDialogStandardResult.No)
+            if (result is not (TaskDialogStandardResult.Cancel or TaskDialogStandardResult.No))
             {
                 args.Cancel = cancelCloseAction?.Invoke() ?? false;
             }
@@ -206,7 +202,7 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         });
     }
 
-    Task ShowAsync(Type typeWindowViewModel,
+    Task ShowAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type typeWindowViewModel,
         bool isDialog,
         AppEndPoint customWindow,
         string title,
@@ -217,7 +213,7 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         => MainThread2.InvokeOnMainThreadAsync(async () =>
         {
             var windowType = GetWindowType(customWindow);
-            if (IsSingletonWindow(customWindow) && TryShowSingletonWindow(windowType))
+            if (TryShowSingletonWindow(windowType))
             {
                 return;
             }
@@ -300,7 +296,7 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
             }
         });
 
-    public Task ShowAsync<TWindowViewModel>(
+    public Task ShowAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TWindowViewModel>(
         AppEndPoint customWindow,
         TWindowViewModel? viewModel = null,
         string title = "",
@@ -310,7 +306,7 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         where TWindowViewModel : WindowViewModel, new() => ShowAsync(typeof(TWindowViewModel),
             customWindow, viewModel, title, resizeMode, isDialog, isParent);
 
-    public Task ShowAsync(Type typeWindowViewModel,
+    public Task ShowAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type typeWindowViewModel,
         AppEndPoint customWindow,
         WindowViewModel? viewModel = null,
         string title = "",
@@ -327,7 +323,7 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
        bool isParent = true) => ShowAsync(GetWindowViewModelType(customWindow), isDialog, customWindow,
             title, viewModel, resizeMode, isParent);
 
-    public async Task<bool> ShowDialogAsync<TWindowViewModel>(
+    public async Task<bool> ShowDialogAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TWindowViewModel>(
         AppEndPoint customWindow,
         TWindowViewModel? viewModel = null,
         string title = "",
@@ -345,7 +341,7 @@ public sealed class AvaloniaWindowManagerImpl : IWindowManagerImpl
         return dialogWindowViewModel?.DialogResult ?? false;
     }
 
-    public Task ShowDialogAsync(Type typeWindowViewModel,
+    public Task ShowDialogAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type typeWindowViewModel,
             AppEndPoint customWindow,
             WindowViewModel? viewModel = null,
             string title = "",

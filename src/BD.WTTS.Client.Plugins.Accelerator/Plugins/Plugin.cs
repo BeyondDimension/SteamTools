@@ -56,9 +56,15 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     readonly TaskCompletionSource<IReverseProxyService> reverseProxyService = new(TaskCreationOptions.RunContinuationsAsynchronously);
     readonly TaskCompletionSource<ICertificateManager> certificateManager = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    readonly BehaviorSubject<TrayToggleState> trayPreparation = new(TrayToggleState.Loading);
     int proxyInitializationState;
-    internal Task ServicesReady => Task.WhenAll(reverseProxyService.Task, certificateManager.Task);
+    internal Task ServicesReady { get; }
     //readonly TaskCompletionSource<IAcceleratorService> acceleratorService = new();
+
+    public Plugin()
+    {
+        ServicesReady = Task.WhenAll(reverseProxyService.Task, certificateManager.Task);
+    }
 
     public override void ConfigureDemandServices(IServiceCollection services, Startup startup)
     {
@@ -122,22 +128,50 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override async ValueTask OnInitializeAsync()
     {
-        var ipc = IPCMainProcessService.Instance;
-
-        // 启动加速模块子进程
-        await ipc.AddDaemonWithStartSubProcessAsync(moduleName, async ipc =>
+        // Publish availability before the helper connects; it can be delayed or fail to start.
+        trayPreparation.OnNext(TrayToggleState.Loading);
+        IApplication.Instance.UpdateMenuItems(moduleName, new TrayMenuItem
         {
-            var subProcessPath = SubProcessPath;
-            var p = await ipc.StartSubProcessAsync(subProcessPath.ThrowIsNull(),
-                isAdministrator: true);
-            return p;
+            Name = Strings.CommunityFix,
+            NameResourceKey = nameof(Strings.CommunityFix),
+            ToggleState = trayPreparation,
         });
+
+        try
+        {
+            var ipc = IPCMainProcessService.Instance;
+            var process = await ipc.AddDaemonWithStartSubProcessAsync(moduleName, async ipc =>
+                await ipc.StartSubProcessAsync(SubProcessPath.ThrowIsNull(), isAdministrator: true));
+            if (process == null)
+                trayPreparation.OnNext(TrayToggleState.Unavailable);
+            else
+                _ = ObserveTrayConnectionAsync();
+        }
+        catch
+        {
+            trayPreparation.OnNext(TrayToggleState.Unavailable);
+            throw;
+        }
+    }
+
+    async Task ObserveTrayConnectionAsync()
+    {
+        try
+        {
+            await ServicesReady.WaitAsync(TimeSpan.FromSeconds(15));
+        }
+        catch (TimeoutException ex)
+        {
+            trayPreparation.OnNext(TrayToggleState.Unavailable);
+            Log.Warn(nameof(Plugin), ex, "Accelerator helper did not connect in time.");
+        }
     }
 
     public override async ValueTask OnPeerConnected(bool isReconnected)
     {
         if (!reverseProxyService.Task.IsCompletedSuccessfully || !certificateManager.Task.IsCompletedSuccessfully)
         {
+            trayPreparation.OnNext(TrayToggleState.Loading);
             var ipc = IPCMainProcessService.Instance;
 
             // 从子进程中获取 IPC 远程服务
@@ -151,6 +185,7 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
             catch (Exception ex)
             {
                 // Keep the readiness tasks pending so a later connection can recover.
+                trayPreparation.OnNext(TrayToggleState.Unavailable);
                 Log.Error(nameof(Plugin), ex, "Accelerator IPC services could not be connected.");
                 return;
             }

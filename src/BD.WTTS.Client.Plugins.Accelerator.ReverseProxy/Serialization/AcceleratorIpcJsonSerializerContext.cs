@@ -7,6 +7,7 @@ namespace BD.WTTS.Serialization;
 [JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Metadata)]
 [JsonSerializable(typeof(StartProxyResult))]
 [JsonSerializable(typeof(StartProxyResultCode))]
+[JsonSerializable(typeof(ProxyLogUpdate))]
 [JsonSerializable(typeof(IReadOnlyCollection<ScriptIPCDTO>))]
 internal sealed partial class AcceleratorIpcJsonSerializerContext : JsonSerializerContext
 {
@@ -18,6 +19,7 @@ internal sealed partial class AcceleratorIpcJsonSerializerContext : JsonSerializ
         MemoryPackFormatterProvider.Register<FlowStatistics>();
         MemoryPackFormatterProvider.Register<ScriptIPCDTO>();
         MemoryPackFormatterProvider.Register<AccelerateProjectDTO>();
+        MemoryPackFormatterProvider.Register(X509CertificatePackableFormatterAttribute.Formatter.Default);
     }
 }
 #endif

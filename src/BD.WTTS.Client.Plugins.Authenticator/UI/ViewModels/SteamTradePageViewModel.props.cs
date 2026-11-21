@@ -10,6 +10,17 @@ public sealed partial class SteamTradePageViewModel
 
     public SteamLoginViewModel Login { get; }
 
+    public int LoginModeIndex
+    {
+        get => Login.RequireMobileSession ? 1 : 0;
+        set
+        {
+            if (value is not (0 or 1) || Login.IsBusy || value == LoginModeIndex) return;
+            Login.RequireMobileSession = value == 1;
+            this.RaisePropertyChanged(nameof(LoginModeIndex));
+        }
+    }
+
     [Reactive]
     public bool RememberLogin { get; set; } = true;
 

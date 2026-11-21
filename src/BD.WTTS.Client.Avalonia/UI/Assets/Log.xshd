@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SyntaxDefinition name="Log" extensions=".log" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="Verbose" foreground="#6A9955" />
-  <Color name="Debug" foreground="#569CD6" />
-  <Color name="Info" foreground="#B5CEA8" />
-  <Color name="Warning" foreground="#CE9178" />
-  <Color name="Error" foreground="#D16969" fontWeight="bold" />
-  <Color name="Date" foreground="#6A9955" />
-  <Color name="Constant" foreground="#569CD6" />
-  <Color name="String" foreground="#CE9178" />
-  <Color name="Exception" foreground="#D16969" fontStyle="italic" />
-  <Color name="Stack" foreground="#CE9178" fontStyle="italic" />
+  <Color name="Verbose" foreground="#A2AFC0" />
+  <Color name="Debug" foreground="#93BCFA" />
+  <Color name="Info" foreground="#85DBAD" />
+  <Color name="Warning" foreground="#FFD08A" fontWeight="bold" />
+  <Color name="Error" foreground="#FFA3A3" fontWeight="bold" />
+  <Color name="Date" foreground="#A0ADC1" />
+  <Color name="Category" foreground="#9EACC4" />
+  <Color name="Separator" foreground="#78869D" />
+  <Color name="Constant" foreground="#A5C8F4" />
+  <Color name="String" foreground="#E6BEA2" />
+  <Color name="Exception" foreground="#FFA3A3" fontStyle="italic" />
+  <Color name="Stack" foreground="#B0BCD0" />
   <RuleSet>
+    <Rule color="Category">(?&lt;=^\d{4}-\d{2}-\d{2}[^|]*\|[a-zA-Z]+\|)[^|]+(?=\|)</Rule>
+    <Rule color="Separator">(?&lt;=^\d{4}-\d{2}-\d{2}(?:[^|]*\|){0,2}[^|]*)\|</Rule>
     <Rule color="Verbose">\bTrace\b:|(?i:\[(?:verbose|verb|vrb|vb|v)\])|(?&lt;=^[\s\d\p{P}]*)\bV\b</Rule>
     <Rule color="Debug">\b(?:DEBUG|Debug)\b|(?i:\bdebug:|\[(?:debug|dbug|dbg|de|d)\])|(?&lt;=^[\s\d\p{P}]*)\bD\b</Rule>
     <Rule color="Info">\b(?:HINT|INFO|INFORMATION|Info|NOTICE|II)\b|(?i:\b(?:info|information):|\[(?:information|info|inf|in|i)\])|(?&lt;=^[\s\d\p{P}]*)\bI\b</Rule>

@@ -31,26 +31,26 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
         IsInstalledFilter = GameLibrarySettings.GameInstalledFilter.Value;
         IsCloudArchiveFilter = GameLibrarySettings.GameCloudArchiveFilter.Value;
 
-        this.WhenValueChanged(x => x.IsInstalledFilter, false)
+        this.ObserveValue(nameof(IsInstalledFilter), static x => x.IsInstalledFilter).Skip(1)
             .Subscribe(s => GameLibrarySettings.GameInstalledFilter.Value = s)
             .AddTo(this);
 
-        var searchText = this.WhenAnyValue(x => x.SearchText);
+        var searchText = this.ObserveValue(nameof(SearchText), static x => x.SearchText);
         var nameFilter = searchText.Take(1)
             .Concat(searchText.Skip(1).Throttle(TimeSpan.FromMilliseconds(250), RxSchedulers.TaskpoolScheduler))
             .DistinctUntilChanged()
             .ObserveOn(RxSchedulers.TaskpoolScheduler)
             .Select(PredicateName);
 
-        var installFilter = this.WhenAnyValue(x => x.IsInstalledFilter)
+        var installFilter = this.ObserveValue(nameof(IsInstalledFilter), static x => x.IsInstalledFilter)
             .ObserveOn(RxSchedulers.TaskpoolScheduler)
             .Select(PredicateInstalled);
 
-        var isCloudArchiveFilter = this.WhenAnyValue(x => x.IsCloudArchiveFilter)
+        var isCloudArchiveFilter = this.ObserveValue(nameof(IsCloudArchiveFilter), static x => x.IsCloudArchiveFilter)
             .ObserveOn(RxSchedulers.TaskpoolScheduler)
             .Select(PredicateCloudArchive);
 
-        var typeFilter = this.WhenAnyValue(x => x.EnableAppTypeFiltres)
+        var typeFilter = this.ObserveValue(nameof(EnableAppTypeFiltres), static x => x.EnableAppTypeFiltres)
             .ObserveOn(RxSchedulers.TaskpoolScheduler)
             .Select(PredicateType);
 
@@ -58,10 +58,11 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
             (name, type, installed, cloud) => new Func<SteamApp, bool>(app =>
                 type(app) && installed(app) && cloud(app) && name(app)));
 
-        this.WhenAnyValue(x => x.AppTypeFiltres)
+        this.ObserveValue(nameof(AppTypeFiltres), static x => x.AppTypeFiltres)
             .Select(type => type == null
                 ? Observable.Empty<IChangeSet<EnumModel<SteamAppType>>>()
-                : type.ToObservableChangeSet().AutoRefresh(x => x.Enable))
+                : type.ToObservableChangeSet().AutoRefreshOnObservable(static item =>
+                    item.ObserveValue(nameof(item.Enable), static x => x.Enable).Skip(1)))
             .Switch()
             .Subscribe(_ =>
             {
@@ -208,17 +209,17 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     public static async void EditAppInfoClick(SteamApp app)
     {
         if (app == null) return;
-        var vm = new EditAppInfoPageViewModel(ref app);
-        var result = await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.GameList_EditAppInfo,
-            pageContent: new EditAppInfoPage(), okButtonText: Strings.Save, isCancelButton: true, disableScroll: true);
-
-        if (result)
+        var vm = new EditAppInfoPageViewModel(app);
+        try
         {
-            vm.SaveEditAppInfo();
+            if (await IWindowManager.Instance.ShowTaskDialogAsync(vm, Strings.GameList_EditAppInfo,
+                pageContent: new EditAppInfoPage(), okButtonText: Strings.L10nGames_SaveLocalEdit,
+                isCancelButton: true, cancelCloseAction: () => vm.IsChangingImage, disableScroll: true))
+                await vm.SaveEditAppInfoAsync();
         }
-        else
+        finally
         {
-            vm.CancelEditAppInfo();
+            vm.DisposeEditor();
         }
     }
 
@@ -231,8 +232,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
         }
 
         Toast.Show(ToastIcon.Info, Strings.GameList_RuningWait);
-        app.StartSteamAppProcess(SteamAppRunType.CloudManager);
-        SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
+        using var process = app.StartSteamAppProcess(SteamAppRunType.CloudManager);
     }
 
     public static async void UnlockAchievement_Click(SteamApp app)
@@ -252,8 +252,7 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
                 {
                     Toast.Show(ToastIcon.Info, Strings.GameList_RuningWait);
                     NavAppToSteamView(app);
-                    app.StartSteamAppProcess(SteamAppRunType.UnlockAchievement);
-                    SteamConnectService.Current.RuningSteamApps.TryAdd(app.AppId, app);
+                    using var process = app.StartSteamAppProcess(SteamAppRunType.UnlockAchievement);
                 }
                 break;
             default:

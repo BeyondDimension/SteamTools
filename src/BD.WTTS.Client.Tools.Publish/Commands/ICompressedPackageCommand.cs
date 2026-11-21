@@ -1,3 +1,4 @@
+using BD.WTTS.Client.Tools.Publish.Helpers;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip.Compression;
@@ -17,7 +18,7 @@ interface ICompressedPackageCommand : ICommand
 
     static Command ICommand.GetCommand()
     {
-        var sevenzip = CommandCompat.GetOption<bool>("--7z", "Create 7z compressed");
+        var sevenzip = CommandCompat.GetOption<bool>("--7z", "Create a 7z archive on Windows");
         var zip = CommandCompat.GetOption<bool>("--zip", "Create Zip compressed");
         var tgz = CommandCompat.GetOption<bool>("--gz", "Create tgz compressed");
         var zstd = CommandCompat.GetOption<bool>("--zstd", "Create tar.zst compressed");
@@ -32,6 +33,11 @@ interface ICompressedPackageCommand : ICommand
 
     internal static void Handler(bool sevenzip, bool zip, bool tgz, bool zstd, string[] rids)
     {
+        if (sevenzip && rids.Any(static rid => DeconstructRuntimeIdentifier(rid).Platform == Platform.Apple))
+            throw new ArgumentException("Use pub run to publish a macOS DMG.", nameof(rids));
+        if (sevenzip && !OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException("The --7z option requires Windows.");
+
         var tasks = AppPublishInfo.Instance.
             Where(x => rids.Contains(x.RuntimeIdentifier)).
             Select(x =>
@@ -143,6 +149,8 @@ interface ICompressedPackageCommand : ICommand
 #endif
             var entry = TarEntry.CreateEntryFromFile(file.FilePath);
             entry.Name = file.RelativePath;
+            if (!OperatingSystem.IsWindows())
+                entry.TarHeader.Mode = (int)File.GetUnixFileMode(file.FilePath);
             if (Path.DirectorySeparatorChar != IOPath.UnixDirectorySeparatorChar)
                 entry.Name = entry.Name.Replace(Path.DirectorySeparatorChar, IOPath.UnixDirectorySeparatorChar);
             archive.WriteEntry(entry, false);
@@ -170,7 +178,11 @@ interface ICompressedPackageCommand : ICommand
 
     static readonly Lazy<object?> SetSevenZipLibraryPath = new(() =>
     {
-        var libPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "7-Zip", "7z.dll");
+        // Use the tool process's RID, not the architecture of the app being packaged.
+        var rid = $"win-{RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant()}";
+        var libPath = Path.Combine(AppContext.BaseDirectory, "runtimes", rid, "native", "7z.dll");
+        if (!File.Exists(libPath))
+            libPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "7-Zip", "7z.dll");
         SevenZipBase.SetLibraryPath(libPath);
         return null;
     });

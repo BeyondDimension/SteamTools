@@ -5,7 +5,6 @@ using BD.SteamClient.Models;
 using BD.SteamClient.Services;
 using System.Security.Cryptography;
 using WinAuth;
-using AppResources = BD.WTTS.Client.Resources.Strings;
 using JsonException = System.Text.Json.JsonException;
 
 namespace BD.WTTS.UI.ViewModels;
@@ -79,20 +78,10 @@ internal sealed class AuthenticatorSavedSteamAccounts : ISteamSavedAccountProvid
     {
         var sources = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
         cancellationToken.ThrowIfCancellationRequested();
-        var protectedSource = sources.FirstOrDefault(x => x.IsNeedSecondaryPassword);
-        string? password = null;
-        if (protectedSource != null)
-        {
-            var prompt = new TextBoxWindowViewModel { InputType = TextBoxWindowViewModel.TextBoxInputType.Password };
-            if (!await IWindowManager.Instance.ShowTaskDialogAsync(prompt, AppResources.Title_InputAuthPassword, isDialog: false, isCancelButton: true))
-                throw new InvalidOperationException(Strings.L10nAuthIdle_Text073);
-            cancellationToken.ThrowIfCancellationRequested();
-            password = prompt.Value;
-            prompt.Value = null;
-            if (string.IsNullOrEmpty(password) || !await AuthenticatorHelper.ValidatePassword(protectedSource, password))
-                throw new InvalidOperationException(Strings.L10nAuthIdle_Text074);
-        }
-        var entries = await AuthenticatorHelper.GetAllAuthenticatorsAsync(sources, password);
+        var vault = await AuthenticatorHelper.ReadAuthorizedVaultAsync(sources, cancellationToken);
+        if (vault == null)
+            throw new InvalidOperationException(Strings.L10nAuthIdle_Text073);
+        var entries = vault.Value.items;
         cancellationToken.ThrowIfCancellationRequested();
         var result = new List<SteamSavedLoginAccount>();
         foreach (var entry in entries)

@@ -35,7 +35,8 @@ public interface IWindowManager
         string? retryButtonText = null,
         string? moreInfoText = null,
         Func<bool>? cancelCloseAction = null,
-        bool disableScroll = false)
+        bool disableScroll = false,
+        bool wide = false)
         where TPageViewModel : ViewModelBase;
 
     /// <summary>
@@ -49,7 +50,7 @@ public interface IWindowManager
     /// <param name="isDialog"></param>
     /// <param name="isParent"></param>
     /// <returns></returns>
-    Task ShowAsync<TWindowViewModel>(
+    Task ShowAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TWindowViewModel>(
         AppEndPoint appEndPoint,
         TWindowViewModel? viewModel = null,
         string title = "",
@@ -69,7 +70,7 @@ public interface IWindowManager
     /// <param name="isDialog"></param>
     /// <param name="isParent"></param>
     /// <returns></returns>
-    Task ShowAsync(Type typeWindowViewModel,
+    Task ShowAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type typeWindowViewModel,
         AppEndPoint appEndPoint,
         WindowViewModel? viewModel = null,
         string title = "",
@@ -105,7 +106,7 @@ public interface IWindowManager
     /// <param name="isDialog"></param>
     /// <param name="isParent"></param>
     /// <returns></returns>
-    Task<bool> ShowDialogAsync<TWindowViewModel>(
+    Task<bool> ShowDialogAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TWindowViewModel>(
         AppEndPoint appEndPoint,
         TWindowViewModel? viewModel = null,
         string title = "",
@@ -124,7 +125,7 @@ public interface IWindowManager
     /// <param name="resizeMode"></param>
     /// <param name="isDialog"></param>
     /// <returns></returns>
-    Task ShowDialogAsync(Type typeWindowViewModel,
+    Task ShowDialogAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type typeWindowViewModel,
         AppEndPoint appEndPoint,
         WindowViewModel? viewModel = null,
         string title = "",
@@ -176,57 +177,5 @@ public interface IWindowManager
         {
             await ShowAsync(appEndPoint, vm);
         }
-    }
-}
-
-/// <inheritdoc cref="IWindowManager"/>
-public interface IWindowManagerImpl : IWindowManager
-{
-    Type? WindowType { get; }
-
-    Type GetWindowType(AppEndPoint appEndPoint, params Assembly[]? assemblies)
-    {
-        IEnumerable<Assembly>? assemblies_ = assemblies;
-        return GetWindowType(appEndPoint, assemblies_);
-    }
-
-    Type GetWindowType(AppEndPoint appEndPoint, IEnumerable<Assembly>? assemblies)
-    {
-        var typeName = $"BD.WTTS.UI.Views.Windows.{appEndPoint}Window";
-        const string errMsg = "GetWindowType fail.";
-        return GetType(typeName, WindowType, errMsg, appEndPoint, assemblies);
-    }
-
-    Type GetWindowViewModelType(AppEndPoint appEndPoint, params Assembly[]? assemblies)
-    {
-        IEnumerable<Assembly>? assemblies_ = assemblies;
-        return GetWindowViewModelType(appEndPoint, assemblies_);
-    }
-
-    Type GetWindowViewModelType(AppEndPoint appEndPoint, IEnumerable<Assembly>? assemblies)
-    {
-        var typeName = $"BD.WTTS.UI.ViewModels.{appEndPoint}WindowViewModel";
-        const string errMsg = "GetWindowViewModelType fail.";
-        return GetType(typeName, typeof(WindowViewModel), errMsg, appEndPoint, assemblies);
-    }
-
-    private static Type GetType(string typeName, Type? baseType, string errMsg,
-        AppEndPoint appEndPoint, IEnumerable<Assembly>? assemblies)
-    {
-        Type? type = null;
-        if (assemblies.Any_Nullable())
-        {
-            foreach (var item in assemblies!)
-            {
-                type = item.GetType(typeName);
-                if (type != null) break;
-            }
-        }
-        else
-        {
-            type = Type.GetType(typeName);
-        }
-        if (type != null && (baseType == null || baseType.IsAssignableFrom(type))) return type;
-        throw new ArgumentOutOfRangeException(nameof(appEndPoint), appEndPoint, errMsg);
     }
 }

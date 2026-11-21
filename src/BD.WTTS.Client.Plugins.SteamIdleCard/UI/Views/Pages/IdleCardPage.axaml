@@ -3,8 +3,6 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="using:Avalonia.Xaml.Interactivity"
-    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
@@ -34,14 +32,7 @@
                 Command="{Binding $parent[spp:PageBase].((spp:IdleCardPageViewModel)DataContext).ToggleBlacklistIdle}"
                 CommandParameter="{Binding}"
                 IconSource="Hide"
-                IsVisible="{Binding !IsBlacklisted}"
-                Text="{x:Static spp:Strings.L10nAuthIdle_Text064}" />
-            <ui:FAMenuFlyoutItem
-                Command="{Binding $parent[spp:PageBase].((spp:IdleCardPageViewModel)DataContext).ToggleBlacklistIdle}"
-                CommandParameter="{Binding}"
-                IconSource="Hide"
-                IsVisible="{Binding IsBlacklisted}"
-                Text="{x:Static spp:Strings.L10nAuthIdle_Text065}" />
+                Text="{Binding IsBlacklisted, Converter={x:Static spp:IdleCardPage.BlacklistActionTextConverter}, FallbackValue={x:Static spp:Strings.L10nAuthIdle_Text064}}" />
             <ui:FAMenuFlyoutSeparator />
             <ui:FAMenuFlyoutItem
                 Command="{Binding $parent[spp:PageBase].((spp:IdleCardPageViewModel)DataContext).NavAppToSteamViewCommand}"
@@ -67,18 +58,6 @@
                     Tag="steamcardexchange"
                     Text="{x:Static spp:Strings.GameList_OpenSteamCardUrl}" />
             </ui:FAMenuFlyoutSubItem>
-            <!--<ui:FAMenuFlyoutSeparator />
-            <ui:FAMenuFlyoutItem
-                Command="{Binding $parent[spp:PageBase].((spp:IdleCardPageViewModel)DataContext).AddHideAppListCommand}"
-                CommandParameter="{Binding App}"
-                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                IconSource="Hide"
-                Text="{x:Static spp:Strings.L10nAuthIdle_Text064}">
-                <ui:FAMenuFlyoutItem.IconSource>
-                    <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource Hide}" />
-                </ui:FAMenuFlyoutItem.IconSource>
-            </ui:FAMenuFlyoutItem>-->
-
         </ui:FAMenuFlyout>
     </spp:PageBase.Resources>
     <spp:PageBase.ActionContent>
@@ -98,41 +77,13 @@
                                 Width="16"
                                 Height="16"
                                 HorizontalAlignment="Left">
-                                <ui:FASymbolIcon Name="LaunchIcon">
-                                    <i:Interaction.Behaviors>
-                                        <ia:DataTriggerBehavior
-                                            Binding="{Binding RunState}"
-                                            ComparisonCondition="Equal"
-                                            Value="True">
-                                            <ia:ChangePropertyAction
-                                                PropertyName="Symbol"
-                                                TargetObject="LaunchIcon"
-                                                Value="StopFilled" />
-                                        </ia:DataTriggerBehavior>
-                                        <ia:DataTriggerBehavior
-                                            Binding="{Binding RunState}"
-                                            ComparisonCondition="NotEqual"
-                                            Value="True">
-                                            <ia:ChangePropertyAction
-                                                PropertyName="Symbol"
-                                                TargetObject="LaunchIcon"
-                                                Value="PlayFilled" />
-                                        </ia:DataTriggerBehavior>
-                                    </i:Interaction.Behaviors>
-                                </ui:FASymbolIcon>
+                                <ui:FASymbolIcon Symbol="{Binding RunState, Converter={x:Static spp:IdleCardPage.RunOrStopIconConverter}, FallbackValue=PlayFilled}" />
                             </Viewbox>
-                            <ContentControl
+                            <TextBlock
                                 Margin="28,4,0,4"
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Center">
-                                <ContentControl.Content>
-                                    <MultiBinding Converter="{StaticResource VisibleStringConverter}">
-                                        <CompiledBindingExtension Mode="OneWay" Path="RunState" />
-                                        <Binding Mode="OneTime" Source="{x:Static spp:Strings.Stop}" />
-                                        <Binding Mode="OneTime" Source="{x:Static spp:Strings.Launch}" />
-                                    </MultiBinding>
-                                </ContentControl.Content>
-                            </ContentControl>
+                                VerticalAlignment="Center"
+                                Text="{Binding RunState, Converter={x:Static spp:IdleCardPage.RunOrStopTextConverter}, FallbackValue={x:Static spp:Strings.Launch}}" />
                         </Panel>
                         <ProgressBar
                             Width="28"
@@ -595,21 +546,7 @@
                                 </Button>
                             </spp:AppItem.ActionButton>-->
                                             <spp:AppItem.Image>
-                                                <Panel x:Name="ItemImage">
-                                                    <!--<i:Interaction.Behaviors>
-										<ia:EventTriggerBehavior EventName="PointerEntered" SourceObject="{Binding #ItemImage}">
-											<ia:ChangePropertyAction
-                                                PropertyName="IsVisible"
-                                                TargetObject="{Binding #ItemBox}"
-                                                Value="True" />
-										</ia:EventTriggerBehavior>
-										<ia:EventTriggerBehavior EventName="PointerExited" SourceObject="{Binding #ItemImage}">
-											<ia:ChangePropertyAction
-                                                PropertyName="IsVisible"
-                                                TargetObject="{Binding #ItemBox}"
-                                                Value="False" />
-										</ia:EventTriggerBehavior>
-									</i:Interaction.Behaviors>-->
+                                                <Panel>
                                                     <Panel MinWidth="{Binding $parent[spp:AppItem].MinWidth}" MaxWidth="{Binding $parent[spp:AppItem].MaxWidth}">
                                                         <spp:Image2
                                                             Name="AppImage"

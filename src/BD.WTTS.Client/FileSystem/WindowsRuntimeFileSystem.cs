@@ -16,6 +16,8 @@ sealed class WindowsRuntimeFileSystem : IOPath.FileSystemBase
 {
     private WindowsRuntimeFileSystem() => throw new NotSupportedException();
 
+    internal static string AppDataDirectory => ApplicationData.Current.LocalFolder.Path;
+
     /// <inheritdoc cref="FileSystem2.InitFileSystem"/>
     public static void InitFileSystem()
     {
@@ -23,7 +25,7 @@ sealed class WindowsRuntimeFileSystem : IOPath.FileSystemBase
         // https://docs.microsoft.com/zh-cn/windows/msix/desktop/desktop-to-uwp-behind-the-scenes
         // 不允许在 C:\Program Files\WindowsApps\package_name 下写入。
 
-        var destAppDataPath = ApplicationData.Current.LocalFolder.Path;
+        var destAppDataPath = AppDataDirectory;
         var destCachePath = ApplicationData.Current.LocalCacheFolder.Path;
 
         // %HOMEPATH%\AppData\Local\Packages\4651ED44255E.47979655102CE_gvn1zxq6vcwjj\LocalState

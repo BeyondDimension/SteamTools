@@ -12,7 +12,7 @@
     x:CompileBindings="True"
     x:DataType="spp:SteamGuardImportPageViewModel"
     mc:Ignorable="d">
-    <Border Margin="{StaticResource PageMargin}">
+    <ScrollViewer Padding="{StaticResource PageMargin}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
         <StackPanel Spacing="10">
             <spp:Snackbar
                 Title="{x:Static spp:Strings.Notice_Tray_Title}"
@@ -47,10 +47,11 @@
             </StackPanel>
 
             <Button
-                MinWidth="280"
-                HorizontalAlignment="Center"
+                MaxWidth="280"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
                 Command="{Binding Import}"
                 Content="{x:Static spp:Strings.ConfirmImport}" />
         </StackPanel>
-    </Border>
+    </ScrollViewer>
 </UserControl>

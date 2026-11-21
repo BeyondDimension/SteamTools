@@ -12,7 +12,6 @@
     mc:Ignorable="d">
     <TextBox
         Name="PasswordBox"
-        MinWidth="450"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         AcceptsReturn="False"

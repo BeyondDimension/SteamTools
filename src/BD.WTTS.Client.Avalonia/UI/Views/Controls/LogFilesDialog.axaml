@@ -1,0 +1,30 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.LogFilesDialog"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui">
+    <Grid RowDefinitions="Auto,Auto,*">
+        <Grid Margin="0,0,0,6" ColumnDefinitions="*,Auto" ColumnSpacing="6">
+            <ComboBox
+                x:Name="LogFiles"
+                AutomationProperties.AutomationId="LogFiles"
+                AutomationProperties.Name="{x:Static spp:Strings.Settings_General_LogsData}"
+                HorizontalAlignment="Stretch"
+                SelectionChanged="LogFile_SelectionChanged" />
+            <Button
+                Grid.Column="1"
+                AutomationProperties.AutomationId="LogRefresh"
+                Click="Refresh_Click"
+                Content="{x:Static spp:Strings.Refresh}" />
+        </Grid>
+        <TextBlock x:Name="LogStatus" Grid.Row="1" Margin="0,0,0,6" TextWrapping="Wrap"
+                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                   IsVisible="{Binding #LogStatus.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                   Theme="{StaticResource CaptionTextBlockStyle}" />
+        <spp:LogConsole
+            x:Name="LogOutput"
+            Grid.Row="2"
+            AutomationProperties.AutomationId="LogFileOutput"
+            Title="{x:Static spp:Strings.LogConsole_Title}" />
+    </Grid>
+</UserControl>

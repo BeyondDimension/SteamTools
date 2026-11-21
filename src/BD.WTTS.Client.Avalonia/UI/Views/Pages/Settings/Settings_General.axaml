@@ -19,7 +19,10 @@
             Margin="0,0,0,10"
             Text="{x:Static spp:Strings.Settings_General}"
             Theme="{StaticResource SubtitleTextBlockStyle}" />
-        <spp:OptionsDisplayItem Description="{x:Static spp:Strings.Settings_StartupAutoRun}" Header="{x:Static spp:Strings.Settings_General_StartAutoRun}">
+        <spp:OptionsDisplayItem
+            Description="{x:Static spp:Strings.Settings_StartupAutoRun}"
+            Header="{x:Static spp:Strings.Settings_General_StartAutoRun}"
+            IsVisible="{spp:OnPlatform Windows}">
             <spp:OptionsDisplayItem.Icon>
                 <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE770;" />
             </spp:OptionsDisplayItem.Icon>
@@ -94,56 +97,69 @@
         </spp:OptionsDisplayItem>
 
         <ui:FASettingsExpander
+            x:Name="StorageSpace"
             Header="{x:Static spp:Strings.Settings_General_StorageSpace}"
-            IconSource="Globe"
-            IsClickEnabled="False"
-            IsExpanded="True">
+            IsExpanded="False">
             <ui:FASettingsExpander.IconSource>
-                <ui:FAFontIconSource FontFamily="Segoe Fluent Icons" Glyph="&#xE7F1;" />
+                <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE7F1;" />
             </ui:FASettingsExpander.IconSource>
-            <ui:FASettingsExpander.Footer>
-                <Button
-                    Command="{Binding OpenFolder_Click}"
-                    CommandParameter="{x:Null}"
-                    Content="{Binding Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=App}" />
-            </ui:FASettingsExpander.Footer>
 
-            <ui:FASettingsExpanderItem
-                ActionIconSource="Open"
-                Command="{Binding OpenFolder_Click}"
-                CommandParameter="AppData"
-                Content="{x:Static spp:Strings.Settings_General_AppData}"
-                IsClickEnabled="True"
-                ToolTip.Tip="{Binding Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=AppData}" />
-            <ui:FASettingsExpanderItem
-                ActionIconSource="Open"
-                Command="{Binding OpenFolder_Click}"
-                CommandParameter="Cache"
-                Content="{x:Static spp:Strings.Settings_General_CacheData}"
-                IsClickEnabled="True"
-                ToolTip.Tip="{Binding Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=Cache}">
-                <ui:FASettingsExpanderItem.Footer>
-                    <TextBlock
-                        Name="CacheSize"
-                        Margin="0,0,8,0"
-                        FontSize="{DynamicResource DefaultFontSize}"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                </ui:FASettingsExpanderItem.Footer>
+            <!-- Use the item content for the full row so its actions do not depend on the theme's optional footer. -->
+            <ui:FASettingsExpanderItem HorizontalContentAlignment="Stretch">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="{x:Static spp:Strings.Settings_Storage_AppFolder}" TextWrapping="Wrap" />
+                        <TextBlock x:Name="AppSize" Text="{x:Static spp:Strings.Settings_General_Calcing}"
+                                   Theme="{StaticResource CaptionTextBlockStyle}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                    <Button Grid.Column="1" VerticalAlignment="Center" Command="{Binding OpenFolder_Click}" CommandParameter="App"
+                            AutomationProperties.Name="{Binding Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=App}"
+                            Content="{x:Static spp:Strings.Settings_Storage_OpenFolder}" />
+                </Grid>
             </ui:FASettingsExpanderItem>
-            <ui:FASettingsExpanderItem
-                ActionIconSource="Open"
-                Command="{Binding OpenFolder_Click}"
-                CommandParameter="Logs"
-                Content="{x:Static spp:Strings.Settings_General_LogsData}"
-                IsClickEnabled="True"
-                ToolTip.Tip="{Binding Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=Logs}">
-                <ui:FASettingsExpanderItem.Footer>
-                    <TextBlock
-                        Name="LogSize"
-                        Margin="0,0,8,0"
-                        FontSize="{DynamicResource DefaultFontSize}"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                </ui:FASettingsExpanderItem.Footer>
+
+            <ui:FASettingsExpanderItem HorizontalContentAlignment="Stretch">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="{x:Static spp:Strings.Settings_General_AppData}" TextWrapping="Wrap" />
+                        <TextBlock x:Name="AppDataSize" Text="{x:Static spp:Strings.Settings_General_Calcing}"
+                                   Theme="{StaticResource CaptionTextBlockStyle}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                    <Button Grid.Column="1" VerticalAlignment="Center" Command="{Binding OpenFolder_Click}" CommandParameter="AppData"
+                            AutomationProperties.Name="{Binding Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=AppData}"
+                            Content="{x:Static spp:Strings.Settings_Storage_OpenFolder}" />
+                </Grid>
+            </ui:FASettingsExpanderItem>
+
+            <ui:FASettingsExpanderItem HorizontalContentAlignment="Stretch">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="{x:Static spp:Strings.Settings_General_CacheData}" TextWrapping="Wrap" />
+                        <TextBlock x:Name="CacheSize" Text="{x:Static spp:Strings.Settings_General_Calcing}"
+                                   Theme="{StaticResource CaptionTextBlockStyle}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                    <Button Grid.Column="1" VerticalAlignment="Center" Command="{Binding OpenFolder_Click}" CommandParameter="Cache"
+                            AutomationProperties.Name="{Binding Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=Cache}"
+                            Content="{x:Static spp:Strings.Settings_Storage_OpenFolder}" />
+                </Grid>
+            </ui:FASettingsExpanderItem>
+
+            <ui:FASettingsExpanderItem HorizontalContentAlignment="Stretch">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="{x:Static spp:Strings.Settings_General_LogsData}" TextWrapping="Wrap" />
+                        <TextBlock x:Name="LogSize" Text="{x:Static spp:Strings.Settings_General_Calcing}"
+                                   Theme="{StaticResource CaptionTextBlockStyle}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <Button x:Name="SettingsViewLogs" AutomationProperties.AutomationId="SettingsViewLogs"
+                                Classes="accent" Click="ViewLogs_Click" Content="{x:Static spp:Strings.LogConsole_ViewLogs}"
+                                ToolTip.Tip="{x:Static spp:Strings.LogConsole_ViewLogsDescription}" />
+                        <Button Command="{Binding OpenFolder_Click}" CommandParameter="Logs"
+                                AutomationProperties.Name="{Binding Mode=OneTime, Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Converter={StaticResource StringFormatConverter}, ConverterParameter=Logs}"
+                                Content="{x:Static spp:Strings.Settings_Storage_OpenFolder}" />
+                    </StackPanel>
+                </Grid>
             </ui:FASettingsExpanderItem>
         </ui:FASettingsExpander>
     </StackPanel>

@@ -2,8 +2,6 @@ namespace BD.WTTS.Client.Tools.Publish.Helpers;
 
 static class ObfuscarHelper
 {
-    // dotnet tool install --global Obfuscar.GlobalTool
-
     const string configFileName = "Obfuscar.xml";
 
     static void WriteConfig(string dirPath)
@@ -57,13 +55,16 @@ $"""
     {
         WriteConfig(dirPath);
 
-        var psi = DotNetCLIHelper.GetProcessStartInfo(AppContext.BaseDirectory);
-        psi.Arguments = "tool install --global Obfuscar.GlobalTool";
-        ProcessHelper.StartAndWaitForExit(psi, ignoreExitCode: true);
+        var cliHome = Environment.GetEnvironmentVariable("DOTNET_CLI_HOME");
+        if (string.IsNullOrEmpty(cliHome))
+            cliHome = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        var obfuscar = Path.GetFullPath(Path.Combine(cliHome, ".dotnet", "tools", "obfuscar.console.exe"));
+        if (!File.Exists(obfuscar))
+            DotNetCLIHelper.StartProcessAndWaitForExit(ProjectUtils.ProjPath, "tool install --global Obfuscar.GlobalTool");
 
-        psi = new ProcessStartInfo
+        var psi = new ProcessStartInfo
         {
-            FileName = "obfuscar.console.exe",
+            FileName = obfuscar,
             UseShellExecute = false,
             Arguments = configFileName,
             WorkingDirectory = dirPath,

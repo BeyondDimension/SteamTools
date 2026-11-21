@@ -1,5 +1,6 @@
 using BD.Avalonia8.Image2;
 using BD.WTTS.Helpers;
+using BD.WTTS.Serialization;
 using BD.WTTS.UI.Views.Pages;
 using System.Threading;
 
@@ -50,7 +51,7 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
             AuthenticatorSavedSteamAccounts.TrackLiveAuthenticator(liveAuthenticatorId, authenticator);
         }
 
-        selectionSubscription = this.WhenValueChanged(x => x.IsSelected)
+        selectionSubscription = this.ObserveValue(nameof(IsSelected), static x => x.IsSelected)
             .Subscribe(x =>
         {
             if (x && isVisible && !disposed)
@@ -149,9 +150,17 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
         //        Toast.Show(ToastIcon.Warning, Strings.Error_UpdateCloudData);
         //}
 
-        AuthName = newName;
-        await AuthenticatorHelper.SaveEditAuthNameAsync(AuthData, newName);
-        Toast.Show(ToastIcon.Success, Strings.Success_LocalAuthUpdateSuccessful);
+        try
+        {
+            if (disposed || !await AuthenticatorHelper.SaveEditAuthNameAsync(AuthData, newName)) return;
+            AuthName = newName;
+            Toast.Show(ToastIcon.Success, Strings.Success_LocalAuthUpdateSuccessful);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(AuthenticatorItemModel), ex, "Could not save token name.");
+            Toast.Show(ToastIcon.Error, Strings.Auth_VaultChangeFailed);
+        }
     }
 
     public async void ShowSteamTradeWindow()
@@ -164,17 +173,18 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
 
         using var viewModel = new SteamTradePageViewModel(ref authData);
         await IWindowManager.Instance.ShowTaskDialogAsync(viewModel,
-            Strings.ConfirmTransaction, pageContent: new SteamTradePage(), isOkButton: false);
+            Strings.ConfirmTransaction, pageContent: new SteamTradePage(), isOkButton: false, disableScroll: true, wide: true);
         AuthData = authData;
     }
 
     public async Task ShowSteamQrLoginWindow()
     {
-        if (!IsSteamAuthenticator)
+        if (disposed || !IsSteamAuthenticator)
             return;
         if (AuthData.Value is not WinAuth.SteamAuthenticator authenticator || !SteamQrLoginSession.CanUse(authenticator))
         {
-            Toast.Show(ToastIcon.Warning, SteamQrLoginSession.LoginRequiredMessage);
+            using var notice = new MessageBoxWindowViewModel { Content = SteamQrLoginSession.LoginRequiredMessage };
+            await IWindowManager.Instance.ShowTaskDialogAsync(notice, Strings.L10nAuthIdle_Text072);
             return;
         }
 
@@ -205,7 +215,7 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
     public void ShowQrCode()
     {
         var dto = AuthData.ToExport();
-        var bytes = Serializable.SMP(dto);
+        var bytes = AuthenticatorPayloadSerializer.WriteQrExport(dto);
 
         var bytes_compress_br = bytes.CompressByteArrayByBrotli();
 

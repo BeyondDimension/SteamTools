@@ -64,7 +64,7 @@ public sealed class ToastService : ReactiveObject
                 RaiseMessagePropertyChanged();
             });
 
-        this.WhenAnyValue(x => x.Message)
+        this.ObserveValue(nameof(Message), static x => x.Message)
                  .Subscribe(x => IsVisible = !string.IsNullOrEmpty(x));
     }
 

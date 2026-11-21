@@ -4,9 +4,6 @@ namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class ArchiSteamFarmPlusPageViewModel
 {
-
-    private readonly IArchiSteamFarmService asfService = IArchiSteamFarmService.Instance;
-
     public ArchiSteamFarmPlusPageViewModel()
     {
         SelectASFExePath = ReactiveCommand.CreateFromTask(ASFService.Current.SelectASFProgramLocationAsync);
@@ -15,7 +12,9 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel
 
         OpenASFBrowser = ReactiveCommand.Create<string>(ASFService.Current.OpenBrowser);
 
-        RunOrStop = ReactiveCommand.Create(RunOrStopASF);
+        var runOrStop = ReactiveCommand.CreateFromTask(() => RunASFActionAsync(ASFService.Current.ToggleASFAsync));
+        CompositeDisposable.Add(runOrStop);
+        RunOrStop = runOrStop;
     }
 
     public override async void Activation()
@@ -41,7 +40,7 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel
         }
 
         if (ASFSettings.AutoRunArchiSteamFarm.Value && !string.IsNullOrEmpty(ASFSettings.ArchiSteamFarmExePath.Value))
-            StartOrStopASF_Click();
+            await RunASFActionAsync(ASFService.Current.InitASFAsync);
     }
 
     protected override void Dispose(bool disposing)
@@ -53,22 +52,17 @@ public sealed partial class ArchiSteamFarmPlusPageViewModel
         base.Dispose(disposing);
     }
 
-    public void StartOrStopASF_Click(bool? startOrStop = null) => _ = Task.Run(async () =>
+    static async Task RunASFActionAsync(Func<Task> action)
     {
-        var s = ASFService.Current;
-        if (!s.IsASFRuning)
+        try
         {
-            if (!startOrStop.HasValue || startOrStop.Value)
-                await s.InitASFAsync();
+            await Task.Run(action);
         }
-        else
+        catch (Exception ex)
         {
-            if (!startOrStop.HasValue || !startOrStop.Value)
-                await s.StopASFAsync();
+            ex.LogAndShowT();
         }
-    });
-
-    public void RunOrStopASF() => StartOrStopASF_Click();
+    }
 
     public string? IPCUrl => ASFService.Current.IPCUrl;
 }

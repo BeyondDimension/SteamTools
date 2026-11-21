@@ -306,7 +306,7 @@ public sealed partial class IPCMainProcessServiceImpl : IPCMainProcessService
     async void IpcProvider_PeerConnected(object? sender, PeerConnectedArgs e)
     {
 #if DEBUG
-        logger.LogError("收到 {peerName} 连接", e.Peer.PeerName);
+        logger.LogInformation("收到 {peerName} 连接", e.Peer.PeerName);
 #endif
         var pipeName = ipcProvider.ThrowIsNull().IpcContext.PipeName;
         var moduleName = e.Peer.PeerName.TrimStart($"{pipeName}_");

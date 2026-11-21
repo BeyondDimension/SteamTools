@@ -1,178 +1,106 @@
 # Steam++ 发布说明
 
-本文说明桌面版的发布方式、发布文件、启动入口和自定义 .NET Host。以下发布命令均在仓库根目录执行。
+在仓库根目录执行以下命令。首次发布前，运行 `git submodule update --init --recursive` 并安装仓库指定的 .NET SDK。Native AOT 在目标操作系统上构建。Linux 和 macOS 的 Native AOT 发布需要将 PowerShell 7（`pwsh`）加入 PATH。 [SDK 版本](../global.json)
 
-## 发布方式
+在 Windows 和 Linux 上，`pub run` 默认同时发布 JIT 和 Native AOT，使用 `--aot false` 可只发布 JIT。以下命令覆盖当前 GitHub Actions 的发布目标。
 
-### 环境准备
+## Windows
 
-- 安装 [global.json](../global.json) 指定的 .NET SDK，并准备项目引用的子模块和依赖。
-- Windows Native AOT 需要 Visual Studio Build Tools 的“使用 C++ 的桌面开发”工作负载，以及目标架构的 C++ 工具和 Windows SDK。
-- Linux Native AOT 需要 PowerShell 7、clang、目标 C 运行库和 zlib 开发库；macOS 需要 PowerShell 7、Xcode 命令行工具及 .NET macOS 工作负载。
-- Native AOT 必须在目标操作系统上发布。脚本接受 `win-x64`、`win-arm64`、`linux-x64`、`linux-arm64`、`osx-x64`、`osx-arm64`；各目标需要对应工具链和原生依赖。
+安装 Visual Studio 或 Build Tools 的「使用 C++ 的桌面开发」工作负载及 Windows SDK。生成 EXE 安装包时，将 NSIS-Build 放在 SteamTools 仓库旁边的 `../NSIS-Build`。 [NSIS-Build](https://github.com/SteamTools-Team/NSIS-Build)
 
-### Native AOT 发布
-
-Windows x64 默认使用 SkiaSharp：
+Windows Native AOT 发布优先使用 PowerShell 7，找不到时使用系统自带的 Windows PowerShell 5.1（`powershell.exe`）。
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build\publish-native.ps1 -RuntimeIdentifier win-x64
+$pub = './src/BD.WTTS.Client.Tools.Publish/BD.WTTS.Client.Tools.Publish.csproj'
+
+# 生成 Windows x64 的 JIT 和 Native AOT 包
+dotnet run --project $pub -c Release --no-launch-profile -- run --rids win-x64 --aot true
+
+# 用上一步生成的 7z 包制作两套 EXE 安装包
+dotnet run --project $pub -c Release --no-launch-profile --no-build -- nsis --rids win-x64 --t latest --aot true
 ```
 
-PowerShell 7 可使用 `pwsh -NoProfile -File ./build/publish-native.ps1 -RuntimeIdentifier <RID>`，将 `<RID>` 替换为目标平台标识。
+若发布目录里有多个构建批次，将 `--t latest` 改为目标压缩包文件名末尾的时间戳，例如 `--t 261121_1917009441349`。打包和制作安装包时使用相同的 `--aot` 值。
 
-脚本同时发布主程序和加速子进程，7 个内置插件静态编译进程序；不支持额外加载托管插件 DLL。使用脚本统一配置 `WttsNativeAot=true`，不要向整个项目引用图直接传递 `PublishAot=true`。
+安装 MSIX 包需要使用与现有 Publisher 匹配且受目标设备信任的证书。 [MSIX 签名](https://learn.microsoft.com/windows/msix/package/signing-package-overview)
 
-默认输出：
+## Linux
 
-- 可运行目录：`build/publish/native/<RID>`。
-- 编译中间文件和符号：`build/artifacts/native/<RID>`。
-- 分阶段日志：`build/logs/native/<RID>/<运行标识>`。
-
-可选发布参数：
-
-| 参数 | 用途 |
-| --- | --- |
-| `-OutputDirectory <路径>` | 仅修改最终发布目录。 |
-| `-BuildRoot <路径>` | 修改 `publish`、`artifacts`、`logs` 的共同根目录。 |
-| `-Renderer SimdSkia` | 使用可选 SimdSkia 后端，默认目录改为 `native-simdskia/<RID>`；需要准备 `ref/FluentAvalonia` 等源码依赖。 |
-| `-StaticGraphicsComponents HarfBuzz` | 在默认 SkiaSharp 后端下静态链接已准备好的 HarfBuzz 归档。 |
-
-这些路径参数的相对路径均相对于仓库根目录。HarfBuzz 静态归档需要先单独构建，例如 Windows x64：
-
-```powershell
-.\build\native-graphics\build-static-graphics.ps1 -RuntimeIdentifier win-x64 -Component HarfBuzz
-.\build\publish-native.ps1 -RuntimeIdentifier win-x64 -StaticGraphicsComponents HarfBuzz
-```
-
-静态归档必须满足版本、架构和哈希检查；缺少归档或凭据时发布失败，不自动回退到动态库。发布脚本生成可运行目录，不自动生成压缩包、安装器或数字签名。
-
-### 普通 JIT 发布
-
-使用发布工具构建主程序、动态插件、加速子进程和随包运行时，例如 Windows x64：
-
-```powershell
-dotnet run --project .\src\BD.WTTS.Client.Tools.Publish\BD.WTTS.Client.Tools.Publish.csproj -c Release -- run --rids win-x64
-```
-
-发布工具默认输出到：
-
-```text
-src/BD.WTTS.Client.Avalonia.App/bin/Release/Publish/
-└── [Release] Steam++_v<版本>_win_x64_<时间戳>/
-```
-
-实际目录以工具输出为准，工具不会自动把结果放入 `build/publish/jit/<RID>`。Windows 流程还包含 `.7z`、MSIX/MSIXBundle 打包及签名，需要相应的 Windows SDK 打包工具、混淆工具和证书配置。此工具会清理目标输出目录，不要将日常使用的程序目录作为构建输出。
-
-查看工具参数：
-
-```powershell
-dotnet run --project .\src\BD.WTTS.Client.Tools.Publish\BD.WTTS.Client.Tools.Publish.csproj -c Release -- run --help
-```
-
-## 发布后文件
-
-### Native AOT 目录
-
-Windows x64 的核心布局如下；其余本机库和许可文件随所选渲染及静态链接选项变化，以 `.wtts-native-manifest.json` 为完整文件清单：
-
-```text
-发布目录/
-├── Steam++.exe
-├── e_sqlite3.dll
-├── modules/
-│   └── Accelerator/
-│       └── Steam++.Accelerator.exe
-└── .wtts-native-manifest.json
-```
-
-- `Steam++.exe` 是原生主程序，不依赖单独安装的 .NET 运行时；包中不需要 JIT 的 `assemblies`、`dotnet` 或独立托管插件 DLL。
-- 根目录的 SQLite 原生库由主程序和加速子进程共用。不要只复制 EXE，或将加速子进程移出完整发布目录。
-- 分发时保留清单、对应本机库和许可文件；不要混入 JIT 启动器或启动脚本。
-
-### JIT 目录
-
-Windows 的核心布局：
-
-```text
-发布目录/
-├── Steam++.exe
-├── Steam++.exe.config
-├── assemblies/
-│   ├── Steam++.dll
-│   ├── Steam++.deps.json
-│   └── Steam++.runtimeconfig.json
-├── modules/
-├── native/
-│   └── win-x64/
-└── dotnet/
-    ├── host/fxr/<版本>/hostfxr.dll
-    └── shared/
-        ├── Microsoft.NETCore.App/<版本>/
-        └── Microsoft.AspNetCore.App/<版本>/
-```
-
-`assemblies` 还包含主程序依赖和语言资源；`modules` 保存动态插件及子进程；`native` 保存对应架构的本机库。`dotnet` 按实际运行时配置收集依赖，只有需要时才附带 `Microsoft.WindowsDesktop.App`，不包含 SDK。Windows Arm64 JIT 包的主程序使用 x64 兼容运行时，加速子进程使用独立的 Arm64 发布。
-
-### 分发和更新
-
-- `AppData`、`Cache`、`Log`/`Logs` 及运行生成的数据库、日志不属于分发文件，数据位置见[文件系统说明](./file-system.md)。
-- 打包已运行过的 AOT 目录时，仅收集清单记录且哈希匹配的文件和清单本身，不要直接压缩整个目录。
-- 重复 AOT 发布前关闭程序。脚本只替换清单记录且未被修改的生成文件，保留用户数据；遇到未知文件、已修改文件或无清单的旧混合目录时拒绝覆盖，应改用新的输出目录。
-- 构建目录、日志和调试符号不放入普通分发包；保留对应版本的符号供崩溃诊断。若发布失败并报告保留了 `previous-payload`，先按报错处理恢复，不要直接删除备份。
-
-## 如何执行
-
-先解压完整分发包，再进入发布目录。Windows 的 JIT 和 AOT 均从根目录启动：
-
-```powershell
-.\Steam++.exe
-```
-
-Linux 根据发布方式选择入口：
+JIT 包会复制目标架构的 .NET 和 ASP.NET Core 共享运行时。Ubuntu 上可用以下命令安装 Native AOT 的编译依赖。
 
 ```bash
-# Native AOT
-./Steam++
+sudo apt-get update
+sudo apt-get install -y clang zlib1g-dev
 
-# 带随包运行时和启动脚本的 JIT 包
-bash ./Steam++.sh
+pub='./src/BD.WTTS.Client.Tools.Publish/BD.WTTS.Client.Tools.Publish.csproj'
 ```
 
-macOS 的 `.app` 包使用：
+在 x64 Linux 主机上执行下面的命令。
 
 ```bash
-open ./Steam++.app
+dotnet run --project "$pub" -c Release --no-launch-profile -- run --rids linux-x64 --aot true
 ```
 
-若发布产物是裸原生可执行文件而非 `.app`，直接执行 `./Steam++`。加速子进程由主程序启动，不作为桌面入口；不要用 `dotnet Steam++.exe` 启动 AOT 程序。
+在 ARM64 Linux 主机上执行下面的命令。
 
-## 自定义 .NET Host（nethost / hostfxr）
+```bash
+dotnet run --project "$pub" -c Release --no-launch-profile -- run --rids linux-arm64 --aot true
+```
 
-此部分仅适用于普通 JIT 发布，对应 [BD.WTTS.Client.AppHost](../src/BD.WTTS.Client.AppHost/Program.cs)。Windows JIT 启动器本身使用 .NET Framework；随包的现代 .NET 运行时不替代启动器所需的 .NET Framework。
+## macOS
 
-本项目自行定位并加载 `hostfxr`，再根据 `assemblies/Steam++.runtimeconfig.json` 初始化 CoreCLR，调用 `assemblies/Steam++.dll` 中的 `BD.WTTS.Program.CustomEntryPoint`。不需要手动执行 `nethost`、`hostfxr.dll`，也不要求单独分发一个 `.nethost` 文件。
+安装与 .NET macOS 工作负载匹配的完整 Xcode，当前 GitHub Actions 使用 Xcode 27.0。下面以 `/Applications/Xcode.app` 为例。Native AOT 打包使用 PowerShell 7 以及 macOS 自带的 `hdiutil` 和 `codesign`。构建 Intel 版还需要 Rust（`rustup` 和 `cargo`），用于预先生成 x64 的 DTLS 原生库。
 
-Windows 启动器按以下顺序查找可用运行时：
+```bash
+export DEVELOPER_DIR='/Applications/Xcode.app/Contents/Developer'
+xcodebuild -version
+dotnet workload install macos --skip-manifest-update
+brew install --cask powershell
 
-1. 发布根目录下的 `dotnet`。
-2. 当前进程对应的 `Program Files/dotnet`。
-3. 环境变量 `DOTNET_ROOT` 指定的运行时根目录。
+pub='./src/BD.WTTS.Client.Tools.Publish/BD.WTTS.Client.Tools.Publish.csproj'
+```
 
-当前启动器要求 `host/fxr`、`Microsoft.NETCore.App` 和 `Microsoft.AspNetCore.App` 具有相同的所选版本，并与主进程架构匹配。保持完整的运行时目录结构，不要只复制 `hostfxr.dll`。`DOTNET_ROOT` 仅在前两处没有可用运行时时参与选择，不会覆盖随包运行时。
+发布 Apple Silicon 版时执行下面的命令。
 
-通过 `hostfxr_initialize_for_runtime_config` 加载的主程序集必须保持框架依赖发布；不要将它改成自包含组件再交给该 Host 加载。自包含子进程和完整 Native AOT 程序应作为独立可执行文件启动。
+```bash
+dotnet run --project "$pub" -c Release --no-launch-profile -- run --rids osx-arm64
+```
 
-## 相关文档
+发布 Intel 版时执行下面的命令。
 
-- [发布脚本](../build/publish-native.ps1)
-- [静态图形库构建脚本](../build/native-graphics/build-static-graphics.ps1)
-- [发布工具](../src/BD.WTTS.Client.Tools.Publish/Commands/IDotNetPublishCommand.cs)
-- [文件系统与用户数据位置](./file-system.md)
-- [.NET 应用发布概述](https://learn.microsoft.com/dotnet/core/deploying/)
-- [Native AOT 部署、前置条件与限制](https://learn.microsoft.com/dotnet/core/deploying/native-aot/)
-- [Native AOT 原生库互操作](https://learn.microsoft.com/dotnet/core/deploying/native-aot/interop)
-- [自定义 .NET Host](https://learn.microsoft.com/dotnet/core/tutorials/netcore-hosting)
-- [.NET 分发目录布局](https://learn.microsoft.com/dotnet/core/distribution-packaging)
-- [.NET 运行时环境变量](https://learn.microsoft.com/dotnet/core/tools/dotnet-environment-variables#dotnet_root-dotnet_rootx86-dotnet_root_x86-dotnet_root_x64)
-- [Host 错误码](https://github.com/dotnet/runtime/blob/main/docs/design/features/host-error-codes.md)
+```bash
+bash ./build/native-dtls/build-macos-x64.sh
+dotnet run --project "$pub" -c Release --no-launch-profile -- run --rids osx-x64
+```
+
+以上命令默认生成 JIT 和 Native AOT 两个 `.dmg`，等同于显式传入 `--aot true`。只需要 JIT 安装包时，在命令末尾添加 `--aot false`。两种安装包都使用仓库自带的模板来保留 Finder 安装布局、背景和图标，并放入本次构建的 `Steam++.app` 和「应用程序」快捷方式。 [仓库模板](../build/macos/installer-template.dmg)
+
+单独运行 Native AOT 发布脚本时，默认使用 `build/publish/native/`。以下命令生成 `build/publish/native/osx-arm64/` 和同级的 `build/publish/native/osx-arm64.dmg`。
+
+```bash
+pwsh -NoProfile -File ./build/publish-native.ps1 -RuntimeIdentifier osx-arm64
+```
+
+要使用自定义模板，可在这条命令后附加 `-DiskImageTemplate "/path/to/安装 Steam++.dmg"`。自定义模板需包含 `.DS_Store`、`.VolumeIcon.icns`、`b.png`、`l.icns` 和卷的 Finder 图标属性。 [镜像打包脚本](../build/macos/create-dmg.sh)
+
+## 发布产物
+
+以上 `pub` 命令的产物位于 `src/BD.WTTS.Client.Avalonia.App/bin/Release/Publish/`。程序目录和发布包以应用版本、目标架构和构建时间戳命名。macOS 的文件名格式如下。
+
+- JIT `[Release] Steam++_v<版本>_osx_<架构>_<时间戳>.dmg`
+- Native AOT `[Release] Steam++(Native AOT)_v<版本>_osx_<架构>_<时间戳>.dmg`
+
+Native AOT 的内部校验记录位于 `build/artifacts/`。
+
+| 平台 | `pub run` 生成的包 | 后续打包 |
+| --- | --- | --- |
+| Windows x64 | `.7z`、MSIX 和 `.msixbundle` | `pub nsis` 生成 `.exe` 安装包 |
+| Linux x64、ARM64 | `.tar.gz` | GitHub Actions 以 `.tgz` 文件名上传 |
+| macOS Intel、Apple Silicon | JIT 和 Native AOT `.dmg` | — |
+
+手动运行 Publish 工作流会构建并上传三端安装包和压缩包。推送标签时，工作流还会制作 Windows EXE 安装包，汇总产物并生成 `SHA256SUMS.txt`，然后创建草稿 Release。 [发布工作流](../.github/workflows/publish.yml)
+
+## 参考链接
+
+- [发布工具](../src/BD.WTTS.Client.Tools.Publish/README.md)
+- [Native AOT 发布脚本](../build/publish-native.ps1) · [Native AOT 前置条件](https://learn.microsoft.com/dotnet/core/deploying/native-aot/)

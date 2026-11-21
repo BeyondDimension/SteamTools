@@ -1,95 +1,112 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using AvaloniaEdit;
+using dotnetCampus.Ipc.Exceptions;
 
 namespace BD.WTTS.UI.Views.Controls;
 
 public partial class ProxyLog : UserControl
 {
     CancellationTokenSource? cancellation;
-    Task? refreshTask;
     IDisposable? statusSubscription;
+    bool running;
+    VisualVisibilitySubscription? visibility;
+    (Guid StreamId, long Offset) cursor;
 
     public ProxyLog()
     {
         InitializeComponent();
-
-        var logTextbox = this.FindControl<TextEditor>("LogTextbox")!;
-
-        LogSyntaxHighlighting.Apply(logTextbox);
-
-        logTextbox.TextChanged += LogTextbox_TextChanged;
-
     }
 
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
-        statusSubscription = ProxyService.Current.WhenAnyValue(x => x.ProxyStatus)
+        visibility = new(this, UpdatePolling);
+        statusSubscription = ProxyService.Current.ObserveValue(nameof(ProxyService.ProxyStatus), static x => x.ProxyStatus)
             .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(UpdateProxyStatus);
     }
 
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
+        visibility?.Dispose();
+        visibility = null;
         statusSubscription?.Dispose();
         statusSubscription = null;
-        StopRefreshing();
+        UpdateProxyStatus(false);
         base.OnDetachedFromVisualTree(e);
     }
 
-    void UpdateProxyStatus(bool running)
+    void UpdateProxyStatus(bool value)
     {
-        if (!running)
+        running = value;
+        UpdatePolling();
+        if (!value)
         {
-            StopRefreshing();
+            cursor = default;
+            ConsoleView.ResetLog();
+        }
+    }
+
+    void UpdatePolling()
+    {
+        if (visibility == null || !IsEffectivelyVisible || !running)
+        {
+            cancellation?.Cancel();
         }
         else if (cancellation == null)
         {
             var source = cancellation = new CancellationTokenSource();
-            var token = source.Token;
-            refreshTask = Task.Run(() => FlushLogsAsync(token));
+            _ = RefreshUntilStoppedAsync(source);
         }
     }
 
-    void StopRefreshing()
+    async Task RefreshUntilStoppedAsync(CancellationTokenSource source)
     {
-        var source = cancellation;
-        var task = refreshTask;
-        cancellation = null;
-        refreshTask = null;
-        if (source == null)
-            return;
-
-        source.Cancel();
-        _ = task!.ContinueWith(static (_, state) => ((CancellationTokenSource)state!).Dispose(),
-            source, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+        try
+        {
+            var start = cursor;
+            await Task.Run(() => FlushLogsAsync(start, source.Token)).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(nameof(ProxyLog), ex, "Live accelerator log reader stopped unexpectedly.");
+        }
+        finally
+        {
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                var wasCanceled = source.IsCancellationRequested;
+                source.Dispose();
+                cancellation = null;
+                // Visibility can resume while the canceled reader still has an outstanding request.
+                if (wasCanceled) UpdatePolling();
+            });
+        }
     }
 
-    private void LogTextbox_TextChanged(object? sender, EventArgs e)
-    {
-        LogTextbox.ScrollToLine(LogTextbox.Document.LineCount);
-    }
-
-    async Task FlushLogsAsync(CancellationToken token)
+    async Task FlushLogsAsync((Guid StreamId, long Offset) position, CancellationToken token)
     {
         while (!token.IsCancellationRequested)
         {
             try
             {
-                var logtext = IReverseProxyService.Constants.Instance.GetLogAllMessage();
-                if (!string.IsNullOrEmpty(logtext))
+                var update = await IReverseProxyService.Constants.Instance.GetLogUpdateAsync(position.StreamId, position.Offset).ConfigureAwait(false);
+                if (update != null && !token.IsCancellationRequested)
                 {
-                    Dispatcher.UIThread.Post(() =>
+                    var text = Encoding.UTF8.GetString(update.Utf8);
+                    await Dispatcher.UIThread.InvokeAsync(() =>
                     {
-                        if (!token.IsCancellationRequested && LogTextbox.Text.Length != logtext.Length)
-                            LogTextbox.Text = logtext;
-                    });
+                        if (token.IsCancellationRequested) return;
+                        ConsoleView.WriteText(text, replace: update.Reset);
+                        cursor = (update.StreamId, update.End);
+                    }, DispatcherPriority.Background);
+                    position = (update.StreamId, update.End);
                 }
             }
-            catch
+            catch (IpcException)
             {
+                // The next read after reconnect uses the same cursor and detects a new worker.
             }
 
             try

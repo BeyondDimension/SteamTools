@@ -17,7 +17,7 @@ sealed class MacCatalystFileSystem : IOPath.FileSystemBase
     public static void InitFileSystem()
     {
         // https://github.com/xamarin/Essentials/blob/main/Xamarin.Essentials/FileSystem/FileSystem.ios.tvos.watchos.macos.cs
-        var appDataPath = Path.Combine(GetDirectory(NSSearchPathDirectory.LibraryDirectory), Constants.HARDCODED_APP_NAME);
+        var appDataPath = AppDataDirectory;
         var cachePath = Path.Combine(GetDirectory(NSSearchPathDirectory.CachesDirectory), Constants.HARDCODED_APP_NAME);
         IOPath.DirCreateByNotExists(appDataPath);
         IOPath.DirCreateByNotExists(cachePath);
@@ -25,6 +25,9 @@ sealed class MacCatalystFileSystem : IOPath.FileSystemBase
         string GetAppDataDirectory() => appDataPath;
         string GetCacheDirectory() => cachePath;
     }
+
+    internal static string AppDataDirectory =>
+        Path.Combine(GetDirectory(NSSearchPathDirectory.LibraryDirectory), Constants.HARDCODED_APP_NAME);
 
     static string GetDirectory(NSSearchPathDirectory directory)
     {

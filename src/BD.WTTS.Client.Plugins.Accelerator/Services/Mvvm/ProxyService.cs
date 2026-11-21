@@ -1,9 +1,9 @@
 // ReSharper disable once CheckNamespace
-using Avalonia.Data;
 using BD.WTTS.Helpers;
 using Google.Protobuf.WellKnownTypes;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using System.Linq;
+using dotnetCampus.Ipc.Exceptions;
 
 namespace BD.WTTS.Services;
 
@@ -63,40 +63,37 @@ public sealed partial class ProxyService
         //        }
         //    });
 
-        this.WhenAnyValue(v => v.ProxyDomainsList)
-              .ObserveOn(RxSchedulers.MainThreadScheduler)
-              .Subscribe(domain => domain?
-              .ToObservableChangeSet()
-              .AutoRefresh(x => x.ObservableItems)
-              .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
-              .AutoRefresh(x => x.ThreeStateEnable)
-              .WhenPropertyChanged(x => x.ThreeStateEnable, false)
-              .Subscribe(_ =>
-              {
-                  IsChangeSupportProxyServicesStatus = true;
-                  ProxySettings.SupportProxyServicesStatus.Value = GetAccelerateEnableAllIds(EnableProxyDomains).ToImmutableHashSet();
-              }));
+        this.ObserveValue(nameof(ProxyDomainsList), static x => x.ProxyDomainsList)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
+            .Select(groups => groups is null ? Observable.Empty<bool?>() : groups.ToObservableChangeSet()
+                .AutoRefreshOnObservable(static group => group.ObserveValue(nameof(group.ObservableItems), static x => x.ObservableItems).Skip(1))
+                .TransformMany(static group => group.ObservableItems ?? [])
+                .MergeMany(static item => item.ObserveValue(nameof(item.ThreeStateEnable), static x => x.ThreeStateEnable).Skip(1)))
+            .Switch()
+            .Subscribe(_ =>
+            {
+                IsChangeSupportProxyServicesStatus = true;
+                ProxySettings.SupportProxyServicesStatus.Value = GetAccelerateEnableAllIds(EnableProxyDomains).ToImmutableHashSet();
+            });
 
-        this.WhenAnyValue(v => v.ProxyScripts)
-              .ObserveOn(RxSchedulers.MainThreadScheduler)
-              .Subscribe(script => script?
-              .Connect()
-              .AutoRefresh(x => x.Disable)
-              .WhenPropertyChanged(x => x.Disable, false)
-              .Subscribe(async item =>
-              {
-                  await scriptManager.SaveEnableScriptAsync(item.Sender);
-                  //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
-                  //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
-                  if (reverseProxyService.ProxyRunning)
-                  {
-                      //await EnableProxyScripts.ContinueWith(e =>
-                      //{
-                      //    reverseProxyService.Scripts = e.Result?.ToImmutableArray();
-                      //});
-                      this.RaisePropertyChanged(nameof(EnableProxyScripts));
-                  }
-              }));
+        this.ObserveValue(nameof(ProxyScripts), static x => x.ProxyScripts)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
+            .Select(scripts => scripts is null ? Observable.Empty<ScriptDTO>() : scripts.Connect()
+                .MergeMany(static item => item.ObserveValue(nameof(item.Disable), static x => x.Disable).Skip(1).Select(_ => item)))
+            .Switch()
+            .Subscribe(async item =>
+            {
+                try
+                {
+                    await scriptManager.SaveEnableScriptAsync(item);
+                    if (reverseProxyService.ProxyRunning)
+                        this.RaisePropertyChanged(nameof(EnableProxyScripts));
+                }
+                catch (Exception ex)
+                {
+                    ex.LogAndShowT();
+                }
+            });
     }
 
     public SourceCache<AccelerateProjectGroupDTO, string> ProxyDomains { get; }
@@ -231,7 +228,8 @@ public sealed partial class ProxyService
 
     public Task<IEnumerable<ScriptDTO>?> EnableProxyScripts => scriptManager.LoadingScriptContentAsync(GetEnableProxyScripts());
 
-    private DateTimeOffset _StartAccelerateTime;
+    TrayAccelerationSession? traySession;
+    int readingTrayTraffic;
 
     [Reactive]
     public string? IPv6AddresString { get; set; }
@@ -337,6 +335,8 @@ public sealed partial class ProxyService
     {
         IsInitialized = false;
         InitializationException = null;
+        this.RaisePropertyChanged(nameof(IsInitialized));
+        RegisterProxyTraySwitch();
 
         try
         {
@@ -345,6 +345,7 @@ public sealed partial class ProxyService
         catch (Exception ex)
         {
             InitializationException = ex;
+            this.RaisePropertyChanged(nameof(InitializationException));
             Toast.LogAndShowT(ex, nameof(ProxyService),
                 msg: "Accelerate init fail.");
             return; // 加速项目初始化失败时，中止初始化
@@ -357,6 +358,7 @@ public sealed partial class ProxyService
         catch (Exception ex)
         {
             InitializationException = ex;
+            this.RaisePropertyChanged(nameof(InitializationException));
             Toast.LogAndShowT(ex, nameof(ProxyService),
                 msg: "Script init fail.");
             return; // 脚本数据初始化失败时，中止初始化
@@ -395,57 +397,78 @@ public sealed partial class ProxyService
             // 程序启动时启动加速服务失败，可忽略
         }
 
-        UpdateProxyTrayMenuItems();
         IsInitialized = true;
+        this.RaisePropertyChanged(nameof(IsInitialized));
     }
 
-    private void UpdateProxyTrayMenuItems()
+    bool hasTraySwitch;
+
+    void RegisterProxyTraySwitch()
+    {
+        if (hasTraySwitch)
+            return;
+
+        var state = Observable.Defer(() => Changed
+            .Where(static change => change.PropertyName is nameof(ProxyStatus) or nameof(ProxyStarting)
+                or nameof(IsInitialized) or nameof(InitializationException))
+            .Select(_ => GetTrayState())
+            .StartWith(GetTrayState())
+            .DistinctUntilChanged());
+
+        IApplication.Instance.UpdateMenuItems(Plugin.Instance.UniqueEnglishName, new TrayMenuItem
+        {
+            Name = Strings.CommunityFix,
+            NameResourceKey = nameof(Strings.CommunityFix),
+            ToggleState = state,
+            GetAccelerationSession = () => traySession,
+            Command = ReactiveCommand.CreateFromTask(ToggleProxyFromTrayAsync,
+                state.Select(static value => value is TrayToggleState.Off or TrayToggleState.On).DistinctUntilChanged()),
+        });
+        hasTraySwitch = true;
+    }
+
+    TrayToggleState GetTrayState()
+    {
+        if (ProxyStarting)
+            return ProxyStopping ? TrayToggleState.Stopping : TrayToggleState.Starting;
+        if (ProxyStatus)
+            return TrayToggleState.On;
+        if (IsInitialized)
+            return TrayToggleState.Off;
+        return InitializationException == null ? TrayToggleState.Preparing : TrayToggleState.Unavailable;
+    }
+
+    TrayTrafficSample? ReadTrayTraffic()
+    {
+        // A closing panel may still have a read in flight when another panel opens.
+        if (Interlocked.CompareExchange(ref readingTrayTraffic, 1, 0) != 0)
+            return null;
+        try
+        {
+            var flow = reverseProxyService.GetFlowStatistics();
+            // The listener reads uploads from clients and writes downloads back to them.
+            return flow == null ? null : new(flow.TotalRead, flow.TotalWrite, flow.ReadRate, flow.WriteRate);
+        }
+        catch (IpcException)
+        {
+            return null;
+        }
+        finally
+        {
+            Volatile.Write(ref readingTrayTraffic, 0);
+        }
+    }
+
+    async Task ToggleProxyFromTrayAsync()
     {
         try
         {
-            IApplication.Instance.UpdateMenuItems(Plugin.Instance.UniqueEnglishName, new TrayMenuItem
-            {
-                Name = Plugin.Instance.Name,
-                NameResourceKey = nameof(Strings.CommunityFix),
-                Items = new List<TrayMenuItem>
-                {
-                    new TrayMenuItem
-                    {
-                        Name = Strings.L10nAccel_122,
-                        NameResourceKey = nameof(Strings.L10nAccel_122),
-                        //IsEnabled = new Binding()
-                        //{
-                        //    Source = ProxyService.Current,
-                        //    Mode = BindingMode.OneWay,
-                        //    Path = "!" + nameof(ProxyStatus),
-                        //},
-                        Command = ReactiveCommand.CreateFromTask(async () =>
-                        {
-                            await StartOrStopProxyService(true);
-                        }),
-                    },
-                    new TrayMenuItem
-                    {
-                        Name = Strings.L10nAccel_123,
-                        NameResourceKey = nameof(Strings.L10nAccel_123),
-                        //IsEnabled = new Binding()
-                        //{
-                        //    Source = ProxyService.Current,
-                        //    Mode = BindingMode.OneWay,
-                        //    Path = nameof(ProxyStatus),
-                        //},
-                        Command = ReactiveCommand.CreateFromTask(async () =>
-                        {
-                            await StartOrStopProxyService(false);
-                        }),
-                    },
-                },
-            });
+            if (GetTrayState() is TrayToggleState.Off or TrayToggleState.On)
+                await StartOrStopProxyService(!ProxyStatus);
         }
         catch (Exception ex)
         {
-            ex.LogAndShowT();
-            //托盘菜单添加异常
+            ex.LogAndShowT(nameof(ProxyService));
         }
     }
 
@@ -560,8 +583,9 @@ public sealed partial class ProxyService
 
     public void StartTimer()
     {
-        timer ??= new Timer(_ => AccelerateTime = DateTimeOffset.Now - _StartAccelerateTime,
-            nameof(AccelerateTime), 0, 1000);
+        if (traySession is { } session)
+            timer ??= new Timer(_ => AccelerateTime = Stopwatch.GetElapsedTime(session.StartedTimestamp),
+                null, 0, 1000);
     }
 
     public void StopTimer()

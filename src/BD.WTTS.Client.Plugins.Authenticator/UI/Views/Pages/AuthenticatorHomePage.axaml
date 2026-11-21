@@ -13,6 +13,7 @@
     x:CompileBindings="True"
     x:DataType="spp:AuthenticatorHomePageViewModel"
     Description="{x:Static spp:Strings.L10nAuthIdle_Text029}"
+    OpenPaneLength="344"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
     <spp:PageBase.PreviewImage>
@@ -24,6 +25,7 @@
                 Padding="8,4"
                 Command="{Binding ShowAddWindow}"
                 DockPanel.Dock="Right"
+                IsEnabled="{Binding IsVerificationPass}"
                 Theme="{StaticResource TransparentButton}">
                 <Panel>
                     <Viewbox
@@ -106,33 +108,7 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!-- <ui:FAMenuFlyoutSubItem Text="令牌加密"> -->
-                        <!--  <ui:FAMenuFlyoutItem  -->
-                        <!--  Command="{Binding SetPasswordProtection}"  -->
-                        <!--  IsEnabled="{Binding !HasPasswordEncrypt}"  -->
-                        <!--  Text="添加密码保护" />  -->
-                        <!--  <ui:FAMenuFlyoutItem  -->
-                        <!--  Command="{Binding RemovePasswordProtection}"  -->
-                        <!--  IsEnabled="{Binding HasPasswordEncrypt}"  -->
-                        <!--  Text="移除密码保护" />  -->
-                        <!--  <ui:FAMenuFlyoutItem  -->
-                        <!--  Command="{Binding ToggleLocalProtection}"  -->
-                        <!--  IsEnabled="{Binding !HasLocalPcEncrypt}"  -->
-                        <!--  Text="添加机器验证" />  -->
-                        <!--  <ui:FAMenuFlyoutItem  -->
-                        <!--  Command="{Binding ToggleLocalProtection}"  -->
-                        <!--  IsEnabled="{Binding HasLocalPcEncrypt}"  -->
-                        <!--  Text="移除机器验证" />  -->
-                        <!--     <ui:FAMenuFlyoutItem Command="{Binding EncryptHelp}" Text="加密帮助" /> -->
-                        <!-- </ui:FAMenuFlyoutSubItem> -->
-                        <ui:FAMenuFlyoutItem Command="{Binding OpenExportWindow}" Text="{x:Static spp:Strings.ExportAll}" />
-                        <!--<ui:FAMenuFlyoutItem
-                            Command="{Binding ReLockAuthenticator}"
-                            IsEnabled="{Binding IsVerificationPass}"
-                            Text="{x:Static spp:Strings.Auth_lock}" />-->
-                        <!--<ui:FAMenuFlyoutItem Command="{Binding ShowRecoverWindow}" Text="{x:Static spp:Strings.Auth_Sync_Recover}" />
-                        <ui:FAMenuFlyoutItem Command="{Binding ResetIndependentPassword}" Text="{x:Static spp:Strings.Auth_Sync_ResetPassword}" />-->
-                        <!--<ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.Settings_Plugin}" />-->
+                        <ui:FAMenuFlyoutItem Command="{Binding OpenExportWindow}" IsEnabled="{Binding IsVerificationPass}" Text="{x:Static spp:Strings.ExportAll}" />
                         <ui:FAMenuFlyoutSeparator />
                         <ui:FAMenuFlyoutItem IsEnabled="False">
                             <ui:FAMenuFlyoutItem.Text>
@@ -155,112 +131,124 @@
     </spp:PageBase.ActionContent>
 
     <spp:PageBase.PaneContent>
-        <StackPanel Margin="15,20" Spacing="10">
-            <TextBlock
-                VerticalAlignment="Center"
-                Text="{x:Static spp:Strings.Filter}"
-                Theme="{StaticResource CaptionTextBlockStyle}" />
-            <AutoCompleteBox
-                MinWidth="280"
-                Classes="Search"
-                Text="{Binding SearchText}"
-                PlaceholderText="{x:Static spp:Strings.L10nAuthIdle_Text040}" />
-            <TextBlock >
-                <TextBlock.Text>
-                    <MultiBinding Converter="{StaticResource StringFormatConverter}">
-                        <Binding Mode="OneTime" Source="{x:Static spp:Strings.L10nAuthIdle_Text120}" />
-                        <Binding Path="Auths.Count" />
+        <StackPanel Margin="14,16" Spacing="14">
+            <StackPanel.Styles>
+                <Style Selector="Border.token-settings-card">
+                    <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="CornerRadius" Value="8" />
+                    <Setter Property="Padding" Value="12" />
+                </Style>
+                <Style Selector="Button.token-settings-action">
+                    <Setter Property="MinHeight" Value="34" />
+                    <Setter Property="Padding" Value="10,6" />
+                </Style>
+            </StackPanel.Styles>
+
+            <StackPanel Spacing="6" IsEnabled="{Binding IsVerificationPass}">
+                <TextBlock Text="{x:Static spp:Strings.Filter}" Theme="{StaticResource CaptionTextBlockStyle}" />
+                <AutoCompleteBox Classes="Search" Text="{Binding SearchText}"
+                                 PlaceholderText="{x:Static spp:Strings.L10nAuthIdle_Text040}" />
+                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                            <Binding Mode="OneTime" Source="{x:Static spp:Strings.L10nAuthIdle_Text120}" />
+                            <Binding Path="Auths.Count" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </StackPanel>
+
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.EncryptSettings}"
+                           Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                <Button Grid.Column="1" Padding="6,4" Command="{Binding EncryptHelp}"
+                        Content="{x:Static spp:Strings.Auth_VaultHelpLabel}" Theme="{StaticResource TransparentButton}" />
+            </Grid>
+
+            <Border Classes="token-settings-card">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="{Binding VaultProtectionSummary}" TextWrapping="Wrap" FontWeight="SemiBold" />
+                    <Button Classes="accent token-settings-action" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                            Command="{Binding ReLockAuthenticator}" Content="{x:Static spp:Strings.Auth_lock}"
+                            IsVisible="{Binding CanLockVault}">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="IsVerificationPass" />
+                                <Binding Path="!IsLoading" />
+                                <Binding Path="HasVaultData" />
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Spacing="8">
+                <StackPanel.IsEnabled>
+                    <MultiBinding Converter="{x:Static BoolConverters.And}">
+                        <Binding Path="IsVerificationPass" />
+                        <Binding Path="!IsLoading" />
+                        <Binding Path="HasVaultData" />
                     </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
+                </StackPanel.IsEnabled>
+                <TextBlock Text="{x:Static spp:Strings.Auth_VaultUnlockMethods}" Theme="{StaticResource CaptionTextBlockStyle}" />
+                <Border Classes="token-settings-card" IsVisible="{Binding ShowWindowsHello}">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Windows Hello" FontWeight="SemiBold" />
+                        <TextBlock Text="{x:Static spp:Strings.Auth_VaultHelloDescription}" TextWrapping="Wrap"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                        <Button Classes="token-settings-action" Command="{Binding ToggleWindowsHelloAsync}"
+                                Content="{Binding WindowsHelloActionText}" />
+                    </StackPanel>
+                </Border>
+                <Border Classes="token-settings-card">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{x:Static spp:Strings.Auth_VaultPasswordLabel}" FontWeight="SemiBold" />
+                        <WrapPanel Orientation="Horizontal" ItemSpacing="8" LineSpacing="6">
+                            <Button Classes="token-settings-action" Command="{Binding SetPasswordProtection}"
+                                    Content="{Binding PasswordActionText}" />
+                            <Button Classes="token-settings-action" Command="{Binding RemovePasswordProtection}"
+                                    Content="{x:Static spp:Strings.Auth_RemovePasswordProtect}" IsVisible="{Binding HasPasswordEncrypt}"
+                                    Theme="{StaticResource TransparentButton}" />
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
 
-            <TextBlock
-                Text="{x:Static spp:Strings.EncryptSettings}"
-                Theme="{StaticResource BodyStrongTextBlockStyle}"
-                ToolTip.Tip="{x:Static spp:Strings.LocalAuth_ProtectionAuth_Info}" />
-
-            <Button
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                Command="{Binding ReLockAuthenticator}"
-                Content="{x:Static spp:Strings.Auth_lock}"
-                IsEnabled="{Binding IsVerificationPass}" />
-            <Button
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                Command="{Binding SetPasswordProtection}"
-                Content="{x:Static spp:Strings.Auth_AddPasswordProtect}"
-                IsVisible="{Binding !HasPasswordEncrypt}"
-                ToolTip.Tip="{x:Static spp:Strings.LocalAuth_ProtectionAuth_EnablePasswordTip}" />
-            <Button
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                Command="{Binding RemovePasswordProtection}"
-                Content="{x:Static spp:Strings.Auth_RemovePasswordProtect}"
-                IsVisible="{Binding HasPasswordEncrypt}" />
-            <ToggleSwitch
-                VerticalAlignment="Center"
-                Classes="NoContent"
-                Command="{Binding ToggleLocalProtection}"
-                IsChecked="{Binding HasLocalPcEncrypt, Mode=OneWay}"
-                OffContent="{x:Static spp:Strings.Auth_RemoveMachineValidation}"
-                OnContent="{x:Static spp:Strings.Auth_AddMachineValidation}"
-                ToolTip.Tip="{x:Static spp:Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip}" />
-            <!--<Button
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                Command="{Binding ToggleLocalProtection}"
-                Content="{x:Static spp:Strings.Auth_AddMachineValidation}"
-                IsEnabled="{Binding !HasLocalPcEncrypt}" />
-            <Button
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                Command="{Binding ToggleLocalProtection}"
-                Content="{x:Static spp:Strings.Auth_RemoveMachineValidation}"
-                IsEnabled="{Binding HasLocalPcEncrypt}" />-->
-            <!--<Button
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                Command="{Binding EncryptHelp}"
-                Content="{x:Static spp:Strings.Auth_EncryptionHelp}" />-->
+                <TextBlock Margin="0,6,0,0" Text="{x:Static spp:Strings.Auth_VaultStorageLabel}"
+                           Theme="{StaticResource CaptionTextBlockStyle}" />
+                <Border Classes="token-settings-card">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{x:Static spp:Strings.Auth_VaultHelloLocalDescription}" IsVisible="{Binding WindowsHelloEnabled}"
+                                   TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                        <Button Classes="token-settings-action" Command="{Binding ToggleLocalProtection}"
+                                Content="{Binding LocalProtectionActionText}" IsVisible="{Binding !WindowsHelloEnabled}" />
+                        <Button Classes="token-settings-action" Command="{Binding UpgradeVaultProtectionAsync}"
+                                Content="{x:Static spp:Strings.Auth_VaultUpgrade}" IsVisible="{Binding ProtectionUpgradeAvailable}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
         </StackPanel>
     </spp:PageBase.PaneContent>
     <Panel>
         <StackPanel
+            MaxWidth="440"
+            Margin="24"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             IsVisible="{Binding !IsVerificationPass}"
-            Orientation="Horizontal"
-            Spacing="5">
-            <!--<StackPanel.IsVisible>
-                <MultiBinding Converter="{x:Static BoolConverters.And}">
-                    <CompiledBindingExtension Path="!IsVerificationPass" />
-                    <CompiledBindingExtension Path="!!!Auths.Count" />
-                </MultiBinding>
-            </StackPanel.IsVisible>-->
-            <TextBlock
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Text="{x:Static spp:Strings.Auth_PasswordProtectedVerifyFirst}"
-                TextWrapping="WrapWithOverflow" />
-            <Button
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Command="{Binding Initialize}"
-                Content="{x:Static spp:Strings.Verify}"
-                IsEnabled="True" />
+            Spacing="12">
+            <TextBlock Text="{Binding VaultLockedMessage}" TextAlignment="Center" TextWrapping="Wrap" />
+            <TextBlock Text="{Binding VaultReadError}" IsVisible="{Binding !!VaultReadError}"
+                       Foreground="{DynamicResource SystemFillColorCriticalBrush}" TextAlignment="Center" TextWrapping="Wrap" />
+            <Button Classes="accent" HorizontalAlignment="Center" Command="{Binding UnlockVaultAsync}"
+                    Content="{Binding UnlockVaultText}" IsEnabled="{Binding !IsLoading}" IsVisible="{Binding CanUnlockVault}" />
         </StackPanel>
 
         <spp:ContentLoader
             IsLoading="{Binding IsLoading}"
             IsShowNoResultText="{Binding !!!Auths.Count}"
             IsVisible="{Binding IsVerificationPass}">
-            <!--<spp:ContentLoader.IsVisible>
-                <MultiBinding Converter="{x:Static BoolConverters.And}">
-                    <CompiledBindingExtension Path="!IsVerificationPass" />
-                    <CompiledBindingExtension Path="!!Auths.Count" />
-                </MultiBinding>
-            </spp:ContentLoader.IsVisible>-->
             <spp:ContentLoader.NoResultMessage>
                 <StackPanel
                     HorizontalAlignment="Center"
@@ -382,6 +370,7 @@
             <Border
                 x:Name="DragPreview"
                 x:DataType="spp:AuthenticatorItemModel"
+                DataContext="{x:Null}"
                 Padding="12"
                 Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
                 BorderBrush="{DynamicResource AccentFillColorDefaultBrush}"

@@ -1,10 +1,11 @@
-using Avalonia.Rendering.Composition;
 using FluentAvalonia.UI.Media.Animation;
 
 namespace BD.WTTS.UI;
 
 public static class FrameEffect
 {
+    public static SuppressNavigationTransitionInfo NoTransition { get; } = new();
+
     public static SlideNavigationTransitionEffect GetEffect(int oldIndex, int index)
     {
         if (oldIndex < 0)

@@ -199,6 +199,8 @@ Avalonia is a cross-platform UI framework for dotnet, providing a flexible styli
         {
             try
             {
+                // The generated registration includes the array formatter used by the embedded list.
+                MemoryPackFormatterProvider.Register<HL>();
                 return Serializable.DMP2<HL[]>(Properties.Resources.open_source_library);
             }
             catch

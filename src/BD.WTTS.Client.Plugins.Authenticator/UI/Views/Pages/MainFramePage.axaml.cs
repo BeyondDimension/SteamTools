@@ -1,21 +1,20 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-using FluentAvalonia.UI.Media.Animation;
 
 namespace BD.WTTS.UI.Views.Pages;
 
 public partial class MainFramePage : UserControl
 {
-    int lastIndex = -1;
-
     public MainFramePage()
     {
         InitializeComponent();
 
-        //Tabs.Items.Add(new TabStripItem { Content = Strings.CommunityFix, Tag = typeof(AcceleratorPage) });
-        //Tabs.Items.Add(new TabStripItem { Content = Strings.ScriptConfig, Tag = typeof(ScriptPage) });
+        InnerNavFrame.NavigationFailed += (_, args) =>
+        {
+            Log.Error(nameof(MainFramePage), args.Exception,
+                "Could not navigate to nested page {page}.", args.SourcePageType?.FullName);
+            Toast.Show(ToastIcon.Error, Strings.Error_PageFault);
+        };
 
         Tabs.SelectionChanged += Tabs_SelectionChanged;
     }
@@ -24,23 +23,28 @@ public partial class MainFramePage : UserControl
     {
         base.OnLoaded(e);
 
-        Tabs_SelectionChanged(null, null);
+        if (Tabs.SelectedIndex < 0 && Tabs.ItemCount > 0)
+            Tabs.SelectedIndex = 0;
+        else
+            ShowSelectedPage();
     }
 
-    private void Tabs_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs? e)
+    private void Tabs_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (Tabs.SelectedItem is TabStripItem tab && tab.Tag is Type t)
+        if (IsLoaded && e.Source == Tabs)
+            ShowSelectedPage();
+    }
+
+    private void ShowSelectedPage()
+    {
+        var pageType = Tabs.SelectedItem switch
         {
-            if (InnerNavFrame.CurrentSourcePageType == t)
-                return;
+            var item when ReferenceEquals(item, AuthenticatorTab) => typeof(AuthenticatorHomePage),
+            var item when ReferenceEquals(item, SteamMarketTab) => typeof(SteamMarketManagePage),
+            _ => null,
+        };
 
-            InnerNavFrame.Navigate(t, null, new SlideNavigationTransitionInfo
-            {
-                Effect = FrameEffect.GetEffect(lastIndex, Tabs.SelectedIndex),
-                FromHorizontalOffset = 70,
-            });
-
-            lastIndex = Tabs.SelectedIndex;
-        }
+        if (pageType is not null && InnerNavFrame.CurrentSourcePageType != pageType)
+            InnerNavFrame.Navigate(pageType, null, FrameEffect.NoTransition);
     }
 }

@@ -175,7 +175,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
-    <value>통계 수정</value>
+    <value>통계</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_StoreTip" xml:space="preserve">
@@ -187,7 +187,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">
-    <value>잠금 해제된 도전 과제</value>
+    <value>도전 과제</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Achievement_Warning_1" xml:space="preserve">
@@ -1651,7 +1651,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>구해내다</value>
+    <value>저장</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_DNSIntercept" xml:space="preserve">

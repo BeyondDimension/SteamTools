@@ -30,11 +30,7 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="{x:Static spp:Strings.Library}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:BorderlessGamePage" />
-                </TabStripItem.Tag>
-            </TabStripItem>
+            <TabStripItem Name="BorderlessTab" Content="{x:Static spp:Strings.Library}" />
         </TabStrip>
         <ui:FAFrame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
     </Panel>

@@ -1,4 +1,7 @@
 using WinAuth;
+using Avalonia.Controls;
+using BD.WTTS.Serialization;
+using static BD.WTTS.Repositories.Abstractions.IAccountPlatformAuthenticatorRepository;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.Services;
@@ -7,7 +10,8 @@ public static class AuthenticatorHelper
 {
     static IAccountPlatformAuthenticatorRepository repository = Ioc.Get<IAccountPlatformAuthenticatorRepository>();
 
-    public static async Task<(bool isSuccess, bool isUpdate)> AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto, string? password, bool isLocal)
+    public static async Task<(bool isSuccess, bool isUpdate)> AddOrUpdateSaveAuthenticatorsAsync(IAuthenticatorDTO authenticatorDto,
+        string? password, bool isLocal, bool verifiedWithHello = false)
     {
         //var isLocal = await repository.HasLocalAsync();
         // var sourceList = await GetAllSourceAuthenticatorAsync();
@@ -24,7 +28,7 @@ public static class AuthenticatorHelper
         //     Toast.Show(ToastIcon.Error, "操作失败：令牌已存在重复数据");
         //     return false;
         // }
-        return await repository.InsertOrUpdateAsync(authenticatorDto, isLocal, password);
+        return await repository.InsertOrUpdateAsync(authenticatorDto, isLocal, password, verifiedWithHello);
     }
 
     // public static async Task<bool> AddOrUpdateSaveAndSyncAuthenticatorAsync(string? password,
@@ -55,9 +59,9 @@ public static class AuthenticatorHelper
     }
 
     public static async Task<List<IAuthenticatorDTO>> GetAllAuthenticatorsAsync(AccountPlatformAuthenticator[] source,
-        string? password = null)
+        string? password = null, bool verifiedWithHello = false)
     {
-        return await repository.ConvertToListAsync(source, password);
+        return await repository.ConvertToListAsync(source, password, verifiedWithHello);
     }
 
     public static async Task DeleteAllAuthenticatorsAsync()
@@ -74,10 +78,12 @@ public static class AuthenticatorHelper
         await repository.DeleteAsync(authenticatorDto.Id);
     }
 
-    public static async Task SaveEditAuthNameAsync(IAuthenticatorDTO authenticatorDto, string newName)
+    public static async Task<bool> SaveEditAuthNameAsync(IAuthenticatorDTO authenticatorDto, string newName)
     {
-        var isLocal = await repository.HasLocalAsync();
-        await repository.RenameAsync(authenticatorDto.Id, newName, isLocal);
+        var access = await GetCurrentPassword();
+        if (!access.authorized) return false;
+        await repository.RenameAsync(authenticatorDto.Id, newName, access.hasLocalPcEncrypt, access.password, access.verifiedWithHello);
+        return true;
     }
 
     public static async Task<(IAccountPlatformAuthenticatorRepository.ImportResultCode resultCode, IReadOnlyList<IAuthenticatorDTO> result, int sourcesCount)>
@@ -95,32 +101,132 @@ public static class AuthenticatorHelper
         return (hasLocal, hasPassword);
     }
 
-    // public static async Task<bool> HasPassword()
-    // {
-    //     return await repository.HasSecondaryPasswordAsync();
-    // }
-    //
-    // public static async Task<bool> HasLocal()
-    // {
-    //     return await repository.HasLocalAsync();
-    // }
+    internal static bool NeedsProtectionUpgrade(IEnumerable<AccountPlatformAuthenticator> sources) =>
+        sources.Any(AccountPlatformAuthenticatorRepository.NeedsProtectionUpgrade);
 
-    public static async Task<bool> ValidatePassword(AccountPlatformAuthenticator sourceData, string password)
+    internal static Task SwitchEncryptionAuthenticators(bool isLocal, string? currentPassword, string? newPassword,
+        bool windowsHello = false, bool verifiedWithHello = false) =>
+        repository.SwitchEncryptionModeAsync(isLocal, currentPassword, newPassword, windowsHello, verifiedWithHello);
+
+    internal static Task SaveImportedAuthenticatorsAsync(IReadOnlyList<IAuthenticatorDTO> items, bool isLocal,
+        string? password, bool verifiedWithHello) =>
+        repository.InsertOrUpdateAsync(items, isLocal, password, verifiedWithHello);
+
+    internal const int MinNewPasswordLength = 12;
+    internal const int MaxNewPasswordLength = 256;
+
+    internal static bool IsValidNewPassword(string? password) =>
+        !string.IsNullOrWhiteSpace(password) && password.Length is >= MinNewPasswordLength and <= MaxNewPasswordLength;
+
+    internal static async Task<string?> RequestPasswordAsync(string title, string? description = null, bool isNew = false)
     {
-        return (await repository.ConvertToListAsync(new[] { sourceData }, password)).Any_Nullable();
+        var prompt = new TextBoxWindowViewModel
+        {
+            InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
+            Description = description,
+            MaxLength = isNew ? MaxNewPasswordLength : 0,
+            ValueIsNullOrWhiteSpaceTip = Strings.LocalAuth_PasswordRequired,
+        };
+        try
+        {
+            return await IWindowManager.Instance.ShowTaskDialogAsync(prompt, title, isDialog: false, isCancelButton: true)
+                ? prompt.Value : null;
+        }
+        finally
+        {
+            prompt.Value = null;
+        }
     }
 
-    public static async Task<bool> SwitchEncryptionAuthenticators(bool hasLocal, IEnumerable<IAuthenticatorDTO>? auths, string? password = null)
+    internal enum VaultUnlockMethod { None, Password, WindowsHello, LegacyPassword }
+
+    internal static VaultUnlockMethod GetUnlockMethod(AccountPlatformAuthenticator[] sources, bool hasPassword)
+    {
+        if (sources.Any(AccountPlatformAuthenticatorRepository.RequiresWindowsHello))
+        {
+            if (hasPassword)
+                throw new AuthenticatorReadException(ImportResultCode.IncorrectFormat);
+            return VaultUnlockMethod.WindowsHello;
+        }
+        if (!hasPassword) return VaultUnlockMethod.None;
+        return OperatingSystem.IsWindows() && AuthenticatorSettings.RequireWindowsHello.Value
+            ? VaultUnlockMethod.LegacyPassword : VaultUnlockMethod.Password;
+    }
+
+    internal static async Task<(bool authorized, string? password, bool verifiedWithHello)> RequestVaultUnlockAsync(
+        VaultUnlockMethod method, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        switch (method)
+        {
+            case VaultUnlockMethod.WindowsHello:
+                var verified = await VerifyWindowsHelloAsync(cancellationToken);
+                return (verified, null, verified);
+            case VaultUnlockMethod.LegacyPassword:
+                if (!await IWindowManager.Instance.ShowTaskDialogAsync(
+                    new MessageBoxWindowViewModel { Content = Strings.Auth_VaultHelloRecoveryTip },
+                    Strings.Auth_VaultHelloRecovery, isCancelButton: true)) return default;
+                cancellationToken.ThrowIfCancellationRequested();
+                goto case VaultUnlockMethod.Password;
+            case VaultUnlockMethod.Password:
+                var password = await RequestPasswordAsync(Strings.Title_InputAuthPassword);
+                cancellationToken.ThrowIfCancellationRequested();
+                return string.IsNullOrWhiteSpace(password) ? default : (true, password, false);
+            default:
+                return (true, null, false);
+        }
+    }
+
+    internal static void ClearLegacyHelloPreference() => AuthenticatorSettings.RequireWindowsHello.Value = false;
+
+    internal static Task<bool> VerifyWindowsHelloAsync(CancellationToken cancellationToken = default) => MainThread2.InvokeOnMainThreadAsync<bool>(async () =>
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        var owner = App.Instance.GetActiveWindow();
+        if (owner is not { IsVisible: true } || owner.TryGetPlatformHandle() is not { Handle: not 0 } handle)
+        {
+            Toast.Show(ToastIcon.Warning, Strings.Auth_VaultHelloUnavailable);
+            return false;
+        }
+
+        var result = await IPlatformService.Instance.VerifyLocalUserAsync(handle.Handle, Strings.Auth_VaultHelloPrompt, cancellationToken);
+        cancellationToken.ThrowIfCancellationRequested();
+        if (result is LocalUserVerificationResult.Verified)
+            return owner.IsVisible && owner.TryGetPlatformHandle()?.Handle == handle.Handle;
+
+        if (result is not LocalUserVerificationResult.Canceled)
+            Toast.Show(ToastIcon.Warning, result == LocalUserVerificationResult.Unavailable
+                ? Strings.Auth_VaultHelloUnavailable : Strings.Auth_VaultHelloFailed);
+        return false;
+    });
+
+    internal static string ReadErrorText(ImportResultCode code) => code switch
+    {
+        ImportResultCode.SecondaryPasswordFail => Strings.Auth_VaultPasswordFailed,
+        ImportResultCode.LocalFail => Strings.Auth_VaultLocalReadFailed,
+        ImportResultCode.WindowsHelloRequired => Strings.Auth_VaultHelloLocked,
+        _ => Strings.Auth_VaultReadFailed,
+    };
+
+    internal static async Task<(List<IAuthenticatorDTO> items, string? password, bool verifiedWithHello)?> ReadAuthorizedVaultAsync(
+        AccountPlatformAuthenticator[] sources, CancellationToken cancellationToken = default)
     {
         try
         {
-            await repository.SwitchEncryptionModeAsync(hasLocal, password, auths);
-            return true;
+            var method = GetUnlockMethod(sources, HasEncrypt(sources).haspassword);
+            var access = await RequestVaultUnlockAsync(method, cancellationToken);
+            if (!access.authorized) return null;
+
+            var items = await GetAllAuthenticatorsAsync(sources, access.password, access.verifiedWithHello);
+            cancellationToken.ThrowIfCancellationRequested();
+            if (method == VaultUnlockMethod.LegacyPassword)
+                ClearLegacyHelloPreference();
+            return (items, access.password, access.verifiedWithHello);
         }
-        catch (Exception ex)
+        catch (AuthenticatorReadException ex)
         {
-            Log.Error(nameof(AuthenticatorHelper), ex, nameof(SwitchEncryptionAuthenticators));
-            return false;
+            Toast.Show(ToastIcon.Warning, ReadErrorText(ex.ResultCode));
+            return null;
         }
     }
 
@@ -158,14 +264,10 @@ public static class AuthenticatorHelper
             });
             if (exportFile == null) return exportFile;
 
-            var filestream = exportFile.OpenWrite();
-
-            if (filestream.CanSeek && filestream.Position != 0) filestream.Position = 0;
-
+            await using var filestream = exportFile.OpenWrite();
+            if (filestream.CanSeek) filestream.SetLength(0);
             await repository.ExportAsync(filestream, isLocal, password, items);
-
             await filestream.FlushAsync();
-            await filestream.DisposeAsync();
         }
 
         return exportFile;
@@ -280,7 +382,7 @@ public static class AuthenticatorHelper
     public static IAuthenticatorDTO ConvertToAuthenticatorDto(
         UserAuthenticatorResponse authenticatorResponse)
     {
-        var exportDto = MemoryPackSerializer.Deserialize<AuthenticatorExportDTO>(authenticatorResponse.Token);
+        var exportDto = AuthenticatorPayloadSerializer.ReadCloudToken(authenticatorResponse.Token);
         exportDto.ThrowIsNull();
         var valueDto = ConvertToAuthenticatorValueDto(exportDto);
         AuthenticatorDTO dto = new AuthenticatorDTO()
@@ -473,59 +575,39 @@ public static class AuthenticatorHelper
         return false;
     }
 
-    public static async Task<bool> SaveAuthenticator(IAuthenticatorDTO authenticatorDto, string? password = null, bool? isLocalProtect = null)
+    public static async Task<bool> SaveAuthenticator(IAuthenticatorDTO authenticatorDto, string? password = null,
+        bool? isLocalProtect = null, bool verifiedWithHello = false)
     {
-        if (!string.IsNullOrEmpty(password) && isLocalProtect != null)
+        try
         {
-            var result = await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, password, isLocalProtect.Value);
-            if (result.isSuccess)
+            if (isLocalProtect == null)
             {
-                if (!result.isUpdate)
-                    Toast.Show(ToastIcon.Success, Strings.LocalAuth_SteamAppAddSuccess);
+                var access = await GetCurrentPassword();
+                if (!access.authorized) return false;
+                password = access.password;
+                isLocalProtect = access.hasLocalPcEncrypt;
+                verifiedWithHello = access.verifiedWithHello;
             }
+
+            var result = await AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, password, isLocalProtect.Value, verifiedWithHello);
+            if (result.isSuccess && !result.isUpdate)
+                Toast.Show(ToastIcon.Success, Strings.LocalAuth_SteamAppAddSuccess);
             return result.isSuccess;
         }
-        else
+        catch (AuthenticatorReadException ex)
         {
-            var r = await GetCurrentPassword();
-            if (r.hasPasswordEncrypt && r.password == null) return false;
-            var result = await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(authenticatorDto, r.password, r.hasLocalPcEncrypt);
-            if (result.isSuccess)
-            {
-                if (!result.isUpdate)
-                    Toast.Show(ToastIcon.Success, Strings.LocalAuth_SteamAppAddSuccess);
-            }
-            return result.isSuccess;
+            Toast.Show(ToastIcon.Warning, ReadErrorText(ex.ResultCode));
+            return false;
         }
     }
 
-    public static async Task<(bool hasLocalPcEncrypt, bool hasPasswordEncrypt, string? password)> GetCurrentPassword()
+    public static async Task<(bool authorized, bool hasLocalPcEncrypt, string? password, bool verifiedWithHello)> GetCurrentPassword()
     {
-        var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
-
-        var (hasLocalPcEncrypt, hasPasswordEncrypt) = AuthenticatorHelper.HasEncrypt(sourceList);
-
-        if (hasPasswordEncrypt)
-        {
-            var textViewmodel = new TextBoxWindowViewModel()
-            {
-                InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
-            };
-            if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, Strings.Title_InputAuthPassword, isDialog: false,
-                    isCancelButton: true) &&
-                textViewmodel.Value != null)
-            {
-                if (await AuthenticatorHelper.ValidatePassword(sourceList[0], textViewmodel.Value))
-                {
-                    return (hasLocalPcEncrypt, hasPasswordEncrypt, textViewmodel.Value);
-                }
-                else
-                {
-                    Toast.Show(ToastIcon.Warning, Strings.Warning_PasswordError);
-                }
-            }
-        }
-
-        return (hasLocalPcEncrypt, hasPasswordEncrypt, null);
+        var sources = await GetAllSourceAuthenticatorAsync();
+        var (hasLocal, hasPassword) = HasEncrypt(sources);
+        if (!hasLocal && !hasPassword && !sources.Any(AccountPlatformAuthenticatorRepository.RequiresWindowsHello))
+            return (true, false, null, false);
+        var access = await ReadAuthorizedVaultAsync(sources);
+        return access.HasValue ? (true, hasLocal, access.Value.password, access.Value.verifiedWithHello) : default;
     }
 }

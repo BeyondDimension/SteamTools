@@ -3,9 +3,8 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="using:Avalonia.Xaml.Interactivity"
-    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:BD.WTTS.Models"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -78,19 +77,19 @@
                 VerticalAlignment="Center"
                 Text="{x:Static spp:Strings.L10nGames_History}"
                 Theme="{StaticResource CaptionTextBlockStyle}" />
-            <ListBox ItemsSource="{ReflectionBinding WindowList, Mode=OneWay}" SelectedItem="{ReflectionBinding SelectWindow}">
+            <ListBox ItemsSource="{Binding WindowList, Mode=OneWay}" SelectedItem="{Binding SelectWindow, Mode=TwoWay}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical" Spacing="5" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:NativeWindowModel">
                         <WrapPanel VerticalAlignment="Center">
                             <TextBlock>
-                                <Run Text="{ReflectionBinding Name, Mode=OneWay}" />
+                                <Run Text="{Binding Name, Mode=OneWay}" />
                                 <Run Text="(" />
-                                <Run Text="{ReflectionBinding Title, Mode=OneWay}" />
+                                <Run Text="{Binding Title, Mode=OneWay}" />
                                 <Run Text=")" />
                             </TextBlock>
                         </WrapPanel>
@@ -119,13 +118,8 @@
 						  x:Name="move"
 						  Width="64"
 						  HorizontalAlignment="Left"
-						  Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/movecross.png">
-							<i:Interaction.Behaviors>
-								<ia:EventTriggerBehavior EventName="PointerPressed" SourceObject="{Binding #move}">
-									<ia:InvokeCommandAction Command="{ReflectionBinding $parent[spp:PageBase].((spp:BorderlessGamePageViewModel)DataContext).Cross_MouseDown}" />
-								</ia:EventTriggerBehavior>
-							</i:Interaction.Behaviors>
-						</Image>
+                          IsEnabled="{Binding IsWindowPickingSupported}"
+                          Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/movecross.png" />
 					</Grid>
 					<TextBlock Grid.Column="1"
 						Margin="10"
@@ -151,8 +145,8 @@
 						</StackPanel>
 						<Button DockPanel.Dock="Right" HorizontalAlignment="Right" 
 								Width="100" Content="{x:Static spp:Strings.Copy}"
-								Command="{ReflectionBinding CopyGameInfo_Click}"
-								IsEnabled="{ReflectionBinding !!SelectWindow}" />
+								Command="{Binding CopyGameInfoCommand}"
+								IsEnabled="{Binding HasSelectedWindow}" />
 					</DockPanel>
 				</Expander.Header>
 				
@@ -165,8 +159,7 @@
 						<SelectableTextBlock
 							Grid.Column="1"
 							Margin="4,0,0,10"
-							Text="{ReflectionBinding SelectWindow?.Title,
-											 Mode=OneWay}"
+							Text="{Binding SelectWindow.Title, Mode=OneWay}"
 							TextWrapping="WrapWithOverflow" 
 							Foreground="Gray" VerticalAlignment="Top" />
 
@@ -178,8 +171,7 @@
 							Grid.Row="1"
 							Grid.Column="1"
 							Margin="4,0,0,10"
-							Text="{ReflectionBinding SelectWindow?.Title,
-											 Mode=OneWay}"
+							Text="{Binding SelectWindow.Name, Mode=OneWay}"
 							TextWrapping="WrapWithOverflow"
 							Foreground="Gray" VerticalAlignment="Top" />
 
@@ -191,8 +183,7 @@
 							Grid.Row="2"
 							Grid.Column="1"
 							Margin="4,0,0,10"
-							Text="{ReflectionBinding SelectWindow?.Name,
-											 Mode=OneWay}"
+							Text="{Binding SelectWindow.ClassName, Mode=OneWay}"
 							TextWrapping="WrapWithOverflow" 
 							Foreground="Gray" VerticalAlignment="Top" />
 
@@ -204,8 +195,7 @@
 							Grid.Row="3"
 							Grid.Column="1"
 							Margin="4,0,0,10"
-							Text="{ReflectionBinding SelectWindow?.Path,
-											 Mode=OneWay}"
+							Text="{Binding SelectWindow.Path, Mode=OneWay}"
 							TextWrapping="WrapWithOverflow"
 							Foreground="Gray" VerticalAlignment="Top" />
 					</Grid>
@@ -222,7 +212,7 @@
 							</WrapPanel.Styles>
 
 							<!--Button Group 1-->
-							<Button Command="{ReflectionBinding BorderlessWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+							<Button Command="{Binding BorderlessWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
 								<!--<Button.Styles>
 									<Style Selector="Button">
 										<Setter Property="Background" Value="#0071c7" />
@@ -242,13 +232,13 @@
 									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_BorderlessWindow}"/>
 								</StackPanel>
 							</Button>
-							<Button Command="{ReflectionBinding MaximizeWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+							<Button Command="{Binding MaximizeWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
 								<StackPanel Orientation="Horizontal">
 									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE922;" />
 									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_Maximize}"/>
 								</StackPanel>
 							</Button>
-							<Button Command="{ReflectionBinding NormalWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+							<Button Command="{Binding NormalWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
 								<StackPanel Orientation="Horizontal">
 									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE923;" />
 									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_Normal}"/>
@@ -256,13 +246,13 @@
 							</Button>
 
 							<!--Button Group 2-->
-							<Button Command="{ReflectionBinding HideWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+							<Button Command="{Binding HideWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
 								<StackPanel Orientation="Horizontal">
 									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xed1a;" />
 									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_Hide}"/>
 								</StackPanel>
 							</Button>
-							<Button Command="{ReflectionBinding ShowWindow_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+							<Button Command="{Binding ShowWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
 								<StackPanel Orientation="Horizontal">
 									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7b3;" />
 									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_Show}"/>
@@ -271,22 +261,22 @@
 
 							<!--Button Group 3-->
 							<Button
-								Command="{ReflectionBinding ToWallerpaperWindow_Click}"
-								IsEnabled="{ReflectionBinding !!SelectWindow}"
+								Command="{Binding ToWallpaperWindowCommand}"
+								IsEnabled="{Binding HasSelectedWindow}"
 								ToolTip.Tip="{x:Static spp:Strings.GameRelated_Borderless_ToWallerpaperTip}">
 								<StackPanel Orientation="Horizontal">
 									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE718;" />
 									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_ToWallerpaper}"/>
 								</StackPanel>
 							</Button>
-							<Button Command="{ReflectionBinding ResetWallerpaper_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+							<Button Command="{Binding ResetWallpaperCommand}" IsEnabled="{Binding HasSelectedWindow}">
 								<StackPanel Orientation="Horizontal">
 									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE72C;" />
 									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_ResetWallerpaper}"/>
 								</StackPanel>
 							</Button>
 
-							<Button Command="{ReflectionBinding WindowKill_Click}" IsEnabled="{ReflectionBinding !!SelectWindow}">
+							<Button Command="{Binding KillWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
 								<Button.Styles>
 									<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
 										<Setter Property="TextElement.Foreground" Value="White" />

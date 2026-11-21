@@ -23,43 +23,23 @@
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <Button
+                x:Name="RunOrStopButton"
                 Padding="8,4"
                 Command="{Binding RunOrStop}"
                 DockPanel.Dock="Right"
+                IsEnabled="{Binding !IsASFRunOrStoping, Source={x:Static s:ASFService.Current}, FallbackValue=False}"
                 Theme="{StaticResource TransparentButton}">
-                <Panel>
-                    <Viewbox
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <ui:FASymbolIcon
                         Width="16"
                         Height="16"
-                        HorizontalAlignment="Left"
-                        IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
-                                                      Path=!IsASFRuning}">
-                        <ui:FASymbolIcon Symbol="Play" />
-                    </Viewbox>
-                    <Viewbox
-                        Width="16"
-                        Height="16"
-                        HorizontalAlignment="Left"
-                        IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
-                                                      Path=IsASFRuning}">
-                        <ui:FASymbolIcon Symbol="Pause" />
-                    </Viewbox>
-                    <TextBlock
-                        Margin="28,4,0,4"
-                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
-                                                      Path=!IsASFRuning}"
-                        Text="{x:Static spp:Strings.ASF_Start}" />
-
+                        Symbol="{Binding IsASFRuning, Source={x:Static s:ASFService.Current}, Converter={x:Static spp:ArchiSteamFarmPage.RunOrStopIconConverter}, FallbackValue=Play}" />
                     <TextBlock
-                        Margin="28,4,0,4"
-                        HorizontalAlignment="Left"
+                        Margin="0,4"
                         VerticalAlignment="Center"
-                        IsVisible="{ReflectionBinding Source={x:Static s:ASFService.Current},
-                                                      Path=IsASFRuning}"
-                        Text="{x:Static spp:Strings.ASF_Stop}" />
-                </Panel>
+                        Text="{Binding IsASFRuning, Source={x:Static s:ASFService.Current}, Converter={x:Static spp:ArchiSteamFarmPage.RunOrStopTextConverter}, FallbackValue={x:Static spp:Strings.ASF_Start}}" />
+                </StackPanel>
             </Button>
             <Button
                 Padding="8,4"
@@ -207,47 +187,40 @@
     </spp:PageBase.PaneContent>
 
     <spp:ContentLoader IsLoading="False">
-        <!--<StackPanel Orientation="Horizontal" Spacing="2">
-                <Label
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="控制台输入" />
-                <TextBox Width="200" Text="{Binding Source={x:Static s:ASFService.Current}, Path=ConsoleLogInput, Mode=TwoWay}" />
-                <Button
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding ShellMessageInput}"
-                    Content="发送" />
-            </StackPanel>
-
-            <TextBlock Text="{Binding Source={x:Static s:ASFService.Current}, Path=ConsoleLogText, Mode=TwoWay}" />-->
-
-        <spp:ConsoleShell
-            AutoCompleteBoxItems="{x:Static spp:ArchiSteamFarmCommand.Commands}"
-            CommandSubmit="ConsoleShell_CommandSubmit"
-            FontSize="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleFontSize},
-                                         Path=Value,
-                                         Mode=OneWay}"
-            InputIndicator="{x:Static spp:Strings.L10nAsf_Text027}"
-            IsMask="false"
-            LogText="{ReflectionBinding Source={x:Static s:ASFService.Current},
-                                        Path=ConsoleLogText,
-                                        Mode=TwoWay}"
-            MaxLine="{ReflectionBinding Source={x:Static ms:ASFSettings.ConsoleMaxLine},
-                                        Path=Value,
-                                        Mode=OneWay}">
-            <spp:ConsoleShell.AutoCompleteBoxItemTemplate>
-                <DataTemplate x:DataType="spp:ArchiSteamFarmCommand">
-                    <DockPanel>
-                        <TextBlock VerticalAlignment="Center" Text="{Binding CommandText}" />
-                        <TextBlock
-                            Margin="15,0,0,0"
-                            VerticalAlignment="Center"
-                            Text="{Binding Description}"
-                            TextWrapping="Wrap" />
-                    </DockPanel>
-                </DataTemplate>
-            </spp:ConsoleShell.AutoCompleteBoxItemTemplate>
-        </spp:ConsoleShell>
+        <spp:LogConsole
+            Buffer="{Binding ConsoleLogs, Source={x:Static s:ASFService.Current}, Mode=OneWay}"
+            Title="{x:Static spp:Strings.ArchiSteamFarmPlus}"
+            FontSize="{Binding Value, Source={x:Static ms:ASFSettings.ConsoleFontSize}, Mode=OneWay, Converter={x:Static spp:ArchiSteamFarmPage.ConsoleFontSizeConverter}}"
+            MaxLines="{Binding Value, Source={x:Static ms:ASFSettings.ConsoleMaxLine}, Mode=OneWay, Converter={x:Static spp:ArchiSteamFarmPage.ConsoleMaxLinesConverter}}">
+            <spp:LogConsole.CommandContent>
+                <Grid Margin="6,4" ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                    <spp:LogCommandBox
+                        x:Name="CommandInput"
+                        CommandSubmitted="CommandInput_CommandSubmitted"
+                        ItemsSource="{x:Static spp:ArchiSteamFarmCommand.Commands}"
+                        PlaceholderText="{x:Static spp:Strings.LogConsole_CommandHint}"
+                        ValueMemberBinding="{Binding Command, x:DataType=spp:ArchiSteamFarmCommand}">
+                        <spp:LogCommandBox.ItemTemplate>
+                            <DataTemplate x:DataType="spp:ArchiSteamFarmCommand">
+                                <DockPanel>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding CommandText}" />
+                                    <TextBlock
+                                        Margin="15,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Description}"
+                                        TextWrapping="Wrap" />
+                                </DockPanel>
+                            </DataTemplate>
+                        </spp:LogCommandBox.ItemTemplate>
+                    </spp:LogCommandBox>
+                    <Button
+                        Grid.Column="1"
+                        Padding="12,4"
+                        VerticalAlignment="Stretch"
+                        Click="SendCommand_Click"
+                        Content="{x:Static spp:Strings.LogConsole_Send}" />
+                </Grid>
+            </spp:LogConsole.CommandContent>
+        </spp:LogConsole>
     </spp:ContentLoader>
 </spp:PageBase>

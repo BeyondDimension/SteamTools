@@ -51,7 +51,7 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
         this.WhenActivated(disposables =>
         {
             disposables.Add(
-                ProxyService.Current.WhenValueChanged(x => x.ProxyStatus, false)
+                ProxyService.Current.ObserveValue(nameof(ProxyService.ProxyStatus), static x => x.ProxyStatus).Skip(1)
                     .Subscribe(x =>
                     {
                         AcceleratorTabs.SelectedIndex = x ? 1 : 0;
@@ -60,7 +60,7 @@ public partial class AcceleratorPage2 : PageBase<AcceleratorPageViewModel>
             if (XunYouSDK.IsSupported)
             {
                 disposables.Add(
-                    GameAcceleratorService.Current.WhenValueChanged(x => x.CurrentAcceleratorGame, false)
+                    GameAcceleratorService.Current.ObserveValue(nameof(GameAcceleratorService.CurrentAcceleratorGame), static x => x.CurrentAcceleratorGame).Skip(1)
                         .Subscribe(x =>
                         {
                             if (x != null && GameAcceleratorService.Current.Games != null)

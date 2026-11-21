@@ -114,21 +114,17 @@
     </spp:PageBase.ActionContent>
 
     <Carousel SelectedIndex="{Binding #TabSelect.SelectedIndex}">
-        <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}" CornerRadius="{DynamicResource ControlCornerRadius}">
-            <Grid RowDefinitions="*,Auto">
-                <TextBox
-                    HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Stretch"
-                    Classes="readonlybox"
-                    Text="{Binding DebugString}"
-                    TextAlignment="Start"
-                    TextWrapping="Wrap" />
-                <TextBox
-                    Name="CommandTextBox"
-                    Grid.Row="1"
-                    PlaceholderText="{x:Static spp:Strings.Debug_InstructionPlaceholder}" />
-            </Grid>
-        </Border>
+        <spp:LogConsole Buffer="{Binding ConsoleLogs}" Title="{x:Static spp:Strings.LogConsole_Title}">
+            <spp:LogConsole.CommandContent>
+                <Grid Margin="6,4" ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                    <spp:LogCommandBox x:Name="CommandInput" CommandSubmitted="CommandInput_CommandSubmitted"
+                                       ItemsSource="{x:Static spp:DebugPage.CommandSuggestions}"
+                                       PlaceholderText="{x:Static spp:Strings.LogConsole_CommandHint}" />
+                    <Button Grid.Column="1" VerticalAlignment="Center" Click="Send_OnClick"
+                            Content="{x:Static spp:Strings.LogConsole_Send}" />
+                </Grid>
+            </spp:LogConsole.CommandContent>
+        </spp:LogConsole>
 
         <Panel>
             <TextBlock Text="Test Control" />

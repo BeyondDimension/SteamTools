@@ -1,7 +1,6 @@
 using BD.WTTS.Helpers;
 using System.Runtime.Devices;
 using System.Threading.Tasks;
-using static BD.WTTS.Services.IMicroServiceClient;
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
@@ -20,7 +19,7 @@ public sealed class NoticeService : ReactiveObject
     [Reactive]
     public int UnreadNotificationsCount { get; set; }
 
-    private Timer _timer;
+    readonly Timer _timer;
 
     //[Reactive]
     //public ObservableCollection<NoticeGroupDTO> NoticeTypes { get; set; }
@@ -31,10 +30,7 @@ public sealed class NoticeService : ReactiveObject
     {
         Notices = new ObservableCollection<OfficialMessageItemDTO>();
 
-        _timer = new Timer(_ =>
-        {
-            GetNewsAsync().GetAwaiter().GetResult();
-        }, null, TimeSpan.FromHours(2), TimeSpan.FromHours(2));
+        _timer = new Timer(_ => GetNews(), null, TimeSpan.FromHours(2), TimeSpan.FromHours(2));
 
         //NoticesSource = new(x => x.Id);
         //NoticeTypes = new();
@@ -42,13 +38,24 @@ public sealed class NoticeService : ReactiveObject
 
     public async void GetNews()
     {
-        await GetNewsAsync();
+        try
+        {
+            await GetNewsAsync().ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            NLogManager.GetLogger(nameof(NoticeService)).Warn(ex, "Failed to refresh notices.");
+        }
     }
 
     public async Task GetNewsAsync()
     {
-        var client = Instance.Message;
-        var result = await client.GetMessage(IApplication.ClientPlatform, OfficialMessageType.News);
+        // 轻量 UI 进程可能未注册服务端 API 客户端。
+        var client = Ioc.Get_Nullable<IMicroServiceClient>();
+        if (client == null)
+            return;
+
+        var result = await client.Message.GetMessage(IApplication.ClientPlatform, OfficialMessageType.News);
 
         await MainThread2.InvokeOnMainThreadAsync(() =>
         {

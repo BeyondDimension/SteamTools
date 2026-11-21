@@ -19,9 +19,9 @@ interface IDotNetPublishCommand : ICommand
 
     static string releaseTimestamp = DateTimeOffset.Now.ToString("yyMMdd_HHmmssfffffff");
 
-    static string GetPublishFileName(bool debug, string rid, string fileEx = "")
+    static string GetPublishFileName(bool debug, string rid, string fileEx = "", bool aot = false)
     {
-        var value = $"[{(debug ? "Debug" : "Release")}] {EntryPointAssemblyName}_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}_{releaseTimestamp}{fileEx}";
+        var value = $"[{(debug ? "Debug" : "Release")}] {EntryPointAssemblyName}{(aot ? "(Native AOT)" : null)}_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}_{releaseTimestamp}{fileEx}";
         return value;
     }
 
@@ -45,12 +45,13 @@ interface IDotNetPublishCommand : ICommand
         var hsm_sign = CommandCompat.GetOption<bool>("--hsm-sign", "");
         var sha256 = CommandCompat.GetOption<bool>("--sha256", () => true, "Calculate file hash value");
         var sha384 = CommandCompat.GetOption<bool>("--sha384", () => true, "Calculate file hash value");
-        var stm_upload = CommandCompat.GetOption<bool>("--stm-upload", "Steam upload zip file");
+        var stm_upload = CommandCompat.GetOption<bool>("--stm-upload", "Create a Steam upload ZIP for Windows or Linux Native AOT");
+        var aot = CommandCompat.GetOption<bool>("--aot", () => true, "Build Native AOT packages alongside JIT packages");
         var command = new Command(commandName, "DotNet publish app")
         {
-           debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign,
+           debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign, aot,
         };
-        command.SetHandler(Handler, debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign);
+        command.SetHandler(Handler, debug, rids, force_sign, sha256, sha384, stm_upload, hsm_sign, aot);
         return command;
     }
 
@@ -72,7 +73,7 @@ interface IDotNetPublishCommand : ICommand
     }
 
 
-    internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload, bool hsm_sign)
+    internal static void Handler(bool debug, string[] rids, bool force_sign, bool sha256, bool sha384, bool stm_upload, bool hsm_sign, bool aot)
     {
         if (ProjectUtils.ProjPath.Contains("actions-runner"))
         {
@@ -100,6 +101,22 @@ interface IDotNetPublishCommand : ICommand
                 var info = DeconstructRuntimeIdentifier(rid);
                 if (info == default) continue;
 
+                var projRootPath = ProjectPath_AvaloniaApp;
+                var arg = SetPublishCommandArgumentList(debug, info.Platform, info.DeviceIdiom, info.Architecture);
+                if (info.Platform == Platform.Apple)
+                {
+                    var directory = Path.Combine(projRootPath, arg.GetPublishDir());
+                    PublishMacJit(arg, info.Architecture, directory);
+                    WriteMacPublishManifest(directory, rid, DeploymentMode.SCD, sha256, sha384);
+                    if (aot)
+                    {
+                        var nativeDirectory = Path.Combine(projRootPath, arg.GetPublishDir(aot: true));
+                        NativeAotPublisher.RunPublishScript(rid, nativeDirectory);
+                        WriteMacPublishManifest(nativeDirectory, rid, DeploymentMode.AOT, sha256, sha384);
+                    }
+                    continue;
+                }
+
                 bool isWindows = false;
                 bool isCopyRuntime = false;
                 switch (info.Platform)
@@ -117,9 +134,7 @@ interface IDotNetPublishCommand : ICommand
 
                 var isWinArm64 = isWindows && info.Architecture == Architecture.Arm64;
 
-                var projRootPath = ProjectPath_AvaloniaApp;
                 var psi = GetProcessStartInfo(projRootPath);
-                var arg = SetPublishCommandArgumentList(debug, info.Platform, info.DeviceIdiom, info.Architecture);
                 if (isWinArm64) // win-arm64
                 {
                     // steamclient.dll 缺少 Arm64，以及 Arm64EC 在 dotnet 中目前不可用
@@ -128,6 +143,7 @@ interface IDotNetPublishCommand : ICommand
                     arg.PublishDir = arg.PublishDir.Replace("win-x64", "win-arm64");
                 }
                 SetPublishCommandArgumentList(psi.ArgumentList, arg);
+                psi.ArgumentList.Add($"-p:WttsDesktopTargetFrameworks={arg.Framework}");
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                 Console.Write("[");
@@ -139,6 +155,7 @@ interface IDotNetPublishCommand : ICommand
                 var publishDir = Path.Combine(projRootPath, arg.PublishDir);
                 Console.WriteLine(publishDir);
                 var rootPublishDir = Path.GetFullPath(Path.Combine(publishDir, ".."));
+                var rootPublishDir_Aot = aot ? Path.Combine(projRootPath, arg.GetPublishDir(aot: true)) : null!;
                 //switch (info.Platform)
                 //{
                 //    case Platform.Linux:
@@ -188,14 +205,19 @@ interface IDotNetPublishCommand : ICommand
                         File.Copy(ico_path, Path.Combine(save_dir_path, "Watt-Toolkit.png"), true);
                     }
                     Console.WriteLine(ToolStrings.Get("LinuxScripts"));
-                    var script_path = Path.Combine(rootPublishDir, "..", "ShellScript", "Linux");//Path.Combine(ProjectUtils.ProjPath, "build", "linux");
-                    CopyDirectory(script_path, Path.Combine(rootPublishDir, "script"), true);
+                    var legacyScripts = Path.Combine(rootPublishDir, "..", "ShellScript", "Linux");
                     var localizedScripts = Path.Combine(ProjectUtils.ProjPath, "build", "linux");
                     var destinationScripts = Path.Combine(rootPublishDir, "script");
-                    foreach (var script in new[] { "Steam++.sh", "environment_check.sh", "offline_init.sh", "online_install.sh", "uninstall.sh" })
-                        File.Copy(Path.Combine(localizedScripts, script), Path.Combine(destinationScripts, script), true);
-                    CopyDirectory(Path.Combine(localizedScripts, "locale"), Path.Combine(destinationScripts, "locale"), true);
-                    File.Move(Path.Combine(rootPublishDir, "script", "Steam++.sh"), Path.Combine(rootPublishDir, "Steam++.sh"));
+                    if (Directory.Exists(legacyScripts))
+                        CopyDirectory(legacyScripts, destinationScripts, true);
+                    CopyDirectory(localizedScripts, destinationScripts, true);
+                    if (OperatingSystem.IsLinux())
+                    {
+                        const UnixFileMode executable = UnixFileMode.UserExecute | UnixFileMode.GroupExecute | UnixFileMode.OtherExecute;
+                        foreach (var script in Directory.EnumerateFiles(destinationScripts, "*.sh"))
+                            File.SetUnixFileMode(script, File.GetUnixFileMode(script) | executable);
+                    }
+                    File.Move(Path.Combine(destinationScripts, "Steam++.sh"), Path.Combine(rootPublishDir, "Steam++.sh"));
                 }
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
@@ -247,7 +269,7 @@ interface IDotNetPublishCommand : ICommand
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                 Console.WriteLine(ToolStrings.Get("PublishingPlugins"));
                 ResetConsoleColor();
-                PublishPlugins(debug, info.Platform, info.Architecture, publishDir, arg.Configuration, arg.Framework);
+                PublishPlugins(debug, info.Platform, info.Architecture, Path.Combine(rootPublishDir, "modules"), arg.Configuration, arg.Framework);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                 Console.WriteLine(ToolStrings.Get("PublishedPlugins"));
                 ResetConsoleColor();
@@ -261,12 +283,23 @@ interface IDotNetPublishCommand : ICommand
                 Console.WriteLine(ToolStrings.Get("CopiedRuntime"));
                 ResetConsoleColor();
 
+                // 发布 AOT 版本
+                if (rootPublishDir_Aot != null)
+                    NativeAotPublisher.RunPublishScript(rid, rootPublishDir_Aot);
+
                 var appPublish = new AppPublishInfo()
                 {
                     DeploymentMode = DeploymentMode.SCD,
                     RuntimeIdentifier = arg.RuntimeIdentifier,
                     DirectoryPath = rootPublishDir,
                 };
+
+                var appPublish_Aot = rootPublishDir_Aot != null ? new AppPublishInfo()
+                {
+                    DeploymentMode = DeploymentMode.AOT,
+                    RuntimeIdentifier = arg.RuntimeIdentifier,
+                    DirectoryPath = rootPublishDir_Aot,
+                } : null!;
 
                 IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_AppData));
                 IOPath.DirTryDelete(Path.Combine(rootPublishDir, IOPath.DirName_Cache));
@@ -280,6 +313,12 @@ interface IDotNetPublishCommand : ICommand
                 IScanPublicDirectoryCommand.ScanPathCore(appPublish.DirectoryPath,
                     appPublish.Files,
                     ignoreRootDirNames: ignoreDirNames);
+                if (appPublish_Aot != null)
+                {
+                    IScanPublicDirectoryCommand.ScanPathCore(appPublish_Aot.DirectoryPath,
+                        appPublish_Aot.Files,
+                        ignoreRootDirNames: ignoreDirNames);
+                }
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                 Console.WriteLine(ToolStrings.Get("ScannedFiles"));
                 ResetConsoleColor();
@@ -287,22 +326,9 @@ interface IDotNetPublishCommand : ICommand
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                 Console.WriteLine(ToolStrings.Get("HashingFiles"));
                 ResetConsoleColor();
-                if (sha256)
-                {
-                    foreach (var item in appPublish.Files)
-                    {
-                        using var fileStream = File.OpenRead(item.FilePath);
-                        item.SHA256 = Hashs.String.SHA256(fileStream);
-                    }
-                }
-                if (sha384)
-                {
-                    foreach (var item in appPublish.Files)
-                    {
-                        using var fileStream = File.OpenRead(item.FilePath);
-                        item.SHA384 = Hashs.String.SHA384(fileStream);
-                    }
-                }
+                HashFiles(appPublish, sha256, sha384);
+                if (appPublish_Aot != null)
+                    HashFiles(appPublish_Aot, sha256, sha384);
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                 Console.WriteLine(ToolStrings.Get("HashedFiles"));
                 ResetConsoleColor();
@@ -312,7 +338,15 @@ interface IDotNetPublishCommand : ICommand
                     // 数字签名
                     List<AppPublishFileInfo> toBeSignedFiles = new();
                     HashSet<string> toBeSignedFilePaths = new();
-                    foreach (var item in appPublish.Files!)
+
+                    List<AppPublishFileInfo> appPublishAllFiles = new();
+                    appPublishAllFiles.AddRange(appPublish.Files);
+                    if (appPublish_Aot != null)
+                    {
+                        appPublishAllFiles.AddRange(appPublish_Aot.Files);
+                    }
+
+                    foreach (var item in appPublishAllFiles)
                     {
                         switch (item.FileEx.ToLowerInvariant())
                         {
@@ -377,42 +411,57 @@ $"""
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                     Console.WriteLine(ToolStrings.Get("GeneratingMsix"));
                     ResetConsoleColor();
-                    // 生成清单文件
-                    MSIXHelper.MakeAppx.GenerateAppxManifestXml(rootPublishDir, AppVersion4, info.Architecture);
 
-                    // 打包资源 images
-                    MSIXHelper.MakePri.Start(rootPublishDir);
+                    void PublishMSIX(AppPublishInfo appPublish, AppPublishFileInfo msixInfo, string rootPublishDir, out string msixFilePath)
+                    {
+                        // 生成清单文件
+                        MSIXHelper.MakeAppx.GenerateAppxManifestXml(rootPublishDir, AppVersion4, info.Architecture);
 
-                    var msixDir = $"{rootPublishDir}_MSIX";
-                    IOPath.DirCreateByNotExists(msixDir);
-                    var msixFilePath = Path.Combine(msixDir, GetPublishFileName(debug, rid, ".msix"));
+                        // 打包资源 images
+                        MSIXHelper.MakePri.Start(rootPublishDir);
 
-                    // 生成 msix 包
-                    MSIXHelper.MakeAppx.Start(msixFilePath, rootPublishDir, AppVersion4, info.Architecture);
-                    Thread.Sleep(TimeSpan.FromSeconds(1.15d));
+                        var msixDir = $"{rootPublishDir}_MSIX";
+                        IOPath.DirCreateByNotExists(msixDir);
+                        msixFilePath = Path.Combine(msixDir, GetPublishFileName(debug, rid, ".msix"));
 
-                    // 签名 msix 包
-                    // msix 签名证书名必须与包名一致
-                    MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+                        // 生成 msix 包
+                        MSIXHelper.MakeAppx.Start(msixFilePath, rootPublishDir, AppVersion4, info.Architecture);
+                        Thread.Sleep(TimeSpan.FromSeconds(1.15d));
 
-                    var msixBundleFilePath = $"{rootPublishDir}.msixbundle";
-                    MSIXHelper.MakeAppx.StartBundle(msixBundleFilePath, msixDir, AppVersion4);
-                    Thread.Sleep(TimeSpan.FromSeconds(1.15d));
+                        // 签名 msix 包
+                        // msix 签名证书名必须与包名一致
+                        MSIXHelper.SignTool.Start(force_sign, $"\"{msixFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
 
-                    // 签名 msix 包
-                    // msix 签名证书名必须与包名一致
-                    MSIXHelper.SignTool.Start(force_sign, $"\"{msixBundleFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+                        var msixBundleFilePath = $"{rootPublishDir}.msixbundle";
+                        MSIXHelper.MakeAppx.StartBundle(msixBundleFilePath, msixDir, AppVersion4);
+                        Thread.Sleep(TimeSpan.FromSeconds(1.15d));
 
-                    using var msixFileStream = File.OpenRead(msixBundleFilePath);
+                        // 签名 msix 包
+                        // msix 签名证书名必须与包名一致
+                        MSIXHelper.SignTool.Start(force_sign, $"\"{msixBundleFilePath}\"", MSIXHelper.SignTool.pfxFilePath_MSStore_CodeSigning);
+
+                        using var msixFileStream = File.OpenRead(msixBundleFilePath);
+
+                        msixInfo.FilePath = msixBundleFilePath;
+                        msixInfo.Length = msixFileStream.Length;
+                        msixInfo.SignatureSHA384 = Hashs.String.SHA384(msixFileStream);
+                        appPublish.SingleFile.Add(CloudFileType.MsixBundle, msixInfo);
+                    }
 
                     var msixInfo = new AppPublishFileInfo
                     {
                         FileEx = ".msixbundle",
-                        FilePath = msixBundleFilePath,
-                        Length = msixFileStream.Length,
-                        SignatureSHA384 = Hashs.String.SHA384(msixFileStream),
                     };
-                    appPublish.SingleFile.Add(CloudFileType.MsixBundle, msixInfo);
+                    AppPublishFileInfo msixInfo_Aot = null!;
+                    PublishMSIX(appPublish, msixInfo, rootPublishDir, out var msixFilePath);
+                    if (aot && rootPublishDir_Aot != null && appPublish_Aot != null)
+                    {
+                        msixInfo_Aot = new AppPublishFileInfo
+                        {
+                            FileEx = msixInfo.FileEx,
+                        };
+                        PublishMSIX(appPublish_Aot, msixInfo_Aot, rootPublishDir_Aot, out _);
+                    }
 
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                     Console.Write(ToolStrings.Get("GeneratedMsixSize"));
@@ -426,9 +475,9 @@ $"""
                 Console.WriteLine(ToolStrings.Get("CreatingArchive"));
                 ResetConsoleColor();
                 string? packPath = null;
-                string GetPackPathWithTryDelete(string fileEx)
+                string GetPackPathWithTryDelete(string fileEx, bool aot = false)
                 {
-                    var packPath = $"{rootPublishDir}{fileEx}";
+                    var packPath = $"{(aot ? rootPublishDir_Aot : rootPublishDir)}{fileEx}";
                     IOPath.FileTryDelete(packPath);
                     return packPath;
                 }
@@ -437,58 +486,86 @@ $"""
                     case Platform.Windows:
                     case Platform.UWP:
                     case Platform.WinUI:
-                    case Platform.Apple:
-                        ICompressedPackageCommand.CreateSevenZipPack(packPath = GetPackPathWithTryDelete(FileEx._7Z), appPublish.Files);
-                        break;
+                        {
+                            ICompressedPackageCommand.CreateSevenZipPack(packPath = GetPackPathWithTryDelete(FileEx._7Z), appPublish.Files);
+                            if (appPublish_Aot != null)
+                            {
+                                ICompressedPackageCommand.CreateSevenZipPack(packPath = GetPackPathWithTryDelete(FileEx._7Z, aot: true), appPublish_Aot.Files);
+                            }
+                            break;
+                        }
                     case Platform.Linux:
-                        ICompressedPackageCommand.CreateGZipPack(packPath = GetPackPathWithTryDelete(FileEx.TAR_GZ), appPublish.Files);
+                        {
+                            ICompressedPackageCommand.CreateGZipPack(packPath = GetPackPathWithTryDelete(FileEx.TAR_GZ), appPublish.Files);
+                            if (appPublish_Aot != null)
+                            {
+                                ICompressedPackageCommand.CreateGZipPack(packPath = GetPackPathWithTryDelete(FileEx.TAR_GZ, aot: true), appPublish_Aot.Files);
+                            }
+                        }
                         break;
                 }
-                if (stm_upload)
+
+                // A. old jit version dlc
+                //if (stm_upload)
+                //{
+                //    List<AppPublishFileInfo> mainFiles = new();
+                //    List<AppPublishFileInfo> modulesFiles = new();
+                //    List<AppPublishFileInfo> stmUploads = new();
+                //    foreach (var item in appPublish.Files)
+                //    {
+                //        if (item.RelativePath.Contains("modules"))
+                //        {
+                //            modulesFiles.Add(item);
+                //        }
+                //        else
+                //        {
+                //            mainFiles.Add(item);
+                //        }
+                //    }
+                //    var stmupload_main_zip_path = GetPackPathWithTryDelete("_Main.stmupload.zip");
+                //    stmUploads.Add(new()
+                //    {
+                //        FilePath = stmupload_main_zip_path,
+                //        RelativePath = Path.GetFileName(stmupload_main_zip_path),
+                //    });
+                //    ICompressedPackageCommand.CreateZipPack(stmupload_main_zip_path, mainFiles);
+
+                //    var query = from module in modulesFiles
+                //                let split = module.RelativePath.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries)
+                //                let name = split.Length >= 2 ? split[1] : null
+                //                where name != null
+                //                group module by name;
+                //    var items = query.ToArray();
+                //    foreach (var item in items)
+                //    {
+                //        if (string.IsNullOrWhiteSpace(item.Key))
+                //            continue;
+                //        var files = item.ToArray();
+                //        var stmupload_item_zip_path = GetPackPathWithTryDelete($"_{item.Key}.stmupload.zip");
+                //        stmUploads.Add(new()
+                //        {
+                //            FilePath = stmupload_item_zip_path,
+                //            RelativePath = Path.GetFileName(stmupload_item_zip_path),
+                //        });
+                //        ICompressedPackageCommand.CreateZipPack(stmupload_item_zip_path, files);
+                //    }
+                //    ICompressedPackageCommand.CreateZipPack(GetPackPathWithTryDelete(".stmupload.zip"), stmUploads);
+                //}
+
+                // B. aot main only
+                if (stm_upload && aot && appPublish_Aot != null)
                 {
-                    List<AppPublishFileInfo> mainFiles = new();
-                    List<AppPublishFileInfo> modulesFiles = new();
+                    List<AppPublishFileInfo> mainFiles = appPublish_Aot.Files;
                     List<AppPublishFileInfo> stmUploads = new();
-                    foreach (var item in appPublish.Files)
-                    {
-                        if (item.RelativePath.Contains("modules"))
-                        {
-                            modulesFiles.Add(item);
-                        }
-                        else
-                        {
-                            mainFiles.Add(item);
-                        }
-                    }
-                    var stmupload_main_zip_path = GetPackPathWithTryDelete("_Main.stmupload.zip");
+                    var stmupload_main_zip_path = GetPackPathWithTryDelete("_Main.stmupload.zip", aot: true);
                     stmUploads.Add(new()
                     {
                         FilePath = stmupload_main_zip_path,
                         RelativePath = Path.GetFileName(stmupload_main_zip_path),
                     });
                     ICompressedPackageCommand.CreateZipPack(stmupload_main_zip_path, mainFiles);
-
-                    var query = from module in modulesFiles
-                                let split = module.RelativePath.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries)
-                                let name = split.Length >= 2 ? split[1] : null
-                                where name != null
-                                group module by name;
-                    var items = query.ToArray();
-                    foreach (var item in items)
-                    {
-                        if (string.IsNullOrWhiteSpace(item.Key))
-                            continue;
-                        var files = item.ToArray();
-                        var stmupload_item_zip_path = GetPackPathWithTryDelete($"_{item.Key}.stmupload.zip");
-                        stmUploads.Add(new()
-                        {
-                            FilePath = stmupload_item_zip_path,
-                            RelativePath = Path.GetFileName(stmupload_item_zip_path),
-                        });
-                        ICompressedPackageCommand.CreateZipPack(stmupload_item_zip_path, files);
-                    }
-                    ICompressedPackageCommand.CreateZipPack(GetPackPathWithTryDelete(".stmupload.zip"), stmUploads);
                 }
+
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                 Console.Write(ToolStrings.Get("CreatedArchiveSize"));
                 if (packPath != null)
@@ -503,15 +580,9 @@ $"""
                 Console.WriteLine(packPath);
                 ResetConsoleColor();
 
-                var jsonFilePath = $"{rootPublishDir}.json";
-                using var jsonFileStream = File.Open(jsonFilePath, FileMode.OpenOrCreate);
-                JsonSerializer.Serialize(jsonFileStream, appPublish, new AppPublishInfoContext(new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                }).AppPublishInfo);
-                jsonFileStream.Flush();
-                jsonFileStream.SetLength(jsonFileStream.Position);
+                var jsonFilePath = WritePublishManifest(appPublish);
+                if (appPublish_Aot != null)
+                    WritePublishManifest(appPublish_Aot);
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                 Console.Write(ToolStrings.Get("GeneratedManifestSize"));
@@ -529,6 +600,120 @@ $"""
         {
             ResetConsoleColor();
         }
+    }
+
+    static void PublishMacJit(PublishCommandArg arg, Architecture architecture, string directory)
+    {
+        if (!OperatingSystem.IsMacOS())
+            throw new PlatformNotSupportedException("macOS DMG publishing requires macOS.");
+
+        var parent = Path.GetDirectoryName(directory)!;
+        var work = Directory.CreateDirectory(Path.Combine(parent, $".macos-jit-{Guid.NewGuid():N}")).FullName;
+        try
+        {
+            var payload = Directory.CreateDirectory(Path.Combine(work, "payload")).FullName;
+            var app = Path.Combine(payload, "Steam++.app");
+            var managedDirectory = Path.Combine(app, "Contents", "MonoBundle");
+            var modules = Path.Combine(managedDirectory, "modules");
+            arg.PublishDir = Path.Combine(work, "publish");
+            arg.CreatePackage = false;
+            var publish = GetProcessStartInfo(ProjectPath_AvaloniaApp);
+            SetPublishCommandArgumentList(publish.ArgumentList, arg);
+            publish.ArgumentList.Add($"-p:WttsDesktopTargetFrameworks={arg.Framework}");
+            publish.ArgumentList.Add($"-p:AppBundleDir={app}");
+            publish.ArgumentList.Add("-p:CopyDSYMToPublishDirectory=false");
+            ProcessHelper.StartAndWaitForExit(publish);
+
+            var dtls = Path.Combine(managedDirectory, "libdtls_native.dylib");
+            if (architecture == Architecture.X64 && !File.Exists(dtls))
+            {
+                var intelLibrary = Path.Combine(ProjectUtils.ProjPath, "build", "artifacts",
+                    "native-dependencies", "dtls", "osx-x64", "native", "libdtls_native.dylib");
+                if (!File.Exists(intelLibrary))
+                    throw new FileNotFoundException("Run build/native-dtls/build-macos-x64.sh before publishing the Intel macOS DMG.", intelLibrary);
+                NativeAotPublisher.Run("lipo", work, "-verify_arch", "x86_64", intelLibrary);
+                File.Copy(intelLibrary, dtls);
+                NativeAotPublisher.Run("codesign", work, "--force", "--sign", "-", dtls);
+            }
+
+            PublishPlugins(arg.IsDebug, Platform.Apple, architecture, modules, arg.Configuration, arg.Framework);
+            var accelerator = Path.Combine(modules, "Accelerator");
+            foreach (var library in Directory.EnumerateFiles(accelerator, "*.dylib", SearchOption.AllDirectories))
+                NativeAotPublisher.Run("codesign", work, "--force", "--sign", "-", library);
+            NativeAotPublisher.Run("codesign", work, "--force", "--sign", "-", Path.Combine(accelerator, "Steam++.Accelerator"));
+            NativeAotPublisher.Run("codesign", work, "--force", "--sign", "-", "--preserve-metadata=entitlements", app);
+
+            var packaging = Path.Combine(ProjectUtils.ProjPath, "build", "macos");
+            var stagedImage = Path.Combine(work, "package.dmg");
+            NativeAotPublisher.Run("/bin/bash", work, Path.Combine(packaging, "create-dmg.sh"),
+                Path.Combine(packaging, "installer-template.dmg"), app, stagedImage);
+            Directory.Move(payload, directory);
+            try
+            {
+                File.Move(stagedImage, directory + ".dmg");
+            }
+            catch
+            {
+                Directory.Move(directory, payload);
+                throw;
+            }
+            Console.WriteLine($"macOS disk image: {directory}.dmg");
+        }
+        finally
+        {
+            try
+            {
+                Directory.Delete(work, recursive: true);
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                Console.Error.WriteLine($"Could not remove macOS packaging directory {work}: {ex.Message}");
+            }
+        }
+    }
+
+    static void WriteMacPublishManifest(string directory, string rid, DeploymentMode mode, bool sha256, bool sha384)
+    {
+        var appPublish = new AppPublishInfo
+        {
+            DeploymentMode = mode,
+            RuntimeIdentifier = rid,
+            DirectoryPath = directory,
+        };
+        IScanPublicDirectoryCommand.ScanPathCore(directory, appPublish.Files, ignoreRootDirNames: ignoreDirNames);
+        HashFiles(appPublish, sha256, sha384);
+        WritePublishManifest(appPublish);
+    }
+
+    static void HashFiles(AppPublishInfo publish, bool sha256, bool sha384)
+    {
+        foreach (var item in publish.Files)
+        {
+            if (sha256)
+            {
+                using var file = File.OpenRead(item.FilePath);
+                item.SHA256 = Hashs.String.SHA256(file);
+            }
+            if (sha384)
+            {
+                using var file = File.OpenRead(item.FilePath);
+                item.SHA384 = Hashs.String.SHA384(file);
+            }
+        }
+    }
+
+    static string WritePublishManifest(AppPublishInfo publish)
+    {
+        var path = $"{publish.DirectoryPath}.json";
+        using var stream = File.Open(path, FileMode.OpenOrCreate);
+        JsonSerializer.Serialize(stream, publish, new AppPublishInfoContext(new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+        }).AppPublishInfo);
+        stream.Flush();
+        stream.SetLength(stream.Position);
+        return path;
     }
 
     private static readonly Lazy<string> _AppVersion4 = new(() =>
@@ -764,27 +949,27 @@ $"""
 
         string? _PublishDir;
 
-        public string GetPublishDirWithAssemblies()
+        public string GetPublishDirWithAssemblies(bool aot = false)
         {
             var value = string.Join(Path.DirectorySeparatorChar, new[]
                 {
                     "bin",
                     Configuration,
                     "Publish",
-                    GetPublishFileName(IsDebug, RuntimeIdentifier),
+                    GetPublishFileName(IsDebug, RuntimeIdentifier,aot:aot),
                     "assemblies",
                 });
             return value;
         }
 
-        public string GetPublishDir()
+        public string GetPublishDir(bool aot = false)
         {
             var value = string.Join(Path.DirectorySeparatorChar, new[]
                 {
                     "bin",
                     Configuration,
                     "Publish",
-                    GetPublishFileName(IsDebug, RuntimeIdentifier),
+                    GetPublishFileName(IsDebug, RuntimeIdentifier,aot:aot),
                 });
             return value;
         }
@@ -1030,7 +1215,7 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
     /// <summary>
     /// 发布插件
     /// </summary>
-    /// <param name="publishDir"></param>
+    /// <param name="modulesDirectory"></param>
     /// <param name="configuration"></param>
     /// <param name="framework"></param>
     /// <exception cref="FileNotFoundException"></exception>
@@ -1038,33 +1223,22 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 bool isDebug,
                 Platform platform,
                 Architecture architecture,
-                string publishDir,
+                string modulesDirectory,
                 string configuration,
                 string framework)
     {
         foreach (var pluginName in GetPluginNames(platform))
         {
             var projRootPath = Path.Combine(ProjectUtils.ProjPath, "src", $"BD.WTTS.Client.Plugins.{pluginName}");
-            StartProcessAndWaitForExit(projRootPath, $"build -c {configuration} --nologo -v q /property:WarningLevel=1");
+            StartProcessAndWaitForExit(projRootPath,
+                $"build -c {configuration} -f {framework} -p:WttsDesktopTargetFrameworks={framework} --nologo -v q /property:WarningLevel=1");
 
             var dllFileName = $"BD.WTTS.Client.Plugins.{pluginName}.dll";
             var pluginBuildDir = Path.Combine(projRootPath, "bin", configuration);
             var dllPath = Path.Combine(pluginBuildDir, framework, dllFileName);
             if (!File.Exists(dllPath))
-            {
-                framework = framework.Split('-').FirstOrDefault()!;
-                if (!string.IsNullOrEmpty(framework))
-                {
-                    dllPath = Path.Combine(pluginBuildDir, framework, dllFileName);
-                    if (!File.Exists(dllPath))
-                        throw new FileNotFoundException(null, dllPath);
-                }
-                else
-                {
-                    throw new FileNotFoundException(null, dllPath);
-                }
-            }
-            var pluginDir = Path.Combine(publishDir, "..", "modules", pluginName);
+                throw new FileNotFoundException(null, dllPath);
+            var pluginDir = Path.Combine(modulesDirectory, pluginName);
             IOPath.DirCreateByNotExists(pluginDir);
             var destFileName = Path.Combine(pluginDir, dllFileName);
             File.Copy(dllPath, destFileName, true);
@@ -1107,8 +1281,6 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 }
 
                 arg.Framework = $"net{Environment.Version.Major}.{Environment.Version.Minor}";
-                arg.UseAppHost = true;
-                arg.SingleFile = true;
                 arg.ReadyToRun = false;
                 arg.Trimmed = false;
                 if (isMacOS)
@@ -1130,8 +1302,6 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                     switch (platform)
                     {
                         case Platform.Linux:
-                            arg.UseAppHost = true;
-                            arg.SingleFile = true;
                             arg.SelfContained = false;
                             arg.RuntimeIdentifier = $"linux-{ArchToString(architecture)}";
                             break;
@@ -1144,7 +1314,6 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
 
                 if (isWinArm64)
                 {
-                    arg.SingleFile = true;
                     arg.SelfContained = true;
                 }
 
@@ -1153,6 +1322,7 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 CleanProjDir(projRootPath);
                 var psi = GetProcessStartInfo(projRootPath);
                 SetPublishCommandArgumentList(psi.ArgumentList, arg);
+                psi.ArgumentList.Add("-p:WttsPublishReverseProxySingleFile=true");
                 //if (!isWindows)
                 //{
                 //    psi.ArgumentList.Add("-p:\"DefineConstants=NOT_WINDOWS;$(DefineConstants)\"");
@@ -1180,6 +1350,10 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 {
                     var e_sqlite3 = Path.Combine(publishDir, "e_sqlite3.dll");
                     IOPath.FileTryDelete(e_sqlite3);
+                    CopyDirectory(publishDir, destinationDir, true);
+                }
+                else if (isMacOS)
+                {
                     CopyDirectory(publishDir, destinationDir, true);
                 }
                 else

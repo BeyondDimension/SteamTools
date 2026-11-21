@@ -123,8 +123,14 @@
 	<data name="On" xml:space="preserve">
     <value>开</value>
   </data>
+	<data name="Achievement_Archived" xml:space="preserve">
+    <value>已归档</value>
+  </data>
 	<data name="Achievement_Description" xml:space="preserve">
     <value>描述</value>
+  </data>
+	<data name="Achievement_DlcOwnershipChanged" xml:space="preserve">
+    <value>无法再确认你拥有所需的 DLC。请刷新后重试。</value>
   </data>
 	<data name="Achievement_EditSucces" xml:space="preserve">
     <value>修改了 {0} 个成就和 {1} 条统计信息</value>
@@ -138,6 +144,9 @@
 	<data name="Achievement_LoadData" xml:space="preserve">
     <value>加载成就和统计数据...</value>
   </data>
+	<data name="Achievement_LoadSchemaFailed" xml:space="preserve">
+    <value>无法加载成就和统计数据的定义。请刷新后重试。</value>
+  </data>
 	<data name="Achievement_LoadSucces" xml:space="preserve">
     <value>获取到 {0} 个成就和 {1} 条统计信息</value>
   </data>
@@ -150,8 +159,17 @@
 	<data name="Achievement_Name" xml:space="preserve">
     <value>名称</value>
   </data>
+	<data name="Achievement_NoVisibleAchievements" xml:space="preserve">
+    <value>没有可显示的成就。</value>
+  </data>
+	<data name="Achievement_Progress" xml:space="preserve">
+    <value>成就总进度</value>
+  </data>
 	<data name="Achievement_RefreshTip" xml:space="preserve">
     <value>刷新成就和统计</value>
+  </data>
+	<data name="Achievement_RequestStatsFailed" xml:space="preserve">
+    <value>无法从 Steam 获取成就和统计数据。请刷新后重试。</value>
   </data>
 	<data name="Achievement_ResetTip" xml:space="preserve">
     <value>复位成就和统计</value>
@@ -169,8 +187,20 @@
 	<data name="Achievement_RiskWarning" xml:space="preserve">
     <value>【风险提示】解锁成就可能会被游戏开发者视为作弊，并且会被成就统计网站封锁。若决定继续使用，请自行承担解锁成就带来的风险和后果。</value>
   </data>
+	<data name="Achievement_SetAll" xml:space="preserve">
+    <value>全部</value>
+  </data>
+	<data name="Achievement_SetBaseGame" xml:space="preserve">
+    <value>本体游戏</value>
+  </data>
+	<data name="Achievement_SetFilter" xml:space="preserve">
+    <value>成就组</value>
+  </data>
 	<data name="Achievement_StatsEdit" xml:space="preserve">
     <value>统计修改</value>
+  </data>
+	<data name="Achievement_StoreFailed" xml:space="preserve">
+    <value>无法保存成就和统计数据。请刷新后重试。</value>
   </data>
 	<data name="Achievement_StoreTip" xml:space="preserve">
     <value>保存并应用成就和统计</value>
@@ -178,8 +208,14 @@
 	<data name="Achievement_TimeFormat" xml:space="preserve">
     <value>解锁于 {0:yyyy-MM-dd HH:mm:ss}</value>
   </data>
+	<data name="Achievement_TotalCount" xml:space="preserve">
+    <value>成就总数</value>
+  </data>
 	<data name="Achievement_Unlock" xml:space="preserve">
     <value>成就解锁</value>
+  </data>
+	<data name="Achievement_UnlockedCount" xml:space="preserve">
+    <value>已解锁</value>
   </data>
 	<data name="Achievement_Warning_1" xml:space="preserve">
     <value>与 Steam 建立连接失败，可能是该游戏没有成就，或者你没有该游戏。</value>
@@ -1735,7 +1771,7 @@
     <value>令牌导入</value>
   </data>
 	<data name="Auth_AddMachineValidation" xml:space="preserve">
-    <value>已启用系统内置加密验证</value>
+    <value>启用本机加密</value>
   </data>
 	<data name="Auth_AddPasswordProtect" xml:space="preserve">
     <value>启用自定义密码保护</value>
@@ -1771,7 +1807,7 @@
     <value>您的令牌具有密码保护，请先进行密码验证</value>
   </data>
 	<data name="Auth_RemoveMachineValidation" xml:space="preserve">
-    <value>已禁用系统内置加密验证</value>
+    <value>关闭本机加密</value>
   </data>
 	<data name="Auth_RemovePasswordProtect" xml:space="preserve">
     <value>移除自定义密码保护</value>
@@ -2588,7 +2624,7 @@
     <value>未获取到需要保存至 Steam 的游戏信息，请先编辑你要修改的游戏信息</value>
   </data>
 	<data name="SaveEditedAppInfo_SaveToSteam" xml:space="preserve">
-    <value>保存全部更改到 Steam</value>
+    <value>应用到 Steam</value>
   </data>
 	<data name="SaveEditedAppInfo_EmptyAppsTip" xml:space="preserve">
     <value>没有获取到已编辑的游戏数据</value>
@@ -2597,7 +2633,7 @@
     <value>修改的数据已保存到 Steam 本地文件中，是否立即重启 Steam 生效？</value>
   </data>
 	<data name="SaveEditedAppInfo_SaveToSteamSuccess" xml:space="preserve">
-    <value>保存数据到 Steam 成功</value>
+    <value>更改已应用到 Steam。现在可以手动打开 Steam。</value>
   </data>
 	<data name="SaveEditedAppInfo_SaveToSteamFailed" xml:space="preserve">
     <value>保存数据失败，查看程序日志获取详细错误信息</value>
@@ -3652,10 +3688,10 @@
     <value>此令牌的数据格式无效，无法保存 SteamID。</value>
   </data>
 	<data name="L10nAuthIdle_Text008" xml:space="preserve">
-    <value>仅已在“交易确认”中登录并保存登录状态的 Steam 令牌可使用扫码登录。请先打开此令牌的“确认交易”，登录并勾选记住登录后重试。</value>
+    <value>扫描屏幕二维码需要有效的模拟 App 会话。请打开此令牌的「确认交易」，选择「模拟 App 登录」并勾选「记住登录」。</value>
   </data>
 	<data name="L10nAuthIdle_Text009" xml:space="preserve">
-    <value>交易确认保存的登录状态已失效或不支持移动端确认。请先到此令牌的“确认交易”重新登录并保存状态，再使用扫码。</value>
+    <value>已保存的模拟 App 会话已失效。请在此令牌的「确认交易」中重新登录并保存会话。</value>
   </data>
 	<data name="L10nAuthIdle_Text010" xml:space="preserve">
     <value>Steam 桌面客户端</value>
@@ -3924,6 +3960,27 @@
 	<data name="L10nAuthIdle_Text098" xml:space="preserve">
     <value>此令牌的 Steam 验证码不可用，请检查令牌后重试。</value>
   </data>
+  <data name="SteamTradeLoginTwoFactorCodeMismatch" xml:space="preserve">
+    <value>Steam 令牌验证码不匹配（EResult 88）。请检查所选令牌是否与当前 Steam 账号绑定的令牌一致，然后重试。</value>
+  </data>
+  <data name="SteamTradeLoginThrottled" xml:space="preserve">
+    <value>Steam 登录尝试过于频繁（EResult 87），请稍后再试。</value>
+  </data>
+  <data name="SteamTradeLoginMode" xml:space="preserve">
+    <value>登录方式</value>
+  </data>
+  <data name="SteamTradeWebLogin" xml:space="preserve">
+    <value>模拟网页登录</value>
+  </data>
+  <data name="SteamTradeAppLogin" xml:space="preserve">
+    <value>模拟 App 登录</value>
+  </data>
+  <data name="SteamTradeMobileLoginHint" xml:space="preserve">
+    <value>两种方式均可确认交易。扫描屏幕二维码登录仅支持已保存的模拟 App 会话。</value>
+  </data>
+  <data name="SteamTradeMobileLoginWarning" xml:space="preserve">
+    <value>共存导入的令牌使用模拟 App 登录时，原设备可能会退出登录。</value>
+  </data>
 	<data name="L10nAuthIdle_Text099" xml:space="preserve">
     <value>检查交易确认登录状态失败，请检查网络或重新登录。</value>
   </data>
@@ -4036,7 +4093,13 @@
     <value>通用游戏工具</value>
   </data>
 	<data name="L10nGames_SaveEditNotice" xml:space="preserve">
-    <value>保存成功但还不会直接写入 Steam 文件，请到右上角编辑列表中保存所有更改信息到 Steam 文件中，即可生效！</value>
+    <value>游戏信息已保存在本地。请完全退出 Steam，然后在编辑列表中选择“应用到 Steam”。</value>
+  </data>
+	<data name="L10nGames_SaveLocalEdit" xml:space="preserve">
+    <value>保存到本地</value>
+  </data>
+	<data name="L10nGames_ExitSteamBeforeApply" xml:space="preserve">
+    <value>请完全退出 Steam，然后点击“应用到 Steam”。</value>
   </data>
 	<data name="L10nGames_ImageDownloadWait" xml:space="preserve">
     <value>图片下载需要一些时间，请稍后</value>
@@ -4079,7 +4142,7 @@
     <value>Steam 游戏修改</value>
   </data>
 	<data name="L10nGames_EditDescription" xml:space="preserve">
-    <value>可以修改 Steam 游戏名称、发行商、封面图片、启动项等信息，并且保存生效至 Steam。</value>
+    <value>游戏信息和启动项的更改会保存在本地。完全退出 Steam 后，可手动应用这些更改。自定义封面单独保存。</value>
   </data>
 	<data name="L10nGames_IdleTitle" xml:space="preserve">
     <value>Steam 挂时长</value>
@@ -4207,7 +4270,7 @@
     <value>导出成功，共 {0} 条修改数据。</value>
   </data>
 	<data name="L10nGames_ImportSuccess" xml:space="preserve">
-    <value>导入成功，已还原 {0} 个游戏的修改数据。</value>
+    <value>已将 {0} 个游戏的修改导入本地。若要在 Steam 中生效，请完全退出 Steam 后手动应用。</value>
   </data>
 	<data name="L10nGames_PlatformSettingsFormat" xml:space="preserve">
     <value>{0} 平台设置</value>
@@ -4933,4 +4996,101 @@
 	<data name="离线" xml:space="preserve"><value>离线</value></data>
 	<data name="在线" xml:space="preserve"><value>在线</value></data>
 	<data name="正在挂卡" xml:space="preserve"><value>正在挂卡</value></data>
+	<data name="Tray_QuickActions" xml:space="preserve">
+    <value>快捷操作</value>
+  </data>
+	<data name="Tray_AcceleratorLoading" xml:space="preserve">
+    <value>正在等待加速服务…</value>
+  </data>
+	<data name="Tray_AcceleratorUnavailable" xml:space="preserve">
+    <value>加速服务不可用</value>
+  </data>
+	<data name="Tray_AcceleratorStarting" xml:space="preserve">
+    <value>正在开启加速…</value>
+  </data>
+	<data name="Tray_AcceleratorStopping" xml:space="preserve">
+    <value>正在关闭加速…</value>
+  </data>
+	<data name="Tray_CurrentAccount" xml:space="preserve">
+    <value>当前登录</value>
+  </data>
+	<data name="Tray_NoSavedAccounts" xml:space="preserve">
+    <value>没有已保存的 Steam 账号</value>
+  </data>
+	<data name="Tray_ManageAccounts" xml:space="preserve">
+    <value>管理账号</value>
+  </data>
+	<data name="Tray_AcceleratorPreparing" xml:space="preserve">
+    <value>正在准备加速配置…</value>
+  </data>
+	<data name="Tray_AccountReadFailed" xml:space="preserve">
+    <value>读取 Steam 账号失败</value>
+  </data>
+	<data name="Tray_AccelerationDuration" xml:space="preserve">
+    <value>加速时长</value>
+  </data>
+	<data name="Tray_AccelerationProjects" xml:space="preserve">
+    <value>加速项</value>
+  </data>
+	<data name="Tray_NoActiveProjects" xml:space="preserve">
+    <value>本次没有启用加速项</value>
+  </data>
+	<data name="Tray_TrafficDetails" xml:space="preserve">
+    <value>本次加速的实时速率 · 累计流量</value>
+  </data>
+	<data name="Auth_VaultChangePassword" xml:space="preserve"><value>更改自定义密码</value></data>
+	<data name="Auth_VaultNewPassword" xml:space="preserve"><value>设置新的令牌密码</value></data>
+	<data name="Auth_VaultPasswordGuidance" xml:space="preserve"><value>请输入 12–256 个字符，建议使用不与其他账户共用的长密码。密码无法找回，请保留可用备份。</value></data>
+	<data name="Auth_VaultPasswordFailed" xml:space="preserve"><value>令牌密码不正确，或受保护的数据已损坏。</value></data>
+	<data name="Auth_VaultRemovePasswordTip" xml:space="preserve"><value>移除后，解锁本地令牌将不再要求自定义密码。已有备份不受影响。</value></data>
+	<data name="Auth_VaultLocalRecoveryTip" xml:space="preserve"><value>本机加密限制数据在原设备解密；Windows 上还绑定当前用户。换机、重装或更换 Windows 用户前，请导出仅使用密码、不使用本机加密的备份。</value></data>
+	<data name="Auth_VaultLocalReadFailed" xml:space="preserve"><value>无法解开本机加密。请在原设备和原用户下重试，或导入未启用本机加密的备份。</value></data>
+	<data name="Auth_VaultRemoveLocalTip" xml:space="preserve"><value>关闭后，令牌不再绑定此设备。若没有设置自定义密码，复制的数据库可能被他人读取。</value></data>
+	<data name="Auth_VaultReadFailed" xml:space="preserve"><value>无法读取全部令牌，原数据未被修改。请检查数据或使用有效备份。</value></data>
+	<data name="Auth_VaultChangeFailed" xml:space="preserve"><value>未能更改令牌保护。</value></data>
+	<data name="Auth_VaultUpgrade" xml:space="preserve"><value>升级旧版令牌加密</value></data>
+	<data name="Auth_VaultUpgradeTip" xml:space="preserve"><value>使用当前保护设置重新加密所有令牌。更改前建议导出可用备份；旧版本程序可能无法读取升级后的数据库。</value></data>
+	<data name="Auth_VaultHelloEnable" xml:space="preserve"><value>使用 Windows Hello</value></data>
+	<data name="Auth_VaultHelloDisable" xml:space="preserve"><value>关闭 Windows Hello</value></data>
+	<data name="Auth_VaultHelloEnabled" xml:space="preserve"><value>已改用 Windows Hello 解锁。</value></data>
+	<data name="Auth_VaultHelloDisabled" xml:space="preserve"><value>已关闭 Windows Hello，仍保留当前 Windows 账户加密。</value></data>
+	<data name="Auth_VaultHelloPrompt" xml:space="preserve"><value>验证身份以访问 Watt Toolkit 的本地令牌。</value></data>
+	<data name="Auth_VaultHelloUnavailable" xml:space="preserve"><value>Windows Hello 不可用。请检查 Windows 11「设置 → 账户 → 登录选项」及系统策略。</value></data>
+	<data name="Auth_VaultHelloFailed" xml:space="preserve"><value>Windows Hello 未能完成验证，令牌仍未解锁。</value></data>
+	<data name="Auth_VaultHelloEnableTip" xml:space="preserve"><value>此设备上将使用 Windows Hello 解锁，替代自定义密码（如已设置）。令牌将绑定当前 Windows 账户。换机或重装前，请先导出不使用本机加密的密码备份。</value></data>
+	<data name="Auth_VaultHelloDisableTip" xml:space="preserve"><value>关闭后打开应用不会再要求验证；当前 Windows 账户加密仍会保留。若希望继续锁定，请选择使用自定义密码。</value></data>
+	<data name="Auth_VaultHelloLocked" xml:space="preserve"><value>令牌已锁定。使用 Windows Hello 验证身份即可解锁。</value></data>
+	<data name="Auth_VaultHelloRecovery" xml:space="preserve"><value>用原密码解锁</value></data>
+	<data name="Auth_VaultHelloRecoveryTip" xml:space="preserve"><value>该令牌库仍使用旧版密码加密。成功输入原密码后，会关闭旧版的双重验证，保留现有加密。您可以再从设置中切换到 Windows Hello。</value></data>
+	<data name="Auth_VaultHelloHelp" xml:space="preserve"><value>Windows 11 上可选择 Windows Hello（PIN、指纹或人脸）或自定义密码作为解锁方式。Hello 负责应用内验证；令牌文件由当前 Windows 账户加密，并非由 Hello 加密。</value></data>
+	<data name="Auth_VaultBackupTip" xml:space="preserve"><value>跨设备恢复请选择「使用密码」，不要勾选「仅本机可解密」。请在安全位置保存备份，并记住备份密码。</value></data>
+	<data name="Auth_VaultUnprotectedExport" xml:space="preserve"><value>这个备份没有密码或本机保护。任何获得文件的人都可能读取令牌。确定要导出吗？</value></data>
+	<data name="Auth_VaultHelloUnlock" xml:space="preserve"><value>使用 Windows Hello 解锁</value></data>
+	<data name="Auth_VaultLegacyHelloLocked" xml:space="preserve"><value>此令牌库仍使用原密码加密。请用原密码解锁，再到令牌设置切换解锁方式。</value></data>
+	<data name="Auth_VaultSwitchToPasswordTip" xml:space="preserve"><value>设置后，将改用自定义密码解锁，不再请求 Windows Hello。当前 Windows 账户加密仍会保留。</value></data>
+	<data name="Auth_VaultHelloSummary" xml:space="preserve"><value>当前解锁方式：Windows Hello</value></data>
+	<data name="Auth_VaultPasswordSummary" xml:space="preserve"><value>当前解锁方式：自定义密码</value></data>
+	<data name="Auth_VaultNoLockSummary" xml:space="preserve"><value>尚未设置应用内锁定方式</value></data>
+	<data name="Auth_VaultHelpLabel" xml:space="preserve"><value>帮助</value></data>
+	<data name="Auth_VaultUnlockMethods" xml:space="preserve"><value>解锁方式</value></data>
+	<data name="Auth_VaultHelloDescription" xml:space="preserve"><value>用 Windows PIN、指纹或人脸解锁，无需另外记密码。</value></data>
+	<data name="Auth_VaultPasswordLabel" xml:space="preserve"><value>自定义密码</value></data>
+	<data name="Auth_VaultStorageLabel" xml:space="preserve"><value>数据加密</value></data>
+	<data name="Auth_VaultHelloLocalDescription" xml:space="preserve"><value>已绑定当前 Windows 账户。使用 Windows Hello 时保留此加密。</value></data>
+	<data name="LogConsole_Title" xml:space="preserve"><value>日志控制台</value></data>
+	<data name="LogConsole_Wrap" xml:space="preserve"><value>自动换行</value></data>
+	<data name="LogConsole_Follow" xml:space="preserve"><value>跟随最新</value></data>
+	<data name="LogConsole_CopyTip" xml:space="preserve"><value>复制选中的文本；未选中时复制当前显示的日志。</value></data>
+	<data name="LogConsole_Empty" xml:space="preserve"><value>暂无日志</value></data>
+	<data name="LogConsole_LineCount" xml:space="preserve"><value>显示 {0:N0} 行</value></data>
+	<data name="LogConsole_ViewLogs" xml:space="preserve"><value>查看日志</value></data>
+	<data name="LogConsole_ViewLogsDescription" xml:space="preserve"><value>在应用内查看主程序及插件的本地日志。</value></data>
+	<data name="LogConsole_NoFiles" xml:space="preserve"><value>没有找到可查看的日志文件。</value></data>
+	<data name="LogConsole_ReadError" xml:space="preserve"><value>无法读取日志。文件可能已移动，或正在被其他程序占用。</value></data>
+	<data name="LogConsole_EmptyFile" xml:space="preserve"><value>日志文件为空。</value></data>
+	<data name="LogConsole_FileTail" xml:space="preserve"><value>仅加载文件末尾 {0:N0} 字节，完整日志保留在原文件中。</value></data>
+	<data name="LogConsole_Send" xml:space="preserve"><value>发送</value></data>
+	<data name="LogConsole_CommandHint" xml:space="preserve"><value>输入指令，键入 / 查看建议</value></data>
+	<data name="Settings_Storage_AppFolder" xml:space="preserve"><value>程序目录</value></data>
+	<data name="Settings_Storage_OpenFolder" xml:space="preserve"><value>打开文件夹</value></data>
 </root>

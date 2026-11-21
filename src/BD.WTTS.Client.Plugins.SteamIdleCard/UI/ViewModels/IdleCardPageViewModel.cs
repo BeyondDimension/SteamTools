@@ -26,23 +26,22 @@ public sealed partial class IdleCardPageViewModel
         SteamIdleSettings.IdleRule.Subscribe(async _ => { await IdleRuleChange(); }, false);
         SteamIdleSettings.IdleSequentital.Subscribe(async _ => { await IdleSequentitalChance(); }, false);
 
-        this.WhenAnyValue(x => x.TotalCardsRemaining, y => y.DroppedCardsCount)
-            .Subscribe(_ =>
-            {
+        PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName is null or "" or nameof(TotalCardsRemaining) or nameof(DroppedCardsCount))
                 this.RaisePropertyChanged(nameof(DropCardsCount));
-            });
 
-        this.WhenAnyValue(x => x.IsCheckingLogin, x => x.IsLoadingBadges, x => x.ViewState)
-            .Subscribe(_ =>
+            if (e.PropertyName is null or "" or nameof(IsCheckingLogin) or nameof(IsLoadingBadges) or nameof(ViewState))
             {
                 this.RaisePropertyChanged(nameof(IsPageLoading));
                 this.RaisePropertyChanged(nameof(CanStartIdle));
                 this.RaisePropertyChanged(nameof(PageLoadingText));
-            }).AddTo(this);
+            }
+        };
 
         this.PriorityRunIdle = ReactiveCommand.CreateFromTask<IdleApp>(PriorityRunIdleGame);
         this.ToggleBlacklistIdle = ReactiveCommand.CreateFromTask<IdleApp>(ToggleBlacklistIdleGame);
-        this.IdleRunStartOrStop = ReactiveCommand.Create(IdleRunStartOrStop_Click);
+        this.IdleRunStartOrStop = ReactiveCommand.CreateFromTask(IdleRunStartOrStop_Click);
         this.IdleManualRunNext = ReactiveCommand.CreateFromTask(ManualRunNext);
         this.LoginSteamCommand = ReactiveCommand.CreateFromTask(LoginOrLogoutAsync);
 
@@ -722,23 +721,7 @@ public sealed partial class IdleCardPageViewModel
             return;
 
         CurrentIdle = item;
-        SteamConnectService.Current.RuningSteamApps.TryGetValue(item.AppId, out var runState);
-        if (runState == null)
-        {
-            item.App.StartSteamAppProcess();
-            SteamConnectService.Current.RuningSteamApps.TryAdd(item.AppId, item.App);
-        }
-        else
-        {
-            if (runState.Process == null || !runState.Process.HasExited)
-            {
-                runState.StartSteamAppProcess();
-            }
-            else
-            {
-                item.App.Process = runState.Process;
-            }
-        }
+        item.App = SteamConnectService.Current.StartIdleApp(item.App);
     }
 
     private void StartMultipleIdle()
@@ -766,30 +749,15 @@ public sealed partial class IdleCardPageViewModel
     {
         foreach (var item in IdleGameList)
         {
-            SteamConnectService.Current.RuningSteamApps.TryGetValue(item.AppId, out var runState);
-            if (runState != null)
-            {
-                runState.Process?.KillEntireProcessTree();
-                SteamConnectService.Current.RuningSteamApps.TryRemove(item.AppId, out var remove);
-            }
+            SteamConnectService.Current.StopIdleApp(item.AppId);
             item.App.Process = null;
         }
     }
 
     private void StopSoloIdle(SteamApp item)
     {
-        SteamConnectService.Current.RuningSteamApps.TryGetValue(item.AppId, out var runState);
-        if (runState != null)
-        {
-            runState.Process?.KillEntireProcessTree();
-            SteamConnectService.Current.RuningSteamApps.TryRemove(item.AppId, out var remove);
-            item.Process = null;
-        }
-        else
-        {
-            item.Process = null;
-            SteamConnectService.Current.RuningSteamApps.TryAdd(item.AppId, item);
-        }
+        SteamConnectService.Current.StopIdleApp(item.AppId);
+        item.Process = null;
     }
 
     #region AutoNext

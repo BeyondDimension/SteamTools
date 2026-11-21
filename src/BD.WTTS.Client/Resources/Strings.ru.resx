@@ -183,7 +183,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_StatsEdit" xml:space="preserve">
-    <value>Изменение статистики</value>
+    <value>Статистика</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_StoreTip" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_Unlock" xml:space="preserve">
-    <value>Достижение разблокировано</value>
+    <value>Достижения</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Achievement_Warning_1" xml:space="preserve">
@@ -1812,7 +1812,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Спасать</value>
+    <value>Сохранить</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="ProxyMode_DNSIntercept" xml:space="preserve">

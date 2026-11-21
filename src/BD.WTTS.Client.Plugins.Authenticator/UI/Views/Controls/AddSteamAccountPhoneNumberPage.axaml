@@ -14,7 +14,7 @@
 
 	<Grid RowDefinitions="Auto,*">
 
-		<spp:Stepper SelectedIndex="{Binding SelectIndex}">
+		<spp:Stepper SelectedIndex="{Binding SelectIndex, Mode=OneWay}">
 			<spp:StepperItem Content="{x:Static spp:Strings.Steam_BindTel}" />
 			<spp:StepperItem Content="{x:Static spp:Strings.Steam_ConfirmEmailLink}" />
 			<spp:StepperItem Content="{x:Static spp:Strings.TelCode}" />
@@ -22,11 +22,9 @@
 
 		<spp:ContentLoader
 				Grid.Row="1"
-				MinWidth="400"
-				MinHeight="250"
 				IsLoading="{Binding IsLoading}"
 				IsShowNoResultText="False">
-			<Carousel IsVisible="{Binding !IsLoading}" SelectedIndex="{Binding SelectIndex}">
+			<Carousel IsVisible="{Binding !IsLoading}" SelectedIndex="{Binding SelectIndex, Mode=OneWay}">
 				<StackPanel
 									HorizontalAlignment="Center"
 									VerticalAlignment="Center"
@@ -45,10 +43,10 @@
 					</DockPanel>
 
 					<Button
-							MinWidth="280"
-							HorizontalAlignment="Center"
+							MaxWidth="280"
+							HorizontalAlignment="Stretch"
 							HorizontalContentAlignment="Center"
-							Command="{Binding StartBindingAsync}"
+							Command="{Binding StartBindingCommand}"
 							Content="{x:Static spp:Strings.Continue}" />
 				</StackPanel>
 
@@ -57,10 +55,10 @@
 									VerticalAlignment="Center"
 									Spacing="10">
 					<Button
-							MinWidth="280"
-							HorizontalAlignment="Center"
+							MaxWidth="280"
+							HorizontalAlignment="Stretch"
 							HorizontalContentAlignment="Center"
-							Command="{Binding ConfirmBindingEmailAsync}"
+							Command="{Binding ConfirmEmailCommand}"
 							Content="{x:Static spp:Strings.Continue}" />
 				</StackPanel>
 
@@ -81,10 +79,10 @@
 					</DockPanel>
 
 					<Button
-							MinWidth="280"
-							HorizontalAlignment="Center"
+							MaxWidth="280"
+							HorizontalAlignment="Stretch"
 							HorizontalContentAlignment="Center"
-							Command="{Binding VerifyAccountPhoneWithCodeAsync}"
+							Command="{Binding VerifyCodeCommand}"
 							Content="{x:Static spp:Strings.Continue}" />
 				</StackPanel>
 			</Carousel>

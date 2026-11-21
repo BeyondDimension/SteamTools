@@ -1,34 +1,96 @@
 #if WINDOWS && WTTS_NATIVE_AOT
 using BD.Common;
 using System.Runtime.InteropServices.Marshalling;
+using System.Security.Cryptography;
 using Windows.UI.Notifications;
 
 namespace BD.WTTS.Services.Implementation;
 
 internal static partial class NativeToastNotificationManager
 {
-    const string AppId = AssemblyInfo.APPLICATION_ID + ".Native";
-    static readonly Guid activatorId = new("4D2F4EF0-BECA-4DE7-8683-EF4A30E4155C");
+    static readonly Lazy<string> desktopAppId = new(ResolveDesktopAppId);
     static readonly StrategyBasedComWrappers wrappers = new();
     static int registrationRevoked;
     static readonly Lazy<(uint Cookie, ToastNotifier Notifier)> registration = new(Register);
 
     internal static NativeToastHistory History { get; } = new();
 
-    internal static void Initialize() => _ = registration.Value;
-
-    internal static ToastNotifier CreateToastNotifier()
+    internal static void Initialize()
     {
-        Initialize();
-        return registration.Value.Notifier;
+        if (DesktopBridge.IsRunningAsUwp) return;
+        try
+        {
+            _ = registration.Value;
+        }
+        catch (COMException ex)
+        {
+            Log.Error(nameof(NativeToastNotificationManager), ex, "Could not register Windows notifications for the current app identity.");
+        }
+    }
+
+    internal static ToastNotifier CreateToastNotifier() => DesktopBridge.IsRunningAsUwp
+        ? ToastNotificationManager.CreateToastNotifier()
+        : registration.Value.Notifier;
+
+    // Use the same Shell identity and CLSID as ToastNotificationManagerCompat in JIT.
+    // 7.1.3: Toasts/Compat/Desktop/Win32AppInfo.cs (Windows Community Toolkit).
+    static string ResolveDesktopAppId()
+    {
+        var resolverClass = new Guid("660b90c8-73a9-4b58-8cae-355b7f55341b");
+        var resolverInterface = typeof(INativeApplicationResolver).GUID;
+        Marshal.ThrowExceptionForHR(CoCreateInstance(in resolverClass, 0, 1 /* CLSCTX_INPROC_SERVER */, in resolverInterface, out var pointer));
+        ComObject resolver;
+        try
+        {
+            resolver = (ComObject)wrappers.GetOrCreateObjectForComInstance(pointer, CreateObjectFlags.UniqueInstance);
+        }
+        finally
+        {
+            Marshal.Release(pointer);
+        }
+        try
+        {
+            Marshal.ThrowExceptionForHR(((INativeApplicationResolver)(object)resolver).GetAppIdForProcess((uint)Environment.ProcessId,
+                out var appId, out _, out _, out _));
+            try
+            {
+                return Marshal.PtrToStringUni(appId) is { Length: > 0 } value ? value : throw new COMException("The Shell did not resolve an AppUserModelID.");
+            }
+            finally
+            {
+                Marshal.FreeCoTaskMem(appId);
+            }
+        }
+        finally
+        {
+            resolver.FinalRelease();
+        }
+    }
+
+    static Guid GetActivatorId(string appId)
+    {
+        var length = Encoding.UTF8.GetByteCount(appId);
+        Span<byte> data = stackalloc byte[16];
+        if (length < data.Length)
+        {
+            data.Clear();
+            Encoding.UTF8.GetBytes(appId, data);
+            return new Guid(data, bigEndian: true);
+        }
+        // Toolkit's hash is for GUID compatibility, not used for authentication.
+        Span<byte> hash = stackalloc byte[SHA1.HashSizeInBytes];
+        SHA1.HashData(Encoding.UTF8.GetBytes(appId), hash);
+        return new Guid(hash[..16], bigEndian: true);
     }
 
     static (uint Cookie, ToastNotifier Notifier) Register()
     {
         var executable = Environment.ProcessPath ?? throw new InvalidOperationException("The notification server executable is unavailable.");
+        var appId = desktopAppId.Value;
+        var activatorId = GetActivatorId(appId);
         using (var key = Registry.CurrentUser.CreateSubKey($@"Software\Classes\CLSID\{activatorId:B}\LocalServer32"))
             key.SetValue(null, $"\"{executable}\" -clt c");
-        using (var key = Registry.CurrentUser.CreateSubKey($@"Software\Classes\AppUserModelId\{AppId}"))
+        using (var key = Registry.CurrentUser.CreateSubKey($@"Software\Classes\AppUserModelId\{appId}"))
         {
             key.SetValue("DisplayName", AssemblyInfo.Trademark);
             key.SetValue("CustomActivator", activatorId.ToString("B"));
@@ -40,7 +102,7 @@ internal static partial class NativeToastNotificationManager
             Marshal.ThrowExceptionForHR(CoRegisterClassObject(in activatorId, factory, 4 /* CLSCTX_LOCAL_SERVER */, 1 /* REGCLS_MULTIPLEUSE */, out var cookie));
             try
             {
-                var notifier = ToastNotificationManager.CreateToastNotifier(AppId);
+                var notifier = ToastNotificationManager.CreateToastNotifier(appId);
                 if (!Environment.IsPrivilegedProcess)
                 {
                     try
@@ -61,7 +123,7 @@ internal static partial class NativeToastNotificationManager
                             ExpirationTime = DateTimeOffset.Now.AddSeconds(15),
                         };
                         notifier.Show(first);
-                        ToastNotificationManager.History.Remove(first.Tag, first.Group, AppId);
+                        ToastNotificationManager.History.Remove(first.Tag, first.Group, appId);
                     }
                 }
                 return (cookie, notifier);
@@ -88,15 +150,33 @@ internal static partial class NativeToastNotificationManager
     {
         History.Clear();
         Shutdown();
-        Registry.CurrentUser.DeleteSubKeyTree($@"Software\Classes\AppUserModelId\{AppId}", false);
-        Registry.CurrentUser.DeleteSubKeyTree($@"Software\Classes\CLSID\{activatorId:B}", false);
+        if (DesktopBridge.IsRunningAsUwp) return;
+        var appId = desktopAppId.Value;
+        Registry.CurrentUser.DeleteSubKeyTree($@"Software\Classes\AppUserModelId\{appId}", false);
+        Registry.CurrentUser.DeleteSubKeyTree($@"Software\Classes\CLSID\{GetActivatorId(appId):B}", false);
     }
 
     internal sealed class NativeToastHistory
     {
-        internal void Remove(string tag, string group) => ToastNotificationManager.History.Remove(tag, group, AppId);
-        internal void Clear() => ToastNotificationManager.History.Clear(AppId);
+        internal void Remove(string tag, string group)
+        {
+            if (DesktopBridge.IsRunningAsUwp)
+                ToastNotificationManager.History.Remove(tag, group);
+            else
+                ToastNotificationManager.History.Remove(tag, group, desktopAppId.Value);
+        }
+
+        internal void Clear()
+        {
+            if (DesktopBridge.IsRunningAsUwp)
+                ToastNotificationManager.History.Clear();
+            else
+                ToastNotificationManager.History.Clear(desktopAppId.Value);
+        }
     }
+
+    [LibraryImport("ole32.dll")]
+    private static partial int CoCreateInstance(in Guid classId, nint outer, uint context, in Guid interfaceId, out nint instance);
 
     [LibraryImport("ole32.dll")]
     private static partial int CoRegisterClassObject(in Guid classId, nint factory, uint context, uint flags, out uint cookie);
@@ -149,7 +229,7 @@ internal static partial class NativeToastNotificationManager
     {
         public void Activate(string appUserModelId, string? invokedArgs, nint userInput, uint count)
         {
-            if (!string.Equals(appUserModelId, AppId, StringComparison.Ordinal)) return;
+            if (!string.Equals(appUserModelId, desktopAppId.Value, StringComparison.Ordinal)) return;
             MainThread2.BeginInvokeOnMainThread(() => IApplication.Instance.RestoreMainWindow());
         }
     }
@@ -168,5 +248,15 @@ internal partial interface INativeNotificationClassFactory
 internal partial interface INativeNotificationActivationCallback
 {
     void Activate(string appUserModelId, string? invokedArgs, nint userInput, uint count);
+}
+
+[GeneratedComInterface]
+[Guid("DE25675A-72DE-44B4-9373-05170450C140")]
+internal partial interface INativeApplicationResolver
+{
+    [PreserveSig] int GetAppIdForShortcut(nint shellItem, out nint appId);
+    [PreserveSig] int GetAppIdForShortcutObject(nint shellLink, nint shellItem, out nint appId);
+    [PreserveSig] int GetAppIdForWindow(nint hwnd, out nint appId, out int pinningPrevented, out int explicitId, out int embeddedShortcutValid);
+    [PreserveSig] int GetAppIdForProcess(uint processId, out nint appId, out int pinningPrevented, out int explicitId, out int embeddedShortcutValid);
 }
 #endif

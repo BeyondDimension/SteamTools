@@ -1,4 +1,7 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.VisualTree;
 using ReactiveUI.Avalonia;
 using BD.SteamClient.Helpers;
 using FluentAvalonia.UI.Controls;
@@ -24,6 +27,26 @@ public partial class AccountItems : ReactiveUserControl<PlatformAccount>
                 Icon = "Steam"
             });
 #endif
+    }
+
+    private void AccountItem_DoubleTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is not AppItem { DataContext: IAccount account } card ||
+            DataContext is not PlatformAccount platform)
+            return;
+
+        var command = platform.SwapToAccountCommand;
+
+        // The card's More button must not switch accounts when opening its menu.
+        for (var source = e.Source as Visual; source != null && source != card; source = source.GetVisualParent())
+            if (source is Button)
+                return;
+
+        if (!command.CanExecute(account))
+            return;
+
+        e.Handled = true;
+        command.Execute(account);
     }
 
     private void SteamPersonaStateSwapMenuItem_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

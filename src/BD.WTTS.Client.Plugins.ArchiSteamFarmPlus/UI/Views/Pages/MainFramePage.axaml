@@ -30,21 +30,9 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="{x:Static spp:Strings.L10nAsf_Text039}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:ArchiSteamFarmPage" />
-                </TabStripItem.Tag>
-            </TabStripItem>
-            <TabStripItem Content="{x:Static spp:Strings.ASF_BotManage}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:BotPage" />
-                </TabStripItem.Tag>
-            </TabStripItem>
-            <TabStripItem Content="{x:Static spp:Strings.L10nAsf_Text008}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:ASFSettingsPage" />
-                </TabStripItem.Tag>
-            </TabStripItem>
+            <TabStripItem Name="ArchiSteamFarmTab" Content="{x:Static spp:Strings.L10nAsf_Text039}" />
+            <TabStripItem Name="BotTab" Content="{x:Static spp:Strings.ASF_BotManage}" />
+            <TabStripItem Name="SettingsTab" Content="{x:Static spp:Strings.L10nAsf_Text008}" />
         </TabStrip>
         <ui:FAFrame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
     </Panel>

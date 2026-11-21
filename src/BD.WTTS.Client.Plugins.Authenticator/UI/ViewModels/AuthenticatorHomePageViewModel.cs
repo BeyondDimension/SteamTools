@@ -3,6 +3,7 @@ using SJsonSerializer = System.Text.Json.JsonSerializer;
 
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
+using BD.WTTS.Serialization;
 using BD.WTTS.UI.Views.Pages;
 using WinAuth;
 using AngleSharp.Text;
@@ -65,7 +66,7 @@ public sealed partial class AuthenticatorHomePageViewModel
         //                SelectedAuth = null;
         //        }));
 
-        var textFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
+        var textFilter = this.ObserveValue(nameof(SearchText), static x => x.SearchText).Select(PredicateName);
 
         AuthSource
             .Connect()
@@ -76,66 +77,6 @@ public sealed partial class AuthenticatorHomePageViewModel
             .Bind(out _Auths)
             .Subscribe()
             .AddTo(this);
-    }
-
-    public void Initialize() => InitializeCore(checkCache: false);
-
-    async void InitializeCore(bool checkCache)
-    {
-        if (IsLoading || Disposed) return;
-
-        IsLoading = true;
-        await reorderLock.WaitAsync();
-        try
-        {
-            if (Disposed) return;
-            var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
-            if (checkCache && loadedSources != null && SourcesEqual(loadedSources, sourceList)) return;
-            if (sourceList.Any_Nullable())
-            {
-                (HasLocalPcEncrypt, HasPasswordEncrypt) = AuthenticatorHelper.HasEncrypt(sourceList);
-
-                if (HasPasswordEncrypt && IsVerificationPass == false)
-                {
-                    if (!await EnterPassword(sourceList[0]))
-                        return;
-                }
-                else
-                {
-                    IsVerificationPass = true;
-                }
-
-                // var list = await AuthenticatorService.GetAllAuthenticatorsAsync(sourcelist,
-                //     _currentPassword.Base64Encode_Nullable());
-
-                var list = (await AuthenticatorHelper.GetAllAuthenticatorsAsync(sourceList,
-                    _currentPassword)).OrderBy(i => i.Index);
-
-                var items = list.Select(item => new AuthenticatorItemModel(item)).ToArray();
-                AuthSource.Edit(updater =>
-                {
-                    updater.Clear();
-                    updater.AddOrUpdate(items);
-                });
-
-                UpdateTrayMenu();
-
-                //Toast.Show(ToastIcon.Success, AppResources.Success_AuthloadedSuccessfully);
-            }
-            else
-            {
-                AuthSource.Clear();
-                UpdateTrayMenu();
-                IsVerificationPass = true;
-            }
-            loadedSources = sourceList;
-
-        }
-        finally
-        {
-            IsLoading = false;
-            reorderLock.Release();
-        }
     }
 
     static bool SourcesEqual(AccountPlatformAuthenticator[] left, AccountPlatformAuthenticator[] right)
@@ -162,7 +103,7 @@ public sealed partial class AuthenticatorHomePageViewModel
                 {
                     if (!IsVerificationPass)
                     {
-                        INotificationService.Instance.Notify(Strings.Auth_PasswordProtectedVerifyFirst, NotificationType.Message);
+                        INotificationService.Instance.Notify(VaultLockedMessage, NotificationType.Message);
                         return;
                     }
                     var current = AuthSource.Lookup(id);
@@ -179,125 +120,16 @@ public sealed partial class AuthenticatorHomePageViewModel
         });
     }
 
-    public async Task<bool> EnterPassword(AccountPlatformAuthenticator sourceData)
-    {
-        var textViewmodel = new TextBoxWindowViewModel()
-        {
-            InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
-        };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_InputAuthPassword, isDialog: false,
-                isCancelButton: true) &&
-            textViewmodel.Value != null)
-        {
-            if (await AuthenticatorHelper.ValidatePassword(sourceData, textViewmodel.Value))
-            {
-                //_currentPassword = textViewmodel.Value.Base64DecodeToByteArray_Nullable();
-                _currentPassword = textViewmodel.Value;
-                IsVerificationPass = true;
-                return true;
-            }
-            else
-            {
-                Toast.Show(ToastIcon.Warning, AppResources.Warning_PasswordError);
-                return await EnterPassword(sourceData);
-            }
-        }
-
-        IsVerificationPass = false;
-        return false;
-    }
-
-    public async Task SetPasswordProtection()
-    {
-        if (!Auths.Any() || IsVerificationPass == false)
-        {
-            Toast.Show(ToastIcon.Warning, AppResources.Warning_RefuseOperate);
-            return;
-        }
-
-        string? newPassword;
-        var textViewmodel = new TextBoxWindowViewModel()
-        {
-            InputType = TextBoxWindowViewModel.TextBoxInputType.Password,
-        };
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_InputAuthPassword, isDialog: false,
-                isCancelButton: true) &&
-            textViewmodel.Value != null)
-        {
-            newPassword = textViewmodel.Value;
-            textViewmodel.Value = null;
-            if (!(await IWindowManager.Instance.ShowTaskDialogAsync(textViewmodel, AppResources.Title_PasswordConfirm, isDialog: false, isCancelButton: true) &&
-                  textViewmodel.Value == newPassword))
-                return;
-        }
-        else return;
-
-        if (await AuthenticatorHelper.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData),
-                newPassword))
-        {
-            Toast.Show(ToastIcon.Success, AppResources.Success_AuthPasswordSetSuccessfully);
-            //_currentPassword = newPassword.Base64DecodeToByteArray_Nullable();
-            _currentPassword = newPassword;
-        }
-        else Toast.Show(ToastIcon.Error, AppResources.Error_TokenPasswordSetFailed);
-
-        HasPasswordEncrypt = true;
-    }
-
-    public async Task RemovePasswordProtection()
-    {
-        if (!Auths.Any() || IsVerificationPass == false)
-        {
-            Toast.Show(ToastIcon.Warning, AppResources.Warning_RefuseOperate);
-            return;
-        }
-
-        var sourceList = await AuthenticatorHelper.GetAllSourceAuthenticatorAsync();
-        if (await EnterPassword(sourceList[0]))
-        {
-            if (await AuthenticatorHelper.SwitchEncryptionAuthenticators(HasLocalPcEncrypt, Auths.Select(i => i.AuthData)))
-            {
-                Toast.Show(ToastIcon.Success, AppResources.Success_AuthPasswordRemovedSuccessfully);
-                _currentPassword = null;
-            }
-            else Toast.Show(ToastIcon.Error, AppResources.Error_TokenPasswordRemovedFailed);
-
-            HasPasswordEncrypt = false;
-            IsVerificationPass = true;
-        }
-    }
-
-    public async Task ToggleLocalProtection()
-    {
-        if (!Auths.Any() || IsVerificationPass == false)
-        {
-            Toast.Show(ToastIcon.Warning, AppResources.Warning_RefuseOperate);
-            return;
-        }
-
-        bool newStatus = HasLocalPcEncrypt == false;
-
-        if (await AuthenticatorHelper.SwitchEncryptionAuthenticators(newStatus, Auths.Select(i => i.AuthData), _currentPassword))
-            Toast.Show(ToastIcon.Success, AppResources.Success_AuthProtectSuccessfully_.Format(newStatus ? AppResources.Enable : AppResources.Disable));
-        else Toast.Show(ToastIcon.Error, AppResources.Error_AuthProtectFailed_.Format(newStatus ? AppResources.Enable : AppResources.Disable));
-
-        HasLocalPcEncrypt = newStatus;
-    }
-
     public async Task EncryptHelp()
     {
         var messageViewmodel = new MessageBoxWindowViewModel
         {
             Content = $"""
-                {Strings.LocalAuth_ProtectionAuth_Info}
+                {Strings.Auth_VaultPasswordGuidance}
 
-                {Strings.LocalAuth_ProtectionAuth_EnablePassword}：
+                {Strings.Auth_VaultLocalRecoveryTip}
 
-                {Strings.LocalAuth_ProtectionAuth_EnablePasswordTip}
-
-                {Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncrypt}：
-
-                {Strings.LocalAuth_ProtectionAuth_IsOnlyCurrentComputerEncryptTip}
+                {Strings.Auth_VaultHelloHelp}
             """
         };
         await IWindowManager.Instance.ShowTaskDialogAsync(messageViewmodel, AppResources.Title_AuthEncryption);
@@ -305,7 +137,7 @@ public sealed partial class AuthenticatorHomePageViewModel
 
     public async Task ReLockAuthenticator()
     {
-        if (!HasPasswordEncrypt)
+        if (!HasPasswordEncrypt && !WindowsHelloEnabled)
         {
             Toast.Show(ToastIcon.Warning, AppResources.Warning_NotAuthProvided);
             return;
@@ -314,10 +146,7 @@ public sealed partial class AuthenticatorHomePageViewModel
         await reorderLock.WaitAsync();
         try
         {
-            if (Disposed) return;
-            AuthSource.Clear();
-            loadedSources = null;
-            IsVerificationPass = false;
+            if (!Disposed) ClearVaultSession();
         }
         finally { reorderLock.Release(); }
     }
@@ -328,6 +157,7 @@ public sealed partial class AuthenticatorHomePageViewModel
         try
         {
             if (Disposed) return;
+            if (!IsVerificationPass) return;
             var response = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticators();
             if (response.Code != ApiRspCode.OK)
             {
@@ -384,7 +214,7 @@ public sealed partial class AuthenticatorHomePageViewModel
                         {
                             localAuth.LastUpdate = DateTimeOffset.Now;
                             await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
-                                HasLocalPcEncrypt);
+                                HasLocalPcEncrypt, sessionVerifiedWithHello);
                             changes++;
                         }
 
@@ -393,7 +223,7 @@ public sealed partial class AuthenticatorHomePageViewModel
 
                     additions++;
                     await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(cloudAuth, _currentPassword,
-                        HasLocalPcEncrypt);
+                        HasLocalPcEncrypt, sessionVerifiedWithHello);
                 }
 
                 string changeMessage = AppResources.Auth_Sync_UpdateTips.Format(additions, changes);
@@ -418,7 +248,7 @@ public sealed partial class AuthenticatorHomePageViewModel
                         : UserAuthenticatorTokenType.TOTP,
                     Name = item.AuthData.Name,
                     Order = item.AuthData.Index,
-                    Token = Serializable.SMP2(item.AuthData.ToExport()),
+                    Token = AuthenticatorPayloadSerializer.WriteCloudToken(item.AuthData.ToExport()),
                 }).ToArray();
 
             if ((cloudAuths.Count + pushItems.Length) > MAX_SYNC_VALUE)
@@ -460,7 +290,7 @@ public sealed partial class AuthenticatorHomePageViewModel
                 localAuth.ServerId ??= item.Id;
                 localAuth.LastUpdate = DateTimeOffset.Now;
                 await AuthenticatorHelper.AddOrUpdateSaveAuthenticatorsAsync(localAuth, _currentPassword,
-                    HasLocalPcEncrypt);
+                    HasLocalPcEncrypt, sessionVerifiedWithHello);
             }
 
             Initialize();
@@ -550,7 +380,7 @@ public sealed partial class AuthenticatorHomePageViewModel
 
     public async Task OpenExportWindow()
     {
-        if (!Auths.Any_Nullable())
+        if (!IsVerificationPass || AuthSource.Count == 0)
         {
             Toast.Show(ToastIcon.Warning, AppResources.Warning_RefuseOperate);
             return;
@@ -560,10 +390,14 @@ public sealed partial class AuthenticatorHomePageViewModel
             pageContent: new AuthenticatorExportPage(), isOkButton: false);
     }
 
-    public async void ShowAddWindow()
+    public async Task ShowAddWindow()
     {
-        await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorImportPageViewModel(), AppResources.LocalAuth_AddAuth,
-        pageContent: new AuthenticatorImportPage(), isOkButton: false);
+        if (!IsVerificationPass || IsLoading) return;
+        using (var model = new AuthenticatorImportPageViewModel())
+        {
+            await IWindowManager.Instance.ShowTaskDialogAsync(model, AppResources.LocalAuth_AddAuth,
+                pageContent: new AuthenticatorImportPage { DataContext = model }, isOkButton: false, disableScroll: true, wide: true);
+        }
 
         Initialize();
     }
@@ -573,7 +407,8 @@ public sealed partial class AuthenticatorHomePageViewModel
         if (string.IsNullOrEmpty(_currentAnswer))
             _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
         if (string.IsNullOrEmpty(_currentAnswer)) return;
-        await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorRecoverPageViewModel(_currentAnswer), AppResources.Auth_Sync_Recover,
+        using var model = new AuthenticatorRecoverPageViewModel(_currentAnswer);
+        await IWindowManager.Instance.ShowTaskDialogAsync(model, AppResources.Auth_Sync_Recover,
             pageContent: new AuthenticatorRecoverPage(), isOkButton: false);
     }
 
@@ -672,7 +507,7 @@ public sealed partial class AuthenticatorHomePageViewModel
     }
     public async Task ReorderAuthenticator(AuthenticatorItemModel item, AuthenticatorItemModel target, bool after)
     {
-        if (IsLoading || Disposed || ReferenceEquals(item, target) || !await reorderLock.WaitAsync(0)) return;
+        if (IsLoading || !IsVerificationPass || Disposed || ReferenceEquals(item, target) || !await reorderLock.WaitAsync(0)) return;
         try
         {
             var ordered = AuthSource.Items.OrderBy(x => x.AuthData.Index).ThenBy(x => x.AuthName)
@@ -781,13 +616,16 @@ public sealed partial class AuthenticatorHomePageViewModel
     public override void Activation()
     {
         base.Activation();
-        InitializeCore(checkCache: true);
+        _ = LoadVaultAsync(checkCache: true);
     }
 
     protected override void Dispose(bool disposing)
     {
         if (disposing && !Disposed)
+        {
+            ClearVaultSession();
             AuthSource.Dispose();
+        }
         base.Dispose(disposing);
     }
 }

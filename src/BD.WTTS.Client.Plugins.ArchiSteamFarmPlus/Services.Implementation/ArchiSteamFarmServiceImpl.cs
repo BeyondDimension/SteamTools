@@ -54,6 +54,14 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
             }
             else // ASF 命令
             {
+                // The slash is a console alias, not part of the ASF protocol. Leave raw prompted input untouched.
+                if (data.StartsWith('/'))
+                {
+                    var command = data.AsSpan(1).TrimStart();
+                    if (command.IsEmpty) return;
+                    data = string.Concat("!", command);
+                }
+
                 var result = await ExecuteCommandAsync(data);
                 if (!string.IsNullOrEmpty(result))
                     OnConsoleWirteLine?.Invoke(Environment.NewLine + result);
@@ -112,7 +120,6 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
         ASFProcess = StartAsync(SharedInfo.ASFExecuteFilePath);
         ASFProcessId = ASFProcess?.Id;
 
-        ASFService.Current.ConsoleLogText = string.Empty;
         Task2.InBackground(ReadOutPutData, true);
         AppDomain.CurrentDomain.ProcessExit += ExitHandler;
         AppDomain.CurrentDomain.UnhandledException += ExitHandler;
@@ -122,7 +129,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
         using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(60));
         while (
-            !(isStartSuccess = SocketHelper.IsUsePort(CurrentIPCPortValue)) &&
+            !(isStartSuccess = SocketHelper.IsUsePort(IPAddress.Loopback, CurrentIPCPortValue)) &&
             !cancellationTokenSource.IsCancellationRequested)
         {
             await Task.Delay(1000);
@@ -429,7 +436,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
                 if (ASFSettings.IPCPortOccupiedRandom.Value)
                 {
-                    if (SocketHelper.IsUsePort(_currentIpcPortValue))
+                    if (SocketHelper.IsUsePort(IPAddress.Loopback, _currentIpcPortValue))
                     {
                         _currentIpcPortValue = SocketHelper.GetRandomUnusedPort(IPAddress.Loopback);
                         return _currentIpcPortValue;

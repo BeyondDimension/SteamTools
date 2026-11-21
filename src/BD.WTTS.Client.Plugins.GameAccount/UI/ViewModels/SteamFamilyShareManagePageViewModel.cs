@@ -23,7 +23,7 @@ public sealed partial class SteamFamilyShareManagePageViewModel : WindowViewMode
 
         AuthorizedList = new ObservableCollection<AuthorizedDevice>();
 
-        this.WhenValueChanged(x => x.AuthorizedList)
+        this.ObserveValue(nameof(AuthorizedList), static x => x.AuthorizedList)
             .Subscribe(_ => this.RaisePropertyChanged(nameof(IsAuthorizedListEmpty)));
 
         OpenUserProfileUrl_Click = ReactiveCommand.Create<AuthorizedDevice>(OpenUserProfileUrl);

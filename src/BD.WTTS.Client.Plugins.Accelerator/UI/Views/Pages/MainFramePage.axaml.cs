@@ -1,26 +1,23 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-using FluentAvalonia.UI.Media.Animation;
+using BD.WTTS.UI.Views.Controls;
 
 namespace BD.WTTS.UI.Views.Pages;
 
 public partial class MainFramePage : UserControl
 {
-    int lastIndex = -1;
-    int waitingGeneration;
+    CancellationTokenSource? serviceWait;
 
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(AcceleratorPage2))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(ScriptPage))]
     public MainFramePage()
     {
         InitializeComponent();
-        InnerNavFrame.NavigationFailed += (_, args) => Log.Error(nameof(MainFramePage), args.Exception,
-            "Could not navigate to nested page {page}.", args.SourcePageType?.FullName);
-
-        //Tabs.Items.Add(new TabStripItem { Content = Strings.CommunityFix, Tag = typeof(AcceleratorPage) });
-        //Tabs.Items.Add(new TabStripItem { Content = Strings.ScriptConfig, Tag = typeof(ScriptPage) });
+        InnerNavFrame.NavigationFailed += (_, args) =>
+        {
+            Log.Error(nameof(MainFramePage), args.Exception,
+                "Could not navigate to nested page {page}.", args.SourcePageType?.FullName);
+            Toast.Show(ToastIcon.Error, Strings.Error_PageFault);
+        };
 
         Tabs.SelectionChanged += Tabs_SelectionChanged;
     }
@@ -31,7 +28,15 @@ public partial class MainFramePage : UserControl
 
         if (Tabs.SelectedIndex < 0 && Tabs.ItemCount > 0)
             Tabs.SelectedIndex = 0;
-        Tabs_SelectionChanged(null, null);
+        else
+            ShowSelectedPage();
+    }
+
+    protected override void OnUnloaded(RoutedEventArgs e)
+    {
+        serviceWait?.Cancel();
+        serviceWait = null;
+        base.OnUnloaded(e);
     }
 
     void ShowServiceWaiting(bool waiting)
@@ -40,23 +45,25 @@ public partial class MainFramePage : UserControl
         ServiceProgress.IsVisible = waiting;
         ServiceLoadingText.IsVisible = waiting;
         ServiceErrorText.IsVisible = !waiting;
-        RetryServiceButton.IsVisible = !waiting;
+        ServiceFailureActions.IsVisible = !waiting;
     }
 
     private async void RetryServiceButton_Click(object? sender, RoutedEventArgs e)
     {
-        waitingGeneration++;
         RetryServiceButton.IsEnabled = false;
         ShowServiceWaiting(true);
         try
         {
             await Plugin.Instance.OnInitializeAsync();
-            Tabs_SelectionChanged(null, null);
+            serviceWait?.Cancel();
+            serviceWait = null;
+            ShowSelectedPage();
         }
         catch (Exception ex)
         {
             Log.Error(nameof(MainFramePage), ex, "Accelerator service restart failed.");
-            ShowServiceWaiting(false);
+            if (IsLoaded && !Plugin.Instance.ServicesReady.IsCompletedSuccessfully)
+                ShowServiceWaiting(false);
         }
         finally
         {
@@ -64,47 +71,67 @@ public partial class MainFramePage : UserControl
         }
     }
 
-    private async void Tabs_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs? e)
+    private async void ViewServiceLogsButton_Click(object? sender, RoutedEventArgs e) => await LogFilesDialog.ShowAsync(this,
+        Path.Combine(IApplication.LogDirPath, AssemblyInfo.Accelerator), Strings.CommunityFix_ProxyLog);
+
+    private void Tabs_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (Tabs.SelectedItem is TabStripItem tab && tab.Tag is Type t)
+        if (e.Source == Tabs)
+            ShowSelectedPage();
+    }
+
+    private async void ShowSelectedPage()
+    {
+        if (!IsLoaded || serviceWait != null)
+            return;
+
+        if (!Design.IsDesignMode && Plugin.Instance.ServicesReady is { IsCompletedSuccessfully: false } ready)
         {
-            if (!Design.IsDesignMode)
+            using var wait = new CancellationTokenSource();
+            serviceWait = wait;
+            ShowServiceWaiting(true);
+            try
             {
-                var generation = ++waitingGeneration;
-                var servicesReady = Plugin.Instance.ServicesReady;
-                ShowServiceWaiting(true);
                 try
                 {
-                    if (await Task.WhenAny(servicesReady, Task.Delay(TimeSpan.FromSeconds(15))) != servicesReady)
-                    {
-                        if (!IsLoaded || Tabs.SelectedItem != tab || generation != waitingGeneration)
-                            return;
-                        ShowServiceWaiting(false);
-                    }
-                    await servicesReady;
+                    await ready.WaitAsync(TimeSpan.FromSeconds(15), wait.Token);
                 }
-                catch (Exception ex)
+                catch (TimeoutException) when (!ready.IsFaulted)
                 {
-                    Log.Error(nameof(MainFramePage), ex, "Accelerator services could not be initialized.");
-                    if (IsLoaded && Tabs.SelectedItem == tab && generation == waitingGeneration)
-                        ShowServiceWaiting(false);
-                    return;
+                    wait.Token.ThrowIfCancellationRequested();
+                    ShowServiceWaiting(false);
+                    await ready.WaitAsync(wait.Token);
                 }
 
-                if (!IsLoaded || Tabs.SelectedItem != tab)
-                    return;
+                wait.Token.ThrowIfCancellationRequested();
             }
-
-            WaitingForService.IsVisible = false;
-            if (InnerNavFrame.CurrentSourcePageType == t)
-                return;
-            InnerNavFrame.Navigate(t, null, new SlideNavigationTransitionInfo
+            catch (OperationCanceledException) when (wait.IsCancellationRequested)
             {
-                Effect = FrameEffect.GetEffect(lastIndex, Tabs.SelectedIndex),
-                FromHorizontalOffset = 70,
-            });
-
-            lastIndex = Tabs.SelectedIndex;
+                return;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(nameof(MainFramePage), ex, "Accelerator services could not be initialized.");
+                if (!wait.IsCancellationRequested)
+                    ShowServiceWaiting(false);
+                return;
+            }
+            finally
+            {
+                if (ReferenceEquals(serviceWait, wait))
+                    serviceWait = null;
+            }
         }
+
+        WaitingForService.IsVisible = false;
+        var pageType = Tabs.SelectedItem switch
+        {
+            var item when ReferenceEquals(item, AcceleratorTab) => typeof(AcceleratorPage2),
+            var item when ReferenceEquals(item, ScriptTab) => typeof(ScriptPage),
+            _ => null,
+        };
+
+        if (pageType is not null && InnerNavFrame.CurrentSourcePageType != pageType)
+            InnerNavFrame.Navigate(pageType, null, FrameEffect.NoTransition);
     }
 }

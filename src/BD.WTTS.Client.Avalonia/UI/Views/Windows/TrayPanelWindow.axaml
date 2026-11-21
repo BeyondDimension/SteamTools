@@ -1,0 +1,336 @@
+<Window
+	x:Class="BD.WTTS.UI.Views.Windows.TrayPanelWindow"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:spp="https://steampp.net/ui"
+	xmlns:ui="using:FluentAvalonia.UI.Controls"
+	x:CompileBindings="True"
+	x:DataType="spp:TrayPanelViewModel"
+	Title="{x:Static spp:Strings.Tray_QuickActions}"
+	Width="296"
+	MaxHeight="384"
+	Background="Transparent"
+	CanResize="False"
+	ShowInTaskbar="False"
+	SizeToContent="Height"
+	Topmost="True"
+	WindowDecorations="None"
+	TransparencyBackgroundFallback="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+	TransparencyLevelHint="Transparent">
+	<Window.Styles>
+		<Style Selector="Button.trayIconButton">
+			<Setter Property="Theme" Value="{StaticResource TransparentButton}" />
+			<Setter Property="Width" Value="28" />
+			<Setter Property="Height" Value="28" />
+			<Setter Property="Padding" Value="0" />
+		</Style>
+		<Style Selector=":is(Button).trayMenuRow">
+			<Setter Property="Theme" Value="{StaticResource TransparentButton}" />
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+			<Setter Property="MinHeight" Value="30" />
+			<Setter Property="Padding" Value="7,3,9,3" />
+			<Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+			<Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+			<Setter Property="FontWeight" Value="Normal" />
+		</Style>
+		<Style
+			Selector="ToggleButton.trayMenuRow:checked:not(:pointerover):not(:pressed) /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+		</Style>
+		<Style Selector="TextBlock.trayMenuLabel">
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="TextTrimming" Value="CharacterEllipsis" />
+		</Style>
+		<Style Selector="ui|FASymbolIcon.trayChevron">
+			<Setter Property="Symbol" Value="ChevronRight" />
+		</Style>
+		<Style Selector="ToggleButton.trayMenuRow:checked ui|FASymbolIcon.trayChevron">
+			<Setter Property="Symbol" Value="ChevronDown" />
+		</Style>
+		<Style Selector="Grid.traySections > ToggleButton#AccountsDisclosure">
+			<Setter Property="Grid.Row" Value="1" />
+		</Style>
+		<Style Selector="Grid.traySections.projectsExpanded > ToggleButton#AccountsDisclosure">
+			<Setter Property="Grid.Row" Value="3" />
+		</Style>
+		<Style Selector="TextBlock.trayCaption">
+			<Setter Property="FontSize" Value="12" />
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+			<Setter Property="TextTrimming" Value="CharacterEllipsis" />
+		</Style>
+		<Style Selector="Button.trayCurrentAccount TextBlock.trayAccountName">
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+		</Style>
+		<!-- This command switch has no editable local state. Hit test the button rather than its drag handle. -->
+		<Style Selector="ToggleSwitch.trayAcceleration /template/ :is(Panel)#PART_MovingKnobs">
+			<Setter Property="IsHitTestVisible" Value="False" />
+		</Style>
+	</Window.Styles>
+
+	<Border
+		Padding="6"
+		Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+		BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+		BorderThickness="1"
+		CornerRadius="8">
+		<Grid RowDefinitions="Auto,*,Auto" RowSpacing="4">
+			<StackPanel Margin="7,4,9,4" Spacing="5">
+				<Grid ColumnDefinitions="16,*,Auto" ColumnSpacing="8">
+					<ui:FASymbolIcon FontSize="14" Symbol="Globe" />
+					<StackPanel Grid.Column="1" VerticalAlignment="Center">
+						<TextBlock Classes="trayMenuLabel" Text="{x:Static spp:Strings.CommunityFix}" />
+						<!-- <TextBlock -->
+						<!--     Classes="trayCaption" -->
+						<!--     AutomationProperties.LiveSetting="Polite" -->
+						<!--     Text="{Binding AccelerationStatus}" -->
+						<!--     ToolTip.Tip="{Binding AccelerationStatus}" /> -->
+					</StackPanel>
+					<spp:TrayToggleSwitch
+						x:Name="AccelerationSwitch"
+						Grid.Column="2"
+						VerticalAlignment="Center"
+						MinHeight="30"
+						AutomationProperties.Name="{x:Static spp:Strings.CommunityFix}"
+						Classes="OnlySwitch trayAcceleration"
+						Command="{Binding AccelerationCommand}"
+						CommandParameter="{Binding AccelerationCommandParameter}"
+						IsChecked="{Binding IsAccelerationOn, Mode=OneWay}"
+						IsEnabled="{Binding CanToggleAcceleration}"
+						ToolTip.Tip="{Binding AccelerationStatus}" />
+				</Grid>
+				<Grid
+					x:Name="SessionMetrics"
+					Margin="24,0,0,3"
+					ColumnDefinitions="Auto,*"
+					ColumnSpacing="8"
+					IsVisible="{Binding HasAccelerationSession}"
+					RowDefinitions="Auto,Auto,Auto"
+					RowSpacing="2">
+					<TextBlock Classes="trayCaption" Text="{x:Static spp:Strings.Tray_AccelerationDuration}" />
+					<TextBlock Grid.Column="1" HorizontalAlignment="Right" FontSize="12" FontWeight="SemiBold"
+					           Text="{Binding AccelerationDuration}" />
+					<TextBlock Grid.Row="1" Classes="trayCaption" Text="{x:Static spp:Strings.UploadFlow}" />
+					<TextBlock
+						x:Name="UploadTrafficValue"
+						Grid.Row="1" Grid.Column="1"
+						Classes="trayCaption"
+						FontWeight="SemiBold"
+						Text="{Binding UploadTraffic}"
+						TextAlignment="Right"
+						ToolTip.Tip="{x:Static spp:Strings.Tray_TrafficDetails}" />
+					<TextBlock Grid.Row="2" Classes="trayCaption" Text="{x:Static spp:Strings.DownloadFlow}" />
+					<TextBlock
+						x:Name="DownloadTrafficValue"
+						Grid.Row="2" Grid.Column="1"
+						Classes="trayCaption"
+						FontWeight="SemiBold"
+						Text="{Binding DownloadTraffic}"
+						TextAlignment="Right"
+						ToolTip.Tip="{x:Static spp:Strings.Tray_TrafficDetails}" />
+				</Grid>
+			</StackPanel>
+
+			<!-- The active list gets the flexible row. Both disclosure buttons and the commands stay visible. -->
+			<Grid Grid.Row="1" Classes="traySections" Classes.projectsExpanded="{Binding AreProjectsExpanded}"
+			      RowDefinitions="Auto,Auto,*,Auto">
+				<ToggleButton
+					x:Name="ProjectsDisclosure"
+					AutomationProperties.Name="{x:Static spp:Strings.Tray_AccelerationProjects}"
+					Classes="trayMenuRow"
+					IsChecked="{Binding AreProjectsExpanded, Mode=TwoWay}"
+					IsVisible="{Binding HasAccelerationSession}">
+					<Grid ColumnDefinitions="16,*,Auto,Auto" ColumnSpacing="8">
+						<ui:FASymbolIcon FontSize="14" Symbol="Globe" />
+						<TextBlock Grid.Column="1" Classes="trayMenuLabel" Text="{x:Static spp:Strings.Tray_AccelerationProjects}" />
+						<TextBlock Grid.Column="2" VerticalAlignment="Center" Classes="trayCaption"
+						           Text="{Binding AccelerationProjects.Count}" />
+						<ui:FASymbolIcon Grid.Column="3" Classes="trayChevron" FontSize="12" />
+					</Grid>
+				</ToggleButton>
+				<Grid Grid.Row="2" IsVisible="{Binding AreProjectsExpanded}">
+					<TextBlock
+						Margin="7,3"
+						Classes="trayCaption"
+						IsVisible="{Binding !HasAccelerationProjects}"
+						Text="{x:Static spp:Strings.Tray_NoActiveProjects}" />
+					<ScrollViewer
+						x:Name="ProjectScroll"
+						MaxHeight="172"
+						HorizontalScrollBarVisibility="Disabled"
+						IsVisible="{Binding HasAccelerationProjects}"
+						VerticalScrollBarVisibility="Auto">
+						<ItemsRepeater ItemsSource="{Binding AccelerationProjects}">
+							<ItemsRepeater.ItemTemplate>
+								<DataTemplate x:DataType="x:String">
+									<TextBlock Margin="29,3,8,3" Classes="trayCaption" Text="{Binding .}" ToolTip.Tip="{Binding .}" />
+								</DataTemplate>
+							</ItemsRepeater.ItemTemplate>
+						</ItemsRepeater>
+					</ScrollViewer>
+				</Grid>
+				<ToggleButton
+					x:Name="AccountsDisclosure"
+					AutomationProperties.Name="{x:Static spp:Strings.SteamAccount}"
+					Classes="trayMenuRow"
+					IsChecked="{Binding AreAccountsExpanded, Mode=TwoWay}"
+					IsVisible="{Binding HasAccountGroup}">
+					<Grid ColumnDefinitions="16,*,Auto" ColumnSpacing="8">
+						<ui:FAFontIcon FontSize="14" Glyph="&#xE77B;" />
+						<TextBlock Grid.Column="1" Classes="trayMenuLabel" Text="{x:Static spp:Strings.SteamAccount}" />
+						<ui:FASymbolIcon Grid.Column="2" Classes="trayChevron" FontSize="12" />
+					</Grid>
+				</ToggleButton>
+				<Grid Grid.Row="2" IsVisible="{Binding AreAccountsExpanded}" RowDefinitions="Auto,*">
+					<Grid Margin="7,0,0,0" ColumnDefinitions="*,Auto,Auto">
+						<TextBlock
+							Margin="0,3"
+							VerticalAlignment="Center"
+							Classes="trayCaption"
+							IsVisible="{Binding HasNoAccounts}"
+							Text="{Binding AccountStatusText}"
+							ToolTip.Tip="{Binding AccountStatusText}" />
+						<Button
+							Grid.Column="1"
+							AutomationProperties.Name="{x:Static spp:Strings.Retry}"
+							Classes="trayIconButton"
+							Command="{Binding RefreshAccountsCommand}"
+							IsVisible="{Binding CanRefreshAccounts}"
+							ToolTip.Tip="{x:Static spp:Strings.Retry}">
+							<ui:FASymbolIcon FontSize="14" Symbol="Refresh" />
+						</Button>
+						<!-- <Button -->
+						<!-- 	Grid.Column="2" -->
+						<!-- 	MinHeight="28" -->
+						<!-- 	Padding="6,2" -->
+						<!-- 	FontSize="12" -->
+						<!-- 	Click="DismissAfterAction" -->
+						<!-- 	Command="{Binding ManageAccountsCommand}" -->
+						<!-- 	CommandParameter="{Binding ManageAccountsCommandParameter}" -->
+						<!-- 	Content="{x:Static spp:Strings.Tray_ManageAccounts}" -->
+						<!-- 	Theme="{StaticResource TransparentButton}" /> -->
+					</Grid>
+					<ScrollViewer
+						x:Name="AccountScroll"
+						Grid.Row="1"
+						MaxHeight="172"
+						IsVisible="{Binding !HasNoAccounts}"
+						HorizontalScrollBarVisibility="Disabled"
+						VerticalScrollBarVisibility="Auto">
+						<ItemsRepeater ItemsSource="{Binding Accounts}">
+							<ItemsRepeater.Layout>
+								<StackLayout Spacing="1" />
+							</ItemsRepeater.Layout>
+							<ItemsRepeater.ItemTemplate>
+								<DataTemplate x:DataType="spp:TrayAccountItem">
+									<Button
+										HorizontalAlignment="Stretch"
+										HorizontalContentAlignment="Stretch"
+										Padding="6,2"
+										MinHeight="33"
+										AutomationProperties.Name="{Binding Name}"
+										Classes.trayCurrentAccount="{Binding IsCurrent}"
+										Command="{Binding Command}"
+										CommandParameter="{Binding CommandParameter}"
+										IsEnabled="{Binding !IsCurrent}"
+										Theme="{StaticResource TransparentButton}"
+										ToolTip.Tip="{Binding Name}">
+										<Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+											<Border
+												Width="24" Height="24"
+												Background="{DynamicResource SubtleFillColorSecondaryBrush}"
+												ClipToBounds="True" CornerRadius="6">
+												<Panel>
+													<ui:FAFontIcon FontSize="12" Glyph="&#xE77B;" />
+													<spp:Image2 DecodeWidth="24" Source="{Binding AvatarUrl}" Stretch="UniformToFill" />
+												</Panel>
+											</Border>
+											<StackPanel Grid.Column="1" VerticalAlignment="Center">
+												<TextBlock Classes="trayAccountName" FontWeight="SemiBold" Text="{Binding Name}"
+												           TextTrimming="CharacterEllipsis" />
+												<TextBlock Classes="trayCaption" IsVisible="{Binding HasDetail}" Text="{Binding Detail}" />
+											</StackPanel>
+											<Border
+												Grid.Column="2"
+												Padding="5,2"
+												VerticalAlignment="Center"
+												Background="{DynamicResource SubtleFillColorSecondaryBrush}"
+												CornerRadius="5"
+												IsVisible="{Binding IsCurrent}">
+												<TextBlock
+													FontSize="11" FontWeight="SemiBold"
+													Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}"
+													Text="{x:Static spp:Strings.Tray_CurrentAccount}" />
+											</Border>
+											<TextBlock
+												Grid.Column="2"
+												VerticalAlignment="Center"
+												Classes="trayCaption"
+												IsVisible="{Binding ShowRecentBadge}"
+												Text="{x:Static spp:Strings.UserChange_RecentLogin}" />
+											<ui:FASymbolIcon
+												Grid.Column="2"
+												FontSize="12"
+												VerticalAlignment="Center"
+												IsVisible="{Binding ShowSwitchHint}"
+												Symbol="ChevronRight" />
+										</Grid>
+									</Button>
+								</DataTemplate>
+							</ItemsRepeater.ItemTemplate>
+						</ItemsRepeater>
+					</ScrollViewer>
+				</Grid>
+			</Grid>
+
+			<StackPanel Grid.Row="2">
+				<Border Height="1" Margin="0,3" Background="{DynamicResource CardStrokeColorDefaultBrush}" />
+				<Button
+					x:Name="MainPanelButton"
+					AutomationProperties.Name="{x:Static spp:Strings.OpenMainWindow}"
+					Classes="trayMenuRow"
+					Click="Restore_OnClick">
+					<Grid ColumnDefinitions="16,*" ColumnSpacing="8">
+						<ui:FAFontIcon FontSize="14" Glyph="&#xE8A7;" />
+						<TextBlock Grid.Column="1" Classes="trayMenuLabel" Text="{x:Static spp:Strings.OpenMainWindow}" />
+					</Grid>
+				</Button>
+				<Button
+					x:Name="SteamActionButton"
+					AutomationProperties.Name="{Binding SteamActionText}"
+					Classes="trayMenuRow"
+					Click="DismissAfterAction"
+					Command="{Binding SteamAction}">
+					<Grid ColumnDefinitions="16,*" ColumnSpacing="8">
+						<PathIcon Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center"
+						          Data="{StaticResource Steam}" />
+						<TextBlock Grid.Column="1" Classes="trayMenuLabel" Text="{Binding SteamActionText}" />
+					</Grid>
+				</Button>
+				<Border Height="1" Margin="0,3" Background="{DynamicResource CardStrokeColorDefaultBrush}" />
+				<Button
+					x:Name="PluginActionsButton"
+					AutomationProperties.Name="{x:Static spp:Strings.More}"
+					Classes="trayMenuRow"
+					IsVisible="False">
+					<Grid ColumnDefinitions="16,*,Auto" ColumnSpacing="8">
+						<ui:FAFontIcon FontSize="14" Glyph="&#xE712;" />
+						<TextBlock Grid.Column="1" Classes="trayMenuLabel" Text="{x:Static spp:Strings.More}" />
+						<ui:FASymbolIcon Grid.Column="2" Classes="trayChevron" FontSize="12" />
+					</Grid>
+				</Button>
+				<Border Height="1" Margin="0,3" Background="{DynamicResource CardStrokeColorDefaultBrush}" />
+				<Button
+					x:Name="ExitButton"
+					AutomationProperties.Name="{x:Static spp:Strings.Exit}"
+					Classes="trayMenuRow"
+					Click="Exit_OnClick">
+					<Grid ColumnDefinitions="16,*" ColumnSpacing="8">
+						<ui:FAFontIcon FontSize="14" Glyph="&#xE7E8;" />
+						<TextBlock Grid.Column="1" Classes="trayMenuLabel" Text="{x:Static spp:Strings.Exit}" />
+					</Grid>
+				</Button>
+			</StackPanel>
+		</Grid>
+	</Border>
+</Window>
