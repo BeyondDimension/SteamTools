@@ -134,6 +134,9 @@ static class WinDivertInitHelper
         {
             //case Architecture.X86:
             case Architecture.X64:
+#if WTTS_NATIVE_AOT
+                MemoryPackFormatterProvider.Register(new MemoryPack.Formatters.ArrayFormatter<byte[]>());
+#endif
                 IsSupported = true;
                 libraryPath = GlobalDllImportResolver.GetLibraryPath("WinDivert.dll");
                 libraryDirPath = Path.GetDirectoryName(libraryPath);

@@ -19,6 +19,7 @@ internal sealed partial class AcceleratorIpcJsonSerializerContext : JsonSerializ
         MemoryPackFormatterProvider.Register<FlowStatistics>();
         MemoryPackFormatterProvider.Register<ScriptIPCDTO>();
         MemoryPackFormatterProvider.Register<AccelerateProjectDTO>();
+        MemoryPackFormatterProvider.Register(X509CertificatePackableFormatterAttribute.Formatter.Default);
     }
 }
 #endif

@@ -1,5 +1,6 @@
 using BD.Avalonia8.Image2;
 using BD.WTTS.Helpers;
+using BD.WTTS.Serialization;
 using BD.WTTS.UI.Views.Pages;
 using System.Threading;
 
@@ -214,7 +215,7 @@ public partial class AuthenticatorItemModel : ReactiveObject, IDisposable
     public void ShowQrCode()
     {
         var dto = AuthData.ToExport();
-        var bytes = Serializable.SMP(dto);
+        var bytes = AuthenticatorPayloadSerializer.WriteQrExport(dto);
 
         var bytes_compress_br = bytes.CompressByteArrayByBrotli();
 

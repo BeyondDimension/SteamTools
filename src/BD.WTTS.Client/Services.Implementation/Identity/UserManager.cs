@@ -1,3 +1,4 @@
+using MessagePack.Resolvers;
 using static BD.WTTS.Services.IUserManager;
 
 // ReSharper disable once CheckNamespace
@@ -7,6 +8,9 @@ namespace BD.WTTS.Services.Implementation;
 partial class UserManager : IUserManager
 {
     protected const string TAG = "UserManager";
+
+    static readonly MessagePackSerializerOptions currentUserOptions = ApiMessagePack.Options.WithResolver(
+        CompositeResolver.Create(ClientMessagePackResolver.Instance, ApiMessagePack.Options.Resolver));
 
     protected readonly ISecureStorage storage;
     protected readonly ILogger logger;
@@ -51,7 +55,7 @@ partial class UserManager : IUserManager
         {
             try
             {
-                CurrentUser = await storage.GetAsync<CurrentUser>(KEY_CURRENT_LOGIN_USER);
+                CurrentUser = await storage.GetAsync<CurrentUser>(KEY_CURRENT_LOGIN_USER, currentUserOptions);
             }
             catch (Exception e)
             {
@@ -92,7 +96,7 @@ partial class UserManager : IUserManager
 
     public async Task SetCurrentUserAsync(CurrentUser? value)
     {
-        await storage.SetAsync(KEY_CURRENT_LOGIN_USER, value);
+        await storage.SetAsync(KEY_CURRENT_LOGIN_USER, value, currentUserOptions);
         CurrentUser = value;
         PrintCurrentUser("SetCurrentUser");
     }
@@ -203,7 +207,7 @@ partial class UserManager : IUserManager
                 var userInfoBytes = await security.DB(user.UserInfo);
                 if (userInfoBytes != null)
                 {
-                    var value = Serializable.DMP<IdentityUserInfoDTO>(userInfoBytes);
+                    var value = MessagePackSerializer.Deserialize<IdentityUserInfoDTO>(userInfoBytes, ApiMessagePack.Options);
                     if (value != null)
                     {
                         var v = await VerifyUserInfoAsync(user, value);
@@ -241,7 +245,7 @@ partial class UserManager : IUserManager
         };
         if (user is IdentityUserInfoDTO userInfo)
         {
-            userTable.UserInfo = Serializable.SMP(userInfo);
+            userTable.UserInfo = MessagePackSerializer.Serialize(userInfo, ApiMessagePack.Options);
             userTable.UserInfo = await security.EB(userTable.UserInfo);
         }
         else

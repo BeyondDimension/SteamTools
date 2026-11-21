@@ -3,6 +3,7 @@ using SJsonSerializer = System.Text.Json.JsonSerializer;
 
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
+using BD.WTTS.Serialization;
 using BD.WTTS.UI.Views.Pages;
 using WinAuth;
 using AngleSharp.Text;
@@ -247,7 +248,7 @@ public sealed partial class AuthenticatorHomePageViewModel
                         : UserAuthenticatorTokenType.TOTP,
                     Name = item.AuthData.Name,
                     Order = item.AuthData.Index,
-                    Token = Serializable.SMP2(item.AuthData.ToExport()),
+                    Token = AuthenticatorPayloadSerializer.WriteCloudToken(item.AuthData.ToExport()),
                 }).ToArray();
 
             if ((cloudAuths.Count + pushItems.Length) > MAX_SYNC_VALUE)

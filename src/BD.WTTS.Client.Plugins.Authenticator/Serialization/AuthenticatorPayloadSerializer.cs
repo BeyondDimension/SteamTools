@@ -17,6 +17,18 @@ internal static class AuthenticatorPayloadSerializer
             [new MessagePack.Formatters.ArrayFormatter<AccountPlatformAuthenticator>(), new MessagePack.Formatters.ListFormatter<AccountPlatformAuthenticator>()],
             [WinAuthMessagePackResolver.Instance, AuthenticatorVaultResolver.Instance, BuiltinResolver.Instance]));
 
+    static AuthenticatorPayloadSerializer()
+    {
+        MemoryPackFormatterProvider.Register<AuthenticatorExportDTO>();
+    }
+
+    public static byte[] WriteQrExport(AuthenticatorExportDTO value) => MessagePackSerializer.Serialize(value, options);
+
+    public static byte[] WriteCloudToken(AuthenticatorExportDTO value) => Serializable.SMP2(value);
+
+    public static AuthenticatorExportDTO? ReadCloudToken(byte[]? data) =>
+        data is null ? null : MemoryPackSerializer.Deserialize<AuthenticatorExportDTO>(data);
+
     public static IAuthenticatorValueDTO? ReadValue(byte[] data) =>
         MessagePackSerializer.Deserialize<IAuthenticatorValueDTO>(data, options);
 

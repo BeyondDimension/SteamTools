@@ -1,5 +1,6 @@
 using WinAuth;
 using Avalonia.Controls;
+using BD.WTTS.Serialization;
 using static BD.WTTS.Repositories.Abstractions.IAccountPlatformAuthenticatorRepository;
 using AppResources = BD.WTTS.Client.Resources.Strings;
 
@@ -381,7 +382,7 @@ public static class AuthenticatorHelper
     public static IAuthenticatorDTO ConvertToAuthenticatorDto(
         UserAuthenticatorResponse authenticatorResponse)
     {
-        var exportDto = MemoryPackSerializer.Deserialize<AuthenticatorExportDTO>(authenticatorResponse.Token);
+        var exportDto = AuthenticatorPayloadSerializer.ReadCloudToken(authenticatorResponse.Token);
         exportDto.ThrowIsNull();
         var valueDto = ConvertToAuthenticatorValueDto(exportDto);
         AuthenticatorDTO dto = new AuthenticatorDTO()

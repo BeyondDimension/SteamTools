@@ -42,3 +42,6 @@ public sealed partial class CurrentUser : IExplicitHasValue, IPhoneNumber
             ShopAuthToken = ShopAuthToken,
         } : null;
 }
+
+[GeneratedMessagePackResolver]
+internal partial class ClientMessagePackResolver;
