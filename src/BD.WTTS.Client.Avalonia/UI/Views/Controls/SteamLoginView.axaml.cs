@@ -28,7 +28,6 @@ public partial class SteamLoginView : ReactiveUserControl<SteamLoginViewModel>
     bool isAttached;
     bool inViewport;
     bool qrVisible;
-    bool? narrowLayout;
 
     public SteamLoginView()
     {
@@ -38,19 +37,6 @@ public partial class SteamLoginView : ReactiveUserControl<SteamLoginViewModel>
             inViewport = e.EffectiveViewport.Intersects(new Rect(Bounds.Size));
             UpdateQrVisibility();
         };
-        FormsLayout.SizeChanged += (_, e) => UpdateLayout(e.NewSize.Width);
-    }
-
-    void UpdateLayout(double width)
-    {
-        // Two equal columns must each fit the QR image and its padding.
-        var narrow = width < 488;
-        if (narrowLayout == narrow) return;
-        narrowLayout = narrow;
-        Grid.SetColumnSpan(AccountPanel, narrow ? 2 : 1);
-        Grid.SetColumnSpan(QrPanel, narrow ? 2 : 1);
-        Grid.SetColumn(QrPanel, narrow ? 0 : 1);
-        Grid.SetRow(QrPanel, narrow ? 1 : 0);
     }
 
     void SetCurrentModel(SteamLoginViewModel? model)
@@ -63,7 +49,6 @@ public partial class SteamLoginView : ReactiveUserControl<SteamLoginViewModel>
         if (loginMode != 0) SetLoginMode(0);
         currentModel = model;
         SavedAccountSwitch.IsVisible = model?.AllowSavedAccountLogin == true;
-        SavedAccountSeparator.IsVisible = model?.AllowSavedAccountLogin == true;
         qrVisible = false;
         UpdateQrVisibility();
     }

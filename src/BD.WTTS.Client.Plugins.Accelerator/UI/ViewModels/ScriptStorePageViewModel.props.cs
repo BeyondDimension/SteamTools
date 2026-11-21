@@ -18,5 +18,8 @@ public partial class ScriptStorePageViewModel : ViewModelBase
 
     public bool IsScriptsEmpty => !Scripts.Any_Nullable();
 
+    [Reactive]
+    public bool IsLoading { get; private set; }
+
     public ICommand? DownloadScriptItemCommand { get; }
 }

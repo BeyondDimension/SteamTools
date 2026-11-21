@@ -391,6 +391,15 @@
 
         </Style>
 
+        <Style Selector="^:hosted.wide /template/ Border#ContentRoot">
+            <Setter Property="Margin" Value="12" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="MaxWidth" Value="760" />
+            <Setter Property="MaxHeight" Value="620" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+        </Style>
+
         <Style Selector="^.disableScroll">
             <Setter Property="Template">
                 <ControlTemplate>
@@ -461,10 +470,9 @@
                                     Text="{TemplateBinding SubHeader}"
                                     TextWrapping="Wrap" />
 
-                                <DockPanel Grid.Row="2" Margin="{StaticResource TaskDialogContentMargin}">
+                                <Grid Grid.Row="2" RowDefinitions="*,Auto" Margin="{StaticResource TaskDialogContentMargin}">
                                     <ContentPresenter
                                         Name="ContentPresenter"
-                                        Grid.Row="2"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Stretch"
                                         HorizontalContentAlignment="Stretch"
@@ -478,15 +486,13 @@
                                         </ContentPresenter.Styles>
                                     </ContentPresenter>
 
-                                    <StackPanel DockPanel.Dock="Bottom" Spacing="18">
+                                    <StackPanel Grid.Row="1" Spacing="18">
                                         <ProgressBar
                                             Name="ProgressBar"
-                                            Grid.Row="3"
                                             IsVisible="False" />
 
                                         <ItemsControl
                                             Name="CommandsHost"
-                                            Grid.Row="4"
                                             IsVisible="{Binding !!$self.ItemCount}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -497,7 +503,6 @@
 
                                         <StackPanel
                                             Name="MoreDetailsPanel"
-                                            Grid.Row="5"
                                             IsVisible="False">
                                             <Button
                                                 Name="MoreDetailsButton"
@@ -516,7 +521,7 @@
                                                 IsVisible="False" />
                                         </StackPanel>
                                     </StackPanel>
-                                </DockPanel>
+                                </Grid>
 
                                 <Border
                                     Name="ButtonBorder"

@@ -68,12 +68,13 @@ internal sealed class NativeViewModelActivation
         var next = attached ? view.ViewModel as IActivatableViewModel : null;
         if (ReferenceEquals(next, activeViewModel)) return;
         var previous = activation;
+        var previousViewModel = activeViewModel;
         activation = null;
         activeViewModel = null;
         if (previous != null)
         {
-            if (deferDeactivation) ReleaseAfterDetach(previous);
-            else previous.Dispose();
+            if (deferDeactivation) ReleaseAfterDetach(previousViewModel, previous);
+            else ReleaseActivation(previousViewModel, previous);
         }
         next = attached ? view.ViewModel as IActivatableViewModel : null;
         if (next == null || ReferenceEquals(next, activeViewModel)) return;
@@ -81,7 +82,14 @@ internal sealed class NativeViewModelActivation
         activation = next.Activator.Activate();
     }
 
-    void ReleaseAfterDetach(IDisposable lease)
+    static void ReleaseActivation(IActivatableViewModel? viewModel, IDisposable lease)
+    {
+        // Disposing a ViewModelBase already tears down its activator; a late lease would notify its disposed subjects.
+        if (viewModel is not ViewModelBase { Disposed: true })
+            lease.Dispose();
+    }
+
+    void ReleaseAfterDetach(IActivatableViewModel? viewModel, IDisposable lease)
     {
         var window = ownerWindow;
         IDisposable? pending = lease;
@@ -92,7 +100,7 @@ internal sealed class NativeViewModelActivation
             if (retired == null) return;
             pending = null;
             if (window != null) window.Closed -= closed;
-            retired.Dispose();
+            ReleaseActivation(viewModel, retired);
         }
 
         // Deactivation may remove a sibling while Avalonia is walking a cached child count.

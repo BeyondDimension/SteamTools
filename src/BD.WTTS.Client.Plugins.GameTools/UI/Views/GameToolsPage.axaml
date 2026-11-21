@@ -30,24 +30,6 @@
     </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
-            <Button
-                Padding="8,4"
-                DockPanel.Dock="Right"
-                Theme="{StaticResource TransparentButton}">
-                <Panel>
-                    <Viewbox
-                        Width="16"
-                        Height="16"
-                        HorizontalAlignment="Left">
-                        <ui:FASymbolIcon Symbol="Refresh" />
-                    </Viewbox>
-                    <TextBlock
-                        Margin="28,4,0,4"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Text="{x:Static spp:Strings.Refresh}" />
-                </Panel>
-            </Button>
             <DropDownButton
                 Padding="8"
                 HorizontalContentAlignment="Center"
@@ -97,9 +79,10 @@
             </ControlTheme>
         </ScrollViewer.Resources>
         <WrapPanel>
+            <!-- Launch button tags identify the cards for the native UI probe; the click handlers own navigation. -->
             <Border spp:Animations.EnableAnimations="False">
                 <Button
-                    Click="GameToolsPage_Click"
+                    Click="BorderlessGame_Click"
                     IsEnabled="{spp:OnPlatform Windows}"
                     Theme="{StaticResource NavButtonStyle}">
                     <Button.Tag>
@@ -129,7 +112,7 @@
 
             <Border spp:Animations.EnableAnimations="False">
                 <Button
-                    Click="GameToolsPage_Click"
+                    Click="VacRepair_Click"
                     IsEnabled="{spp:OnPlatform Windows}"
                     Theme="{StaticResource NavButtonStyle}">
 					<Button.Tag>
@@ -159,9 +142,7 @@
 			
             <Border spp:Animations.EnableAnimations="False">
                 <Button
-                    Click="GameToolsPage_Click"
                     IsEnabled="False"
-                    Tag="{x:Null}"
                     Theme="{StaticResource NavButtonStyle}">
                     <Grid RowDefinitions="3*,*">
                         <Border

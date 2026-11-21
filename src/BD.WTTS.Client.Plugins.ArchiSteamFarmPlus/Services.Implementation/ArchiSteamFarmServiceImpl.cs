@@ -129,7 +129,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
         using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(60));
         while (
-            !(isStartSuccess = SocketHelper.IsUsePort(CurrentIPCPortValue)) &&
+            !(isStartSuccess = SocketHelper.IsUsePort(IPAddress.Loopback, CurrentIPCPortValue)) &&
             !cancellationTokenSource.IsCancellationRequested)
         {
             await Task.Delay(1000);
@@ -436,7 +436,7 @@ public partial class ArchiSteamFarmServiceImpl : ReactiveObject, IArchiSteamFarm
 
                 if (ASFSettings.IPCPortOccupiedRandom.Value)
                 {
-                    if (SocketHelper.IsUsePort(_currentIpcPortValue))
+                    if (SocketHelper.IsUsePort(IPAddress.Loopback, _currentIpcPortValue))
                     {
                         _currentIpcPortValue = SocketHelper.GetRandomUnusedPort(IPAddress.Loopback);
                         return _currentIpcPortValue;

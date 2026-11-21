@@ -73,7 +73,7 @@ public partial class ScriptPageViewModel : TabItemViewModel
             UserService.Current.ShowWindow();
             return;
         }
-        var model = new ScriptStorePageViewModel();
+        using var model = new ScriptStorePageViewModel();
         await IWindowManager.Instance.ShowTaskDialogAsync(model,
                        Strings.ScriptStore,
                        pageContent: new ScriptStorePage(),

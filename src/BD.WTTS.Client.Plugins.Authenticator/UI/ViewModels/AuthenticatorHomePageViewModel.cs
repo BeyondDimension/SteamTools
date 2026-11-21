@@ -65,7 +65,7 @@ public sealed partial class AuthenticatorHomePageViewModel
         //                SelectedAuth = null;
         //        }));
 
-        var textFilter = this.WhenAnyValue(x => x.SearchText).Select(PredicateName);
+        var textFilter = this.ObserveValue(nameof(SearchText), static x => x.SearchText).Select(PredicateName);
 
         AuthSource
             .Connect()
@@ -392,8 +392,11 @@ public sealed partial class AuthenticatorHomePageViewModel
     public async Task ShowAddWindow()
     {
         if (!IsVerificationPass || IsLoading) return;
-        await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorImportPageViewModel(), AppResources.LocalAuth_AddAuth,
-        pageContent: new AuthenticatorImportPage(), isOkButton: false);
+        using (var model = new AuthenticatorImportPageViewModel())
+        {
+            await IWindowManager.Instance.ShowTaskDialogAsync(model, AppResources.LocalAuth_AddAuth,
+                pageContent: new AuthenticatorImportPage { DataContext = model }, isOkButton: false, disableScroll: true, wide: true);
+        }
 
         Initialize();
     }
@@ -403,7 +406,8 @@ public sealed partial class AuthenticatorHomePageViewModel
         if (string.IsNullOrEmpty(_currentAnswer))
             _currentAnswer = await AuthenticatorHelper.VerifyIndependentPassword();
         if (string.IsNullOrEmpty(_currentAnswer)) return;
-        await IWindowManager.Instance.ShowTaskDialogAsync(new AuthenticatorRecoverPageViewModel(_currentAnswer), AppResources.Auth_Sync_Recover,
+        using var model = new AuthenticatorRecoverPageViewModel(_currentAnswer);
+        await IWindowManager.Instance.ShowTaskDialogAsync(model, AppResources.Auth_Sync_Recover,
             pageContent: new AuthenticatorRecoverPage(), isOkButton: false);
     }
 

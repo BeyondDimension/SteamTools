@@ -28,9 +28,19 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
     bool requiresAuthenticatorStatus;
     string? sessionId;
 
+    public ICommand ContinueCommand { get; }
+
+    public ICommand ResetCommand { get; }
+
     public SteamLoginImportPageViewModel()
     {
         Login = CreateLogin();
+        var continueCommand = ReactiveCommand.CreateFromTask(LoginSteamImport);
+        var resetCommand = ReactiveCommand.Create(Reset);
+        CompositeDisposable.Add(continueCommand);
+        CompositeDisposable.Add(resetCommand);
+        ContinueCommand = continueCommand;
+        ResetCommand = resetCommand;
     }
 
     SteamLoginViewModel CreateLogin()
@@ -262,8 +272,9 @@ public sealed partial class SteamLoginImportPageViewModel : ViewModelBase
                         Toast.Show(ToastIcon.Warning, Strings.L10nAuthIdle_Text081);
 
                         // 弹出绑定手机号流程
+                        using var phoneModel = new AddSteamAccountPhoneNumberPageViewModel(_enrollState, steamAuthenticator);
                         var added = await IWindowManager.Instance.ShowTaskDialogAsync(
-                                viewModel: new AddSteamAccountPhoneNumberPageViewModel(_enrollState, steamAuthenticator),
+                                viewModel: phoneModel,
                                 pageContent: new AddSteamAccountPhoneNumberPage(),
                                 isCancelButton: false,
                                 isOkButton: false,

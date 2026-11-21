@@ -31,15 +31,15 @@ public class ProxyDomainViewModel : ReactiveObject
         Url = url;
         Children = children?.AsReadOnly();
 
-        this.WhenAnyValue(x => x.DelayMillseconds)
+        this.ObserveValue(nameof(DelayMillseconds), static x => x.DelayMillseconds)
             .Subscribe(delay => Children?.ForEach(child => child.DelayMillseconds = delay));
 
-        retestButtonVisible = this.WhenAnyValue(x => x.DelayMillseconds)
+        retestButtonVisible = this.ObserveValue(nameof(DelayMillseconds), static x => x.DelayMillseconds)
             .Select(d => d != string.Empty && d != "-")
             .ToProperty(this, nameof(RetestButtonVisible));
 
         const int DelayMiddle = 1000;
-        delayColor = this.WhenAnyValue(x => x.DelayMillseconds)
+        delayColor = this.ObserveValue(nameof(DelayMillseconds), static x => x.DelayMillseconds)
             .Select(d => d switch
             {
                 "Timeout" or "error" => Brushes.Red,

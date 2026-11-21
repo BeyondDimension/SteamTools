@@ -138,7 +138,7 @@ public sealed class UserService : ReactiveObject
 
     private UserService()
     {
-        this.WhenAnyValue(x => x.User)
+        this.ObserveValue(nameof(User), static x => x.User)
               .Subscribe(_ => this.RaisePropertyChanged(nameof(AvatarPath)));
 
         userManager.OnSignOut += () =>

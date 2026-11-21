@@ -28,11 +28,30 @@
 	</UserControl.Styles>
 	<Grid RowDefinitions="*,Auto">
 		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
-		              HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-			<StackPanel MaxWidth="760" Margin="12" Spacing="16" HorizontalAlignment="Center" VerticalAlignment="Center">
-				<Grid x:Name="FormsLayout" ColumnDefinitions="*,*" RowDefinitions="Auto,Auto"
-				      ColumnSpacing="16" RowSpacing="16">
-					<Border x:Name="AccountPanel" Grid.Column="0" Padding="18" MinWidth="300"
+		              HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+		              Container.Name="steamSignIn" Container.Sizing="Width">
+			<StackPanel MaxWidth="760" Margin="12" Spacing="16" VerticalAlignment="Center">
+				<Grid x:Name="FormsLayout" ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="16">
+					<Grid.Styles>
+						<ContainerQuery Name="steamSignIn" Query="max-width:500">
+							<Style Selector="Grid#FormsLayout">
+								<Setter Property="RowSpacing" Value="12" />
+							</Style>
+							<Style Selector="Border#AccountPanel">
+								<Setter Property="(Grid.ColumnSpan)" Value="2" />
+							</Style>
+							<Style Selector="Border#QrPanel">
+								<Setter Property="(Grid.Row)" Value="1" />
+								<Setter Property="(Grid.Column)" Value="0" />
+								<Setter Property="(Grid.ColumnSpan)" Value="2" />
+							</Style>
+						</ContainerQuery>
+						<Style Selector="Border#QrPanel">
+							<Setter Property="(Grid.Column)" Value="1" />
+						</Style>
+					</Grid.Styles>
+
+					<Border x:Name="AccountPanel" Grid.Column="0" Padding="18"
 					        Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
 					        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
 					        BorderThickness="1" CornerRadius="8">
@@ -69,15 +88,14 @@
 							        Content="{x:Static spp:Strings.Login}" />
 						</Grid>
 					</Border>
-					<Border x:Name="QrPanel" Grid.Column="1" MinWidth="250" MinHeight="250" Padding="18"
+					<Border x:Name="QrPanel" MinHeight="250" Padding="18"
 					        Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
 					        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
 					        BorderThickness="1" CornerRadius="8">
 						<StackPanel Spacing="12">
 							<TextBlock FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap" TextAlignment="Center"
 							           Text="{x:Static spp:Strings.ScanQRCode}" />
-							<Border Width="200" Height="200" Padding="8" Background="White" CornerRadius="8"
-							        HorizontalAlignment="Center"
+							<Border MaxWidth="200" Height="200" Padding="8" Background="White" CornerRadius="8"
 							        IsVisible="{Binding QrCodeImage, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
 								<spp:Image2 Source="{Binding QrCodeImage}" KeepSourceStreamOpen="True" Stretch="Uniform" />
 							</Border>
@@ -97,11 +115,11 @@
 						</StackPanel>
 					</Border>
 				</Grid>
-				<Border x:Name="CookiePanel" IsVisible="False" Padding="18" MinWidth="300" MaxWidth="400"
+				<Border x:Name="CookiePanel" IsVisible="False" Padding="18" MaxWidth="400"
 				        HorizontalAlignment="Stretch" Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
 				        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
 					<StackPanel Spacing="10" IsEnabled="{Binding !IsBusy}">
-						<TextBlock FontSize="18" FontWeight="SemiBold"
+						<TextBlock FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap"
 						           Text="{x:Static spp:Strings.CookieLogin}" />
 						<TextBlock Text="sessionid" />
 						<TextBox Text="{Binding SessionId}" KeyUp="OnCookieKeyUp" PasswordChar="●" />
@@ -113,11 +131,11 @@
 						        Content="{x:Static spp:Strings.Login}" />
 					</StackPanel>
 				</Border>
-				<Border x:Name="SavedAccountPanel" IsVisible="False" Padding="18" MinWidth="300" MaxWidth="400"
+				<Border x:Name="SavedAccountPanel" IsVisible="False" Padding="18" MaxWidth="400"
 				        HorizontalAlignment="Stretch" Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
 				        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="8">
 					<StackPanel Spacing="10" IsEnabled="{Binding !IsBusy}">
-						<TextBlock FontSize="18" FontWeight="SemiBold" Text="{x:Static spp:Strings.L10nApp_TokenConfirmationLogin}" />
+						<TextBlock FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap" Text="{x:Static spp:Strings.L10nApp_TokenConfirmationLogin}" />
 						<TextBlock Text="{x:Static spp:Strings.L10nApp_SelectConfirmedTokenAccount}" TextWrapping="Wrap" />
 						<Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
 							<ComboBox HorizontalAlignment="Stretch" MinWidth="0" MinHeight="36" VerticalAlignment="Center"
@@ -150,20 +168,16 @@
 				        Content="{x:Static spp:Strings.Cancel}" />
 			</StackPanel>
 		</ScrollViewer>
-		<StackPanel Grid.Row="1" Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Center"
-		            VerticalAlignment="Bottom" IsVisible="{Binding AllowCookieLogin}">
+		<WrapPanel Grid.Row="1" Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Center"
+		           ItemSpacing="6" VerticalAlignment="Bottom" IsVisible="{Binding AllowCookieLogin}">
 			<Button x:Name="AccountSwitch" Classes="loginModeSelected" Theme="{StaticResource HyperlinkButton}"
 			        IsEnabled="{Binding !IsBusy}" Click="OnAccountMode"
 			        Content="{x:Static spp:Strings.AccountLogin}" />
-			<Separator Height="18" Margin="10,0" VerticalAlignment="Stretch" Classes="Vertical"
-			           Background="{DynamicResource ButtonBorderBrush}" IsHitTestVisible="False" />
 			<Button x:Name="CookieSwitch" Theme="{StaticResource HyperlinkButton}"
 			        IsEnabled="{Binding !IsBusy}" Click="OnCookieMode"
 			        Content="{x:Static spp:Strings.CookieLogin}" />
-			<Separator x:Name="SavedAccountSeparator" Height="18" Margin="10,0" VerticalAlignment="Stretch" Classes="Vertical"
-			           Background="{DynamicResource ButtonBorderBrush}" IsHitTestVisible="False" />
 			<Button x:Name="SavedAccountSwitch" Theme="{StaticResource HyperlinkButton}"
 				        IsEnabled="{Binding !IsBusy}" Click="OnSavedAccountMode" Content="{x:Static spp:Strings.L10nApp_TokenLogin}" />
-		</StackPanel>
+		</WrapPanel>
 	</Grid>
 </UserControl>

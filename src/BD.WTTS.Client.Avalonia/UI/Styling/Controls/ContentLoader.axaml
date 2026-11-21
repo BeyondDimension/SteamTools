@@ -27,18 +27,16 @@
                             RenderOptions.BitmapInterpolationMode="HighQuality"
                             Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/mona-loading-default.gif"
                             Stretch="UniformToFill" />-->
-                        <Border
+                        <ProgressBar
                             Width="35"
                             Height="35"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Top">
-                            <ProgressBar
-                                Classes="Circle ParentSize"
-                                IsIndeterminate="{TemplateBinding IsIndeterminate}"
-                                Maximum="{TemplateBinding Maximum}"
-                                Minimum="{TemplateBinding Minimum}"
-                                Value="{TemplateBinding ProgressValue}" />
-                        </Border>
+                            VerticalAlignment="Top"
+                            Classes="Circle"
+                            IsIndeterminate="{TemplateBinding IsIndeterminate}"
+                            Maximum="{TemplateBinding Maximum}"
+                            Minimum="{TemplateBinding Minimum}"
+                            Value="{TemplateBinding ProgressValue}" />
                         <TextBlock
                             HorizontalAlignment="Center"
                             Text="{x:Static spp:Strings.GameList_IsLoading}"
@@ -53,13 +51,6 @@
                             Theme="{StaticResource BodyStrongTextBlockStyle}" />
                     </StackPanel>
 
-                    <!--<TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        IsVisible="{TemplateBinding IsShowNoResultText}"
-                        Text="{TemplateBinding NoResultMessage}"
-                        Theme="{StaticResource SubtitleTextBlockStyle}" />-->
-
                     <ContentPresenter
                         Name="ContentPresenter"
                         Background="{TemplateBinding Background}"
@@ -67,42 +58,39 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Content="{TemplateBinding Content}"
                         Foreground="{TemplateBinding Foreground}">
-                        <!--<ContentPresenter.IsVisible>
+                        <ContentPresenter.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.And}">
                                 <Binding Path="!IsShowNoResultText" RelativeSource="{RelativeSource TemplatedParent}" />
                                 <Binding Path="!IsLoading" RelativeSource="{RelativeSource TemplatedParent}" />
                             </MultiBinding>
-                        </ContentPresenter.IsVisible>-->
+                        </ContentPresenter.IsVisible>
                     </ContentPresenter>
 
-                    <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Margin="12" Spacing="12" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <spp:Image2
                             Width="100"
                             Height="100"
-                            Margin="0,0,0,120"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             RenderOptions.BitmapInterpolationMode="HighQuality"
                             Source="avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/empty.png"
                             Stretch="UniformToFill" />
-                        <Panel.IsVisible>
+                        <StackPanel.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.And}">
                                 <Binding Path="IsShowNoResultText" RelativeSource="{RelativeSource TemplatedParent}" />
                                 <Binding Path="!IsLoading" RelativeSource="{RelativeSource TemplatedParent}" />
                             </MultiBinding>
-                        </Panel.IsVisible>
+                        </StackPanel.IsVisible>
                         <ContentPresenter
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding NoResultMessage}"
                             Foreground="{TemplateBinding Foreground}"
+                            TextWrapping="Wrap"
                             Theme="{StaticResource SubtitleTextBlockStyle}" />
-                    </Panel>
+                    </StackPanel>
                 </Panel>
             </ControlTemplate>
         </Setter>
-        <Style Selector="^:loading /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Effect" Value="blur(5)" />
-        </Style>
     </ControlTheme>
 </ResourceDictionary>

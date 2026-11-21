@@ -54,75 +54,87 @@ public sealed class ASFService : ReactiveObject
         _ = archiSteamFarmService.ShellMessageInput(input);
     }
 
+    int runOrStopInProgress;
+
     /// <summary>
     /// 是否正在启动或停止中
     /// </summary>
-    public bool IsASFRunOrStoping { get; private set; }
+    public bool IsASFRunOrStoping => Volatile.Read(ref runOrStopInProgress) != 0;
 
     public Task InitASFAsync() => InitASFCoreAsync(true);
 
-    public async Task InitASFCoreAsync(bool showToast)
-    {
-        if (IsASFRunOrStoping) return;
+    public Task InitASFCoreAsync(bool showToast) => ChangeRunningStateAsync(true, showToast);
 
-        if (showToast) Toast.Show(ToastIcon.Info, AppResources.ASF_Starting, ToastLength.Short);
-
-        IsASFRunOrStoping = true;
-
-        ConsoleLogs.Clear();
-        (var isOk, var ipcURL) = await archiSteamFarmService.StartAsync();
-        if (!isOk)
-        {
-            if (showToast) Toast.Show(ToastIcon.Error, AppResources.ASF_Stoped, ToastLength.Short);
-            IsASFRunOrStoping = false;
-            return;
-        }
-
-        RefreshBots();
-
-        IPCUrl = ipcURL;
-
-        MainThread2.BeginInvokeOnMainThread(() =>
-        {
-            this.RaisePropertyChanged(nameof(IsASFRuning));
-        });
-
-        IsASFRunOrStoping = false;
-
-        if (showToast) Toast.Show(ToastIcon.Success, AppResources.ASF_Started, ToastLength.Short);
-    }
+    internal Task ToggleASFAsync() => ChangeRunningStateAsync(null, true);
 
     public Task StopASFAsync() => StopASFCoreAsync(true);
 
-    public async Task StopASFCoreAsync(bool showToast)
+    public Task StopASFCoreAsync(bool showToast) => ChangeRunningStateAsync(false, showToast);
+
+    async Task ChangeRunningStateAsync(bool? start, bool showToast)
     {
-        if (IsASFRunOrStoping) return;
+        if (Interlocked.CompareExchange(ref runOrStopInProgress, 1, 0) != 0) return;
 
-        if (showToast) Toast.Show(ToastIcon.Info, AppResources.ASF_Stoping, ToastLength.Short);
-
-        IsASFRunOrStoping = true;
-
-        await archiSteamFarmService.StopAsync();
-
-        SteamBotsSourceList.Clear();
-
-        MainThread2.BeginInvokeOnMainThread(() =>
+        try
         {
-            this.RaisePropertyChanged(nameof(IsASFRuning));
-        });
+            var running = IsASFRuning;
+            var shouldStart = start ?? !running;
+            if (shouldStart == running) return;
 
-        IsASFRunOrStoping = false;
+            MainThread2.BeginInvokeOnMainThread(() => this.RaisePropertyChanged(nameof(IsASFRunOrStoping)));
+            if (shouldStart)
+            {
+                if (showToast) Toast.Show(ToastIcon.Info, AppResources.ASF_Starting, ToastLength.Short);
+                ConsoleLogs.Clear();
+                var (started, ipcUrl) = await archiSteamFarmService.StartAsync();
+                if (!started)
+                {
+                    if (showToast) Toast.Show(ToastIcon.Error, AppResources.ASF_Stoped, ToastLength.Short);
+                    return;
+                }
 
-        if (showToast) Toast.Show(ToastIcon.Info, AppResources.ASF_Stoped, ToastLength.Short);
+                RefreshBots();
+                IPCUrl = ipcUrl;
+                if (showToast) Toast.Show(ToastIcon.Success, AppResources.ASF_Started, ToastLength.Short);
+            }
+            else
+            {
+                if (showToast) Toast.Show(ToastIcon.Info, AppResources.ASF_Stoping, ToastLength.Short);
+                await archiSteamFarmService.StopAsync();
+                SteamBotsSourceList.Clear();
+                if (showToast) Toast.Show(ToastIcon.Info, AppResources.ASF_Stoped, ToastLength.Short);
+            }
+        }
+        finally
+        {
+            Volatile.Write(ref runOrStopInProgress, 0);
+            MainThread2.BeginInvokeOnMainThread(() =>
+            {
+                this.RaisePropertyChanged(nameof(IsASFRuning));
+                this.RaisePropertyChanged(nameof(IsASFRunOrStoping));
+            });
+        }
     }
 
     public async void RefreshBots()
     {
-        var bots = await archiSteamFarmService.GetReadOnlyAllBots();
-        if (bots.Any_Nullable())
+        var process = archiSteamFarmService.ASFProcess;
+        if (process is null) return;
+
+        try
         {
-            SteamBotsSourceList.Clear();
-            SteamBotsSourceList.AddOrUpdate(bots!.Values.Select(s => (BotViewModel)s));
+            var bots = await archiSteamFarmService.GetReadOnlyAllBots();
+            if (ReferenceEquals(process, archiSteamFarmService.ASFProcess) && bots is { Count: > 0 })
+            {
+                SteamBotsSourceList.Clear();
+                SteamBotsSourceList.AddOrUpdate(bots.Values.Select(static bot => (BotViewModel)bot));
+            }
+        }
+        catch (Exception ex) when (ex is HttpRequestException or OperationCanceledException)
+        {
+            // Stopping ASF can close an in-flight IPC request.
+            if (ReferenceEquals(process, archiSteamFarmService.ASFProcess) && !IsASFRunOrStoping)
+                Log.Error(nameof(ASFService), ex, nameof(RefreshBots));
         }
     }
 

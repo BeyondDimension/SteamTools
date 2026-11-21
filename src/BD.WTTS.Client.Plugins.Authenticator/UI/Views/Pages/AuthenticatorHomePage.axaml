@@ -303,7 +303,14 @@
 	                                <MenuItem
 		                                Command="{Binding ShowSteamQrLoginWindow}"
 		                                Header="{x:Static spp:Strings.L10nAuthIdle_Text110}"
+		                                IsEnabled="{Binding CanScanSteamQrLogin}"
+		                                ToolTip.ShowOnDisabled="True"
 		                                IsVisible="{Binding IsSteamAuthenticator, Mode=OneWay}">
+		                                <MenuItem.Styles>
+		                                    <Style Selector="MenuItem:disabled">
+		                                        <Setter Property="ToolTip.Tip" Value="{x:Static spp:Strings.L10nAuthIdle_Text008}" />
+		                                    </Style>
+		                                </MenuItem.Styles>
 		                                <MenuItem.Icon>
 			                                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="{StaticResource QrCode}" />
 		                                </MenuItem.Icon>

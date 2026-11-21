@@ -1,25 +1,17 @@
-using Avalonia.Controls;
+using Avalonia.Interactivity;
 
 namespace BD.WTTS.UI.Views.Pages;
 
 public partial class GameToolsPage : PageBase
 {
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(BorderlessGamePage))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(CsgoVacRepairPage))]
     public GameToolsPage()
     {
         InitializeComponent();
     }
 
-    private void GameToolsPage_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-    {
-        if (sender is Control c && c.Tag is Type t)
-        {
-            NavigationService.Instance.Navigate(t, NavigationTransitionEffect.FromRight);
-        }
-        else
-        {
-            NavigationService.Instance.Navigate(null, NavigationTransitionEffect.FromRight);
-        }
-    }
+    private void BorderlessGame_Click(object? sender, RoutedEventArgs e) =>
+        NavigationService.Instance.Navigate(typeof(BorderlessGamePage), NavigationTransitionEffect.FromRight);
+
+    private void VacRepair_Click(object? sender, RoutedEventArgs e) =>
+        NavigationService.Instance.Navigate(typeof(CsgoVacRepairPage), NavigationTransitionEffect.FromRight);
 }

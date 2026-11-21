@@ -7985,6 +7985,28 @@ namespace BD.WTTS.Client.Resources {
                 return ResourceManager.GetString("L10nAuthIdle_Text098", resourceCulture);
             }
         }
+
+        public static string SteamTradeLoginTwoFactorCodeMismatch {
+            get {
+                return ResourceManager.GetString("SteamTradeLoginTwoFactorCodeMismatch", resourceCulture);
+            }
+        }
+
+        public static string SteamTradeLoginThrottled {
+            get {
+                return ResourceManager.GetString("SteamTradeLoginThrottled", resourceCulture);
+            }
+        }
+
+        public static string SteamTradeLoginMode => ResourceManager.GetString("SteamTradeLoginMode", resourceCulture);
+
+        public static string SteamTradeWebLogin => ResourceManager.GetString("SteamTradeWebLogin", resourceCulture);
+
+        public static string SteamTradeAppLogin => ResourceManager.GetString("SteamTradeAppLogin", resourceCulture);
+
+        public static string SteamTradeMobileLoginHint => ResourceManager.GetString("SteamTradeMobileLoginHint", resourceCulture);
+
+        public static string SteamTradeMobileLoginWarning => ResourceManager.GetString("SteamTradeMobileLoginWarning", resourceCulture);
         
         /// <summary>
         ///     Looks up a localized string similar to 检查交易确认登录状态失败，请检查网络或重新登录。.

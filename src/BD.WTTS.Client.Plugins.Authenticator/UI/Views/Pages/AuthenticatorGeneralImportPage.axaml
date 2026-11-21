@@ -4,134 +4,95 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     d:DesignHeight="450"
     d:DesignWidth="600"
     x:CompileBindings="True"
     x:DataType="spp:AuthenticatorGeneralImportPageViewModel"
     mc:Ignorable="d">
-    <StackPanel Classes="InfoBox">
-        <Border Classes="Item">
-            <StackPanel Spacing="5">
-                <TextBlock Text="{x:Static spp:Strings.GeneralAuth_Name}" />
-                <TextBox
-                    MaxLength="{x:Static spp:IAuthenticatorDTO.MaxLength_Name}"
-                    Text="{Binding AuthenticatorName}"
-                    PlaceholderText="{x:Static spp:Strings.Warning_PleaseEnterAuthName}" />
-            </StackPanel>
-        </Border>
-        <Border Classes="Item">
-            <StackPanel Spacing="5">
-                <TextBlock Text="{x:Static spp:Strings.GeneralAuth_ImportText}" />
-                <TextBox Text="{Binding SecretCode}" PlaceholderText="{x:Static spp:Strings.GeneralAuth_EnterkeyOrLink}" />
-            </StackPanel>
-        </Border>
-        <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
-            <DockPanel>
-                <TextBlock Text="{x:Static spp:Strings.L10nAuthIdle_Text036}" />
-                <TabStrip
-                    Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
-                    CornerRadius="{StaticResource ControlCornerRadius}"
-                    ItemContainerTheme="{StaticResource TabItemStyle}"
-                    SelectedValue="{Binding AuthType}"
-                    Theme="{StaticResource TabStripStyle}">
-                    <TabStrip.Items>
-                        <spp:AuthType>TOTP</spp:AuthType>
-                        <spp:AuthType>HOTP</spp:AuthType>
-                    </TabStrip.Items>
-                    <TabStrip.ItemTemplate>
-                        <DataTemplate DataType="spp:AuthType">
-                            <TextBlock Text="{Binding .}" />
-                        </DataTemplate>
-                    </TabStrip.ItemTemplate>
-                    <!--<TabStripItem Content="HOTP" />
-                    <TabStripItem Content="TOTP" />-->
-                </TabStrip>
-            </DockPanel>
-        </Border>
-        <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
-            <DockPanel>
-                <TextBlock Text="Hash" />
-                <TabStrip
-                    Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
-                    CornerRadius="{StaticResource ControlCornerRadius}"
-                    ItemContainerTheme="{StaticResource TabItemStyle}"
-                    SelectedValue="{Binding HMACType}"
-                    Theme="{StaticResource TabStripStyle}">
-                    <TabStrip.Items>
-                        <spp:HMACTypes>SHA1</spp:HMACTypes>
-                        <spp:HMACTypes>SHA256</spp:HMACTypes>
-                        <spp:HMACTypes>SHA512</spp:HMACTypes>
-                    </TabStrip.Items>
-                    <TabStrip.ItemTemplate>
-                        <DataTemplate DataType="spp:HMACTypes">
-                            <TextBlock Text="{Binding .}" />
-                        </DataTemplate>
-                    </TabStrip.ItemTemplate>
-                    <!--<TabStripItem Content="SHA1" />
-                    <TabStripItem Content="SHA256" />
-                    <TabStripItem Content="SHA512" />-->
-                </TabStrip>
-            </DockPanel>
-        </Border>
-        <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
-            <DockPanel>
-                <TextBlock Text="{x:Static spp:Strings.L10nAuthIdle_Text037}" />
-                <NumericUpDown Value="{Binding Period}" />
-            </DockPanel>
-        </Border>
-        <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
-            <DockPanel>
-                <TextBlock Text="{x:Static spp:Strings.L10nAuthIdle_Text038}" />
-                <NumericUpDown Value="{Binding CodeDigits}" />
-            </DockPanel>
-        </Border>
-        <Border Classes="Item">
-            <StackPanel Spacing="10">
-                <Button
-                    MinWidth="280"
-                    HorizontalAlignment="Center"
-                    Command="{Binding GenerateCode}"
-                    Content="{x:Static spp:Strings.GeneralAuth_Code}" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    IsVisible="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.TOTP}}"
-                    Text="{x:Static spp:Strings.GeneralAuth_VerifySuccessfulImport}" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    IsVisible="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.HOTP}}"
-                    Text="{x:Static spp:Strings.L10nAuthIdle_Text039}" />
+    <Grid RowDefinitions="*,Auto" RowSpacing="12">
+        <ScrollViewer x:Name="ImportFormScroll" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Classes="InfoBox">
+                <Border Classes="Item">
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="{x:Static spp:Strings.GeneralAuth_Name}" TextWrapping="Wrap" />
+                        <TextBox
+                            MaxLength="{x:Static spp:IAuthenticatorDTO.MaxLength_Name}"
+                            Text="{Binding AuthenticatorName}"
+                            PlaceholderText="{x:Static spp:Strings.Warning_PleaseEnterAuthName}" />
+                    </StackPanel>
+                </Border>
+                <Border Classes="Item">
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="{x:Static spp:Strings.GeneralAuth_ImportText}" TextWrapping="Wrap" />
+                        <TextBox Text="{Binding SecretCode}" PlaceholderText="{x:Static spp:Strings.GeneralAuth_EnterkeyOrLink}" />
+                    </StackPanel>
+                </Border>
+                <Border Classes="Item" IsVisible="{Binding Platform, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthenticatorPlatform.HOTP}}">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{x:Static spp:Strings.L10nAuthIdle_Text036}" TextWrapping="Wrap" />
+                        <TabStrip
+                            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                            CornerRadius="{StaticResource ControlCornerRadius}"
+                            ItemContainerTheme="{StaticResource TabItemStyle}"
+                            SelectedItem="{Binding AuthType, Mode=TwoWay}"
+                            Theme="{StaticResource TabStripStyle}">
+                            <spp:AuthType>TOTP</spp:AuthType>
+                            <spp:AuthType>HOTP</spp:AuthType>
+                        </TabStrip>
 
-                <TextBox
-                    HorizontalContentAlignment="Center"
-                    FontSize="24"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    IsReadOnly="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.TOTP}}"
-                    Text="{Binding CurrentCode}" />
+                        <TextBlock Text="Hash" />
+                        <TabStrip
+                            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                            CornerRadius="{StaticResource ControlCornerRadius}"
+                            ItemContainerTheme="{StaticResource TabItemStyle}"
+                            SelectedItem="{Binding HMACType, Mode=TwoWay}"
+                            Theme="{StaticResource TabStripStyle}">
+                            <spp:HMACTypes>SHA1</spp:HMACTypes>
+                            <spp:HMACTypes>SHA256</spp:HMACTypes>
+                            <spp:HMACTypes>SHA512</spp:HMACTypes>
+                        </TabStrip>
+
+                        <TextBlock Text="{x:Static spp:Strings.L10nAuthIdle_Text037}" TextWrapping="Wrap" />
+                        <NumericUpDown Value="{Binding Period}" />
+                        <TextBlock Text="{x:Static spp:Strings.L10nAuthIdle_Text038}" TextWrapping="Wrap" />
+                        <NumericUpDown Value="{Binding CodeDigits}" />
+                    </StackPanel>
+                </Border>
+                <Border Classes="Item">
+                    <StackPanel Spacing="10">
+                        <Button
+                            MaxWidth="280"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            Command="{Binding GenerateCodeCommand}"
+                            Content="{x:Static spp:Strings.GeneralAuth_Code}" />
+                        <TextBlock
+                            TextAlignment="Center"
+                            TextWrapping="Wrap"
+                            IsVisible="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.TOTP}}"
+                            Text="{x:Static spp:Strings.GeneralAuth_VerifySuccessfulImport}" />
+                        <TextBlock
+                            TextAlignment="Center"
+                            TextWrapping="Wrap"
+                            IsVisible="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.HOTP}}"
+                            Text="{x:Static spp:Strings.L10nAuthIdle_Text039}" />
+                        <TextBox
+                            HorizontalContentAlignment="Center"
+                            FontSize="24"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            IsReadOnly="{Binding AuthType, Converter={StaticResource EnumEqualValueConverter}, ConverterParameter={x:Static spp:AuthType.TOTP}}"
+                            Text="{Binding CurrentCode}" />
+                    </StackPanel>
+                </Border>
             </StackPanel>
-        </Border>
-        <!--<StackPanel Spacing="5">
-                <TextBlock Text="{x:Static spp:Strings.GeneralAuth_Name}" />
-                <TextBox Text="{Binding AuthenticatorName}" PlaceholderText="{x:Static spp:Strings.Warning_PleaseEnterAuthName}" />
-            </StackPanel>
-            <StackPanel Spacing="5">
-                <TextBlock Text="{x:Static spp:Strings.GeneralAuth_ImportText}" />
-                <TextBox Text="{Binding SecretCode}" PlaceholderText="{x:Static spp:Strings.GeneralAuth_EnterkeyOrLink}" />
-            </StackPanel>-->
-        <!--<StackPanel Spacing="5">
-                <TextBlock Text="{x:Static spp:Strings.GeneralAuth_VerifySuccessfulImport}" />
-                <TextBox IsReadOnly="True" Text="{Binding CurrentCode}" />
-                <Button
-                    MinWidth="280"
-                    HorizontalAlignment="Center"
-                    Command="{Binding GenerateCode}"
-                    Content="{x:Static spp:Strings.GeneralAuth_Code}" />
-            </StackPanel>-->
+        </ScrollViewer>
         <Button
-            MinWidth="280"
-            HorizontalAlignment="Center"
-            Command="{Binding Import}"
+            Grid.Row="1"
+            MaxWidth="280"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            Command="{Binding ImportCommand}"
             Content="{x:Static spp:Strings.ConfirmImport}" />
-    </StackPanel>
+    </Grid>
 </UserControl>

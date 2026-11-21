@@ -29,6 +29,31 @@ public sealed class SteamLoginViewModelTest
         Assert.That(login.IsBusy, Is.False);
     }
 
+    [TestCase(87, true, "Try again later.")]
+    [TestCase(87, false, null)]
+    [TestCase(88, true, "Check the linked authenticator.")]
+    [TestCase(88, false, null)]
+    [TestCase(65, true, null)]
+    public async Task SignInShowsConfiguredHintForKnownErrors(int result, bool configureHint, string? expectedHint)
+    {
+        var error = new SteamAccountService.SteamAuthenticationException(result);
+        var account = new Mock<ISteamAccountService>();
+        account.Setup(service => service.DoLoginV2Async(It.IsAny<SteamLoginState>(),
+            EAuthTokenPlatformType.KEauthTokenPlatformTypeMobileApp, It.IsAny<CancellationToken>())).ThrowsAsync(error);
+        using var login = new SteamLoginViewModel(accountService: account.Object,
+            sessionService: new Mock<ISteamSessionService>().Object, requireMobileSession: true)
+        {
+            UserName = "account",
+            Password = "password",
+            TwoFactorCodeMismatchMessage = configureHint ? "Check the linked authenticator." : null,
+            LoginThrottledMessage = configureHint ? "Try again later." : null,
+        };
+
+        await login.LoginAsync();
+
+        Assert.That(login.StatusMessage, Is.EqualTo(expectedHint ?? error.Message));
+    }
+
     [Test]
     public async Task TokenEnrollmentSelectsMobileSessionsForPasswordAndQr()
     {
@@ -41,6 +66,37 @@ public sealed class SteamLoginViewModelTest
         await login.LoginWithQrCodeAsync();
         account.Verify(x => x.DoLoginV2Async(It.IsAny<SteamLoginState>(), EAuthTokenPlatformType.KEauthTokenPlatformTypeMobileApp, It.IsAny<CancellationToken>()), Times.Once);
         account.Verify(x => x.DoLoginWithQRCodeAsync(It.IsAny<SteamLoginState>(), It.IsAny<Func<CAuthentication_BeginAuthSessionViaQR_Response, Task<bool>>>(), EAuthTokenPlatformType.KEauthTokenPlatformTypeMobileApp, It.IsAny<string>(), It.IsAny<uint>(), It.IsAny<int>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [TestCase(null)]
+    [TestCase(EAuthTokenPlatformType.KEauthTokenPlatformTypeWebBrowser)]
+    public async Task SwitchingToMobileSignInStartsANewCredentialSession(EAuthTokenPlatformType? defaultPlatform)
+    {
+        var account = new Mock<ISteamAccountService>();
+        SteamLoginState? ordinaryState = null;
+        account.Setup(service => service.DoLoginV2Async(It.IsAny<SteamLoginState>(), defaultPlatform, It.IsAny<CancellationToken>()))
+            .Callback<SteamLoginState, EAuthTokenPlatformType?, CancellationToken>((state, _, _) =>
+            {
+                ordinaryState = state;
+                state.ClientId = 123;
+                state.Requires2FA = true;
+            }).Returns(Task.CompletedTask);
+        account.Setup(service => service.DoLoginV2Async(It.IsAny<SteamLoginState>(),
+            EAuthTokenPlatformType.KEauthTokenPlatformTypeMobileApp, It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
+        using var login = new SteamLoginViewModel(accountService: account.Object, sessionService: new Mock<ISteamSessionService>().Object,
+            defaultCredentialPlatform: defaultPlatform);
+        login.UserName = "account";
+        login.Password = "password";
+
+        await login.LoginAsync();
+        Assert.That(login.RequiresGuardCode, Is.True);
+        login.RequireMobileSession = true;
+        Assert.That(login.RequiresGuardCode, Is.False);
+        await login.LoginAsync();
+
+        account.Verify(service => service.DoLoginV2Async(
+            It.Is<SteamLoginState>(state => state != ordinaryState && state.ClientId == null),
+            EAuthTokenPlatformType.KEauthTokenPlatformTypeMobileApp, It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Test]

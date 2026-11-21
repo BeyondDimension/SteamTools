@@ -43,7 +43,7 @@ public sealed partial class DnsListEditorViewModel : ViewModelBase
                 handler => Servers.CollectionChanged -= handler)
             .Select(_ => Servers.Count)
             .StartWith(Servers.Count);
-        var selected = this.WhenAnyValue(x => x.SelectedIndex);
+        var selected = this.ObserveValue(nameof(SelectedIndex), static x => x.SelectedIndex);
         RemoveCommand = ReactiveCommand.Create(Remove, selected.CombineLatest(count, (index, total) => index >= 0 && index < total));
         MoveUpCommand = ReactiveCommand.Create(() => Move(-1), selected.CombineLatest(count, (index, total) => index > 0 && index < total));
         MoveDownCommand = ReactiveCommand.Create(() => Move(1), selected.CombineLatest(count, (index, total) => index >= 0 && index < total - 1));

@@ -63,40 +63,37 @@ public sealed partial class ProxyService
         //        }
         //    });
 
-        this.WhenAnyValue(v => v.ProxyDomainsList)
-              .ObserveOn(RxSchedulers.MainThreadScheduler)
-              .Subscribe(domain => domain?
-              .ToObservableChangeSet()
-              .AutoRefresh(x => x.ObservableItems)
-              .TransformMany(t => t.ObservableItems ?? new ObservableCollection<AccelerateProjectDTO>())
-              .AutoRefresh(x => x.ThreeStateEnable)
-              .WhenPropertyChanged(x => x.ThreeStateEnable, false)
-              .Subscribe(_ =>
-              {
-                  IsChangeSupportProxyServicesStatus = true;
-                  ProxySettings.SupportProxyServicesStatus.Value = GetAccelerateEnableAllIds(EnableProxyDomains).ToImmutableHashSet();
-              }));
+        this.ObserveValue(nameof(ProxyDomainsList), static x => x.ProxyDomainsList)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
+            .Select(groups => groups is null ? Observable.Empty<bool?>() : groups.ToObservableChangeSet()
+                .AutoRefreshOnObservable(static group => group.ObserveValue(nameof(group.ObservableItems), static x => x.ObservableItems).Skip(1))
+                .TransformMany(static group => group.ObservableItems ?? [])
+                .MergeMany(static item => item.ObserveValue(nameof(item.ThreeStateEnable), static x => x.ThreeStateEnable).Skip(1)))
+            .Switch()
+            .Subscribe(_ =>
+            {
+                IsChangeSupportProxyServicesStatus = true;
+                ProxySettings.SupportProxyServicesStatus.Value = GetAccelerateEnableAllIds(EnableProxyDomains).ToImmutableHashSet();
+            });
 
-        this.WhenAnyValue(v => v.ProxyScripts)
-              .ObserveOn(RxSchedulers.MainThreadScheduler)
-              .Subscribe(script => script?
-              .Connect()
-              .AutoRefresh(x => x.Disable)
-              .WhenPropertyChanged(x => x.Disable, false)
-              .Subscribe(async item =>
-              {
-                  await scriptManager.SaveEnableScriptAsync(item.Sender);
-                  //ProxySettings.ScriptsStatus.Value = EnableProxyScripts?.Where(w => w?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
-                  //ProxySettings.ScriptsStatus.Value = ProxyScripts.Items.Where(x => x?.LocalId > 0).Select(k => k.LocalId).ToImmutableHashSet();
-                  if (reverseProxyService.ProxyRunning)
-                  {
-                      //await EnableProxyScripts.ContinueWith(e =>
-                      //{
-                      //    reverseProxyService.Scripts = e.Result?.ToImmutableArray();
-                      //});
-                      this.RaisePropertyChanged(nameof(EnableProxyScripts));
-                  }
-              }));
+        this.ObserveValue(nameof(ProxyScripts), static x => x.ProxyScripts)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
+            .Select(scripts => scripts is null ? Observable.Empty<ScriptDTO>() : scripts.Connect()
+                .MergeMany(static item => item.ObserveValue(nameof(item.Disable), static x => x.Disable).Skip(1).Select(_ => item)))
+            .Switch()
+            .Subscribe(async item =>
+            {
+                try
+                {
+                    await scriptManager.SaveEnableScriptAsync(item);
+                    if (reverseProxyService.ProxyRunning)
+                        this.RaisePropertyChanged(nameof(EnableProxyScripts));
+                }
+                catch (Exception ex)
+                {
+                    ex.LogAndShowT();
+                }
+            });
     }
 
     public SourceCache<AccelerateProjectGroupDTO, string> ProxyDomains { get; }

@@ -5901,10 +5901,10 @@ Click OK to open Windows Services. Set this service to Manual and start it, then
     <value>The authenticator data format is invalid. The SteamID cannot be saved.</value>
   </data>
   <data name="L10nAuthIdle_Text008" xml:space="preserve">
-    <value>QR login is available only for Steam authenticators with a saved Trade Confirmations session. Open this authenticator's Trade Confirmations, sign in with Remember login selected, then try again.</value>
+    <value>Scanning a QR code on the screen requires a valid app session. In this authenticator's Trade Confirmations, select Simulate app sign-in and enable Remember login.</value>
   </data>
   <data name="L10nAuthIdle_Text009" xml:space="preserve">
-    <value>The saved Trade Confirmations session has expired or does not support mobile confirmations. Sign in again and save the session in this authenticator's Trade Confirmations before scanning.</value>
+    <value>The saved app session has expired. Sign in again and save the app session in this authenticator's Trade Confirmations.</value>
   </data>
   <data name="L10nAuthIdle_Text010" xml:space="preserve">
     <value>Steam desktop client</value>
@@ -6172,6 +6172,27 @@ Click OK to open Windows Services. Set this service to Manual and start it, then
   </data>
   <data name="L10nAuthIdle_Text098" xml:space="preserve">
     <value>This authenticator's Steam verification code is unavailable. Check the authenticator and try again.</value>
+  </data>
+  <data name="SteamTradeLoginTwoFactorCodeMismatch" xml:space="preserve">
+    <value>The Steam Guard code did not match (EResult 88). Check that the selected authenticator is the one currently linked to this Steam account, then try again.</value>
+  </data>
+  <data name="SteamTradeLoginThrottled" xml:space="preserve">
+    <value>Too many Steam sign-in attempts (EResult 87). Try again later.</value>
+  </data>
+  <data name="SteamTradeLoginMode" xml:space="preserve">
+    <value>Sign-in mode</value>
+  </data>
+  <data name="SteamTradeWebLogin" xml:space="preserve">
+    <value>Simulate web sign-in</value>
+  </data>
+  <data name="SteamTradeAppLogin" xml:space="preserve">
+    <value>Simulate app sign-in</value>
+  </data>
+  <data name="SteamTradeMobileLoginHint" xml:space="preserve">
+    <value>Both modes support trade confirmations. Signing in by scanning a QR code on the screen requires a saved app session.</value>
+  </data>
+  <data name="SteamTradeMobileLoginWarning" xml:space="preserve">
+    <value>Simulating app sign-in with an authenticator imported using Steam App coexistence may sign out the original device.</value>
   </data>
   <data name="L10nAuthIdle_Text099" xml:space="preserve">
     <value>Could not check the Trade Confirmations session. Check your network or sign in again.</value>

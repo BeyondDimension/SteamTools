@@ -22,7 +22,7 @@ public partial class ProxyLog : UserControl
     {
         base.OnAttachedToVisualTree(e);
         visibility = new(this, UpdatePolling);
-        statusSubscription = ProxyService.Current.WhenAnyValue(x => x.ProxyStatus)
+        statusSubscription = ProxyService.Current.ObserveValue(nameof(ProxyService.ProxyStatus), static x => x.ProxyStatus)
             .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(UpdateProxyStatus);
     }

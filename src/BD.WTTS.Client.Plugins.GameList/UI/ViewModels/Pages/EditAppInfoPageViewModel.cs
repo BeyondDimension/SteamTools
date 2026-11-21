@@ -315,7 +315,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
         AddLaunchItemCommand = ReactiveCommand.Create(AddLaunchItem);
         OpenFolderCommand = ReactiveCommand.Create<object?>(OpenFolder);
         ManageCloudArchiveCommand = ReactiveCommand.Create(ManageCloudArchive_Click);
-        this.WhenAnyValue(x => x.DraftTabIndex).Where(index => index == 1)
+        this.ObserveValue(nameof(DraftTabIndex), static x => x.DraftTabIndex).Where(index => index == 1)
             .Take(1).Subscribe(index => { _ = LoadMediaAsync(); });
 
         if (App.SaveFiles.Any_Nullable())

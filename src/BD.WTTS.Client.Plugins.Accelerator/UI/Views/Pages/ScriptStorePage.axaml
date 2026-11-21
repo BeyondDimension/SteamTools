@@ -15,13 +15,12 @@
     mc:Ignorable="d">
     <StackPanel Margin="{StaticResource PageMargin}" Spacing="{StaticResource SettingsSpacing}">
         <AutoCompleteBox
-            MinWidth="300"
             Margin="0,0,0,10"
             VerticalAlignment="Center"
             Classes="Search"
             Text="{Binding SearchText}" />
         <!--<TextBlock Margin="0,0,0,5" Text="脚本工坊" />-->
-        <spp:ContentLoader IsLoading="{Binding !!!Scripts.Count, Mode=OneWay}">
+        <spp:ContentLoader IsLoading="{Binding IsLoading}" IsShowNoResultText="{Binding IsScriptsEmpty}" NoResultMessage="{x:Static spp:Strings.CommunityFix_ItemsEmpty}">
             <ItemsRepeater ItemsSource="{Binding Scripts}">
                 <ItemsRepeater.Layout>
                     <WrapLayout

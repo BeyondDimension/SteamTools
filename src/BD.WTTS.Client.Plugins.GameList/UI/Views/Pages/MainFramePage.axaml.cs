@@ -1,20 +1,19 @@
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 
 namespace BD.WTTS.UI.Views.Pages;
 
 public partial class MainFramePage : UserControl
 {
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(GameListPage))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(DownloadPage))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(IdleAppsPage))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(EditAppsPage))]
     public MainFramePage()
     {
         InitializeComponent();
-        InnerNavFrame.NavigationFailed += (_, args) => Log.Error(nameof(MainFramePage), args.Exception,
-            "Could not navigate to nested page {page}.", args.SourcePageType?.FullName);
+        InnerNavFrame.NavigationFailed += (_, args) =>
+        {
+            Log.Error(nameof(MainFramePage), args.Exception,
+                "Could not navigate to nested page {page}.", args.SourcePageType?.FullName);
+            Toast.Show(ToastIcon.Error, Strings.Error_PageFault);
+        };
 
         Tabs.SelectionChanged += Tabs_SelectionChanged;
     }
@@ -25,18 +24,28 @@ public partial class MainFramePage : UserControl
 
         if (Tabs.SelectedIndex < 0 && Tabs.ItemCount > 0)
             Tabs.SelectedIndex = 0;
-
-        Tabs_SelectionChanged(null, null);
+        else
+            ShowSelectedPage();
     }
 
-    private void Tabs_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs? e)
+    private void Tabs_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (Tabs.SelectedItem is TabStripItem tab && tab.Tag is Type t)
-        {
-            if (InnerNavFrame.CurrentSourcePageType == t)
-                return;
+        if (IsLoaded && e.Source == Tabs)
+            ShowSelectedPage();
+    }
 
-            InnerNavFrame.Navigate(t, null, FrameEffect.NoTransition);
-        }
+    private void ShowSelectedPage()
+    {
+        var pageType = Tabs.SelectedItem switch
+        {
+            var item when ReferenceEquals(item, LibraryTab) => typeof(GameListPage),
+            var item when ReferenceEquals(item, DownloadsTab) => typeof(DownloadPage),
+            var item when ReferenceEquals(item, IdleAppsTab) => typeof(IdleAppsPage),
+            var item when ReferenceEquals(item, EditAppsTab) => typeof(EditAppsPage),
+            _ => null,
+        };
+
+        if (pageType is not null && InnerNavFrame.CurrentSourcePageType != pageType)
+            InnerNavFrame.Navigate(pageType, null, FrameEffect.NoTransition);
     }
 }

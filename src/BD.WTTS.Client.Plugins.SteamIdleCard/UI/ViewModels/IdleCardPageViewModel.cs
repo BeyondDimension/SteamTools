@@ -26,23 +26,22 @@ public sealed partial class IdleCardPageViewModel
         SteamIdleSettings.IdleRule.Subscribe(async _ => { await IdleRuleChange(); }, false);
         SteamIdleSettings.IdleSequentital.Subscribe(async _ => { await IdleSequentitalChance(); }, false);
 
-        this.WhenAnyValue(x => x.TotalCardsRemaining, y => y.DroppedCardsCount)
-            .Subscribe(_ =>
-            {
+        PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName is null or "" or nameof(TotalCardsRemaining) or nameof(DroppedCardsCount))
                 this.RaisePropertyChanged(nameof(DropCardsCount));
-            });
 
-        this.WhenAnyValue(x => x.IsCheckingLogin, x => x.IsLoadingBadges, x => x.ViewState)
-            .Subscribe(_ =>
+            if (e.PropertyName is null or "" or nameof(IsCheckingLogin) or nameof(IsLoadingBadges) or nameof(ViewState))
             {
                 this.RaisePropertyChanged(nameof(IsPageLoading));
                 this.RaisePropertyChanged(nameof(CanStartIdle));
                 this.RaisePropertyChanged(nameof(PageLoadingText));
-            }).AddTo(this);
+            }
+        };
 
         this.PriorityRunIdle = ReactiveCommand.CreateFromTask<IdleApp>(PriorityRunIdleGame);
         this.ToggleBlacklistIdle = ReactiveCommand.CreateFromTask<IdleApp>(ToggleBlacklistIdleGame);
-        this.IdleRunStartOrStop = ReactiveCommand.Create(IdleRunStartOrStop_Click);
+        this.IdleRunStartOrStop = ReactiveCommand.CreateFromTask(IdleRunStartOrStop_Click);
         this.IdleManualRunNext = ReactiveCommand.CreateFromTask(ManualRunNext);
         this.LoginSteamCommand = ReactiveCommand.CreateFromTask(LoginOrLogoutAsync);
 

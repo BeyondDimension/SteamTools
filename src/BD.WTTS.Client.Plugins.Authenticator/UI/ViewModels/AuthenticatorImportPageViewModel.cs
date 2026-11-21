@@ -1,3 +1,5 @@
+using Avalonia.Controls;
+using BD.WTTS.Helpers;
 using BD.WTTS.UI.Views.Pages;
 using WinAuth;
 using static SteamKit2.DepotManifest;
@@ -5,7 +7,7 @@ using SJsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public record AuthenticatorImportMethod(string Name, string Description, string? Image = null, Type? PageType = null, ICommand? Command = null, AuthenticatorPlatform? Platform = null);
+public record AuthenticatorImportMethod(string Name, string Description, ICommand Command);
 
 public class AuthenticatorImportPageViewModel : ViewModelBase
 {
@@ -13,24 +15,37 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
 
     public IReadOnlyCollection<AuthenticatorImportMethod> AuthenticatorImportMethods { get; }
 
+    public ICommand BackCommand { get; }
+
+    [Reactive]
+    public Control? ImportContent { get; private set; }
+
+    [Reactive]
+    public string? ImportTitle { get; private set; }
+
+    public bool IsSelecting => ImportContent is null;
+
     public AuthenticatorImportPageViewModel()
     {
+        var backCommand = ReactiveCommand.Create(CloseImportPage);
+        CompositeDisposable.Add(backCommand);
+        BackCommand = backCommand;
+
         AuthenticatorImportMethods = new List<AuthenticatorImportMethod>
         {
-            new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.LocalAuth_JoinSteamAuthenticator), Strings.LocalAuth_JoinSteamAuthenticatorDesc,
-                                            PageType: typeof(JoinSteamAuthenticatorPage)),
-            new AuthenticatorImportMethod(Strings.Auth_SteamLoginImport, Strings.Steam_UserLoginTip,
-                                            PageType: typeof(SteamLoginImportPage)),
-            new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.SteamGuard), Strings.LocalAuth_SteamGuardImport,
-                                            PageType: typeof(SteamGuardImportPage)),
+            PageMethod(Strings.LocalAuth_Import.Format(Strings.LocalAuth_JoinSteamAuthenticator), Strings.LocalAuth_JoinSteamAuthenticatorDesc,
+                static () => new JoinSteamAuthenticatorPage()),
+            PageMethod(Strings.Auth_SteamLoginImport, Strings.Steam_UserLoginTip, static () => new SteamLoginImportPage()),
+            PageMethod(Strings.LocalAuth_Import.Format(Strings.SteamGuard), Strings.LocalAuth_SteamGuardImport,
+                static () => new SteamGuardImportPage()),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.Mafile), Strings.LocalAuth_SDAImport,
-                                            Command: ReactiveCommand.Create(async () =>
+                                            Command: CreateImportCommand(async () =>
                                             {
                                                 if (await AuthenticatorHelper.VerifyMaxValue())
                                                     await ImportFromSdaFile();
                                             })),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.WattToolKitV2), Strings.LocalAuth_WattToolKitV2Import,
-                                            Command: ReactiveCommand.Create(async () =>
+                                            Command: CreateImportCommand(async () =>
                                             {
                                                 if (await AuthenticatorHelper.VerifyMaxValue())
                                                 {
@@ -40,7 +55,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                                                 }
                                             })),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.WattToolKitV1), Strings.LocalAuth_WattToolKitV1Import,
-                                            Command: ReactiveCommand.Create(async () =>
+                                            Command: CreateImportCommand(async () =>
                                             {
                                                 if (await AuthenticatorHelper.VerifyMaxValue())
                                                 {
@@ -50,7 +65,7 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                                                 }
                                             })),
             new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.WinAuth), Strings.LocalAuth_WinAuthImport,
-                                            Command: ReactiveCommand.Create(async () =>
+                                            Command: CreateImportCommand(async () =>
                                             {
                                                 if (await AuthenticatorHelper.VerifyMaxValue())
                                                 {
@@ -59,13 +74,53 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
                                                     await ImportFromWinAuthFile(r.password, r.hasLocalPcEncrypt, r.verifiedWithHello);
                                                 }
                                             })),
-            new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.Google), Strings.LocalAuth_GoogleImport,
-                                            PageType: typeof(AuthenticatorGeneralImportPage), Platform: AuthenticatorPlatform.Google),
-            new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.Microsoft), Strings.LocalAuth_MicrosoftImport,
-                                            PageType: typeof(AuthenticatorGeneralImportPage), Platform: AuthenticatorPlatform.Microsoft),
-            new AuthenticatorImportMethod(Strings.LocalAuth_Import.Format(Strings.HOTP), Strings.LocalAuth_HOTPImport,
-                                            PageType: typeof(AuthenticatorGeneralImportPage), Platform: AuthenticatorPlatform.HOTP),
+            PageMethod(Strings.LocalAuth_Import.Format(Strings.Google), Strings.LocalAuth_GoogleImport,
+                static () => new AuthenticatorGeneralImportPage(AuthenticatorPlatform.Google)),
+            PageMethod(Strings.LocalAuth_Import.Format(Strings.Microsoft), Strings.LocalAuth_MicrosoftImport,
+                static () => new AuthenticatorGeneralImportPage(AuthenticatorPlatform.Microsoft)),
+            PageMethod(Strings.LocalAuth_Import.Format(Strings.HOTP), Strings.LocalAuth_HOTPImport,
+                static () => new AuthenticatorGeneralImportPage(AuthenticatorPlatform.HOTP)),
         };
+    }
+
+    AuthenticatorImportMethod PageMethod(string name, string description, Func<Control> createPage)
+    {
+        var command = ReactiveCommand.Create(() =>
+        {
+            if (!IsSelecting) return;
+
+            ImportContent = createPage();
+            ImportTitle = name;
+            this.RaisePropertyChanged(nameof(IsSelecting));
+            TracepointHelper.TrackEvent("AuthenticatorImport", new Dictionary<string, string> { ["ImportMethod"] = name });
+        });
+        CompositeDisposable.Add(command);
+        CompositeDisposable.Add(command.ThrownExceptions.Subscribe(static ex => ex.LogAndShowT()));
+        return new(name, description, command);
+    }
+
+    void CloseImportPage()
+    {
+        if (ImportContent is not { } page) return;
+        ImportContent = null;
+        ImportTitle = null;
+        this.RaisePropertyChanged(nameof(IsSelecting));
+        (page.DataContext as ViewModelBase)?.Dispose();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && !Disposed)
+            CloseImportPage();
+        base.Dispose(disposing);
+    }
+
+    ICommand CreateImportCommand(Func<Task> import)
+    {
+        var command = ReactiveCommand.CreateFromTask(import);
+        CompositeDisposable.Add(command);
+        CompositeDisposable.Add(command.ThrownExceptions.Subscribe(static ex => ex.LogAndShowT()));
+        return command;
     }
 
     static async Task ImportFromSdaFile()

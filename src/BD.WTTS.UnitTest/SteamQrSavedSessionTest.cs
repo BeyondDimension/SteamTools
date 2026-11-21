@@ -47,6 +47,17 @@ public sealed class SteamQrSavedSessionTest
     }
 
     [Test]
+    public async Task SavedWebSessionDoesNotRefreshOrAllowScreenScan()
+    {
+        var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
+        var auth = Create(Token("web"), Token("web", refresh: true));
+
+        Assert.That(SteamQrLoginSession.CanUse(auth), Is.False);
+        Assert.That(await SteamQrLoginSession.GetAccessTokenAsync(auth, service.Object, default), Is.Null);
+        service.VerifyNoOtherCalls();
+    }
+
+    [Test]
     public async Task RenewsExpiredAccessFromSavedRefreshWithoutInteractiveLogin()
     {
         var refresh = Token(refresh: true);

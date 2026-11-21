@@ -2,49 +2,61 @@ namespace BD.WTTS.UI.ViewModels;
 
 public class AuthenticatorRecoverPageViewModel : ViewModelBase
 {
+    public ObservableCollection<AuthenticatorRecoverModel> AuthenticatorDeleteBackups { get; } = new();
+
     [Reactive]
-    public ObservableCollection<AuthenticatorRecoverModel> AuthenticatorDeleteBackups { get; set; }
+    public bool IsLoading { get; private set; } = true;
+
+    public ICommand RecoverCommand { get; }
 
     readonly string _currentAnswer;
 
-    public AuthenticatorRecoverPageViewModel()
+    public AuthenticatorRecoverPageViewModel() : this(string.Empty)
     {
-        AuthenticatorDeleteBackups = new();
-        Initialize();
-        _currentAnswer = string.Empty;
     }
 
     public AuthenticatorRecoverPageViewModel(string answer)
     {
-        AuthenticatorDeleteBackups = new();
-        Initialize();
         _currentAnswer = answer;
+        var command = ReactiveCommand.CreateFromTask(Recover);
+        CompositeDisposable.Add(command);
+        CompositeDisposable.Add(command.ThrownExceptions.Subscribe(static ex => ex.LogAndShowT()));
+        RecoverCommand = command;
+        _ = InitializeAsync();
     }
 
-    async void Initialize()
+    async Task InitializeAsync()
     {
-        AuthenticatorDeleteBackups.Clear();
-        var response =
-            await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticatorDeleteBackups();
-        if (!response.IsSuccess || response.Content == null) return;
-
-        foreach (var item in response.Content)
+        try
         {
-            if (!item.IsRecovered)
-                AuthenticatorDeleteBackups.Add(new(item));
+            var response = await IMicroServiceClient.Instance.AuthenticatorClient.GetAuthenticatorDeleteBackups();
+            if (Disposed || !response.IsSuccess || response.Content is null) return;
+
+            foreach (var item in response.Content)
+                if (!item.IsRecovered)
+                    AuthenticatorDeleteBackups.Add(new(item));
+        }
+        catch (Exception ex)
+        {
+            if (!Disposed) ex.LogAndShowT();
+        }
+        finally
+        {
+            IsLoading = false;
         }
     }
 
-    public async Task Recover()
+    async Task Recover()
     {
         var list = AuthenticatorDeleteBackups.Where(a => a.IsSelected).ToList();
+        if (list.Count == 0) return;
         var ids = list.Select(a => a.AuthenticatorDeleteBackup.Id).ToArray();
         var response = await IMicroServiceClient.Instance.AuthenticatorClient.RecoverAuthenticatorsFromDeleteBackups(new()
         {
             Answer = _currentAnswer,
             Id = ids,
         });
-        if (!response.IsSuccess) return;
+        if (Disposed || !response.IsSuccess) return;
         AuthenticatorDeleteBackups.Remove(list);
         Toast.Show(ToastIcon.Success, Strings.Auth_Sync_RecoverSuccess);
     }

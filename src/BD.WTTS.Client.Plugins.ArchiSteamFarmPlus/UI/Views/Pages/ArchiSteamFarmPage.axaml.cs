@@ -2,11 +2,18 @@ using Avalonia.Data.Converters;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using BD.WTTS.Settings.Abstractions;
+using AppResources = BD.WTTS.Client.Resources.Strings;
 
 namespace BD.WTTS.UI.Views.Pages;
 
 public partial class ArchiSteamFarmPage : PageBase<ArchiSteamFarmPlusPageViewModel>
 {
+    public static IValueConverter RunOrStopIconConverter { get; } = new FuncValueConverter<bool, Symbol>(
+        running => running ? Symbol.Pause : Symbol.Play);
+
+    public static IValueConverter RunOrStopTextConverter { get; } = new FuncValueConverter<bool, string>(
+        running => running ? AppResources.ASF_Stop : AppResources.ASF_Start);
+
     public static IValueConverter ConsoleFontSizeConverter { get; } = new FuncValueConverter<int, double>(
         size => Math.Clamp(size, IASFSettings.DefaultMinRangeConsoleFontSize, IASFSettings.DefaultMaxRangeConsoleFontSize));
 

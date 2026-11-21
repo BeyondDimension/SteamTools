@@ -15,12 +15,18 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
     readonly ISteamAccountService _steamAccountService = Ioc.Get<ISteamAccountService>();
     readonly CancellationTokenSource lifetime = new();
     readonly CancellationToken lifetimeToken;
+    CancellationTokenSource sessionOperations;
+    bool logoutInProgress;
 
     public SteamTradePageViewModel(ref IAuthenticatorDTO authenticatorDto)
     {
         _authenticatorDto = authenticatorDto;
         lifetimeToken = lifetime.Token;
-        Login = new SteamLoginViewModel(accountService: _steamAccountService, requireMobileSession: true);
+        sessionOperations = CancellationTokenSource.CreateLinkedTokenSource(lifetimeToken);
+        Login = new SteamLoginViewModel(accountService: _steamAccountService,
+            defaultCredentialPlatform: EAuthTokenPlatformType.KEauthTokenPlatformTypeWebBrowser);
+        Login.TwoFactorCodeMismatchMessage = Strings.SteamTradeLoginTwoFactorCodeMismatch;
+        Login.LoginThrottledMessage = Strings.SteamTradeLoginThrottled;
         Login.LoginSucceededAsync = CompleteLoginAsync;
         Login.AddTo(this);
 
@@ -51,10 +57,11 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
                     return code;
                 };
 
-                this.WhenAnyValue(v => v.Confirmations)
+                this.ObserveValue(nameof(Confirmations), static v => v.Confirmations)
                     .Select(items => items == null
                         ? Observable.Empty<IChangeSet<SteamTradeConfirmationModel>>()
-                        : items.ToObservableChangeSet().AutoRefresh(x => x.IsSelected))
+                        : items.ToObservableChangeSet().AutoRefreshOnObservable(static item =>
+                            item.ObserveValue(nameof(item.IsSelected), static x => x.IsSelected).Skip(1)))
                     .Switch()
                     .Subscribe(_ =>
                     {
@@ -80,24 +87,30 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
     {
         if (IsLoading || Disposed)
             return;
+        var token = sessionOperations.Token;
         IsLoading = true;
         try
         {
             await base.Initialize();
-            IsLogged = _steamClient?.IsLoggedIn() == true && await CheckAndRefreshToken();
+            token.ThrowIfCancellationRequested();
+            var isLogged = _steamClient?.IsLoggedIn() == true && await CheckAndRefreshToken(token);
+            token.ThrowIfCancellationRequested();
+            IsLogged = isLogged;
             if (IsLogged && _steamClient != null)
-                await GetConfirmations(_steamClient);
+                await GetConfirmations(_steamClient, token);
         }
-        catch (OperationCanceledException) when (lifetimeToken.IsCancellationRequested) { }
         catch
         {
-            IsLogged = false;
-            SetLoginStatus(Strings.L10nAuthIdle_Text099);
+            if (!token.IsCancellationRequested)
+            {
+                IsLogged = false;
+                SetLoginStatus(Strings.L10nAuthIdle_Text099);
+            }
         }
-        finally { IsLoading = false; }
+        finally { if (!token.IsCancellationRequested) IsLoading = false; }
     }
 
-    public async ValueTask<bool> CheckAndRefreshToken()
+    async ValueTask<bool> CheckAndRefreshToken(CancellationToken cancellationToken)
     {
         if (_steamClient?.Session == null || _steamAuthenticator == null)
             return false;
@@ -110,8 +123,8 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
             return false;
 
         var wasRemembered = !string.IsNullOrWhiteSpace(_steamAuthenticator.SessionData);
-        var token = await _steamAccountService.RefreshAccessToken(session.SteamID, session.RefreshToken).WaitAsync(lifetimeToken);
-        lifetimeToken.ThrowIfCancellationRequested();
+        var token = await _steamAccountService.RefreshAccessToken(session.SteamID, session.RefreshToken).WaitAsync(cancellationToken);
+        cancellationToken.ThrowIfCancellationRequested();
         if (string.IsNullOrWhiteSpace(token))
             return false;
         session.AccessToken = token;
@@ -119,7 +132,9 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         if (wasRemembered)
         {
             _steamAuthenticator.SessionData = _steamClient.Session!.ToString();
-            if (!await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto))
+            var saved = await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto);
+            cancellationToken.ThrowIfCancellationRequested();
+            if (!saved)
                 SetLoginStatus(Strings.L10nAuthIdle_Text100);
         }
         return true;
@@ -128,7 +143,7 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
     public async Task Refresh()
     {
         if (_steamClient?.IsLoggedIn() == true)
-            _ = await GetConfirmations(_steamClient);
+            _ = await GetConfirmations(_steamClient, sessionOperations.Token);
     }
 
     public void SelectAllCommand()
@@ -144,7 +159,8 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
 
     async Task CompleteLoginAsync(SteamLoginState state)
     {
-        lifetimeToken.ThrowIfCancellationRequested();
+        var token = sessionOperations.Token;
+        token.ThrowIfCancellationRequested();
         if (_steamAuthenticator is null)
             throw new InvalidOperationException(Strings.L10nAuthIdle_Text101);
         if (!Login.UsedQrCode)
@@ -166,13 +182,15 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
             // Install cookies from the live session even when the user does not persist it.
             _steamClient.SessionSet(session.ToString(), ResourceService.GetCurrentCultureSteamLanguageName());
             _steamAuthenticator.SessionData = RememberLogin ? _steamClient.Session!.ToString() : null;
-            if (!await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto))
+            var saved = await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto);
+            token.ThrowIfCancellationRequested();
+            if (!saved)
                 SetLoginStatus(Strings.L10nAuthIdle_Text102);
-            lifetimeToken.ThrowIfCancellationRequested();
             IsLogged = true;
-            await GetConfirmations(_steamClient);
+            await GetConfirmations(_steamClient, token);
         }
-        finally { IsLoading = false; }
+        catch (OperationCanceledException) when (token.IsCancellationRequested) { }
+        finally { if (!token.IsCancellationRequested) IsLoading = false; }
     }
 
     public override void OnClosing(object? sender, CancelEventArgs e)
@@ -190,6 +208,7 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         if (disposing && !Disposed)
         {
             lifetime.Cancel();
+            sessionOperations.Dispose();
             lifetime.Dispose();
             Login.LoginSucceededAsync = null;
             Login.AutomaticTwoFactorCode = null;
@@ -197,20 +216,19 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         base.Dispose(disposing);
     }
 
-    async Task<IEnumerable<SteamTradeConfirmationModel>?> GetConfirmations(WSteamClient steamClient)
+    async Task<IEnumerable<SteamTradeConfirmationModel>?> GetConfirmations(WSteamClient steamClient, CancellationToken token)
     {
         IsLoading = true;
 
         try
         {
-            var result = await steamClient.GetConfirmations().WaitAsync(lifetimeToken);
-            lifetimeToken.ThrowIfCancellationRequested();
+            var result = await steamClient.GetConfirmations().WaitAsync(token);
+            token.ThrowIfCancellationRequested();
             Confirmations.Clear();
             if (result != null)
                 Confirmations.Add(result.Select(item => new SteamTradeConfirmationModel(_steamAuthenticator!, item)));
         }
-        catch (OperationCanceledException) when (lifetimeToken.IsCancellationRequested) { }
-        catch (WinAuthUnauthorisedSteamRequestException)
+        catch (WinAuthUnauthorisedSteamRequestException) when (!token.IsCancellationRequested)
         {
             _steamClient?.Logout();
             if (_steamAuthenticator != null)
@@ -221,27 +239,41 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
         }
         catch
         {
-            SetLoginStatus(Strings.L10nAuthIdle_Text103);
+            if (!token.IsCancellationRequested)
+                SetLoginStatus(Strings.L10nAuthIdle_Text103);
         }
-        finally { IsLoading = false; }
+        finally { if (!token.IsCancellationRequested) IsLoading = false; }
 
         return Confirmations;
     }
 
     public async Task Logout()
     {
-        if (_steamClient == null || _steamAuthenticator == null) return;
-        if (await IWindowManager.Instance.ShowTaskDialogAsync(
-                new MessageBoxWindowViewModel() { Content = Strings.LocalAuth_LogoutTip, }, AppResources.Logout, isCancelButton: true,
-                isDialog: false))
+        if (logoutInProgress || lifetimeToken.IsCancellationRequested || _steamClient == null || _steamAuthenticator == null) return;
+        logoutInProgress = true;
+        try
         {
+            if (!await IWindowManager.Instance.ShowTaskDialogAsync(
+                new MessageBoxWindowViewModel() { Content = Strings.LocalAuth_LogoutTip, }, AppResources.Logout, isCancelButton: true,
+                isDialog: false) || lifetimeToken.IsCancellationRequested)
+                return;
+
+            using (var previous = sessionOperations)
+            {
+                sessionOperations = CancellationTokenSource.CreateLinkedTokenSource(lifetimeToken);
+                previous.Cancel();
+            }
             _steamClient.Logout();
             _steamAuthenticator.SessionData = null;
-            await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto!);
             IsLogged = false;
             Confirmations.Clear();
             Login.Cancel();
+            SetLoginStatus(null);
+            IsLoading = false;
+            if (!await AuthenticatorHelper.SaveAuthenticator(_authenticatorDto) && !lifetimeToken.IsCancellationRequested && !IsLogged)
+                SetLoginStatus(Strings.L10nAuthIdle_Text102);
         }
+        finally { logoutInProgress = false; }
     }
 
     //void RefreshConfirmationsList()

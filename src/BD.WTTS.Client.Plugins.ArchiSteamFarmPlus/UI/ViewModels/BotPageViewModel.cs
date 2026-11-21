@@ -132,9 +132,4 @@ public partial class BotPageViewModel : ViewModelBase
             }
         }
     }
-
-    public async void ShowAddBotWindow()
-    {
-        await IWindowManager.Instance.ShowAsync(AppEndPoint.ASF_AddBot, resizeMode: ResizeMode.CanResize);
-    }
 }

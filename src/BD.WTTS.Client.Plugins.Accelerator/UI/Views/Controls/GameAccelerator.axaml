@@ -3,8 +3,6 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="using:Avalonia.Xaml.Interactivity"
-    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
@@ -74,23 +72,15 @@
                     <Button
                         Name="Left"
                         Width="32"
-                        Height="32">
-                        <i:Interaction.Behaviors>
-                            <ia:EventTriggerBehavior EventName="Click" SourceObject="Left">
-                                <ia:CallMethodAction MethodName="SwiperPrevious" TargetObject="{Binding #GameCarousel}" />
-                            </ia:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
+                        Height="32"
+                        Click="Previous_Click">
                         <ui:FASymbolIcon FontSize="16" Symbol="ChevronLeft" />
                     </Button>
                     <Button
                         Name="Right"
                         Width="32"
-                        Height="32">
-                        <i:Interaction.Behaviors>
-                            <ia:EventTriggerBehavior EventName="Click" SourceObject="Right">
-                                <ia:CallMethodAction MethodName="SwiperNext" TargetObject="{Binding #GameCarousel}" />
-                            </ia:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
+                        Height="32"
+                        Click="Next_Click">
                         <ui:FASymbolIcon FontSize="16" Symbol="ChevronRight" />
                     </Button>
                 </StackPanel>

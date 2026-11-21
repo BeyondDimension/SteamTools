@@ -30,26 +30,10 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="{x:Static spp:Strings.Library}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:GameListPage" />
-                </TabStripItem.Tag>
-            </TabStripItem>
-            <TabStripItem Content="{x:Static spp:Strings.Download}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:DownloadPage" />
-                </TabStripItem.Tag>
-            </TabStripItem>
-            <TabStripItem Content="{x:Static spp:Strings.OnHook}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:IdleAppsPage" />
-                </TabStripItem.Tag>
-            </TabStripItem>
-            <TabStripItem Content="{x:Static spp:Strings.Edit}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:EditAppsPage" />
-                </TabStripItem.Tag>
-            </TabStripItem>
+            <TabStripItem Name="LibraryTab" Content="{x:Static spp:Strings.Library}" />
+            <TabStripItem Name="DownloadsTab" Content="{x:Static spp:Strings.Download}" />
+            <TabStripItem Name="IdleAppsTab" Content="{x:Static spp:Strings.OnHook}" />
+            <TabStripItem Name="EditAppsTab" Content="{x:Static spp:Strings.Edit}" />
         </TabStrip>
         <ui:FAFrame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
     </Panel>

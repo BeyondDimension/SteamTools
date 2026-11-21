@@ -42,6 +42,10 @@ public class AddSteamAccountPhoneNumberPageViewModel : WindowViewModel
     [Reactive]
     public bool IsLoading { get; set; }
 
+    public ICommand StartBindingCommand { get; }
+    public ICommand ConfirmEmailCommand { get; }
+    public ICommand VerifyCodeCommand { get; }
+
     private readonly SteamAuthenticator.EnrollState _enrollState;
     private readonly SteamAuthenticator _steamAuthenticator;
 
@@ -54,6 +58,18 @@ public class AddSteamAccountPhoneNumberPageViewModel : WindowViewModel
 
         _steamAuthenticator = steamAuthenticator;
         _enrollState = enrollState;
+
+        StartBindingCommand = CreateCommand(StartBindingAsync);
+        ConfirmEmailCommand = CreateCommand(ConfirmBindingEmailAsync);
+        VerifyCodeCommand = CreateCommand(VerifyAccountPhoneWithCodeAsync);
+    }
+
+    ICommand CreateCommand(Func<Task> action)
+    {
+        var command = ReactiveCommand.CreateFromTask(action);
+        CompositeDisposable.Add(command);
+        CompositeDisposable.Add(command.ThrownExceptions.Subscribe(static ex => ex.LogAndShowT()));
+        return command;
     }
 
     /// <summary>
@@ -139,6 +155,8 @@ public class AddSteamAccountPhoneNumberPageViewModel : WindowViewModel
     /// <returns></returns>
     public async Task VerifyAccountPhoneWithCodeAsync()
     {
+        if (IsLoading) return;
+
         if (string.IsNullOrEmpty(PhoneNumberText))
         {
             Toast.Show(ToastIcon.Warning, AppResources.Warning_PleaseEnterTel);
@@ -151,12 +169,16 @@ public class AddSteamAccountPhoneNumberPageViewModel : WindowViewModel
             return;
         }
 
-        var verified = await _steamAuthenticator
-            .VerifyPhoneNumberAsync(PhoneNumberText!, CodeText!, _enrollState.AccessToken!);
-
-        if (verified)
+        IsLoading = true;
+        try
         {
-            Close?.Invoke(verified);
+            var verified = await _steamAuthenticator.VerifyPhoneNumberAsync(PhoneNumberText, CodeText, _enrollState.AccessToken!);
+            if (verified)
+                Close?.Invoke(true);
+        }
+        finally
+        {
+            IsLoading = false;
         }
     }
 }

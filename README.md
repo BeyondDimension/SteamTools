@@ -89,6 +89,8 @@
 - [iOS 添加本地令牌（无需越狱/iTunes 备份）](https://github.com/BeyondDimension/SteamTools/issues/299)
 - [iOS 添加本地令牌（需越狱）](https://github.com/BeyondDimension/SteamTools/issues/95)
 
+「确认交易」默认使用「模拟网页登录」。若要扫描屏幕二维码登录 Steam，请改选「模拟 App 登录」并勾选「记住登录」。共存导入的令牌使用模拟 App 登录时，原设备可能会退出登录。
+
 ## 🌏 路线图
 查看这个 [milestones](https://github.com/BeyondDimension/SteamTools/milestones) 来了解我们下一步的开发计划，并随时提出问题。
 

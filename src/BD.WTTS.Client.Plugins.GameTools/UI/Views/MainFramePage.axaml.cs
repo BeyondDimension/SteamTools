@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 
 namespace BD.WTTS.UI.Views.Pages;
@@ -17,17 +16,21 @@ public partial class MainFramePage : UserControl
     {
         base.OnLoaded(e);
 
-        Tabs_SelectionChanged(null, null);
+        if (Tabs.SelectedItem is null)
+            Tabs.SelectedItem = BorderlessTab;
+        else
+            ShowSelectedPage();
     }
 
-    private void Tabs_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs? e)
+    private void Tabs_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (Tabs.SelectedItem is TabStripItem tab && tab.Tag is Type t)
-        {
-            if (InnerNavFrame.CurrentSourcePageType == t)
-                return;
+        if (IsLoaded && e.Source == Tabs)
+            ShowSelectedPage();
+    }
 
-            InnerNavFrame.Navigate(t, null, FrameEffect.NoTransition);
-        }
+    private void ShowSelectedPage()
+    {
+        if (ReferenceEquals(Tabs.SelectedItem, BorderlessTab) && InnerNavFrame.CurrentSourcePageType != typeof(BorderlessGamePage))
+            InnerNavFrame.Navigate(typeof(BorderlessGamePage), null, FrameEffect.NoTransition);
     }
 }

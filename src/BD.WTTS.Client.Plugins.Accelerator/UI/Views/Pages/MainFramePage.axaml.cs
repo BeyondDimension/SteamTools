@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using BD.WTTS.UI.Views.Controls;
 
@@ -10,13 +9,15 @@ public partial class MainFramePage : UserControl
 {
     CancellationTokenSource? serviceWait;
 
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(AcceleratorPage2))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(ScriptPage))]
     public MainFramePage()
     {
         InitializeComponent();
-        InnerNavFrame.NavigationFailed += (_, args) => Log.Error(nameof(MainFramePage), args.Exception,
-            "Could not navigate to nested page {page}.", args.SourcePageType?.FullName);
+        InnerNavFrame.NavigationFailed += (_, args) =>
+        {
+            Log.Error(nameof(MainFramePage), args.Exception,
+                "Could not navigate to nested page {page}.", args.SourcePageType?.FullName);
+            Toast.Show(ToastIcon.Error, Strings.Error_PageFault);
+        };
 
         Tabs.SelectionChanged += Tabs_SelectionChanged;
     }
@@ -27,7 +28,8 @@ public partial class MainFramePage : UserControl
 
         if (Tabs.SelectedIndex < 0 && Tabs.ItemCount > 0)
             Tabs.SelectedIndex = 0;
-        ShowSelectedPage();
+        else
+            ShowSelectedPage();
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)
@@ -72,7 +74,11 @@ public partial class MainFramePage : UserControl
     private async void ViewServiceLogsButton_Click(object? sender, RoutedEventArgs e) => await LogFilesDialog.ShowAsync(this,
         Path.Combine(IApplication.LogDirPath, AssemblyInfo.Accelerator), Strings.CommunityFix_ProxyLog);
 
-    private void Tabs_SelectionChanged(object? sender, SelectionChangedEventArgs e) => ShowSelectedPage();
+    private void Tabs_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (e.Source == Tabs)
+            ShowSelectedPage();
+    }
 
     private async void ShowSelectedPage()
     {
@@ -118,7 +124,14 @@ public partial class MainFramePage : UserControl
         }
 
         WaitingForService.IsVisible = false;
-        if (Tabs.SelectedItem is TabStripItem { Tag: Type pageType } && InnerNavFrame.CurrentSourcePageType != pageType)
+        var pageType = Tabs.SelectedItem switch
+        {
+            var item when ReferenceEquals(item, AcceleratorTab) => typeof(AcceleratorPage2),
+            var item when ReferenceEquals(item, ScriptTab) => typeof(ScriptPage),
+            _ => null,
+        };
+
+        if (pageType is not null && InnerNavFrame.CurrentSourcePageType != pageType)
             InnerNavFrame.Navigate(pageType, null, FrameEffect.NoTransition);
     }
 }

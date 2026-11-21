@@ -71,7 +71,7 @@ public sealed partial class SteamConnectService
                 }
             }));
 
-        this.WhenValueChanged(x => x.IsWatchSteamDownloading, false)
+        this.ObserveValue(nameof(IsWatchSteamDownloading), static x => x.IsWatchSteamDownloading).Skip(1)
             .Subscribe(x =>
             {
                 if (x)

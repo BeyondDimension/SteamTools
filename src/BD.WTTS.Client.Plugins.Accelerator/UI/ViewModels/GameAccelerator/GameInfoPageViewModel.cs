@@ -14,9 +14,11 @@ public sealed class GameInfoPageViewModel : WindowViewModel
     {
         XunYouGame = xunYouGame;
 
-        this.WhenPropertyChanged(x => x.XunYouGame.SelectedArea, true)
-            .Where(x => x.Value != null && x.Value.Servers.Any_Nullable())
-            .Subscribe(x => IsShowSelectServerUI = true);
+        this.ObserveValue(nameof(XunYouGame), static x => x.XunYouGame)
+            .Select(static game => game.ObserveValue(nameof(XunYouGameViewModel.SelectedArea), static x => x.SelectedArea))
+            .Switch()
+            .Subscribe(area => IsShowSelectServerUI = area?.Servers.Any_Nullable() == true)
+            .AddTo(this);
     }
 
     public void BackSelectArea()

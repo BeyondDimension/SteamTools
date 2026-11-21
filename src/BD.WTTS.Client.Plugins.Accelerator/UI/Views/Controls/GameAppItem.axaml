@@ -3,17 +3,17 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:i="using:Avalonia.Xaml.Interactivity"
-    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
-    xmlns:ui="using:FluentAvalonia.UI.Controls"
     d:DesignHeight="160"
     d:DesignWidth="220"
     x:DataType="spp:XunYouGameViewModel"
     mc:Ignorable="d">
     <UserControl.Styles>
+        <Style Selector="Button#ActionBtn">
+            <Setter Property="IsVisible" Value="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!CurrentAcceleratorGame?.IsAccelerating, FallbackValue=True, TargetNullValue=True}" />
+        </Style>
         <Style Selector="Grid.Accelerating Button#ActionBtn">
             <Setter Property="IsVisible" Value="False" />
             <Setter Property="IsEnabled" Value="False" />
@@ -55,6 +55,7 @@
         </Style>
 
         <Style Selector="spp|GameAppItem Border#ShadowBox">
+            <Setter Property="IsHitTestVisible" Value="False" />
             <Setter Property="Opacity" Value="0" />
             <Setter Property="Transitions">
                 <Transitions>
@@ -63,6 +64,9 @@
             </Setter>
         </Style>
         <Style Selector="spp|GameAppItem:pointerover Border#ShadowBox">
+            <Setter Property="IsHitTestVisible" Value="True" />
+        </Style>
+        <Style Selector="spp|GameAppItem:pointerover Border#ShadowBox, Border#ShadowBox:focus-within">
             <Setter Property="Opacity" Value="1" />
         </Style>
         <!--<Style Selector="spp|GameAppItem Border.Status">
@@ -115,22 +119,6 @@
                     Grid.ColumnSpan="2"
                     Padding="5"
                     Background="#80000000">
-                    <!--<StackPanel
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Orientation="Horizontal"
-                        Spacing="8">
-                        <Button
-                            Padding="0"
-                            Classes="Plain"
-                            Command="{Binding Path=DeleteMyGameCommand, Source={x:Static s:GameAcceleratorService.Current}}"
-                            CommandParameter="{Binding}"
-                            Cursor="Hand"
-                            ToolTip.Tip="{x:Static spp:Strings.GameAccelerator_ChangeArea}">
-                            <Viewbox Width="20" Height="20">
-                                <ui:FASymbolIcon Symbol="Switch" />
-                            </Viewbox>
-                        </Button>-->
                     <Button
                         Padding="0"
                         HorizontalAlignment="Right"
@@ -147,27 +135,7 @@
                                 Foreground="White" />
                         </Viewbox>
                     </Button>
-                    <!--</StackPanel>-->
                 </Border>
-
-                <!--<Viewbox
-                    Grid.RowSpan="2"
-                    Grid.ColumnSpan="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
-                    <spp:WaveProgress
-                        IsIndeterminate="True"
-                        IsTextVisible="True"
-                        IsVisible="{Binding IsAccelerating}" />
-                </Viewbox>-->
-
-                <ProgressBar
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Bottom"
-                    IsIndeterminate="True"
-                    IsVisible="{Binding IsAccelerating}" />
 
                 <Panel Margin="10,5" Classes="AppName">
                     <!--  spp:Animations.EnableAnimations2="True"  -->
@@ -207,57 +175,24 @@
                     Classes="Status"
                     IsVisible="{Binding IsAccelerated}">
                     <WrapPanel VerticalAlignment="Center">
-                        <i:Interaction.Behaviors>
-                            <ia:DataTriggerBehavior
-                                Binding="{Binding PingValue}"
-                                ComparisonCondition="GreaterThan"
-                                Value="120">
-                                <ia:ChangePropertyAction PropertyName="Fill" TargetObject="PingEllipse">
-                                    <ia:ChangePropertyAction.Value>
-                                        <SolidColorBrush Color="#FF4F58" />
-                                    </ia:ChangePropertyAction.Value>
-                                </ia:ChangePropertyAction>
-                                <ia:ChangePropertyAction PropertyName="Foreground" TargetObject="PingText">
-                                    <ia:ChangePropertyAction.Value>
-                                        <SolidColorBrush Color="#FF4F58" />
-                                    </ia:ChangePropertyAction.Value>
-                                </ia:ChangePropertyAction>
-                            </ia:DataTriggerBehavior>
-                            <ia:DataTriggerBehavior
-                                Binding="{Binding PingValue}"
-                                ComparisonCondition="LessThanOrEqual"
-                                Value="120">
-                                <ia:ChangePropertyAction PropertyName="Fill" TargetObject="PingEllipse">
-                                    <ia:ChangePropertyAction.Value>
-                                        <SolidColorBrush Color="#47A42B" />
-                                    </ia:ChangePropertyAction.Value>
-                                </ia:ChangePropertyAction>
-                                <ia:ChangePropertyAction PropertyName="Foreground" TargetObject="PingText">
-                                    <ia:ChangePropertyAction.Value>
-                                        <SolidColorBrush Color="#47A42B" />
-                                    </ia:ChangePropertyAction.Value>
-                                </ia:ChangePropertyAction>
-                            </ia:DataTriggerBehavior>
-                        </i:Interaction.Behaviors>
                         <TextBlock
                             Margin="0,0,10,0"
                             VerticalAlignment="Center"
                             FontSize="12"
-                            Text="{Binding SelectedArea.Name}" />
+                            Text="{Binding SelectedArea?.Name}" />
                         <DockPanel>
                             <Ellipse
-                                Name="PingEllipse"
                                 Width="6"
                                 Height="6"
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Left"
-                                Fill="#FF4F58" />
+                                Fill="{Binding PingValue, Converter={x:Static spp:GameAppItem.PingBrushConverter}, FallbackValue=#FF4F58}" />
                             <TextBlock
-                                Name="PingText"
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Right"
                                 FontSize="12"
+                                Foreground="{Binding PingValue, Converter={x:Static spp:GameAppItem.PingBrushConverter}}"
                                 Text="{Binding PingValue}" />
                         </DockPanel>
                     </WrapPanel>
@@ -282,21 +217,7 @@
                     Margin="10,5"
                     Command="{Binding $parent[spp:GameAppItem].ButtonCommand}"
                     CommandParameter="{Binding}"
-                    IsVisible="{Binding Source={x:Static s:GameAcceleratorService.Current}, Path=!CurrentAcceleratorGame.IsAccelerating}">
-                    <Button.Content>
-                        <MultiBinding Converter="{StaticResource VisibleStringConverter}">
-                            <CompiledBindingExtension Mode="OneWay" Path="IsAccelerated" />
-                            <CompiledBindingExtension
-                                Mode="OneWay"
-                                Path="."
-                                Source="{x:Static spp:Strings.GameAccelerator_Stop}" />
-                            <CompiledBindingExtension
-                                Mode="OneWay"
-                                Path="."
-                                Source="{x:Static spp:Strings.GameAccelerator_Accelerate}" />
-                        </MultiBinding>
-                    </Button.Content>
-                </Button>
+                    Content="{Binding IsAccelerated, Converter={x:Static spp:GameAppItem.AccelerateOrStopTextConverter}, FallbackValue={x:Static spp:Strings.GameAccelerator_Accelerate}}" />
             </Grid>
         </spp:RippleEffect>
     </Border>

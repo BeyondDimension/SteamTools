@@ -39,7 +39,7 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem>
+            <TabStripItem Name="AcceleratorTab">
                 <WrapPanel>
                     <Border
                         Margin="-5,0,3,0"
@@ -52,16 +52,8 @@
                     </Border>
                     <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.CommunityFix}" />
                 </WrapPanel>
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:AcceleratorPage2" />
-                </TabStripItem.Tag>
             </TabStripItem>
-            <!--<TabStripItem Content="{x:Static spp:Strings.CommunityFix}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:AcceleratorPage" />
-                </TabStripItem.Tag>
-            </TabStripItem>-->
-            <TabStripItem>
+            <TabStripItem Name="ScriptTab">
                 <WrapPanel>
                     <Border
                         Margin="-5,0,3,0"
@@ -74,9 +66,6 @@
                     </Border>
                     <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.ScriptConfig}" />
                 </WrapPanel>
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:ScriptPage" />
-                </TabStripItem.Tag>
             </TabStripItem>
         </TabStrip>
         <ui:FAFrame Name="InnerNavFrame" IsNavigationStackEnabled="False" />

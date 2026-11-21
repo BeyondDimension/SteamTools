@@ -81,7 +81,7 @@ public sealed partial class GameAcceleratorService
 
         if (XunYouSDK.IsSupported)
         {
-            this.WhenValueChanged(x => x.XYAccelState, false)
+            this.ObserveValue(nameof(XYAccelState), static x => x.XYAccelState).Skip(1)
                 .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(x =>
                 {
@@ -184,7 +184,7 @@ public sealed partial class GameAcceleratorService
                     }
                 });
 
-            UserService.Current.WhenAnyValue(static x => x.User)
+            UserService.Current.ObserveValue(nameof(UserService.User), static x => x.User)
                 .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(async x =>
                 {

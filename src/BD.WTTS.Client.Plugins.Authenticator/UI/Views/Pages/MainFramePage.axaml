@@ -30,16 +30,8 @@
                     </On>
                 </OnFormFactor>
             </TabStrip.ItemsPanel>
-            <TabStripItem Content="{x:Static spp:Strings.L10nAuthIdle_Text041}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:AuthenticatorHomePage" />
-                </TabStripItem.Tag>
-            </TabStripItem>
-            <TabStripItem Content="{x:Static spp:Strings.L10nAuthIdle_Text042}">
-                <TabStripItem.Tag>
-                    <x:Type TypeName="spp:SteamMarketManagePage" />
-                </TabStripItem.Tag>
-            </TabStripItem>
+            <TabStripItem Name="AuthenticatorTab" Content="{x:Static spp:Strings.L10nAuthIdle_Text041}" />
+            <TabStripItem Name="SteamMarketTab" Content="{x:Static spp:Strings.L10nAuthIdle_Text042}" />
         </TabStrip>
         <ui:FAFrame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
     </Panel>

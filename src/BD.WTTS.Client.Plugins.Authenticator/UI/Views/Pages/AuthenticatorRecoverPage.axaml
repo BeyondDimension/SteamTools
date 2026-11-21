@@ -13,8 +13,8 @@
     x:DataType="spp:AuthenticatorRecoverPageViewModel"
     mc:Ignorable="d">
     <spp:ContentLoader
-        x:Name="ContentLoader"
-        IsLoading="{Binding !!!AuthenticatorDeleteBackups.Count, Mode=OneWay}"
+        IsLoading="{Binding IsLoading}"
+        IsShowNoResultText="{Binding !AuthenticatorDeleteBackups.Count}"
         NoResultMessage="{x:Static spp:Strings.Auth_Sync_NoHasRecover}">
         <Grid RowDefinitions="*,Auto">
             <ItemsControl ItemsSource="{Binding AuthenticatorDeleteBackups, Mode=OneWay}">
@@ -25,7 +25,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="spp:AuthenticatorRecoverModel">
-                        <ui:FASettingsExpander MinWidth="400" IsClickEnabled="False">
+                        <ui:FASettingsExpander IsClickEnabled="False">
                             <ui:FASettingsExpander.Header>
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding IsSelected}" />
@@ -76,9 +76,8 @@
                 Margin="0,5,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Command="{Binding Recover}"
-                Content="{x:Static spp:Strings.Auth_Sync_VerifyRecover}"
-                IsVisible="{Binding !#ContentLoader.IsLoading}" />
+                Command="{Binding RecoverCommand}"
+                Content="{x:Static spp:Strings.Auth_Sync_VerifyRecover}" />
         </Grid>
     </spp:ContentLoader>
 </UserControl>

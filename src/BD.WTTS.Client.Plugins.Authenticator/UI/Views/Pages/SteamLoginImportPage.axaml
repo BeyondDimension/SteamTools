@@ -4,133 +4,86 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     d:DesignHeight="300"
     d:DesignWidth="600"
     x:CompileBindings="True"
     x:DataType="spp:SteamLoginImportPageViewModel"
     mc:Ignorable="d">
-	<Grid RowDefinitions="Auto,*">
-		<spp:Stepper SelectedIndex="{Binding SelectIndex}">
-			<spp:StepperItem Content="{x:Static spp:Strings.Steam_Login}" />
-			<spp:StepperItem Content="{x:Static spp:Strings.LoginVerify}" />
-			<!--隐藏绑定手机号步骤-->
-			<!--<spp:StepperItem IsVisible="false" Content="{x:Static spp:Strings.Steam_BindTel}" />-->
-			<spp:StepperItem Content="{x:Static spp:Strings.LocalAuth_VerifyCode}" />
-			<spp:StepperItem Content="{x:Static spp:Strings.Btn_Text_Complete}" />
-		</spp:Stepper>
+    <Grid RowDefinitions="Auto,*" RowSpacing="8">
+        <spp:Stepper SelectedIndex="{Binding SelectIndex, Mode=OneWay}">
+            <spp:StepperItem Content="{x:Static spp:Strings.Steam_Login}" />
+            <spp:StepperItem Content="{x:Static spp:Strings.LoginVerify}" />
+            <spp:StepperItem Content="{x:Static spp:Strings.LocalAuth_VerifyCode}" />
+            <spp:StepperItem Content="{x:Static spp:Strings.Btn_Text_Complete}" />
+        </spp:Stepper>
 
-		<spp:ContentLoader
-				Grid.Row="1"
-				MinWidth="600"
-				MinHeight="400"
-				IsLoading="{Binding IsLoading}"
-				IsShowNoResultText="False">
-			<Carousel IsVisible="{Binding !IsLoading}" SelectedIndex="{Binding SelectIndex}">
-				<!-- 登录、Steam Guard 验证及二维码登录由共享控件处理。 -->
-				<spp:SteamLoginView DataContext="{Binding Login}" />
+        <spp:ContentLoader Grid.Row="1" IsLoading="{Binding IsLoading}" IsShowNoResultText="False">
+            <Carousel IsVisible="{Binding !IsLoading}" SelectedIndex="{Binding SelectIndex, Mode=OneWay}">
+                <spp:SteamLoginView DataContext="{Binding Login}" />
 
-				<!-- 保留步骤索引；登录后操作失败时可以继续重试，无需再次登录。 -->
-				<StackPanel
-						HorizontalAlignment="Center"
-						VerticalAlignment="Center"
-						Spacing="10">
-					<PathIcon Width="88" Height="88" Data="{StaticResource Steam}" />
-					<Button
-							MinWidth="280"
-							HorizontalAlignment="Center"
-							HorizontalContentAlignment="Center"
-							Command="{Binding LoginSteamImport}"
-							Content="{x:Static spp:Strings.Continue}" />
-				</StackPanel>
-				<!--  验证手机 或 邮箱 -->
-				<!-- 2024-04-23 Steam绑定令牌不强制手机绑定 可以输入 邮箱者手机验证码 -->
-				<Panel>
-					<spp:Snackbar
-							Title="{x:Static spp:Strings.Notice_Tray_Title}"
-							VerticalAlignment="Top"
-							IsClosable="False"
-							IsVisible="{Binding IsVerifyAccountPhone}"
-							IsOpen="True"
-							Message="{x:Static spp:Strings.LocalAuth_SMSCodeTip}"
-							Severity="Warning" />
-					<spp:Snackbar
-						 Title="{x:Static spp:Strings.Notice_Tray_Title}"
-						 VerticalAlignment="Top"
-						 IsClosable="False"
-						 IsVisible="{Binding !IsVerifyAccountPhone}"
-						 IsOpen="True"
-						 Message="{x:Static spp:Strings.LocalAuth_EmailCodeTip}"
-						 Severity="Warning" />
-					<StackPanel
-							HorizontalAlignment="Center"
-							VerticalAlignment="Center"
-							Spacing="10">
-						<DockPanel IsVisible="{Binding RevocationCodeText, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
-							<TextBlock
-									Margin="0,0,0,6"
-									DockPanel.Dock="Top"
-									Text="{x:Static spp:Strings.RecoveryCode}" />
-							<TextBox
-									MaxWidth="300"
-									IsReadOnly="True"
-									Text="{Binding RevocationCodeText, Mode=OneWay}" />
-						</DockPanel>
-						<!--<CheckBox Content="{x:Static spp:Strings.RecoveryCode_Remember}" />-->
-						<DockPanel>
-							<TextBlock
-									Margin="0,0,0,6"
-									DockPanel.Dock="Top"
-									IsVisible="{Binding IsVerifyAccountPhone}"
-									Text="{x:Static spp:Strings.SMSCode}" />
-							<TextBlock
-									Margin="0,0,0,6"
-									DockPanel.Dock="Top"
-									IsVisible="{Binding !IsVerifyAccountPhone}"
-									Text="{x:Static spp:Strings.EmailCode}" />
-							<TextBox
-									Name="PhoneCodeText"
-									MaxWidth="300"
-									Text="{Binding PhoneCodeText}" />
-						</DockPanel>
-						<Button
-								MinWidth="280"
-								HorizontalAlignment="Center"
-								HorizontalContentAlignment="Center"
-								Command="{Binding LoginSteamImport}"
-								Content="{x:Static spp:Strings.Continue}" />
-					</StackPanel>
-				</Panel>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="12" MaxWidth="360" VerticalAlignment="Center" Spacing="10">
+                        <PathIcon Width="88" Height="88" HorizontalAlignment="Center" Data="{StaticResource Steam}" />
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            Command="{Binding ContinueCommand}"
+                            Content="{x:Static spp:Strings.Continue}" />
+                    </StackPanel>
+                </ScrollViewer>
 
-				<!--  完成  -->
-				<Panel>
-					<spp:Snackbar
-							Title="{x:Static spp:Strings.Notice_Tray_Title}"
-							VerticalAlignment="Top"
-							IsClosable="False"
-							IsOpen="True"
-							Message="{x:Static spp:Strings.RecoveryCode_RememberTip}"
-							Severity="Success" />
-					<StackPanel VerticalAlignment="Center" Spacing="10">
-						<DockPanel IsVisible="{Binding RevocationCodeText, Mode=OneWay, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
-							<TextBlock
-									Margin="0,0,0,6"
-									DockPanel.Dock="Top"
-									Text="{x:Static spp:Strings.RecoveryCode}" />
-							<TextBox
-									MaxWidth="300"
-									IsReadOnly="True"
-									Text="{Binding RevocationCodeText, Mode=OneWay}" />
-						</DockPanel>
-						<Button
-								MinWidth="280"
-								HorizontalAlignment="Center"
-								Command="{Binding Reset}"
-								Content="{x:Static spp:Strings.Confirm}" />
-					</StackPanel>
-				</Panel>
-			</Carousel>
-		</spp:ContentLoader>
-	</Grid>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="12" MaxWidth="440" Spacing="10">
+                        <spp:Snackbar
+                            Title="{x:Static spp:Strings.Notice_Tray_Title}"
+                            IsClosable="False"
+                            IsVisible="{Binding IsVerifyAccountPhone}"
+                            IsOpen="True"
+                            Message="{x:Static spp:Strings.LocalAuth_SMSCodeTip}"
+                            Severity="Warning" />
+                        <spp:Snackbar
+                            Title="{x:Static spp:Strings.Notice_Tray_Title}"
+                            IsClosable="False"
+                            IsVisible="{Binding !IsVerifyAccountPhone}"
+                            IsOpen="True"
+                            Message="{x:Static spp:Strings.LocalAuth_EmailCodeTip}"
+                            Severity="Warning" />
+                        <StackPanel Spacing="6" IsVisible="{Binding RevocationCodeText, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                            <TextBlock Text="{x:Static spp:Strings.RecoveryCode}" TextWrapping="Wrap" />
+                            <TextBox IsReadOnly="True" Text="{Binding RevocationCodeText, Mode=OneWay}" />
+                        </StackPanel>
+                        <TextBlock IsVisible="{Binding IsVerifyAccountPhone}" Text="{x:Static spp:Strings.SMSCode}" />
+                        <TextBlock IsVisible="{Binding !IsVerifyAccountPhone}" Text="{x:Static spp:Strings.EmailCode}" />
+                        <TextBox Name="PhoneCodeText" Text="{Binding PhoneCodeText}" />
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            Command="{Binding ContinueCommand}"
+                            Content="{x:Static spp:Strings.Continue}" />
+                    </StackPanel>
+                </ScrollViewer>
+
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="12" MaxWidth="440" Spacing="10">
+                        <spp:Snackbar
+                            Title="{x:Static spp:Strings.Notice_Tray_Title}"
+                            IsClosable="False"
+                            IsOpen="True"
+                            Message="{x:Static spp:Strings.RecoveryCode_RememberTip}"
+                            Severity="Success" />
+                        <StackPanel Spacing="6" IsVisible="{Binding RevocationCodeText, Converter={StaticResource IsNullConverter}, ConverterParameter=invert}">
+                            <TextBlock Text="{x:Static spp:Strings.RecoveryCode}" TextWrapping="Wrap" />
+                            <TextBox IsReadOnly="True" Text="{Binding RevocationCodeText, Mode=OneWay}" />
+                        </StackPanel>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            Command="{Binding ResetCommand}"
+                            Content="{x:Static spp:Strings.Confirm}" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Carousel>
+        </spp:ContentLoader>
+    </Grid>
 </UserControl>

@@ -15,7 +15,7 @@ public sealed partial class AcceleratorPageViewModel
 
     public AcceleratorPageViewModel()
     {
-        ProxyService.Current.WhenValueChanged(x => x.ProxyStatus)
+        ProxyService.Current.ObserveValue(nameof(ProxyService.ProxyStatus), static x => x.ProxyStatus)
             .Where(x => x == true)
             .Subscribe(_ =>
             {

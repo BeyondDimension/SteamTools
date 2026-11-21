@@ -1,19 +1,19 @@
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 
 namespace BD.WTTS.UI.Views.Pages;
 
 public partial class MainFramePage : UserControl
 {
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(ArchiSteamFarmPage))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(BotPage))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, typeof(ASFSettingsPage))]
     public MainFramePage()
     {
         InitializeComponent();
-        InnerNavFrame.NavigationFailed += (_, args) => Log.Error(nameof(MainFramePage), args.Exception,
-            "Could not navigate to nested page {page}.", args.SourcePageType?.FullName);
+        InnerNavFrame.NavigationFailed += (_, args) =>
+        {
+            Log.Error(nameof(MainFramePage), args.Exception,
+                "Could not navigate to nested page {page}.", args.SourcePageType?.FullName);
+            Toast.Show(ToastIcon.Error, BDStrings.Error_PageFault);
+        };
 
         Tabs.SelectionChanged += Tabs_SelectionChanged;
     }
@@ -24,18 +24,27 @@ public partial class MainFramePage : UserControl
 
         if (Tabs.SelectedIndex < 0 && Tabs.ItemCount > 0)
             Tabs.SelectedIndex = 0;
-
-        Tabs_SelectionChanged(null, null);
+        else
+            ShowSelectedPage();
     }
 
-    private void Tabs_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs? e)
+    private void Tabs_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (Tabs.SelectedItem is TabStripItem tab && tab.Tag is Type t)
-        {
-            if (InnerNavFrame.CurrentSourcePageType == t)
-                return;
+        if (IsLoaded && e.Source == Tabs)
+            ShowSelectedPage();
+    }
 
-            InnerNavFrame.Navigate(t, null, FrameEffect.NoTransition);
-        }
+    private void ShowSelectedPage()
+    {
+        var pageType = Tabs.SelectedItem switch
+        {
+            var item when ReferenceEquals(item, ArchiSteamFarmTab) => typeof(ArchiSteamFarmPage),
+            var item when ReferenceEquals(item, BotTab) => typeof(BotPage),
+            var item when ReferenceEquals(item, SettingsTab) => typeof(ASFSettingsPage),
+            _ => null,
+        };
+
+        if (pageType is not null && InnerNavFrame.CurrentSourcePageType != pageType)
+            InnerNavFrame.Navigate(pageType, null, FrameEffect.NoTransition);
     }
 }

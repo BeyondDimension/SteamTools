@@ -11,7 +11,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
     public SettingsPageViewModel()
     {
         SelectLanguage = ResourceService.GetSelectLanguage();
-        this.WhenValueChanged(x => x.SelectLanguage, false)
+        this.ObserveValue(nameof(SelectLanguage), static x => x.SelectLanguage).Skip(1)
               .Subscribe(x =>
               {
                   if (string.Equals(UISettings.Language.Value, x.Key, StringComparison.OrdinalIgnoreCase))
@@ -36,7 +36,7 @@ public sealed partial class SettingsPageViewModel : TabItemViewModel
         if (IApplication.IsDesktop())
         {
             SelectFont = ResourceService.GetSelectFont();
-            this.WhenValueChanged(x => x.SelectFont, false)
+            this.ObserveValue(nameof(SelectFont), static x => x.SelectFont).Skip(1)
                   .Subscribe(x => UISettings.FontName.Value = x.Value);
 
             SelectImage_Click = ReactiveCommand.CreateFromTask(async () =>

@@ -2,7 +2,6 @@ using Avalonia.Controls;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media.Animation;
 using FluentAvalonia.UI.Navigation;
-using System.Xml.Linq;
 
 namespace BD.WTTS.Services.Implementation;
 
@@ -16,25 +15,18 @@ public sealed class NavigationService : INavigationService
 
     public object? GetViewModelToPageContent(object viewModel, bool isCreateInstance = true)
     {
-        string name;
+        var pageType = ResolvePageType(viewModel as Type ?? viewModel.GetType());
+        return isCreateInstance && pageType is not null ? Activator.CreateInstance(pageType) : pageType;
+    }
 
-        if (viewModel is Type t)
-        {
-            name = t.Name;
-        }
-        else
-        {
-            name = viewModel.GetType().Name;
-        }
-
-        return name switch
-        {
-            nameof(DebugPageViewModel) => isCreateInstance ? new DebugPage() : typeof(DebugPage),
-            nameof(TextBoxWindowViewModel) => isCreateInstance ? new TextInputDialogPage() : typeof(TextInputDialogPage),
-            nameof(MessageBoxWindowViewModel) => isCreateInstance ? new MessageBoxPage() : typeof(MessageBoxPage),
-            nameof(LoginOrRegisterWindowViewModel) => isCreateInstance ? new LoginOrRegisterPage() : typeof(LoginOrRegisterPage),
-            _ => null,
-        };
+    [return: DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
+    private static Type? ResolvePageType(Type viewModelType)
+    {
+        if (viewModelType == typeof(DebugPageViewModel)) return typeof(DebugPage);
+        if (viewModelType == typeof(TextBoxWindowViewModel)) return typeof(TextInputDialogPage);
+        if (viewModelType == typeof(MessageBoxWindowViewModel)) return typeof(MessageBoxPage);
+        if (viewModelType == typeof(LoginOrRegisterWindowViewModel)) return typeof(LoginOrRegisterPage);
+        return null;
     }
 
     public void SetFrame(Frame f)
@@ -86,7 +78,7 @@ public sealed class NavigationService : INavigationService
     {
         if (_frame == null)
         {
-            pendingNavigation = (t, effect, useCache);
+            pendingNavigation = new PendingNavigation(t, effect, useCache);
             return;
         }
 
@@ -96,18 +88,8 @@ public sealed class NavigationService : INavigationService
             TransitionInfoOverride = GetNavigationTransitionInfo(effect)
         };
 
-        if (t == null)
-        {
-            navOptions.IsNavigationStackEnabled = false;
-            _frame.NavigateToType(typeof(ErrorPage), null, navOptions);
-            return;
-        }
-
-        if (t.IsSubclassOf(typeof(ViewModelBase)))
-        {
-            var pageType = GetViewModelToPageContent(t, false);
-            t = pageType as Type;
-        }
+        if (t?.IsSubclassOf(typeof(ViewModelBase)) == true)
+            t = ResolvePageType(t);
 
         if (t == null)
         {
@@ -119,10 +101,6 @@ public sealed class NavigationService : INavigationService
         if (_frame.Content?.GetType() != t)
         {
             _frame.NavigateToType(t, null, navOptions);
-            //if (!useCache && navOptions.IsNavigationStackEnabled)
-            //{
-            //    _frame.BackStack.Remove(_frame.BackStack.Last());
-            //}
         }
     }
 
@@ -135,10 +113,7 @@ public sealed class NavigationService : INavigationService
         }
 
         if (t.IsSubclassOf(typeof(ViewModelBase)))
-        {
-            var pageType = GetViewModelToPageContent(t, false);
-            t = pageType as Type;
-        }
+            t = ResolvePageType(t);
 
         if (t == null)
         {
@@ -208,7 +183,13 @@ public sealed class NavigationService : INavigationService
 
     private Frame? _frame;
     private Panel? _overlayHost;
-    private (Type? Page, NavigationTransitionEffect Effect, bool UseCache)? pendingNavigation;
+    private PendingNavigation? pendingNavigation;
+
+    private readonly record struct PendingNavigation(
+        [param: DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
+        [property: DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type? Page,
+        NavigationTransitionEffect Effect,
+        bool UseCache);
 }
 
 

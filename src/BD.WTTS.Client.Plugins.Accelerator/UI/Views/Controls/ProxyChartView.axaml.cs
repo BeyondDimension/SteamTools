@@ -23,7 +23,7 @@ public partial class ProxyChartView : UserControl
     {
         base.OnAttachedToVisualTree(e);
         attached = true;
-        statusSubscription = ProxyService.Current.WhenAnyValue(x => x.ProxyStatus)
+        statusSubscription = ProxyService.Current.ObserveValue(nameof(ProxyService.ProxyStatus), static x => x.ProxyStatus)
             .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(UpdateProxyStatus);
     }
