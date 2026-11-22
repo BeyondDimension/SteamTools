@@ -131,6 +131,24 @@ public static class KestrelServerOptionsExtensions
             IReverseProxyService.Constants.Instance.ProxyIp, httpsPort);
     }
 
+    /// <summary>
+    /// 监听 CRL（证书吊销列表）服务，供 Schannel 等客户端完成本地 MITM 证书的吊销检查
+    /// </summary>
+    /// <param name="options"></param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void ListenCrlReverseProxy(this KestrelServerOptions options)
+    {
+        var crlPort = IReverseProxyConfig.CrlPort;
+        options.Listen(IPAddress.Loopback, crlPort, listen =>
+        {
+            listen.Protocols = HttpProtocols.Http1;
+        });
+
+        var logger = options.GetLogger();
+        logger.LogInformation(
+            "Listened http://127.0.0.1:{crlPort}, CRL service startup completed.", crlPort);
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static ILogger GetLogger(this KestrelServerOptions kestrel)
     {

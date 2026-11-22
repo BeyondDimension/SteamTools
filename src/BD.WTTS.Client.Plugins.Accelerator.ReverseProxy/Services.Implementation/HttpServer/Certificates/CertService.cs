@@ -14,6 +14,7 @@ sealed class CertService
     readonly ILogger<CertService> logger;
     readonly IReverseProxyConfig reverseProxyConfig;
     private X509Certificate2? caCert;
+    readonly Lazy<byte[]?> crlBytes;
 
     ReverseProxyServiceImpl ReverseProxyService => reverseProxyConfig.Service;
 
@@ -35,6 +36,29 @@ sealed class CertService
         this.serverCertCache = serverCertCache;
         this.logger = logger;
         this.reverseProxyConfig = reverseProxyConfig;
+
+        // 惰性初始化空 CRL（线程安全），避免对外暴露锁字段
+        crlBytes = new Lazy<byte[]?>(
+            () =>
+            {
+                try
+                {
+                    caCert ??= new X509Certificate2(fileName: CaPfxFilePath, password: default(string));
+
+                    return new CertificateRevocationListBuilder().Build(
+                        caCert,
+                        System.Numerics.BigInteger.One,
+                        DateTimeOffset.Now.AddDays(30),
+                        HashAlgorithmName.SHA256,
+                        RSASignaturePadding.Pkcs1);
+                }
+                catch (Exception e)
+                {
+                    logger.LogError(e, "CreateEmptyCrl Error");
+                    return null;
+                }
+            },
+            LazyThreadSafetyMode.ExecutionAndPublication);
     }
 
     /// <summary>
@@ -63,6 +87,11 @@ sealed class CertService
     }
 
     /// <summary>
+    /// 获取由根 CA 签名的空 CRL 字节，供本地 HTTP 服务对外提供，以完成 Schannel 的吊销检查
+    /// </summary>
+    public byte[]? CrlBytes => crlBytes.Value;
+
+    /// <summary>
     /// 获取颁发给指定域名的证书
     /// </summary>
     /// <param name="domain"></param> 
@@ -83,7 +112,10 @@ sealed class CertService
             entry.SetAbsoluteExpiration(notAfter);
 
             var subjectName = new X500DistinguishedName($"CN={domain}");
-            using var serverCert = CertGenerator.CreateEndCertificate(caCert, subjectName, GetDomains());
+            // 本地 CRL 服务的 HTTP 地址（写入 MITM 叶子证书的 CRL 分发点）
+            using var serverCert = CertGenerator.CreateEndCertificate(
+                caCert, subjectName, GetDomains(),
+                crlDistributionPointUrl: CrlBytes == null ? null : $"http://{IPAddress.Loopback}:{IReverseProxyConfig.CrlPort}/crl");
             var serverCertPfx = serverCert.Export(X509ContentType.Pfx);
             // 将生成的证书导出后重新创建一个
             return new X509Certificate2(serverCertPfx);
