@@ -3,6 +3,7 @@ using System.Text;
 using BD.SteamClient.Models;
 using BD.SteamClient.Services.Implementation;
 using BD.SteamClient.Services.Mvvm;
+using BD.WTTS.Services.Implementation;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace BD.WTTS.UnitTest;
@@ -162,7 +163,16 @@ public sealed class SteamServicePathTest
         else if (version != 1)
             CreateSteam(first, "first-account", appId, 2, version);
         var service = new TestSteamService { ConfiguredPath = Path.Combine(first, "steam.exe") };
-        var edits = new Dictionary<uint, SteamAppEdit> { [appId] = new() { Name = "编辑后的名字", Developer = "A studio" } };
+        var edits = new Dictionary<uint, SteamAppEdit>
+        {
+            [appId] = new()
+            {
+                Name = "编辑后的名字",
+                SortAs = string.Empty,
+                Developer = "A studio",
+                LaunchItems = [new SteamLaunchEdit(string.Empty, "fixture", string.Empty, null, "osx")],
+            },
+        };
 
         Assert.That(TestSteamService.Rewrite(first, edits, () => false), Is.False);
         Assert.That((await service.GetAppInfos()).Single(x => x.AppId == appId).Name, Is.EqualTo(original));
@@ -172,12 +182,23 @@ public sealed class SteamServicePathTest
         Assert.That(changed.Developer, Is.EqualTo("A studio"));
         Assert.That(changed.GetOriginalEditValues().Name, Is.EqualTo(original));
 
+        Assert.That(TestSteamService.Rewrite(first, edits, () => true), Is.False, "A repeated apply does not replace the cache.");
+        var persisted = await service.GetAppInfos(isSaveProperties: true);
+        Assert.That(SteamServiceImpl2.AreAppEditsAlreadyApplied(edits, persisted), Is.True);
+        Assert.That(SteamServiceImpl2.AreAppEditsAlreadyApplied(new Dictionary<uint, SteamAppEdit>
+        {
+            [appId] = new() { Name = "A different edit" },
+        }, persisted), Is.False);
+        Assert.That(SteamServiceImpl2.AreAppEditsAlreadyApplied(edits, persisted.Where(x => x.AppId != appId)), Is.False);
+
         edits[appId] = new();
+        Assert.That(SteamServiceImpl2.AreAppEditsAlreadyApplied(edits, persisted), Is.False);
         Assert.That(TestSteamService.Rewrite(first, edits, () => true), Is.True);
         var restored = (await service.GetAppInfos()).Single(x => x.AppId == appId);
         Assert.That(restored.Name, Is.EqualTo(original));
         Assert.That(restored.Developer, Is.Empty);
         Assert.That(restored.IsEdited, Is.False);
+        Assert.That(SteamServiceImpl2.AreAppEditsAlreadyApplied(edits, await service.GetAppInfos(isSaveProperties: true)), Is.True);
         Assert.That(File.ReadAllBytes(unrelated), Is.EqualTo(untouched));
     }
 

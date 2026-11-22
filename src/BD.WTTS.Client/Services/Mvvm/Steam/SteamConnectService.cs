@@ -372,7 +372,7 @@ public sealed partial class SteamConnectService
             IsConnectToSteam = false;
             CurrentSteamUser = null;
             IsSteamChinaLauncher = false;
-            if (InvalidateGameList(clear: processId != 0) && processId == 0)
+            if (InvalidateGameList())
                 _ = RefreshGamesListAsync(showToast: false);
         }
 
@@ -435,8 +435,8 @@ public sealed partial class SteamConnectService
         return false;
     }
 
-    // Steam 退出后重新读取本地缓存，启动新进程时清除旧账号的游戏。
-    bool InvalidateGameList(bool clear)
+    // A Steam process change invalidates the old load, even before a new account is available.
+    bool InvalidateGameList()
     {
         lock (gameListSync)
         {
@@ -444,7 +444,6 @@ public sealed partial class SteamConnectService
             gameListProcessId = -1;
             gameListSteamId = -1;
             gameListCancellation?.Cancel();
-            if (clear) SteamApps.Clear();
             return true;
         }
     }
@@ -662,12 +661,12 @@ public sealed partial class SteamConnectService
                 if (!ReferenceEquals(gameListCancellation, cancellation)) throw new OperationCanceledException(token);
                 gameListProcessId = processId;
                 gameListSteamId = steamId;
-                SteamApps.Clear();
             }
 
             var modifications = stmService.GetAppInfoEdits();
             // Steam can start before it has an account session. Use the local cache in that case.
             var hasLiveSession = steamId != 0;
+            var replaceOldGames = true;
 
             long nextSessionCheck = 0;
 
@@ -698,7 +697,21 @@ public sealed partial class SteamConnectService
                     token.ThrowIfCancellationRequested();
                     if (!ReferenceEquals(gameListCancellation, cancellation))
                         throw new OperationCanceledException(token);
-                    SteamApps.AddOrUpdate((IReadOnlyList<SteamApp>?)owned ?? batch);
+                    var games = (IReadOnlyList<SteamApp>?)owned ?? batch;
+                    if (games.Count == 0) return;
+                    if (replaceOldGames)
+                    {
+                        SteamApps.Edit(updater =>
+                        {
+                            updater.Clear();
+                            updater.AddOrUpdate(games);
+                        });
+                        replaceOldGames = false;
+                    }
+                    else
+                    {
+                        SteamApps.AddOrUpdate(games);
+                    }
                 }
             }, token).ConfigureAwait(false);
 
@@ -707,6 +720,7 @@ public sealed partial class SteamConnectService
             {
                 token.ThrowIfCancellationRequested();
                 if (!ReferenceEquals(gameListCancellation, cancellation)) throw new OperationCanceledException(token);
+                if (replaceOldGames && (processId == 0 || hasLiveSession)) SteamApps.Clear();
                 InitializeDownloadGameList();
             }
         }

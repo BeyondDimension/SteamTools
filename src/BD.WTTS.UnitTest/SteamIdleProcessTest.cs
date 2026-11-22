@@ -5,6 +5,7 @@ using Moq;
 using ReactiveUI.Builder;
 using System.Diagnostics;
 using System.Reactive.Concurrency;
+using System.Runtime.InteropServices;
 
 namespace BD.WTTS.UnitTest;
 
@@ -121,6 +122,13 @@ public sealed class SteamIdleProcessTest
     [TestCase("-cloudmanager")]
     public void GuiGameModesRemainOnNormalApplicationPath(string mode)
         => Assert.That(Startup.TryRunHeadlessIdle(["-clt", "app", mode, "-id", "480"], out _), Is.False);
+
+    [TestCase(Architecture.Arm64, true, true)]
+    [TestCase(Architecture.Arm64, false, false)]
+    [TestCase(Architecture.X64, true, true)]
+    [TestCase(Architecture.X64, false, true)]
+    public void NativeIdleWorkerSupportsAppleSilicon(Architecture architecture, bool isMacOS, bool expected)
+        => Assert.That(HeadlessSteamIdleWorker.SupportsProcessArchitecture(architecture, isMacOS), Is.EqualTo(expected));
 
     [Test]
     public async Task ExistingPerAppWorkerIsRejectedBeforeNativeInitialization()

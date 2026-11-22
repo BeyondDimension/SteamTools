@@ -93,6 +93,11 @@ public partial class AuthenticatorItem : UserControl
     {
         if (DataContext is AuthenticatorItemModel authenticatorItemModel)
         {
+            // A navigation render transform can finish before layout reports a new effective viewport.
+            inViewport = this.GetTransformedBounds() is { } bounds &&
+                bounds.Clip.Width > 0 && bounds.Clip.Height > 0 &&
+                bounds.Bounds.TransformToAABB(bounds.Transform).Intersects(bounds.Clip);
+            UpdateCodeVisibility();
             authenticatorItemModel.Tapped();
             e.Handled = true;
         }

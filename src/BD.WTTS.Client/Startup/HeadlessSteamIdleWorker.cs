@@ -48,8 +48,8 @@ internal static class HeadlessSteamIdleWorker
 
     static int RunSession(int appId)
     {
-        if (RuntimeInformation.ProcessArchitecture is not (Architecture.X86 or Architecture.X64))
-            throw new PlatformNotSupportedException("The Steam local API requires an x86 or x64 process.");
+        if (!SupportsProcessArchitecture(RuntimeInformation.ProcessArchitecture, OperatingSystem.IsMacOS()))
+            throw new PlatformNotSupportedException("The Steam local API supports x86 and x64, and arm64 on macOS.");
 
         var libraryDirectory = BD.SteamClient.Services.Implementation.SteamServiceImpl.ResolveSteamDynamicLinkLibraryPath(
             ReadConfiguredSteamProgramPath());
@@ -136,6 +136,9 @@ internal static class HeadlessSteamIdleWorker
         }
         return 0;
     }
+
+    internal static bool SupportsProcessArchitecture(Architecture architecture, bool isMacOS)
+        => architecture is Architecture.X86 or Architecture.X64 || (isMacOS && architecture == Architecture.Arm64);
 
     static string? ReadConfiguredSteamProgramPath()
     {

@@ -15,6 +15,47 @@ public sealed class SteamGameLibraryLoadingTest
     public void InitializeReactiveUI() => RxAppBuilder.CreateReactiveUIBuilder()
         .WithMainThreadScheduler(ImmediateScheduler.Instance).BuildApp();
 
+    [TestCase(false)]
+    [TestCase(true)]
+    public async Task StartingSteamWithoutAnAccountKeepsAndRefreshesCachedGames(bool emptyCache)
+    {
+        var steam = new Mock<ISteamService>();
+        var local = new Mock<ISteamworksLocalApiService>();
+        var web = new Mock<ISteamworksWebApiService>();
+        var refreshStarted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var newBatch = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var processId = 0;
+        steam.Setup(x => x.GetSteamProcessPid()).Returns(() => Volatile.Read(ref processId));
+        steam.Setup(x => x.GetAppInfoEdits()).Returns(new Dictionary<uint, SteamAppEdit>());
+        steam.Setup(x => x.GetDownloadingAppList()).Returns([]);
+        steam.Setup(x => x.ReadAppInfosInBatchesAsync(It.IsAny<Action<IReadOnlyList<SteamApp>>>(), It.IsAny<CancellationToken>()))
+            .Returns<Action<IReadOnlyList<SteamApp>>, CancellationToken>(async (publish, token) =>
+            {
+                if (Volatile.Read(ref processId) == 0)
+                {
+                    publish([new SteamApp(10) { Name = "Cached game" }]);
+                    return;
+                }
+
+                refreshStarted.TrySetResult();
+                await newBatch.Task.WaitAsync(token);
+                if (!emptyCache)
+                    publish([new SteamApp(20) { Name = "Refreshed cached game" }]);
+            });
+        local.Setup(x => x.Initialize()).Returns(false);
+        using var service = new SteamConnectService(steam.Object, local.Object, web.Object);
+        await service.RefreshGamesListAsync(showToast: false);
+
+        var observedProcessId = 0;
+        Volatile.Write(ref processId, 100);
+        Assert.That(service.TryInitializeSteamConnection(ref observedProcessId, out _), Is.False);
+        Assert.That(service.SteamApps.Items.Select(app => app.AppId), Is.EqualTo(new uint[] { 10 }));
+        await refreshStarted.Task.WaitAsync(TimeSpan.FromSeconds(10));
+        newBatch.SetResult();
+        Assert.That(() => service.IsLoadingGameList, Is.False.After(2000, 20));
+        Assert.That(service.SteamApps.Items.Select(app => app.AppId), Is.EqualTo(new uint[] { emptyCache ? 10u : 20u }));
+    }
+
     [Test]
     public async Task SwitchingAccountCancelsOldLoadAndShowsNewBatches()
     {
