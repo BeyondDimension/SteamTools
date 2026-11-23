@@ -579,8 +579,9 @@ public sealed partial class SteamConnectService
         {
             await gameListGate.WaitAsync(cancellation.Token).ConfigureAwait(false);
             acquired = true;
-            await LoadGameListAsync(cancellation).ConfigureAwait(false);
-            if (showToast) Toast.Show(ToastIcon.Success, AppResources.GameList_RefreshGamesListSucess);
+            var refreshed = await LoadGameListAsync(cancellation).ConfigureAwait(false);
+            if (showToast && refreshed && !cancellation.IsCancellationRequested)
+                Toast.Show(ToastIcon.Success, AppResources.GameList_RefreshGamesListSucess);
         }
         catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
         {
@@ -625,7 +626,7 @@ public sealed partial class SteamConnectService
         }
     }
 
-    async Task LoadGameListAsync(CancellationTokenSource cancellation)
+    async Task<bool> LoadGameListAsync(CancellationTokenSource cancellation)
     {
         var token = cancellation.Token;
         var processId = stmService.GetSteamProcessPid();
@@ -720,8 +721,11 @@ public sealed partial class SteamConnectService
             {
                 token.ThrowIfCancellationRequested();
                 if (!ReferenceEquals(gameListCancellation, cancellation)) throw new OperationCanceledException(token);
-                if (replaceOldGames && (processId == 0 || hasLiveSession)) SteamApps.Clear();
+                // An empty disk-cache read does not establish that the game library is empty.
+                // Only a live Steam session can replace the current list with zero owned games.
+                if (replaceOldGames && hasLiveSession) SteamApps.Clear();
                 InitializeDownloadGameList();
+                return !replaceOldGames || hasLiveSession;
             }
         }
         finally

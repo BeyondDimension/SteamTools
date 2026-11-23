@@ -1,17 +1,23 @@
 #!/bin/bash
-run_path=$(dirname "$0")
+run_path=$(cd -- "$(dirname -- "$0")" && pwd) || exit 1
+link_exec="$run_path/Steam++"
+
+# Native AOT already ships the application executable. Do not replace it
+# with the link used by the managed package.
+if [ -e "$link_exec" ] && [ ! -L "$link_exec" ]; then
+    exec "$link_exec" "$@"
+fi
+
+assembly="$run_path/assemblies/Steam++.dll"
 dotnet_path="$run_path/dotnet"
 dotnet_exec="$dotnet_path/dotnet"
-export DOTNET_ROOT="$dotnet_path"
-link_exec="$run_path/Steam++"
-# 判断符号链接是否存在
-if [ -L "$link_exec" ]; then
-    echo "符号链接 $link_exec 已存在"
-else
-    rm -rf "$link_exec"  2>/dev/null
-    echo "创建符号链接 $dotnet_exec 到 $link_exec"
-    ln -s "$dotnet_exec" "$link_exec"
-    chmod +x "$link_exec"
+if [ ! -f "$assembly" ] || [ ! -x "$dotnet_exec" ]; then
+    printf 'Watt Toolkit: the application executable or bundled runtime is missing.\n' >&2
+    exit 1
 fi
-"$link_exec" "$run_path/assemblies/Steam++.dll" "$@"
-exit
+
+export DOTNET_ROOT="$dotnet_path"
+if [ ! -L "$link_exec" ]; then
+    ln -s -- "$dotnet_exec" "$link_exec" || exit 1
+fi
+exec "$link_exec" "$assembly" "$@"

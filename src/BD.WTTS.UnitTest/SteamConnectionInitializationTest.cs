@@ -20,7 +20,9 @@ public sealed class SteamConnectionInitializationTest
     [TestCase("access")]
     [TestCase("exited")]
     [TestCase("unavailable")]
+#if WINDOWS
     [TestCase("legacy-wmi")]
+#endif
     public void OptionalLauncherFailureCompletesConnectionOnlyOnce(string failure)
     {
         var steam = CreateSteam();
@@ -30,7 +32,9 @@ public sealed class SteamConnectionInitializationTest
         {
             "access" => new Win32Exception(5),
             "exited" => new InvalidOperationException("Owned process exited."),
+#if WINDOWS
             "legacy-wmi" => new System.Management.ManagementException("Invalid class"),
+#endif
             _ => new EntryPointNotFoundException("Optional process metadata is unavailable."),
         };
         steam.Setup(x => x.IsSteamChinaLauncher()).Throws(error);

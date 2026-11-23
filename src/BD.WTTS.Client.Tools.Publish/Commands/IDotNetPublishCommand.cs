@@ -198,12 +198,9 @@ interface IDotNetPublishCommand : ICommand
                     Console.WriteLine(ToolStrings.Get("LinuxIcon"));
                     var ico_path = Path.Combine(ProjectUtils.ProjPath, "res", "icons", "app", "v3", "Logo_512.png");
                     var save_dir_path = Path.Combine(rootPublishDir, "Icons");
-                    if (File.Exists(ico_path))
-                    {
-                        IOPath.DirCreateByNotExists(save_dir_path);
-                        // 不能使用下划线
-                        File.Copy(ico_path, Path.Combine(save_dir_path, "Watt-Toolkit.png"), true);
-                    }
+                    IOPath.DirCreateByNotExists(save_dir_path);
+                    // 不能使用下划线
+                    File.Copy(ico_path, Path.Combine(save_dir_path, "Watt-Toolkit.png"), true);
                     Console.WriteLine(ToolStrings.Get("LinuxScripts"));
                     var legacyScripts = Path.Combine(rootPublishDir, "..", "ShellScript", "Linux");
                     var localizedScripts = Path.Combine(ProjectUtils.ProjPath, "build", "linux");
@@ -214,7 +211,8 @@ interface IDotNetPublishCommand : ICommand
                     if (OperatingSystem.IsLinux())
                     {
                         const UnixFileMode executable = UnixFileMode.UserExecute | UnixFileMode.GroupExecute | UnixFileMode.OtherExecute;
-                        foreach (var script in Directory.EnumerateFiles(destinationScripts, "*.sh"))
+                        foreach (var script in Directory.EnumerateFiles(destinationScripts)
+                            .Where(static path => Path.GetExtension(path) is ".sh" or ".desktop"))
                             File.SetUnixFileMode(script, File.GetUnixFileMode(script) | executable);
                     }
                     File.Move(Path.Combine(destinationScripts, "Steam++.sh"), Path.Combine(rootPublishDir, "Steam++.sh"));
