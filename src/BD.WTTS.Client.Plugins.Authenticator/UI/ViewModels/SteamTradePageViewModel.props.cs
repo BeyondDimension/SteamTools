@@ -34,6 +34,18 @@ public sealed partial class SteamTradePageViewModel
     public bool IsLoading { get; set; }
 
     [Reactive]
+    public string? ConfirmationLoadError { get; private set; }
+
+    [Reactive]
+    public bool HasLoadedConfirmations { get; private set; }
+
+    [Reactive]
+    public bool IsOperatingConfirmations { get; private set; }
+
+    public bool CanChangeConfirmations => IsLogged && HasLoadedConfirmations &&
+        ConfirmationLoadError is null && !IsLoading && !IsOperatingConfirmations;
+
+    [Reactive]
     public bool? SelectedAll { get; set; } = false;
 
     public ICommand ConfirmTradeCommand { get; }

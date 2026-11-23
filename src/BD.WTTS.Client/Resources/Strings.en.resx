@@ -764,7 +764,7 @@ An error occurred while retrieving achievement statistics, either because the ga
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
-    <value>The login status has expired Please try to log in again.</value>
+    <value>Your Steam session has expired. Sign in again.</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
@@ -2958,7 +2958,7 @@ Once the transaction is confirmed, it cannot be revoked, please choose carefully
     <comment>Author=kotovasia5120</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
-    <value>There are currently no transactions</value>
+    <value>No pending confirmations</value>
     <comment>Comment=;Author=沙中金</comment>
   </data>
   <data name="Steam_Share_RemoveShare" xml:space="preserve">
@@ -6189,7 +6189,7 @@ Click OK to open Windows Services. Set this service to Manual and start it, then
     <value>Simulate app sign-in</value>
   </data>
   <data name="SteamTradeMobileLoginHint" xml:space="preserve">
-    <value>Both modes support trade confirmations. Signing in by scanning a QR code on the screen requires a saved app session.</value>
+    <value>Both modes work for confirmations and card idling. Signing in by scanning an on-screen QR code requires a saved app session.</value>
   </data>
   <data name="SteamTradeMobileLoginWarning" xml:space="preserve">
     <value>Simulating app sign-in with an authenticator imported using Steam App coexistence may sign out the original device.</value>
@@ -6207,7 +6207,10 @@ Click OK to open Windows Services. Set this service to Manual and start it, then
     <value>Signed in to Steam, but the session could not be saved. Save it successfully before using QR scanning.</value>
   </data>
   <data name="L10nAuthIdle_Text103" xml:space="preserve">
-    <value>Signed in to Steam, but trade confirmations could not be read. Check your network and refresh instead of repeatedly signing in.</value>
+    <value>Could not load pending confirmations. Check your connection and refresh.</value>
+  </data>
+  <data name="SteamTradeDetailLoadError" xml:space="preserve">
+    <value>Could not load item images.</value>
   </data>
   <data name="L10nAuthIdle_Text104" xml:space="preserve">
     <value>Private game (no card drops) + blacklisted</value>

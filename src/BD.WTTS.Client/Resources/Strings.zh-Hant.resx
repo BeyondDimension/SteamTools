@@ -874,8 +874,14 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
-    <value>目前沒有任何交易</value>
+    <value>目前沒有待確認的項目</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
+  </data>
+  <data name="L10nAuthIdle_Text103" xml:space="preserve">
+    <value>無法讀取待確認的項目。請檢查網路連線後重新整理。</value>
+  </data>
+  <data name="SteamTradeDetailLoadError" xml:space="preserve">
+    <value>無法載入物品圖片。</value>
   </data>
   <data name="LocalAuth_AuthTrade_TradeError" xml:space="preserve">
     <value>無效的交易</value>
@@ -2297,7 +2303,7 @@
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
-    <value>登入狀態已失效請嘗試重新登入。</value>
+    <value>Steam 工作階段已失效，請重新登入。</value>
     <comment>Comment=;Author=MicrosoftTranslator</comment>
   </data>
   <data name="LocalAuth_SteamUserImportSuccess" xml:space="preserve">
