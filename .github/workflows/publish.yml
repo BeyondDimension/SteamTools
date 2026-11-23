@@ -111,7 +111,7 @@ jobs:
           $assetsDir = New-Item -ItemType Directory -Path ../release-assets -Force
           $rid = $env:PUBLISH_RID.Replace('-', '_')
           $extensions = switch ($env:RUNNER_OS) {
-            'Linux' { '.tar.gz' }
+            'Linux' { '.tgz' }
             'macOS' { '.dmg' }
             default { '.7z' }
           }
@@ -132,8 +132,7 @@ jobs:
               }
 
               $version = [regex]::Match($packages[0].Name, $pattern).Groups['version'].Value
-              $assetExtension = if ($extension -eq '.tar.gz') { '.tgz' } else { $extension }
-              $assetName = "Steam++_v${version}_${rid}${suffix}${assetExtension}"
+              $assetName = "Steam++_v${version}_${rid}${suffix}${extension}"
               Copy-Item -LiteralPath $packages[0].FullName -Destination (Join-Path $assetsDir.FullName $assetName)
             }
           }
