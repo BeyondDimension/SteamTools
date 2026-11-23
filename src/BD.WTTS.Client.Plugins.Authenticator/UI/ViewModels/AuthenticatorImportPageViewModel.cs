@@ -9,7 +9,7 @@ namespace BD.WTTS.UI.ViewModels;
 
 public record AuthenticatorImportMethod(string Name, string Description, ICommand Command);
 
-public class AuthenticatorImportPageViewModel : ViewModelBase
+public partial class AuthenticatorImportPageViewModel : ViewModelBase
 {
     public static string Name => Strings.AuthImport;
 
@@ -18,10 +18,10 @@ public class AuthenticatorImportPageViewModel : ViewModelBase
     public ICommand BackCommand { get; }
 
     [Reactive]
-    public Control? ImportContent { get; private set; }
+    public partial Control? ImportContent { get; private set; }
 
     [Reactive]
-    public string? ImportTitle { get; private set; }
+    public partial string? ImportTitle { get; private set; }
 
     public bool IsSelecting => ImportContent is null;
 

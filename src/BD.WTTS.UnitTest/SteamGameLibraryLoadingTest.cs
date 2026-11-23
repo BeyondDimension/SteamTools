@@ -4,7 +4,7 @@ using BD.SteamClient.Services;
 using BD.WTTS.Services;
 using DynamicData;
 using Moq;
-using ReactiveUI.Builder;
+using ReactiveUI.Reactive.Builder;
 using System.Reactive.Concurrency;
 
 namespace BD.WTTS.UnitTest;

@@ -2,7 +2,7 @@ using System.Xml.Linq;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class CloudArchiveAppPageViewModel : WindowViewModel
+public sealed partial class CloudArchiveAppPageViewModel : WindowViewModel
 {
     public static string DisplayName => Strings.GameList_CloudArchiveManager;
 
@@ -20,13 +20,13 @@ public sealed class CloudArchiveAppPageViewModel : WindowViewModel
     #endregion
 
     [Reactive]
-    public bool IsLoading { get; set; }
+    public partial bool IsLoading { get; set; }
 
     [Reactive]
-    public int UsedQutoa { get; set; }
+    public partial int UsedQutoa { get; set; }
 
     [Reactive]
-    public int TotalQutoa { get; set; }
+    public partial int TotalQutoa { get; set; }
 
     public ICommand DownloadFile { get; set; }
 

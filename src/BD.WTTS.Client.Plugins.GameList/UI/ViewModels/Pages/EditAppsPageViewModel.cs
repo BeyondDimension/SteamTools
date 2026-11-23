@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class EditAppsPageViewModel : ViewModelBase
+public sealed partial class EditAppsPageViewModel : ViewModelBase
 {
     public static string DisplayName => Strings.GameList_EditedAppsSaveManger;
 
@@ -16,7 +16,7 @@ public sealed class EditAppsPageViewModel : ViewModelBase
     public bool IsSteamEditedAppsEmpty => !SteamEditedApps.Any_Nullable();
 
     [Reactive]
-    public bool IsExportingBackup { get; set; }
+    public partial bool IsExportingBackup { get; set; }
 
     public ICommand EditAppInfoClickCommand { get; }
     public ICommand ApplyToSteamCommand { get; }

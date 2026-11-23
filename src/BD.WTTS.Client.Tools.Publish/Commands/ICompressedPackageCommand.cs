@@ -4,7 +4,6 @@ using ICSharpCode.SharpZipLib.Tar;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using Packaging.Targets.IO;
 using SevenZip;
-using ZstdNet;
 using NCompressionMode = System.IO.Compression.CompressionMode;
 
 namespace BD.WTTS.Client.Tools.Publish.Commands;
@@ -215,9 +214,9 @@ interface ICompressedPackageCommand : ICommand
     static void CreateZstdPack(string packPath, IEnumerable<AppPublishFileInfo> files)
     {
         using var fs = File.Create(packPath);
-        var maxCompressionLevel = CompressionOptions.MaxCompressionLevel;
+        const int maxCompressionLevel = 22;
         Console.WriteLine($"MaxCompressionLevel: {maxCompressionLevel}");
-        using var s = new CompressionStream(fs, new CompressionOptions(maxCompressionLevel));
+        using var s = new ZstandardStream(fs, new ZstandardCompressionOptions { Quality = maxCompressionLevel });
         using var archive = TarArchive.CreateOutputTarArchive(s,
             TarBuffer.DefaultBlockFactor, EncodingCache.UTF8NoBOM);
         foreach (var file in files)

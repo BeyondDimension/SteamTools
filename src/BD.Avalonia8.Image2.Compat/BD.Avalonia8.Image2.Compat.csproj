@@ -31,8 +31,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="Avalonia" />
-		<PackageReference Include="ReactiveUI" />
-		<PackageReference Include="ReactiveUI.Fody" />
 		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" />
 	</ItemGroup>
 

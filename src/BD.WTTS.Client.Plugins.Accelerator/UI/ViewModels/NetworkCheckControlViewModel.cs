@@ -27,7 +27,7 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
     public string DefaultTestDomain { get; } = "store.steampowered.com";
 
     [Reactive]
-    public string SelectedSTUNAddress { get; set; }
+    public partial string SelectedSTUNAddress { get; set; }
 
     public string[] STUNAddress { get; } =
     [
@@ -37,10 +37,10 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
     ];
 
     [Reactive]
-    public string NATLevel { get; set; } = Strings.L10nAccel_131;
+    public partial string NATLevel { get; set; } = Strings.L10nAccel_131;
 
     [Reactive]
-    public string NATTypeTip { get; set; } = Strings.L10nAccel_132;
+    public partial string NATTypeTip { get; set; } = Strings.L10nAccel_132;
 
     readonly ObservableAsPropertyHelper<string> localEndPoint;
     readonly ObservableAsPropertyHelper<string> publicEndPoint;
@@ -66,19 +66,19 @@ public partial class NetworkCheckControlViewModel : ViewModelBase
 
     [DomainValidation]
     [Reactive]
-    public string DomainPendingTest { get; set; } = string.Empty;
+    public partial string DomainPendingTest { get; set; } = string.Empty;
 
     [Reactive]
-    public string DNSTestDelay { get; set; } = string.Empty;
+    public partial string DNSTestDelay { get; set; } = string.Empty;
 
     [Reactive]
-    public string DNSTestResult { get; set; } = string.Empty;
+    public partial string DNSTestResult { get; set; } = string.Empty;
 
     [Reactive]
-    public string IPv6Address { get; set; } = string.Empty;
+    public partial string IPv6Address { get; set; } = string.Empty;
 
     [Reactive]
-    public bool IsSupportIPv6 { get; set; }
+    public partial bool IsSupportIPv6 { get; set; }
 
     public ReactiveCommand<Unit, NATFetchResult> NATCheckCommand { get; }
 

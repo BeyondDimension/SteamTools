@@ -7,16 +7,16 @@ partial class Startup : IRequestCache
 {
     protected virtual IRequestCache RequestCache => Ioc.Get<IRequestCacheRepository>();
 
-    Task IRequestCache.Save(
+    Task IRequestCache.SaveAsync(
         HttpRequestMessage request,
         HttpResponseMessage response,
         string key,
         CancellationToken cancellationToken)
-            => RequestCache.Save(request, response, key, cancellationToken);
+            => RequestCache.SaveAsync(request, response, key, cancellationToken);
 
-    Task<byte[]> IRequestCache.Fetch(
+    Task<byte[]?> IRequestCache.FetchAsync(
         HttpRequestMessage request,
         string key,
         CancellationToken cancellationToken)
-           => RequestCache.Fetch(request, key, cancellationToken);
+           => RequestCache.FetchAsync(request, key, cancellationToken);
 }

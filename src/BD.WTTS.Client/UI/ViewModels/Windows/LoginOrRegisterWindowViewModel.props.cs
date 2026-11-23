@@ -93,13 +93,13 @@ public partial class LoginOrRegisterWindowViewModel
     public const string Privacy = "Privacy";
 
     [Reactive]
-    public string? CurrentSelectChannel { get; set; }
+    public partial string? CurrentSelectChannel { get; set; }
 
     [Reactive]
-    public string? PhoneNumber { get; set; }
+    public partial string? PhoneNumber { get; set; }
 
     [Reactive]
-    public string? SmsCode { get; set; }
+    public partial string? SmsCode { get; set; }
 
     private int _TimeLimit = SMSInterval;
 
@@ -116,20 +116,20 @@ public partial class LoginOrRegisterWindowViewModel
     public static string DefaultBtnSendSmsCodeText => Strings.User_GetSMSCode;
 
     [Reactive]
-    public string BtnSendSmsCodeText { get; set; } = DefaultBtnSendSmsCodeText;
+    public partial string BtnSendSmsCodeText { get; set; } = DefaultBtnSendSmsCodeText;
 
     public bool IsUnTimeLimit => TimeLimit != SMSInterval;
 
     public bool SendSmsCodeSuccess { get; set; }
 
     [Reactive]
-    public bool IsLoading { get; set; }
+    public partial bool IsLoading { get; set; }
 
     [Reactive]
-    public bool IsFastLogin { get; set; }
+    public partial bool IsFastLogin { get; set; }
 
     [Reactive]
-    public short LoginState { get; set; }
+    public partial short LoginState { get; set; }
 
     //public SteamUser? SteamUser { get; } = SteamConnectService.Current.CurrentSteamUser;
 
@@ -158,5 +158,5 @@ public partial class LoginOrRegisterWindowViewModel
     /// 快速登录渠道组
     /// </summary>
     [Reactive]
-    public ObservableCollection<ExternalLoginChannelViewModel> ExternalLoginChannels { get; set; }
+    public partial ObservableCollection<ExternalLoginChannelViewModel> ExternalLoginChannels { get; set; }
 }

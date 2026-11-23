@@ -31,13 +31,13 @@ public sealed partial class IdleCardPageViewModel : TabItemViewModel
     //public SteamUser CurrentUser { get; set; }
 
     [Reactive]
-    public bool IsLogin { get; set; }
+    public partial bool IsLogin { get; set; }
 
     [Reactive]
-    public bool IsCheckingLogin { get; set; } = true;
+    public partial bool IsCheckingLogin { get; set; } = true;
 
     [Reactive]
-    public bool IsLoadingBadges { get; set; }
+    public partial bool IsLoadingBadges { get; set; }
 
     public bool IsPageLoading => IsCheckingLogin || IsLoadingBadges;
 
@@ -46,67 +46,67 @@ public sealed partial class IdleCardPageViewModel : TabItemViewModel
     public string PageLoadingText => IsCheckingLogin ? Strings.L10nAuthIdle_Text108 : Strings.L10nAuthIdle_Text109;
 
     [Reactive]
-    public bool RunLoaingState { get; set; }
+    public partial bool RunLoaingState { get; set; }
 
     [Reactive]
-    public bool RunState { get; set; }
+    public partial bool RunState { get; set; }
 
     [Reactive]
-    public int RuningCount { get; set; }
+    public partial int RuningCount { get; set; }
 
     /// <summary>
     /// 用户等级信息
     /// </summary>
     [Reactive]
-    public UserIdleInfo? UserIdleInfo { get; set; }
+    public partial UserIdleInfo? UserIdleInfo { get; set; }
 
     /// <summary>
     /// 正在挂卡游戏
     /// </summary>
     [Reactive]
-    public ObservableCollection<IdleApp> IdleGameList { get; set; } = new();
+    public partial ObservableCollection<IdleApp> IdleGameList { get; set; } = new();
 
     /// <summary>
     /// 用户徽章和卡片数据
     /// </summary>
     [Reactive]
-    public ObservableCollection<Badge> Badges { get; set; } = new();
+    public partial ObservableCollection<Badge> Badges { get; set; } = new();
 
     [Reactive]
-    public TimeSpan IdleTime { get; set; }
+    public partial TimeSpan IdleTime { get; set; }
 
     [Reactive]
-    public int DroppedCardsCount { get; set; }
+    public partial int DroppedCardsCount { get; set; }
 
     [Reactive]
-    public int TotalCardsRemaining { get; set; }
+    public partial int TotalCardsRemaining { get; set; }
 
     [Reactive]
-    public int ViewState { get; set; } = 1;
+    public partial int ViewState { get; set; } = 1;
 
     [Reactive]
-    public IdleSteamLoginPageViewModel? LoginViewModel { get; set; }
+    public partial IdleSteamLoginPageViewModel? LoginViewModel { get; set; }
 
     public int DropCardsCount => Math.Max(DroppedCardsCount - TotalCardsRemaining, 0);
 
     [Reactive]
-    public decimal TotalCardsAvgPrice { get; set; }
+    public partial decimal TotalCardsAvgPrice { get; set; }
 
     [Reactive]
-    public bool HasPrivateGameExcluded { get; set; }
+    public partial bool HasPrivateGameExcluded { get; set; }
 
     [Reactive]
-    public int ExcludedPrivateGameCount { get; set; }
+    public partial int ExcludedPrivateGameCount { get; set; }
 
     [Reactive]
-    public int ExcludedBlacklistGameCount { get; set; }
+    public partial int ExcludedBlacklistGameCount { get; set; }
 
     [Reactive]
-    public string PrivateGameExcludeTip { get; set; } = string.Empty;
+    public partial string PrivateGameExcludeTip { get; set; } = string.Empty;
 
     /// <summary>
     /// 当前挂卡游戏 
     /// </summary>
     [Reactive]
-    public IdleApp? CurrentIdle { get; set; }
+    public partial IdleApp? CurrentIdle { get; set; }
 }

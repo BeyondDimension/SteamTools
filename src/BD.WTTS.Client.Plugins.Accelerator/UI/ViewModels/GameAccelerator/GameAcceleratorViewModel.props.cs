@@ -15,5 +15,5 @@ public sealed partial class GameAcceleratorViewModel : ViewModelBase
     public ICommand GameAcceleratorCommand { get; }
 
     [Reactive]
-    public string? SearchText { get; set; }
+    public partial string? SearchText { get; set; }
 }

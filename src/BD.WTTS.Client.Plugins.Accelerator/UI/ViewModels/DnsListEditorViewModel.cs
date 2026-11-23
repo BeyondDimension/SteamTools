@@ -15,13 +15,13 @@ public sealed partial class DnsListEditorViewModel : ViewModelBase
     public ObservableCollection<string> Servers { get; } = new();
 
     [Reactive]
-    public string Input { get; set; } = string.Empty;
+    public partial string Input { get; set; } = string.Empty;
 
     [Reactive]
-    public string Error { get; set; } = string.Empty;
+    public partial string Error { get; set; } = string.Empty;
 
     [Reactive]
-    public int SelectedIndex { get; set; } = -1;
+    public partial int SelectedIndex { get; set; } = -1;
 
     public ReactiveCommand<Unit, Unit> OpenManagerCommand { get; }
 

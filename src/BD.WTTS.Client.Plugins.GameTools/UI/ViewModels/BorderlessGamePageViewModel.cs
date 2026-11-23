@@ -1,4 +1,4 @@
-using ReactiveUI;
+using ReactiveUI.Reactive;
 using System.Windows.Input;
 
 namespace BD.WTTS.UI.ViewModels;

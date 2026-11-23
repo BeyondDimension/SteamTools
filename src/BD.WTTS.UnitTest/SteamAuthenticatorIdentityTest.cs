@@ -6,7 +6,7 @@ using BD.WTTS.Helpers;
 using BD.WTTS.Models;
 using BD.WTTS.UI.ViewModels;
 using Moq;
-using ReactiveUI.Builder;
+using ReactiveUI.Reactive.Builder;
 using System.Reactive.Concurrency;
 using WinAuth;
 

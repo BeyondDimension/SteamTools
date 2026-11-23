@@ -6,5 +6,5 @@ public partial class PlatformSettings : BaseNotifyPropertyChanged
 {
     [MessagePack.Key(0)]
     [Reactive, MP2Key(0)]
-    public string? PlatformPath { get; set; }
+    public partial string? PlatformPath { get; set; }
 }

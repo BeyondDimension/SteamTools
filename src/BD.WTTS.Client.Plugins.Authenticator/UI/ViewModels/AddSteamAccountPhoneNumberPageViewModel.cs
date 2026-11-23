@@ -6,7 +6,7 @@ namespace BD.WTTS.UI.ViewModels;
 /// <summary>
 /// 添加 Steam 账号手机号页面 VM
 /// </summary>
-public class AddSteamAccountPhoneNumberPageViewModel : WindowViewModel
+public partial class AddSteamAccountPhoneNumberPageViewModel : WindowViewModel
 {
     #region 步骤 Index 定义
 
@@ -22,25 +22,25 @@ public class AddSteamAccountPhoneNumberPageViewModel : WindowViewModel
     /// 手机号文本
     /// </summary>
     [Reactive]
-    public string? PhoneNumberText { get; set; }
+    public partial string? PhoneNumberText { get; set; }
 
     /// <summary>
     /// 验证码文本
     /// </summary>
     [Reactive]
-    public string? CodeText { get; set; }
+    public partial string? CodeText { get; set; }
 
     /// <summary>
     /// 步骤 Index
     /// </summary>
     [Reactive]
-    public int SelectIndex { get; set; }
+    public partial int SelectIndex { get; set; }
 
     /// <summary>
     /// 是否显示加载中
     /// </summary>
     [Reactive]
-    public bool IsLoading { get; set; }
+    public partial bool IsLoading { get; set; }
 
     public ICommand StartBindingCommand { get; }
     public ICommand ConfirmEmailCommand { get; }

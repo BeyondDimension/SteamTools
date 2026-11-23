@@ -129,7 +129,7 @@ public sealed class SteamServicePathTest
     }
 
     [Test]
-    public void SplitCacheDoesNotReadAnUnterminatedRecordIntoTheNextApp()
+    public async Task SplitCacheDoesNotReadAnUnterminatedRecordIntoTheNextApp()
     {
         var path = WriteShard(first, 0, 3001, 2, metadataSize: 64);
         using (var file = File.Open(path, FileMode.Open, FileAccess.ReadWrite))
@@ -144,7 +144,7 @@ public sealed class SteamServicePathTest
         }
 
         var service = new TestSteamService { ConfiguredPath = Path.Combine(first, "steam.exe") };
-        Assert.ThrowsAsync<InvalidDataException>(() => service.ReadAppInfosInBatchesAsync(_ => Assert.Fail("Invalid data must not be emitted.")));
+        await Assert.ThrowsAsync<InvalidDataException>(() => service.ReadAppInfosInBatchesAsync(_ => Assert.Fail("Invalid data must not be emitted.")));
     }
 
     [TestCase(1)]

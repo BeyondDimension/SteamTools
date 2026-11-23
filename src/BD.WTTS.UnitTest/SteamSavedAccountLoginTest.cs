@@ -7,7 +7,7 @@ using BD.WTTS.UI.ViewModels;
 using BD.WTTS.Models;
 using WinAuth;
 using Moq;
-using ReactiveUI.Builder;
+using ReactiveUI.Reactive.Builder;
 using System.Reactive.Concurrency;
 
 namespace BD.WTTS.UnitTest;
@@ -244,7 +244,7 @@ public sealed class SteamSavedAccountLoginTest
     [TestCase("cookie-account", true)]
     [TestCase("token-subject", true)]
     [TestCase("cookie-audience", true)]
-    public void BrowserTransferRejectsUntrustedAccountHostOrCookie(string scenario, bool shouldTransfer)
+    public async Task BrowserTransferRejectsUntrustedAccountHostOrCookie(string scenario, bool shouldTransfer)
     {
         var refresh = Token(SteamId, RefreshAudiences(mobile: false));
         var issuedToken = Token(scenario == "token-subject" ? SteamId + 1 : SteamId,
@@ -252,7 +252,7 @@ public sealed class SteamSavedAccountLoginTest
         var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
         BrowserRefreshHandler? handler = null;
 
-        Assert.ThrowsAsync<InvalidOperationException>(() => AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(
+        await Assert.ThrowsAsync<InvalidOperationException>(() => AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(
             SteamId, null, refresh, service.Object, default, cookies => handler = new BrowserRefreshHandler(cookies, refresh, issuedToken,
                 finalizedId: scenario == "finalized-account" ? SteamId + 1 : SteamId,
                 cookieId: scenario == "cookie-account" ? SteamId + 1 : SteamId,
@@ -276,7 +276,7 @@ public sealed class SteamSavedAccountLoginTest
     [TestCase("client-only")]
     [TestCase("refresh-token")]
     [TestCase("expired")]
-    public void RejectsUnsuitableAccessBeforeContactingSteam(string scenario)
+    public async Task RejectsUnsuitableAccessBeforeContactingSteam(string scenario)
     {
         var id = scenario == "other-account" ? SteamId + 1 : SteamId;
         var audiences = scenario switch
@@ -288,7 +288,7 @@ public sealed class SteamSavedAccountLoginTest
         };
         var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
         var reachedWeb = false;
-        Assert.ThrowsAsync<InvalidOperationException>(async () =>
+        await Assert.ThrowsAsync<InvalidOperationException>(async () =>
             await AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(SteamId,
                 Token(id, audiences, expired: scenario == "expired"), null, service.Object, default,
                 cookies => { reachedWeb = true; return new WebHandler(cookies); }));
@@ -297,14 +297,14 @@ public sealed class SteamSavedAccountLoginTest
 
     [TestCase(false)]
     [TestCase(true)]
-    public void RejectsClientRefreshAndRefreshForDifferentAccountBeforeContactingSteam(bool differentAccount)
+    public async Task RejectsClientRefreshAndRefreshForDifferentAccountBeforeContactingSteam(bool differentAccount)
     {
         var refresh = differentAccount
             ? Token(SteamId + 1, RefreshAudiences(mobile: false))
             : Token(SteamId, ["client", "derive"]);
         var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
         var reachedWeb = false;
-        Assert.ThrowsAsync<InvalidOperationException>(() => AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(
+        await Assert.ThrowsAsync<InvalidOperationException>(() => AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(
             SteamId, null, refresh, service.Object, default, cookies => { reachedWeb = true; return new WebHandler(cookies); }));
         Assert.That(reachedWeb, Is.False);
         service.VerifyNoOtherCalls();
@@ -313,10 +313,10 @@ public sealed class SteamSavedAccountLoginTest
     [TestCase("/login/home/")]
     [TestCase("/profiles/76561198000000002")]
     [TestCase("https://evil.example/id/account")]
-    public void RejectsUnverifiedCommunitySession(string redirect)
+    public async Task RejectsUnverifiedCommunitySession(string redirect)
     {
         var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
-        Assert.ThrowsAsync<InvalidOperationException>(async () =>
+        await Assert.ThrowsAsync<InvalidOperationException>(async () =>
             await AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(SteamId,
                 Token(SteamId, ["mobile", "web"]), null, service.Object, default,
                 cookies => new WebHandler(cookies, redirect)));
@@ -334,7 +334,7 @@ public sealed class SteamSavedAccountLoginTest
         var operation = AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(SteamId, null, refresh, service.Object, cancel.Token,
             cookies => { reachedWeb = true; return new WebHandler(cookies); });
         cancel.Cancel();
-        Assert.CatchAsync<OperationCanceledException>(async () => await operation);
+        await Assert.CatchAsync<OperationCanceledException>(async () => await operation);
         pending.SetResult(Token(SteamId, ["mobile", "web"]));
         Assert.That(reachedWeb, Is.False);
     }

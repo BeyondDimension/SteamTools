@@ -7,7 +7,7 @@ public sealed partial class AcceleratorPageViewModel : TabItemViewModel
     public override string Name => Strings.CommunityFix;
 
     [Reactive]
-    public ReadOnlyCollection<ProxyDomainGroupViewModel>? EnableProxyDomainGroupVMs { get; set; }
+    public partial ReadOnlyCollection<ProxyDomainGroupViewModel>? EnableProxyDomainGroupVMs { get; set; }
 
     public ICommand StartProxyCommand { get; }
 

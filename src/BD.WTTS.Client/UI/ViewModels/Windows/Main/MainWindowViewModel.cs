@@ -10,7 +10,7 @@ public sealed partial class MainWindowViewModel : WindowViewModel
     //public TabItemViewModel? SelectedItem { get; set; }
 
     [Reactive]
-    public int PluginCount { get; set; }
+    public partial int PluginCount { get; set; }
 
     #endregion
 

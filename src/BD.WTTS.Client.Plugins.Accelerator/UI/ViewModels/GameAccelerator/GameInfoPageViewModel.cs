@@ -2,21 +2,21 @@ using BD.WTTS.Helpers;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class GameInfoPageViewModel : WindowViewModel
+public sealed partial class GameInfoPageViewModel : WindowViewModel
 {
     [Reactive]
-    public XunYouGameViewModel XunYouGame { get; set; }
+    public partial XunYouGameViewModel XunYouGame { get; set; }
 
     [Reactive]
-    public bool IsShowSelectServerUI { get; set; }
+    public partial bool IsShowSelectServerUI { get; set; }
 
     public GameInfoPageViewModel(XunYouGameViewModel xunYouGame)
     {
         XunYouGame = xunYouGame;
 
-        this.ObserveValue(nameof(XunYouGame), static x => x.XunYouGame)
-            .Select(static game => game.ObserveValue(nameof(XunYouGameViewModel.SelectedArea), static x => x.SelectedArea))
-            .Switch()
+        var selectedAreas = this.ObserveValue(nameof(XunYouGame), static x => x.XunYouGame)
+            .Select(static game => game.ObserveValue(nameof(XunYouGameViewModel.SelectedArea), static x => x.SelectedArea));
+        Observable.Switch(selectedAreas)
             .Subscribe(area => IsShowSelectServerUI = area?.Servers.Any_Nullable() == true)
             .AddTo(this);
     }

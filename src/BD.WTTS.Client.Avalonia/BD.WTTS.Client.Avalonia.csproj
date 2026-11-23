@@ -74,7 +74,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Avalonia" />
-		<PackageReference Include="ReactiveUI.Avalonia" />
+		<PackageReference Include="ReactiveUI.Avalonia.Reactive" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" />
 		<PackageReference Include="Avalonia.Controls.ItemsRepeater" />
 		<PackageReference Include="Xaml.Behaviors.Interactions.Draggable" />

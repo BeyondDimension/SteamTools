@@ -45,10 +45,20 @@ jobs:
           submodules: recursive
           persist-credentials: false
 
+      - name: Read .NET SDK version
+        id: sdk
+        run: |
+          # setup-dotnet resolves the latestMajor policy to the LTS channel.
+          $sdkVersion = (Get-Content -LiteralPath global.json -Raw | ConvertFrom-Json).sdk.version
+          if ([string]::IsNullOrWhiteSpace($sdkVersion)) {
+            throw 'global.json must specify sdk.version.'
+          }
+          "version=$sdkVersion" >> $env:GITHUB_OUTPUT
+
       - name: Set up .NET
         uses: actions/setup-dotnet@v6
         with:
-          global-json-file: source/global.json
+          dotnet-version: ${{ steps.sdk.outputs.version }}
 
       - name: Install Linux Native AOT dependencies
         if: runner.os == 'Linux'

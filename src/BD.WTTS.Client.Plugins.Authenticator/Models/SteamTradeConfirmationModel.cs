@@ -2,7 +2,7 @@ using WinAuth;
 
 namespace BD.WTTS.Models;
 
-public class SteamTradeConfirmationModel : ReactiveObject
+public partial class SteamTradeConfirmationModel : ReactiveObject
 {
     public int Type { get; set; }
 
@@ -46,16 +46,16 @@ public class SteamTradeConfirmationModel : ReactiveObject
                                    ReceiveSummary?.Contains("不会收到任何物品") == true) && !ReceiveItemImageUrls.Any();
 
     [Reactive]
-    public ObservableCollection<string> SendItemImageUrls { get; set; }
+    public partial ObservableCollection<string> SendItemImageUrls { get; set; }
 
     [Reactive]
-    public ObservableCollection<string> ReceiveItemImageUrls { get; set; }
+    public partial ObservableCollection<string> ReceiveItemImageUrls { get; set; }
 
     [Reactive]
-    public bool IsSelected { get; set; }
+    public partial bool IsSelected { get; set; }
 
     [Reactive]
-    public bool HasDetailLoadError { get; private set; }
+    public partial bool HasDetailLoadError { get; private set; }
 
     public SteamTradeConfirmationModel(SteamMobileTradeConf conf)
     {

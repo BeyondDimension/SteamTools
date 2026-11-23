@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class HideAppsPageViewModel : ViewModelBase
+public sealed partial class HideAppsPageViewModel : ViewModelBase
 {
     [Reactive]
-    public ObservableCollection<KeyValuePair<uint, string>> HideGameList { get; set; } = new();
+    public partial ObservableCollection<KeyValuePair<uint, string>> HideGameList { get; set; } = new();
 
     [Reactive]
-    public bool IsHideGameListEmpty { get; set; }
+    public partial bool IsHideGameListEmpty { get; set; }
 
     public ICommand RemoveHideAppCommand { get; }
 

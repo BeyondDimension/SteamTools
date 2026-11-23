@@ -1,5 +1,3 @@
-using System.Reactive.Disposables.Fluent;
-
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels.Abstractions;
 
@@ -25,8 +23,9 @@ public abstract partial class ViewModelBase : BaseNotifyPropertyChanged, IViewMo
         {
             Activation();
 
-            CompositeDisposable.Add(Disposable.Create(Deactivation)
-                                              .DisposeWith(disposables));
+            var deactivation = Disposable.Create(Deactivation);
+            disposables.Add(deactivation);
+            CompositeDisposable.Add(deactivation);
         });
     }
 

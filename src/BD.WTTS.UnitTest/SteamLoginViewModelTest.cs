@@ -4,7 +4,7 @@ using BD.WTTS.UI.ViewModels;
 using Moq;
 using System.Net;
 using SteamKit2;
-using ReactiveUI.Builder;
+using ReactiveUI.Reactive.Builder;
 using System.Reactive.Concurrency;
 
 namespace BD.WTTS.UnitTest;

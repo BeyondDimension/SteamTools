@@ -1,5 +1,5 @@
 using Avalonia.Threading;
-using ReactiveUI;
+using ReactiveUI.Reactive;
 using System.Reactive.Linq;
 using System.Windows.Input;
 

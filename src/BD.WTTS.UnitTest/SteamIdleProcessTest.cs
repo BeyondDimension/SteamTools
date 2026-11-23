@@ -2,7 +2,7 @@ using BD.SteamClient.Models;
 using BD.SteamClient.Services;
 using BD.WTTS.Services;
 using Moq;
-using ReactiveUI.Builder;
+using ReactiveUI.Reactive.Builder;
 using System.Diagnostics;
 using System.Reactive.Concurrency;
 using System.Runtime.InteropServices;

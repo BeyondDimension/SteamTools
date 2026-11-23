@@ -184,7 +184,7 @@ public sealed class DnsDohAnalysisTest
     }
 
     [Test]
-    public void CancelledLookupDoesNotTryServers()
+    public async Task CancelledLookupDoesNotTryServers()
     {
         var calls = new List<string>();
         using var doh = new DnsDohAnalysisService(NullLoggerFactory.Instance, null!, null!);
@@ -195,13 +195,13 @@ public sealed class DnsDohAnalysisTest
         using var cancel = new CancellationTokenSource();
         cancel.Cancel();
 
-        Assert.ThrowsAsync<OperationCanceledException>(async () =>
+        await Assert.ThrowsAsync<OperationCanceledException>(async () =>
             await resolver.AnalysisDomainIpAsync("example.test", null, false, cancel.Token).ToArrayAsync(cancel.Token));
         Assert.That(calls, Is.Empty);
     }
 
     [Test]
-    public void CancellationDuringLookupStopsBeforeFallback()
+    public async Task CancellationDuringLookupStopsBeforeFallback()
     {
         var calls = new List<string>();
         using var cancel = new CancellationTokenSource();
@@ -211,7 +211,7 @@ public sealed class DnsDohAnalysisTest
         var settings = new Mock<IReverseProxySettings>();
         settings.SetupGet(x => x.ProxyDNSAddresses).Returns("https://first.invalid/dns-query\nhttps://second.invalid/dns-query");
         var resolver = new DnsAnalysisServiceSwitchImpl(settings.Object, new DnsAnalysisServiceImpl(), doh);
-        Assert.CatchAsync<OperationCanceledException>(async () =>
+        await Assert.CatchAsync<OperationCanceledException>(async () =>
             await resolver.AnalysisDomainIpAsync("cancel.example.test", null, false, cancel.Token).ToArrayAsync(cancel.Token));
         Assert.That(calls, Is.EqualTo(new[] { "first" }));
     }

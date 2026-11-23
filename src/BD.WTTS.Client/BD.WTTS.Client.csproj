@@ -127,12 +127,14 @@
 		<PackageReference Include="Fleck" />
 		<PackageReference Include="Stun.Net" />
 		<!--<PackageReference Include="Portable.BouncyCastle" />-->
-		<PackageReference Include="ReactiveUI.Fody" />
+		<PackageReference Include="ReactiveUI.Reactive" />
+		<PackageReference Include="ReactiveUI.SourceGenerators" PrivateAssets="all" />
+		<Using Include="ReactiveUI.SourceGenerators" />
+		<PackageReference Include="DynamicData" />
 		<PackageReference Include="fusillade" />
 		<PackageReference Include="Microsoft.Extensions.FileProviders.Physical" />
 		<PackageReference Include="SimdSkia" Condition="'$(WttsUseSimdSkia)' == 'true'" />
 		<PackageReference Include="SkiaSharp" Condition="'$(WttsUseSimdSkia)' != 'true'" />
-		<PackageReference Include="SkiaSharp.HarfBuzz" Condition="'$(WttsUseSimdSkia)' != 'true'" />
 		<PackageReference Include="HarfBuzzSharp" Condition="'$(WttsUseSimdSkia)' != 'true'" />
 		<!--<PackageReference Include="BD.Any.AppCenter" />
 		<PackageReference Include="BD.Any.AppCenter.Analytics" />-->
@@ -194,7 +196,7 @@
 		<PackageReference Include="SteamKit2" />
 		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
 		<!--<PackageReference Include="Microsoft.Extensions.DependencyModel" />-->
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Condition="'$(Configuration)' == 'Debug'" />
 		<PackageReference Include="Avalonia" />
 		<!--<PackageReference Include="Facepunch.Steamworks" />-->
 		<!--<PackageReference Include="Avalonia.Desktop" />

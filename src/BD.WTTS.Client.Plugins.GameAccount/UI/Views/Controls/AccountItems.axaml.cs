@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.VisualTree;
-using ReactiveUI.Avalonia;
+using ReactiveUI.Avalonia.Reactive;
 using BD.SteamClient.Helpers;
 using FluentAvalonia.UI.Controls;
 

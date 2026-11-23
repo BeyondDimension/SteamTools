@@ -70,7 +70,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ReactiveUI.Fody" />
+		<PackageReference Include="ReactiveUI.SourceGenerators" PrivateAssets="all" />
+		<Using Include="ReactiveUI.SourceGenerators" />
 	</ItemGroup>
 
 	<ItemGroup>

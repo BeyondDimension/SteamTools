@@ -2,7 +2,7 @@ using Avalonia.Media;
 
 namespace BD.WTTS.Models;
 
-public class ProxyDomainViewModel : ReactiveObject
+public partial class ProxyDomainViewModel : ReactiveObject
 {
     private readonly INetworkTestService networkTestService = INetworkTestService.Instance;
 
@@ -13,7 +13,7 @@ public class ProxyDomainViewModel : ReactiveObject
     public string Url { get; }
 
     [Reactive]
-    public string DelayMillseconds { get; set; } = string.Empty;
+    public partial string DelayMillseconds { get; set; } = string.Empty;
 
     readonly ObservableAsPropertyHelper<bool> retestButtonVisible;
     readonly ObservableAsPropertyHelper<IBrush> delayColor;

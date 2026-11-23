@@ -26,49 +26,49 @@ public sealed partial class JoinSteamAuthenticatorPageViewModel : ViewModelBase
     /// 用户填入的 Steam 令牌验证码
     /// </summary>
     [Reactive]
-    public string? Code { get; set; }
+    public partial string? Code { get; set; }
 
     /// <summary>
     /// 用户名
     /// </summary>
     [Reactive]
-    public string? UserNameText { get; set; }
+    public partial string? UserNameText { get; set; }
 
     /// <summary>
     /// 密码
     /// </summary>
     [Reactive]
-    public string? PasswordText { get; set; }
+    public partial string? PasswordText { get; set; }
 
     /// <summary>
     /// 验证码
     /// </summary>
     [Reactive]
-    public string? VerifyCodeText { get; set; }
+    public partial string? VerifyCodeText { get; set; }
 
     /// <summary>
     /// 恢复代码
     /// </summary>
     [Reactive]
-    public string? RevocationCodeText { get; set; }
+    public partial string? RevocationCodeText { get; set; }
 
     /// <summary>
     /// 当前步骤
     /// </summary>
     [Reactive]
-    public int SelectIndex { get; set; } = STEPINDEX_LOGIN;
+    public partial int SelectIndex { get; set; } = STEPINDEX_LOGIN;
 
     /// <summary>
     /// 加载
     /// </summary>
     [Reactive]
-    public bool Loading { get; set; } = false;
+    public partial bool Loading { get; set; } = false;
 
     /// <summary>
     /// 是否需要验证码
     /// </summary>
     [Reactive]
-    public bool RequireVerifyCode { get; set; } = false;
+    public partial bool RequireVerifyCode { get; set; } = false;
 
     #endregion 页面属性
 

@@ -1,11 +1,11 @@
 namespace BD.WTTS.UI.ViewModels;
 
-public class AuthenticatorRecoverPageViewModel : ViewModelBase
+public partial class AuthenticatorRecoverPageViewModel : ViewModelBase
 {
     public ObservableCollection<AuthenticatorRecoverModel> AuthenticatorDeleteBackups { get; } = new();
 
     [Reactive]
-    public bool IsLoading { get; private set; } = true;
+    public partial bool IsLoading { get; private set; } = true;
 
     public ICommand RecoverCommand { get; }
 

@@ -75,10 +75,6 @@
 		<None Update="Steam++.desktop">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Include="..\..\ref\libzstd.dll">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<!--<None Remove="$(NugetPackageRoot)\zstdnet\1.4.5\build\x64\libzstd.dll" />-->
 		<Compile Include="..\BD.WTTS.Client\Helpers\GlobalDllImportResolver.LibraryName.cs">
 			<LinkBase>Helpers</LinkBase>
 		</Compile>
@@ -127,15 +123,14 @@
 		<PackageReference Include="System.CommandLine" />
 		<PackageReference Include="Squid-Box.SevenZipSharp.Lite" />
 		<PackageReference Include="SharpZipLib" />
-		<PackageReference Include="ZstdNet" />
 		<PackageReference Include="BsDiff" />
 		<PackageReference Include="7-Zip.NativeAssets.Win32" />
-		<PackageReference Include="Portable.BouncyCastle" />
+		<PackageReference Include="BouncyCastle.Cryptography" />
 		<PackageReference Include="System.Security.Cryptography.ProtectedData" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.ClientSDK\BD.WTTS.MicroServices.ClientSDK.csproj" />
+		<ProjectReference Include="..\..\ref\WTTS.MicroServices.ClientSDK\src\BD.WTTS.MicroServices.Primitives.Models\BD.WTTS.MicroServices.Primitives.Models.csproj" />
 	</ItemGroup>
 
 	<Import Project="..\TFM_NETX.props" />

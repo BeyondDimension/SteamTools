@@ -6,7 +6,7 @@ namespace BD.WTTS.Plugins;
 /// <typeparam name="TData">结果数据类型</typeparam>
 /// <param name="IsDisable">是否禁用</param>
 /// <param name="Data">插件数据</param>
-public sealed class PluginResult<TData>
+public sealed partial class PluginResult<TData>
     : ReactiveObject, IEquatable<PluginResult<TData>>,
     IEquatable<TData>, IReactiveObject
     where TData : notnull
@@ -19,7 +19,7 @@ public sealed class PluginResult<TData>
     }
 
     [property: Reactive]
-    public bool IsDisable { get; set; }
+    public partial bool IsDisable { get; set; }
 
     public required TData Data { get; init; }
 

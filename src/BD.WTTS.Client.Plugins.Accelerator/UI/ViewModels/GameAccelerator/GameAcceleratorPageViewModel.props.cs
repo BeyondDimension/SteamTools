@@ -9,5 +9,5 @@ public sealed partial class GameAcceleratorPageViewModel : TabItemViewModel
     public ReadOnlyObservableCollection<XunYouGameViewModel>? Games => _Games;
 
     [Reactive]
-    public string? SearchText { get; set; }
+    public partial string? SearchText { get; set; }
 }

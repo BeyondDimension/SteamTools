@@ -63,12 +63,12 @@ public sealed partial class SteamTradePageViewModel : WindowViewModel
                     return code;
                 };
 
-                this.ObserveValue(nameof(Confirmations), static v => v.Confirmations)
+                var confirmationChanges = this.ObserveValue(nameof(Confirmations), static v => v.Confirmations)
                     .Select(items => items == null
                         ? Observable.Empty<IChangeSet<SteamTradeConfirmationModel>>()
                         : items.ToObservableChangeSet().AutoRefreshOnObservable(static item =>
-                            item.ObserveValue(nameof(item.IsSelected), static x => x.IsSelected).Skip(1)))
-                    .Switch()
+                            item.ObserveValue(nameof(item.IsSelected), static x => x.IsSelected).Skip(1)));
+                Observable.Switch(confirmationChanges)
                     .Subscribe(_ =>
                     {
                         var count = Confirmations.Count(x => x.IsSelected);
