@@ -44,9 +44,6 @@
 		<Compile Include="..\ImplicitUsings.Services.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
-		<Compile Include="..\ImplicitUsings.ReactiveUI.cs">
-			<LinkBase>Properties</LinkBase>
-		</Compile>
 		<Compile Include="..\ImplicitUsings.Models.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
@@ -80,10 +77,6 @@
 		<Compile Include="..\ImplicitUsings.Plugins.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="ReactiveUI.Fody" />
 	</ItemGroup>
 
 	<ItemGroup>

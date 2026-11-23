@@ -10,5 +10,7 @@
     <PackageVersion Include="SimdSkia.Avalonia.Desktop" Version="$(Version_SimdSkia)" />
     <PackageVersion Include="MicroCom.CodeGenerator.MSBuild" Version="0.11.5" />
     <PackageVersion Include="MicroCom.Runtime" Version="0.11.6" />
+    <PackageVersion Include="Xaml.Behaviors.Interactions.Draggable" Version="$(Version_Avalonia_Xaml_Behaviors)" />
+    <PackageVersion Include="Xaml.Behaviors.Interactions.Responsive" Version="$(Version_Avalonia_Xaml_Behaviors)" />
   </ItemGroup>
 </Project>

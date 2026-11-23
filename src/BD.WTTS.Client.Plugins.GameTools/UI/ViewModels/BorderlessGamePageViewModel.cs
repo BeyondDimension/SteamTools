@@ -1,3 +1,6 @@
+using ReactiveUI;
+using System.Windows.Input;
+
 namespace BD.WTTS.UI.ViewModels;
 
 public sealed partial class BorderlessGamePageViewModel : ViewModelBase

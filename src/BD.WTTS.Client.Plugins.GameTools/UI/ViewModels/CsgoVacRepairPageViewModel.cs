@@ -1,4 +1,7 @@
 using Avalonia.Threading;
+using ReactiveUI;
+using System.Reactive.Linq;
+using System.Windows.Input;
 
 namespace BD.WTTS.UI.ViewModels;
 

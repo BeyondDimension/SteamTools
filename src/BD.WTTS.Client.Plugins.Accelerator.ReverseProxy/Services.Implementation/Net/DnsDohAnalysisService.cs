@@ -1,4 +1,3 @@
-using Ae.Dns.Client;
 using Ae.Dns.Protocol;
 using Ae.Dns.Protocol.Records;
 using static BD.WTTS.Services.IDnsAnalysisService;
@@ -10,11 +9,12 @@ namespace BD.WTTS.Services.Implementation;
 sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDisposable
 {
     const string TAG = "DnsDohAnalysisS";
+    const string DnsMessageMediaType = "application/dns-message";
 
     protected override string? DefaultClientName => TAG;
 
     readonly ConcurrentDictionary<(Uri Server, string Host, DnsQueryType Type), IPAddressResult> Cache = new();
-    readonly ConcurrentDictionary<Uri, Lazy<DnsHttpClient>> dnsClients = new();
+    readonly ConcurrentDictionary<Uri, Lazy<HttpClient>> dnsClients = new();
 
     public DnsDohAnalysisService(
             ILoggerFactory loggerFactory,
@@ -43,10 +43,8 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDisposable
         return uri;
     }
 
-    DnsHttpClient GetDnsHttpClient(string? dohAddres) => GetDnsHttpClient(GetDohAddres(dohAddres));
-
-    DnsHttpClient GetDnsHttpClient(Uri dohAddresUri) => dnsClients.GetOrAdd(dohAddresUri, static uri =>
-        new Lazy<DnsHttpClient>(() =>
+    HttpClient GetDnsHttpClient(Uri server) => dnsClients.GetOrAdd(server, static _ =>
+        new Lazy<HttpClient>(static () =>
         {
             var handler = new HttpClientHandler
             {
@@ -54,20 +52,41 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDisposable
                 UseProxy = false,
                 Proxy = HttpNoProxy.Instance,
             };
-            var client = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(3), BaseAddress = uri };
-            return new DnsHttpClient(new DnsHttpClientOptions { Path = uri.PathAndQuery }, client);
+            return new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(3) };
         })).Value;
+
+    async Task<DnsMessage> QueryServerAsync(Uri server, string host, DnsQueryType queryType, CancellationToken cancellationToken)
+    {
+        var query = DnsQueryFactory.CreateQuery(host, queryType);
+        // A DNS header and a single question fit within 512 bytes even with the longest valid name.
+        var payload = new byte[512];
+        var length = 0;
+        query.WriteBytes(payload, ref length);
+
+        using var request = new HttpRequestMessage(HttpMethod.Post, server)
+        {
+            Content = new ReadOnlyMemoryContent(payload.AsMemory(0, length)),
+        };
+        request.Content.Headers.ContentType = new(DnsMessageMediaType);
+        request.Headers.Accept.Add(new(DnsMessageMediaType));
+
+        using var response = await GetDnsHttpClient(server).SendAsync(request, cancellationToken);
+        response.EnsureSuccessStatusCode();
+        var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken);
+        var answer = new DnsMessage();
+        var offset = 0;
+        answer.ReadBytes(bytes, ref offset);
+        if (offset != bytes.Length)
+            throw new InvalidDataException("The DoH response contains trailing data.");
+
+        return answer;
+    }
 
     public async Task<int> DohAnalysisHostnameTimeAsync(string? dohAddres, string url, CancellationToken cancellationToken = default)
     {
         if (!string.IsNullOrEmpty(url))
         {
-            var dnsClient = GetDnsHttpClient(dohAddres);
-
-            var queryType = DnsQueryType.A;
-            var query = DnsQueryFactory.CreateQuery(url, queryType);
-
-            var answer = await dnsClient.Query(query, cancellationToken);
+            var answer = await QueryServerAsync(GetDohAddres(dohAddres), url, DnsQueryType.A, cancellationToken);
             var value = answer.Answers.FirstOrDefault(x => x.Resource is DnsIpAddressResource)?.TimeToLive;
             return (int)(value ?? 0);
         }
@@ -93,8 +112,7 @@ sealed class DnsDohAnalysisService : GeneralHttpClientFactory, IDisposable
         if (useCache && Cache.TryGetValue(key, out var cached) && DateTimeOffset.UtcNow < cached.ExpiresAt)
             return cached.IPAddresses;
 
-        var query = DnsQueryFactory.CreateQuery(host, queryType);
-        var answer = await GetDnsHttpClient(server).Query(query, cancellationToken);
+        var answer = await QueryServerAsync(server, host, queryType, cancellationToken);
         var addresses = answer.Answers.Select(x => x.Resource).OfType<DnsIpAddressResource>().Select(x => x.IPAddress).ToArray();
         if (useCache && addresses.Length > 0)
         {

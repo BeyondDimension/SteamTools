@@ -77,7 +77,8 @@
 		<PackageReference Include="ReactiveUI.Avalonia" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" />
 		<PackageReference Include="Avalonia.Controls.ItemsRepeater" />
-		<PackageReference Include="Xaml.Behaviors.Avalonia" />
+		<PackageReference Include="Xaml.Behaviors.Interactions.Draggable" />
+		<PackageReference Include="Xaml.Behaviors.Interactions.Responsive" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
 		<!--<PackageReference Include="Markdown.Avalonia" />-->
 		<PackageReference Include="FluentAvaloniaUI" Condition="'$(WttsUseSimdSkia)' != 'true'" />

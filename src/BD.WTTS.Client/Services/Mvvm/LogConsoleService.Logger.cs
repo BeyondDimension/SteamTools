@@ -1,5 +1,8 @@
 #if !ANDROID && !IOS
-using Utf8StringInterpolation;
+#if APP_REVERSE_PROXY
+using System.Buffers;
+using System.Text.Unicode;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
@@ -100,40 +103,9 @@ partial class LogConsoleService
         // TODO: 对比 SimpleConsoleFormatter 实现带 Color 的版本
         // https://github.com/dotnet/runtime/blob/v9.0.0-preview.7.24405.7/src/libraries/Microsoft.Extensions.Logging.Console/src/SimpleConsoleFormatter.cs
 
-        if (!string.IsNullOrEmpty(message))
-        {
-            StringBuilder builder = new();
-            CreateDefaultLogMessage(builder, logName, eventId, message, exception);
-
-            var str = builder.ToString();
-            return Encoding.UTF8.GetBytes(str);
-        }
-        else
-        {
-            using var buffer = Utf8String.CreateWriter(out var logBuilder);
-
-            // Example:
-            // INFO: ConsoleApp.Program[10]
-            //       Request received
-
-            // category and event id
-            logBuilder.Append(logName);
-            logBuilder.Append('[');
-            logBuilder.Append(eventId.ToString());
-            logBuilder.AppendLine("]");
-
-            // Example:
-            // System.InvalidOperationException
-            //    at Namespace.Class.Function() in File:line X
-            if (exception != null)
-                // exception message
-                logBuilder.AppendLine(exception.ToString());
-
-            logBuilder.Flush();
-
-            var result = buffer.ToArray();
-            return result;
-        }
+        StringBuilder builder = new();
+        CreateDefaultLogMessage(builder, logName, eventId, message, exception);
+        return Encoding.UTF8.GetBytes(builder.ToString());
     }
 
     static void CreateDefaultLogMessage(StringBuilder logBuilder, string logName, int eventId, string? message, Exception? exception)
@@ -174,54 +146,41 @@ partial class LogConsoleService
         // ${level}|
         // ${logger}|${message} |${all-event-properties} ${exception:format=tostring}",
 
-        using var buffer = Utf8String.CreateWriter(out var logBuilder, CultureInfo.InvariantCulture);
-        logBuilder.AppendFormatted(DateTime.Now, format: "yyyy-MM-dd HH:mm:ss.fff");
-        logBuilder.AppendUtf8("|"u8);
-
-        switch (logLevel) // see NLog.LogLevel
+        var level = logLevel switch // see NLog.LogLevel
         {
-            case LogLevel.Trace:
-                logBuilder.AppendUtf8("Trace"u8);
-                break;
-            case LogLevel.Debug:
-                logBuilder.AppendUtf8("Debug"u8);
-                break;
-            case LogLevel.Information:
-                logBuilder.AppendUtf8("Info"u8);
-                break;
-            case LogLevel.Warning:
-                logBuilder.AppendUtf8("Warn"u8);
-                break;
-            case LogLevel.Error:
-                logBuilder.AppendUtf8("Error"u8);
-                break;
-            case LogLevel.Critical:
-                logBuilder.AppendUtf8("Fatal"u8);
-                break;
-            case LogLevel.None:
-                logBuilder.AppendUtf8("Off"u8);
-                break;
-            default:
-                logBuilder.Append(logLevel.ToString());
-                break;
-        }
-        logBuilder.AppendUtf8("|"u8);
+            LogLevel.Trace => "Trace",
+            LogLevel.Debug => "Debug",
+            LogLevel.Information => "Info",
+            LogLevel.Warning => "Warn",
+            LogLevel.Error => "Error",
+            LogLevel.Critical => "Fatal",
+            LogLevel.None => "Off",
+            _ => logLevel.ToString(),
+        };
 
-        logBuilder.AppendFormatted(Tail(logName, 128));
-        logBuilder.AppendUtf8("|"u8);
-
-        // Cap the preview before encoding so a single large message cannot grow the pooled writer indefinitely.
+        // Cap the preview before encoding to bound the temporary buffer.
         const int maxEntryCharacters = 32 * 1024;
+        var category = Tail(logName, 128);
         var detail = Tail(exception?.ToString(), maxEntryCharacters);
-        logBuilder.AppendFormatted(Tail(message, maxEntryCharacters - detail.Length));
-        logBuilder.AppendUtf8("| "u8);
-
-        logBuilder.AppendFormatted(detail);
-        logBuilder.AppendLine();
-
-        logBuilder.Flush();
-
-        Builder.Append(logBuilder.GetBufferWriter().WrittenSpan);
+        var preview = Tail(message, maxEntryCharacters - detail.Length);
+        var characterCount = "yyyy-MM-dd HH:mm:ss.fff".Length + "|||| ".Length + Environment.NewLine.Length
+            + level.Length + category.Length + preview.Length + detail.Length;
+        var capacity = Encoding.UTF8.GetMaxByteCount(characterCount);
+        byte[]? rented = null;
+        Span<byte> entry = capacity <= 512 ? stackalloc byte[capacity] : (rented = ArrayPool<byte>.Shared.Rent(capacity));
+        try
+        {
+            if (Utf8.TryWrite(entry, CultureInfo.InvariantCulture,
+                $"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}|{level}|{category}|{preview}| {detail}{Environment.NewLine}", out var written))
+            {
+                Builder.Append(entry[..written]);
+            }
+        }
+        finally
+        {
+            if (rented != null)
+                ArrayPool<byte>.Shared.Return(rented);
+        }
     }
 
     static ReadOnlySpan<char> Tail(string? text, int maxCharacters)

@@ -9,6 +9,17 @@
     <DefineConstants>$(DefineConstants);STARTUP_WATCH_TRACE</DefineConstants>
   </PropertyGroup>
 
+  <!-- Watt Toolkit uses only the System.Drawing.Color formatters in source Common. -->
+  <PropertyGroup>
+    <_WttsCommonProjectPath>$([MSBuild]::NormalizePath('$(MSBuildThisFileDirectory)', 'ref/Common/src/BD.Common/BD.Common.csproj'))</_WttsCommonProjectPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectFullPath)' == '$(_WttsCommonProjectPath)'">
+    <DefineConstants>$(DefineConstants);COMMON_NO_SPLAT_DRAWING</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(MSBuildProjectFullPath)' == '$(_WttsCommonProjectPath)'">
+    <PackageReference Remove="Splat.Drawing" />
+  </ItemGroup>
+
   <Target Name="WttsEmbedProjectSatelliteAssemblies" BeforeTargets="_ComputeIlcCompileInputs"
           Condition="'$(WttsNativeAot)' == 'true' AND '$(PublishAot)' == 'true'">
     <ItemGroup>
@@ -19,20 +30,13 @@
   </Target>
 
 
-  <!-- Select portable variants before framework resolution so both JIT and native
-       publications avoid acquiring WPF solely through these utility dependencies. -->
+  <!-- Use portable threading assets on Windows so they do not pull in WPF. -->
   <Target Name="WttsSelectPortableNativeDependencies" AfterTargets="ResolvePackageAssets" BeforeTargets="AddTransitiveFrameworkReferences"
           Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
     <ItemGroup>
-      <_WttsPortableCompile Include="@(ResolvedCompileFileDefinitions)" Condition="'%(NuGetPackageId)' == 'Splat.Drawing'">
-        <PortablePath>$(NuGetPackageRoot)splat.drawing\%(NuGetPackageVersion)\lib\net10.0\Splat.Drawing.dll</PortablePath>
-      </_WttsPortableCompile>
       <_WttsPortableCompile Include="@(ResolvedCompileFileDefinitions)" Condition="'%(NuGetPackageId)' == 'Microsoft.VisualStudio.Threading.Only'">
         <PortablePath>$(NuGetPackageRoot)microsoft.visualstudio.threading.only\%(NuGetPackageVersion)\lib\net8.0\Microsoft.VisualStudio.Threading.dll</PortablePath>
       </_WttsPortableCompile>
-      <_WttsPortableRuntime Include="@(RuntimeCopyLocalItems)" Condition="'%(NuGetPackageId)' == 'Splat.Drawing'">
-        <PortablePath>$(NuGetPackageRoot)splat.drawing\%(NuGetPackageVersion)\lib\net10.0\Splat.Drawing.dll</PortablePath>
-      </_WttsPortableRuntime>
       <_WttsPortableRuntime Include="@(RuntimeCopyLocalItems)" Condition="'%(NuGetPackageId)' == 'Microsoft.VisualStudio.Threading.Only'">
         <PortablePath>$(NuGetPackageRoot)microsoft.visualstudio.threading.only\%(NuGetPackageVersion)\lib\net8.0\Microsoft.VisualStudio.Threading.dll</PortablePath>
       </_WttsPortableRuntime>

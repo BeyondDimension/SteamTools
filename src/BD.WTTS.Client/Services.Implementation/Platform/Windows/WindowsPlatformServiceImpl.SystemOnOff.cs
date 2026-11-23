@@ -96,7 +96,7 @@ partial class WindowsPlatformServiceImpl
     async void IPlatformService.SystemSleep(int waitSecond)
     {
         await Task.Delay(waitSecond * 1000);
-        Vanara.PInvoke.PowrProf.SetSuspendState(false, true, false);
+        SetSuspendState(hibernate: false, force: true, wakeupEventsDisabled: false);
     }
 
     /// <summary>
@@ -106,8 +106,15 @@ partial class WindowsPlatformServiceImpl
     async void IPlatformService.SystemHibernate(int waitSecond)
     {
         await Task.Delay(waitSecond * 1000);
-        Vanara.PInvoke.PowrProf.SetSuspendState(true, true, false);
+        SetSuspendState(hibernate: true, force: true, wakeupEventsDisabled: false);
     }
+
+    [LibraryImport("powrprof.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.U1)]
+    private static partial bool SetSuspendState(
+        [MarshalAs(UnmanagedType.U1)] bool hibernate,
+        [MarshalAs(UnmanagedType.U1)] bool force,
+        [MarshalAs(UnmanagedType.U1)] bool wakeupEventsDisabled);
 
     #endregion
 }
