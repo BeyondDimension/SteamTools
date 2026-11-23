@@ -65,7 +65,15 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install --no-install-recommends -y clang zlib1g-dev
+          sudo apt-get install --no-install-recommends -y clang cmake zlib1g-dev
+
+      - name: Build Linux DTLS libraries
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          dtls_assets="$PWD/build/artifacts/native-dependencies/dtls/$PUBLISH_RID"
+          bash build/native-dtls/build-linux.sh "$PUBLISH_RID" "$dtls_assets"
+          printf 'WttsLinuxDtlsAssets=%s\n' "$dtls_assets" >> "$GITHUB_ENV"
 
       - name: Set up macOS publishing
         if: runner.os == 'macOS'
@@ -89,6 +97,8 @@ jobs:
           persist-credentials: false
 
       - name: Publish packages
+        env:
+          WttsDesktopTargetFrameworks: ${{ runner.os == 'macOS' && 'net11.0-macos' || '' }}
         run: dotnet run --project $env:PUBLISH_PROJECT --configuration Release --no-launch-profile -- run --rids $env:PUBLISH_RID --aot true
 
       - name: Build Windows installers

@@ -76,6 +76,23 @@
     </ItemGroup>
   </Target>
 
+  <!-- Use the Linux DTLS libraries rebuilt against the release runner's glibc for both JIT and AOT. -->
+  <Target Name="WttsUseLinuxDtlsAssets" AfterTargets="ResolvePackageAssets"
+          Condition="'$(WttsLinuxDtlsAssets)' != '' AND ('$(RuntimeIdentifier)' == 'linux-x64' OR '$(RuntimeIdentifier)' == 'linux-arm64')">
+    <ItemGroup>
+      <_WttsLinuxDtlsAsset Include="@(NativeCopyLocalItems)"
+                           Condition="'%(NativeCopyLocalItems.NuGetPackageId)' == 'DTLS' AND '%(NativeCopyLocalItems.Filename)%(NativeCopyLocalItems.Extension)' == 'libdtls_native.so'" />
+    </ItemGroup>
+    <Error Condition="'@(_WttsLinuxDtlsAsset)' != '' AND '%(_WttsLinuxDtlsAsset.NuGetPackageVersion)' != '0.5.1'"
+           Text="Rebuild the Linux DTLS libraries from the source revision matching the restored DTLS package." />
+    <Error Condition="'@(_WttsLinuxDtlsAsset)' != '' AND !Exists('$(WttsLinuxDtlsAssets)/native/libdtls_native.so')"
+           Text="The rebuilt Linux DTLS library was not found in '$(WttsLinuxDtlsAssets)/native'." />
+    <ItemGroup>
+      <NativeCopyLocalItems Remove="@(_WttsLinuxDtlsAsset)" />
+      <NativeCopyLocalItems Include="@(_WttsLinuxDtlsAsset->'$(WttsLinuxDtlsAssets)/native/libdtls_native.so')" />
+    </ItemGroup>
+  </Target>
+
   <Target Name="WttsSupplyMacOSX64Dtls" BeforeTargets="_DTLSValidateStaticNativeLibrary"
           DependsOnTargets="ResolvePackageAssets"
           Condition="'$(WttsNativeAot)' == 'true' AND '$(PublishAot)' == 'true' AND '$(RuntimeIdentifier)' == 'osx-x64' AND '$(WttsMacOSX64DtlsAssets)' != ''">
@@ -112,8 +129,8 @@
   <PropertyGroup Condition="'$(WttsDesktopTargetFrameworks)' != '' AND $(TargetFrameworks.Contains('-windows')) AND $(TargetFrameworks.Contains('-macos'))">
     <TargetFrameworks>$([System.Text.RegularExpressions.Regex]::Replace('$(WttsDesktopTargetFrameworks)', '-.*', ''));$(WttsDesktopTargetFrameworks)</TargetFrameworks>
   </PropertyGroup>
-  <!-- Restore all compatible library targets without requiring mobile workloads for macOS Native AOT. -->
-  <PropertyGroup Condition="'$(WttsNativeAot)' == 'true' AND $([MSBuild]::GetTargetPlatformIdentifier('$(WttsDesktopTargetFrameworks)')) == 'macos' AND $(TargetFrameworks.Contains('-macos'))">
+  <!-- Restore compatible library targets without mobile workloads for macOS desktop publishing. -->
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(WttsDesktopTargetFrameworks)')) == 'macos' AND $(TargetFrameworks.Contains('-macos'))">
     <TargetFrameworks>$([MSBuild]::Unescape($([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', 'net[0-9.]+-(?!macos)[^;]+;?', '').TrimEnd(';'))))</TargetFrameworks>
   </PropertyGroup>
 
