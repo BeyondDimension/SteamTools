@@ -79,8 +79,8 @@ jobs:
         if: runner.os == 'macOS'
         shell: bash
         run: |
-          sudo xcode-select --switch /Applications/Xcode_27.0.app/Contents/Developer
-          dotnet workload install macos --skip-manifest-update
+          sudo xcode-select --switch /Applications/Xcode_27.2.app/Contents/Developer
+          dotnet workload install macos --version 11.0.100.1
 
       - name: Build Intel macOS DTLS libraries
         if: matrix.rid == 'osx-x64'
