@@ -1,14 +1,3 @@
 <Project>
   <Import Project="..\ref\DirectoryPackages\Directory.Packages.props" />
-  <PropertyGroup>
-    <Version_SimdSkia>0.1.4</Version_SimdSkia>
-  </PropertyGroup>
-  <!-- 12.1.x requires ReactiveUI 26; this application still uses ReactiveUI 23. -->
-  <ItemGroup>
-    <PackageVersion Update="ReactiveUI.Avalonia" Version="12.0.3" />
-    <PackageVersion Include="SimdSkia" Version="$(Version_SimdSkia)" />
-    <PackageVersion Include="SimdSkia.Avalonia.Desktop" Version="$(Version_SimdSkia)" />
-    <PackageVersion Include="MicroCom.CodeGenerator.MSBuild" Version="0.11.5" />
-    <PackageVersion Include="MicroCom.Runtime" Version="0.11.6" />
-  </ItemGroup>
 </Project>

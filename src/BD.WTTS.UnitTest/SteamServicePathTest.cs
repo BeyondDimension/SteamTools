@@ -1,9 +1,15 @@
 using System.IO.Hashing;
 using System.Text;
 using BD.SteamClient.Models;
+using BD.SteamClient.Services;
 using BD.SteamClient.Services.Implementation;
 using BD.SteamClient.Services.Mvvm;
+using BD.WTTS.Services;
+using BD.WTTS.Services.Implementation;
 using Microsoft.Extensions.Logging.Abstractions;
+using Moq;
+using ReactiveUI.Reactive.Builder;
+using System.Reactive.Concurrency;
 
 namespace BD.WTTS.UnitTest;
 
@@ -48,6 +54,43 @@ public sealed class SteamServicePathTest
         service.ConfiguredPath = null;
         Assert.That(service.SteamProgramPath, Is.EqualTo(automaticProgram));
         Assert.That(service.SteamDirPath, Is.EqualTo(automaticDirectory));
+    }
+
+    [TestCase(false)]
+    [TestCase(true)]
+    public async Task OfflineRefreshKeepsLastGamesWhenLocalCacheTemporarilyYieldsNoEntries(bool sharded)
+    {
+        RxAppBuilder.CreateReactiveUIBuilder().WithMainThreadScheduler(ImmediateScheduler.Instance).BuildApp();
+        var parsedSteam = new TestSteamService { ConfiguredPath = Path.Combine(second, "steam.exe") };
+        var steam = new Mock<ISteamService>();
+        steam.Setup(x => x.GetSteamProcessPid()).Returns(0);
+        steam.Setup(x => x.GetAppInfoEdits()).Returns(new Dictionary<uint, SteamAppEdit>());
+        steam.Setup(x => x.GetDownloadingAppList()).Returns([]);
+        steam.Setup(x => x.ReadAppInfosInBatchesAsync(It.IsAny<Action<IReadOnlyList<SteamApp>>>(), It.IsAny<CancellationToken>()))
+            .Returns<Action<IReadOnlyList<SteamApp>>, CancellationToken>(parsedSteam.ReadAppInfosInBatchesAsync);
+        var local = new Mock<ISteamworksLocalApiService>(MockBehavior.Strict);
+        var web = new Mock<ISteamworksWebApiService>(MockBehavior.Strict);
+        using var connection = new SteamConnectService(steam.Object, local.Object, web.Object);
+
+        if (sharded) WriteShard(second, 0, 2001, 1, metadataSize: 66);
+        await connection.RefreshGamesListAsync(showToast: false);
+        Assert.That(connection.SteamApps.Items.Select(app => app.AppId), Is.EqualTo(new uint[] { 2001 }));
+
+        if (sharded) WriteShard(second, 0, 0, 0, metadataSize: 66);
+        else File.WriteAllBytes(Path.Combine(second, "appcache", "appinfo.vdf"), []);
+        for (var attempt = 0; attempt < 2; attempt++)
+        {
+            await connection.RefreshGamesListAsync(showToast: false);
+            Assert.That(connection.SteamApps.Items.Select(app => app.AppId), Is.EqualTo(new uint[] { 2001 }));
+            Assert.That(connection.IsLoadingGameList, Is.False);
+        }
+
+        if (sharded) WriteShard(second, 0, 2002, 1, metadataSize: 66);
+        else CreateSteam(second, "second-account", 2002, 1);
+        await connection.RefreshGamesListAsync(showToast: false);
+        Assert.That(connection.SteamApps.Items.Select(app => app.AppId), Is.EqualTo(new uint[] { 2002 }));
+        local.VerifyNoOtherCalls();
+        web.VerifyNoOtherCalls();
     }
 
     [Test]
@@ -128,7 +171,7 @@ public sealed class SteamServicePathTest
     }
 
     [Test]
-    public void SplitCacheDoesNotReadAnUnterminatedRecordIntoTheNextApp()
+    public async Task SplitCacheDoesNotReadAnUnterminatedRecordIntoTheNextApp()
     {
         var path = WriteShard(first, 0, 3001, 2, metadataSize: 64);
         using (var file = File.Open(path, FileMode.Open, FileAccess.ReadWrite))
@@ -143,7 +186,7 @@ public sealed class SteamServicePathTest
         }
 
         var service = new TestSteamService { ConfiguredPath = Path.Combine(first, "steam.exe") };
-        Assert.ThrowsAsync<InvalidDataException>(() => service.ReadAppInfosInBatchesAsync(_ => Assert.Fail("Invalid data must not be emitted.")));
+        await Assert.ThrowsAsync<InvalidDataException>(() => service.ReadAppInfosInBatchesAsync(_ => Assert.Fail("Invalid data must not be emitted.")));
     }
 
     [TestCase(1)]
@@ -162,7 +205,16 @@ public sealed class SteamServicePathTest
         else if (version != 1)
             CreateSteam(first, "first-account", appId, 2, version);
         var service = new TestSteamService { ConfiguredPath = Path.Combine(first, "steam.exe") };
-        var edits = new Dictionary<uint, SteamAppEdit> { [appId] = new() { Name = "编辑后的名字", Developer = "A studio" } };
+        var edits = new Dictionary<uint, SteamAppEdit>
+        {
+            [appId] = new()
+            {
+                Name = "编辑后的名字",
+                SortAs = string.Empty,
+                Developer = "A studio",
+                LaunchItems = [new SteamLaunchEdit(string.Empty, "fixture", string.Empty, null, "osx")],
+            },
+        };
 
         Assert.That(TestSteamService.Rewrite(first, edits, () => false), Is.False);
         Assert.That((await service.GetAppInfos()).Single(x => x.AppId == appId).Name, Is.EqualTo(original));
@@ -172,12 +224,23 @@ public sealed class SteamServicePathTest
         Assert.That(changed.Developer, Is.EqualTo("A studio"));
         Assert.That(changed.GetOriginalEditValues().Name, Is.EqualTo(original));
 
+        Assert.That(TestSteamService.Rewrite(first, edits, () => true), Is.False, "A repeated apply does not replace the cache.");
+        var persisted = await service.GetAppInfos(isSaveProperties: true);
+        Assert.That(SteamServiceImpl2.AreAppEditsAlreadyApplied(edits, persisted), Is.True);
+        Assert.That(SteamServiceImpl2.AreAppEditsAlreadyApplied(new Dictionary<uint, SteamAppEdit>
+        {
+            [appId] = new() { Name = "A different edit" },
+        }, persisted), Is.False);
+        Assert.That(SteamServiceImpl2.AreAppEditsAlreadyApplied(edits, persisted.Where(x => x.AppId != appId)), Is.False);
+
         edits[appId] = new();
+        Assert.That(SteamServiceImpl2.AreAppEditsAlreadyApplied(edits, persisted), Is.False);
         Assert.That(TestSteamService.Rewrite(first, edits, () => true), Is.True);
         var restored = (await service.GetAppInfos()).Single(x => x.AppId == appId);
         Assert.That(restored.Name, Is.EqualTo(original));
         Assert.That(restored.Developer, Is.Empty);
         Assert.That(restored.IsEdited, Is.False);
+        Assert.That(SteamServiceImpl2.AreAppEditsAlreadyApplied(edits, await service.GetAppInfos(isSaveProperties: true)), Is.True);
         Assert.That(File.ReadAllBytes(unrelated), Is.EqualTo(untouched));
     }
 

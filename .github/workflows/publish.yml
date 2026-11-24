@@ -45,24 +45,42 @@ jobs:
           submodules: recursive
           persist-credentials: false
 
+      - name: Read .NET SDK version
+        id: sdk
+        run: |
+          # setup-dotnet resolves the latestMajor policy to the LTS channel.
+          $sdkVersion = (Get-Content -LiteralPath global.json -Raw | ConvertFrom-Json).sdk.version
+          if ([string]::IsNullOrWhiteSpace($sdkVersion)) {
+            throw 'global.json must specify sdk.version.'
+          }
+          "version=$sdkVersion" >> $env:GITHUB_OUTPUT
+
       - name: Set up .NET
         uses: actions/setup-dotnet@v6
         with:
-          global-json-file: source/global.json
+          dotnet-version: ${{ steps.sdk.outputs.version }}
 
       - name: Install Linux Native AOT dependencies
         if: runner.os == 'Linux'
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install --no-install-recommends -y clang zlib1g-dev
+          sudo apt-get install --no-install-recommends -y clang cmake zlib1g-dev
+
+      - name: Build Linux DTLS libraries
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          dtls_assets="$PWD/build/artifacts/native-dependencies/dtls/$PUBLISH_RID"
+          bash build/native-dtls/build-linux.sh "$PUBLISH_RID" "$dtls_assets"
+          printf 'WttsLinuxDtlsAssets=%s\n' "$dtls_assets" >> "$GITHUB_ENV"
 
       - name: Set up macOS publishing
         if: runner.os == 'macOS'
         shell: bash
         run: |
-          sudo xcode-select --switch /Applications/Xcode_27.0.app/Contents/Developer
-          dotnet workload install macos --skip-manifest-update
+          sudo xcode-select --switch /Applications/Xcode_27.2.app/Contents/Developer
+          dotnet workload install macos --version 11.0.100.1
 
       - name: Build Intel macOS DTLS libraries
         if: matrix.rid == 'osx-x64'
@@ -79,6 +97,8 @@ jobs:
           persist-credentials: false
 
       - name: Publish packages
+        env:
+          WttsDesktopTargetFrameworks: ${{ runner.os == 'macOS' && 'net11.0-macos' || '' }}
         run: dotnet run --project $env:PUBLISH_PROJECT --configuration Release --no-launch-profile -- run --rids $env:PUBLISH_RID --aot true
 
       - name: Build Windows installers
@@ -91,7 +111,7 @@ jobs:
           $assetsDir = New-Item -ItemType Directory -Path ../release-assets -Force
           $rid = $env:PUBLISH_RID.Replace('-', '_')
           $extensions = switch ($env:RUNNER_OS) {
-            'Linux' { '.tar.gz' }
+            'Linux' { '.tgz' }
             'macOS' { '.dmg' }
             default { '.7z' }
           }
@@ -112,8 +132,7 @@ jobs:
               }
 
               $version = [regex]::Match($packages[0].Name, $pattern).Groups['version'].Value
-              $assetExtension = if ($extension -eq '.tar.gz') { '.tgz' } else { $extension }
-              $assetName = "Steam++_v${version}_${rid}${suffix}${assetExtension}"
+              $assetName = "Steam++_v${version}_${rid}${suffix}${extension}"
               Copy-Item -LiteralPath $packages[0].FullName -Destination (Join-Path $assetsDir.FullName $assetName)
             }
           }

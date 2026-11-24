@@ -58,12 +58,12 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
             (name, type, installed, cloud) => new Func<SteamApp, bool>(app =>
                 type(app) && installed(app) && cloud(app) && name(app)));
 
-        this.ObserveValue(nameof(AppTypeFiltres), static x => x.AppTypeFiltres)
+        var appTypeChanges = this.ObserveValue(nameof(AppTypeFiltres), static x => x.AppTypeFiltres)
             .Select(type => type == null
                 ? Observable.Empty<IChangeSet<EnumModel<SteamAppType>>>()
                 : type.ToObservableChangeSet().AutoRefreshOnObservable(static item =>
-                    item.ObserveValue(nameof(item.Enable), static x => x.Enable).Skip(1)))
-            .Switch()
+                    item.ObserveValue(nameof(item.Enable), static x => x.Enable).Skip(1)));
+        Observable.Switch(appTypeChanges)
             .Subscribe(_ =>
             {
                 EnableAppTypeFiltres = AppTypeFiltres?.Where(s => s.Enable).ToArray();

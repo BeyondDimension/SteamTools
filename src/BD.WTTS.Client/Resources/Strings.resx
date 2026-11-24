@@ -625,7 +625,7 @@
     <value>您没有权限查看确认信息. 是否启用了家庭监护功能？暂时不支持管理启用家庭监护功能后的交易确认。</value>
   </data>
 	<data name="LocalAuth_AuthTrade_GetError3" xml:space="preserve">
-    <value>登录状态已失效请尝试重新登录</value>
+    <value>Steam 会话已失效，请重新登录。</value>
   </data>
 	<data name="LocalAuth_AuthTrade_GetTip" xml:space="preserve">
     <value>正在获取最新的交易报价信息…</value>
@@ -2290,7 +2290,7 @@
     <value>网络加速子进程文件不存在</value>
   </data>
 	<data name="LocalAuth_AuthTrade_Null" xml:space="preserve">
-    <value>当前没有任何交易需要确认，请尝试刷新获取最新数据</value>
+    <value>暂无待确认事项</value>
   </data>
 	<data name="Steam_Share_RemoveShare" xml:space="preserve">
     <value>是否删除此家庭库共享。</value>
@@ -3976,7 +3976,7 @@
     <value>模拟 App 登录</value>
   </data>
   <data name="SteamTradeMobileLoginHint" xml:space="preserve">
-    <value>两种方式均可确认交易。扫描屏幕二维码登录仅支持已保存的模拟 App 会话。</value>
+    <value>两种会话均可用于确认交易和挂卡的令牌登录。扫描屏幕二维码登录需要已保存的模拟 App 会话。</value>
   </data>
   <data name="SteamTradeMobileLoginWarning" xml:space="preserve">
     <value>共存导入的令牌使用模拟 App 登录时，原设备可能会退出登录。</value>
@@ -3994,7 +3994,10 @@
     <value>Steam 已登录，但登录状态保存失败。请重试保存后再使用扫码。</value>
   </data>
 	<data name="L10nAuthIdle_Text103" xml:space="preserve">
-    <value>Steam 已登录，但读取交易确认失败。请检查网络并刷新，不要反复重新登录。</value>
+    <value>读取待确认事项失败。请检查网络后刷新。</value>
+  </data>
+  <data name="SteamTradeDetailLoadError" xml:space="preserve">
+    <value>物品图片加载失败。</value>
   </data>
 	<data name="L10nAuthIdle_Text104" xml:space="preserve">
     <value>私密游戏(不掉卡) + 已拉黑</value>

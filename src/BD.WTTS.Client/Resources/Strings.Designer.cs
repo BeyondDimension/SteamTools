@@ -8007,6 +8007,8 @@ namespace BD.WTTS.Client.Resources {
         public static string SteamTradeMobileLoginHint => ResourceManager.GetString("SteamTradeMobileLoginHint", resourceCulture);
 
         public static string SteamTradeMobileLoginWarning => ResourceManager.GetString("SteamTradeMobileLoginWarning", resourceCulture);
+
+        public static string SteamTradeDetailLoadError => ResourceManager.GetString("SteamTradeDetailLoadError", resourceCulture);
         
         /// <summary>
         ///     Looks up a localized string similar to 检查交易确认登录状态失败，请检查网络或重新登录。.
@@ -8045,7 +8047,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///     Looks up a localized string similar to Steam 已登录，但读取交易确认失败。请检查网络并刷新，不要反复重新登录。.
+        ///     Looks up a localized string similar to 读取待确认事项失败。请检查网络后刷新。.
         /// </summary>
         public static string L10nAuthIdle_Text103 {
             get {
@@ -9623,7 +9625,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///     Looks up a localized string similar to 登录状态已失效请尝试重新登录.
+        ///     Looks up a localized string similar to Steam 会话已失效，请重新登录。.
         /// </summary>
         public static string LocalAuth_AuthTrade_GetError3 {
             get {
@@ -9650,7 +9652,7 @@ namespace BD.WTTS.Client.Resources {
         }
         
         /// <summary>
-        ///     Looks up a localized string similar to 当前没有任何交易需要确认，请尝试刷新获取最新数据.
+        ///     Looks up a localized string similar to 暂无待确认事项.
         /// </summary>
         public static string LocalAuth_AuthTrade_Null {
             get {

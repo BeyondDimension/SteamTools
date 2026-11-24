@@ -44,6 +44,9 @@ mounted=
 
 # Keep the template's label and icon position with a shortcut that works on any Mac.
 ln -s /Applications "$layout/应用程序"
+# Only remove quarantine when the input bundle or one of its files is marked.
+sudo xattr -rd com.apple.quarantine "$app_bundle"
+
 /usr/bin/ditto "$app_bundle" "$layout/Steam++.app"
 
 working_image="$work/layout.dmg"

@@ -7,7 +7,7 @@ using BD.WTTS.UI.ViewModels;
 using BD.WTTS.Models;
 using WinAuth;
 using Moq;
-using ReactiveUI.Builder;
+using ReactiveUI.Reactive.Builder;
 using System.Reactive.Concurrency;
 
 namespace BD.WTTS.UnitTest;
@@ -20,14 +20,15 @@ public sealed class SteamSavedAccountLoginTest
     public void InitializeReactiveUI() => RxAppBuilder.CreateReactiveUIBuilder()
         .WithMainThreadScheduler(ImmediateScheduler.Instance).BuildApp();
 
-    [Test]
-    public void ActiveTradeSessionIsAvailableWithoutPersistingItAndLogoutInvalidatesIt()
+    [TestCase(false)]
+    [TestCase(true)]
+    public void ActiveTradeSessionIsAvailableWithoutPersistingItAndLogoutInvalidatesIt(bool mobile)
     {
-        const ushort id = 61001;
+        var id = mobile ? (ushort)61001 : (ushort)61003;
         var live = NewAuthenticator();
         var stored = NewAuthenticator();
         using var item = new AuthenticatorItemModel(new AuthenticatorDTO { Id = id, Name = "offline", Value = live });
-        var access = Token(SteamId, ["mobile", "web"]);
+        var access = Token(SteamId, AccessAudiences(mobile));
         live.Client.SessionSet(new WinAuth.SteamClient.SteamSession { SteamID = SteamId, AccessToken = access }.ToString());
         var selected = AuthenticatorSavedSteamAccounts.FindUsableSession(id, stored, out var owner);
         Assert.Multiple(() =>
@@ -155,13 +156,15 @@ public sealed class SteamSavedAccountLoginTest
         service.VerifyNoOtherCalls();
     }
 
-    [Test]
-    public async Task SavedMobileWebTokenCreatesVerifiedSessionWithoutCopyingRefreshToken()
+    [TestCase(false)]
+    [TestCase(true)]
+    public async Task SavedAccessTokenCreatesVerifiedSessionWithoutCopyingRefreshToken(bool mobile)
     {
-        var access = Token(SteamId, ["mobile", "web"]);
+        var access = Token(SteamId, AccessAudiences(mobile));
+        var refresh = Token(SteamId, RefreshAudiences(mobile));
         var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
         WebHandler? handler = null;
-        var session = await AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(SteamId, access, null, service.Object, default,
+        var session = await AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(SteamId, access, refresh, service.Object, default,
             cookies => handler = new WebHandler(cookies));
         Assert.Multiple(() =>
         {
@@ -179,12 +182,12 @@ public sealed class SteamSavedAccountLoginTest
     [Test]
     public async Task ExpiredMobileAccessIsRenewedBeforeWebSessionIsCreated()
     {
-        var refresh = Token(SteamId, ["mobile", "derive"]);
-        var renewed = Token(SteamId, ["mobile", "web"]);
+        var refresh = Token(SteamId, RefreshAudiences(mobile: true));
+        var renewed = Token(SteamId, AccessAudiences(mobile: true));
         var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
         service.Setup(x => x.RefreshAccessToken(SteamId, refresh)).ReturnsAsync(renewed);
         var session = await AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(SteamId,
-            Token(SteamId, ["mobile", "web"], expired: true), refresh, service.Object, default, cookies => new WebHandler(cookies));
+            Token(SteamId, AccessAudiences(mobile: true), expired: true), refresh, service.Object, default, cookies => new WebHandler(cookies));
         Assert.Multiple(() =>
         {
             Assert.That(session.AccessToken, Is.EqualTo(renewed));
@@ -193,35 +196,127 @@ public sealed class SteamSavedAccountLoginTest
         service.Verify(x => x.RefreshAccessToken(SteamId, refresh), Times.Once);
     }
 
+    [TestCase(false)]
+    [TestCase(true)]
+    public async Task MissingOrExpiredBrowserAccessUsesWebTransferAndKeepsRefreshInAuthenticator(bool expiredAccess)
+    {
+        var refresh = Token(SteamId, RefreshAudiences(mobile: false));
+        var renewed = Token(SteamId, AccessAudiences(mobile: false)) + "-renewed";
+        var access = expiredAccess ? Token(SteamId, AccessAudiences(mobile: false), expired: true) : null;
+        var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
+        BrowserRefreshHandler? handler = null;
+
+        var session = await AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(SteamId, access, refresh, service.Object,
+            default, cookies => handler = new BrowserRefreshHandler(cookies, refresh, renewed));
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(session.SteamId, Is.EqualTo(SteamId.ToString()));
+            Assert.That(session.AccessToken, Is.EqualTo(renewed));
+            Assert.That(session.RefreshToken, Is.Empty);
+            Assert.That(session.CookieContainer.GetAllCookies().Select(cookie => cookie.Name), Does.Not.Contain("steamRefresh_steam"));
+            Assert.That(handler!.Transferred, Is.True);
+            Assert.That(handler.VerifiedCommunity, Is.True);
+        });
+        service.VerifyNoOtherCalls();
+    }
+
+    [Test]
+    public async Task BrowserAccessSteamRejectsCanStillBeRenewedUsingWebTransfer()
+    {
+        var access = Token(SteamId, AccessAudiences(mobile: false));
+        var refresh = Token(SteamId, RefreshAudiences(mobile: false));
+        var renewed = Token(SteamId, AccessAudiences(mobile: false)) + "-renewed";
+        var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
+        var attempts = 0;
+
+        var session = await AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(SteamId, access, refresh, service.Object,
+            default, cookies => ++attempts == 1 ? new WebHandler(cookies, "/login/home/") : new BrowserRefreshHandler(cookies, refresh, renewed));
+
+        Assert.That(session.AccessToken, Is.EqualTo(renewed));
+        Assert.That(attempts, Is.EqualTo(2));
+        service.VerifyNoOtherCalls();
+    }
+
+    [TestCase("finalized-account", false)]
+    [TestCase("transfer-host", false)]
+    [TestCase("transfer-port", false)]
+    [TestCase("cookie-account", true)]
+    [TestCase("token-subject", true)]
+    [TestCase("cookie-audience", true)]
+    public async Task BrowserTransferRejectsUntrustedAccountHostOrCookie(string scenario, bool shouldTransfer)
+    {
+        var refresh = Token(SteamId, RefreshAudiences(mobile: false));
+        var issuedToken = Token(scenario == "token-subject" ? SteamId + 1 : SteamId,
+            scenario == "cookie-audience" ? ["mobile"] : ["web"]);
+        var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
+        BrowserRefreshHandler? handler = null;
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(
+            SteamId, null, refresh, service.Object, default, cookies => handler = new BrowserRefreshHandler(cookies, refresh, issuedToken,
+                finalizedId: scenario == "finalized-account" ? SteamId + 1 : SteamId,
+                cookieId: scenario == "cookie-account" ? SteamId + 1 : SteamId,
+                transferUrl: scenario switch
+                {
+                    "transfer-host" => "https://outside.example/login/settoken",
+                    "transfer-port" => "https://steamcommunity.com:444/login/settoken",
+                    _ => "https://steamcommunity.com/login/settoken",
+                })));
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(handler!.Transferred, Is.EqualTo(shouldTransfer));
+            Assert.That(handler.VerifiedCommunity, Is.False);
+        });
+        service.VerifyNoOtherCalls();
+    }
+
     [TestCase("other-account")]
     [TestCase("no-web")]
+    [TestCase("client-only")]
     [TestCase("refresh-token")]
     [TestCase("expired")]
-    public void RejectsUnsuitableAccessBeforeContactingSteam(string scenario)
+    public async Task RejectsUnsuitableAccessBeforeContactingSteam(string scenario)
     {
         var id = scenario == "other-account" ? SteamId + 1 : SteamId;
         var audiences = scenario switch
         {
             "no-web" => new[] { "mobile" },
+            "client-only" => new[] { "client" },
             "refresh-token" => new[] { "mobile", "web", "derive" },
             _ => new[] { "mobile", "web" },
         };
         var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
         var reachedWeb = false;
-        Assert.ThrowsAsync<InvalidOperationException>(async () =>
+        await Assert.ThrowsAsync<InvalidOperationException>(async () =>
             await AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(SteamId,
                 Token(id, audiences, expired: scenario == "expired"), null, service.Object, default,
                 cookies => { reachedWeb = true; return new WebHandler(cookies); }));
         Assert.That(reachedWeb, Is.False);
     }
 
+    [TestCase(false)]
+    [TestCase(true)]
+    public async Task RejectsClientRefreshAndRefreshForDifferentAccountBeforeContactingSteam(bool differentAccount)
+    {
+        var refresh = differentAccount
+            ? Token(SteamId + 1, RefreshAudiences(mobile: false))
+            : Token(SteamId, ["client", "derive"]);
+        var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
+        var reachedWeb = false;
+        await Assert.ThrowsAsync<InvalidOperationException>(() => AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(
+            SteamId, null, refresh, service.Object, default, cookies => { reachedWeb = true; return new WebHandler(cookies); }));
+        Assert.That(reachedWeb, Is.False);
+        service.VerifyNoOtherCalls();
+    }
+
     [TestCase("/login/home/")]
     [TestCase("/profiles/76561198000000002")]
     [TestCase("https://evil.example/id/account")]
-    public void RejectsUnverifiedCommunitySession(string redirect)
+    public async Task RejectsUnverifiedCommunitySession(string redirect)
     {
         var service = new Mock<ISteamAccountService>(MockBehavior.Strict);
-        Assert.ThrowsAsync<InvalidOperationException>(async () =>
+        await Assert.ThrowsAsync<InvalidOperationException>(async () =>
             await AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(SteamId,
                 Token(SteamId, ["mobile", "web"]), null, service.Object, default,
                 cookies => new WebHandler(cookies, redirect)));
@@ -239,7 +334,7 @@ public sealed class SteamSavedAccountLoginTest
         var operation = AuthenticatorSavedSteamAccounts.CreateWebSessionAsync(SteamId, null, refresh, service.Object, cancel.Token,
             cookies => { reachedWeb = true; return new WebHandler(cookies); });
         cancel.Cancel();
-        Assert.CatchAsync<OperationCanceledException>(async () => await operation);
+        await Assert.CatchAsync<OperationCanceledException>(async () => await operation);
         pending.SetResult(Token(SteamId, ["mobile", "web"]));
         Assert.That(reachedWeb, Is.False);
     }
@@ -248,6 +343,10 @@ public sealed class SteamSavedAccountLoginTest
     {
         SteamId = id.ToString(), AccessToken = "web-access", RefreshToken = string.Empty,
     };
+
+    static string[] AccessAudiences(bool mobile) => mobile ? ["mobile", "web"] : ["web"];
+
+    static string[] RefreshAudiences(bool mobile) => mobile ? ["mobile", "derive"] : ["web", "renew", "derive"];
 
     static string Token(ulong id, string[] audiences, bool expired = false)
     {
@@ -259,21 +358,57 @@ public sealed class SteamSavedAccountLoginTest
         return "e30." + Convert.ToBase64String(payload).TrimEnd('=').Replace('+', '-').Replace('/', '_') + ".offline";
     }
 
-    sealed class WebHandler(CookieContainer cookies, string redirect = "/profiles/76561198000000001") : HttpMessageHandler
+    class WebHandler(CookieContainer cookies, string redirect = "/profiles/76561198000000001") : HttpMessageHandler
     {
+        protected CookieContainer Cookies { get; } = cookies;
         public bool VerifiedCommunity { get; private set; }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (request.RequestUri != new Uri("https://steamcommunity.com/my/") ||
-                cookies.GetCookies(request.RequestUri)["steamLoginSecure"] is null ||
-                cookies.GetCookies(request.RequestUri)["sessionid"] is null)
+                Cookies.GetCookies(request.RequestUri)["steamLoginSecure"] is null ||
+                Cookies.GetCookies(request.RequestUri)["sessionid"] is null)
                 throw new InvalidOperationException("Unexpected community verification request.");
             VerifiedCommunity = true;
             var response = new HttpResponseMessage(HttpStatusCode.Redirect);
             response.Headers.Location = new Uri(redirect, UriKind.RelativeOrAbsolute);
             return Task.FromResult(response);
+        }
+    }
+
+    sealed class BrowserRefreshHandler(CookieContainer cookies, string refresh, string issuedToken,
+        ulong finalizedId = SteamId, ulong cookieId = SteamId,
+        string transferUrl = "https://steamcommunity.com/login/settoken") : WebHandler(cookies)
+    {
+        public bool Transferred { get; private set; }
+
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            if (request.Method == HttpMethod.Post && request.RequestUri == new Uri("https://login.steampowered.com/jwt/finalizelogin"))
+            {
+                var form = await request.Content!.ReadAsStringAsync(cancellationToken);
+                Assert.That(form, Does.Contain("nonce=" + Uri.EscapeDataString(refresh)));
+                Cookies.Add(new Cookie("steamRefresh_steam", "browser-session-secret", "/", "login.steampowered.com"));
+                var response = new
+                {
+                    steamID = finalizedId.ToString(),
+                    transfer_info = new[] { new { url = transferUrl, @params = new { nonce = "transfer-nonce", auth = "transfer-auth" } } },
+                };
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(JsonSerializer.Serialize(response), System.Text.Encoding.UTF8, "application/json"),
+                };
+            }
+            if (request.Method == HttpMethod.Post && request.RequestUri == new Uri("https://steamcommunity.com/login/settoken"))
+            {
+                var form = await request.Content!.ReadAsStringAsync(cancellationToken);
+                Assert.That(form, Does.Contain("nonce=transfer-nonce").And.Contain("auth=transfer-auth").And.Contain($"steamID={SteamId}"));
+                Cookies.Add(new Cookie("steamLoginSecure", Uri.EscapeDataString($"{cookieId}||{issuedToken}"), "/", "steamcommunity.com"));
+                Transferred = true;
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            return await base.SendAsync(request, cancellationToken);
         }
     }
 }

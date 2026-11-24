@@ -1,9 +1,9 @@
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class AllGamesListPageViewModel : WindowViewModel
+public sealed partial class AllGamesListPageViewModel : WindowViewModel
 {
     [Reactive]
-    public ObservableCollection<XunYouGameViewModel> XunYouGames { get; set; } = [];
+    public partial ObservableCollection<XunYouGameViewModel> XunYouGames { get; set; } = [];
 
     public AllGamesListPageViewModel()
     {

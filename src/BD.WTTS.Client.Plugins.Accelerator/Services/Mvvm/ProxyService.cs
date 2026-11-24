@@ -63,24 +63,24 @@ public sealed partial class ProxyService
         //        }
         //    });
 
-        this.ObserveValue(nameof(ProxyDomainsList), static x => x.ProxyDomainsList)
+        var domainChanges = this.ObserveValue(nameof(ProxyDomainsList), static x => x.ProxyDomainsList)
             .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Select(groups => groups is null ? Observable.Empty<bool?>() : groups.ToObservableChangeSet()
                 .AutoRefreshOnObservable(static group => group.ObserveValue(nameof(group.ObservableItems), static x => x.ObservableItems).Skip(1))
                 .TransformMany(static group => group.ObservableItems ?? [])
-                .MergeMany(static item => item.ObserveValue(nameof(item.ThreeStateEnable), static x => x.ThreeStateEnable).Skip(1)))
-            .Switch()
+                .MergeMany(static item => item.ObserveValue(nameof(item.ThreeStateEnable), static x => x.ThreeStateEnable).Skip(1)));
+        Observable.Switch(domainChanges)
             .Subscribe(_ =>
             {
                 IsChangeSupportProxyServicesStatus = true;
                 ProxySettings.SupportProxyServicesStatus.Value = GetAccelerateEnableAllIds(EnableProxyDomains).ToImmutableHashSet();
             });
 
-        this.ObserveValue(nameof(ProxyScripts), static x => x.ProxyScripts)
+        var scriptChanges = this.ObserveValue(nameof(ProxyScripts), static x => x.ProxyScripts)
             .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Select(scripts => scripts is null ? Observable.Empty<ScriptDTO>() : scripts.Connect()
-                .MergeMany(static item => item.ObserveValue(nameof(item.Disable), static x => x.Disable).Skip(1).Select(_ => item)))
-            .Switch()
+                .MergeMany(static item => item.ObserveValue(nameof(item.Disable), static x => x.Disable).Skip(1).Select(_ => item)));
+        Observable.Switch(scriptChanges)
             .Subscribe(async item =>
             {
                 try
@@ -103,7 +103,7 @@ public sealed partial class ProxyService
     public ReadOnlyObservableCollection<AccelerateProjectGroupDTO> ProxyDomainsList => _ProxyDomainsList;
 
     [Reactive]
-    public bool IsLoadingAccelerate { get; set; } = true;
+    public partial bool IsLoadingAccelerate { get; set; } = true;
 
     readonly SemaphoreSlim accelerateLoadLock = new(1, 1);
 
@@ -232,10 +232,10 @@ public sealed partial class ProxyService
     int readingTrayTraffic;
 
     [Reactive]
-    public string? IPv6AddresString { get; set; }
+    public partial string? IPv6AddresString { get; set; }
 
     [Reactive]
-    public TimeSpan AccelerateTime { get; set; }
+    public partial TimeSpan AccelerateTime { get; set; }
 
     public bool IsEnableScript
     {
@@ -289,19 +289,19 @@ public sealed partial class ProxyService
     /// 代理启动或停止操作进行中
     /// </summary>
     [Reactive]
-    public bool ProxyStarting { get; set; }
+    public partial bool ProxyStarting { get; set; }
 
     /// <summary>
     /// 当前操作是否为停止代理。
     /// </summary>
     [Reactive]
-    public bool ProxyStopping { get; private set; }
+    public partial bool ProxyStopping { get; private set; }
 
     [Reactive]
-    public bool ProxyStatus { get; set; }
+    public partial bool ProxyStatus { get; set; }
 
     [Reactive]
-    public bool IsAnyProxyScripts { get; set; }
+    public partial bool IsAnyProxyScripts { get; set; }
 
     private bool CheckProxyScriptsEnable()
     {

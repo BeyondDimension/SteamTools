@@ -65,7 +65,7 @@ public sealed class AuthenticatorProtectionTest
         {
             // Structurally valid prefix for Windows CurrentUser; no DPAPI call can be made here.
             byte[] windowsEnvelope = [(byte)'W', (byte)'T', (byte)'A', (byte)'!', 1, 2, (byte)purpose, 0];
-            var failure = Assert.ThrowsAsync<AuthenticatorReadException>(async () =>
+            var failure = await Assert.ThrowsAsync<AuthenticatorReadException>(async () =>
                 await AuthenticatorEnvelope.OpenAsync(security, windowsEnvelope, purpose, true, false, keys));
             Assert.That(failure!.ResultCode, Is.EqualTo(ImportResultCode.LocalFail));
             return;
@@ -75,7 +75,7 @@ public sealed class AuthenticatorProtectionTest
         var local = await AuthenticatorEnvelope.SealAsync(security, plaintext, purpose, true, null, keys);
         Assert.That(local[5], Is.EqualTo(2));
         Assert.That(await AuthenticatorEnvelope.OpenAsync(security, local, purpose, true, false, keys), Is.EqualTo(plaintext));
-        var wrongScope = Assert.ThrowsAsync<AuthenticatorReadException>(async () =>
+        var wrongScope = await Assert.ThrowsAsync<AuthenticatorReadException>(async () =>
             await AuthenticatorEnvelope.OpenAsync(security, local, purpose, false, false, keys));
         Assert.That(wrongScope!.ResultCode, Is.EqualTo(ImportResultCode.IncorrectFormat));
     }
@@ -105,7 +105,7 @@ public sealed class AuthenticatorProtectionTest
         };
         var decoded = await repository.ConvertToListAsync(rows, Password);
         Assert.That(decoded.Select(x => x.Name), Is.EqualTo(new[] { "plain", "legacy" }));
-        var failure = Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.ConvertToListAsync(rows, NextPassword));
+        var failure = await Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.ConvertToListAsync(rows, NextPassword));
         Assert.That(failure!.ResultCode, Is.Not.EqualTo(ImportResultCode.Success));
     }
 
@@ -129,11 +129,11 @@ public sealed class AuthenticatorProtectionTest
             var before = await repository.GetAllSourceAsync();
             Assert.That(await repository.HasSecondaryPasswordAsync(), Is.True);
             Assert.That(before.Select(x => x.IsNeedSecondaryPassword), Is.EqualTo(new[] { false, true }));
-            Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.SwitchEncryptionModeAsync(false, NextPassword, null));
+            await Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.SwitchEncryptionModeAsync(false, NextPassword, null));
 
             await connection.ExecuteAsync($"CREATE TRIGGER reject_second BEFORE UPDATE ON [{AccountPlatformAuthenticator.TableName}] " +
                 $"WHEN OLD.[{AccountPlatformAuthenticator.ColumnName_Id}] = {before[1].Id} BEGIN SELECT RAISE(ABORT, 'fixture failure'); END");
-            Assert.ThrowsAsync<SQLiteException>(() => repository.SwitchEncryptionModeAsync(false, Password, NextPassword));
+            await Assert.ThrowsAsync<SQLiteException>(() => repository.SwitchEncryptionModeAsync(false, Password, NextPassword));
             var afterFailure = await repository.GetAllSourceAsync();
             Assert.That(afterFailure.Select(x => x.Value), Is.EqualTo(before.Select(x => x.Value)));
             Assert.That(afterFailure.Select(x => x.Name), Is.EqualTo(before.Select(x => x.Name)));
@@ -141,8 +141,8 @@ public sealed class AuthenticatorProtectionTest
 
             await connection.ExecuteAsync("DROP TRIGGER reject_second");
             await repository.SwitchEncryptionModeAsync(false, Password, NextPassword);
-            Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.InsertOrUpdateAsync(NewToken("stale writer"), false, Password));
-            Assert.ThrowsAsync<InvalidOperationException>(() => repository.InsertOrUpdateAsync(NewToken("downgrade"), false));
+            await Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.InsertOrUpdateAsync(NewToken("stale writer"), false, Password));
+            await Assert.ThrowsAsync<InvalidOperationException>(() => repository.InsertOrUpdateAsync(NewToken("downgrade"), false));
             await repository.RenameAsync(batch[1].Id, "renamed", true, NextPassword); // Caller hint is deliberately wrong.
             var after = await repository.GetAllSourceAsync();
             Assert.That(after.Select(x => x.Id), Is.EqualTo(before.Select(x => x.Id)));
@@ -177,10 +177,10 @@ public sealed class AuthenticatorProtectionTest
             await repository.InsertOrUpdateAsync(item, false, originalPassword);
             var before = (await repository.GetAllSourceAsync()).Single();
 
-            Assert.ThrowsAsync<InvalidOperationException>(() => repository.SwitchEncryptionModeAsync(
+            await Assert.ThrowsAsync<InvalidOperationException>(() => repository.SwitchEncryptionModeAsync(
                 true, originalPassword, null, windowsHello: true));
             if (migratePassword)
-                Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.SwitchEncryptionModeAsync(
+                await Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.SwitchEncryptionModeAsync(
                     true, NextPassword, null, windowsHello: true, verifiedWithHello: true));
             Assert.That((await repository.GetAllSourceAsync()).Single().Value, Is.EqualTo(before.Value));
 
@@ -188,12 +188,12 @@ public sealed class AuthenticatorProtectionTest
             var local = await repository.GetAllSourceAsync();
             Assert.That(local.Single().IsNotLocal, Is.False);
             Assert.That(local.Single().IsNeedSecondaryPassword, Is.False);
-            var blocked = Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.ConvertToListAsync(local, originalPassword));
+            var blocked = await Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.ConvertToListAsync(local, originalPassword));
             Assert.That(blocked!.ResultCode, Is.EqualTo(ImportResultCode.WindowsHelloRequired));
 
             var unlocked = await repository.ConvertToListAsync(local, verifiedWithHello: true);
             Assert.That(unlocked.Single().Value.SecretKey, Is.EqualTo(item.Value.SecretKey));
-            Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.InsertOrUpdateAsync(NewToken("blocked"), true));
+            await Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.InsertOrUpdateAsync(NewToken("blocked"), true));
             await repository.InsertOrUpdateAsync(NewToken("added"), true, verifiedWithHello: true);
             await repository.RenameAsync(item.Id, "renamed", true, verifiedWithHello: true);
             var updated = await repository.GetAllSourceAsync();
@@ -203,7 +203,7 @@ public sealed class AuthenticatorProtectionTest
             Assert.That((await repository.ImportAsync(NextPassword, backup)).result.Select(x => x.Name),
                 Is.EqualTo(new[] { "renamed", "added" }));
 
-            Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.SwitchEncryptionModeAsync(true, null, NextPassword));
+            await Assert.ThrowsAsync<AuthenticatorReadException>(() => repository.SwitchEncryptionModeAsync(true, null, NextPassword));
             await repository.SwitchEncryptionModeAsync(true, null, NextPassword, verifiedWithHello: true);
             var passwordRows = await repository.GetAllSourceAsync();
             Assert.That(passwordRows.Any(AccountPlatformAuthenticatorRepository.RequiresWindowsHello), Is.False);

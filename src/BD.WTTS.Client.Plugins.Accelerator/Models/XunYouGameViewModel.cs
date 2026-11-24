@@ -12,21 +12,21 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     /// </summary>
     [Reactive]
     [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
-    public XunYouPicInfo? PicInfo { get; set; }
+    public partial XunYouPicInfo? PicInfo { get; set; }
 
     /// <summary>
     /// 加速延迟
     /// </summary>
     [Reactive]
     [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
-    public uint PingValue { get; set; }
+    public partial uint PingValue { get; set; }
 
     /// <summary>
     /// 加速延迟是否无效
     /// </summary>
     [Reactive]
     [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
-    public bool PingValueIsInvalid { get; set; }
+    public partial bool PingValueIsInvalid { get; set; }
 
     /// <summary>
     /// 设置加速延迟
@@ -46,7 +46,7 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     /// </summary>
     [Reactive]
     [XmlIgnore, IgnoreDataMember, SystemTextJsonIgnore, NewtonsoftJsonIgnore, MPIgnore, MP2Ignore]
-    public float PingSpeedLoss { get; set; }
+    public partial float PingSpeedLoss { get; set; }
 
     XunYouGameInfo? _GameInfo;
 
@@ -74,14 +74,14 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     /// </summary>
     [Reactive]
     [MP2Ignore, SystemTextJsonIgnore]
-    public bool IsAccelerating { get; set; }
+    public partial bool IsAccelerating { get; set; }
 
     /// <summary>
     /// 加速进度
     /// </summary>
     [Reactive]
     [MP2Ignore, SystemTextJsonIgnore]
-    public int AcceleratingProgress { get; set; }
+    public partial int AcceleratingProgress { get; set; }
 
     bool _IsAccelerated;
 
@@ -108,7 +108,7 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     /// </summary>
     [Reactive]
     [MP2Ignore, SystemTextJsonIgnore]
-    public bool IsStopAccelerating { get; set; }
+    public partial bool IsStopAccelerating { get; set; }
 
     /// <summary>
     /// 最后加速时间
@@ -116,21 +116,21 @@ public partial class XunYouGameViewModel : ReactiveSerializationObject, IReactiv
     [Reactive]
     [MP2Key(1), JsonPropertyOrder(1)]
 
-    public DateTimeOffset? LastAccelerateTime { get; set; }
+    public partial DateTimeOffset? LastAccelerateTime { get; set; }
 
     /// <summary>
     /// 加速的区服
     /// </summary>
     [Reactive]
     [MP2Key(2), JsonPropertyOrder(2)]
-    public XunYouGameArea? SelectedArea { get; set; }
+    public partial XunYouGameArea? SelectedArea { get; set; }
 
     /// <summary>
     /// 加速的区服服务器
     /// </summary>
     [Reactive]
     [MP2Key(3), JsonPropertyOrder(3)]
-    public XunYouGameServer? SelectedServer { get; set; }
+    public partial XunYouGameServer? SelectedServer { get; set; }
 }
 
 /// <summary>

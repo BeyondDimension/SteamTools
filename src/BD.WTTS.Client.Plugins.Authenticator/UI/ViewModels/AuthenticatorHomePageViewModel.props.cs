@@ -7,7 +7,7 @@ public partial class AuthenticatorHomePageViewModel : TabItemViewModel
     public override string Name => Strings.LocalAuth;
 
     [Reactive]
-    public bool IsLoading { get; set; }
+    public partial bool IsLoading { get; set; }
 
     private SourceCache<AuthenticatorItemModel, ushort> AuthSource;
 
@@ -22,14 +22,14 @@ public partial class AuthenticatorHomePageViewModel : TabItemViewModel
     //public AuthenticatorItemModel? SelectedAuth { get; set; }
 
     [Reactive]
-    public bool HasPasswordEncrypt { get; private set; }
+    public partial bool HasPasswordEncrypt { get; private set; }
 
     [Reactive]
-    public bool HasLocalPcEncrypt { get; private set; }
+    public partial bool HasLocalPcEncrypt { get; private set; }
 
     [Reactive]
-    public bool IsVerificationPass { get; private set; }
+    public partial bool IsVerificationPass { get; private set; }
 
     [Reactive]
-    public string? SearchText { get; set; }
+    public partial string? SearchText { get; set; }
 }

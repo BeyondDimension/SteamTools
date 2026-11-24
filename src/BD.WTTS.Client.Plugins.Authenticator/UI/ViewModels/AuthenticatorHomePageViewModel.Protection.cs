@@ -8,16 +8,16 @@ public sealed partial class AuthenticatorHomePageViewModel
     VaultUnlockMethod unlockMethod;
 
     [Reactive]
-    public bool HasVaultData { get; private set; }
+    public partial bool HasVaultData { get; private set; }
 
     [Reactive]
-    public bool ProtectionUpgradeAvailable { get; private set; }
+    public partial bool ProtectionUpgradeAvailable { get; private set; }
 
     [Reactive]
-    public bool WindowsHelloEnabled { get; private set; }
+    public partial bool WindowsHelloEnabled { get; private set; }
 
     [Reactive]
-    public string? VaultReadError { get; private set; }
+    public partial string? VaultReadError { get; private set; }
 
     public bool ShowWindowsHello => OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000) ||
         (OperatingSystem.IsWindows() && WindowsHelloEnabled);

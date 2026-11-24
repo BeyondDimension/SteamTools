@@ -55,7 +55,7 @@
 		<PackageReference Include="NUnit3TestAdapter" />
 		<PackageReference Include="NUnit.Analyzers" />
 		<PackageReference Include="Moq" />
-		<PackageReference Include="Ae.DNS.Client" />
+		<PackageReference Include="Ae.Dns.Protocol" />
 		<PackageReference Include="DnsClient" />
 	</ItemGroup>
 

@@ -17,4 +17,4 @@ global using CompositeDisposable = System.Reactive.Disposables.CompositeDisposab
 global using Disposable = System.Reactive.Disposables.Disposable;
 
 global using ReactiveUI;
-global using ReactiveUI.Fody.Helpers;
+global using ReactiveUI.Reactive;

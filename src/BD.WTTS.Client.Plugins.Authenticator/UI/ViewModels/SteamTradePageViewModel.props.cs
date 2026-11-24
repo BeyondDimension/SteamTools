@@ -6,7 +6,7 @@ namespace BD.WTTS.UI.ViewModels;
 public sealed partial class SteamTradePageViewModel
 {
     [Reactive]
-    public ObservableCollection<SteamTradeConfirmationModel> Confirmations { get; set; } = new();
+    public partial ObservableCollection<SteamTradeConfirmationModel> Confirmations { get; set; } = new();
 
     public SteamLoginViewModel Login { get; }
 
@@ -22,19 +22,31 @@ public sealed partial class SteamTradePageViewModel
     }
 
     [Reactive]
-    public bool RememberLogin { get; set; } = true;
+    public partial bool RememberLogin { get; set; } = true;
 
     [Reactive]
-    public string? LoginStatus { get; set; }
+    public partial string? LoginStatus { get; set; }
 
     [Reactive]
-    public bool IsLogged { get; set; }
+    public partial bool IsLogged { get; set; }
 
     [Reactive]
-    public bool IsLoading { get; set; }
+    public partial bool IsLoading { get; set; }
 
     [Reactive]
-    public bool? SelectedAll { get; set; } = false;
+    public partial string? ConfirmationLoadError { get; private set; }
+
+    [Reactive]
+    public partial bool HasLoadedConfirmations { get; private set; }
+
+    [Reactive]
+    public partial bool IsOperatingConfirmations { get; private set; }
+
+    public bool CanChangeConfirmations => IsLogged && HasLoadedConfirmations &&
+        ConfirmationLoadError is null && !IsLoading && !IsOperatingConfirmations;
+
+    [Reactive]
+    public partial bool? SelectedAll { get; set; } = false;
 
     public ICommand ConfirmTradeCommand { get; }
 

@@ -1,5 +1,5 @@
 using Avalonia.Controls;
-using ReactiveUI.Avalonia;
+using ReactiveUI.Avalonia.Reactive;
 using BD.SteamClient.Enums.SteamGridDB;
 using BD.SteamClient.Models.SteamGridDB;
 

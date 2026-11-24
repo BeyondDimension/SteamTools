@@ -43,7 +43,7 @@ public sealed partial class SteamFamilyShareManagePageViewModel : WindowViewMode
 
     //readonly ReadOnlyObservableCollection<AuthorizedDevice> _AuthorizedList;
     [Reactive]
-    public ObservableCollection<AuthorizedDevice> AuthorizedList { get; set; }
+    public partial ObservableCollection<AuthorizedDevice> AuthorizedList { get; set; }
 
     //readonly SourceCache<AuthorizedDevice, long> _AuthorizedSourceList;
 

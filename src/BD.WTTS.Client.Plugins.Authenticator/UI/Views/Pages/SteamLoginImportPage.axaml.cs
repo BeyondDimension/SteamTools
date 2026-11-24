@@ -1,5 +1,5 @@
 using Avalonia.Input;
-using ReactiveUI.Avalonia;
+using ReactiveUI.Avalonia.Reactive;
 using KeyEventArgs = Avalonia.Input.KeyEventArgs;
 
 namespace BD.WTTS.UI.Views.Pages;

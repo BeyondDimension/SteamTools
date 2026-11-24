@@ -307,7 +307,7 @@ public class PageBase<TViewModel> : PageBase, IViewFor<TViewModel> where TViewMo
 #if WTTS_NATIVE_AOT
         NativeViewModelActivation.Attach(this);
 #else
-        this.WhenActivated(_ => { });
+        this.WhenActivated();
 #endif
         this.GetObservable(ViewModelProperty).Subscribe(OnViewModelChanged);
     }

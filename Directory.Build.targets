@@ -9,6 +9,17 @@
     <DefineConstants>$(DefineConstants);STARTUP_WATCH_TRACE</DefineConstants>
   </PropertyGroup>
 
+  <!-- Watt Toolkit uses only the System.Drawing.Color formatters in source Common. -->
+  <PropertyGroup>
+    <_WttsCommonProjectPath>$([MSBuild]::NormalizePath('$(MSBuildThisFileDirectory)', 'ref/Common/src/BD.Common/BD.Common.csproj'))</_WttsCommonProjectPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectFullPath)' == '$(_WttsCommonProjectPath)'">
+    <DefineConstants>$(DefineConstants);COMMON_NO_SPLAT_DRAWING</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(MSBuildProjectFullPath)' == '$(_WttsCommonProjectPath)'">
+    <PackageReference Remove="Splat.Drawing" />
+  </ItemGroup>
+
   <Target Name="WttsEmbedProjectSatelliteAssemblies" BeforeTargets="_ComputeIlcCompileInputs"
           Condition="'$(WttsNativeAot)' == 'true' AND '$(PublishAot)' == 'true'">
     <ItemGroup>
@@ -19,20 +30,13 @@
   </Target>
 
 
-  <!-- Select portable variants before framework resolution so both JIT and native
-       publications avoid acquiring WPF solely through these utility dependencies. -->
+  <!-- Use portable threading assets on Windows so they do not pull in WPF. -->
   <Target Name="WttsSelectPortableNativeDependencies" AfterTargets="ResolvePackageAssets" BeforeTargets="AddTransitiveFrameworkReferences"
           Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
     <ItemGroup>
-      <_WttsPortableCompile Include="@(ResolvedCompileFileDefinitions)" Condition="'%(NuGetPackageId)' == 'Splat.Drawing'">
-        <PortablePath>$(NuGetPackageRoot)splat.drawing\%(NuGetPackageVersion)\lib\net10.0\Splat.Drawing.dll</PortablePath>
-      </_WttsPortableCompile>
       <_WttsPortableCompile Include="@(ResolvedCompileFileDefinitions)" Condition="'%(NuGetPackageId)' == 'Microsoft.VisualStudio.Threading.Only'">
         <PortablePath>$(NuGetPackageRoot)microsoft.visualstudio.threading.only\%(NuGetPackageVersion)\lib\net8.0\Microsoft.VisualStudio.Threading.dll</PortablePath>
       </_WttsPortableCompile>
-      <_WttsPortableRuntime Include="@(RuntimeCopyLocalItems)" Condition="'%(NuGetPackageId)' == 'Splat.Drawing'">
-        <PortablePath>$(NuGetPackageRoot)splat.drawing\%(NuGetPackageVersion)\lib\net10.0\Splat.Drawing.dll</PortablePath>
-      </_WttsPortableRuntime>
       <_WttsPortableRuntime Include="@(RuntimeCopyLocalItems)" Condition="'%(NuGetPackageId)' == 'Microsoft.VisualStudio.Threading.Only'">
         <PortablePath>$(NuGetPackageRoot)microsoft.visualstudio.threading.only\%(NuGetPackageVersion)\lib\net8.0\Microsoft.VisualStudio.Threading.dll</PortablePath>
       </_WttsPortableRuntime>
@@ -72,6 +76,23 @@
     </ItemGroup>
   </Target>
 
+  <!-- Use the Linux DTLS libraries rebuilt against the release runner's glibc for both JIT and AOT. -->
+  <Target Name="WttsUseLinuxDtlsAssets" AfterTargets="ResolvePackageAssets"
+          Condition="'$(WttsLinuxDtlsAssets)' != '' AND ('$(RuntimeIdentifier)' == 'linux-x64' OR '$(RuntimeIdentifier)' == 'linux-arm64')">
+    <ItemGroup>
+      <_WttsLinuxDtlsAsset Include="@(NativeCopyLocalItems)"
+                           Condition="'%(NativeCopyLocalItems.NuGetPackageId)' == 'DTLS' AND '%(NativeCopyLocalItems.Filename)%(NativeCopyLocalItems.Extension)' == 'libdtls_native.so'" />
+    </ItemGroup>
+    <Error Condition="'@(_WttsLinuxDtlsAsset)' != '' AND '%(_WttsLinuxDtlsAsset.NuGetPackageVersion)' != '0.5.1'"
+           Text="Rebuild the Linux DTLS libraries from the source revision matching the restored DTLS package." />
+    <Error Condition="'@(_WttsLinuxDtlsAsset)' != '' AND !Exists('$(WttsLinuxDtlsAssets)/native/libdtls_native.so')"
+           Text="The rebuilt Linux DTLS library was not found in '$(WttsLinuxDtlsAssets)/native'." />
+    <ItemGroup>
+      <NativeCopyLocalItems Remove="@(_WttsLinuxDtlsAsset)" />
+      <NativeCopyLocalItems Include="@(_WttsLinuxDtlsAsset->'$(WttsLinuxDtlsAssets)/native/libdtls_native.so')" />
+    </ItemGroup>
+  </Target>
+
   <Target Name="WttsSupplyMacOSX64Dtls" BeforeTargets="_DTLSValidateStaticNativeLibrary"
           DependsOnTargets="ResolvePackageAssets"
           Condition="'$(WttsNativeAot)' == 'true' AND '$(PublishAot)' == 'true' AND '$(RuntimeIdentifier)' == 'osx-x64' AND '$(WttsMacOSX64DtlsAssets)' != ''">
@@ -108,23 +129,56 @@
   <PropertyGroup Condition="'$(WttsDesktopTargetFrameworks)' != '' AND $(TargetFrameworks.Contains('-windows')) AND $(TargetFrameworks.Contains('-macos'))">
     <TargetFrameworks>$([System.Text.RegularExpressions.Regex]::Replace('$(WttsDesktopTargetFrameworks)', '-.*', ''));$(WttsDesktopTargetFrameworks)</TargetFrameworks>
   </PropertyGroup>
-  <!-- Restore all compatible library targets without requiring mobile workloads for macOS Native AOT. -->
-  <PropertyGroup Condition="'$(WttsNativeAot)' == 'true' AND $([MSBuild]::GetTargetPlatformIdentifier('$(WttsDesktopTargetFrameworks)')) == 'macos' AND $(TargetFrameworks.Contains('-macos'))">
+  <!-- Restore compatible library targets without mobile workloads for macOS desktop publishing. -->
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(WttsDesktopTargetFrameworks)')) == 'macos' AND $(TargetFrameworks.Contains('-macos'))">
     <TargetFrameworks>$([MSBuild]::Unescape($([System.Text.RegularExpressions.Regex]::Replace('$(TargetFrameworks)', 'net[0-9.]+-(?!macos)[^;]+;?', '').TrimEnd(';'))))</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(MSBuildProjectName)' == 'BD.WTTS.Client.Avalonia' OR ($([System.String]::Copy('$(MSBuildProjectName)').StartsWith('BD.WTTS.Client.Plugins.')) AND '$(MSBuildProjectName)' != 'BD.WTTS.Client.Plugins.Accelerator.ReverseProxy' AND '$(MSBuildProjectName)' != 'BD.WTTS.Client.Plugins.Update')">
     <Compile Include="$(MSBuildThisFileDirectory)src\FluentAvaloniaAliases.cs" Link="Properties\FluentAvaloniaAliases.cs" />
   </ItemGroup>
+  <PropertyGroup>
+    <_WttsSteamClientProjectPath>$([MSBuild]::NormalizePath('$(MSBuildThisFileDirectory)', 'ref/SteamClient/src/BD.SteamClient/BD.SteamClient.csproj'))</_WttsSteamClientProjectPath>
+  </PropertyGroup>
   <!-- SteamClient and the application must compile against the same formatter types. -->
-  <ItemGroup Condition="'$(MSBuildProjectFullPath)' == '$(MSBuildThisFileDirectory)ref\SteamClient\src\BD.SteamClient\BD.SteamClient.csproj'">
+  <ItemGroup Condition="'$(MSBuildProjectFullPath)' == '$(_WttsSteamClientProjectPath)'">
     <PackageReference Remove="BD.Common" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)ref\Common\src\BD.Common\BD.Common.csproj" />
+    <!-- App-info writes use Hashing directly. Keep the reference when removing Source Link's transitive copy. -->
+    <PackageReference Include="System.IO.Hashing"
+                      Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net11.0'))" />
   </ItemGroup>
-  <!-- The SDK's native resolver and its DTOs must share the source Common formatter types. -->
-  <PropertyGroup Condition="'$(WttsNativeAot)' == 'true'">
+
+  <!-- These projects still consume the binary Common package and its MessagePack 2.x formatters. -->
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'BD.WTTS.Primitives' OR
+                        '$(MSBuildProjectName)' == 'BD.WTTS.MicroServices.Primitives' OR
+                        '$(MSBuildProjectName)' == 'BD.SteamClient.Models.Protobuf' OR
+                        '$(MSBuildProjectName)' == 'Avalonia.Gif'">
+    <PackageReference Include="MessagePack" />
+  </ItemGroup>
+
+  <!-- bundle_green 2.1.11 has no newer release. Update its desktop native library. -->
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'BD.Common.Repositories.SQLitePCL'">
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" />
+  </ItemGroup>
+  <!-- The AppCenter projects use PackageReference versions without central package management. -->
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'BD.AppCenter.Any' OR '$(MSBuildProjectName)' == 'BD.AppCenter.WindowsDesktop'">
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.14" />
+  </ItemGroup>
+  <!-- Source Link ships with the .NET SDK starting in 8.0. -->
+  <ItemGroup Condition="'$(EnableSourceLink)' == 'true' AND '$(NETCoreSdkVersion)' != '' AND
+                        $([MSBuild]::VersionGreaterThanOrEquals('$(NETCoreSdkVersion)', '8.0'))">
+    <PackageReference Remove="Microsoft.SourceLink.GitHub" />
+  </ItemGroup>
+
+  <PropertyGroup>
     <_WttsSdkProjectPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)ref/WTTS.MicroServices.ClientSDK/src/$(MSBuildProjectName)/$(MSBuildProjectName).csproj'))</_WttsSdkProjectPath>
   </PropertyGroup>
+  <ItemGroup Condition="'$(MSBuildProjectFullPath)' == '$(_WttsSdkProjectPath)' AND '$(MSBuildProjectName)' == 'BD.WTTS.MicroServices.ClientSDK'">
+    <PackageReference Remove="System.Private.Uri;System.Text.RegularExpressions"
+                      Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net10.0'))" />
+  </ItemGroup>
+  <!-- The SDK's native resolver and its DTOs must share the source Common formatter types. -->
   <PropertyGroup Condition="'$(WttsNativeAot)' == 'true' AND '$(MSBuildProjectFullPath)' == '$(_WttsSdkProjectPath)' AND
       ('$(MSBuildProjectName)' == 'BD.WTTS.MicroServices.ClientSDK' OR
        '$(MSBuildProjectName)' == 'BD.WTTS.MicroServices.Primitives.Models' OR '$(MSBuildProjectName)' == 'BD.WTTS.MicroServices.Primitives.ViewModels' OR

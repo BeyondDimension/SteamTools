@@ -5,13 +5,13 @@ namespace BD.WTTS.Models;
 public sealed partial class PlatformAccount : ReactiveObject
 {
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
-    public ObservableCollection<IAccount> Accounts { get; set; }
+    public partial ObservableCollection<IAccount> Accounts { get; set; }
 
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
-    public bool IsEnable { get; set; }
+    public partial bool IsEnable { get; set; }
 
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
-    public bool IsLoading { get; set; }
+    public partial bool IsLoading { get; set; }
 
     [S_JsonIgnore, MP2Ignore, N_JsonIgnore]
     public bool HasLoadedUsers { get; private set; }
@@ -20,7 +20,7 @@ public sealed partial class PlatformAccount : ReactiveObject
     public Exception? UsersLoadException { get; private set; }
 
     [Reactive, S_JsonIgnore, MP2Ignore, N_JsonIgnore]
-    public PlatformSettings? PlatformSetting { get; set; }
+    public partial PlatformSettings? PlatformSetting { get; set; }
 
     public string FullName { get; set; }
 

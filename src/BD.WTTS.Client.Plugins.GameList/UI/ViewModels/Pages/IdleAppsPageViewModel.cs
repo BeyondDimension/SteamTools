@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class IdleAppsPageViewModel : ViewModelBase
+public sealed partial class IdleAppsPageViewModel : ViewModelBase
 {
     readonly ISteamService SteamTool = ISteamService.Instance;
 
@@ -27,17 +27,17 @@ public sealed class IdleAppsPageViewModel : ViewModelBase
     }
 
     [Reactive]
-    public bool RunLoaingState { get; set; }
+    public partial bool RunLoaingState { get; set; }
 
     [Reactive]
 
-    public bool RunState { get; set; }
+    public partial bool RunState { get; set; }
 
     [Reactive]
-    public string? RuningCountTxt { get; set; }
+    public partial string? RuningCountTxt { get; set; }
 
     [Reactive]
-    public ObservableCollection<SteamApp> IdleGameList { get; set; } = new();
+    public partial ObservableCollection<SteamApp> IdleGameList { get; set; } = new();
 
     public void DeleteAllButton_Click()
     {

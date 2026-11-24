@@ -4,7 +4,7 @@ using BD.SteamClient.Services;
 namespace BD.WTTS.UI.ViewModels;
 
 /// <summary>Shared Steam sign-in state. Consumers own the work performed after authentication.</summary>
-public sealed class SteamLoginViewModel : ViewModelBase
+public sealed partial class SteamLoginViewModel : ViewModelBase
 {
     static readonly SemaphoreSlim sessionSaveGate = new(1, 1);
     readonly ISteamAccountService account;
@@ -56,8 +56,8 @@ public sealed class SteamLoginViewModel : ViewModelBase
     public bool AllowCookieLogin { get; }
     public Func<CancellationToken, Task<IReadOnlyList<SteamSavedLoginAccount>>>? SavedAccountsProvider { get; set; }
     public bool AllowSavedAccountLogin => SavedAccountsProvider != null;
-    [Reactive] public IReadOnlyList<SteamSavedLoginAccount> SavedAccounts { get; private set; } = Array.Empty<SteamSavedLoginAccount>();
-    [Reactive] public SteamSavedLoginAccount? SelectedSavedAccount { get; set; }
+    [Reactive] public partial IReadOnlyList<SteamSavedLoginAccount> SavedAccounts { get; private set; } = Array.Empty<SteamSavedLoginAccount>();
+    [Reactive] public partial SteamSavedLoginAccount? SelectedSavedAccount { get; set; }
     public ICommand LoadSavedAccountsCommand { get; }
     public ICommand SavedAccountLoginCommand { get; }
     public Func<SteamLoginState, Task>? LoginSucceededAsync { get; set; }
@@ -97,18 +97,18 @@ public sealed class SteamLoginViewModel : ViewModelBase
     public ICommand QrLoginCommand { get; }
     public ICommand CookieLoginCommand { get; }
     public ICommand CancelCommand { get; }
-    [Reactive] public string? UserName { get; set; }
-    [Reactive] public string? Password { get; set; }
-    [Reactive] public string? GuardCode { get; set; }
-    [Reactive] public bool RememberLogin { get; set; }
-    [Reactive] public bool IsBusy { get; private set; }
-    [Reactive] public bool IsQrBusy { get; private set; }
-    [Reactive] public bool HasQrError { get; private set; }
-    [Reactive] public string? QrStatusMessage { get; private set; }
-    [Reactive] public string? StatusMessage { get; private set; }
-    [Reactive] public Stream? QrCodeImage { get; private set; }
-    [Reactive] public string? SessionId { get; set; }
-    [Reactive] public string? SteamLoginSecure { get; set; }
+    [Reactive] public partial string? UserName { get; set; }
+    [Reactive] public partial string? Password { get; set; }
+    [Reactive] public partial string? GuardCode { get; set; }
+    [Reactive] public partial bool RememberLogin { get; set; }
+    [Reactive] public partial bool IsBusy { get; private set; }
+    [Reactive] public partial bool IsQrBusy { get; private set; }
+    [Reactive] public partial bool HasQrError { get; private set; }
+    [Reactive] public partial string? QrStatusMessage { get; private set; }
+    [Reactive] public partial string? StatusMessage { get; private set; }
+    [Reactive] public partial Stream? QrCodeImage { get; private set; }
+    [Reactive] public partial string? SessionId { get; set; }
+    [Reactive] public partial string? SteamLoginSecure { get; set; }
 
     void NotifyChallenge()
     {

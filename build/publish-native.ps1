@@ -419,6 +419,23 @@ try {
     Invoke-DotNet $phase (@('publish', (Join-Path $root 'src/BD.WTTS.Client.Plugins.Accelerator.ReverseProxy/BD.WTTS.Client.Plugins.Accelerator.ReverseProxy.csproj')) + $proxyArguments + @('-o', $proxyOutput))
     $phase = 'native-libraries'
     Merge-NativeLibraries $stage $proxyOutput
+    if ($hostPlatform -eq 'linux') {
+        $phase = 'linux-desktop-assets'
+        $linuxAssets = Join-Path $PSScriptRoot 'linux'
+        $icons = Join-Path $stage 'Icons'
+        $scripts = Join-Path $stage 'script'
+        New-Item -ItemType Directory -Path $icons, $scripts | Out-Null
+        Copy-Item -LiteralPath (Join-Path $root 'res/icons/app/v3/Logo_512.png') -Destination (Join-Path $icons 'Watt-Toolkit.png')
+        foreach ($source in Get-ChildItem -LiteralPath $linuxAssets -File) {
+            $destination = if ($source.Name -eq 'Steam++.sh') { Join-Path $stage $source.Name }
+                else { Join-Path $scripts $source.Name }
+            Copy-Item -LiteralPath $source.FullName -Destination $destination
+            if ($source.Extension -in @('.sh', '.desktop')) {
+                & chmod a+x -- $destination
+                if ($LASTEXITCODE -ne 0) { throw "Cannot mark Linux launcher or script executable: $destination" }
+            }
+        }
+    }
 
     $phase = 'validate-payload'
     $executableSuffix = ''

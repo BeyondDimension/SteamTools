@@ -1,21 +1,21 @@
 namespace BD.WTTS.UI.ViewModels;
 
-public class AuthenticatorExportViewModel : ViewModelBase
+public partial class AuthenticatorExportViewModel : ViewModelBase
 {
     [Reactive]
-    public bool HasPasswordProtection { get; set; } = true;
+    public partial bool HasPasswordProtection { get; set; } = true;
 
     [Reactive]
-    public bool HasLocalProtection { get; set; }
+    public partial bool HasLocalProtection { get; set; }
 
     [Reactive]
-    public string? Password { get; set; }
+    public partial string? Password { get; set; }
 
     [Reactive]
-    public string? VerifyPassword { get; set; }
+    public partial string? VerifyPassword { get; set; }
 
     [Reactive]
-    public bool IsExporting { get; private set; }
+    public partial bool IsExporting { get; private set; }
 
     public async Task Export()
     {

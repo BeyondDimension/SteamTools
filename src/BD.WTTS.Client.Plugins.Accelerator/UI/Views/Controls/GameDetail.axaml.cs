@@ -1,6 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
-using ReactiveUI.Avalonia;
+using ReactiveUI.Avalonia.Reactive;
 
 namespace BD.WTTS.UI.Views.Controls;
 

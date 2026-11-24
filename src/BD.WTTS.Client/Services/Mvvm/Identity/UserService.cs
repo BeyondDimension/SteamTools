@@ -4,7 +4,7 @@ using AppResources = BD.WTTS.Client.Resources.Strings;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
-public sealed class UserService : ReactiveObject
+public sealed partial class UserService : ReactiveObject
 {
     static readonly Lazy<UserService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
 
@@ -16,7 +16,7 @@ public sealed class UserService : ReactiveObject
     readonly IWindowManager windowManager = IWindowManager.Instance;
 
     [Reactive]
-    public IdentityUserInfoDTO? User { get; set; }
+    public partial IdentityUserInfoDTO? User { get; set; }
 
     /// <summary>
     /// 指示当前用户是否已通过身份验证（已登录）
@@ -24,22 +24,22 @@ public sealed class UserService : ReactiveObject
     public bool IsAuthenticated => User != null;
 
     [Reactive]
-    public SteamUser? CurrentSteamUser { get; set; }
+    public partial SteamUser? CurrentSteamUser { get; set; }
 
     [Reactive]
-    public object? AvatarPath { get; set; }
+    public partial object? AvatarPath { get; set; }
 
     /// <summary>
     /// 当前登录用户是否有手机号码
     /// </summary>
     [Reactive]
-    public bool HasPhoneNumber { get; set; }
+    public partial bool HasPhoneNumber { get; set; }
 
     /// <summary>
     /// 用于 UI 显示的当前登录用户的手机号码(隐藏中间四位)
     /// </summary>
     [Reactive]
-    public string PhoneNumber { get; set; } = string.Empty;
+    public partial string PhoneNumber { get; set; } = string.Empty;
 
     public async void ShowWindow()
     {

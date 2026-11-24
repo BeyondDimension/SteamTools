@@ -4,7 +4,7 @@ using BD.SteamClient.Models.SteamGridDB;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class EditAppInfoPageViewModel : WindowViewModel
+public sealed partial class EditAppInfoPageViewModel : WindowViewModel
 {
     readonly SourceCache<SteamGridItem, long> _SteamGridItemSourceList;
     readonly ReadOnlyObservableCollection<SteamGridItem>? _SteamGridItems;
@@ -23,9 +23,9 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
     readonly Dictionary<SteamGridItemType, Stream> images = [];
     bool closed;
 
-    [Reactive] public int DraftTabIndex { get; set; }
-    [Reactive] public string? DraftName { get; set; }
-    [Reactive] public bool IsChangingImage { get; set; }
+    [Reactive] public partial int DraftTabIndex { get; set; }
+    [Reactive] public partial string? DraftName { get; set; }
+    [Reactive] public partial bool IsChangingImage { get; set; }
 
     public ICommand ResetEditAppInfoCommand { get; }
     public ICommand ResetImageCommand { get; }
@@ -286,7 +286,7 @@ public sealed class EditAppInfoPageViewModel : WindowViewModel
     }
 
     [Reactive]
-    public bool IsLoadingSteamGrid { get; set; }
+    public partial bool IsLoadingSteamGrid { get; set; }
 
     public bool IsSteamGridEmpty => !IsLoadingSteamGrid && !_SteamGridItemSourceList.Items.Any_Nullable();
 

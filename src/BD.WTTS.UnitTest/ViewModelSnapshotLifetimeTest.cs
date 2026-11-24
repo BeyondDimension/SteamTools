@@ -1,10 +1,11 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using BD.WTTS.Models;
 using BD.WTTS.Services;
 using BD.WTTS.UI.ViewModels.Abstractions;
 using MemoryPack;
-using ReactiveUI.Builder;
+using ReactiveUI.Reactive.Builder;
 using System.Reactive.Concurrency;
 
 namespace BD.WTTS.UnitTest;
@@ -14,6 +15,22 @@ public sealed class ViewModelSnapshotLifetimeTest
     [OneTimeSetUp]
     public void InitializeReactiveUI() => RxAppBuilder.CreateReactiveUIBuilder()
         .WithMainThreadScheduler(ImmediateScheduler.Instance).BuildApp();
+
+    [Test]
+    public void RestoredPlatformSettingsRaisePropertyChangedOnlyForNewValues()
+    {
+        var saved = new PlatformSettings { PlatformPath = "Steam" };
+        var restored = MemoryPackSerializer.Deserialize<PlatformSettings>(MemoryPackSerializer.Serialize(saved))!;
+        Assert.That(restored.PlatformPath, Is.EqualTo("Steam"));
+
+        var changed = new List<string?>();
+        restored.PropertyChanged += (_, args) => changed.Add(args.PropertyName);
+        restored.PlatformPath = "Steam";
+        restored.PlatformPath = "SteamNew";
+        restored.PlatformPath = "SteamNew";
+
+        Assert.That(changed, Is.EqualTo(new[] { nameof(PlatformSettings.PlatformPath) }));
+    }
 
     [TestCase(false)]
     [TestCase(true)]

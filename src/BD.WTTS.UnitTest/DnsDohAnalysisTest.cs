@@ -3,7 +3,6 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Reflection;
-using Ae.Dns.Client;
 using BD.WTTS.Enums;
 using DnsClient;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -167,7 +166,25 @@ public sealed class DnsDohAnalysisTest
     }
 
     [Test]
-    public void CancelledLookupDoesNotTryServers()
+    public async Task CustomEndpointReceivesBinaryDnsPost()
+    {
+        const string endpoint = "https://working.invalid/custom-dns?key=abc%2Fdef";
+        using var doh = new DnsDohAnalysisService(NullLoggerFactory.Instance, null!, null!);
+        AddServer(doh, endpoint, new DnsHandler("working", [], HttpStatusCode.OK, true, inspect: request =>
+        {
+            Assert.That(request.RequestUri?.AbsoluteUri, Is.EqualTo(endpoint));
+            Assert.That(request.Method, Is.EqualTo(HttpMethod.Post));
+            Assert.That(request.Content?.Headers.ContentType?.MediaType, Is.EqualTo("application/dns-message"));
+            Assert.That(request.Headers.Accept.Select(value => value.MediaType), Is.EqualTo(new[] { "application/dns-message" }));
+        }));
+
+        var addresses = await doh.DohAnalysisDomainIpAsync(endpoint, "example.test", false).ToArrayAsync();
+
+        Assert.That(addresses, Is.EqualTo(new[] { IPAddress.Parse("203.0.113.17") }));
+    }
+
+    [Test]
+    public async Task CancelledLookupDoesNotTryServers()
     {
         var calls = new List<string>();
         using var doh = new DnsDohAnalysisService(NullLoggerFactory.Instance, null!, null!);
@@ -178,13 +195,13 @@ public sealed class DnsDohAnalysisTest
         using var cancel = new CancellationTokenSource();
         cancel.Cancel();
 
-        Assert.ThrowsAsync<OperationCanceledException>(async () =>
+        await Assert.ThrowsAsync<OperationCanceledException>(async () =>
             await resolver.AnalysisDomainIpAsync("example.test", null, false, cancel.Token).ToArrayAsync(cancel.Token));
         Assert.That(calls, Is.Empty);
     }
 
     [Test]
-    public void CancellationDuringLookupStopsBeforeFallback()
+    public async Task CancellationDuringLookupStopsBeforeFallback()
     {
         var calls = new List<string>();
         using var cancel = new CancellationTokenSource();
@@ -194,7 +211,7 @@ public sealed class DnsDohAnalysisTest
         var settings = new Mock<IReverseProxySettings>();
         settings.SetupGet(x => x.ProxyDNSAddresses).Returns("https://first.invalid/dns-query\nhttps://second.invalid/dns-query");
         var resolver = new DnsAnalysisServiceSwitchImpl(settings.Object, new DnsAnalysisServiceImpl(), doh);
-        Assert.CatchAsync<OperationCanceledException>(async () =>
+        await Assert.CatchAsync<OperationCanceledException>(async () =>
             await resolver.AnalysisDomainIpAsync("cancel.example.test", null, false, cancel.Token).ToArrayAsync(cancel.Token));
         Assert.That(calls, Is.EqualTo(new[] { "first" }));
     }
@@ -209,9 +226,8 @@ public sealed class DnsDohAnalysisTest
     {
         var uri = new Uri(address);
         var field = typeof(DnsDohAnalysisService).GetField("dnsClients", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        var clients = (ConcurrentDictionary<Uri, Lazy<DnsHttpClient>>)field.GetValue(doh)!;
-        clients[uri] = new Lazy<DnsHttpClient>(() => new DnsHttpClient(
-            new DnsHttpClientOptions { Path = uri.PathAndQuery }, new HttpClient(handler) { BaseAddress = uri }));
+        var clients = (ConcurrentDictionary<Uri, Lazy<HttpClient>>)field.GetValue(doh)!;
+        clients[uri] = new Lazy<HttpClient>(() => new HttpClient(handler));
     }
 
     sealed class DnsUdpServer : IAsyncDisposable
@@ -280,12 +296,13 @@ public sealed class DnsDohAnalysisTest
         return data;
     }
 
-    sealed class DnsHandler(string name, List<string> calls, HttpStatusCode status, bool answer = false, Action? onCall = null, byte ttl = 60, Func<byte>? address = null) : HttpMessageHandler
+    sealed class DnsHandler(string name, List<string> calls, HttpStatusCode status, bool answer = false, Action? onCall = null, byte ttl = 60, Func<byte>? address = null, Action<HttpRequestMessage>? inspect = null) : HttpMessageHandler
     {
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             calls.Add(name);
             onCall?.Invoke();
+            inspect?.Invoke(request);
             if (status != HttpStatusCode.OK)
                 return new HttpResponseMessage(status);
 

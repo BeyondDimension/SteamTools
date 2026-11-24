@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
 using BD.SteamClient.Models;
 using BD.SteamClient.Services;
@@ -13,6 +14,11 @@ namespace BD.WTTS.UI.ViewModels;
 internal sealed class AuthenticatorSavedSteamAccounts : ISteamSavedAccountProvider
 {
     static readonly Dictionary<ushort, WeakReference<SteamAuthenticator>> liveAuthenticators = new();
+    static readonly Uri community = new("https://steamcommunity.com/");
+    static readonly Uri communityTransfer = new(community, "login/settoken");
+    static readonly Uri communityProfile = new(community, "my/");
+
+    enum TokenPlatform { Web, App }
 
     internal static void TrackLiveAuthenticator(ushort id, SteamAuthenticator authenticator)
     {
@@ -72,7 +78,11 @@ internal sealed class AuthenticatorSavedSteamAccounts : ISteamSavedAccountProvid
 
     static bool IsSessionUsable(WinAuth.SteamClient.SteamSession? session, ulong steamId)
         => session != null && session.SteamID == steamId &&
-            (IsTokenUsable(session.AccessToken, steamId, refresh: false) || IsTokenUsable(session.RefreshToken, steamId, refresh: true));
+            (GetUsableTokenPlatform(session.AccessToken, steamId, refresh: false) != null ||
+             GetUsableTokenPlatform(session.RefreshToken, steamId, refresh: true) != null);
+
+    internal static bool IsBrowserRefreshToken(string? token, ulong steamId)
+        => GetUsableTokenPlatform(token, steamId, refresh: true) == TokenPlatform.Web;
 
     public async Task<IReadOnlyList<SteamSavedLoginAccount>> LoadAsync(CancellationToken cancellationToken)
     {
@@ -120,21 +130,21 @@ internal sealed class AuthenticatorSavedSteamAccounts : ISteamSavedAccountProvid
         return result;
     }
 
-    static bool IsTokenUsable(string? token, ulong steamId, bool refresh)
+    static TokenPlatform? GetUsableTokenPlatform(string? token, ulong steamId, bool refresh)
     {
-        if (string.IsNullOrWhiteSpace(token)) return false;
+        if (string.IsNullOrWhiteSpace(token)) return null;
         try
         {
             var parts = token.Split('.');
-            if (parts.Length != 3 || parts[0].Length == 0 || parts[2].Length == 0) return false;
+            if (parts.Length != 3 || parts[0].Length == 0 || parts[2].Length == 0) return null;
             var payload = parts[1].Replace('-', '+').Replace('_', '/');
             payload = payload.PadRight((payload.Length + 3) / 4 * 4, '=');
             using var doc = JsonDocument.Parse(Convert.FromBase64String(payload));
             var root = doc.RootElement;
             if (root.GetProperty("sub").GetString() != steamId.ToString(CultureInfo.InvariantCulture) ||
-                root.GetProperty("exp").GetInt64() <= DateTimeOffset.UtcNow.ToUnixTimeSeconds()) return false;
+                root.GetProperty("exp").GetInt64() <= DateTimeOffset.UtcNow.ToUnixTimeSeconds()) return null;
             var aud = root.GetProperty("aud");
-            if (aud.ValueKind != JsonValueKind.Array) return false;
+            if (aud.ValueKind != JsonValueKind.Array) return null;
             var mobile = false;
             var web = false;
             var derive = false;
@@ -145,45 +155,135 @@ internal sealed class AuthenticatorSavedSteamAccounts : ISteamSavedAccountProvid
                 derive |= audience.GetString() == "derive";
             }
             // Local suitability check only; the community request authenticates the token with Steam.
-            return mobile && derive == refresh && (refresh || web);
+            if (derive != refresh || (!web && !(refresh && mobile))) return null;
+            return mobile ? TokenPlatform.App : TokenPlatform.Web;
         }
-        catch (Exception ex) when (ex is JsonException or FormatException or InvalidOperationException or KeyNotFoundException or OverflowException) { return false; }
+        catch (Exception ex) when (ex is JsonException or FormatException or InvalidOperationException or KeyNotFoundException or OverflowException) { return null; }
     }
 
     internal static async Task<SteamSession> CreateWebSessionAsync(ulong steamId, string? accessToken, string? refreshToken,
         ISteamAccountService accountService, CancellationToken cancellationToken, Func<CookieContainer, HttpMessageHandler>? handlerFactory = null)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        if (!IsTokenUsable(accessToken, steamId, refresh: false))
+        var accessPlatform = GetUsableTokenPlatform(accessToken, steamId, refresh: false);
+        var refreshPlatform = GetUsableTokenPlatform(refreshToken, steamId, refresh: true);
+        if (accessPlatform == null && refreshPlatform == null)
+            throw new InvalidOperationException(Strings.L10nAuthIdle_Text077);
+
+        if (accessPlatform == null && refreshPlatform == TokenPlatform.App)
         {
-            if (!IsTokenUsable(refreshToken, steamId, refresh: true))
-                throw new InvalidOperationException(Strings.L10nAuthIdle_Text077);
             accessToken = await accountService.RefreshAccessToken(steamId, refreshToken!).WaitAsync(cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
-            if (!IsTokenUsable(accessToken, steamId, refresh: false))
+            accessPlatform = GetUsableTokenPlatform(accessToken, steamId, refresh: false);
+            if (accessPlatform != TokenPlatform.App)
                 throw new InvalidOperationException(Strings.L10nAuthIdle_Text078);
         }
 
         var expectedId = steamId.ToString(CultureInfo.InvariantCulture);
         var sessionId = Convert.ToHexString(RandomNumberGenerator.GetBytes(12)).ToLowerInvariant();
-        var secure = Uri.EscapeDataString($"{expectedId}||{accessToken}");
+        if (accessPlatform != null)
+        {
+            var cookies = CreateAccessCookies(expectedId, accessToken!, sessionId);
+            using var client = CreateWebClient(cookies, handlerFactory);
+            if (await VerifyCommunityAsync(client, expectedId, cancellationToken))
+                return new SteamSession { SteamId = expectedId, AccessToken = accessToken!, CookieContainer = cookies };
+        }
+
+        // Browser refresh tokens use the website's cookie transfer. The app endpoint rejects them.
+        if (refreshPlatform != TokenPlatform.Web || accessPlatform == TokenPlatform.App)
+            throw new InvalidOperationException(Strings.L10nAuthIdle_Text079);
+
+        var browserCookies = new CookieContainer();
+        browserCookies.Add(new Cookie("sessionid", sessionId, "/", community.Host) { Secure = true });
+        using var browser = CreateWebClient(browserCookies, handlerFactory);
+        accessToken = await RenewBrowserSessionAsync(browser, browserCookies, steamId, expectedId, refreshToken!, sessionId, cancellationToken);
+        if (!await VerifyCommunityAsync(browser, expectedId, cancellationToken))
+            throw new InvalidOperationException(Strings.L10nAuthIdle_Text079);
+
+        // Keep only the derived access cookies. Finalization can set a long-lived login-site refresh cookie.
+        return new SteamSession
+        {
+            SteamId = expectedId,
+            AccessToken = accessToken,
+            CookieContainer = CreateAccessCookies(expectedId, accessToken, sessionId),
+        };
+    }
+
+    static CookieContainer CreateAccessCookies(string steamId, string accessToken, string sessionId)
+    {
+        var secure = Uri.EscapeDataString($"{steamId}||{accessToken}");
         var cookies = new CookieContainer();
-        foreach (var domain in new[] { "steamcommunity.com", "steampowered.com" })
+        foreach (var domain in new[] { community.Host, "steampowered.com" })
         {
             cookies.Add(new Cookie("steamLoginSecure", secure, "/", domain) { Secure = true, HttpOnly = true });
             cookies.Add(new Cookie("sessionid", sessionId, "/", domain) { Secure = true });
         }
-        using var handler = handlerFactory?.Invoke(cookies) ?? new HttpClientHandler { CookieContainer = cookies, Proxy = HttpClient.DefaultProxy, AllowAutoRedirect = false };
-        using var client = new HttpClient(handler);
-        using var check = await client.GetAsync("https://steamcommunity.com/my/", cancellationToken);
+        return cookies;
+    }
+
+    static HttpClient CreateWebClient(CookieContainer cookies, Func<CookieContainer, HttpMessageHandler>? handlerFactory)
+        => new(handlerFactory?.Invoke(cookies) ?? new HttpClientHandler
+        {
+            CookieContainer = cookies, Proxy = HttpClient.DefaultProxy, AllowAutoRedirect = false,
+        });
+
+    static async Task<bool> VerifyCommunityAsync(HttpClient client, string expectedId, CancellationToken cancellationToken)
+    {
+        using var check = await client.GetAsync(communityProfile, cancellationToken);
         var location = check.Headers.Location;
         var path = location?.IsAbsoluteUri == true ? location.AbsolutePath : location?.OriginalString;
-        if ((int)check.StatusCode is < 300 or >= 400 || path == null ||
-            (location!.IsAbsoluteUri && (location.Scheme != Uri.UriSchemeHttps || location.Host != "steamcommunity.com" || location.Port != 443)) ||
-            !(path.StartsWith("/id/", StringComparison.OrdinalIgnoreCase) ||
-              path == "/profiles/" + expectedId || path.StartsWith("/profiles/" + expectedId + "/", StringComparison.Ordinal)))
-            throw new InvalidOperationException(Strings.L10nAuthIdle_Text079);
         cancellationToken.ThrowIfCancellationRequested();
-        return new SteamSession { SteamId = expectedId, AccessToken = accessToken!, RefreshToken = string.Empty, CookieContainer = cookies };
+        return (int)check.StatusCode is >= 300 and < 400 && path != null &&
+            (!location!.IsAbsoluteUri || (location.Scheme == Uri.UriSchemeHttps && location.Host == community.Host && location.IsDefaultPort)) &&
+            (path.StartsWith("/id/", StringComparison.OrdinalIgnoreCase) ||
+             path == "/profiles/" + expectedId || path.StartsWith("/profiles/" + expectedId + "/", StringComparison.Ordinal));
+    }
+
+    static async Task<string> RenewBrowserSessionAsync(HttpClient client, CookieContainer cookies, ulong steamId,
+        string expectedId, string refreshToken, string sessionId, CancellationToken cancellationToken)
+    {
+        using var finalize = new HttpRequestMessage(HttpMethod.Post, "https://login.steampowered.com/jwt/finalizelogin")
+        {
+            Content = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                ["nonce"] = refreshToken,
+                ["sessionid"] = sessionId,
+                ["redir"] = "https://steamcommunity.com/login/home/?goto=",
+            }),
+        };
+        finalize.Headers.TryAddWithoutValidation("Origin", community.GetLeftPart(UriPartial.Authority));
+        finalize.Headers.Referrer = community;
+        using var response = await client.SendAsync(finalize, cancellationToken);
+        if (!response.IsSuccessStatusCode)
+            throw new InvalidOperationException(Strings.L10nAuthIdle_Text078);
+
+        var status = await response.Content.ReadFromJsonAsync(FinalizeLoginStatus_.Default.FinalizeLoginStatus, cancellationToken);
+        if (status == null || status.SteamId != expectedId)
+            throw new InvalidOperationException(Strings.L10nAuthIdle_Text079);
+
+        // Send the transfer details to the fixed community endpoint only; ignore other Steam products.
+        var transfer = status.TransferInfo?.FirstOrDefault(item =>
+            Uri.TryCreate(item?.Url, UriKind.Absolute, out var url) && url == communityTransfer &&
+            url.UserInfo.Length == 0 && url.Fragment.Length == 0)?.Params;
+        if (transfer == null || string.IsNullOrWhiteSpace(transfer.Nonce) || string.IsNullOrWhiteSpace(transfer.Auth))
+            throw new InvalidOperationException(Strings.L10nAuthIdle_Text079);
+
+        using var transferForm = new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["nonce"] = transfer.Nonce,
+            ["auth"] = transfer.Auth,
+            ["steamID"] = expectedId,
+        });
+        using var transferred = await client.PostAsync(communityTransfer, transferForm, cancellationToken);
+        var signedCookie = cookies.GetCookies(community)["steamLoginSecure"]?.Value;
+        var signedValue = signedCookie == null ? null : Uri.UnescapeDataString(signedCookie);
+        var prefix = expectedId + "||";
+        if (!transferred.IsSuccessStatusCode || signedValue == null || !signedValue.StartsWith(prefix, StringComparison.Ordinal))
+            throw new InvalidOperationException(Strings.L10nAuthIdle_Text079);
+
+        var accessToken = signedValue[prefix.Length..];
+        if (GetUsableTokenPlatform(accessToken, steamId, refresh: false) == null)
+            throw new InvalidOperationException(Strings.L10nAuthIdle_Text078);
+        return accessToken;
     }
 }

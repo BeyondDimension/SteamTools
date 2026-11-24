@@ -10,13 +10,13 @@ public sealed partial class GameAccountPageViewModel : TabItemViewModel
     public override string Name => Strings.UserFastChange;
 
     [Reactive]
-    public ObservableCollection<PlatformAccount>? GamePlatforms { get; set; }
+    public partial ObservableCollection<PlatformAccount>? GamePlatforms { get; set; }
 
     [Reactive]
-    public ObservableCollection<PlatformAccount>? AddGamePlatforms { get; set; }
+    public partial ObservableCollection<PlatformAccount>? AddGamePlatforms { get; set; }
 
     [Reactive]
-    public PlatformAccount? SelectedPlatform { get; set; }
+    public partial PlatformAccount? SelectedPlatform { get; set; }
 
     public bool IsSelectedSteam => SelectedPlatform?.FullName == nameof(ThirdpartyPlatform.Steam) == true;
 

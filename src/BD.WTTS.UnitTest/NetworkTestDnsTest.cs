@@ -18,8 +18,8 @@ public sealed class NetworkTestDnsTest
 
     [TestCase(false, true)]
     [TestCase(true, false)]
-    public void RejectsDnsErrorsAndMismatchedTransactionIds(bool mismatch, bool dnsError)
-        => Assert.CatchAsync<IOException>(async () => await ProbeAsync(query => CreateResponse(query, true, mismatch: mismatch, dnsError: dnsError)));
+    public async Task RejectsDnsErrorsAndMismatchedTransactionIds(bool mismatch, bool dnsError)
+        => await Assert.CatchAsync<IOException>(async () => await ProbeAsync(query => CreateResponse(query, true, mismatch: mismatch, dnsError: dnsError)));
 
     [Test]
     public async Task CancellingCallerInterruptsAsyncUdpReceive()
@@ -29,7 +29,7 @@ public sealed class NetworkTestDnsTest
         var pending = CallProbe(server, cancel.Token);
         await server.ReceiveAsync(cancel.Token);
         await cancel.CancelAsync();
-        Assert.CatchAsync<OperationCanceledException>(async () => await pending);
+        await Assert.CatchAsync<OperationCanceledException>(async () => await pending);
     }
 
     static async Task<(long DelayMs, IPAddress[] Address)> ProbeAsync(Func<byte[], byte[]> respond)

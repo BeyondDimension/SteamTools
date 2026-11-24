@@ -4,7 +4,7 @@ using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
-using ReactiveUI.Avalonia;
+using ReactiveUI.Avalonia.Reactive;
 using System.CommandLine;
 
 namespace BD.WTTS.UI.Views.Controls;

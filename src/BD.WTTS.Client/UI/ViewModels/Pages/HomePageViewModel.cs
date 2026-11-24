@@ -4,7 +4,7 @@ using static BD.WTTS.Services.IMicroServiceClient;
 
 namespace BD.WTTS.UI.ViewModels;
 
-public sealed class HomePageViewModel : TabItemViewModel
+public sealed partial class HomePageViewModel : TabItemViewModel
 {
     public const string OfficialWebsite_Article = Constants.Urls.OfficialWebsite_Article;
     public const string OfficialWebsite_Article_Detail_ = Constants.Urls.OfficialWebsite_Article_Detail_;
@@ -16,23 +16,23 @@ public sealed class HomePageViewModel : TabItemViewModel
     public override string IconKey => "avares://BD.WTTS.Client.Avalonia/UI/Assets/Icons/home.ico";
 
     [Reactive]
-    public ObservableCollection<ArticleItemDTO> Articles { get; set; }
+    public partial ObservableCollection<ArticleItemDTO> Articles { get; set; }
 
     [Reactive]
-    public ObservableCollection<AdvertisementDTO> NavigationBanners { get; set; }
+    public partial ObservableCollection<AdvertisementDTO> NavigationBanners { get; set; }
 
     [Reactive]
     //public ObservableCollection<List<ShopRecommendGoodItem>> Shops { get; set; }
-    public ObservableCollection<ShopRecommendGoodItem> Shops { get; set; }
+    public partial ObservableCollection<ShopRecommendGoodItem> Shops { get; set; }
 
     [Reactive]
-    public bool IsArticlesLoading { get; set; } = true;
+    public partial bool IsArticlesLoading { get; set; } = true;
 
     [Reactive]
-    public bool IsShopsLoading { get; set; } = true;
+    public partial bool IsShopsLoading { get; set; } = true;
 
     [Reactive]
-    public bool IsBannersLoading { get; set; } = true;
+    public partial bool IsBannersLoading { get; set; } = true;
 
     bool isLoading;
 

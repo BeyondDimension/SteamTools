@@ -126,19 +126,16 @@
 		<PackageReference Include="ZXing.Net" />
 		<PackageReference Include="Fleck" />
 		<PackageReference Include="Stun.Net" />
-		<PackageReference Include="System.Linq.Async" />
 		<!--<PackageReference Include="Portable.BouncyCastle" />-->
-		<PackageReference Include="ReactiveUI.Fody" />
+		<PackageReference Include="ReactiveUI.Reactive" />
+		<PackageReference Include="ReactiveUI.SourceGenerators" PrivateAssets="all" />
+		<Using Include="ReactiveUI.SourceGenerators" />
+		<PackageReference Include="DynamicData" />
 		<PackageReference Include="fusillade" />
-		<PackageReference Include="Splat.Drawing" />
-		<PackageReference Include="System.Drawing.Common" />
 		<PackageReference Include="Microsoft.Extensions.FileProviders.Physical" />
-		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
 		<PackageReference Include="SimdSkia" Condition="'$(WttsUseSimdSkia)' == 'true'" />
 		<PackageReference Include="SkiaSharp" Condition="'$(WttsUseSimdSkia)' != 'true'" />
-		<PackageReference Include="SkiaSharp.HarfBuzz" Condition="'$(WttsUseSimdSkia)' != 'true'" />
 		<PackageReference Include="HarfBuzzSharp" Condition="'$(WttsUseSimdSkia)' != 'true'" />
-		<PackageReference Include="Utf8StringInterpolation" />
 		<!--<PackageReference Include="BD.Any.AppCenter" />
 		<PackageReference Include="BD.Any.AppCenter.Analytics" />-->
 		<ProjectReference Include="..\..\ref\appcenter-sdk-dotnet\SDK\AppCenterAnalytics\BD.AppCenter.Analytics.Any\BD.AppCenter.Analytics.Any.csproj" />
@@ -177,9 +174,8 @@
 		<!--<PackageReference Include="Aigio.WinDivertSharp.NativeAssets.Win32" />-->
 		<!--<PackageReference Include="BD.Common.Pinyin.TinyPinyin" />-->
 		<ProjectReference Include="..\..\ref\Common\src\BD.Common.Pinyin.TinyPinyin\BD.Common.Pinyin.TinyPinyin.csproj" />
-		<PackageReference Include="Microsoft.Extensions.Logging.EventLog" />
+		<PackageReference Include="System.Drawing.Common" />
 		<PackageReference Include="Microsoft.Win32.SystemEvents" />
-		<PackageReference Include="Vanara.PInvoke.PowrProf" />
 		<ProjectReference Include="..\..\ref\Facepunch.Steamworks\Facepunch.Steamworks\Facepunch.Steamworks.Win64.csproj" />
 		<!--<PackageReference Include="Aigio.Any.AppCenter" />
 		<PackageReference Include="Aigio.Any.AppCenter.Analytics" />
@@ -200,7 +196,7 @@
 		<PackageReference Include="SteamKit2" />
 		<Compile Condition="'$(Configuration)'=='Debug'" Include="..\Utils.cs" />
 		<!--<PackageReference Include="Microsoft.Extensions.DependencyModel" />-->
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Condition="'$(Configuration)' == 'Debug'" />
 		<PackageReference Include="Avalonia" />
 		<!--<PackageReference Include="Facepunch.Steamworks" />-->
 		<!--<PackageReference Include="Avalonia.Desktop" />

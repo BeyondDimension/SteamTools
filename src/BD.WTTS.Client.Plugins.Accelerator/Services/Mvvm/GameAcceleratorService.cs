@@ -21,19 +21,19 @@ public sealed partial class GameAcceleratorService
     public SourceCache<XunYouGameViewModel, int> Games { get; }
 
     [Reactive]
-    public IReadOnlyCollection<XunYouGame>? AllGames { get; set; }
+    public partial IReadOnlyCollection<XunYouGame>? AllGames { get; set; }
 
     [Reactive]
-    public bool IsLoadingGames { get; set; }
+    public partial bool IsLoadingGames { get; set; }
 
     [Reactive]
-    public string? SearchText { get; set; }
+    public partial string? SearchText { get; set; }
 
     [Reactive]
-    public XunYouGameViewModel? CurrentAcceleratorGame { get; set; }
+    public partial XunYouGameViewModel? CurrentAcceleratorGame { get; set; }
 
     [Reactive]
-    public XunYouAccelStateModel? XYAccelState { get; set; }
+    public partial XunYouAccelStateModel? XYAccelState { get; set; }
 
     public ICommand DeleteMyGameCommand { get; }
 
@@ -51,7 +51,7 @@ public sealed partial class GameAcceleratorService
     /// VIP 到期时间
     /// </summary>
     [Reactive]
-    public DateTime? VipEndTime { get; set; }
+    public partial DateTime? VipEndTime { get; set; }
 
     bool hasValidVipEndTime;
 

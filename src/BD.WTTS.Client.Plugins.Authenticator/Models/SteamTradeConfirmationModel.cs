@@ -1,9 +1,8 @@
-using AppResources = BD.WTTS.Client.Resources.Strings;
 using WinAuth;
 
 namespace BD.WTTS.Models;
 
-public class SteamTradeConfirmationModel : ReactiveObject
+public partial class SteamTradeConfirmationModel : ReactiveObject
 {
     public int Type { get; set; }
 
@@ -47,26 +46,19 @@ public class SteamTradeConfirmationModel : ReactiveObject
                                    ReceiveSummary?.Contains("不会收到任何物品") == true) && !ReceiveItemImageUrls.Any();
 
     [Reactive]
-    public ObservableCollection<string> SendItemImageUrls { get; set; }
+    public partial ObservableCollection<string> SendItemImageUrls { get; set; }
 
     [Reactive]
-    public ObservableCollection<string> ReceiveItemImageUrls { get; set; }
+    public partial ObservableCollection<string> ReceiveItemImageUrls { get; set; }
 
     [Reactive]
-    public bool IsSelected { get; set; }
+    public partial bool IsSelected { get; set; }
 
-    WinAuth.SteamClient _steamClient;
+    [Reactive]
+    public partial bool HasDetailLoadError { get; private set; }
 
-    //public SteamTradeConfirmationModel(SteamAuthenticator steamAuthenticator)
-    //{
-    //    SendItemImageUrls = new();
-    //    ReceiveItemImageUrls = new();
-    //    _steamClient = steamAuthenticator.GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
-    //}
-
-    public SteamTradeConfirmationModel(SteamAuthenticator steamAuthenticator, SteamMobileTradeConf conf)
+    public SteamTradeConfirmationModel(SteamMobileTradeConf conf)
     {
-        _steamClient = steamAuthenticator.GetClient(ResourceService.GetCurrentCultureSteamLanguageName());
         Type = conf.Type;
         TypeName = conf.TypeName;
         Id = conf.Id;
@@ -86,36 +78,27 @@ public class SteamTradeConfirmationModel : ReactiveObject
             }
         SendItemImageUrls = new();
         ReceiveItemImageUrls = new();
-
-        if (IsTrade)
-            GetConfirmationDeatil();
     }
 
-    private async void GetConfirmationDeatil()
+    public async Task LoadDetailsAsync(WinAuth.SteamClient steamClient, CancellationToken cancellationToken)
     {
-        var imageUrls = await _steamClient.GetConfirmationItemImageUrls(Id);
-        SelfIcon = _steamClient.SteamUserImageUrl;
-        ReceiveItemImageUrls.Clear();
-        foreach (var item in imageUrls.receiveItems)
-        {
-            ReceiveItemImageUrls.Add(item);
-        }
+        if (!IsTrade || cancellationToken.IsCancellationRequested)
+            return;
 
-        SendItemImageUrls.Clear();
-        foreach (var item in imageUrls.sendItems)
+        try
         {
-            SendItemImageUrls.Add(item);
+            var imageUrls = await steamClient.GetConfirmationItemImageUrls(Id).WaitAsync(cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+            SelfIcon = steamClient.SteamUserImageUrl;
+            ReceiveItemImageUrls = new(imageUrls.receiveItems);
+            SendItemImageUrls = new(imageUrls.sendItems);
+            HasDetailLoadError = false;
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { }
+        catch
+        {
+            if (!cancellationToken.IsCancellationRequested)
+                HasDetailLoadError = true;
         }
     }
-
-    //void ExceptionHandling(Exception exception, bool allowRetry = true)
-    //{
-    //    //可能是启用了家庭监护功能
-    //    if (exception is WinAuthUnauthorisedSteamRequestException unauthorisedSteamRequestException)
-    //    {
-    //        Toast.Show(ToastIcon.Error, Strings.LocalAuth_AuthTrade_GetError);
-    //        return;
-    //    }
-    //    exception.LogAndShowT();
-    //}
 }

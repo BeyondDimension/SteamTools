@@ -1,6 +1,6 @@
 namespace BD.WTTS.Models;
 
-public sealed class BasicAccount : ReactiveObject, IAccount
+public sealed partial class BasicAccount : ReactiveObject, IAccount
 {
     public BasicAccount(string id)
     {
@@ -10,17 +10,17 @@ public sealed class BasicAccount : ReactiveObject, IAccount
     public string? DisplayName => AccountName;
 
     [Reactive]
-    public string? AliasName { get; set; }
+    public partial string? AliasName { get; set; }
 
     public string? AccountName { get; set; }
 
     public string AccountId { get; set; }
 
     [Reactive]
-    public DateTime? LastLoginTime { get; set; }
+    public partial DateTime? LastLoginTime { get; set; }
 
     [Reactive]
-    public string? ImagePath { get; set; }
+    public partial string? ImagePath { get; set; }
 
     public string? AvatarFramePath { get; set; }
 

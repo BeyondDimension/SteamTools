@@ -15,17 +15,17 @@ public partial class AuthenticatorItemModel
         ? AuthenticatorPlatform.HOTP : AuthData.Platform;
 
     [Reactive]
-    public bool IsSelected { get; set; }
+    public partial bool IsSelected { get; set; }
 
     [Reactive]
-    public string AuthName { get; set; }
+    public partial string AuthName { get; set; }
 
     [Reactive]
-    public string? Code { get; set; } = DefaultCode;
+    public partial string? Code { get; set; } = DefaultCode;
 
     [Reactive]
-    public double Value { get; set; }
+    public partial double Value { get; set; }
 
     [Reactive]
-    public bool IsShowCode { get; set; }
+    public partial bool IsShowCode { get; set; }
 }

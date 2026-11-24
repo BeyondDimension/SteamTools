@@ -7,7 +7,7 @@ internal sealed class RequestCacheRepository : CacheRepository<RequestCache, str
 {
     const string CacheDirName = "Http";
 
-    async Task IRequestCache.Save(
+    async Task IRequestCache.SaveAsync(
         HttpRequestMessage request,
         HttpResponseMessage response,
         string key,
@@ -115,7 +115,7 @@ internal sealed class RequestCacheRepository : CacheRepository<RequestCache, str
         }, cancellationToken: cancellationToken).ConfigureAwait(false);
     }
 
-    async Task<byte[]> IRequestCache.Fetch(
+    async Task<byte[]?> IRequestCache.FetchAsync(
         HttpRequestMessage request,
         string key,
         CancellationToken cancellationToken)

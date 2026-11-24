@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<RootNamespace>Avalonia.Controls</RootNamespace>
 		<AssemblyName>Avalonia.Controls.UnitTests</AssemblyName>
+		<DefineConstants>__NOT_IMPORT_COMMON__;$(DefineConstants)</DefineConstants>
 		<SignAssembly>true</SignAssembly>
 		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\..\avalonia.snk</AssemblyOriginatorKeyFile>
@@ -15,7 +16,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BD.Common" />
 		<PackageReference Include="Avalonia" />
 	</ItemGroup>
 

@@ -1,6 +1,6 @@
 namespace BD.WTTS.UI.ViewModels;
 
-public class ContentWindowViewModel : WindowViewModel
+public partial class ContentWindowViewModel : WindowViewModel
 {
 
     public double Width { get; init; }
@@ -18,7 +18,7 @@ public class ContentWindowViewModel : WindowViewModel
     /// 可以是 Page 也可以是 ViewModel
     /// </summary>
     [Reactive]
-    public object? PageViewModel { get; set; }
+    public partial object? PageViewModel { get; set; }
 
     //[Reactive]
     //public object? ActionContent { get; set; }

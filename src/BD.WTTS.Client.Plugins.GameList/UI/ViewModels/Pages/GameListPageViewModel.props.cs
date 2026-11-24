@@ -7,29 +7,29 @@ public sealed partial class GameListPageViewModel : TabItemViewModel
     public override string Name => Strings.GameList;
 
     [Reactive]
-    public bool IsInstalledFilter { get; set; }
+    public partial bool IsInstalledFilter { get; set; }
 
     [Reactive]
-    public bool IsCloudArchiveFilter { get; set; }
+    public partial bool IsCloudArchiveFilter { get; set; }
 
     [Reactive]
-    public bool IsAppInfoOpen { get; set; }
+    public partial bool IsAppInfoOpen { get; set; }
 
     [Reactive]
-    public SteamApp? SelectApp { get; set; }
+    public partial SteamApp? SelectApp { get; set; }
 
     private readonly ReadOnlyObservableCollection<SteamApp>? _SteamApps;
 
     public ReadOnlyObservableCollection<SteamApp>? SteamApps => _SteamApps;
 
     [Reactive]
-    public string? SearchText { get; set; }
+    public partial string? SearchText { get; set; }
 
     [Reactive]
-    public ObservableCollection<EnumModel<SteamAppType>>? AppTypeFiltres { get; set; }
+    public partial ObservableCollection<EnumModel<SteamAppType>>? AppTypeFiltres { get; set; }
 
     [Reactive]
-    public IReadOnlyCollection<EnumModel<SteamAppType>>? EnableAppTypeFiltres { get; set; }
+    public partial IReadOnlyCollection<EnumModel<SteamAppType>>? EnableAppTypeFiltres { get; set; }
 
     public ICommand RefreshAppCommand { get; }
 

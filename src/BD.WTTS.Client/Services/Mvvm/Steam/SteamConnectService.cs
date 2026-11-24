@@ -372,7 +372,7 @@ public sealed partial class SteamConnectService
             IsConnectToSteam = false;
             CurrentSteamUser = null;
             IsSteamChinaLauncher = false;
-            if (InvalidateGameList(clear: processId != 0) && processId == 0)
+            if (InvalidateGameList())
                 _ = RefreshGamesListAsync(showToast: false);
         }
 
@@ -435,8 +435,8 @@ public sealed partial class SteamConnectService
         return false;
     }
 
-    // Steam 退出后重新读取本地缓存，启动新进程时清除旧账号的游戏。
-    bool InvalidateGameList(bool clear)
+    // A Steam process change invalidates the old load, even before a new account is available.
+    bool InvalidateGameList()
     {
         lock (gameListSync)
         {
@@ -444,7 +444,6 @@ public sealed partial class SteamConnectService
             gameListProcessId = -1;
             gameListSteamId = -1;
             gameListCancellation?.Cancel();
-            if (clear) SteamApps.Clear();
             return true;
         }
     }
@@ -580,8 +579,9 @@ public sealed partial class SteamConnectService
         {
             await gameListGate.WaitAsync(cancellation.Token).ConfigureAwait(false);
             acquired = true;
-            await LoadGameListAsync(cancellation).ConfigureAwait(false);
-            if (showToast) Toast.Show(ToastIcon.Success, AppResources.GameList_RefreshGamesListSucess);
+            var refreshed = await LoadGameListAsync(cancellation).ConfigureAwait(false);
+            if (showToast && refreshed && !cancellation.IsCancellationRequested)
+                Toast.Show(ToastIcon.Success, AppResources.GameList_RefreshGamesListSucess);
         }
         catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
         {
@@ -626,7 +626,7 @@ public sealed partial class SteamConnectService
         }
     }
 
-    async Task LoadGameListAsync(CancellationTokenSource cancellation)
+    async Task<bool> LoadGameListAsync(CancellationTokenSource cancellation)
     {
         var token = cancellation.Token;
         var processId = stmService.GetSteamProcessPid();
@@ -662,12 +662,12 @@ public sealed partial class SteamConnectService
                 if (!ReferenceEquals(gameListCancellation, cancellation)) throw new OperationCanceledException(token);
                 gameListProcessId = processId;
                 gameListSteamId = steamId;
-                SteamApps.Clear();
             }
 
             var modifications = stmService.GetAppInfoEdits();
             // Steam can start before it has an account session. Use the local cache in that case.
             var hasLiveSession = steamId != 0;
+            var replaceOldGames = true;
 
             long nextSessionCheck = 0;
 
@@ -698,7 +698,21 @@ public sealed partial class SteamConnectService
                     token.ThrowIfCancellationRequested();
                     if (!ReferenceEquals(gameListCancellation, cancellation))
                         throw new OperationCanceledException(token);
-                    SteamApps.AddOrUpdate((IReadOnlyList<SteamApp>?)owned ?? batch);
+                    var games = (IReadOnlyList<SteamApp>?)owned ?? batch;
+                    if (games.Count == 0) return;
+                    if (replaceOldGames)
+                    {
+                        SteamApps.Edit(updater =>
+                        {
+                            updater.Clear();
+                            updater.AddOrUpdate(games);
+                        });
+                        replaceOldGames = false;
+                    }
+                    else
+                    {
+                        SteamApps.AddOrUpdate(games);
+                    }
                 }
             }, token).ConfigureAwait(false);
 
@@ -707,7 +721,11 @@ public sealed partial class SteamConnectService
             {
                 token.ThrowIfCancellationRequested();
                 if (!ReferenceEquals(gameListCancellation, cancellation)) throw new OperationCanceledException(token);
+                // An empty disk-cache read does not establish that the game library is empty.
+                // Only a live Steam session can replace the current list with zero owned games.
+                if (replaceOldGames && hasLiveSession) SteamApps.Clear();
                 InitializeDownloadGameList();
+                return !replaceOldGames || hasLiveSession;
             }
         }
         finally

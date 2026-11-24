@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.Services;
 
-public sealed class NoticeService : ReactiveObject
+public sealed partial class NoticeService : ReactiveObject
 {
     static readonly Lazy<NoticeService> mCurrent = new(() => new(), LazyThreadSafetyMode.ExecutionAndPublication);
 
@@ -14,10 +14,10 @@ public sealed class NoticeService : ReactiveObject
     //readonly INotificationRepository notificationRepo = Ioc.Get<INotificationRepository>();
 
     [Reactive]
-    public ObservableCollection<OfficialMessageItemDTO> Notices { get; set; }
+    public partial ObservableCollection<OfficialMessageItemDTO> Notices { get; set; }
 
     [Reactive]
-    public int UnreadNotificationsCount { get; set; }
+    public partial int UnreadNotificationsCount { get; set; }
 
     readonly Timer _timer;
 

@@ -1,17 +1,17 @@
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS.UI.ViewModels;
 
-public class MessageBoxWindowViewModel : DialogWindowViewModel
+public partial class MessageBoxWindowViewModel : DialogWindowViewModel
 {
     [Reactive]
-    public object? Content { get; set; }
+    public partial object? Content { get; set; }
 
     [Reactive]
-    public bool IsCancelcBtn { get; set; }
+    public partial bool IsCancelcBtn { get; set; }
 
     [Reactive]
-    public bool IsShowRememberChoose { get; set; }
+    public partial bool IsShowRememberChoose { get; set; }
 
     [Reactive]
-    public bool RememberChoose { get; set; }
+    public partial bool RememberChoose { get; set; }
 }
