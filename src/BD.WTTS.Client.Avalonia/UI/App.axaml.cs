@@ -110,7 +110,12 @@ public sealed partial class App : Application
             if (GeneralSettings.MinimizeOnStartup.Value)
                 Startup.Instance.IsMinimize = true;
 
+#if WINDOWS
+            // The bundled Steamworks library is only available to Windows x64 processes.
+            if (Startup.Instance.IsSteamRun && RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+#else
             if (Startup.Instance.IsSteamRun)
+#endif
             {
                 try
                 {

@@ -121,9 +121,7 @@ partial class ProxyService
 #endif
         {
             isOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
-            proxyMode = ProxySettings.ProxyMode.Value;
-            if (!proxyMode.IsDefined())
-                proxyMode = defaultProxyMode;
+            proxyMode = ProxySettings.ProxyModeValue;
             isProxyGOG = ProxySettings.IsProxyGOG.Value;
         }
 #endif

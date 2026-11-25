@@ -9,6 +9,10 @@
 pub run --rids win-x64 --aot true
 pub nsis --rids win-x64 --t latest --aot true
 
+# Windows ARM64
+pub run --rids win-arm64 --aot true
+pub nsis --rids win-arm64 --t latest --aot true
+
 # Linux（按宿主架构选一条）
 pub run --rids linux-x64 --aot true
 pub run --rids linux-arm64 --aot true

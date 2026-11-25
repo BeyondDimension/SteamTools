@@ -387,6 +387,7 @@ try {
     # PublishAot belongs only to the two executable projects, never to netstandard/analyzer dependencies.
     $common = @('-c', 'Release', '-r', $RuntimeIdentifier, '-p:WttsNativeAot=true',
         '-p:GeneratePackageOnBuild=false', "-p:WttsDesktopTargetFrameworks=$framework", "-p:ArtifactsPath=$artifacts")
+    if ($RuntimeIdentifier -eq 'win-arm64') { $common += '-p:WttsDisableDnsIntercept=true' }
     if ($RuntimeIdentifier -eq 'osx-x64') {
         $dtlsAssets = Join-Path $BuildRoot 'artifacts/native-dependencies/dtls/osx-x64'
         if (Test-Path -LiteralPath $dtlsAssets -PathType Container) {

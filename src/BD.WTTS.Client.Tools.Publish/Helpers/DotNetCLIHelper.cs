@@ -6,13 +6,14 @@ static partial class DotNetCLIHelper
 
     public static void CleanProjDir(string workingDirectory)
     {
-        StartProcessAndWaitForExit(workingDirectory, "clean");
-
-        var binPath = Path.Combine(workingDirectory, "bin");
-        IOPath.DirTryDelete(binPath);
-
-        var objPath = Path.Combine(workingDirectory, "obj");
-        IOPath.DirTryDelete(objPath);
+        // The previous restore may have targeted a different architecture.
+        // Clear the generated directories before restoring for the new publish.
+        foreach (var directory in new[] { "bin", "obj" })
+        {
+            var path = Path.Combine(workingDirectory, directory);
+            if (Directory.Exists(path))
+                Directory.Delete(path, recursive: true);
+        }
     }
 
     public static void StartProcessAndWaitForExit(string workingDirectory, string? arguments = null)

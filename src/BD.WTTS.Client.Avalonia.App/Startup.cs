@@ -1,3 +1,7 @@
+#if WINDOWS
+using BD.SteamClient.Services;
+#endif
+
 // ReSharper disable once CheckNamespace
 namespace BD.WTTS;
 
@@ -225,6 +229,10 @@ sealed partial class Program : Startup
             services.AddSteamService2();
 
             // Steamworks LocalApi Service
+#if WINDOWS
+            if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                services.TryAddSingleton<ISteamworksLocalApiService>(static _ => new UnsupportedSteamworksLocalApiService());
+#endif
             services.TryAddSteamworksLocalApiService();
 #endif
 
@@ -255,6 +263,11 @@ sealed partial class Program : Startup
         WatchTrace.Stop();
 #endif
     }
+
+#if WINDOWS
+    // The Steam client supplies an x64 DLL. Use the interface's default implementations in a native Arm64 process.
+    sealed class UnsupportedSteamworksLocalApiService : ISteamworksLocalApiService { }
+#endif
 
     sealed class Essentials_AppVerS : IApplicationVersionService
     {

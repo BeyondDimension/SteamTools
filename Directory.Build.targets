@@ -201,6 +201,8 @@
           BeforeTargets="_HandleFileConflictsForPublish"
           Condition="'$(WttsNativeAot)' == 'true' AND '$(PublishAot)' == 'true' AND $(RuntimeIdentifier.StartsWith('win-')) AND ('$(MSBuildProjectName)' == 'BD.WTTS.Client.Avalonia.App' OR '$(MSBuildProjectName)' == 'BD.WTTS.Client.Plugins.Accelerator.ReverseProxy')">
     <ItemGroup>
+      <!-- These project-content dependencies only provide x64 Windows DLLs. -->
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="'$(RuntimeIdentifier)' == 'win-arm64' AND ('%(ResolvedFileToPublish.RelativePath)' == 'steam_api64.dll' OR '%(ResolvedFileToPublish.RelativePath)' == 'xunyoucall64.dll')" />
       <!-- Steamworks and the optional XunYou SDK arrive as project content, not RID assets. -->
       <ResolvedFileToPublish Condition="'%(ResolvedFileToPublish.Extension)' == '.dll' AND '%(ResolvedFileToPublish.PostprocessAssembly)' != 'true' AND ('%(ResolvedFileToPublish.AssetType)' == 'native' OR ('%(ResolvedFileToPublish.AssetType)' == '' AND ('%(ResolvedFileToPublish.RelativePath)' == 'steam_api64.dll' OR '%(ResolvedFileToPublish.RelativePath)' == 'xunyoucall64.dll')))">
         <RelativePath>native/$(RuntimeIdentifier)/%(ResolvedFileToPublish.Filename)%(ResolvedFileToPublish.Extension)</RelativePath>

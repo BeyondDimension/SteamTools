@@ -1,5 +1,6 @@
 using BD.WTTS.Client.Tools.Publish.Helpers;
 using System;
+using System.Globalization;
 using System.Security.Policy;
 using static BD.WTTS.Client.Tools.Publish.Helpers.DotNetCLIHelper;
 using static BD.WTTS.GlobalDllImportResolver;
@@ -17,11 +18,12 @@ interface IDotNetPublishCommand : ICommand
 
     const string EntryPointAssemblyName = "Steam++";
 
-    static string releaseTimestamp = DateTimeOffset.Now.ToString("yyMMdd_HHmmssfffffff");
+    const string ReleaseTimestampFormat = "yyMMdd_HHmmssfffffff";
+    static readonly string releaseTimestamp = DateTimeOffset.Now.ToString(ReleaseTimestampFormat, CultureInfo.InvariantCulture);
 
-    static string GetPublishFileName(bool debug, string rid, string fileEx = "", bool aot = false)
+    static string GetPublishFileName(bool debug, string rid, string fileEx = "", bool aot = false, string? timestamp = null)
     {
-        var value = $"[{(debug ? "Debug" : "Release")}] {EntryPointAssemblyName}{(aot ? "(Native AOT)" : null)}_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}_{releaseTimestamp}{fileEx}";
+        var value = $"[{(debug ? "Debug" : "Release")}] {EntryPointAssemblyName}{(aot ? "(Native AOT)" : null)}_v{AssemblyInfo.InformationalVersion}_{rid.Replace('-', '_')}_{timestamp ?? releaseTimestamp}{fileEx}";
         return value;
     }
 
@@ -133,16 +135,17 @@ interface IDotNetPublishCommand : ICommand
                 }
 
                 var isWinArm64 = isWindows && info.Architecture == Architecture.Arm64;
+                var mainArchitecture = isWinArm64 ? Architecture.X64 : info.Architecture;
+                var mainArg = arg;
+                if (isWinArm64)
+                {
+                    // Steam needs an x64 JIT process. The package and its AOT build still target Arm64.
+                    mainArg.PublishDir = arg.PublishDir;
+                    mainArg.RuntimeIdentifier = "win-x64";
+                }
 
                 var psi = GetProcessStartInfo(projRootPath);
-                if (isWinArm64) // win-arm64
-                {
-                    // steamclient.dll 缺少 Arm64，以及 Arm64EC 在 dotnet 中目前不可用
-                    // 更改为 x64 兼容运行主进程
-                    arg.RuntimeIdentifier = "win-x64";
-                    arg.PublishDir = arg.PublishDir.Replace("win-x64", "win-arm64");
-                }
-                SetPublishCommandArgumentList(psi.ArgumentList, arg);
+                SetPublishCommandArgumentList(psi.ArgumentList, mainArg);
                 psi.ArgumentList.Add($"-p:WttsDesktopTargetFrameworks={arg.Framework}");
 
                 SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
@@ -229,7 +232,7 @@ interface IDotNetPublishCommand : ICommand
                 ResetConsoleColor();
 
                 // 移动本机库
-                MoveNativeLibrary(publishDir, arg.RuntimeIdentifier, info.Platform);
+                MoveNativeLibrary(publishDir, mainArg.RuntimeIdentifier, info.Platform);
                 if (isWinArm64)
                 {
                     // 删除相关文件来禁用 DNS 驱动模式，该驱动不支持 Arm64
@@ -256,7 +259,7 @@ interface IDotNetPublishCommand : ICommand
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkMagenta);
                     Console.WriteLine(ToolStrings.Get("PublishingAppHost"));
                     ResetConsoleColor();
-                    PublishAppHost(publishDir, info.Platform, debug);
+                    PublishAppHost(publishDir, info.Platform, debug, isWinArm64);
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
                     Console.WriteLine(ToolStrings.Get("PublishedAppHost"));
                     ResetConsoleColor();
@@ -289,6 +292,9 @@ interface IDotNetPublishCommand : ICommand
                 {
                     DeploymentMode = DeploymentMode.SCD,
                     RuntimeIdentifier = arg.RuntimeIdentifier,
+                    Platform = info.Platform,
+                    DeviceIdiom = info.DeviceIdiom,
+                    Architecture = info.Architecture,
                     DirectoryPath = rootPublishDir,
                 };
 
@@ -296,6 +302,9 @@ interface IDotNetPublishCommand : ICommand
                 {
                     DeploymentMode = DeploymentMode.AOT,
                     RuntimeIdentifier = arg.RuntimeIdentifier,
+                    Platform = info.Platform,
+                    DeviceIdiom = info.DeviceIdiom,
+                    Architecture = info.Architecture,
                     DirectoryPath = rootPublishDir_Aot,
                 } : null!;
 
@@ -410,10 +419,11 @@ $"""
                     Console.WriteLine(ToolStrings.Get("GeneratingMsix"));
                     ResetConsoleColor();
 
-                    void PublishMSIX(AppPublishInfo appPublish, AppPublishFileInfo msixInfo, string rootPublishDir, out string msixFilePath)
+                    void PublishMSIX(AppPublishInfo appPublish, AppPublishFileInfo msixInfo, string rootPublishDir,
+                        Architecture architecture, out string msixFilePath)
                     {
                         // 生成清单文件
-                        MSIXHelper.MakeAppx.GenerateAppxManifestXml(rootPublishDir, AppVersion4, info.Architecture);
+                        MSIXHelper.MakeAppx.GenerateAppxManifestXml(rootPublishDir, AppVersion4, architecture);
 
                         // 打包资源 images
                         MSIXHelper.MakePri.Start(rootPublishDir);
@@ -423,7 +433,7 @@ $"""
                         msixFilePath = Path.Combine(msixDir, GetPublishFileName(debug, rid, ".msix"));
 
                         // 生成 msix 包
-                        MSIXHelper.MakeAppx.Start(msixFilePath, rootPublishDir, AppVersion4, info.Architecture);
+                        MSIXHelper.MakeAppx.Start(msixFilePath, rootPublishDir, AppVersion4, architecture);
                         Thread.Sleep(TimeSpan.FromSeconds(1.15d));
 
                         // 签名 msix 包
@@ -451,14 +461,14 @@ $"""
                         FileEx = ".msixbundle",
                     };
                     AppPublishFileInfo msixInfo_Aot = null!;
-                    PublishMSIX(appPublish, msixInfo, rootPublishDir, out var msixFilePath);
+                    PublishMSIX(appPublish, msixInfo, rootPublishDir, mainArchitecture, out var msixFilePath);
                     if (aot && rootPublishDir_Aot != null && appPublish_Aot != null)
                     {
                         msixInfo_Aot = new AppPublishFileInfo
                         {
                             FileEx = msixInfo.FileEx,
                         };
-                        PublishMSIX(appPublish_Aot, msixInfo_Aot, rootPublishDir_Aot, out _);
+                        PublishMSIX(appPublish_Aot, msixInfo_Aot, rootPublishDir_Aot, info.Architecture, out _);
                     }
 
                     SetConsoleColor(ConsoleColor.White, ConsoleColor.DarkGreen);
@@ -992,7 +1002,7 @@ $"""
 publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:PublishReferencesDocumentationFiles=false  -p:PublishDocumentationFile=false -p:PublishDocumentationFiles=false -f {2} -p:DebugType=none -p:DebugSymbols=false --nologo -v q /property:WarningLevel=1
 """;
 
-    static void PublishAppHost(string publishDir, Platform platform, bool debug)
+    static void PublishAppHost(string publishDir, Platform platform, bool debug, bool forceX64)
     {
         const string appconfigFileName = "Steam++.exe.config";
 
@@ -1027,6 +1037,8 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                     configuration,
                     debug ? "Exe" : "WinExe",
                     app_host_tfm);
+                if (forceX64)
+                    arguments += " -p:PlatformTarget=x64";
                 break;
         }
         var projRootPath = ProjectPath_AppHost;
@@ -1337,7 +1349,8 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
                 if (isWindows)
                 {
                     var e_sqlite3 = Path.Combine(publishDir, "e_sqlite3.dll");
-                    IOPath.FileTryDelete(e_sqlite3);
+                    if (!isWinArm64)
+                        IOPath.FileTryDelete(e_sqlite3);
                     CopyDirectory(publishDir, destinationDir, true);
                 }
                 else if (isMacOS)

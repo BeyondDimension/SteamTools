@@ -1,4 +1,5 @@
 using BD.WTTS.Client.Tools.Publish.Helpers;
+using System.Globalization;
 using static BD.WTTS.Client.Tools.Publish.Commands.IDotNetPublishCommand;
 
 namespace BD.WTTS.Client.Tools.Publish.Commands;
@@ -30,125 +31,72 @@ interface INSISBuildCommand : ICommand
             hsm_sign = false; // hsm 目前无法映射到 CI VM 中
         }
 
-        var projRootPath = ProjectPath_AvaloniaApp;
-        if (string.Equals("latest", timestamp, StringComparison.OrdinalIgnoreCase))
-        {
-            // 从发布文件夹中根据文件夹名称倒序查找最新的时间戳
-            var sPath = Path.Combine(projRootPath, "bin", PublishCommandArg.GetConfiguration(debug), "Publish");
-            var query = from p in Directory.EnumerateDirectories(sPath)
-                        let s = Path.GetFileName(p).Split('_')
-                        where s.Length > 2
-                        let t = s.LastOrDefault()
-                        let d = s[^2]
-                        where !string.IsNullOrWhiteSpace(t) && !string.IsNullOrWhiteSpace(d)
-                        let tN = ulong.TryParse(t, out var tUL) ? tUL : (ulong?)null
-                        let dN = ulong.TryParse(d, out var dUL) ? dUL : (ulong?)null
-                        where tN.HasValue && dN.HasValue
-                        select new
-                        {
-                            tN,
-                            dN,
-                            p,
-                            t,
-                        };
-            var latest = query.OrderByDescending(x => x.tN).ThenByDescending(x => x.dN).FirstOrDefault();
-            ArgumentNullException.ThrowIfNull(latest);
-            timestamp = $"{latest.dN}_{latest.t}";
-        }
-
-        releaseTimestamp = timestamp;
-
-        var rootDirPath = Path.Combine(ProjectUtils.ProjPath, "..", "NSIS-Build");
-        var nsiFilePath = Path.Combine(rootDirPath, "AppCode", "Steampp", "app", "SteamPP_setup.nsi");
-
-        if (!File.Exists(nsiFilePath))
-        {
-            Console.WriteLine(string.Format(ToolStrings.Get("MissingNsisBuild"), nsiFilePath));
-            return;
-        }
-
-        var nsiFileContent = File.ReadAllText(nsiFilePath);
-        var nsiFileContentBak = nsiFileContent;
-
-        var appFileDirPath = Path.Combine(rootDirPath, "AppCode", "Steampp");
-        var nsisExeFilePath = Path.Combine(rootDirPath, "NSIS", "makensis.exe");
+        var publishDirectory = Path.Combine(ProjectPath_AvaloniaApp, "bin", PublishCommandArg.GetConfiguration(debug), "Publish");
+        var installer = new NsisInstaller(Path.Combine(ProjectUtils.ProjPath, "..", "NSIS-Build"));
+        var useLatest = string.Equals("latest", timestamp, StringComparison.OrdinalIgnoreCase);
+        if (!useLatest && !IsReleaseTimestamp(timestamp))
+            throw new ArgumentException($"Use 'latest' or a release timestamp in {ReleaseTimestampFormat} format.", nameof(timestamp));
 
         foreach (var rid in rids)
         {
-            for (int i = 0; i < 2; i++)
-            {
-                if (i == 1 && !aot)
-                {
-                    continue;
-                }
+            var info = DeconstructRuntimeIdentifier(rid);
+            if (info.Platform != Platform.Windows) continue;
 
+            var targetRid = $"win-{ArchToString(info.Architecture)}";
+            var batch = useLatest ? FindLatestTimestamp(publishDirectory, debug, targetRid, aot) : timestamp;
+            var archive = GetArchivePath(publishDirectory, debug, targetRid, batch, aot: false);
+            var aotArchive = aot ? GetArchivePath(publishDirectory, debug, targetRid, batch, aot: true) : null;
+
+            if (!IsArchive(archive))
+                throw new FileNotFoundException("The JIT publish archive was not found or is empty.", archive);
+            if (aotArchive != null && !IsArchive(aotArchive))
+                throw new FileNotFoundException("The Native AOT publish archive was not found or is empty.", aotArchive);
+
+            BuildInstaller(archive);
+            if (aotArchive != null)
+                BuildInstaller(aotArchive);
+        }
+
+        void BuildInstaller(string archive)
+        {
+            var output = Path.ChangeExtension(archive, FileEx.EXE);
+            IOPath.FileTryDelete(output);
+            installer.Build(archive, output, AppVersion4);
+
+            if (!debug)
+            {
+                var fileNames = $"\"{output}\"";
+                var pfxFilePath = hsm_sign ? MSIXHelper.SignTool.pfxFilePath_HSM_CodeSigning : null;
                 try
                 {
-                    var info = DeconstructRuntimeIdentifier(rid);
-                    if (info == default) continue;
-
-                    var arg = SetPublishCommandArgumentList(debug, info.Platform, info.DeviceIdiom, info.Architecture);
-                    var publishDir = Path.Combine(projRootPath, i == 0 ? arg.PublishDir : arg.GetPublishDirWithAssemblies(true));
-                    Console.WriteLine(publishDir);
-                    var rootPublishDir = Path.GetFullPath(Path.Combine(publishDir, ".."));
-                    var packPath = $"{rootPublishDir}{FileEx._7Z}";
-
-                    var install7zFilePath = packPath;
-                    var install7zFileName = Path.GetFileName(install7zFilePath);
-                    var outputFileName = Path.GetFileNameWithoutExtension(install7zFilePath) + FileEx.EXE;
-                    var outputFilePath = Path.Combine(new FileInfo(install7zFilePath).DirectoryName!, outputFileName);
-                    IOPath.FileTryDelete(outputFilePath);
-                    var exeName = "Steam++.exe";
-
-                    var nsiFileContent2 = nsiFileContent
-                             .Replace("${{ Steam++_Company }}", AssemblyInfo.Company)
-                             .Replace("${{ Steam++_Copyright }}", AssemblyInfo.Copyright)
-                             .Replace("${{ Steam++_ProductName }}", AssemblyInfo.Trademark)
-                             .Replace("${{ Steam++_ExeName }}", exeName)
-                             .Replace("${{ Steam++_Version }}", AppVersion4)
-                             .Replace("${{ Steam++_OutPutFileName }}", outputFileName)
-                             .Replace("${{ Steam++_AppFileDir }}", appFileDirPath)
-                             .Replace("${{ Steam++_7zFilePath }}", install7zFilePath)
-                             .Replace("${{ Steam++_7zFileName }}", install7zFileName)
-                             .Replace("${{ Steam++_OutPutFilePath }}", outputFilePath)
-                             .Replace("${{ Steam++_UninstFileName }}", Path.Combine(appFileDirPath, "app", "uninst.exe"))
-                             ;
-                    File.WriteAllText(nsiFilePath, nsiFileContent2);
-
-                    var process = Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = nsisExeFilePath,
-                        Arguments = $" /DINSTALL_WITH_NO_NSIS7Z=1 \"{nsiFilePath}\"",
-                        UseShellExecute = false,
-                    });
-                    process!.WaitForExit();
-
-                    if (!debug) // 调试模式不进行数字签名
-                    {
-                        var fileNames =
-        $"""
-"{outputFilePath}"
-""";
-                        var pfxFilePath = hsm_sign ? MSIXHelper.SignTool.pfxFilePath_HSM_CodeSigning : null;
-                        try
-                        {
-                            MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
-                        }
-                        catch
-                        {
-                            if (debug)
-                                throw;
-                            pfxFilePath = MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning;
-                            MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, rootPublishDir);
-                        }
-                    }
+                    MSIXHelper.SignTool.Start(force_sign, fileNames, pfxFilePath, publishDirectory);
                 }
-                finally
+                catch
                 {
-                    File.WriteAllText(nsiFilePath, nsiFileContentBak);
+                    MSIXHelper.SignTool.Start(force_sign, fileNames, MSIXHelper.SignTool.pfxFilePath_BeyondDimension_CodeSigning, publishDirectory);
                 }
-
             }
         }
     }
+
+    static string FindLatestTimestamp(string directory, bool debug, string rid, bool aot)
+    {
+        var prefix = GetPublishFileName(debug, rid, timestamp: "");
+        var batches = from archive in Directory.EnumerateFiles(directory, $"{prefix}*{FileEx._7Z}")
+                      let stem = Path.GetFileNameWithoutExtension(archive)
+                      where stem.StartsWith(prefix, StringComparison.Ordinal) && IsArchive(archive)
+                      let timestamp = stem[prefix.Length..]
+                      where IsReleaseTimestamp(timestamp) && (!aot || IsArchive(GetArchivePath(directory, debug, rid, timestamp, aot: true)))
+                      select timestamp;
+        return batches.OrderDescending(StringComparer.Ordinal).FirstOrDefault() ??
+            throw new FileNotFoundException($"No complete publish archive batch was found for {rid} in {directory}.");
+    }
+
+    static bool IsReleaseTimestamp(string timestamp) =>
+        DateTime.TryParseExact(timestamp, ReleaseTimestampFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+
+    static bool IsArchive(string path) => new FileInfo(path) is { Exists: true, Length: > 0 };
+
+    static string GetArchivePath(string directory, bool debug, string rid, string timestamp, bool aot) =>
+        Path.Combine(directory, GetPublishFileName(debug, rid, FileEx._7Z, aot, timestamp));
 }

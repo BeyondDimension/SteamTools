@@ -10,6 +10,53 @@ on:
     branches: [ main, develop ]
 
 jobs:
+  build-win-arm64:
+    name: Build Windows ARM64 packages
+    runs-on: windows-2025
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          persist-credentials: false
+
+      - name: Read .NET SDK version
+        id: sdk
+        shell: pwsh
+        run: |
+          $sdkVersion = (Get-Content -LiteralPath global.json -Raw | ConvertFrom-Json).sdk.version
+          if ([string]::IsNullOrWhiteSpace($sdkVersion)) {
+            throw 'global.json must specify sdk.version.'
+          }
+          "version=$sdkVersion" >> $env:GITHUB_OUTPUT
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: ${{ steps.sdk.outputs.version }}
+
+      - name: Build Windows ARM64 packages
+        run: dotnet run --project src/BD.WTTS.Client.Tools.Publish/BD.WTTS.Client.Tools.Publish.csproj --configuration Release --no-launch-profile -- run --rids win-arm64 --aot true
+
+      - name: Upload Windows ARM64 JIT package
+        uses: actions/upload-artifact@v7
+        with:
+          name: packages-win-arm64-jit
+          path: 'src/BD.WTTS.Client.Avalonia.App/bin/Release/Publish/*Steam++_v*_win_arm64_*.7z'
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: Upload Windows ARM64 Native AOT package
+        uses: actions/upload-artifact@v7
+        with:
+          name: packages-win-arm64-aot
+          path: 'src/BD.WTTS.Client.Avalonia.App/bin/Release/Publish/*Steam++[(]Native AOT[)]_v*_win_arm64_*.7z'
+          if-no-files-found: error
+          compression-level: 0
+
   build:
     runs-on: ${{ matrix.os }}
 

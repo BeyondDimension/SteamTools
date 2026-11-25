@@ -23,8 +23,11 @@
 		<ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
 		<Deterministic>true</Deterministic>
 		<CheckEolWorkloads>false</CheckEolWorkloads>
-		<!--<DefineConstants>REMOVE_DNS_INTERCEPT;$(DefineConstants)</DefineConstants>-->
 		<CETCompat>false</CETCompat>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(WttsDisableDnsIntercept)' == 'true' OR '$(RuntimeIdentifier)' == 'win-arm64'">
+		<DefineConstants>REMOVE_DNS_INTERCEPT;$(DefineConstants)</DefineConstants>
 	</PropertyGroup>
 
 	<!-- 👇 .NET 11+ 配置 -->

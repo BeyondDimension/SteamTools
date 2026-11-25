@@ -19,6 +19,8 @@ jobs:
         include:
           - rid: win-x64
             runner: windows-2025
+          - rid: win-arm64
+            runner: windows-2025
           - rid: linux-x64
             runner: ubuntu-22.04
           - rid: linux-arm64

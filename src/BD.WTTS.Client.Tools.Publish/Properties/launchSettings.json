@@ -13,6 +13,10 @@
       "commandName": "Project",
       "commandLineArgs": "run --rids win-x64 --stm-upload"
     },
+    "Publish(win-arm64)": {
+      "commandName": "Project",
+      "commandLineArgs": "run --rids win-arm64"
+    },
     "Publish(macos-arm64) Debug": {
       "commandName": "Project",
       "commandLineArgs": "run --rids osx-arm64 --debug"
@@ -36,6 +40,10 @@
     "Publish Setup(win-x64)": {
       "commandName": "Project",
       "commandLineArgs": "nsis --rids win-x64 --t latest"
+    },
+    "Publish Setup(win-arm64)": {
+      "commandName": "Project",
+      "commandLineArgs": "nsis --rids win-arm64 --t latest"
     },
     "BD.WTTS.Client.Tools.Publish(TestUploadRc1)": {
       "commandName": "Project",

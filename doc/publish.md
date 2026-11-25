@@ -6,7 +6,7 @@
 
 ## Windows
 
-安装 Visual Studio 或 Build Tools 的「使用 C++ 的桌面开发」工作负载及 Windows SDK。生成 EXE 安装包时，将 NSIS-Build 放在 SteamTools 仓库旁边的 `../NSIS-Build`。 [NSIS-Build](https://github.com/SteamTools-Team/NSIS-Build)
+安装 Visual Studio 或 Build Tools 的「使用 C++ 的桌面开发」工作负载及 Windows SDK。构建 ARM64 Native AOT 时，还需安装 C++ ARM64/ARM64EC 生成工具。Windows x64 主机可以交叉构建 ARM64。生成 EXE 安装包时，将 NSIS-Build 放在 SteamTools 仓库旁边的 `../NSIS-Build`。 [NSIS-Build](https://github.com/SteamTools-Team/NSIS-Build) · [Native AOT 交叉编译](https://learn.microsoft.com/dotnet/core/deploying/native-aot/cross-compile)
 
 Windows Native AOT 发布优先使用 PowerShell 7，找不到时使用系统自带的 Windows PowerShell 5.1（`powershell.exe`）。
 
@@ -18,7 +18,13 @@ dotnet run --project $pub -c Release --no-launch-profile -- run --rids win-x64 -
 
 # 用上一步生成的 7z 包制作两套 EXE 安装包
 dotnet run --project $pub -c Release --no-launch-profile --no-build -- nsis --rids win-x64 --t latest --aot true
+
+# 生成 Windows ARM64 的 JIT 和 Native AOT 包，再制作 EXE 安装包
+dotnet run --project $pub -c Release --no-launch-profile -- run --rids win-arm64 --aot true
+dotnet run --project $pub -c Release --no-launch-profile --no-build -- nsis --rids win-arm64 --t latest --aot true
 ```
+
+Windows ARM64 的 JIT 包通过 Windows 11 的 x64 仿真运行主程序和 .NET 运行时，以兼容 Steam 原生库。加速模块使用 ARM64。Native AOT 包的主程序和加速模块均为原生 ARM64，Steam 本地接口（如成就管理和云存档）在该版本中不可用。两种包的文件名都使用 `win_arm64`，均不提供 WinDivert DNS 拦截模式。 [Windows 仿真支持](https://learn.microsoft.com/windows/arm/apps-on-arm-x86-emulation)
 
 若发布目录里有多个构建批次，将 `--t latest` 改为目标压缩包文件名末尾的时间戳，例如 `--t 261121_1917009441349`。打包和制作安装包时使用相同的 `--aot` 值。
 
@@ -94,9 +100,11 @@ Native AOT 的内部校验记录位于 `build/artifacts/`。
 
 | 平台 | `pub run` 生成的包 | 后续打包 |
 | --- | --- | --- |
-| Windows x64 | `.7z`、MSIX 和 `.msixbundle` | `pub nsis` 生成 `.exe` 安装包 |
+| Windows x64、ARM64 | `.7z`、MSIX 和 `.msixbundle` | `pub nsis` 生成 `.exe` 安装包 |
 | Linux x64、ARM64 | `.tar.gz` | GitHub Actions 以 `.tgz` 文件名上传 |
 | macOS Intel、Apple Silicon | JIT 和 Native AOT `.dmg` | — |
+
+分支和 PR 的 Build 工作流会上传 Windows ARM64 的 JIT 和 Native AOT `.7z`。 [CI 工作流](../.github/workflows/dotnet.yml)
 
 手动运行 Publish 工作流会构建并上传三端安装包和压缩包。推送标签时，工作流还会制作 Windows EXE 安装包，汇总产物并生成 `SHA256SUMS.txt`，然后创建草稿 Release。 [发布工作流](../.github/workflows/publish.yml)
 
