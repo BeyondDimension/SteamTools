@@ -15,7 +15,7 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
     public static readonly StyledProperty<bool> IsSaveWindowSizeProperty = AvaloniaProperty
         .Register<ReactiveAppWindow<TViewModel>, bool>(nameof(IsSaveWindowSize), true);
 
-    private bool _isInitialize;
+    private bool startupPlacementChecked;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ReactiveAppWindow{TViewModel}"/> class.
@@ -124,40 +124,36 @@ public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel>, IV
 
     public override void Show()
     {
-        if (IsSaveWindowSize && SizePosition != null)
+        if (!startupPlacementChecked && !IsVisible)
         {
-            var screen = Screens.ScreenFromPoint(Position);
-            if (screen != null)
-            {
-                var primaryScreenBounds = screen.Bounds;
-
-                if (CanResize && !_isInitialize && !IsVisible)
-                {
-                    WindowStartupLocation = WindowStartupLocation.Manual;
-
-                    if (SizePosition.Width > 0 &&
-                        primaryScreenBounds.Width >= SizePosition.Width)
-                        Width = SizePosition.Width;
-
-                    if (SizePosition.Height > 0 &&
-                        primaryScreenBounds.Height >= SizePosition.Height)
-                        Height = SizePosition.Height;
-
-                    if (SizePosition.X > 0 && SizePosition.Y > 0)
-                    {
-                        var leftTopPoint = new PixelPoint(SizePosition.X, SizePosition.Y);
-                        var rightBottomPoint = new PixelPoint(SizePosition.X + (int)Width, SizePosition.Y + (int)Height);
-                        if (primaryScreenBounds.Contains(leftTopPoint) &&
-                           primaryScreenBounds.Contains(rightBottomPoint))
-                        {
-                            Position = leftTopPoint;
-                        }
-                    }
-                    _isInitialize = true;
-                }
-            }
+            startupPlacementChecked = true;
+            if (IsSaveWindowSize && CanResize && SizePosition is { } saved)
+                RestoreWindowPlacement(saved);
         }
         base.Show();
+    }
+
+    private void RestoreWindowPlacement(SizePosition saved)
+    {
+        var savedPosition = new PixelPoint(saved.X, saved.Y);
+        var screen = Screens.ScreenFromPoint(savedPosition);
+        if (screen is null || !screen.Bounds.Contains(savedPosition))
+            return;
+
+        var frame = PlatformImpl is { FrameSize: { } frameSize } platform
+            ? frameSize - platform.ClientSize
+            : default;
+        var placement = WindowPlacement.Restore(savedPosition, new Size(saved.Width, saved.Height),
+            screen.WorkingArea, screen.Scaling, frame, new Size(MinWidth, MinHeight), new Size(MaxWidth, MaxHeight),
+            Screens.All.Where(other => other.Bounds != screen.Bounds).Select(other => other.WorkingArea));
+        if (placement is not { } restored)
+            return;
+
+        // Moving across monitors can change native DPI before Avalonia performs the first layout.
+        Position = restored.Position;
+        Width = restored.ClientSize.Width;
+        Height = restored.ClientSize.Height;
+        WindowStartupLocation = WindowStartupLocation.Manual;
     }
 
     //protected override void OnOpened(EventArgs e)

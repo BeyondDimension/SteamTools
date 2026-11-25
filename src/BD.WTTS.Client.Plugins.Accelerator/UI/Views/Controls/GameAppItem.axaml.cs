@@ -2,8 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Data.Converters;
-using Avalonia.Media;
-using Avalonia.Media.Immutable;
 using ReactiveUI.Avalonia.Reactive;
 using System.CommandLine;
 
@@ -11,11 +9,8 @@ namespace BD.WTTS.UI.Views.Controls;
 
 public partial class GameAppItem : UserControl
 {
-    private static readonly ImmutableSolidColorBrush HighPingBrush = new(0xFFFF4F58);
-    private static readonly ImmutableSolidColorBrush NormalPingBrush = new(0xFF47A42B);
-
-    public static IValueConverter PingBrushConverter { get; } = new FuncValueConverter<uint, IBrush>(
-        static ping => ping > 120 ? HighPingBrush : NormalPingBrush);
+    public static IValueConverter IsNormalPingConverter { get; } = new FuncValueConverter<uint, bool>(
+        static ping => ping <= 120);
 
     public static IValueConverter AccelerateOrStopTextConverter { get; } = new FuncValueConverter<bool, string>(
         static accelerated => accelerated ? Strings.GameAccelerator_Stop : Strings.GameAccelerator_Accelerate);

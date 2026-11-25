@@ -69,32 +69,38 @@
         </StackPanel>
     </spp:PageBase.ActionContent>-->
     <ItemsControl Name="SettingsSections">
+        <ItemsControl.Styles>
+            <!-- Let the final section reach the top even when its content is shorter than the viewport. -->
+            <Style Selector="ContentControl.settings-section:nth-last-child(1)">
+                <Setter Property="MinHeight" Value="{Binding $parent[ScrollViewer].Viewport.Height}" />
+            </Style>
+        </ItemsControl.Styles>
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <VirtualizingStackPanel CacheLength="0" />
+                <StackPanel Spacing="10" />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
-        <ContentControl Margin="0,0,0,10">
+        <ContentControl Classes="settings-section">
             <ContentControl.Template>
                 <ControlTemplate><spp:Settings_General /></ControlTemplate>
             </ContentControl.Template>
         </ContentControl>
-        <ContentControl Margin="0,0,0,10">
+        <ContentControl Classes="settings-section">
             <ContentControl.Template>
                 <ControlTemplate><spp:Settings_UI /></ControlTemplate>
             </ContentControl.Template>
         </ContentControl>
-        <ContentControl Margin="0,0,0,10">
+        <ContentControl Classes="settings-section">
             <ContentControl.Template>
                 <ControlTemplate><spp:Settings_Plugin /></ControlTemplate>
             </ContentControl.Template>
         </ContentControl>
-        <ContentControl Margin="0,0,0,10">
+        <ContentControl Classes="settings-section">
             <ContentControl.Template>
                 <ControlTemplate><spp:Settings_Steam /></ControlTemplate>
             </ContentControl.Template>
         </ContentControl>
-        <ContentControl>
+        <ContentControl Classes="settings-section">
             <ContentControl.Template>
                 <ControlTemplate><spp:AboutPage /></ControlTemplate>
             </ContentControl.Template>

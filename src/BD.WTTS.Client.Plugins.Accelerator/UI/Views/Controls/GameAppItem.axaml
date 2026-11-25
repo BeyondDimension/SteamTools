@@ -37,6 +37,18 @@
         <Style Selector="Grid Panel.AppName TextBlock.LeftMargin">
             <Setter Property="Margin" Value="25 0 0 0" />
         </Style>
+        <Style Selector="DockPanel.PingStatus > Ellipse">
+            <Setter Property="Fill" Value="#FF4F58" />
+        </Style>
+        <Style Selector="DockPanel.PingStatus > TextBlock">
+            <Setter Property="Foreground" Value="#FF4F58" />
+        </Style>
+        <Style Selector="DockPanel.PingStatus.NormalPing > Ellipse">
+            <Setter Property="Fill" Value="#47A42B" />
+        </Style>
+        <Style Selector="DockPanel.PingStatus.NormalPing > TextBlock">
+            <Setter Property="Foreground" Value="#47A42B" />
+        </Style>
         <Style Selector="spp|GameAppItem:pointerover spp|Image2.Scale">
             <Setter Property="RenderTransform" Value="scale(1.1)" />
         </Style>
@@ -180,19 +192,19 @@
                             VerticalAlignment="Center"
                             FontSize="12"
                             Text="{Binding SelectedArea?.Name}" />
-                        <DockPanel>
+                        <DockPanel
+                            Classes="PingStatus"
+                            Classes.NormalPing="{Binding PingValue, Converter={x:Static spp:GameAppItem.IsNormalPingConverter}, FallbackValue=False}">
                             <Ellipse
                                 Width="6"
                                 Height="6"
                                 VerticalAlignment="Center"
-                                DockPanel.Dock="Left"
-                                Fill="{Binding PingValue, Converter={x:Static spp:GameAppItem.PingBrushConverter}, FallbackValue=#FF4F58}" />
+                                DockPanel.Dock="Left" />
                             <TextBlock
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Center"
                                 DockPanel.Dock="Right"
                                 FontSize="12"
-                                Foreground="{Binding PingValue, Converter={x:Static spp:GameAppItem.PingBrushConverter}}"
                                 Text="{Binding PingValue}" />
                         </DockPanel>
                     </WrapPanel>
