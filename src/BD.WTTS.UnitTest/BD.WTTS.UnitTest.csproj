@@ -22,6 +22,7 @@
 		<Compile Include="..\ImplicitUsings.JsonProperty.cs">
 			<LinkBase>Properties</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.GameTools\Services.Implementation\CpuScheduling\CpuTopology.cs" />
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\HttpServer\Middleware\HttpReverseProxyMiddleware.FindScriptInjectInsertPosition.cs">
 			<LinkBase>Services.Implementation\HttpServer\Middleware</LinkBase>
 		</Compile>

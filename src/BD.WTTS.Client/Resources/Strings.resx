@@ -5096,4 +5096,250 @@
 	<data name="LogConsole_CommandHint" xml:space="preserve"><value>输入指令，键入 / 查看建议</value></data>
 	<data name="Settings_Storage_AppFolder" xml:space="preserve"><value>程序目录</value></data>
 	<data name="Settings_Storage_OpenFolder" xml:space="preserve"><value>打开文件夹</value></data>
+  <data name="GameTools_Cpu_Title" xml:space="preserve">
+    <value>CPU 调度</value>
+  </data>
+  <data name="GameTools_Cpu_Processes" xml:space="preserve">
+    <value>进程</value>
+  </data>
+  <data name="GameTools_Cpu_Rules" xml:space="preserve">
+    <value>规则</value>
+  </data>
+  <data name="GameTools_Cpu_Search" xml:space="preserve">
+    <value>按名称、路径或 PID 搜索</value>
+  </data>
+  <data name="GameTools_Cpu_WindowsOnly" xml:space="preserve">
+    <value>仅显示有窗口的进程</value>
+  </data>
+  <data name="GameTools_Cpu_PickWindow" xml:space="preserve">
+    <value>选择游戏窗口</value>
+  </data>
+  <data name="GameTools_Cpu_Process" xml:space="preserve">
+    <value>进程</value>
+  </data>
+  <data name="GameTools_Cpu_ProcessorUsage" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="GameTools_Cpu_Memory" xml:space="preserve">
+    <value>内存</value>
+  </data>
+  <data name="GameTools_Cpu_Priority" xml:space="preserve">
+    <value>优先级</value>
+  </data>
+  <data name="GameTools_Cpu_Affinity" xml:space="preserve">
+    <value>CPU 亲和性</value>
+  </data>
+  <data name="GameTools_Cpu_Eco" xml:space="preserve">
+    <value>EcoQoS</value>
+  </data>
+  <data name="GameTools_Cpu_MemoryPriority" xml:space="preserve">
+    <value>内存优先级</value>
+  </data>
+  <data name="GameTools_Cpu_SelectProcess" xml:space="preserve">
+    <value>选择要调整调度设置的进程。</value>
+  </data>
+  <data name="GameTools_Cpu_NoProcesses" xml:space="preserve">
+    <value>没有符合筛选条件的进程。</value>
+  </data>
+  <data name="GameTools_Cpu_Unknown" xml:space="preserve">
+    <value>—</value>
+  </data>
+  <data name="GameTools_Cpu_Protected" xml:space="preserve">
+    <value>受保护 · 只读</value>
+  </data>
+  <data name="GameTools_Cpu_AccessDenied" xml:space="preserve">
+    <value>访问被拒绝</value>
+  </data>
+  <data name="GameTools_Cpu_AccessDeniedDetails" xml:space="preserve">
+    <value>Windows 拒绝访问此进程。可能需要已连接的管理员助手或管理员会话。</value>
+  </data>
+  <data name="GameTools_Cpu_ProcessChanged" xml:space="preserve">
+    <value>进程已退出或重新启动。请选择新的进程条目。</value>
+  </data>
+  <data name="GameTools_Cpu_Apply" xml:space="preserve">
+    <value>应用更改</value>
+  </data>
+  <data name="GameTools_Cpu_Restore" xml:space="preserve">
+    <value>恢复默认值</value>
+  </data>
+  <data name="GameTools_Cpu_RefreshEditor" xml:space="preserve">
+    <value>重新读取进程设置</value>
+  </data>
+  <data name="GameTools_Cpu_SaveRule" xml:space="preserve">
+    <value>保存为规则</value>
+  </data>
+  <data name="GameTools_Cpu_MatchPath" xml:space="preserve">
+    <value>匹配完整的可执行文件路径</value>
+  </data>
+  <data name="GameTools_Cpu_RealtimeWarning" xml:space="preserve">
+    <value>实时优先级可能导致 Windows 无响应。确认后才可应用到此进程。</value>
+  </data>
+  <data name="GameTools_Cpu_RealtimeConfirm" xml:space="preserve">
+    <value>我了解风险</value>
+  </data>
+  <data name="GameTools_Cpu_RealtimeRule" xml:space="preserve">
+    <value>实时优先级仅可手动应用。</value>
+  </data>
+  <data name="GameTools_Cpu_Idle" xml:space="preserve">
+    <value>空闲</value>
+  </data>
+  <data name="GameTools_Cpu_BelowNormal" xml:space="preserve">
+    <value>低于正常</value>
+  </data>
+  <data name="GameTools_Cpu_Normal" xml:space="preserve">
+    <value>正常</value>
+  </data>
+  <data name="GameTools_Cpu_AboveNormal" xml:space="preserve">
+    <value>高于正常</value>
+  </data>
+  <data name="GameTools_Cpu_High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="GameTools_Cpu_Realtime" xml:space="preserve">
+    <value>实时</value>
+  </data>
+  <data name="GameTools_Cpu_SystemManaged" xml:space="preserve">
+    <value>由系统管理</value>
+  </data>
+  <data name="GameTools_Cpu_Off" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="GameTools_Cpu_On" xml:space="preserve">
+    <value>开启</value>
+  </data>
+  <data name="GameTools_Cpu_LowestMemory" xml:space="preserve">
+    <value>极低</value>
+  </data>
+  <data name="GameTools_Cpu_LowMemory" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="GameTools_Cpu_MediumMemory" xml:space="preserve">
+    <value>中等</value>
+  </data>
+  <data name="GameTools_Cpu_BelowNormalMemory" xml:space="preserve">
+    <value>低于正常</value>
+  </data>
+  <data name="GameTools_Cpu_Topology" xml:space="preserve">
+    <value>逻辑处理器</value>
+  </data>
+  <data name="GameTools_Cpu_Core" xml:space="preserve">
+    <value>核心 {0}</value>
+  </data>
+  <data name="GameTools_Cpu_PerformanceCore" xml:space="preserve">
+    <value>P 核</value>
+  </data>
+  <data name="GameTools_Cpu_EfficiencyCore" xml:space="preserve">
+    <value>E 核</value>
+  </data>
+  <data name="GameTools_Cpu_CpuTile" xml:space="preserve">
+    <value>CPU {0}</value>
+  </data>
+  <data name="GameTools_Cpu_CpuGroup" xml:space="preserve">
+    <value>组 {0}</value>
+  </data>
+  <data name="GameTools_Cpu_NumaNode" xml:space="preserve">
+    <value>NUMA {0}</value>
+  </data>
+  <data name="GameTools_Cpu_CacheGroup" xml:space="preserve">
+    <value>L3/CCD {0}</value>
+  </data>
+  <data name="GameTools_Cpu_TopologyUnavailable" xml:space="preserve">
+    <value>无法从 Windows 读取 CPU 拓扑。</value>
+  </data>
+  <data name="GameTools_Cpu_MultiGroup" xml:space="preserve">
+    <value>硬亲和性编辑需要单个处理器组。此计算机的 CPU 网格为只读。</value>
+  </data>
+  <data name="GameTools_Cpu_Presets" xml:space="preserve">
+    <value>亲和性预设</value>
+  </data>
+  <data name="GameTools_Cpu_AllCores" xml:space="preserve">
+    <value>全部核心</value>
+  </data>
+  <data name="GameTools_Cpu_PCores" xml:space="preserve">
+    <value>仅 P 核</value>
+  </data>
+  <data name="GameTools_Cpu_ECores" xml:space="preserve">
+    <value>仅 E 核</value>
+  </data>
+  <data name="GameTools_Cpu_OneThread" xml:space="preserve">
+    <value>每个核心一个线程</value>
+  </data>
+  <data name="GameTools_Cpu_Ccd0" xml:space="preserve">
+    <value>CCD0 · 最大 L3</value>
+  </data>
+  <data name="GameTools_Cpu_Ccd1" xml:space="preserve">
+    <value>CCD1 · 次大 L3</value>
+  </data>
+  <data name="GameTools_Cpu_LeaveFirst" xml:space="preserve">
+    <value>保留第一个核心</value>
+  </data>
+  <data name="GameTools_Cpu_EmptyAffinity" xml:space="preserve">
+    <value>至少选择一个逻辑处理器。</value>
+  </data>
+  <data name="GameTools_Cpu_RuleSaved" xml:space="preserve">
+    <value>已保存规则，下次启动进程时生效。</value>
+  </data>
+  <data name="GameTools_Cpu_RuleSaveError" xml:space="preserve">
+    <value>无法保存 CPU 调度规则。</value>
+  </data>
+  <data name="GameTools_Cpu_DisableAll" xml:space="preserve">
+    <value>停用全部规则</value>
+  </data>
+  <data name="GameTools_Cpu_RuleHelp" xml:space="preserve">
+    <value>Watt Toolkit 运行期间，启用的规则会在进程启动时应用。</value>
+  </data>
+  <data name="GameTools_Cpu_NoRules" xml:space="preserve">
+    <value>选择进程后，可保存其设置或添加模板来创建规则。</value>
+  </data>
+  <data name="GameTools_Cpu_Templates" xml:space="preserve">
+    <value>适用于所选可执行文件的规则模板</value>
+  </data>
+  <data name="GameTools_Cpu_GameTemplate" xml:space="preserve">
+    <value>添加游戏规则 · 优先 P 核 / 最大 L3</value>
+  </data>
+  <data name="GameTools_Cpu_BackgroundTemplate" xml:space="preserve">
+    <value>添加后台规则 · E 核 / EcoQoS</value>
+  </data>
+  <data name="GameTools_Cpu_EnableRule" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="GameTools_Cpu_DisableRule" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="GameTools_Cpu_RemoveRule" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="GameTools_Cpu_PrioritySetting" xml:space="preserve">
+    <value>优先级 {0}</value>
+  </data>
+  <data name="GameTools_Cpu_MemoryUsage" xml:space="preserve">
+    <value>{0:N0} MiB</value>
+  </data>
+  <data name="GameTools_Cpu_AffinitySetting" xml:space="preserve">
+    <value>{0} / {1} 个逻辑处理器</value>
+  </data>
+  <data name="GameTools_Cpu_SavedAffinity" xml:space="preserve">
+    <value>CPU 掩码 0x{0:X}</value>
+  </data>
+  <data name="GameTools_Cpu_EcoSetting" xml:space="preserve">
+    <value>EcoQoS {0}</value>
+  </data>
+  <data name="GameTools_Cpu_NoSettings" xml:space="preserve">
+    <value>请为此规则至少选择一项调度设置。</value>
+  </data>
+  <data name="GameTools_Cpu_Updated" xml:space="preserve">
+    <value>进程调度设置已更新。</value>
+  </data>
+  <data name="GameTools_Cpu_Restored" xml:space="preserve">
+    <value>已恢复默认的调度设置。</value>
+  </data>
+  <data name="GameTools_Cpu_ApplyFailed" xml:space="preserve">
+    <value>无法更改进程调度设置（Windows 错误 {0}）。</value>
+  </data>
+  <data name="GameTools_Cpu_RollbackFailed" xml:space="preserve">
+    <value>Windows 未能完成更改或恢复所有设置。请重新读取进程设置。</value>
+  </data>
+  <data name="GameTools_Cpu_RefreshFailed" xml:space="preserve">
+    <value>无法刷新进程列表。</value>
+  </data>
 </root>

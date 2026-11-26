@@ -48,4 +48,12 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
     {
 
     }
+
+#if WINDOWS
+    public override ValueTask OnInitializeAsync() => Startup.Instance.IsMainProcess
+        ? new(Services.GameTools.CpuSchedulingRules.Instance.StartAsync())
+        : ValueTask.CompletedTask;
+
+    public override ValueTask OnExit() => new(Services.GameTools.CpuSchedulingRules.StopIfCreatedAsync());
+#endif
 }
