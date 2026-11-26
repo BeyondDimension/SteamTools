@@ -6992,4 +6992,250 @@ Farming games: {3}</value>
 	<data name="GameTools_Win_RuleEnabled" xml:space="preserve"><value>{0} (auto-apply)</value></data>
 	<data name="GameTools_Win_RuleDisabled" xml:space="preserve"><value>{0} (auto-apply off)</value></data>
 	<data name="GameTools_Win_OperationFailed" xml:space="preserve"><value>Could not apply the window setting. The window may have closed or rejected the operation.</value></data>
+  <data name="GameTools_Cpu_Title" xml:space="preserve">
+    <value>CPU scheduling</value>
+  </data>
+  <data name="GameTools_Cpu_Processes" xml:space="preserve">
+    <value>Processes</value>
+  </data>
+  <data name="GameTools_Cpu_Rules" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="GameTools_Cpu_Search" xml:space="preserve">
+    <value>Search by name, path or PID</value>
+  </data>
+  <data name="GameTools_Cpu_WindowsOnly" xml:space="preserve">
+    <value>With a window</value>
+  </data>
+  <data name="GameTools_Cpu_PickWindow" xml:space="preserve">
+    <value>Pick a game window</value>
+  </data>
+  <data name="GameTools_Cpu_Process" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="GameTools_Cpu_ProcessorUsage" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="GameTools_Cpu_Memory" xml:space="preserve">
+    <value>Memory</value>
+  </data>
+  <data name="GameTools_Cpu_Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="GameTools_Cpu_Affinity" xml:space="preserve">
+    <value>CPU affinity</value>
+  </data>
+  <data name="GameTools_Cpu_Eco" xml:space="preserve">
+    <value>EcoQoS</value>
+  </data>
+  <data name="GameTools_Cpu_MemoryPriority" xml:space="preserve">
+    <value>Memory priority</value>
+  </data>
+  <data name="GameTools_Cpu_SelectProcess" xml:space="preserve">
+    <value>Select a process to edit its scheduling.</value>
+  </data>
+  <data name="GameTools_Cpu_NoProcesses" xml:space="preserve">
+    <value>No processes match the filters.</value>
+  </data>
+  <data name="GameTools_Cpu_Unknown" xml:space="preserve">
+    <value>—</value>
+  </data>
+  <data name="GameTools_Cpu_Protected" xml:space="preserve">
+    <value>Protected · read-only</value>
+  </data>
+  <data name="GameTools_Cpu_AccessDenied" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="GameTools_Cpu_AccessDeniedDetails" xml:space="preserve">
+    <value>Windows denied access to this process. An active administrator helper or an administrator session may be required.</value>
+  </data>
+  <data name="GameTools_Cpu_ProcessChanged" xml:space="preserve">
+    <value>The process has exited or restarted. Select its new process entry.</value>
+  </data>
+  <data name="GameTools_Cpu_Apply" xml:space="preserve">
+    <value>Apply changes</value>
+  </data>
+  <data name="GameTools_Cpu_Restore" xml:space="preserve">
+    <value>Restore defaults</value>
+  </data>
+  <data name="GameTools_Cpu_RefreshEditor" xml:space="preserve">
+    <value>Reload process settings</value>
+  </data>
+  <data name="GameTools_Cpu_SaveRule" xml:space="preserve">
+    <value>Save as rule</value>
+  </data>
+  <data name="GameTools_Cpu_MatchPath" xml:space="preserve">
+    <value>Match full executable path</value>
+  </data>
+  <data name="GameTools_Cpu_RealtimeWarning" xml:space="preserve">
+    <value>Realtime priority can make Windows unresponsive. Confirm to apply it to this process.</value>
+  </data>
+  <data name="GameTools_Cpu_RealtimeConfirm" xml:space="preserve">
+    <value>I understand the risk</value>
+  </data>
+  <data name="GameTools_Cpu_RealtimeRule" xml:space="preserve">
+    <value>Realtime priority can only be applied manually.</value>
+  </data>
+  <data name="GameTools_Cpu_Idle" xml:space="preserve">
+    <value>Idle</value>
+  </data>
+  <data name="GameTools_Cpu_BelowNormal" xml:space="preserve">
+    <value>Below normal</value>
+  </data>
+  <data name="GameTools_Cpu_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="GameTools_Cpu_AboveNormal" xml:space="preserve">
+    <value>Above normal</value>
+  </data>
+  <data name="GameTools_Cpu_High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="GameTools_Cpu_Realtime" xml:space="preserve">
+    <value>Realtime</value>
+  </data>
+  <data name="GameTools_Cpu_SystemManaged" xml:space="preserve">
+    <value>System managed</value>
+  </data>
+  <data name="GameTools_Cpu_Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="GameTools_Cpu_On" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="GameTools_Cpu_LowestMemory" xml:space="preserve">
+    <value>Very low</value>
+  </data>
+  <data name="GameTools_Cpu_LowMemory" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="GameTools_Cpu_MediumMemory" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="GameTools_Cpu_BelowNormalMemory" xml:space="preserve">
+    <value>Below normal</value>
+  </data>
+  <data name="GameTools_Cpu_Topology" xml:space="preserve">
+    <value>Logical processors</value>
+  </data>
+  <data name="GameTools_Cpu_Core" xml:space="preserve">
+    <value>Core {0}</value>
+  </data>
+  <data name="GameTools_Cpu_PerformanceCore" xml:space="preserve">
+    <value>P-core</value>
+  </data>
+  <data name="GameTools_Cpu_EfficiencyCore" xml:space="preserve">
+    <value>E-core</value>
+  </data>
+  <data name="GameTools_Cpu_CpuTile" xml:space="preserve">
+    <value>CPU {0}</value>
+  </data>
+  <data name="GameTools_Cpu_CpuGroup" xml:space="preserve">
+    <value>Group {0}</value>
+  </data>
+  <data name="GameTools_Cpu_NumaNode" xml:space="preserve">
+    <value>NUMA {0}</value>
+  </data>
+  <data name="GameTools_Cpu_CacheGroup" xml:space="preserve">
+    <value>L3/CCD {0}</value>
+  </data>
+  <data name="GameTools_Cpu_TopologyUnavailable" xml:space="preserve">
+    <value>Windows could not report the CPU topology.</value>
+  </data>
+  <data name="GameTools_Cpu_MultiGroup" xml:space="preserve">
+    <value>Hard affinity editing requires a single processor group. The CPU grid is read-only on this computer.</value>
+  </data>
+  <data name="GameTools_Cpu_Presets" xml:space="preserve">
+    <value>Affinity presets</value>
+  </data>
+  <data name="GameTools_Cpu_AllCores" xml:space="preserve">
+    <value>All cores</value>
+  </data>
+  <data name="GameTools_Cpu_PCores" xml:space="preserve">
+    <value>P-cores only</value>
+  </data>
+  <data name="GameTools_Cpu_ECores" xml:space="preserve">
+    <value>E-cores only</value>
+  </data>
+  <data name="GameTools_Cpu_OneThread" xml:space="preserve">
+    <value>One thread per core</value>
+  </data>
+  <data name="GameTools_Cpu_Ccd0" xml:space="preserve">
+    <value>CCD0 · largest L3</value>
+  </data>
+  <data name="GameTools_Cpu_Ccd1" xml:space="preserve">
+    <value>CCD1 · next-largest L3</value>
+  </data>
+  <data name="GameTools_Cpu_LeaveFirst" xml:space="preserve">
+    <value>Leave first core free</value>
+  </data>
+  <data name="GameTools_Cpu_EmptyAffinity" xml:space="preserve">
+    <value>Select at least one logical processor.</value>
+  </data>
+  <data name="GameTools_Cpu_RuleSaved" xml:space="preserve">
+    <value>Rule saved for future starts.</value>
+  </data>
+  <data name="GameTools_Cpu_RuleSaveError" xml:space="preserve">
+    <value>Could not save CPU scheduling rules.</value>
+  </data>
+  <data name="GameTools_Cpu_DisableAll" xml:space="preserve">
+    <value>Disable all rules</value>
+  </data>
+  <data name="GameTools_Cpu_RuleHelp" xml:space="preserve">
+    <value>Enabled rules apply to new process starts while Watt Toolkit is running.</value>
+  </data>
+  <data name="GameTools_Cpu_NoRules" xml:space="preserve">
+    <value>Select a process and save its settings or add a template to create a rule.</value>
+  </data>
+  <data name="GameTools_Cpu_Templates" xml:space="preserve">
+    <value>Rule templates for the selected executable</value>
+  </data>
+  <data name="GameTools_Cpu_GameTemplate" xml:space="preserve">
+    <value>Add game rule · prefer P-cores / largest L3</value>
+  </data>
+  <data name="GameTools_Cpu_BackgroundTemplate" xml:space="preserve">
+    <value>Add background rule · E-cores / EcoQoS</value>
+  </data>
+  <data name="GameTools_Cpu_EnableRule" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="GameTools_Cpu_DisableRule" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="GameTools_Cpu_RemoveRule" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="GameTools_Cpu_PrioritySetting" xml:space="preserve">
+    <value>Priority {0}</value>
+  </data>
+  <data name="GameTools_Cpu_MemoryUsage" xml:space="preserve">
+    <value>{0:N0} MiB</value>
+  </data>
+  <data name="GameTools_Cpu_AffinitySetting" xml:space="preserve">
+    <value>{0} / {1} CPUs</value>
+  </data>
+  <data name="GameTools_Cpu_SavedAffinity" xml:space="preserve">
+    <value>CPU mask 0x{0:X}</value>
+  </data>
+  <data name="GameTools_Cpu_EcoSetting" xml:space="preserve">
+    <value>EcoQoS {0}</value>
+  </data>
+  <data name="GameTools_Cpu_NoSettings" xml:space="preserve">
+    <value>Choose at least one scheduling setting for this rule.</value>
+  </data>
+  <data name="GameTools_Cpu_Updated" xml:space="preserve">
+    <value>Process scheduling updated.</value>
+  </data>
+  <data name="GameTools_Cpu_Restored" xml:space="preserve">
+    <value>Scheduling defaults restored.</value>
+  </data>
+  <data name="GameTools_Cpu_ApplyFailed" xml:space="preserve">
+    <value>Could not change process scheduling (Windows error {0}).</value>
+  </data>
+  <data name="GameTools_Cpu_RollbackFailed" xml:space="preserve">
+    <value>Windows failed to complete the change and could not restore every setting. Reload the process settings.</value>
+  </data>
+  <data name="GameTools_Cpu_RefreshFailed" xml:space="preserve">
+    <value>Could not refresh the process list.</value>
+  </data>
 </root>

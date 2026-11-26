@@ -142,8 +142,12 @@
 			
             <Border spp:Animations.EnableAnimations="False">
                 <Button
-                    IsEnabled="False"
+                    Click="CpuScheduling_Click"
+                    IsEnabled="{spp:OnPlatform Windows}"
                     Theme="{StaticResource NavButtonStyle}">
+                    <Button.Tag>
+                        <x:Type TypeName="spp:CpuSchedulingPage" />
+                    </Button.Tag>
                     <Grid RowDefinitions="3*,*">
                         <Border
                             HorizontalAlignment="Stretch"
@@ -159,7 +163,7 @@
                             <TextBlock FontWeight="SemiBold" Text="{x:Static spp:Strings.L10nGames_CpuScheduling}" />
                             <TextBlock
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{x:Static spp:Strings.L10nGames_NotAvailable}"
+                                Text="{x:Static spp:Strings.L10nGames_WindowsOnly}"
                                 Theme="{StaticResource CaptionTextBlockStyle}" />
                         </StackPanel>
                     </Grid>
