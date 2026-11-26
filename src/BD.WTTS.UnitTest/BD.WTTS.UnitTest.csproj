@@ -36,6 +36,11 @@
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Net\DnsAnalysisServiceImpl.cs" />
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Net\DnsAnalysisServiceSwitchImpl.cs" />
 		<Compile Include="..\ImplicitUsings.Enums.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.GameList\Categories\GameCategory.cs" Link="GameList\GameCategory.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.GameList\Categories\CategoryRuleEngine.cs" Link="GameList\CategoryRuleEngine.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.GameList\Categories\CategoryField.cs" Link="GameList\CategoryField.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.GameList\Categories\CategoryStoreParser.cs" Link="GameList\CategoryStoreParser.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.GameList\Categories\CategoryLocalAchievements.cs" Link="GameList\CategoryLocalAchievements.cs" />
 		<Compile Include="..\ImplicitUsings.Models.cs" />
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Http\ReverseProxyHttpClientHandler.cs" />
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Http\RequestContext.cs" />

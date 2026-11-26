@@ -6920,4 +6920,162 @@ Farming games: {3}</value>
   <data name="LogConsole_CommandHint" xml:space="preserve"><value>Enter a command, or type / for suggestions</value></data>
   <data name="Settings_Storage_AppFolder" xml:space="preserve"><value>Application folder</value></data>
   <data name="Settings_Storage_OpenFolder" xml:space="preserve"><value>Open folder</value></data>
+  <data name="GameList_Cat_Title" xml:space="preserve"><value>Categories</value></data>
+  <data name="GameList_Cat_New" xml:space="preserve"><value>New category</value></data>
+  <data name="GameList_Cat_Templates" xml:space="preserve"><value>Add from template</value></data>
+  <data name="GameList_Cat_EmptyList" xml:space="preserve"><value>Create a category or choose a template to get started.</value></data>
+  <data name="GameList_Cat_EmptyEditor" xml:space="preserve"><value>Select or create a category to edit its rules and preview matching games.</value></data>
+  <data name="GameList_Cat_Name" xml:space="preserve"><value>Category name</value></data>
+  <data name="GameList_Cat_Mode" xml:space="preserve"><value>Category mode</value></data>
+  <data name="GameList_Cat_Mode_Manual" xml:space="preserve"><value>Manual</value></data>
+  <data name="GameList_Cat_Mode_Auto" xml:space="preserve"><value>Automatic</value></data>
+  <data name="GameList_Cat_Mode_Mixed" xml:space="preserve"><value>Mixed</value></data>
+  <data name="GameList_Cat_Save" xml:space="preserve"><value>Save category</value></data>
+  <data name="GameList_Cat_Delete" xml:space="preserve"><value>Delete category</value></data>
+  <data name="GameList_Cat_DeleteConfirm" xml:space="preserve"><value>Delete this category and its saved membership?</value></data>
+  <data name="GameList_Cat_Saved" xml:space="preserve"><value>Category saved.</value></data>
+  <data name="GameList_Cat_Deleted" xml:space="preserve"><value>Category deleted.</value></data>
+  <data name="GameList_Cat_EnterName" xml:space="preserve"><value>Enter a category name.</value></data>
+  <data name="GameList_Cat_Import" xml:space="preserve"><value>Import JSON</value></data>
+  <data name="GameList_Cat_Export" xml:space="preserve"><value>Export JSON</value></data>
+  <data name="GameList_Cat_ImportConfirm" xml:space="preserve"><value>Import category definitions? Definitions with matching IDs will be replaced.</value></data>
+  <data name="GameList_Cat_Imported" xml:space="preserve"><value>Categories imported.</value></data>
+  <data name="GameList_Cat_ImportFailed" xml:space="preserve"><value>Could not import the category file. Check its JSON structure, version, and category count.</value></data>
+  <data name="GameList_Cat_Exported" xml:space="preserve"><value>JSON exported.</value></data>
+  <data name="GameList_Cat_RunAll" xml:space="preserve"><value>Run all auto categories</value></data>
+  <data name="GameList_Cat_RunComplete" xml:space="preserve"><value>Applied {0:N0} automatic or mixed categories.</value></data>
+  <data name="GameList_Cat_Refresh" xml:space="preserve"><value>Refresh store data</value></data>
+  <data name="GameList_Cat_ReloadLibrary" xml:space="preserve"><value>Reload local library</value></data>
+  <data name="GameList_Cat_LibraryLoaded" xml:space="preserve"><value>Loaded {0:N0} local library entries.</value></data>
+  <data name="GameList_Cat_EmptyLibrary" xml:space="preserve"><value>The local library has no games to refresh.</value></data>
+  <data name="GameList_Cat_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="GameList_Cat_RefreshProgress" xml:space="preserve"><value>Refreshing store data ({0:N0}/{1:N0})</value></data>
+  <data name="GameList_Cat_RefreshComplete" xml:space="preserve"><value>Cache checked. Store data is still incomplete for {0:N0} entries.</value></data>
+  <data name="GameList_Cat_RefreshCanceled" xml:space="preserve"><value>Refresh canceled. The next refresh will resume from saved results.</value></data>
+  <data name="GameList_Cat_RateLimited" xml:space="preserve"><value>Steam rate-limited the refresh. Cached results are available. Try again later.</value></data>
+  <data name="GameList_Cat_RefreshUnavailable" xml:space="preserve"><value>Some store data is unavailable. The last cached results are available.</value></data>
+  <data name="GameList_Cat_LoadFailed" xml:space="preserve"><value>Could not load categories or the local library.</value></data>
+  <data name="GameList_Cat_OperationFailed" xml:space="preserve"><value>The category operation failed. Check the app log for details.</value></data>
+  <data name="GameList_Cat_Region" xml:space="preserve"><value>Store region</value></data>
+  <data name="GameList_Cat_ApplyRegion" xml:space="preserve"><value>Apply region</value></data>
+  <data name="GameList_Cat_CurrencyDisplay" xml:space="preserve"><value>Region {0} · Currency {1}</value></data>
+  <data name="GameList_Cat_CurrencyUnknown" xml:space="preserve"><value>Awaiting store prices</value></data>
+  <data name="GameList_Cat_InvalidRegion" xml:space="preserve"><value>Enter a two-letter country code such as CN.</value></data>
+  <data name="GameList_Cat_RegionSaved" xml:space="preserve"><value>Store region saved.</value></data>
+  <data name="GameList_Cat_Overrides" xml:space="preserve"><value>Manual includes and exclusions</value></data>
+  <data name="GameList_Cat_FindGame" xml:space="preserve"><value>Search games by name or App ID</value></data>
+  <data name="GameList_Cat_Include" xml:space="preserve"><value>Include</value></data>
+  <data name="GameList_Cat_Exclude" xml:space="preserve"><value>Exclude</value></data>
+  <data name="GameList_Cat_IncludedIds" xml:space="preserve"><value>Included App IDs (comma-separated)</value></data>
+  <data name="GameList_Cat_ExcludedIds" xml:space="preserve"><value>Excluded App IDs (comma-separated)</value></data>
+  <data name="GameList_Cat_InvalidIds" xml:space="preserve"><value>Enter valid Steam App IDs separated by commas.</value></data>
+  <data name="GameList_Cat_Rules" xml:space="preserve"><value>Automatic rules</value></data>
+  <data name="GameList_Cat_Group" xml:space="preserve"><value>Group type</value></data>
+  <data name="GameList_Cat_Group_All" xml:space="preserve"><value>All (AND)</value></data>
+  <data name="GameList_Cat_Group_Any" xml:space="preserve"><value>Any (OR)</value></data>
+  <data name="GameList_Cat_Group_Not" xml:space="preserve"><value>Negate (NOT)</value></data>
+  <data name="GameList_Cat_AddCondition" xml:space="preserve"><value>Add condition</value></data>
+  <data name="GameList_Cat_AddGroup" xml:space="preserve"><value>Add group</value></data>
+  <data name="GameList_Cat_Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="GameList_Cat_Field" xml:space="preserve"><value>Field</value></data>
+  <data name="GameList_Cat_Operator" xml:space="preserve"><value>Operator</value></data>
+  <data name="GameList_Cat_Value" xml:space="preserve"><value>Value</value></data>
+  <data name="GameList_Cat_ValueList" xml:space="preserve"><value>Values separated by commas</value></data>
+  <data name="GameList_Cat_MinValue" xml:space="preserve"><value>Minimum value</value></data>
+  <data name="GameList_Cat_MaxValue" xml:space="preserve"><value>Maximum value</value></data>
+  <data name="GameList_Cat_Days" xml:space="preserve"><value>Days</value></data>
+  <data name="GameList_Cat_FindTag" xml:space="preserve"><value>Search or enter a store tag</value></data>
+  <data name="GameList_Cat_AddTag" xml:space="preserve"><value>Add tag</value></data>
+  <data name="GameList_Cat_ValueFormula" xml:space="preserve"><value>Value rating = positive review % ÷ (1 + price per hour). Price per hour = current regional price ÷ max(hours played, 0.1). Compare games in the same currency.</value></data>
+  <data name="GameList_Cat_Preview" xml:space="preserve"><value>Match preview</value></data>
+  <data name="GameList_Cat_ManualMatch" xml:space="preserve"><value>Manually included</value></data>
+  <data name="GameList_Cat_MatchCount" xml:space="preserve"><value>{0:N0} matching games</value></data>
+  <data name="GameList_Cat_NoMatches" xml:space="preserve"><value>No games match. Conditions need data to produce a match.</value></data>
+  <data name="GameList_Cat_Conflicts" xml:space="preserve"><value>Overlapping categories</value></data>
+  <data name="GameList_Cat_ConflictCount" xml:space="preserve"><value>{0:N0} games appear in more than one applied category.</value></data>
+  <data name="GameList_Cat_NoConflicts" xml:space="preserve"><value>The applied categories have no games in common.</value></data>
+  <data name="GameList_Cat_SteamPreview" xml:space="preserve"><value>Preview Steam collection export</value></data>
+  <data name="GameList_Cat_SteamReadOnly" xml:space="preserve"><value>Read-only export. Copy or save this category and its matching Steam App IDs.</value></data>
+  <data name="GameList_Cat_CopyJson" xml:space="preserve"><value>Copy JSON</value></data>
+  <data name="GameList_Cat_Copied" xml:space="preserve"><value>JSON copied to the clipboard.</value></data>
+  <data name="GameList_Cat_TemplateHiddenGems" xml:space="preserve"><value>Hidden gems</value></data>
+  <data name="GameList_Cat_TemplateValue" xml:space="preserve"><value>High value</value></data>
+  <data name="GameList_Cat_TemplateBacklog" xml:space="preserve"><value>Unplayed backlog</value></data>
+  <data name="GameList_Cat_TemplateShort" xml:space="preserve"><value>Short games</value></data>
+  <data name="GameList_Cat_TemplateChinese" xml:space="preserve"><value>Single-player with Simplified Chinese</value></data>
+  <data name="GameList_Cat_TemplateDeck" xml:space="preserve"><value>Steam Deck ready</value></data>
+  <data name="GameList_Cat_Op_Equal" xml:space="preserve"><value>Equals (=)</value></data>
+  <data name="GameList_Cat_Op_NotEqual" xml:space="preserve"><value>Does not equal (≠)</value></data>
+  <data name="GameList_Cat_Op_GreaterThan" xml:space="preserve"><value>Greater than (&gt;)</value></data>
+  <data name="GameList_Cat_Op_AtLeast" xml:space="preserve"><value>At least (≥)</value></data>
+  <data name="GameList_Cat_Op_LessThan" xml:space="preserve"><value>Less than (&lt;)</value></data>
+  <data name="GameList_Cat_Op_AtMost" xml:space="preserve"><value>At most (≤)</value></data>
+  <data name="GameList_Cat_Op_Between" xml:space="preserve"><value>Between (inclusive)</value></data>
+  <data name="GameList_Cat_Op_Contains" xml:space="preserve"><value>Contains</value></data>
+  <data name="GameList_Cat_Op_In" xml:space="preserve"><value>Is one of</value></data>
+  <data name="GameList_Cat_Op_HasTag" xml:space="preserve"><value>Has tag</value></data>
+  <data name="GameList_Cat_Op_HasAny" xml:space="preserve"><value>Has any of</value></data>
+  <data name="GameList_Cat_Op_HasAll" xml:space="preserve"><value>Has all of</value></data>
+  <data name="GameList_Cat_Op_IsEmpty" xml:space="preserve"><value>Is empty</value></data>
+  <data name="GameList_Cat_Op_WithinDays" xml:space="preserve"><value>Within the last N days</value></data>
+  <data name="GameList_Cat_Op_OlderThanDays" xml:space="preserve"><value>More than N days ago</value></data>
+  <data name="GameList_Cat_Field_PlaytimeMinutes" xml:space="preserve"><value>Total playtime (minutes)</value></data>
+  <data name="GameList_Cat_Field_RecentPlaytimeMinutes" xml:space="preserve"><value>Playtime in past 2 weeks (minutes)</value></data>
+  <data name="GameList_Cat_Field_LastPlayed" xml:space="preserve"><value>Last played date</value></data>
+  <data name="GameList_Cat_Field_OwnedSince" xml:space="preserve"><value>Acquisition date (when available)</value></data>
+  <data name="GameList_Cat_Field_Installed" xml:space="preserve"><value>Installed</value></data>
+  <data name="GameList_Cat_Field_SizeOnDisk" xml:space="preserve"><value>Disk usage (GiB)</value></data>
+  <data name="GameList_Cat_Field_Hidden" xml:space="preserve"><value>Hidden</value></data>
+  <data name="GameList_Cat_Field_Favourite" xml:space="preserve"><value>Favorite</value></data>
+  <data name="GameList_Cat_Field_AchievementCompletion" xml:space="preserve"><value>Base-game achievement completion (%)</value></data>
+  <data name="GameList_Cat_Field_AchievementCount" xml:space="preserve"><value>Achievement count</value></data>
+  <data name="GameList_Cat_Field_FamilyShared" xml:space="preserve"><value>From Family Sharing</value></data>
+  <data name="GameList_Cat_Field_Type" xml:space="preserve"><value>App type</value></data>
+  <data name="GameList_Cat_Field_Platforms" xml:space="preserve"><value>Supported operating systems</value></data>
+  <data name="GameList_Cat_Field_Price" xml:space="preserve"><value>Current price</value></data>
+  <data name="GameList_Cat_Field_OriginalPrice" xml:space="preserve"><value>Original price</value></data>
+  <data name="GameList_Cat_Field_Discount" xml:space="preserve"><value>Discount (%)</value></data>
+  <data name="GameList_Cat_Field_PricePerHour" xml:space="preserve"><value>Price per hour played</value></data>
+  <data name="GameList_Cat_Field_ValueRating" xml:space="preserve"><value>Value rating</value></data>
+  <data name="GameList_Cat_Field_Free" xml:space="preserve"><value>Free to play</value></data>
+  <data name="GameList_Cat_Field_ReleaseYear" xml:space="preserve"><value>Release year</value></data>
+  <data name="GameList_Cat_Field_Genres" xml:space="preserve"><value>Genres</value></data>
+  <data name="GameList_Cat_Field_Tags" xml:space="preserve"><value>Store user tags</value></data>
+  <data name="GameList_Cat_Field_TagCount" xml:space="preserve"><value>Store user tag count</value></data>
+  <data name="GameList_Cat_Field_Developer" xml:space="preserve"><value>Developer</value></data>
+  <data name="GameList_Cat_Field_Publisher" xml:space="preserve"><value>Publisher</value></data>
+  <data name="GameList_Cat_Field_ReviewScore" xml:space="preserve"><value>Positive reviews (%)</value></data>
+  <data name="GameList_Cat_Field_ReviewCount" xml:space="preserve"><value>Review count</value></data>
+  <data name="GameList_Cat_Field_ReviewTier" xml:space="preserve"><value>Review tier</value></data>
+  <data name="GameList_Cat_Field_Metacritic" xml:space="preserve"><value>Metacritic score</value></data>
+  <data name="GameList_Cat_Field_DeckStatus" xml:space="preserve"><value>Steam Deck compatibility</value></data>
+  <data name="GameList_Cat_Field_Controller" xml:space="preserve"><value>Controller support</value></data>
+  <data name="GameList_Cat_Field_Languages" xml:space="preserve"><value>Supported languages</value></data>
+  <data name="GameList_Cat_Field_Singleplayer" xml:space="preserve"><value>Single-player</value></data>
+  <data name="GameList_Cat_Field_Multiplayer" xml:space="preserve"><value>Multiplayer</value></data>
+  <data name="GameList_Cat_Choice_true" xml:space="preserve"><value>Yes</value></data>
+  <data name="GameList_Cat_Choice_false" xml:space="preserve"><value>No</value></data>
+  <data name="GameList_Cat_Choice_Type_game" xml:space="preserve"><value>Game</value></data>
+  <data name="GameList_Cat_Choice_Type_dlc" xml:space="preserve"><value>DLC</value></data>
+  <data name="GameList_Cat_Choice_Type_application" xml:space="preserve"><value>Software</value></data>
+  <data name="GameList_Cat_Choice_Type_tool" xml:space="preserve"><value>Tool</value></data>
+  <data name="GameList_Cat_Choice_Type_demo" xml:space="preserve"><value>Demo</value></data>
+  <data name="GameList_Cat_Choice_Type_other" xml:space="preserve"><value>Other</value></data>
+  <data name="GameList_Cat_Choice_DeckStatus_verified" xml:space="preserve"><value>Verified</value></data>
+  <data name="GameList_Cat_Choice_DeckStatus_playable" xml:space="preserve"><value>Playable</value></data>
+  <data name="GameList_Cat_Choice_DeckStatus_unsupported" xml:space="preserve"><value>Unsupported</value></data>
+  <data name="GameList_Cat_Choice_DeckStatus_untested" xml:space="preserve"><value>Untested</value></data>
+  <data name="GameList_Cat_Choice_Controller_full" xml:space="preserve"><value>Full</value></data>
+  <data name="GameList_Cat_Choice_Controller_partial" xml:space="preserve"><value>Partial</value></data>
+  <data name="GameList_Cat_Choice_Controller_none" xml:space="preserve"><value>None</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_9" xml:space="preserve"><value>Overwhelmingly Positive</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_8" xml:space="preserve"><value>Very Positive</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_7" xml:space="preserve"><value>Positive</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_6" xml:space="preserve"><value>Mostly Positive</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_5" xml:space="preserve"><value>Mixed</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_4" xml:space="preserve"><value>Mostly Negative</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_3" xml:space="preserve"><value>Negative</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_2" xml:space="preserve"><value>Very Negative</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_1" xml:space="preserve"><value>Overwhelmingly Negative</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_0" xml:space="preserve"><value>No review tier</value></data>
 </root>

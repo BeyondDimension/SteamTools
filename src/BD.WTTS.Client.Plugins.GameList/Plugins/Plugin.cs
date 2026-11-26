@@ -1,4 +1,5 @@
 using BD.WTTS.Properties;
+using BD.WTTS.GameList.Categories;
 using BD.WTTS.UI.Views.Pages;
 using BD.WTTS.UI.Views.Windows;
 
@@ -69,6 +70,9 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)
     {
+        services.AddSingleton<CategoryStorage>();
+        services.AddSingleton<CategoryMetadataProvider>();
+        services.AddSingleton<ISteamCollectionWriter, ExportOnlySteamCollectionWriter>();
         services.AddSingleton<IPartialGameLibrarySettings>(s =>
             s.GetRequiredService<IOptionsMonitor<GameLibrarySettings_>>().CurrentValue);
     }
