@@ -241,7 +241,7 @@
 							<Button Command="{Binding NormalWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
 								<StackPanel Orientation="Horizontal">
 									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE923;" />
-									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_Normal}"/>
+									<TextBlock Text="{x:Static spp:Strings.GameTools_Win_RestoreWindow}"/>
 								</StackPanel>
 							</Button>
 
@@ -256,23 +256,6 @@
 								<StackPanel Orientation="Horizontal">
 									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7b3;" />
 									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_Show}"/>
-								</StackPanel>
-							</Button>
-
-							<!--Button Group 3-->
-							<Button
-								Command="{Binding ToWallpaperWindowCommand}"
-								IsEnabled="{Binding HasSelectedWindow}"
-								ToolTip.Tip="{x:Static spp:Strings.GameRelated_Borderless_ToWallerpaperTip}">
-								<StackPanel Orientation="Horizontal">
-									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE718;" />
-									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_ToWallerpaper}"/>
-								</StackPanel>
-							</Button>
-							<Button Command="{Binding ResetWallpaperCommand}" IsEnabled="{Binding HasSelectedWindow}">
-								<StackPanel Orientation="Horizontal">
-									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE72C;" />
-									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_ResetWallerpaper}"/>
 								</StackPanel>
 							</Button>
 
@@ -296,8 +279,140 @@
 					</Border>
 				</StackPanel>
 			</Expander>
-		</StackPanel>
 
-        <!--<TextBlock Text="{Binding Source={x:Static spp:Strings.GameRelated_Borderless_ToWallerpaperTip}, Mode=OneTime, StringFormat=*{0}}" TextWrapping="WrapWithOverflow" />-->
+            <StackPanel IsVisible="{Binding IsWindowPickingSupported}" Spacing="8">
+                <Expander Header="{x:Static spp:Strings.GameTools_Win_Advanced}" IsEnabled="{Binding HasSelectedWindow}" IsExpanded="True">
+                    <StackPanel Spacing="12">
+                        <WrapPanel>
+                            <WrapPanel.Styles>
+                                <Style Selector="WrapPanel > Control">
+                                    <Setter Property="Margin" Value="0,0,8,8" />
+                                </Style>
+                            </WrapPanel.Styles>
+                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_Topmost}" IsChecked="{Binding Controls.Topmost, Mode=TwoWay}" IsEnabled="{Binding !Controls.WallpaperAttached}" />
+                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_ClickThrough}" IsChecked="{Binding Controls.ClickThrough, Mode=TwoWay}" />
+                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_ConfineCursor}" IsChecked="{Binding Controls.ConfineCursor, Mode=TwoWay}" IsEnabled="{Binding !Controls.WallpaperAttached}" />
+                        </WrapPanel>
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                            <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.GameTools_Win_Opacity}" />
+                            <Slider
+                                Grid.Column="1"
+                                IsSnapToTickEnabled="True"
+                                Maximum="100"
+                                Minimum="20"
+                                TickFrequency="1"
+                                Value="{Binding Controls.Opacity, Mode=TwoWay}" />
+                            <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Controls.Opacity, StringFormat={}{0:0}%}" />
+                        </Grid>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="{x:Static spp:Strings.GameTools_Win_Monitor}" />
+                            <WrapPanel>
+                                <ComboBox
+                                    MinWidth="190"
+                                    Margin="0,0,8,8"
+                                    AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Monitor}"
+                                    ItemsSource="{Binding Monitors}"
+                                    SelectedItem="{Binding Controls.Monitor, Mode=TwoWay}" />
+                                <Button Margin="0,0,8,8" Command="{Binding RefreshMonitorsCommand}" Content="{x:Static spp:Strings.GameTools_Win_RefreshMonitors}" />
+                            </WrapPanel>
+                            <WrapPanel>
+                                <WrapPanel.Styles>
+                                    <Style Selector="WrapPanel > Button">
+                                        <Setter Property="Margin" Value="0,0,8,8" />
+                                    </Style>
+                                </WrapPanel.Styles>
+                                <Button Command="{Binding CenterWindowCommand}" Content="{x:Static spp:Strings.GameTools_Win_Center}" />
+                                <Button Command="{Binding MoveToMonitorCommand}" Content="{x:Static spp:Strings.GameTools_Win_MoveToMonitor}" />
+                                <Button Command="{Binding FitMonitorCommand}" Content="{x:Static spp:Strings.GameTools_Win_FitMonitor}" />
+                            </WrapPanel>
+                            <WrapPanel>
+                                <WrapPanel.Styles>
+                                    <Style Selector="WrapPanel > StackPanel">
+                                        <Setter Property="Margin" Value="0,0,8,8" />
+                                        <Setter Property="Width" Value="118" />
+                                        <Setter Property="Spacing" Value="4" />
+                                    </Style>
+                                    <Style Selector="NumericUpDown">
+                                        <Setter Property="FormatString" Value="0" />
+                                        <Setter Property="Maximum" Value="65535" />
+                                    </Style>
+                                </WrapPanel.Styles>
+                                <StackPanel>
+                                    <TextBlock Text="{x:Static spp:Strings.GameTools_Win_PositionX}" />
+                                    <NumericUpDown AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_PositionX}" Minimum="-65535" Value="{Binding Controls.X, Mode=TwoWay}" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{x:Static spp:Strings.GameTools_Win_PositionY}" />
+                                    <NumericUpDown AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_PositionY}" Minimum="-65535" Value="{Binding Controls.Y, Mode=TwoWay}" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{x:Static spp:Strings.GameTools_Win_Width}" />
+                                    <NumericUpDown AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Width}" Minimum="1" Value="{Binding Controls.Width, Mode=TwoWay}" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{x:Static spp:Strings.GameTools_Win_Height}" />
+                                    <NumericUpDown AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Height}" Minimum="1" Value="{Binding Controls.Height, Mode=TwoWay}" />
+                                </StackPanel>
+                            </WrapPanel>
+                            <Button Command="{Binding SetBoundsCommand}" Content="{x:Static spp:Strings.GameTools_Win_SetBounds}" />
+                        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_MuteInBackground}" IsChecked="{Binding Controls.MuteInBackground, Mode=TwoWay}" />
+                            <TextBlock Text="{x:Static spp:Strings.GameTools_Win_BackgroundPriority}" />
+                            <ComboBox
+                                AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_BackgroundPriority}"
+                                ItemsSource="{Binding Priorities}"
+                                SelectedItem="{Binding Controls.Priority, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="spp:WindowPriorityChoice">
+                                        <TextBlock Text="{Binding Label}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </Expander>
+
+                <Expander Header="{x:Static spp:Strings.GameTools_Win_Wallpaper}" IsExpanded="True">
+                    <StackPanel Spacing="8">
+                        <StackPanel IsEnabled="{Binding HasSelectedWindow}" Spacing="6">
+                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_WallpaperMouse}" IsChecked="{Binding Controls.WallpaperMouse, Mode=TwoWay}" />
+                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_WallpaperKeyboard}" IsChecked="{Binding Controls.WallpaperKeyboard, Mode=TwoWay}" />
+                            <TextBlock Text="{x:Static spp:Strings.GameTools_Win_WallpaperHelp}" TextWrapping="Wrap" />
+                            <WrapPanel>
+                                <Button Margin="0,0,8,0" Command="{Binding ToWallpaperWindowCommand}" Content="{x:Static spp:Strings.GameTools_Win_AttachWallpaper}" IsVisible="{Binding !Controls.WallpaperPaused}" />
+                                <Button Margin="0,0,8,0" Command="{Binding PauseWallpaperCommand}" Content="{x:Static spp:Strings.GameTools_Win_PauseWallpaper}" IsVisible="{Binding Controls.WallpaperAttached}" />
+                                <Button Command="{Binding ReattachWallpaperCommand}" Content="{x:Static spp:Strings.GameTools_Win_ResumeWallpaper}" IsVisible="{Binding Controls.WallpaperPaused}" />
+                            </WrapPanel>
+                        </StackPanel>
+                        <Button Command="{Binding ResetWallpaperCommand}" Content="{x:Static spp:Strings.GameTools_Win_ResetWallpaper}" />
+                    </StackPanel>
+                </Expander>
+
+                <Expander Header="{x:Static spp:Strings.GameTools_Win_Rules}">
+                    <StackPanel Spacing="8">
+                        <StackPanel IsEnabled="{Binding HasSelectedWindow}" Spacing="6">
+                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_AutoApply}" IsChecked="{Binding Controls.AutoApply, Mode=TwoWay}" />
+                            <Button Command="{Binding SaveRuleCommand}" Content="{x:Static spp:Strings.GameTools_Win_SaveRule}" />
+                        </StackPanel>
+                        <ComboBox
+                            MinWidth="190"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Rules}"
+                            ItemsSource="{Binding WindowRules}"
+                            SelectedItem="{Binding SelectedRule, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="spp:WindowRuleChoice">
+                                    <TextBlock Text="{Binding Label}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <WrapPanel IsEnabled="{Binding HasSelectedRule}">
+                            <Button Margin="0,0,8,0" Command="{Binding ToggleRuleCommand}" Content="{x:Static spp:Strings.GameTools_Win_ToggleRule}" />
+                            <Button Command="{Binding RemoveRuleCommand}" Content="{x:Static spp:Strings.GameTools_Win_RemoveRule}" />
+                        </WrapPanel>
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+		</StackPanel>
     </ScrollViewer>
 </spp:PageBase>

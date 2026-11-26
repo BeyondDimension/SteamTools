@@ -6920,4 +6920,41 @@ Farming games: {3}</value>
   <data name="LogConsole_CommandHint" xml:space="preserve"><value>Enter a command, or type / for suggestions</value></data>
   <data name="Settings_Storage_AppFolder" xml:space="preserve"><value>Application folder</value></data>
   <data name="Settings_Storage_OpenFolder" xml:space="preserve"><value>Open folder</value></data>
+	<data name="GameTools_Win_Advanced" xml:space="preserve"><value>Window controls</value></data>
+	<data name="GameTools_Win_Monitor" xml:space="preserve"><value>Monitor</value></data>
+	<data name="GameTools_Win_RefreshMonitors" xml:space="preserve"><value>Refresh monitors</value></data>
+	<data name="GameTools_Win_Center" xml:space="preserve"><value>Center</value></data>
+	<data name="GameTools_Win_MoveToMonitor" xml:space="preserve"><value>Move to selected monitor</value></data>
+	<data name="GameTools_Win_FitMonitor" xml:space="preserve"><value>Fit monitor (borderless)</value></data>
+	<data name="GameTools_Win_SetBounds" xml:space="preserve"><value>Apply position and size</value></data>
+	<data name="GameTools_Win_PositionX" xml:space="preserve"><value>X (px)</value></data>
+	<data name="GameTools_Win_PositionY" xml:space="preserve"><value>Y (px)</value></data>
+	<data name="GameTools_Win_Width" xml:space="preserve"><value>Width (px)</value></data>
+	<data name="GameTools_Win_Height" xml:space="preserve"><value>Height (px)</value></data>
+	<data name="GameTools_Win_Topmost" xml:space="preserve"><value>Always on top</value></data>
+	<data name="GameTools_Win_Opacity" xml:space="preserve"><value>Opacity</value></data>
+	<data name="GameTools_Win_ClickThrough" xml:space="preserve"><value>Click through</value></data>
+	<data name="GameTools_Win_ConfineCursor" xml:space="preserve"><value>Confine cursor while focused</value></data>
+	<data name="GameTools_Win_MuteInBackground" xml:space="preserve"><value>Mute process when unfocused</value></data>
+	<data name="GameTools_Win_BackgroundPriority" xml:space="preserve"><value>Background process priority</value></data>
+	<data name="GameTools_Win_PriorityUnchanged" xml:space="preserve"><value>Keep current priority</value></data>
+	<data name="GameTools_Win_PriorityBelowNormal" xml:space="preserve"><value>Below normal</value></data>
+	<data name="GameTools_Win_PriorityIdle" xml:space="preserve"><value>Idle</value></data>
+	<data name="GameTools_Win_Wallpaper" xml:space="preserve"><value>Wallpaper layer</value></data>
+	<data name="GameTools_Win_WallpaperMouse" xml:space="preserve"><value>Interact on wallpaper</value></data>
+	<data name="GameTools_Win_WallpaperKeyboard" xml:space="preserve"><value>Forward keys while desktop is focused</value></data>
+	<data name="GameTools_Win_WallpaperHelp" xml:space="preserve"><value>Click the wallpaper window on bare desktop to select its keyboard target. Temporarily detach the window when it needs full focus.</value></data>
+	<data name="GameTools_Win_AttachWallpaper" xml:space="preserve"><value>Move to wallpaper layer</value></data>
+	<data name="GameTools_Win_PauseWallpaper" xml:space="preserve"><value>Temporarily detach</value></data>
+	<data name="GameTools_Win_ResumeWallpaper" xml:space="preserve"><value>Reattach to wallpaper</value></data>
+	<data name="GameTools_Win_ResetWallpaper" xml:space="preserve"><value>Restore all wallpaper windows</value></data>
+	<data name="GameTools_Win_RestoreWindow" xml:space="preserve"><value>Restore window</value></data>
+	<data name="GameTools_Win_Rules" xml:space="preserve"><value>Process rules</value></data>
+	<data name="GameTools_Win_AutoApply" xml:space="preserve"><value>Auto-apply when the process window appears</value></data>
+	<data name="GameTools_Win_SaveRule" xml:space="preserve"><value>Save settings for this process</value></data>
+	<data name="GameTools_Win_ToggleRule" xml:space="preserve"><value>Toggle auto-apply</value></data>
+	<data name="GameTools_Win_RemoveRule" xml:space="preserve"><value>Remove rule</value></data>
+	<data name="GameTools_Win_RuleEnabled" xml:space="preserve"><value>{0} (auto-apply)</value></data>
+	<data name="GameTools_Win_RuleDisabled" xml:space="preserve"><value>{0} (auto-apply off)</value></data>
+	<data name="GameTools_Win_OperationFailed" xml:space="preserve"><value>Could not apply the window setting. The window may have closed or rejected the operation.</value></data>
 </root>

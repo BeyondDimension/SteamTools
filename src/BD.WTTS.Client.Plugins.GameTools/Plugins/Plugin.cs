@@ -42,10 +42,31 @@ public sealed class Plugin : PluginBase<Plugin>, IPlugin
 
     public override void ConfigureRequiredServices(IServiceCollection services, Startup startup)
     {
+        services.AddSingleton<BorderlessGamePageViewModel>();
     }
 
     public override void OnAddAutoMapper(IMapperConfigurationExpression cfg)
     {
 
     }
+
+#if WINDOWS
+    public override IEnumerable<(Action<IServiceCollection>? @delegate, bool isInvalid, string name)>? GetConfiguration(bool directoryExists)
+    {
+        yield return GetConfiguration<GameWindowToolsSettings_>(directoryExists);
+    }
+
+    public override ValueTask OnInitializeAsync()
+    {
+        if (GameWindowToolsSettings.Rules.Value is { Count: > 0 } rules)
+            IPlatformService.Instance.SetWindowRules(rules);
+        return ValueTask.CompletedTask;
+    }
+
+    public override ValueTask OnExit()
+    {
+        IPlatformService.Instance.ShutDownWindowTools();
+        return ValueTask.CompletedTask;
+    }
+#endif
 }

@@ -8,7 +8,7 @@ public partial class BorderlessGamePage : PageBase<BorderlessGamePageViewModel>
     public BorderlessGamePage()
     {
         InitializeComponent();
-        DataContext ??= new BorderlessGamePageViewModel();
+        DataContext ??= Ioc.Get<BorderlessGamePageViewModel>();
 
         move.PointerPressed += MovePointerPressed;
         move.PointerReleased += MovePointerReleased;
