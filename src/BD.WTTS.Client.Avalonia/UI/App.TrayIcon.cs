@@ -125,9 +125,11 @@ partial class App
     {
         TrayMenus.TryGetValue(AssemblyInfo.Accelerator, out var accelerator);
         TrayMenus.TryGetValue(AssemblyInfo.GameAccount, out var accounts);
+        TrayMenus.TryGetValue(AssemblyInfo.Authenticator, out var localTokens);
         panel.ViewModel.SetAccelerator(accelerator, TrayToggleState.Unavailable);
         panel.ViewModel.SetAccounts(accounts);
-        panel.SetOtherActions(TrayMenus.Where(static pair => pair.Key is not (AssemblyInfo.Accelerator or AssemblyInfo.GameAccount))
+        panel.SetOtherActions(localTokens, TrayMenus
+            .Where(static pair => pair.Key is not (AssemblyInfo.Accelerator or AssemblyInfo.GameAccount or AssemblyInfo.Authenticator))
             .Select(static pair => pair.Value));
     }
 
@@ -266,8 +268,7 @@ partial class App
                     submenu.Add(new NativeMenuItem(header)
                     {
                         CommandParameter = row.CommandParameter,
-                        Command = row.IsCurrent ? null : row.Command,
-                        IsEnabled = !row.IsCurrent && row.Command.CanExecute(row.CommandParameter),
+                        Command = row.Command,
                     });
                 }
             }));

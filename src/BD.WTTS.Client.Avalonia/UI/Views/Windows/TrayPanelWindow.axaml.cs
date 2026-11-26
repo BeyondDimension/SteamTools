@@ -1,6 +1,9 @@
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+using FluentAvalonia.UI.Controls;
 
 namespace BD.WTTS.UI.Views.Windows;
 
@@ -35,29 +38,47 @@ sealed partial class TrayPanelWindow : Window
 
     internal TrayPanelViewModel ViewModel => (TrayPanelViewModel)DataContext!;
 
-    internal void SetOtherActions(IEnumerable<TrayMenuItem> items)
+    internal void SetOtherActions(TrayMenuItem? localTokens, IEnumerable<TrayMenuItem> items)
     {
-        var flyout = (MenuFlyout?)PluginActionsButton.Flyout;
+        var tokenCount = SetActionMenu(LocalTokensButton, localTokens?.Items ?? [], copyTokens: true);
+        LocalTokenCount.Text = tokenCount.ToString(CultureInfo.CurrentCulture);
+        SetActionMenu(PluginActionsButton, items);
+        OptionalActionsSeparator.IsVisible = LocalTokensButton.IsVisible || PluginActionsButton.IsVisible;
+    }
+
+    int SetActionMenu(Button button, IEnumerable<TrayMenuItem> items, bool copyTokens = false)
+    {
+        var flyout = (MenuFlyout?)button.Flyout;
         flyout?.Items.Clear();
         foreach (var item in items)
         {
             if (item.Command == null && item.Items is not { Count: > 0 })
                 continue;
             flyout ??= new MenuFlyout { Placement = PlacementMode.TopEdgeAlignedRight };
-            flyout.Items.Add(CreateMenuItem(item));
+            flyout.Items.Add(CreateMenuItem(item, copyTokens));
         }
-        PluginActionsButton.Flyout = flyout;
-        PluginActionsButton.IsVisible = flyout?.Items.Count > 0;
+        button.Flyout = flyout;
+        var count = flyout?.Items.Count ?? 0;
+        button.IsVisible = count > 0;
+        return count;
     }
 
-    MenuItem CreateMenuItem(TrayMenuItem item)
+    MenuItem CreateMenuItem(TrayMenuItem item, bool copyToken = false)
     {
+        var name = App.GetTrayItemName(item);
         var action = new MenuItem
         {
-            Header = App.GetTrayItemName(item),
+            Header = name,
             CommandParameter = item.CommandParameter,
             Command = item.Command,
         };
+        if (copyToken)
+        {
+            action.Header = new TextBlock { Text = name, MaxWidth = 220, TextTrimming = TextTrimming.CharacterEllipsis };
+            action.Icon = new FAFontIcon { Glyph = "\uE8C8", FontSize = 14 };
+            AutomationProperties.SetName(action, name);
+            ToolTip.SetTip(action, name);
+        }
         if (item.IsVisible is BindingBase visible)
             action[!IsVisibleProperty] = visible;
         if (item.IsEnabled is BindingBase enabled)

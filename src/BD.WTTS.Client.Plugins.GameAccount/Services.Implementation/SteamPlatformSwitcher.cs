@@ -152,8 +152,7 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
 
         bool CanSwitchTrayAccount()
         {
-            if (target is null || target.SteamUser.SteamId64 == GetConfirmedAccountId(steam)
-                || string.IsNullOrWhiteSpace(target.AccountName))
+            if (target is null || string.IsNullOrWhiteSpace(target.AccountName))
                 return false;
 
             var cached = steam.SteamUsers.Lookup(target.SteamUser.SteamId64);

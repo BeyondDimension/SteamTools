@@ -232,7 +232,6 @@
 										Classes.trayCurrentAccount="{Binding IsCurrent}"
 										Command="{Binding Command}"
 										CommandParameter="{Binding CommandParameter}"
-										IsEnabled="{Binding !IsCurrent}"
 										Theme="{StaticResource TransparentButton}"
 										ToolTip.Tip="{Binding Name}">
 										<Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
@@ -307,7 +306,20 @@
 						<TextBlock Grid.Column="1" Classes="trayMenuLabel" Text="{Binding SteamActionText}" />
 					</Grid>
 				</Button>
-				<Border Height="1" Margin="0,3" Background="{DynamicResource CardStrokeColorDefaultBrush}" />
+				<Border x:Name="OptionalActionsSeparator" Height="1" Margin="0,3" IsVisible="False"
+				        Background="{DynamicResource CardStrokeColorDefaultBrush}" />
+				<Button
+					x:Name="LocalTokensButton"
+					AutomationProperties.Name="{x:Static spp:Strings.LocalAuth}"
+					Classes="trayMenuRow"
+					IsVisible="False">
+					<Grid ColumnDefinitions="16,*,Auto,Auto" ColumnSpacing="8">
+						<ui:FAFontIcon FontSize="14" Glyph="&#xE72E;" />
+						<TextBlock Grid.Column="1" Classes="trayMenuLabel" Text="{x:Static spp:Strings.LocalAuth}" />
+						<TextBlock x:Name="LocalTokenCount" Grid.Column="2" VerticalAlignment="Center" Classes="trayCaption" />
+						<ui:FASymbolIcon Grid.Column="3" Classes="trayChevron" FontSize="12" />
+					</Grid>
+				</Button>
 				<Button
 					x:Name="PluginActionsButton"
 					AutomationProperties.Name="{x:Static spp:Strings.More}"
@@ -319,7 +331,7 @@
 						<ui:FASymbolIcon Grid.Column="2" Classes="trayChevron" FontSize="12" />
 					</Grid>
 				</Button>
-				<Border Height="1" Margin="0,3" Background="{DynamicResource CardStrokeColorDefaultBrush}" />
+				<Border x:Name="ExitSeparator" Height="1" Margin="0,3" Background="{DynamicResource CardStrokeColorDefaultBrush}" />
 				<Button
 					x:Name="ExitButton"
 					AutomationProperties.Name="{x:Static spp:Strings.Exit}"
