@@ -1,68 +1,36 @@
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Threading;
+using BD.WTTS.UI.Views.Controls;
 
 namespace BD.WTTS.UI.Views.Pages;
 
 public partial class CpuSchedulingPage : PageBase<CpuSchedulingPageViewModel>
 {
+    TaskDialogEx? processPickerDialog;
+
     CpuSchedulingPageViewModel? Scheduler => DataContext as CpuSchedulingPageViewModel;
 
     public CpuSchedulingPage()
     {
         InitializeComponent();
         DataContext ??= new CpuSchedulingPageViewModel();
-#if WINDOWS
-        WindowPicker.AddHandler(PointerPressedEvent, PickWindow, RoutingStrategies.Tunnel);
-        WindowPicker.PointerReleased += (_, e) => e.Pointer.Capture(null);
-        WindowPicker.PointerCaptureLost += (_, _) => WindowPicker.Opacity = 1;
-#endif
     }
 
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-        Scheduler?.Start(() => IsEffectivelyVisible &&
-            TopLevel.GetTopLevel(this) is not Window { WindowState: WindowState.Minimized });
+        if (!Design.IsDesignMode)
+            Scheduler?.Start(() => IsEffectivelyVisible &&
+                TopLevel.GetTopLevel(this) is not Window { WindowState: WindowState.Minimized });
     }
 
     protected override void OnUnloaded(RoutedEventArgs e)
     {
-        Scheduler?.Stop();
+        processPickerDialog?.Hide(TaskDialogStandardResult.Cancel);
+        if (!Design.IsDesignMode)
+            Scheduler?.Stop();
         base.OnUnloaded(e);
     }
-
-#if WINDOWS
-    void PickWindow(object? sender, PointerPressedEventArgs e)
-    {
-        if (Scheduler is not { } scheduler || !e.GetCurrentPoint(WindowPicker).Properties.IsLeftButtonPressed)
-            return;
-        e.Handled = true;
-        e.Pointer.Capture(WindowPicker);
-        WindowPicker.Opacity = 0;
-        try
-        {
-            IPlatformService.Instance.GetMoveMouseDownWindow(window =>
-            {
-                int? pid = window?.Process?.Id;
-                window?.Process?.Dispose();
-                Dispatcher.UIThread.Post(async () =>
-                {
-                    WindowPicker.Opacity = 1;
-                    if (pid.HasValue)
-                        await scheduler.SelectProcessAsync(pid.Value);
-                });
-            });
-        }
-        catch (Exception ex)
-        {
-            e.Pointer.Capture(null);
-            WindowPicker.Opacity = 1;
-            ex.LogAndShowT(nameof(CpuSchedulingPage));
-        }
-    }
-#endif
 
     void PresetSelected(object? sender, SelectionChangedEventArgs e)
     {
@@ -73,28 +41,46 @@ public partial class CpuSchedulingPage : PageBase<CpuSchedulingPageViewModel>
         }
     }
 
-    void ProcessSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    async void ChooseProcess_Click(object? sender, RoutedEventArgs e)
     {
-        if (e.Source == sender && RealtimeConfirm is not null)
-            RealtimeConfirm.IsChecked = false;
-    }
-
-    void PrioritySelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (RealtimeConfirm is not null)
-            RealtimeConfirm.IsChecked = false;
+        if (processPickerDialog is not null || Scheduler is not { } scheduler ||
+            TopLevel.GetTopLevel(this) is not { } owner)
+            return;
+        try
+        {
+            Classes.Add("pickingProcess");
+            scheduler.SetProcessPickerOpen(true);
+            var picker = new CpuProcessPicker();
+            processPickerDialog = picker.CreateDialog(owner, scheduler);
+            if (Equals(await processPickerDialog.ShowAsync(true), TaskDialogStandardResult.OK) &&
+                TopLevel.GetTopLevel(this) == owner && ReferenceEquals(Scheduler, scheduler) &&
+                picker.SelectedProcess is { } selected)
+                scheduler.SelectProcess(selected);
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT(nameof(CpuSchedulingPage));
+        }
+        finally
+        {
+            scheduler.SetProcessPickerOpen(false);
+            Classes.Remove("pickingProcess");
+            processPickerDialog = null;
+            if (TopLevel.GetTopLevel(this) == owner && ChooseProcessButton.IsEffectivelyVisible)
+                ChooseProcessButton.Focus();
+        }
     }
 
     async void Apply_Click(object? sender, RoutedEventArgs e)
     {
         if (Scheduler is { } scheduler)
-            await scheduler.ApplyAsync(false, RealtimeConfirm.IsChecked == true);
+            await scheduler.ApplyAsync(false);
     }
 
     async void Restore_Click(object? sender, RoutedEventArgs e)
     {
         if (Scheduler is { } scheduler)
-            await scheduler.ApplyAsync(true, false);
+            await scheduler.ApplyAsync(true);
     }
 
     void Reload_Click(object? sender, RoutedEventArgs e) => Scheduler?.ReloadEditor();

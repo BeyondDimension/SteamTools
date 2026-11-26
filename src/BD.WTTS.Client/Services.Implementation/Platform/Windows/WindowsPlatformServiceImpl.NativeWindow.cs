@@ -138,6 +138,8 @@ partial class WindowsPlatformServiceImpl
 
     public bool SetWallpaperInput(NativeWindowModel window, bool mouse, bool keyboard) => windowTools.ChangeWallpaperInput(window, mouse, keyboard);
 
+    public bool InteractWithWallpaper(NativeWindowModel window) => windowTools.InteractWithWallpaper(window);
+
     public bool PauseWallpaperWindow(NativeWindowModel window) => windowTools.PauseWallpaper(window);
 
     public bool RestoreWindow(NativeWindowModel window) => windowTools.Restore(window);

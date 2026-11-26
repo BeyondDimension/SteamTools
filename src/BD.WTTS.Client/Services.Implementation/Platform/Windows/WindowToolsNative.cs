@@ -7,6 +7,7 @@ static unsafe partial class WindowToolsNative
     internal const uint Child = 0x40000000, Popup = 0x80000000, Frame = 0x00CC0000;
     internal const uint Topmost = 0x8, Layered = 0x80000, Transparent = 0x20, NoRedirectionBitmap = 0x200000;
     internal const uint NoSize = 1, NoMove = 2, NoZOrder = 4, NoActivate = 0x10, FrameChanged = 0x20;
+    internal const uint ShowWindowFlag = 0x40;
     internal const uint WmQuit = 0x12, WmConfigure = 0x8001;
 
     [StructLayout(LayoutKind.Sequential)]
@@ -178,6 +179,9 @@ static unsafe partial class WindowToolsNative
 
     [LibraryImport("user32.dll")]
     internal static partial nint GetForegroundWindow();
+
+    [LibraryImport("user32.dll")]
+    internal static partial int SetForegroundWindow(nint window);
 
     [LibraryImport("user32.dll")]
     internal static partial int GetGUIThreadInfo(uint thread, ref GuiThreadInfo info);

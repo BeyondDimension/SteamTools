@@ -2,244 +2,422 @@
     x:Class="BD.WTTS.UI.Views.Pages.CpuSchedulingPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:BD.WTTS.UI.Views.Controls"
+    xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     x:DataType="spp:CpuSchedulingPageViewModel"
-    Title="{x:Static spp:Strings.GameTools_Cpu_Title}">
+    Title="{x:Static spp:Strings.GameTools_Cpu_Title}"
+    Description="{x:Static spp:Strings.GameTools_Cpu_Description}"
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}">
     <spp:PageBase.PreviewImage>
         <ui:FAImageIconSource Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/CPU.png" />
     </spp:PageBase.PreviewImage>
-    <TabControl Margin="12">
-        <TabItem Header="{x:Static spp:Strings.GameTools_Cpu_Processes}">
-            <Grid Margin="0,8,0,0" ColumnDefinitions="*,12,*">
-                <Grid RowDefinitions="Auto,Auto,*" RowSpacing="8">
-                    <StackPanel Spacing="4">
-                        <TextBox
-                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_Search}"
-                            Text="{Binding Search}"
-                            PlaceholderText="{x:Static spp:Strings.GameTools_Cpu_Search}" />
-                        <WrapPanel>
-                            <CheckBox Content="{x:Static spp:Strings.GameTools_Cpu_WindowsOnly}" IsChecked="{Binding WindowedOnly}" />
-                            <Button
-                                x:Name="WindowPicker"
-                                Content="{x:Static spp:Strings.GameTools_Cpu_PickWindow}"
-                                IsEnabled="{Binding RulesAreEditable}" />
-                        </WrapPanel>
-                    </StackPanel>
-                    <Grid
-                        Grid.Row="1"
-                        Margin="8,0,14,0"
-                        ColumnDefinitions="2.5*,0.85*,1.1*,1.2*,1.1*"
-                        ColumnSpacing="4">
-                        <TextBlock Text="{x:Static spp:Strings.GameTools_Cpu_Process}" TextTrimming="CharacterEllipsis" />
-                        <TextBlock Grid.Column="1" Text="{x:Static spp:Strings.GameTools_Cpu_ProcessorUsage}" />
-                        <TextBlock Grid.Column="2" Text="{x:Static spp:Strings.GameTools_Cpu_Memory}" TextTrimming="CharacterEllipsis" />
-                        <TextBlock Grid.Column="3" Text="{x:Static spp:Strings.GameTools_Cpu_Priority}" TextTrimming="CharacterEllipsis" />
-                        <TextBlock Grid.Column="4" Text="{x:Static spp:Strings.GameTools_Cpu_Affinity}" TextTrimming="CharacterEllipsis" />
-                    </Grid>
-                    <ListBox
-                        Grid.Row="2"
-                        ItemsSource="{Binding Processes}"
-                        SelectedItem="{Binding SelectedProcess, Mode=TwoWay}"
-                        SelectionChanged="ProcessSelectionChanged">
-                        <ListBox.Styles>
-                            <Style Selector="ListBoxItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListBox.Styles>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate x:DataType="spp:CpuProcessRow">
-                                <Grid
-                                    Margin="0,2"
-                                    ColumnDefinitions="2.5*,0.85*,1.1*,1.2*,1.1*"
-                                    ColumnSpacing="4"
-                                    RowDefinitions="Auto,Auto"
-                                    ToolTip.Tip="{Binding ImagePath}">
-                                    <Grid ColumnDefinitions="20,*" ColumnSpacing="6">
-                                        <Image Width="18" Height="18" Source="{Binding Icon}" />
-                                        <StackPanel Grid.Column="1">
-                                            <TextBlock FontWeight="SemiBold" Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
-                                            <TextBlock Text="{Binding Pid}" Theme="{StaticResource CaptionTextBlockStyle}" />
-                                        </StackPanel>
-                                    </Grid>
-                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding CpuUsage}" />
-                                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Memory}" TextTrimming="CharacterEllipsis" />
-                                    <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding Priority}" TextTrimming="CharacterEllipsis" />
-                                    <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Affinity}" TextTrimming="CharacterEllipsis" />
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Grid.ColumnSpan="5"
-                                        IsVisible="{Binding HasStatus}"
-                                        Text="{Binding Status}"
-                                        TextTrimming="CharacterEllipsis"
-                                        Theme="{StaticResource CaptionTextBlockStyle}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <TextBlock
-                        Grid.Row="2"
-                        Margin="8"
-                        IsHitTestVisible="False"
-                        IsVisible="{Binding HasNoProcesses}"
-                        Text="{x:Static spp:Strings.GameTools_Cpu_NoProcesses}"
-                        TextWrapping="Wrap" />
-                </Grid>
+    <spp:PageBase.Styles>
+        <Style Selector="Border.schedulingCard">
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+        </Style>
+        <Style Selector="TextBlock.cpuDetail">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="spp|PageBase.pickingProcess /template/ ScrollViewer#PageScroller">
+            <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+        </Style>
+        <Style Selector="StackPanel#ProcessEditor">
+            <Setter Property="(Grid.Column)" Value="1" />
+            <Setter Property="(Grid.RowSpan)" Value="2" />
+        </Style>
+        <Style Selector="Border#ProcessRules">
+            <Setter Property="(Grid.Row)" Value="1" />
+        </Style>
+        <ContainerQuery Name="cpuScheduling" Query="max-width:700">
+            <Style Selector="Border#ProcessPicker">
+                <Setter Property="(Grid.ColumnSpan)" Value="2" />
+            </Style>
+            <Style Selector="StackPanel#ProcessEditor">
+                <Setter Property="(Grid.Row)" Value="1" />
+                <Setter Property="(Grid.Column)" Value="0" />
+                <Setter Property="(Grid.RowSpan)" Value="1" />
+                <Setter Property="(Grid.ColumnSpan)" Value="2" />
+            </Style>
+            <Style Selector="Border#ProcessRules">
+                <Setter Property="(Grid.Row)" Value="2" />
+                <Setter Property="(Grid.ColumnSpan)" Value="2" />
+            </Style>
+        </ContainerQuery>
+    </spp:PageBase.Styles>
 
-                <ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Disabled">
-                    <StackPanel Margin="0,0,8,8" Spacing="12">
+    <TabControl
+        MaxWidth="1080"
+        Padding="0"
+        HorizontalContentAlignment="Stretch"
+        Container.Name="cpuScheduling"
+        Container.Sizing="Width">
+        <TabItem Header="{x:Static spp:Strings.GameTools_Cpu_Processes}">
+            <Grid
+                x:Name="ProcessLayout"
+                Margin="0,12,0,0"
+                VerticalAlignment="Top"
+                ColumnDefinitions="5*,7*"
+                ColumnSpacing="12"
+                RowDefinitions="Auto,*,Auto"
+                RowSpacing="10">
+                <Border
+                    x:Name="ProcessPicker"
+                    VerticalAlignment="Top"
+                    Classes="schedulingCard">
+                    <StackPanel Spacing="10">
                         <TextBlock
+                            Classes="cpuDetail"
                             IsVisible="{Binding HasNoProcess}"
                             Text="{x:Static spp:Strings.GameTools_Cpu_SelectProcess}"
                             TextWrapping="Wrap" />
-                        <StackPanel IsVisible="{Binding HasProcess}" Spacing="8">
-                            <TextBlock FontSize="18" FontWeight="SemiBold" Text="{Binding SelectedProcess.Name}" TextWrapping="Wrap" />
-                            <TextBlock Text="{Binding SelectedProcess.ImagePath}" TextWrapping="Wrap" Theme="{StaticResource CaptionTextBlockStyle}" />
-                            <TextBlock Text="{Binding SelectedProcess.Status}" TextWrapping="Wrap" />
-                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" RowDefinitions="Auto,Auto,Auto" RowSpacing="6">
-                                <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.GameTools_Cpu_Priority}" />
-                                <ComboBox
-                                    Grid.Column="1"
-                                    MinWidth="144"
-                                    AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_Priority}"
-                                    IsEnabled="{Binding CanEdit}"
-                                    ItemsSource="{Binding Priorities}"
-                                    SelectedItem="{Binding SelectedPriority, Mode=TwoWay}"
-                                    SelectionChanged="PrioritySelectionChanged" />
-                                <TextBlock Grid.Row="1" VerticalAlignment="Center" Text="{x:Static spp:Strings.GameTools_Cpu_Eco}" />
-                                <ComboBox
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    MinWidth="144"
-                                    AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_Eco}"
-                                    IsEnabled="{Binding CanEditEco}"
-                                    ItemsSource="{Binding EcoModes}"
-                                    SelectedItem="{Binding SelectedEcoMode, Mode=TwoWay}" />
-                                <TextBlock Grid.Row="2" VerticalAlignment="Center" Text="{x:Static spp:Strings.GameTools_Cpu_MemoryPriority}" />
-                                <ComboBox
-                                    Grid.Row="2"
-                                    Grid.Column="1"
-                                    MinWidth="144"
-                                    AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_MemoryPriority}"
-                                    IsEnabled="{Binding CanEditMemory}"
-                                    ItemsSource="{Binding MemoryPriorities}"
-                                    SelectedItem="{Binding SelectedMemoryPriority, Mode=TwoWay}" />
-                            </Grid>
-                            <StackPanel IsVisible="{Binding NeedsRealtimeConfirmation}" Spacing="4">
-                                <TextBlock Text="{x:Static spp:Strings.GameTools_Cpu_RealtimeWarning}" TextWrapping="Wrap" />
-                                <CheckBox x:Name="RealtimeConfirm" Content="{x:Static spp:Strings.GameTools_Cpu_RealtimeConfirm}" />
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" IsVisible="{Binding HasProcess}">
+                            <Image Width="28" Height="28" VerticalAlignment="Top" Source="{Binding SelectedProcess.Icon}" />
+                            <StackPanel Grid.Column="1" Spacing="3">
+                                <TextBlock
+                                    Text="{Binding SelectedProcess.Name}"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                <TextBlock
+                                    Classes="cpuDetail"
+                                    Text="{Binding SelectedProcess.Pid, StringFormat='PID {0}'}"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                                <spp:PathLink
+                                    FontSize="12"
+                                    IsVisible="{Binding SelectedProcess.HasImagePath, FallbackValue=False}"
+                                    Path="{Binding SelectedProcess.ImagePath}" />
                             </StackPanel>
-                            <WrapPanel IsEnabled="{Binding CanEdit}">
-                                <Button Margin="0,0,6,4" Click="Apply_Click" Content="{x:Static spp:Strings.GameTools_Cpu_Apply}" />
-                                <Button Margin="0,0,6,4" Click="Restore_Click" Content="{x:Static spp:Strings.GameTools_Cpu_Restore}" />
-                                <Button Margin="0,0,6,4" Click="Reload_Click" Content="{x:Static spp:Strings.GameTools_Cpu_RefreshEditor}" />
-                            </WrapPanel>
-                        </StackPanel>
+                        </Grid>
+                        <spp:Snackbar
+                            IsClosable="False"
+                            IsOpen="True"
+                            IsVisible="{Binding SelectedProcess.HasStatus, FallbackValue=False}"
+                            Message="{Binding SelectedProcess.Status}"
+                            Severity="Warning" />
+                        <Button
+                            x:Name="ChooseProcessButton"
+                            Classes.accent="{Binding HasNoProcess}"
+                            Click="ChooseProcess_Click"
+                            Content="{x:Static spp:Strings.GameTools_Cpu_ChooseProcess}"
+                            IsEnabled="{Binding RulesAreEditable}" />
+                        <Grid
+                            ColumnDefinitions="Auto,*"
+                            ColumnSpacing="10"
+                            IsVisible="{Binding IsWindowPickingSupported}">
+                            <controls:WindowPicker
+                                x:Name="WindowPicker"
+                                Width="48"
+                                Height="48"
+                                VerticalAlignment="Center"
+                                AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_PickWindow}"
+                                Instruction="{x:Static spp:Strings.GameRelated_Borderless_MoveMouseTip}"
+                                IsEnabled="{Binding RulesAreEditable}"
+                                PickCommand="{Binding PickWindowCommand}" />
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
+                                <TextBlock
+                                    Text="{x:Static spp:Strings.GameTools_Cpu_PickWindow}"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                <TextBlock
+                                    Classes="cpuDetail"
+                                    Text="{x:Static spp:Strings.GameRelated_Borderless_MoveMouseTip}"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
 
+                <StackPanel
+                    x:Name="ProcessEditor"
+                    VerticalAlignment="Top"
+                    IsEnabled="{Binding CanEdit}"
+                    Spacing="10">
+                    <Border Classes="schedulingCard">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto,Auto" RowSpacing="12">
+                            <StackPanel Spacing="3" VerticalAlignment="Center">
+                                <TextBlock
+                                    Text="{x:Static spp:Strings.GameTools_Cpu_Priority}"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                <TextBlock
+                                    Classes="cpuDetail"
+                                    Text="{x:Static spp:Strings.GameTools_Cpu_PriorityHelp}"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </StackPanel>
+                            <ComboBox
+                                Grid.Column="1"
+                                MinWidth="132"
+                                VerticalAlignment="Center"
+                                AutomationProperties.HelpText="{x:Static spp:Strings.GameTools_Cpu_PriorityHelp}"
+                                AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_Priority}"
+                                ItemsSource="{Binding Priorities}"
+                                SelectedItem="{Binding SelectedPriority, Mode=TwoWay}" />
+                            <StackPanel Grid.Row="1" Spacing="3" VerticalAlignment="Center">
+                                <TextBlock
+                                    Text="{x:Static spp:Strings.GameTools_Cpu_Eco}"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                <TextBlock
+                                    Classes="cpuDetail"
+                                    Text="{x:Static spp:Strings.GameTools_Cpu_EcoHelp}"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </StackPanel>
+                            <ComboBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                MinWidth="132"
+                                VerticalAlignment="Center"
+                                AutomationProperties.HelpText="{x:Static spp:Strings.GameTools_Cpu_EcoHelp}"
+                                AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_Eco}"
+                                IsEnabled="{Binding CanEditEco}"
+                                ItemsSource="{Binding EcoModes}"
+                                SelectedItem="{Binding SelectedEcoMode, Mode=TwoWay}" />
+                            <StackPanel Grid.Row="2" Spacing="3" VerticalAlignment="Center">
+                                <TextBlock
+                                    Text="{x:Static spp:Strings.GameTools_Cpu_MemoryPriority}"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                <TextBlock
+                                    Classes="cpuDetail"
+                                    Text="{x:Static spp:Strings.GameTools_Cpu_MemoryPriorityHelp}"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </StackPanel>
+                            <ComboBox
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                MinWidth="132"
+                                VerticalAlignment="Center"
+                                AutomationProperties.HelpText="{x:Static spp:Strings.GameTools_Cpu_MemoryPriorityHelp}"
+                                AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_MemoryPriority}"
+                                IsEnabled="{Binding CanEditMemory}"
+                                ItemsSource="{Binding MemoryPriorities}"
+                                SelectedItem="{Binding SelectedMemoryPriority, Mode=TwoWay}" />
+                        </Grid>
+                    </Border>
+
+                    <Border Classes="schedulingCard">
                         <StackPanel Spacing="8">
-                            <TextBlock FontWeight="SemiBold" Text="{x:Static spp:Strings.GameTools_Cpu_Topology}" />
-                            <TextBlock
+                            <StackPanel Spacing="3">
+                                <TextBlock
+                                    Text="{x:Static spp:Strings.GameTools_Cpu_Affinity}"
+                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                <TextBlock
+                                    Classes="cpuDetail"
+                                    Text="{x:Static spp:Strings.GameTools_Cpu_CoresHelp}"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </StackPanel>
+                            <spp:Snackbar
+                                IsClosable="False"
+                                IsOpen="True"
                                 IsVisible="{Binding HasNoTopology}"
-                                Text="{x:Static spp:Strings.GameTools_Cpu_TopologyUnavailable}"
-                                TextWrapping="Wrap" />
-                            <TextBlock
+                                Message="{x:Static spp:Strings.GameTools_Cpu_TopologyUnavailable}"
+                                Severity="Warning" />
+                            <spp:Snackbar
+                                IsClosable="False"
+                                IsOpen="True"
                                 IsVisible="{Binding HasMultipleGroups}"
-                                Text="{x:Static spp:Strings.GameTools_Cpu_MultiGroup}"
-                                TextWrapping="Wrap" />
+                                Message="{x:Static spp:Strings.GameTools_Cpu_MultiGroup}" />
                             <ComboBox
                                 HorizontalAlignment="Stretch"
+                                AutomationProperties.HelpText="{x:Static spp:Strings.GameTools_Cpu_CoresHelp}"
                                 AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_Presets}"
                                 IsEnabled="{Binding CanEditAffinity}"
                                 IsVisible="{Binding HasTopology}"
                                 ItemsSource="{Binding Presets}"
                                 PlaceholderText="{x:Static spp:Strings.GameTools_Cpu_Presets}"
                                 SelectionChanged="PresetSelected" />
-                            <ItemsControl IsEnabled="{Binding CanEditAffinity}" ItemsSource="{Binding CoreGrid}">
+                            <ItemsControl
+                                AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_Topology}"
+                                IsVisible="{Binding HasTopology}"
+                                ItemsSource="{Binding CoreGroups}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel />
+                                        <StackPanel Spacing="6" />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="spp:CpuCoreRow">
-                                        <Border
-                                            MinWidth="132"
-                                            Margin="0,0,6,6"
-                                            Padding="6"
-                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
-                                            BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}"
-                                            BorderThickness="1"
-                                            CornerRadius="4">
-                                            <StackPanel Spacing="3">
-                                                <TextBlock Text="{Binding Label}" Theme="{StaticResource CaptionTextBlockStyle}" />
-                                                <ItemsControl ItemsSource="{Binding Tiles}">
-                                                    <ItemsControl.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <StackPanel Orientation="Horizontal" Spacing="3" />
-                                                        </ItemsPanelTemplate>
-                                                    </ItemsControl.ItemsPanel>
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate x:DataType="spp:CpuTile">
-                                                            <ToggleButton
-                                                                Padding="6,4"
-                                                                Content="{Binding Label}"
-                                                                IsChecked="{Binding IsSelected, Mode=TwoWay}" />
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                </ItemsControl>
-                                            </StackPanel>
-                                        </Border>
+                                    <DataTemplate x:DataType="spp:CpuCoreGroup">
+                                        <Expander HorizontalContentAlignment="Stretch">
+                                            <Expander.Header>
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <TextBlock Text="{Binding Label}" Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                                    <TextBlock Classes="cpuDetail" Text="{Binding Cores.Count, StringFormat='({0})'}" />
+                                                </StackPanel>
+                                            </Expander.Header>
+                                            <ItemsControl
+                                                IsEnabled="{Binding $parent[spp:PageBase].((spp:CpuSchedulingPageViewModel)DataContext).CanEditAffinity}"
+                                                ItemsSource="{Binding Cores}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel ItemSpacing="6" LineSpacing="6" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate x:DataType="spp:CpuCoreRow">
+                                                        <Border
+                                                            Padding="8"
+                                                            Background="{DynamicResource ControlFillColorDefaultBrush}"
+                                                            BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}"
+                                                            BorderThickness="1"
+                                                            CornerRadius="{DynamicResource ControlCornerRadius}">
+                                                            <StackPanel Spacing="4">
+                                                                <TextBlock
+                                                                    Text="{Binding Label}"
+                                                                    TextWrapping="Wrap"
+                                                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                                                                <ItemsControl ItemsSource="{Binding Tiles}">
+                                                                    <ItemsControl.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <WrapPanel ItemSpacing="4" LineSpacing="4" />
+                                                                        </ItemsPanelTemplate>
+                                                                    </ItemsControl.ItemsPanel>
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate x:DataType="spp:CpuTile">
+                                                                            <ToggleButton
+                                                                                Padding="8,4"
+                                                                                Content="{Binding Label}"
+                                                                                IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Expander>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </StackPanel>
+                    </Border>
 
-                        <StackPanel IsEnabled="{Binding CanEdit}" IsVisible="{Binding HasProcess}" Spacing="6">
-                            <Separator />
+                    <StackPanel Spacing="8">
+                        <StackPanel IsVisible="{Binding NeedsRealtimeConfirmation}" Spacing="4">
+                            <spp:Snackbar
+                                IsClosable="False"
+                                IsOpen="True"
+                                Message="{x:Static spp:Strings.GameTools_Cpu_RealtimeWarning}"
+                                Severity="Warning" />
                             <CheckBox
-                                x:Name="MatchFullPath"
-                                Content="{x:Static spp:Strings.GameTools_Cpu_MatchPath}"
-                                IsChecked="True"
-                                IsEnabled="{Binding CanMatchPath}" />
-                            <Button Click="SaveRule_Click" Content="{x:Static spp:Strings.GameTools_Cpu_SaveRule}" />
-                            <TextBlock Margin="0,6,0,0" FontWeight="SemiBold" Text="{x:Static spp:Strings.GameTools_Cpu_Templates}" TextWrapping="Wrap" />
-                            <Button Click="GameRule_Click">
-                                <TextBlock Text="{x:Static spp:Strings.GameTools_Cpu_GameTemplate}" TextWrapping="Wrap" />
-                            </Button>
-                            <Button Click="BackgroundRule_Click">
-                                <TextBlock Text="{x:Static spp:Strings.GameTools_Cpu_BackgroundTemplate}" TextWrapping="Wrap" />
-                            </Button>
+                                x:Name="RealtimeConfirm"
+                                Content="{x:Static spp:Strings.GameTools_Cpu_RealtimeConfirm}"
+                                IsChecked="{Binding RealtimeConfirmed, Mode=TwoWay}" />
                         </StackPanel>
+                        <WrapPanel ItemSpacing="8" LineSpacing="6">
+                            <Button
+                                Classes="accent"
+                                Click="Apply_Click"
+                                Content="{x:Static spp:Strings.GameTools_Cpu_Apply}" />
+                            <Button Click="Restore_Click" Content="{x:Static spp:Strings.GameTools_Cpu_Restore}" />
+                            <Button Click="Reload_Click" Content="{x:Static spp:Strings.GameTools_Cpu_RefreshEditor}" />
+                        </WrapPanel>
                     </StackPanel>
-                </ScrollViewer>
+                </StackPanel>
+
+                <Border
+                    x:Name="ProcessRules"
+                    VerticalAlignment="Top"
+                    Classes="schedulingCard"
+                    IsEnabled="{Binding CanEdit}">
+                    <StackPanel Spacing="8">
+                        <TextBlock
+                            Text="{x:Static spp:Strings.GameTools_Cpu_Rules}"
+                            Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                        <CheckBox x:Name="MatchFullPath" IsChecked="True" IsEnabled="{Binding CanMatchPath}">
+                            <TextBlock Text="{x:Static spp:Strings.GameTools_Cpu_MatchPath}" TextWrapping="Wrap" />
+                        </CheckBox>
+                        <Button Click="SaveRule_Click" Content="{x:Static spp:Strings.GameTools_Cpu_SaveRule}" />
+                        <TextBlock
+                            Margin="0,4,0,0"
+                            Classes="cpuDetail"
+                            Text="{x:Static spp:Strings.GameTools_Cpu_Templates}"
+                            TextWrapping="Wrap" />
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Click="GameRule_Click">
+                            <TextBlock Text="{x:Static spp:Strings.GameTools_Cpu_GameTemplate}" TextWrapping="Wrap" />
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Click="BackgroundRule_Click">
+                            <TextBlock Text="{x:Static spp:Strings.GameTools_Cpu_BackgroundTemplate}" TextWrapping="Wrap" />
+                        </Button>
+                    </StackPanel>
+                </Border>
             </Grid>
         </TabItem>
 
         <TabItem Header="{x:Static spp:Strings.GameTools_Cpu_Rules}">
-            <ScrollViewer Margin="0,8,0,0">
-                <StackPanel IsEnabled="{Binding RulesAreEditable}" Spacing="8">
-                    <CheckBox
-                        Click="DisableAll_Click"
-                        Content="{x:Static spp:Strings.GameTools_Cpu_DisableAll}"
-                        IsChecked="{Binding DisableAllRules, Mode=OneWay}" />
-                    <TextBlock Text="{x:Static spp:Strings.GameTools_Cpu_RuleHelp}" TextWrapping="Wrap" />
-                    <TextBlock IsVisible="{Binding HasNoRules}" Text="{x:Static spp:Strings.GameTools_Cpu_NoRules}" TextWrapping="Wrap" />
-                    <ItemsControl ItemsSource="{Binding Rules}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="spp:CpuRuleRow">
-                                <Grid Margin="0,4" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
-                                    <StackPanel>
-                                        <TextBlock FontWeight="SemiBold" Text="{Binding Name}" TextWrapping="Wrap" />
-                                        <TextBlock Text="{Binding Summary}" TextWrapping="Wrap" Theme="{StaticResource CaptionTextBlockStyle}" />
+            <StackPanel Margin="0,12,0,0" Spacing="8">
+                <Border Classes="schedulingCard">
+                    <StackPanel Spacing="6">
+                        <CheckBox
+                            Click="DisableAll_Click"
+                            Content="{x:Static spp:Strings.GameTools_Cpu_DisableAll}"
+                            IsChecked="{Binding DisableAllRules, Mode=OneWay}"
+                            IsEnabled="{Binding RulesAreEditable}" />
+                        <TextBlock
+                            Classes="cpuDetail"
+                            Text="{x:Static spp:Strings.GameTools_Cpu_RuleHelp}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+                <spp:Snackbar
+                    IsClosable="False"
+                    IsOpen="True"
+                    IsVisible="{Binding HasNoRules}"
+                    Message="{x:Static spp:Strings.GameTools_Cpu_NoRules}" />
+                <ItemsControl IsEnabled="{Binding RulesAreEditable}" ItemsSource="{Binding Rules}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Spacing="4" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="spp:CpuRuleRow">
+                            <Border Classes="schedulingCard">
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                    <StackPanel VerticalAlignment="Center" Spacing="4">
+                                        <TextBlock
+                                            IsVisible="{Binding !HasImagePath}"
+                                            Text="{Binding Name}"
+                                            TextWrapping="Wrap"
+                                            Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                        <spp:PathLink
+                                            IsVisible="{Binding HasImagePath}"
+                                            Path="{Binding ImagePath}" />
+                                        <TextBlock
+                                            Classes="cpuDetail"
+                                            Text="{Binding Summary}"
+                                            TextWrapping="Wrap"
+                                            Theme="{StaticResource CaptionTextBlockStyle}" />
                                     </StackPanel>
-                                    <Button Grid.Column="1" Click="ToggleRule_Click" Content="{Binding ToggleLabel}" />
-                                    <Button Grid.Column="2" Click="RemoveRule_Click" Content="{x:Static spp:Strings.GameTools_Cpu_RemoveRule}" />
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Spacing="6">
+                                        <Button Click="ToggleRule_Click" Content="{Binding ToggleLabel}" />
+                                        <Button
+                                            Click="RemoveRule_Click"
+                                            Content="{x:Static spp:Strings.GameTools_Cpu_RemoveRule}"
+                                            Foreground="{DynamicResource SystemFillColorCriticalBrush}" />
+                                    </StackPanel>
                                 </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </ScrollViewer>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
         </TabItem>
     </TabControl>
 </spp:PageBase>

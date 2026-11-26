@@ -5096,40 +5096,36 @@
 	<data name="LogConsole_CommandHint" xml:space="preserve"><value>输入指令，键入 / 查看建议</value></data>
 	<data name="Settings_Storage_AppFolder" xml:space="preserve"><value>程序目录</value></data>
 	<data name="Settings_Storage_OpenFolder" xml:space="preserve"><value>打开文件夹</value></data>
-	<data name="GameTools_Shader_Title" xml:space="preserve"><value>清理着色器缓存</value></data>
-	<data name="GameTools_Shader_Description" xml:space="preserve"><value>扫描并清理显卡驱动和 Steam 的着色器缓存。</value></data>
-	<data name="GameTools_Shader_Recompile" xml:space="preserve"><value>清理后，游戏会在首次启动时重新编译着色器，期间可能出现卡顿。</value></data>
+	<data name="GameTools_Shader_ClientRunning" xml:space="preserve"><value>请退出以下正在使用缓存的游戏平台或游戏，然后重试。&#10;&#10;{0}</value></data>
+	<data name="GameTools_Shader_ProductCache" xml:space="preserve"><value>{0} 缓存</value></data>
+	<data name="GameTools_Shader_Title" xml:space="preserve"><value>清理游戏缓存</value></data>
+	<data name="GameTools_Shader_Description" xml:space="preserve"><value>扫描并清理受支持的游戏平台、游戏和显卡着色器缓存。</value></data>
+	<data name="GameTools_Shader_Recompile" xml:space="preserve"><value>清理着色器缓存后，首次启动游戏可能因重新编译而卡顿。</value></data>
 	<data name="GameTools_Shader_Rescan" xml:space="preserve"><value>重新扫描</value></data>
-	<data name="GameTools_Shader_DryRun" xml:space="preserve"><value>仅预览</value></data>
-	<data name="GameTools_Shader_Preview" xml:space="preserve"><value>预览清理</value></data>
 	<data name="GameTools_Shader_Clean" xml:space="preserve"><value>清理所选</value></data>
 	<data name="GameTools_Shader_SelectAll" xml:space="preserve"><value>全选</value></data>
-	<data name="GameTools_Shader_SelectOld" xml:space="preserve"><value>选择超过指定天数的 Steam 游戏缓存</value></data>
-	<data name="GameTools_Shader_SelectLarge" xml:space="preserve"><value>选择大于指定 MB 的缓存</value></data>
-	<data name="GameTools_Shader_AgeDays" xml:space="preserve"><value>缓存保留天数</value></data>
-	<data name="GameTools_Shader_SizeMb" xml:space="preserve"><value>大小阈值（MB）</value></data>
+	<data name="GameTools_Shader_SelectOld" xml:space="preserve"><value>选择较旧的 Steam 着色器缓存</value></data>
+	<data name="GameTools_Shader_SelectLarge" xml:space="preserve"><value>选择较大的缓存</value></data>
+	<data name="GameTools_Shader_AgeDays" xml:space="preserve"><value>超过（天）</value></data>
+	<data name="GameTools_Shader_SizeMb" xml:space="preserve"><value>大于（MB）</value></data>
 	<data name="GameTools_Shader_Cache" xml:space="preserve"><value>缓存和路径</value></data>
 	<data name="GameTools_Shader_Size" xml:space="preserve"><value>大小</value></data>
 	<data name="GameTools_Shader_Files" xml:space="preserve"><value>文件数</value></data>
 	<data name="GameTools_Shader_LastModified" xml:space="preserve"><value>最后修改时间</value></data>
-	<data name="GameTools_Shader_BackToCaches" xml:space="preserve"><value>返回缓存列表</value></data>
-	<data name="GameTools_Shader_Empty" xml:space="preserve"><value>未找到着色器缓存。</value></data>
+	<data name="GameTools_Shader_Empty" xml:space="preserve"><value>未找到可显示的游戏缓存。</value></data>
 	<data name="GameTools_Shader_Total" xml:space="preserve"><value>缓存总大小 {0}。有 {1:N0} 个项目无法读取或已跳过。</value></data>
-	<data name="GameTools_Shader_Scanning" xml:space="preserve"><value>正在扫描着色器缓存…</value></data>
+	<data name="GameTools_Shader_Scanning" xml:space="preserve"><value>正在扫描游戏缓存…</value></data>
 	<data name="GameTools_Shader_ScanCancelled" xml:space="preserve"><value>已取消扫描。</value></data>
 	<data name="GameTools_Shader_ScanFailed" xml:space="preserve"><value>扫描失败。请查看应用日志。</value></data>
 	<data name="GameTools_Shader_Unavailable" xml:space="preserve"><value>不可读取</value></data>
-	<data name="GameTools_Shader_Previewing" xml:space="preserve"><value>正在准备清理预览…</value></data>
-	<data name="GameTools_Shader_PreviewSummary" xml:space="preserve"><value>预计可清理 {0}，共 {1:N0} 个文件。跳过 {2:N0} 个文件和 {3:N0} 个文件夹。</value></data>
 	<data name="GameTools_Shader_Confirm" xml:space="preserve"><value>确定清理所选缓存吗？扫描显示其总大小为 {0}。</value></data>
-	<data name="GameTools_Shader_SteamRunning" xml:space="preserve"><value>以下 Steam 进程正在运行。请关闭它们后再清理。&#10;&#10;{0}</value></data>
 	<data name="GameTools_Shader_DriverRunning" xml:space="preserve"><value>以下进程可能正在使用驱动缓存。建议先关闭它们。若要继续，请选择“清理所选”。&#10;&#10;{0}</value></data>
 	<data name="GameTools_Shader_ProcessChanged" xml:space="preserve"><value>确认后又发现可能使用驱动缓存的进程。请检查后重试。&#10;&#10;{0}</value></data>
-	<data name="GameTools_Shader_Cleaning" xml:space="preserve"><value>正在清理着色器缓存…</value></data>
-	<data name="GameTools_Shader_CleanupInProgress" xml:space="preserve"><value>正在从另一个页面清理着色器缓存。</value></data>
+	<data name="GameTools_Shader_Cleaning" xml:space="preserve"><value>正在清理游戏缓存…</value></data>
+	<data name="GameTools_Shader_CleanupInProgress" xml:space="preserve"><value>另一个页面正在清理游戏缓存。</value></data>
 	<data name="GameTools_Shader_CleanSummary" xml:space="preserve"><value>已释放 {0}。跳过 {1:N0} 个文件和 {2:N0} 个文件夹。</value></data>
 	<data name="GameTools_Shader_CleanFailed" xml:space="preserve"><value>操作失败。请查看应用日志。</value></data>
-	<data name="GameTools_Shader_SteamGame" xml:space="preserve"><value>Steam · {0}</value></data>
+	<data name="GameTools_Shader_SteamGame" xml:space="preserve"><value>Steam 着色器缓存 · {0}</value></data>
 	<data name="GameTools_Shader_SteamTemporary" xml:space="preserve"><value>Steam 临时着色器缓存</value></data>
 	<data name="GameTools_Win_Advanced" xml:space="preserve"><value>窗口控制</value></data>
 	<data name="GameTools_Win_Monitor" xml:space="preserve"><value>显示器</value></data>
@@ -5152,9 +5148,11 @@
 	<data name="GameTools_Win_PriorityBelowNormal" xml:space="preserve"><value>低于正常</value></data>
 	<data name="GameTools_Win_PriorityIdle" xml:space="preserve"><value>空闲</value></data>
 	<data name="GameTools_Win_Wallpaper" xml:space="preserve"><value>壁纸层</value></data>
-	<data name="GameTools_Win_WallpaperMouse" xml:space="preserve"><value>允许在壁纸上交互</value></data>
-	<data name="GameTools_Win_WallpaperKeyboard" xml:space="preserve"><value>桌面在前台时转发按键</value></data>
-	<data name="GameTools_Win_WallpaperHelp" xml:space="preserve"><value>在桌面空白处单击壁纸窗口即可选中键盘输入目标。需要完整焦点时，可以临时移出壁纸层。</value></data>
+	<data name="GameTools_Win_WallpaperMouse" xml:space="preserve"><value>允许壁纸接收鼠标输入</value></data>
+	<data name="GameTools_Win_WallpaperKeyboard" xml:space="preserve"><value>允许壁纸接收键盘输入</value></data>
+	<data name="GameTools_Win_WallpaperHelp" xml:space="preserve"><value>只开启键盘时，单击桌面空白处的壁纸窗口可将按键转发给它。</value></data>
+	<data name="GameTools_Win_WallpaperInteract" xml:space="preserve"><value>开始交互</value></data>
+	<data name="GameTools_Win_WallpaperInteractHelp" xml:space="preserve"><value>开启鼠标和键盘并关闭鼠标穿透后，单击桌面空白处的壁纸或选择“开始交互”。切换到其他窗口时，游戏自动返回壁纸层。</value></data>
 	<data name="GameTools_Win_AttachWallpaper" xml:space="preserve"><value>移至壁纸层</value></data>
 	<data name="GameTools_Win_PauseWallpaper" xml:space="preserve"><value>临时移出壁纸层</value></data>
 	<data name="GameTools_Win_ResumeWallpaper" xml:space="preserve"><value>放回壁纸层</value></data>
@@ -5198,8 +5196,12 @@
   <data name="GameTools_Cpu_Priority" xml:space="preserve">
     <value>优先级</value>
   </data>
+	<data name="GameTools_Cpu_PriorityHelp" xml:space="preserve"><value>影响进程在争用 CPU 时的调度优先级。</value></data>
+	<data name="GameTools_Cpu_EcoHelp" xml:space="preserve"><value>开启后优先考虑能效，关闭后取消节能限制，也可交由 Windows 决定。</value></data>
+	<data name="GameTools_Cpu_MemoryPriorityHelp" xml:space="preserve"><value>内存紧张时，低优先级的内存页更容易被回收。</value></data>
+	<data name="GameTools_Cpu_CoresHelp" xml:space="preserve"><value>选择进程可使用的逻辑处理器。可用预设或展开各核心组手动选择。</value></data>
   <data name="GameTools_Cpu_Affinity" xml:space="preserve">
-    <value>CPU 亲和性</value>
+    <value>CPU 核心</value>
   </data>
   <data name="GameTools_Cpu_Eco" xml:space="preserve">
     <value>EcoQoS</value>
@@ -5319,10 +5321,10 @@
     <value>无法从 Windows 读取 CPU 拓扑。</value>
   </data>
   <data name="GameTools_Cpu_MultiGroup" xml:space="preserve">
-    <value>硬亲和性编辑需要单个处理器组。此计算机的 CPU 网格为只读。</value>
+    <value>此设备有多个处理器组，只能查看 CPU 核心。</value>
   </data>
   <data name="GameTools_Cpu_Presets" xml:space="preserve">
-    <value>亲和性预设</value>
+    <value>核心预设</value>
   </data>
   <data name="GameTools_Cpu_AllCores" xml:space="preserve">
     <value>全部核心</value>
@@ -5414,162 +5416,177 @@
   <data name="GameTools_Cpu_RefreshFailed" xml:space="preserve">
     <value>无法刷新进程列表。</value>
   </data>
-  <data name="GameList_Cat_Title" xml:space="preserve"><value>分类</value></data>
-  <data name="GameList_Cat_New" xml:space="preserve"><value>新建分类</value></data>
-  <data name="GameList_Cat_Templates" xml:space="preserve"><value>从模板新建</value></data>
-  <data name="GameList_Cat_EmptyList" xml:space="preserve"><value>还没有分类。新建一个分类，或选择模板开始。</value></data>
-  <data name="GameList_Cat_EmptyEditor" xml:space="preserve"><value>选择或新建一个分类，即可编辑规则并预览匹配游戏。</value></data>
-  <data name="GameList_Cat_Name" xml:space="preserve"><value>分类名称</value></data>
-  <data name="GameList_Cat_Mode" xml:space="preserve"><value>分类模式</value></data>
-  <data name="GameList_Cat_Mode_Manual" xml:space="preserve"><value>手动</value></data>
-  <data name="GameList_Cat_Mode_Auto" xml:space="preserve"><value>自动</value></data>
-  <data name="GameList_Cat_Mode_Mixed" xml:space="preserve"><value>混合</value></data>
-  <data name="GameList_Cat_Save" xml:space="preserve"><value>保存分类</value></data>
-  <data name="GameList_Cat_Delete" xml:space="preserve"><value>删除分类</value></data>
-  <data name="GameList_Cat_DeleteConfirm" xml:space="preserve"><value>删除此分类及其已应用的成员记录？</value></data>
-  <data name="GameList_Cat_Saved" xml:space="preserve"><value>已保存分类。</value></data>
-  <data name="GameList_Cat_Deleted" xml:space="preserve"><value>已删除分类。</value></data>
-  <data name="GameList_Cat_EnterName" xml:space="preserve"><value>请输入分类名称。</value></data>
-  <data name="GameList_Cat_Import" xml:space="preserve"><value>导入 JSON</value></data>
-  <data name="GameList_Cat_Export" xml:space="preserve"><value>导出 JSON</value></data>
-  <data name="GameList_Cat_ImportConfirm" xml:space="preserve"><value>导入分类定义。同一 ID 的定义会被替换。</value></data>
-  <data name="GameList_Cat_Imported" xml:space="preserve"><value>已导入分类。</value></data>
-  <data name="GameList_Cat_ImportFailed" xml:space="preserve"><value>无法导入该分类文件。请检查 JSON 格式、版本和分类数量。</value></data>
-  <data name="GameList_Cat_Exported" xml:space="preserve"><value>已导出 JSON。</value></data>
-  <data name="GameList_Cat_RunAll" xml:space="preserve"><value>运行所有自动分类</value></data>
-  <data name="GameList_Cat_RunComplete" xml:space="preserve"><value>已运行 {0:N0} 个自动或混合分类。</value></data>
-  <data name="GameList_Cat_Refresh" xml:space="preserve"><value>刷新商店数据</value></data>
-  <data name="GameList_Cat_ReloadLibrary" xml:space="preserve"><value>重新读取本地库</value></data>
-  <data name="GameList_Cat_LibraryLoaded" xml:space="preserve"><value>已读取 {0:N0} 个本地库条目。</value></data>
-  <data name="GameList_Cat_EmptyLibrary" xml:space="preserve"><value>当前没有可刷新商店数据的游戏。</value></data>
-  <data name="GameList_Cat_Cancel" xml:space="preserve"><value>取消</value></data>
-  <data name="GameList_Cat_RefreshProgress" xml:space="preserve"><value>正在更新商店数据（{0:N0}/{1:N0}）</value></data>
-  <data name="GameList_Cat_RefreshComplete" xml:space="preserve"><value>已检查缓存。{0:N0} 个条目的商店数据仍不完整。</value></data>
-  <data name="GameList_Cat_RefreshCanceled" xml:space="preserve"><value>已取消刷新。下次将从已缓存的结果继续。</value></data>
-  <data name="GameList_Cat_RateLimited" xml:space="preserve"><value>Steam 限制了请求频率。已保留缓存，请稍后重试。</value></data>
-  <data name="GameList_Cat_RefreshUnavailable" xml:space="preserve"><value>部分商店数据当前不可用，已保留上次的缓存。</value></data>
-  <data name="GameList_Cat_LoadFailed" xml:space="preserve"><value>无法读取分类或本地库。</value></data>
-  <data name="GameList_Cat_OperationFailed" xml:space="preserve"><value>分类操作失败。请查看应用日志。</value></data>
-  <data name="GameList_Cat_Region" xml:space="preserve"><value>商店地区</value></data>
-  <data name="GameList_Cat_ApplyRegion" xml:space="preserve"><value>应用地区</value></data>
-  <data name="GameList_Cat_CurrencyDisplay" xml:space="preserve"><value>地区 {0} · 币种 {1}</value></data>
-  <data name="GameList_Cat_CurrencyUnknown" xml:space="preserve"><value>等待商店价格</value></data>
-  <data name="GameList_Cat_InvalidRegion" xml:space="preserve"><value>请输入两个英文字母的地区代码（例如 CN）。</value></data>
-  <data name="GameList_Cat_RegionSaved" xml:space="preserve"><value>已保存商店地区。</value></data>
-  <data name="GameList_Cat_Overrides" xml:space="preserve"><value>手动纳入和排除</value></data>
-  <data name="GameList_Cat_FindGame" xml:space="preserve"><value>搜索游戏名或 App ID</value></data>
-  <data name="GameList_Cat_Include" xml:space="preserve"><value>纳入</value></data>
-  <data name="GameList_Cat_Exclude" xml:space="preserve"><value>排除</value></data>
-  <data name="GameList_Cat_IncludedIds" xml:space="preserve"><value>纳入的 App ID（逗号分隔）</value></data>
-  <data name="GameList_Cat_ExcludedIds" xml:space="preserve"><value>排除的 App ID（逗号分隔）</value></data>
-  <data name="GameList_Cat_InvalidIds" xml:space="preserve"><value>请输入用逗号分隔的有效 Steam App ID。</value></data>
-  <data name="GameList_Cat_Rules" xml:space="preserve"><value>自动分类规则</value></data>
-  <data name="GameList_Cat_Group" xml:space="preserve"><value>组合方式</value></data>
-  <data name="GameList_Cat_Group_All" xml:space="preserve"><value>并且（AND）</value></data>
-  <data name="GameList_Cat_Group_Any" xml:space="preserve"><value>或者（OR）</value></data>
-  <data name="GameList_Cat_Group_Not" xml:space="preserve"><value>取反（NOT）</value></data>
-  <data name="GameList_Cat_AddCondition" xml:space="preserve"><value>添加条件</value></data>
-  <data name="GameList_Cat_AddGroup" xml:space="preserve"><value>添加规则组</value></data>
-  <data name="GameList_Cat_Remove" xml:space="preserve"><value>移除</value></data>
-  <data name="GameList_Cat_Field" xml:space="preserve"><value>字段</value></data>
-  <data name="GameList_Cat_Operator" xml:space="preserve"><value>运算符</value></data>
-  <data name="GameList_Cat_Value" xml:space="preserve"><value>值</value></data>
-  <data name="GameList_Cat_ValueList" xml:space="preserve"><value>多个值用逗号分隔</value></data>
-  <data name="GameList_Cat_MinValue" xml:space="preserve"><value>最小值</value></data>
-  <data name="GameList_Cat_MaxValue" xml:space="preserve"><value>最大值</value></data>
-  <data name="GameList_Cat_Days" xml:space="preserve"><value>天数</value></data>
-  <data name="GameList_Cat_FindTag" xml:space="preserve"><value>搜索或输入商店标签</value></data>
-  <data name="GameList_Cat_AddTag" xml:space="preserve"><value>添加标签</value></data>
-  <data name="GameList_Cat_ValueFormula" xml:space="preserve"><value>性价比分 = 好评率 ÷ (1 + 每小时价格)。每小时价格 = 当前地区价格 ÷ max(游玩小时数, 0.1)。请使用同一币种比较。</value></data>
-  <data name="GameList_Cat_Preview" xml:space="preserve"><value>匹配预览</value></data>
-  <data name="GameList_Cat_ManualMatch" xml:space="preserve"><value>手动纳入</value></data>
-  <data name="GameList_Cat_MatchCount" xml:space="preserve"><value>匹配 {0:N0} 个游戏</value></data>
-  <data name="GameList_Cat_NoMatches" xml:space="preserve"><value>没有匹配的游戏。缺少数据的条件无法匹配。</value></data>
-  <data name="GameList_Cat_Conflicts" xml:space="preserve"><value>分类冲突</value></data>
-  <data name="GameList_Cat_ConflictCount" xml:space="preserve"><value>{0:N0} 个游戏出现在多个已应用的分类中。</value></data>
-  <data name="GameList_Cat_NoConflicts" xml:space="preserve"><value>已应用的分类中没有重叠游戏。</value></data>
-  <data name="GameList_Cat_SteamPreview" xml:space="preserve"><value>Steam 合集导出预览</value></data>
-  <data name="GameList_Cat_SteamReadOnly" xml:space="preserve"><value>当前提供只读导出。可以复制或保存此分类及匹配的 Steam App ID。</value></data>
-  <data name="GameList_Cat_CopyJson" xml:space="preserve"><value>复制 JSON</value></data>
-  <data name="GameList_Cat_Copied" xml:space="preserve"><value>已将 JSON 复制到剪贴板。</value></data>
-  <data name="GameList_Cat_TemplateHiddenGems" xml:space="preserve"><value>高分冷门</value></data>
-  <data name="GameList_Cat_TemplateValue" xml:space="preserve"><value>高性价比</value></data>
-  <data name="GameList_Cat_TemplateBacklog" xml:space="preserve"><value>买了没玩</value></data>
-  <data name="GameList_Cat_TemplateShort" xml:space="preserve"><value>短流程游戏</value></data>
-  <data name="GameList_Cat_TemplateChinese" xml:space="preserve"><value>支持简体中文的单人游戏</value></data>
-  <data name="GameList_Cat_TemplateDeck" xml:space="preserve"><value>Steam Deck 可玩</value></data>
-  <data name="GameList_Cat_Op_Equal" xml:space="preserve"><value>等于 (=)</value></data>
-  <data name="GameList_Cat_Op_NotEqual" xml:space="preserve"><value>不等于 (≠)</value></data>
-  <data name="GameList_Cat_Op_GreaterThan" xml:space="preserve"><value>大于 (&gt;)</value></data>
-  <data name="GameList_Cat_Op_AtLeast" xml:space="preserve"><value>至少 (≥)</value></data>
-  <data name="GameList_Cat_Op_LessThan" xml:space="preserve"><value>小于 (&lt;)</value></data>
-  <data name="GameList_Cat_Op_AtMost" xml:space="preserve"><value>最多 (≤)</value></data>
-  <data name="GameList_Cat_Op_Between" xml:space="preserve"><value>介于（含端点）</value></data>
-  <data name="GameList_Cat_Op_Contains" xml:space="preserve"><value>包含</value></data>
-  <data name="GameList_Cat_Op_In" xml:space="preserve"><value>属于下列任一项</value></data>
-  <data name="GameList_Cat_Op_HasTag" xml:space="preserve"><value>具有标签</value></data>
-  <data name="GameList_Cat_Op_HasAny" xml:space="preserve"><value>包含任一项</value></data>
-  <data name="GameList_Cat_Op_HasAll" xml:space="preserve"><value>包含全部</value></data>
-  <data name="GameList_Cat_Op_IsEmpty" xml:space="preserve"><value>为空</value></data>
-  <data name="GameList_Cat_Op_WithinDays" xml:space="preserve"><value>最近 N 天内</value></data>
-  <data name="GameList_Cat_Op_OlderThanDays" xml:space="preserve"><value>超过 N 天</value></data>
-  <data name="GameList_Cat_Field_PlaytimeMinutes" xml:space="preserve"><value>游玩时长（分钟）</value></data>
-  <data name="GameList_Cat_Field_RecentPlaytimeMinutes" xml:space="preserve"><value>近两周游玩时长（分钟）</value></data>
-  <data name="GameList_Cat_Field_LastPlayed" xml:space="preserve"><value>上次游玩日期</value></data>
-  <data name="GameList_Cat_Field_OwnedSince" xml:space="preserve"><value>取得日期（如可用）</value></data>
-  <data name="GameList_Cat_Field_Installed" xml:space="preserve"><value>已安装</value></data>
-  <data name="GameList_Cat_Field_SizeOnDisk" xml:space="preserve"><value>磁盘占用（GiB）</value></data>
-  <data name="GameList_Cat_Field_Hidden" xml:space="preserve"><value>已隐藏</value></data>
-  <data name="GameList_Cat_Field_Favourite" xml:space="preserve"><value>已收藏</value></data>
-  <data name="GameList_Cat_Field_AchievementCompletion" xml:space="preserve"><value>本体成就完成率（%）</value></data>
-  <data name="GameList_Cat_Field_AchievementCount" xml:space="preserve"><value>成就总数</value></data>
-  <data name="GameList_Cat_Field_FamilyShared" xml:space="preserve"><value>来自家庭共享</value></data>
-  <data name="GameList_Cat_Field_Type" xml:space="preserve"><value>应用类型</value></data>
-  <data name="GameList_Cat_Field_Platforms" xml:space="preserve"><value>支持的操作系统</value></data>
-  <data name="GameList_Cat_Field_Price" xml:space="preserve"><value>当前价格</value></data>
-  <data name="GameList_Cat_Field_OriginalPrice" xml:space="preserve"><value>原价</value></data>
-  <data name="GameList_Cat_Field_Discount" xml:space="preserve"><value>折扣（%）</value></data>
-  <data name="GameList_Cat_Field_PricePerHour" xml:space="preserve"><value>每小时价格</value></data>
-  <data name="GameList_Cat_Field_ValueRating" xml:space="preserve"><value>性价比分</value></data>
-  <data name="GameList_Cat_Field_Free" xml:space="preserve"><value>免费游玩</value></data>
-  <data name="GameList_Cat_Field_ReleaseYear" xml:space="preserve"><value>发行年份</value></data>
-  <data name="GameList_Cat_Field_Genres" xml:space="preserve"><value>游戏类型</value></data>
-  <data name="GameList_Cat_Field_Tags" xml:space="preserve"><value>商店用户标签</value></data>
-  <data name="GameList_Cat_Field_TagCount" xml:space="preserve"><value>商店用户标签数</value></data>
-  <data name="GameList_Cat_Field_Developer" xml:space="preserve"><value>开发商</value></data>
-  <data name="GameList_Cat_Field_Publisher" xml:space="preserve"><value>发行商</value></data>
-  <data name="GameList_Cat_Field_ReviewScore" xml:space="preserve"><value>好评率（%）</value></data>
-  <data name="GameList_Cat_Field_ReviewCount" xml:space="preserve"><value>评测总数</value></data>
-  <data name="GameList_Cat_Field_ReviewTier" xml:space="preserve"><value>评测等级</value></data>
-  <data name="GameList_Cat_Field_Metacritic" xml:space="preserve"><value>Metacritic 评分</value></data>
-  <data name="GameList_Cat_Field_DeckStatus" xml:space="preserve"><value>Steam Deck 兼容状态</value></data>
-  <data name="GameList_Cat_Field_Controller" xml:space="preserve"><value>手柄支持</value></data>
-  <data name="GameList_Cat_Field_Languages" xml:space="preserve"><value>支持语言</value></data>
-  <data name="GameList_Cat_Field_Singleplayer" xml:space="preserve"><value>支持单人</value></data>
-  <data name="GameList_Cat_Field_Multiplayer" xml:space="preserve"><value>支持多人</value></data>
-  <data name="GameList_Cat_Choice_true" xml:space="preserve"><value>是</value></data>
-  <data name="GameList_Cat_Choice_false" xml:space="preserve"><value>否</value></data>
-  <data name="GameList_Cat_Choice_Type_game" xml:space="preserve"><value>游戏</value></data>
-  <data name="GameList_Cat_Choice_Type_dlc" xml:space="preserve"><value>DLC</value></data>
-  <data name="GameList_Cat_Choice_Type_application" xml:space="preserve"><value>软件</value></data>
-  <data name="GameList_Cat_Choice_Type_tool" xml:space="preserve"><value>工具</value></data>
-  <data name="GameList_Cat_Choice_Type_demo" xml:space="preserve"><value>试玩</value></data>
-  <data name="GameList_Cat_Choice_Type_other" xml:space="preserve"><value>其他</value></data>
-  <data name="GameList_Cat_Choice_DeckStatus_verified" xml:space="preserve"><value>已验证</value></data>
-  <data name="GameList_Cat_Choice_DeckStatus_playable" xml:space="preserve"><value>可玩</value></data>
-  <data name="GameList_Cat_Choice_DeckStatus_unsupported" xml:space="preserve"><value>不支持</value></data>
-  <data name="GameList_Cat_Choice_DeckStatus_untested" xml:space="preserve"><value>未测试</value></data>
-  <data name="GameList_Cat_Choice_Controller_full" xml:space="preserve"><value>完全支持</value></data>
-  <data name="GameList_Cat_Choice_Controller_partial" xml:space="preserve"><value>部分支持</value></data>
-  <data name="GameList_Cat_Choice_Controller_none" xml:space="preserve"><value>无</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_9" xml:space="preserve"><value>好评如潮</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_8" xml:space="preserve"><value>特别好评</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_7" xml:space="preserve"><value>好评</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_6" xml:space="preserve"><value>多半好评</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_5" xml:space="preserve"><value>褒贬不一</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_4" xml:space="preserve"><value>多半差评</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_3" xml:space="preserve"><value>差评</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_2" xml:space="preserve"><value>特别差评</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_1" xml:space="preserve"><value>差评如潮</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_0" xml:space="preserve"><value>暂无评测等级</value></data>
+  <data name="GameList_Saves_PageTitle" xml:space="preserve"><value>存档管理</value></data>
+  <data name="GameList_Saves_FilterSettings" xml:space="preserve"><value>筛选与设置</value></data>
+  <data name="GameList_Saves_BackupSettings" xml:space="preserve"><value>备份设置</value></data>
+  <data name="GameList_Saves_BatchSelection" xml:space="preserve"><value>批量选择</value></data>
+  <data name="GameList_Saves_FilterWithSavesOrScreenshots" xml:space="preserve"><value>有存档或截图</value></data>
+  <data name="GameList_Saves_FilterWithScreenshots" xml:space="preserve"><value>仅有 Steam 截图</value></data>
+  <data name="GameList_Saves_SortOccupiedSize" xml:space="preserve"><value>总占用大小 ↓</value></data>
+  <data name="GameList_Saves_SortSaveSize" xml:space="preserve"><value>存档大小 ↓</value></data>
+  <data name="GameList_Saves_SortScreenshotSize" xml:space="preserve"><value>截图大小 ↓</value></data>
+  <data name="GameList_Saves_SortRecent" xml:space="preserve"><value>最近修改 ↓</value></data>
+  <data name="GameList_Saves_SortNameAscending" xml:space="preserve"><value>游戏名称 A-Z</value></data>
+  <data name="GameList_Saves_ExpandAll" xml:space="preserve"><value>全部展开</value></data>
+  <data name="GameList_Saves_CollapseAll" xml:space="preserve"><value>全部折叠</value></data>
+  <data name="GameList_Saves_Expand" xml:space="preserve"><value>展开</value></data>
+  <data name="GameList_Saves_Collapse" xml:space="preserve"><value>折叠</value></data>
+  <data name="GameList_Saves_GameSaves" xml:space="preserve"><value>游戏存档</value></data>
+  <data name="GameList_Saves_LocalSaves" xml:space="preserve"><value>本地存档</value></data>
+  <data name="GameList_Saves_SteamScreenshots" xml:space="preserve"><value>Steam 截图</value></data>
+  <data name="GameList_Saves_LocalBackups" xml:space="preserve"><value>本地备份</value></data>
+  <data name="GameList_Saves_SavesLegendCount" xml:space="preserve"><value>{0} 款 · {1} 个文件</value></data>
+  <data name="GameList_Saves_ScreenshotsLegendCount" xml:space="preserve"><value>{0} 款 · {1} 张</value></data>
+  <data name="GameList_Saves_BackupsLegendCount" xml:space="preserve"><value>{0} 份</value></data>
+  <data name="GameList_Saves_OverviewAccountPath" xml:space="preserve"><value>{0} · {1}</value></data>
+  <data name="GameList_Saves_OverviewSteam" xml:space="preserve"><value>STEAM</value></data>
+  <data name="GameList_Saves_OverviewGameCount" xml:space="preserve"><value>共 {0:N0} 款游戏（{1:N0} 款有存档或截图）</value></data>
+  <data name="GameList_Saves_ScanInstalledProgress" xml:space="preserve"><value>正在扫描已安装游戏 ({0}/{1})…</value></data>
+  <data name="GameList_Saves_ScanBackgroundProgress" xml:space="preserve"><value>后台扫描未安装游戏 ({0}/{1})…</value></data>
+  <data name="GameList_Saves_Stop" xml:space="preserve"><value>停止</value></data>
+  <data name="GameList_Saves_More" xml:space="preserve"><value>更多</value></data>
+  <data name="GameList_Saves_OpenSteamScreenshotsFolder" xml:space="preserve"><value>打开 Steam 截图目录</value></data>
+  <data name="GameList_Saves_OpenScreenshotFolder" xml:space="preserve"><value>打开截图文件夹</value></data>
+  <data name="GameList_Saves_OpenScreenshot" xml:space="preserve"><value>打开截图</value></data>
+  <data name="GameList_Saves_OpenScreenshotFailed" xml:space="preserve"><value>无法打开截图。</value></data>
+  <data name="GameList_Saves_SelectedGames" xml:space="preserve"><value>已选 {0} 款</value></data>
+  <data name="GameList_Saves_CancelSelection" xml:space="preserve"><value>取消选择</value></data>
+  <data name="GameList_Saves_CardMetadata" xml:space="preserve"><value>AppID {0} · 存档 {1} · 截图 {2}（{3} 张）</value></data>
+  <data name="GameList_Saves_ViewScreenshot" xml:space="preserve"><value>查看</value></data>
+  <data name="GameList_Saves_ScreenshotSizeAndCount" xml:space="preserve"><value>{0} · {1} 张</value></data>
+  <data name="GameList_Saves_ShowMoreFiles" xml:space="preserve"><value>再显示 {0} 项…</value></data>
+  <data name="GameList_Saves_ShowMoreScreenshots" xml:space="preserve"><value>再显示 {0} 张…</value></data>
+  <data name="GameList_Saves_FileTreeFailed" xml:space="preserve"><value>无法读取文件树。</value></data>
+  <data name="GameList_Saves_SettingsSaveFailed" xml:space="preserve"><value>无法保存存档设置。</value></data>
+  <data name="GameList_Saves_SaveFolderMenuItem" xml:space="preserve"><value>存档 · {0}</value></data>
+  <data name="GameList_Saves_ScreenshotFolderMenuItem" xml:space="preserve"><value>Steam 截图 · {0}</value></data>
+  <data name="GameList_Saves_CopyComplete" xml:space="preserve"><value>已复制 {0} 款游戏的存档。</value></data>
+  <data name="GameList_Saves_CopyPartial" xml:space="preserve"><value>已复制 {0} 款游戏的存档，{1} 款复制失败。</value></data>
+  <data name="GameList_Saves_CopyFailed" xml:space="preserve"><value>无法复制游戏存档。</value></data>
+  <data name="GameList_Saves_Title" xml:space="preserve"><value>存档</value></data>
+  <data name="GameList_Saves_Description" xml:space="preserve"><value>管理已读取 Steam 游戏的本地存档，统计占用空间并支持备份与快速还原。</value></data>
+  <data name="GameList_Saves_Rescan" xml:space="preserve"><value>重新扫描</value></data>
+  <data name="GameList_Saves_Cancel" xml:space="preserve"><value>取消</value></data>
+  <data name="GameList_Saves_ChangeBackupFolder" xml:space="preserve"><value>更改备份目录</value></data>
+  <data name="GameList_Saves_OpenBackupFolder" xml:space="preserve"><value>打开备份目录</value></data>
+  <data name="GameList_Saves_DiscoveredGames" xml:space="preserve"><value>发现存档游戏</value></data>
+  <data name="GameList_Saves_SavesSize" xml:space="preserve"><value>存档总占用</value></data>
+  <data name="GameList_Saves_BackupSnapshots" xml:space="preserve"><value>本地备份快照</value></data>
+  <data name="GameList_Saves_CurrentBackupFolder" xml:space="preserve"><value>当前备份目录</value></data>
+  <data name="GameList_Saves_DiscoveredFormat" xml:space="preserve"><value>{0} / {1}</value></data>
+  <data name="GameList_Saves_SnapshotMetrics" xml:space="preserve"><value>{0} 份 · {1}</value></data>
+  <data name="GameList_Saves_Change" xml:space="preserve"><value>更改</value></data>
+  <data name="GameList_Saves_Open" xml:space="preserve"><value>打开</value></data>
+  <data name="GameList_Saves_Search" xml:space="preserve"><value>搜索游戏名称或 App ID...</value></data>
+  <data name="GameList_Saves_Account" xml:space="preserve"><value>Steam 账号</value></data>
+  <data name="GameList_Saves_RefreshAccounts" xml:space="preserve"><value>刷新账号</value></data>
+  <data name="GameList_Saves_RefreshAccountsFailed" xml:space="preserve"><value>无法刷新 Steam 账号。</value></data>
+  <data name="GameList_Saves_BackUp" xml:space="preserve"><value>备份</value></data>
+  <data name="GameList_Saves_Filter" xml:space="preserve"><value>筛选游戏</value></data>
+  <data name="GameList_Saves_Sort" xml:space="preserve"><value>排序</value></data>
+  <data name="GameList_Saves_FilterWithSaves" xml:space="preserve"><value>仅有本地存档</value></data>
+  <data name="GameList_Saves_FilterAll" xml:space="preserve"><value>全部已读取游戏</value></data>
+  <data name="GameList_Saves_FilterInstalled" xml:space="preserve"><value>仅已安装</value></data>
+  <data name="GameList_Saves_FilterWithBackups" xml:space="preserve"><value>已有备份</value></data>
+  <data name="GameList_Saves_SortSize" xml:space="preserve"><value>存档大小（从大到小）</value></data>
+  <data name="GameList_Saves_SortModified" xml:space="preserve"><value>最近修改时间</value></data>
+  <data name="GameList_Saves_SortName" xml:space="preserve"><value>游戏名称</value></data>
+  <data name="GameList_Saves_SelectAll" xml:space="preserve"><value>全选有存档游戏</value></data>
+  <data name="GameList_Saves_ClearSelection" xml:space="preserve"><value>清空选择</value></data>
+  <data name="GameList_Saves_BatchBackup" xml:space="preserve"><value>批量备份</value></data>
+  <data name="GameList_Saves_BatchBackupCount" xml:space="preserve"><value>批量备份所选（{0}）</value></data>
+  <data name="GameList_Saves_BatchCopy" xml:space="preserve"><value>复制到其他路径...</value></data>
+  <data name="GameList_Saves_FilteredSummary" xml:space="preserve"><value>共 {0} 款游戏 · {1}</value></data>
+  <data name="GameList_Saves_EmptyGames" xml:space="preserve"><value>未发现 Steam 游戏</value></data>
+  <data name="GameList_Saves_EmptyGamesHint" xml:space="preserve"><value>确认 Steam 已安装且游戏库可访问，然后重新扫描。</value></data>
+  <data name="GameList_Saves_EmptyFilter" xml:space="preserve"><value>没有符合条件的游戏</value></data>
+  <data name="GameList_Saves_EmptyFilterHint" xml:space="preserve"><value>可更改筛选条件或清空搜索。</value></data>
+  <data name="GameList_Saves_SelectGame" xml:space="preserve"><value>选择左侧游戏查看存档路径、占用大小并执行备份或还原。</value></data>
+  <data name="GameList_Saves_BackupBadge" xml:space="preserve"><value>已备份 {0} 份</value></data>
+  <data name="GameList_Saves_CloudCache" xml:space="preserve"><value>云缓存</value></data>
+  <data name="GameList_Saves_AppId" xml:space="preserve"><value>AppID {0}</value></data>
+  <data name="GameList_Saves_GameMetadata" xml:space="preserve"><value>AppID {0} · {1} · {2} 个文件 · {3}</value></data>
+  <data name="GameList_Saves_FileMetadata" xml:space="preserve"><value>{0} · {1} 个文件 · {2}</value></data>
+  <data name="GameList_Saves_SizeAndFiles" xml:space="preserve"><value>{0} · {1} 个文件</value></data>
+  <data name="GameList_Saves_LocationCount" xml:space="preserve"><value>{0} 个位置</value></data>
+  <data name="GameList_Saves_NoLocations" xml:space="preserve"><value>暂无已知存档位置</value></data>
+  <data name="GameList_Saves_Unavailable" xml:space="preserve"><value>--</value></data>
+  <data name="GameList_Saves_Installed" xml:space="preserve"><value>已安装</value></data>
+  <data name="GameList_Saves_NotInstalled" xml:space="preserve"><value>未安装</value></data>
+  <data name="GameList_Saves_QuickBackup" xml:space="preserve"><value>一键备份</value></data>
+  <data name="GameList_Saves_QuickBackupHint" xml:space="preserve"><value>一键备份到当前备份目录</value></data>
+  <data name="GameList_Saves_BackupElsewhere" xml:space="preserve"><value>备份到其他路径...</value></data>
+  <data name="GameList_Saves_OpenSaveFolder" xml:space="preserve"><value>打开存档文件夹</value></data>
+  <data name="GameList_Saves_ChooseSaveFolder" xml:space="preserve"><value>选择要打开的存档文件夹</value></data>
+  <data name="GameList_Saves_RestoreExternal" xml:space="preserve"><value>从外部路径还原...</value></data>
+  <data name="GameList_Saves_Locations" xml:space="preserve"><value>存档位置与大小</value></data>
+  <data name="GameList_Saves_SourceRule" xml:space="preserve"><value>Steam 规则</value></data>
+  <data name="GameList_Saves_SourceCloud" xml:space="preserve"><value>Steam 云本地目录</value></data>
+  <data name="GameList_Saves_Recursive" xml:space="preserve"><value>递归</value></data>
+  <data name="GameList_Saves_Pattern" xml:space="preserve"><value>匹配 {0}</value></data>
+  <data name="GameList_Saves_PathUnresolved" xml:space="preserve"><value>无法解析存档路径</value></data>
+  <data name="GameList_Saves_LocationMissing" xml:space="preserve"><value>未找到</value></data>
+  <data name="GameList_Saves_LocationEmpty" xml:space="preserve"><value>空目录</value></data>
+  <data name="GameList_Saves_LocationDenied" xml:space="preserve"><value>无法访问</value></data>
+  <data name="GameList_Saves_LocationUnresolved" xml:space="preserve"><value>路径未解析</value></data>
+  <data name="GameList_Saves_OpenFolder" xml:space="preserve"><value>打开文件夹</value></data>
+  <data name="GameList_Saves_CopyPath" xml:space="preserve"><value>复制路径</value></data>
+  <data name="GameList_Saves_Backups" xml:space="preserve"><value>备份记录与快速还原</value></data>
+  <data name="GameList_Saves_SnapshotCount" xml:space="preserve"><value>{0} 份快照</value></data>
+  <data name="GameList_Saves_Refresh" xml:space="preserve"><value>刷新</value></data>
+  <data name="GameList_Saves_EmptyBackups" xml:space="preserve"><value>暂无此游戏的本地备份，点击上方「一键备份」创建。</value></data>
+  <data name="GameList_Saves_AutoBackupBadge" xml:space="preserve"><value>还原前自动备份</value></data>
+  <data name="GameList_Saves_QuickRestore" xml:space="preserve"><value>快速还原</value></data>
+  <data name="GameList_Saves_Delete" xml:space="preserve"><value>删除</value></data>
+  <data name="GameList_Saves_RestoreTitle" xml:space="preserve"><value>还原游戏存档</value></data>
+  <data name="GameList_Saves_RestoreWarning" xml:space="preserve"><value>还原前请关闭游戏并完成 Steam 云同步。还原会覆盖目标位置中的同名文件。</value></data>
+  <data name="GameList_Saves_RestoreSnapshotInfo" xml:space="preserve"><value>{0} · 备份于 {1}</value></data>
+  <data name="GameList_Saves_RestoreTargets" xml:space="preserve"><value>还原到以下目录</value></data>
+  <data name="GameList_Saves_RestoreSource" xml:space="preserve"><value>来源目录</value></data>
+  <data name="GameList_Saves_RestoreChooseTarget" xml:space="preserve"><value>选择要还原到的存档目录</value></data>
+  <data name="GameList_Saves_RestoreAutoBackup" xml:space="preserve"><value>还原前自动备份当前存档</value></data>
+  <data name="GameList_Saves_RestoreConfirm" xml:space="preserve"><value>还原</value></data>
+  <data name="GameList_Saves_RestoreNoTarget" xml:space="preserve"><value>此游戏没有可用于还原的存档目录。</value></data>
+  <data name="GameList_Saves_SnapshotInvalid" xml:space="preserve"><value>所选备份快照无效或格式不受支持。</value></data>
+  <data name="GameList_Saves_SnapshotWrongGame" xml:space="preserve"><value>所选快照属于其他游戏。</value></data>
+  <data name="GameList_Saves_DeleteTitle" xml:space="preserve"><value>删除本地备份</value></data>
+  <data name="GameList_Saves_DeleteConfirm" xml:space="preserve"><value>要永久删除「{0}」在 {1} 创建的备份吗？</value></data>
+  <data name="GameList_Saves_Scanning" xml:space="preserve"><value>正在读取 Steam 游戏和存档位置…</value></data>
+  <data name="GameList_Saves_ScanningProgress" xml:space="preserve"><value>正在扫描 {0} / {1} · {2}</value></data>
+  <data name="GameList_Saves_ScanCancelled" xml:space="preserve"><value>已取消扫描。</value></data>
+  <data name="GameList_Saves_ScanFinished" xml:space="preserve"><value>已扫描 {0} 款游戏，找到 {1} 款有本地存档。</value></data>
+  <data name="GameList_Saves_ScanFailed" xml:space="preserve"><value>无法扫描游戏存档。</value></data>
+  <data name="GameList_Saves_BackingUp" xml:space="preserve"><value>正在备份游戏存档…</value></data>
+  <data name="GameList_Saves_BackupProgress" xml:space="preserve"><value>已处理 {0} / {1} 款游戏 · {2}</value></data>
+  <data name="GameList_Saves_BackupComplete" xml:space="preserve"><value>已备份 {0} 款游戏的存档。</value></data>
+  <data name="GameList_Saves_BackupPartial" xml:space="preserve"><value>已备份 {0} 款游戏，{1} 款备份失败。</value></data>
+  <data name="GameList_Saves_BackupFailed" xml:space="preserve"><value>无法备份游戏存档。</value></data>
+  <data name="GameList_Saves_OperationWarnings" xml:space="preserve"><value>操作已完成，但部分文件需要检查。</value></data>
+  <data name="GameList_Saves_Restoring" xml:space="preserve"><value>正在还原游戏存档…</value></data>
+  <data name="GameList_Saves_RestoreComplete" xml:space="preserve"><value>已还原 {0} 个存档文件。</value></data>
+  <data name="GameList_Saves_RestoreFailed" xml:space="preserve"><value>无法还原游戏存档。</value></data>
+  <data name="GameList_Saves_RestorePartial" xml:space="preserve"><value>还原已停止，已写入 {0} 个存档文件。</value></data>
+  <data name="GameList_Saves_Refreshing" xml:space="preserve"><value>正在读取本地备份…</value></data>
+  <data name="GameList_Saves_RefreshComplete" xml:space="preserve"><value>已刷新备份记录。</value></data>
+  <data name="GameList_Saves_RefreshFailed" xml:space="preserve"><value>无法刷新备份记录。</value></data>
+  <data name="GameList_Saves_Deleting" xml:space="preserve"><value>正在删除备份…</value></data>
+  <data name="GameList_Saves_DeleteComplete" xml:space="preserve"><value>已删除备份。</value></data>
+  <data name="GameList_Saves_DeleteFailed" xml:space="preserve"><value>无法删除备份。</value></data>
+  <data name="GameList_Saves_BackupFolderUpdated" xml:space="preserve"><value>已更改备份目录。</value></data>
+  <data name="GameList_Saves_BackupFolderFailed" xml:space="preserve"><value>无法更改备份目录。</value></data>
+  <data name="GameList_Saves_OpenFolderFailed" xml:space="preserve"><value>无法打开文件夹。</value></data>
+  <data name="GameList_Saves_FolderPickerFailed" xml:space="preserve"><value>无法选择本地文件夹。</value></data>
+  <data name="GameList_Saves_PathCopied" xml:space="preserve"><value>已复制路径。</value></data>
+  <data name="GameList_Saves_CopyPathFailed" xml:space="preserve"><value>无法复制路径。</value></data>
+  <data name="GameList_Saves_ConfirmationFailed" xml:space="preserve"><value>无法显示确认对话框。</value></data>
+  <data name="GameList_Saves_DateTimeFormat" xml:space="preserve"><value>yyyy-MM-dd HH:mm:ss</value></data>
+  <data name="GameList_Saves_BytesFormat" xml:space="preserve"><value>{0} B</value></data>
+  <data name="GameList_Saves_KilobytesFormat" xml:space="preserve"><value>{0:0.##} KB</value></data>
+  <data name="GameList_Saves_MegabytesFormat" xml:space="preserve"><value>{0:0.##} MB</value></data>
+  <data name="GameList_Saves_GigabytesFormat" xml:space="preserve"><value>{0:0.##} GB</value></data>
+  <data name="GameList_Saves_TerabytesFormat" xml:space="preserve"><value>{0:0.##} TB</value></data>
+  <data name="GameTools_Cpu_PerformanceCores" xml:space="preserve"><value>性能核（P 核）</value></data>
+  <data name="GameTools_Cpu_EfficiencyCores" xml:space="preserve"><value>能效核（E 核）</value></data>
+  <data name="GameTools_Cpu_ChooseProcess" xml:space="preserve"><value>选择进程</value></data>
+  <data name="GameTools_Cpu_Description" xml:space="preserve"><value>调整进程优先级、CPU 核心和自动调度规则。</value></data>
 </root>

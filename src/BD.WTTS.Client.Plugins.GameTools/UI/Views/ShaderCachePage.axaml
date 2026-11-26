@@ -1,106 +1,163 @@
 <spp:PageBase
-    x:Class="BD.WTTS.UI.Views.Pages.ShaderCachePage"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:spp="https://steampp.net/ui"
-    x:DataType="spp:ShaderCachePageViewModel"
-    Title="{x:Static spp:Strings.GameTools_Shader_Title}"
-    Description="{x:Static spp:Strings.GameTools_Shader_Description}">
-    <StackPanel Margin="12" Spacing="12">
-        <TextBlock
-            Text="{x:Static spp:Strings.GameTools_Shader_Recompile}"
-            TextWrapping="Wrap" />
+	x:Class="BD.WTTS.UI.Views.Pages.ShaderCachePage"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:s="https://steampp.net/services"
+	xmlns:spp="https://steampp.net/ui"
+	xmlns:ui="using:FluentAvalonia.UI.Controls"
+	x:CompileBindings="True"
+	x:DataType="spp:ShaderCachePageViewModel"
+	Title="{x:Static spp:Strings.GameTools_Shader_Title}"
+	Description="{x:Static spp:Strings.GameTools_Shader_Description}"
+	Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}">
+	<spp:PageBase.PreviewImage>
+		<ui:FAImageIconSource Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/trash.png" />
+	</spp:PageBase.PreviewImage>
 
-        <WrapPanel Orientation="Horizontal" ItemSpacing="8" LineSpacing="6">
-            <Button
-                Click="Rescan_Click"
-                Content="{x:Static spp:Strings.GameTools_Shader_Rescan}"
-                IsEnabled="{Binding !IsBusy}" />
-            <Button
-                Click="CancelScan_Click"
-                Content="{x:Static spp:Strings.Cancel}"
-                IsVisible="{Binding IsScanning}" />
-            <CheckBox
-                Content="{x:Static spp:Strings.GameTools_Shader_DryRun}"
-                IsChecked="{Binding DryRun, Mode=TwoWay}"
-                IsEnabled="{Binding !IsBusy}" />
-            <Button
-                Classes="accent"
-                Click="Clean_Click"
-                Content="{Binding CleanActionText}"
-                IsEnabled="{Binding CanClean}" />
-        </WrapPanel>
+	<spp:PageBase.ActionContent>
+		<StackPanel Orientation="Horizontal" Spacing="4">
+			<Button
+				Click="Rescan_Click"
+				Content="{x:Static spp:Strings.GameTools_Shader_Rescan}"
+				IsEnabled="{Binding !IsBusy}"
+				IsVisible="{Binding !IsScanning}"
+				Theme="{StaticResource TransparentButton}" />
+			<Button
+				Click="CancelScan_Click"
+				Content="{x:Static spp:Strings.Cancel}"
+				IsVisible="{Binding IsScanning}"
+				Theme="{StaticResource TransparentButton}" />
+		</StackPanel>
+	</spp:PageBase.ActionContent>
 
-        <WrapPanel IsEnabled="{Binding !IsBusy}" IsVisible="{Binding !ShowingPreview}"
-                   Orientation="Horizontal" ItemSpacing="8" LineSpacing="6">
-            <Button Click="SelectAll_Click" Content="{x:Static spp:Strings.GameTools_Shader_SelectAll}" />
-            <StackPanel Orientation="Horizontal" Spacing="4">
-                <NumericUpDown
-                    Width="96" Minimum="0" Maximum="36500" FormatString="0"
-                    AutomationProperties.Name="{x:Static spp:Strings.GameTools_Shader_AgeDays}"
-                    Value="{Binding MinimumAgeDays, Mode=TwoWay}" />
-                <Button Click="SelectOld_Click" Content="{x:Static spp:Strings.GameTools_Shader_SelectOld}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="4">
-                <NumericUpDown
-                    Width="96" Minimum="0" Maximum="1000000" FormatString="0"
-                    AutomationProperties.Name="{x:Static spp:Strings.GameTools_Shader_SizeMb}"
-                    Value="{Binding MinimumSizeMb, Mode=TwoWay}" />
-                <Button Click="SelectLarge_Click" Content="{x:Static spp:Strings.GameTools_Shader_SelectLarge}" />
-            </StackPanel>
-        </WrapPanel>
+	<spp:PageBase.Styles>
+		<Style Selector="Border.card">
+			<Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+			<Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+			<Setter Property="BorderThickness" Value="1" />
+			<Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+		</Style>
+		<Style Selector="TextBlock.caption">
+			<Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+			<Setter Property="Theme" Value="{StaticResource CaptionTextBlockStyle}" />
+		</Style>
+		<Style Selector="Border.cacheRow">
+			<Setter Property="Padding" Value="12,8" />
+			<Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+			<Setter Property="BorderThickness" Value="0,0,0,1" />
+		</Style>
+	</spp:PageBase.Styles>
 
-        <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsBusy}" />
-        <TextBlock Text="{Binding StatusText}" TextWrapping="Wrap" />
+	<StackPanel MaxWidth="1040" HorizontalAlignment="Stretch" Spacing="12">
+		<ui:FAInfoBar
+			IsClosable="False"
+			IsOpen="True"
+			Message="{x:Static spp:Strings.GameTools_Shader_Recompile}"
+			Severity="Warning" />
 
-        <StackPanel IsEnabled="{Binding !IsBusy}" IsVisible="{Binding !ShowingPreview}" Spacing="4">
-            <Grid Margin="10,0,18,0" ColumnDefinitions="*,96,64,148" ColumnSpacing="8">
-                <TextBlock Text="{x:Static spp:Strings.GameTools_Shader_Cache}" FontWeight="SemiBold" />
-                <TextBlock Grid.Column="1" Text="{x:Static spp:Strings.GameTools_Shader_Size}" FontWeight="SemiBold" />
-                <TextBlock Grid.Column="2" Text="{x:Static spp:Strings.GameTools_Shader_Files}" FontWeight="SemiBold" />
-                <TextBlock Grid.Column="3" Text="{x:Static spp:Strings.GameTools_Shader_LastModified}" FontWeight="SemiBold" />
-            </Grid>
-            <ListBox Background="Transparent" ItemsSource="{Binding Rows}" MaxHeight="460"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <ListBox.Styles>
-                    <Style Selector="ListBoxItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    </Style>
-                </ListBox.Styles>
-                <ListBox.ItemTemplate>
-                    <DataTemplate x:DataType="spp:ShaderCacheRowViewModel">
-                        <Grid ColumnDefinitions="32,*,96,64,148" ColumnSpacing="8">
-                            <CheckBox
-                                AutomationProperties.Name="{Binding Name}"
-                                IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                IsEnabled="{Binding CanSelect}" />
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock FontWeight="SemiBold" Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
-                                <TextBlock
-                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                    Text="{Binding Path}"
-                                    TextTrimming="CharacterEllipsis"
-                                    ToolTip.Tip="{Binding Path}" />
-                            </StackPanel>
-                            <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Size}" />
-                            <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding FileCount}" />
-                            <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding LastModified}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
+		<StackPanel Spacing="6">
+			<Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+				<TextBlock VerticalAlignment="Center" Classes="caption" Text="{Binding StatusText}" TextWrapping="Wrap" />
+				<Button
+					Grid.Column="1"
+					VerticalAlignment="Center"
+					Classes="accent"
+					Click="Clean_Click"
+					Content="{x:Static spp:Strings.GameTools_Shader_Clean}"
+					IsEnabled="{Binding CanClean}" />
+			</Grid>
+			<ProgressBar IsIndeterminate="True" IsVisible="{Binding IsBusy}" />
+		</StackPanel>
 
-        <StackPanel IsVisible="{Binding ShowingPreview}" Spacing="6">
-            <Button Click="ClosePreview_Click" Content="{x:Static spp:Strings.GameTools_Shader_BackToCaches}" />
-            <ListBox ItemsSource="{Binding PreviewPaths}" MaxHeight="460"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <ListBox.ItemTemplate>
-                    <DataTemplate x:DataType="x:String">
-                        <SelectableTextBlock Text="{Binding}" TextWrapping="Wrap" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-    </StackPanel>
+		<StackPanel IsEnabled="{Binding !IsBusy}" IsVisible="{Binding !!Rows.Count}" Spacing="8">
+			<TextBlock
+				Text="{x:Static spp:Strings.GameTools_Shader_Cache}"
+				Theme="{StaticResource BodyStrongTextBlockStyle}" />
+			<Border Padding="12" Classes="card">
+				<StackPanel Spacing="10">
+					<Grid ColumnDefinitions="156,*" ColumnSpacing="10" RowDefinitions="Auto,Auto" RowSpacing="8">
+						<StackPanel Spacing="4">
+							<TextBlock Classes="caption" Text="{x:Static spp:Strings.GameTools_Shader_AgeDays}" TextWrapping="Wrap" />
+							<NumericUpDown
+								AutomationProperties.Name="{x:Static spp:Strings.GameTools_Shader_AgeDays}"
+								FormatString="0"
+								Maximum="36500"
+								Minimum="0"
+								Value="{Binding MinimumAgeDays, Mode=TwoWay}" />
+						</StackPanel>
+						<Button
+							Grid.Column="1"
+							Click="SelectOld_Click"
+							VerticalAlignment="Bottom">
+							<TextBlock Text="{x:Static spp:Strings.GameTools_Shader_SelectOld}" TextWrapping="Wrap" />
+						</Button>
+						<StackPanel Grid.Row="1" Spacing="4">
+							<TextBlock Classes="caption" Text="{x:Static spp:Strings.GameTools_Shader_SizeMb}" TextWrapping="Wrap" />
+							<NumericUpDown
+								AutomationProperties.Name="{x:Static spp:Strings.GameTools_Shader_SizeMb}"
+								FormatString="0"
+								Maximum="1000000"
+								Minimum="0"
+								Value="{Binding MinimumSizeMb, Mode=TwoWay}" />
+						</StackPanel>
+						<Button
+							Grid.Row="1"
+							Grid.Column="1"
+							Click="SelectLarge_Click"
+							VerticalAlignment="Bottom">
+							<TextBlock Text="{x:Static spp:Strings.GameTools_Shader_SelectLarge}" TextWrapping="Wrap" />
+						</Button>
+					</Grid>
+					<Button Click="SelectAll_Click" Content="{x:Static spp:Strings.GameTools_Shader_SelectAll}" />
+				</StackPanel>
+			</Border>
+
+			<Border Classes="card">
+				<ItemsRepeater ItemsSource="{Binding Rows}">
+					<ItemsRepeater.Layout>
+						<StackLayout />
+					</ItemsRepeater.Layout>
+					<ItemsRepeater.ItemTemplate>
+						<DataTemplate x:DataType="spp:ShaderCacheRowViewModel">
+							<Border Classes="cacheRow">
+								<Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+									<CheckBox
+										VerticalAlignment="Center"
+										AutomationProperties.Name="{Binding Name}"
+										IsChecked="{Binding IsSelected, Mode=TwoWay}"
+										IsEnabled="{Binding CanSelect}" />
+									<StackPanel Grid.Column="1" Spacing="3">
+										<TextBlock
+											Text="{Binding Name}"
+											TextTrimming="CharacterEllipsis"
+											TextWrapping="NoWrap"
+											Theme="{StaticResource BodyStrongTextBlockStyle}" />
+										<spp:PathLink
+											FontSize="12"
+											AutomationProperties.HelpText="{x:Static spp:Strings.Settings_Storage_OpenFolder}"
+											Path="{Binding Path}"
+											Command="{Binding $parent[spp:PageBase].((spp:ShaderCachePageViewModel)DataContext).OpenCacheFolderCommand}"
+											CommandParameter="{Binding}" />
+										<WrapPanel ItemSpacing="14" LineSpacing="3">
+											<TextBlock Classes="caption">
+												<Run Text="{x:Static spp:Strings.GameTools_Shader_Size}" /><Run Text=" · " /><Run Text="{Binding Size}" />
+											</TextBlock>
+											<TextBlock Classes="caption">
+												<Run Text="{x:Static spp:Strings.GameTools_Shader_Files}" /><Run Text=" · " />
+												<Run Text="{Binding FileCount}" />
+											</TextBlock>
+											<TextBlock Classes="caption">
+												<Run Text="{x:Static spp:Strings.GameTools_Shader_LastModified}" /><Run Text=" · " />
+												<Run Text="{Binding LastModified}" />
+											</TextBlock>
+										</WrapPanel>
+									</StackPanel>
+								</Grid>
+							</Border>
+						</DataTemplate>
+					</ItemsRepeater.ItemTemplate>
+				</ItemsRepeater>
+			</Border>
+		</StackPanel>
+	</StackPanel>
 </spp:PageBase>

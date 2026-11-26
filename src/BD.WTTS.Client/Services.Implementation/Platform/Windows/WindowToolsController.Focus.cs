@@ -20,6 +20,7 @@ unsafe partial class WindowToolsController
     {
         var foreground = GetForegroundWindow();
         GetWindowThreadProcessId(foreground, out var foregroundPid);
+        CheckWallpaperForeground(foregroundPid);
         if (keyboardWindow?.Wallpaper is { } layer && !layer.IsDesktopForeground(foreground))
             keyboardWindow = null;
         UpdateCursor(foreground);

@@ -28,6 +28,7 @@ public sealed class CpuProcessRow : ReactiveObject
     public int Pid => sample.Pid;
     public string Name => sample.Name;
     public string? ImagePath => State.ImagePath;
+    public bool HasImagePath => !string.IsNullOrWhiteSpace(ImagePath);
     public Bitmap? Icon => sample.Icon;
     public bool IsProtected => State.IsProtected || protectedWrite;
     public string CpuUsage => usage?.ToString("P1") ?? Strings.GameTools_Cpu_Unknown;
@@ -101,6 +102,8 @@ public sealed class CpuTile : ReactiveObject
 
 public sealed record CpuCoreRow(string Label, IReadOnlyList<CpuTile> Tiles);
 
+public sealed record CpuCoreGroup(string Label, IReadOnlyList<CpuCoreRow> Cores);
+
 public sealed class CpuRuleRow
 {
     internal CpuRuleRow(CpuSchedulingRule rule)
@@ -117,7 +120,9 @@ public sealed class CpuRuleRow
     }
 
     internal CpuSchedulingRule Rule { get; }
-    public string Name => Rule.ImagePath ?? Rule.ExeName;
+    public string Name => Rule.ExeName;
+    public string? ImagePath => Rule.ImagePath;
+    public bool HasImagePath => !string.IsNullOrWhiteSpace(ImagePath);
     public string Summary { get; }
     public string ToggleLabel => Rule.Enabled ? Strings.GameTools_Cpu_DisableRule : Strings.GameTools_Cpu_EnableRule;
 }

@@ -1,5 +1,6 @@
 using BD.WTTS.Services;
 using ReactiveUI.Reactive;
+using System.Windows.Input;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -9,25 +10,25 @@ public sealed class ShaderCachePageViewModel : ViewModelBase
     const long BytesPerMegabyte = 1024 * 1024;
     static readonly SemaphoreSlim cleanupGate = new(1, 1);
 
-    readonly ShaderCacheFileStore files = new((path, ex) => Log.Error(Tag, ex, "Could not access shader cache path {0}.", path));
+    readonly ShaderCacheFileStore files = new((path, ex) => Log.Error(Tag, ex, "Could not access game cache path {0}.", path));
     CancellationTokenSource? scanCancellation;
     string[] steamLibraries = [];
     ShaderCacheRowViewModel[] rows = [];
-    IReadOnlyList<string> previewPaths = [];
     string statusText = string.Empty;
     int selectedCount;
     bool isBusy;
     bool isScanning;
-    bool showingPreview;
-    bool dryRun = true;
+
+    public ShaderCachePageViewModel()
+    {
+        var openFolder = ReactiveCommand.Create<ShaderCacheRowViewModel>(OpenCacheFolder);
+        CompositeDisposable.Add(openFolder);
+        OpenCacheFolderCommand = openFolder;
+    }
 
     public IReadOnlyList<ShaderCacheRowViewModel> Rows => rows;
 
-    public IReadOnlyList<string> PreviewPaths
-    {
-        get => previewPaths;
-        private set => this.RaiseAndSetIfChanged(ref previewPaths, value);
-    }
+    public ICommand OpenCacheFolderCommand { get; }
 
     public string StatusText
     {
@@ -51,25 +52,7 @@ public sealed class ShaderCachePageViewModel : ViewModelBase
         private set => this.RaiseAndSetIfChanged(ref isScanning, value);
     }
 
-    public bool ShowingPreview
-    {
-        get => showingPreview;
-        private set => this.RaiseAndSetIfChanged(ref showingPreview, value);
-    }
-
     public bool CanClean => !IsBusy && selectedCount != 0;
-
-    public bool DryRun
-    {
-        get => dryRun;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref dryRun, value);
-            this.RaisePropertyChanged(nameof(CleanActionText));
-        }
-    }
-
-    public string CleanActionText => DryRun ? Strings.GameTools_Shader_Preview : Strings.GameTools_Shader_Clean;
 
     public decimal? MinimumAgeDays { get; set; } = 30;
 
@@ -95,14 +78,23 @@ public sealed class ShaderCachePageViewModel : ViewModelBase
             row.IsSelected = predicate(row);
     }
 
-    public void ClosePreview()
-    {
-        ShowingPreview = false;
-        PreviewPaths = [];
-        ShowScanSummary();
-    }
-
     public void CancelScan() => scanCancellation?.Cancel();
+
+    void OpenCacheFolder(ShaderCacheRowViewModel row)
+    {
+        if (IsBusy)
+            return;
+
+        try
+        {
+            var path = ShaderCacheFileStore.GetCacheDirectoryPath(row.Location);
+            IPlatformService.Instance.OpenFolderByDirectoryPath(new DirectoryInfo(path));
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT(Tag);
+        }
+    }
 
     public async Task RescanAsync()
     {
@@ -123,7 +115,6 @@ public sealed class ShaderCachePageViewModel : ViewModelBase
     {
         using var cancellation = new CancellationTokenSource();
         scanCancellation = cancellation;
-        ClosePreview();
         IsScanning = true;
         StatusText = Strings.GameTools_Shader_Scanning;
         try
@@ -143,7 +134,7 @@ public sealed class ShaderCachePageViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            Log.Error(Tag, ex, "Shader cache scan failed.");
+            Log.Error(Tag, ex, "Game cache scan failed.");
             StatusText = Strings.GameTools_Shader_ScanFailed;
         }
         finally
@@ -159,40 +150,27 @@ public sealed class ShaderCachePageViewModel : ViewModelBase
             return;
         var selected = rows.Where(static row => row.IsSelected).ToArray();
         var locations = selected.Select(static row => row.Location).ToArray();
-        var dryRun = DryRun;
         IsBusy = true;
-        ClosePreview();
+        ShowScanSummary();
         try
         {
-            if (!dryRun)
+            if (!await cleanupGate.WaitAsync(0))
             {
-                if (!await cleanupGate.WaitAsync(0))
-                {
-                    StatusText = Strings.GameTools_Shader_CleanupInProgress;
-                    return;
-                }
-                try
-                {
-                    await ConfirmAndCleanAsync(selected, locations, confirmAsync);
-                }
-                finally
-                {
-                    cleanupGate.Release();
-                }
+                StatusText = Strings.GameTools_Shader_CleanupInProgress;
                 return;
             }
-
-            StatusText = Strings.GameTools_Shader_Previewing;
-            var paths = new List<string>();
-            var result = await Task.Run(() => ProcessCaches(locations, paths));
-            PreviewPaths = paths;
-            ShowingPreview = true;
-            StatusText = string.Format(Strings.GameTools_Shader_PreviewSummary, FormatSize(result.Bytes),
-                result.Files, result.SkippedFiles, result.SkippedDirectories);
+            try
+            {
+                await ConfirmAndCleanAsync(selected, locations, confirmAsync);
+            }
+            finally
+            {
+                cleanupGate.Release();
+            }
         }
         catch (Exception ex)
         {
-            Log.Error(Tag, ex, "Shader cache operation failed.");
+            Log.Error(Tag, ex, "Game cache cleanup failed.");
             StatusText = Strings.GameTools_Shader_CleanFailed;
         }
         finally
@@ -205,11 +183,8 @@ public sealed class ShaderCachePageViewModel : ViewModelBase
         Func<string, Task<bool>> confirmAsync)
     {
         var running = await Task.Run(() => ShaderCacheDiscovery.FindRunningProcesses(locations, steamLibraries));
-        if (running.Steam.Length != 0)
-        {
-            await ShowBlockedAsync(Strings.GameTools_Shader_SteamRunning, running.Steam);
+        if (await CheckClientsStoppedAsync(running.Steam, running.GameClients))
             return;
-        }
 
         var message = string.Format(Strings.GameTools_Shader_Confirm, FormatSize(selected.Sum(row => row.Statistics.Bytes)));
         if (running.Driver.Length != 0)
@@ -220,24 +195,31 @@ public sealed class ShaderCachePageViewModel : ViewModelBase
 
         StatusText = Strings.GameTools_Shader_Cleaning;
         var current = await Task.Run(() => ShaderCacheDiscovery.FindRunningProcesses(locations, steamLibraries));
-        if (current.Steam.Length != 0)
-        {
-            await ShowBlockedAsync(Strings.GameTools_Shader_SteamRunning, current.Steam);
+        if (await CheckClientsStoppedAsync(current.Steam, current.GameClients))
             return;
-        }
         if (current.Driver.Except(running.Driver, StringComparer.OrdinalIgnoreCase).Any())
         {
             await ShowBlockedAsync(Strings.GameTools_Shader_ProcessChanged, current.Driver);
             return;
         }
 
-        var result = await Task.Run(() => ProcessCaches(locations, preview: null));
+        var result = await Task.Run(() => CleanCaches(locations));
         var summary = string.Format(Strings.GameTools_Shader_CleanSummary, FormatSize(result.Bytes),
             result.SkippedFiles, result.SkippedDirectories);
-        Log.Info(Tag, "Shader cache cleanup freed {0} bytes and skipped {1} files and {2} folders.",
+        Log.Info(Tag, "Game cache cleanup freed {0} bytes and skipped {1} files and {2} folders.",
             result.Bytes, result.SkippedFiles, result.SkippedDirectories);
         await MessageBox.ShowAsync(summary, Strings.GameTools_Shader_Title);
         await ScanAsync();
+    }
+
+    async Task<bool> CheckClientsStoppedAsync(string[] steam, string[] gameClients)
+    {
+        var running = steam.Union(gameClients, StringComparer.OrdinalIgnoreCase).ToArray();
+        if (running.Length == 0)
+            return false;
+
+        await ShowBlockedAsync(Strings.GameTools_Shader_ClientRunning, running);
+        return true;
     }
 
     async Task ShowBlockedAsync(string template, string[] names)
@@ -247,14 +229,12 @@ public sealed class ShaderCachePageViewModel : ViewModelBase
         ShowScanSummary();
     }
 
-    ShaderCacheStatistics ProcessCaches(IEnumerable<ShaderCacheLocation> locations, List<string>? preview)
+    ShaderCacheStatistics CleanCaches(IEnumerable<ShaderCacheLocation> locations)
     {
         var total = new ShaderCacheStatistics();
         foreach (var location in locations)
         {
-            var result = preview == null
-                ? files.Clean(location, CancellationToken.None)
-                : files.Preview(location, preview.Add, CancellationToken.None);
+            var result = files.Clean(location, CancellationToken.None);
             total = new(total.Bytes + result.Bytes, total.Files + result.Files, null,
                 total.SkippedFiles + result.SkippedFiles, total.SkippedDirectories + result.SkippedDirectories);
         }
@@ -304,6 +284,7 @@ public sealed class ShaderCacheRowViewModel : ReactiveObject
     {
         ShaderCacheKind.SteamGame => string.Format(Strings.GameTools_Shader_SteamGame, Location.Name),
         ShaderCacheKind.SteamTemporary => Strings.GameTools_Shader_SteamTemporary,
+        ShaderCacheKind.GameClient or ShaderCacheKind.Game => string.Format(Strings.GameTools_Shader_ProductCache, Location.Name),
         _ => Location.Name,
     };
 

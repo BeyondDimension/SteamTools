@@ -2,193 +2,241 @@
     x:Class="BD.WTTS.UI.Views.Pages.GameToolsPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     Title="{x:Static spp:Strings.GameRelated}"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
     Description="{x:Static spp:Strings.L10nGames_ToolsDescription}"
-    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
-    mc:Ignorable="d">
+    Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}">
+    <spp:PageBase.Resources>
+        <StreamGeometry x:Key="ToolWindowsLogo">M0 0H7V7H0Z M9 0H16V7H9Z M0 9H7V16H0Z M9 9H16V16H9Z</StreamGeometry>
+        <StreamGeometry x:Key="ToolLinuxLogo">
+            F0 M8 0C5.6 0 4.5 2.1 4.5 4.7V6C3.2 7.1 2.3 9 2.2 11.1C2.1 11.7 2.4 12.2 3 12.2L3.7 12.1L4 12.6
+            C2.6 12.9 1.5 13.9 1.5 14.9C1.5 15.6 2.1 16 3 16H5.3L6.4 15.3C7.4 15.5 8.6 15.5 9.6 15.3L10.7 16H13
+            C13.9 16 14.5 15.6 14.5 14.9C14.5 13.9 13.4 12.9 12 12.6L12.3 12.1L13 12.2C13.6 12.2 13.9 11.7 13.8 11.1
+            C13.7 9 12.8 7.1 11.5 6V4.7C11.5 2.1 10.4 0 8 0Z
+            M6.7 3.1A0.65 0.8 0 1 0 6.7 4.7A0.65 0.8 0 1 0 6.7 3.1Z
+            M9.3 3.1A0.65 0.8 0 1 0 9.3 4.7A0.65 0.8 0 1 0 9.3 3.1Z
+            M6.3 5.6L8 4.9L9.7 5.6L8 6.6Z
+            M8 7.3C6.2 7.3 5.1 9.3 5.1 11.3C5.1 13.1 6.4 14.2 8 14.2C9.6 14.2 10.9 13.1 10.9 11.3C10.9 9.3 9.8 7.3 8 7.3Z
+        </StreamGeometry>
+    </spp:PageBase.Resources>
     <spp:PageBase.PreviewImage>
         <ui:FAImageIconSource Source="{Binding Icon, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource BitmapAssetValueConverter}}" />
     </spp:PageBase.PreviewImage>
-    <spp:PageBase.TabContent>
-        <!--<TabStrip
-            Margin="4"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
-            CornerRadius="{StaticResource ControlCornerRadius}"
-            ItemContainerTheme="{StaticResource TabItemStyle}">
-            <TabStripItem Content="多平台账号切换" />
-            <TabStripItem Content="Steam 家庭共享库管理" />
-        </TabStrip>-->
-    </spp:PageBase.TabContent>
     <spp:PageBase.ActionContent>
-        <StackPanel Orientation="Horizontal" Spacing="2">
-            <DropDownButton
-                Padding="8"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Content="{StaticResource More}"
-                FontFamily="{StaticResource SymbolThemeFontFamily}"
-                FontSize="20"
-                Theme="{StaticResource TransparentButton}">
-                <DropDownButton.Flyout>
-                    <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!--<ui:FAMenuFlyoutItem x:Name="PluginSettingButton" Text="{x:Static spp:Strings.Settings_Plugin}" />-->
-                        <!--<ui:FAMenuFlyoutSeparator  />-->
-                        <ui:FAMenuFlyoutItem IsEnabled="False">
-                            <ui:FAMenuFlyoutItem.Text>
-                                <MultiBinding StringFormat="{}{0}{1}">
-                                    <Binding Mode="OneTime" Source="{x:Static spp:Strings.Plugin_Version}" />
-                                    <CompiledBindingExtension
-                                        Mode="OneWay"
-                                        Path="Version"
-                                        Source="{x:Static s:Plugin.Instance}" />
-                                </MultiBinding>
-                            </ui:FAMenuFlyoutItem.Text>
-                        </ui:FAMenuFlyoutItem>
-                        <!--<ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.ViewInStore}" />
-                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.UseHelp}" />
-                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.AboutThisPlugin}" />-->
-                    </ui:FAMenuFlyout>
-                </DropDownButton.Flyout>
-            </DropDownButton>
-        </StackPanel>
+        <DropDownButton
+            Padding="8"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Content="{StaticResource More}"
+            FontFamily="{StaticResource SymbolThemeFontFamily}"
+            FontSize="20"
+            Theme="{StaticResource TransparentButton}">
+            <DropDownButton.Flyout>
+                <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                    <ui:FAMenuFlyoutItem IsEnabled="False">
+                        <ui:FAMenuFlyoutItem.Text>
+                            <MultiBinding StringFormat="{}{0}{1}">
+                                <Binding Mode="OneTime" Source="{x:Static spp:Strings.Plugin_Version}" />
+                                <CompiledBindingExtension
+                                    Mode="OneWay"
+                                    Path="Version"
+                                    Source="{x:Static s:Plugin.Instance}" />
+                            </MultiBinding>
+                        </ui:FAMenuFlyoutItem.Text>
+                    </ui:FAMenuFlyoutItem>
+                </ui:FAMenuFlyout>
+            </DropDownButton.Flyout>
+        </DropDownButton>
     </spp:PageBase.ActionContent>
-    <ScrollViewer>
-        <ScrollViewer.Resources>
-            <ControlTheme
-                x:Key="NavButtonStyle"
-                BasedOn="{StaticResource {x:Type Button}}"
-                TargetType="Button">
-                <Setter Property="Width" Value="160" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="Margin" Value="6" />
-                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                <Setter Property="VerticalContentAlignment" Value="Stretch" />
 
-                <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
-                    <Setter Property="ClipToBounds" Value="True" />
-                </Style>
-            </ControlTheme>
-        </ScrollViewer.Resources>
-        <WrapPanel>
-            <!-- Launch button tags identify the cards for the native UI probe; the click handlers own navigation. -->
-            <Border spp:Animations.EnableAnimations="False">
-                <Button
-                    Click="BorderlessGame_Click"
-                    IsEnabled="{spp:OnPlatform Windows}"
-                    Theme="{StaticResource NavButtonStyle}">
-                    <Button.Tag>
-                        <x:Type TypeName="spp:BorderlessGamePage" />
-                    </Button.Tag>
-                    <Grid RowDefinitions="3*,*">
-                        <Border
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            CornerRadius="4 4 0 0"
-                            RenderOptions.BitmapInterpolationMode="HighQuality">
-                            <spp:Image2 Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png" Stretch="Uniform" />
-                        </Border>
-                        <StackPanel
-                            Grid.Row="1"
-                            Margin="12"
-                            Spacing="5">
-                            <TextBlock FontWeight="SemiBold" Text="{x:Static spp:Strings.L10nGames_BorderlessTitle}" />
-                            <TextBlock
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{x:Static spp:Strings.L10nGames_WindowsOnly}"
-                                Theme="{StaticResource CaptionTextBlockStyle}" />
-                        </StackPanel>
-                    </Grid>
-                </Button>
-            </Border>
+    <spp:PageBase.Styles>
+        <Style Selector="Button.toolEntry">
+            <Setter Property="Theme" Value="{StaticResource TransparentButton}" />
+            <Setter Property="MinHeight" Value="68" />
+            <Setter Property="Padding" Value="12,10" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="(ToolTip.ShowOnDisabled)" Value="True" />
+        </Style>
+        <Style Selector="Button.toolEntry:focus-visible /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="Button.toolEntry.windowsOnly:disabled">
+            <Setter Property="(ToolTip.Tip)" Value="{x:Static spp:Strings.L10nGames_WindowsOnly}" />
+        </Style>
+        <Style Selector="Border.toolDivider">
+            <Setter Property="Height" Value="1" />
+            <Setter Property="Margin" Value="66,0,12,0" />
+            <Setter Property="Background" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+        </Style>
+        <Style Selector="Grid.toolIcon">
+            <Setter Property="Width" Value="42" />
+            <Setter Property="Height" Value="42" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="StackPanel.toolLabel">
+            <Setter Property="(Grid.RowSpan)" Value="2" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Spacing" Value="2" />
+        </Style>
+        <Style Selector="TextBlock.toolTitle">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Theme" Value="{StaticResource BodyStrongTextBlockStyle}" />
+        </Style>
+        <Style Selector="TextBlock.toolDescription">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+            <Setter Property="Theme" Value="{StaticResource CaptionTextBlockStyle}" />
+        </Style>
+        <Style Selector="PathIcon.toolPlatform">
+            <Setter Property="Width" Value="14" />
+            <Setter Property="Height" Value="14" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="StackPanel.toolPlatforms">
+            <Setter Property="(Grid.Column)" Value="2" />
+            <Setter Property="(Grid.RowSpan)" Value="2" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Spacing" Value="6" />
+        </Style>
+        <Style Selector="ui|FASymbolIcon.toolChevron">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="Button.toolEntry:disabled ui|FASymbolIcon.toolChevron">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
+        </Style>
+        <ContainerQuery Name="gameToolsLauncher" Query="max-width:560">
+            <Style Selector="StackPanel.toolLabel">
+                <Setter Property="(Grid.RowSpan)" Value="1" />
+            </Style>
+            <Style Selector="StackPanel.toolPlatforms">
+                <Setter Property="(Grid.Column)" Value="1" />
+                <Setter Property="(Grid.Row)" Value="1" />
+                <Setter Property="(Grid.RowSpan)" Value="1" />
+                <Setter Property="Margin" Value="0,6,0,0" />
+            </Style>
+        </ContainerQuery>
+    </spp:PageBase.Styles>
 
-            <Border spp:Animations.EnableAnimations="False">
-                <Button
-                    Click="VacRepair_Click"
-                    IsEnabled="{spp:OnPlatform Windows}"
-                    Theme="{StaticResource NavButtonStyle}">
-					<Button.Tag>
-						<x:Type TypeName="spp:CsgoVacRepairPage" />
-					</Button.Tag>
-                    <Grid RowDefinitions="3*,*">
-                        <Border
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            CornerRadius="4 4 0 0"
-                            RenderOptions.BitmapInterpolationMode="HighQuality">
-                            <spp:Image2 Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/CounterStrike.png" Stretch="Uniform" />
-                        </Border>
-                        <StackPanel
-                            Grid.Row="1"
-                            Margin="12"
-                            Spacing="5">
-                            <TextBlock FontWeight="SemiBold" Text="{x:Static spp:Strings.L10nGames_VacTitle}" />
-                            <TextBlock
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{x:Static spp:Strings.L10nGames_WindowsOnly}"
-                                Theme="{StaticResource CaptionTextBlockStyle}" />
-                        </StackPanel>
+    <Border
+        MaxWidth="1040"
+        Padding="4"
+        VerticalAlignment="Top"
+        Container.Name="gameToolsLauncher"
+        Container.Sizing="Width"
+        Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="{DynamicResource OverlayCornerRadius}">
+        <StackPanel>
+            <Button
+                AutomationProperties.Name="{x:Static spp:Strings.L10nGames_BorderlessTitle}"
+                AutomationProperties.HelpText="{x:Static spp:Strings.L10nGames_WindowsOnly}"
+                Classes="toolEntry windowsOnly"
+                Click="BorderlessGame_Click"
+                IsEnabled="{spp:OnPlatform Windows}"
+                Tag="{x:Type spp:BorderlessGamePage}">
+                <Grid ColumnDefinitions="42,*,Auto,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto">
+                    <Grid Grid.RowSpan="2" Classes="toolIcon" RenderOptions.BitmapInterpolationMode="HighQuality">
+                        <spp:Image2 Width="42" Height="42" Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png" Stretch="Uniform" />
                     </Grid>
-                </Button>
-            </Border>
-			
-            <Border spp:Animations.EnableAnimations="False">
-                <Button
-                    Click="CpuScheduling_Click"
-                    IsEnabled="{spp:OnPlatform Windows}"
-                    Theme="{StaticResource NavButtonStyle}">
-                    <Button.Tag>
-                        <x:Type TypeName="spp:CpuSchedulingPage" />
-                    </Button.Tag>
-                    <Grid RowDefinitions="3*,*">
-                        <Border
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            CornerRadius="4 4 0 0"
-                            RenderOptions.BitmapInterpolationMode="HighQuality">
-                            <spp:Image2 Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/CPU.png" Stretch="Uniform" />
-                        </Border>
-                        <StackPanel
-                            Grid.Row="1"
-                            Margin="12"
-                            Spacing="5">
-                            <TextBlock FontWeight="SemiBold" Text="{x:Static spp:Strings.L10nGames_CpuScheduling}" />
-                            <TextBlock
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{x:Static spp:Strings.L10nGames_WindowsOnly}"
-                                Theme="{StaticResource CaptionTextBlockStyle}" />
-                        </StackPanel>
+                    <StackPanel Grid.Column="1" Classes="toolLabel">
+                        <TextBlock Classes="toolTitle" Text="{x:Static spp:Strings.L10nGames_BorderlessTitle}" />
+                        <TextBlock Classes="toolDescription" Text="{x:Static spp:Strings.L10nGames_BorderlessDescription}" />
+                    </StackPanel>
+                    <StackPanel Classes="toolPlatforms" Orientation="Horizontal">
+                        <PathIcon AutomationProperties.Name="Windows" Classes="toolPlatform" Data="{StaticResource ToolWindowsLogo}" ToolTip.Tip="Windows" />
+                    </StackPanel>
+                    <ui:FASymbolIcon Grid.Column="3" Grid.RowSpan="2" Classes="toolChevron" Symbol="ChevronRight" />
+                </Grid>
+            </Button>
+
+            <Border Classes="toolDivider" />
+
+            <Button
+                AutomationProperties.Name="{x:Static spp:Strings.L10nGames_VacTitle}"
+                AutomationProperties.HelpText="{x:Static spp:Strings.L10nGames_WindowsOnly}"
+                Classes="toolEntry windowsOnly"
+                Click="VacRepair_Click"
+                IsEnabled="{spp:OnPlatform Windows}"
+                Tag="{x:Type spp:CsgoVacRepairPage}">
+                <Grid ColumnDefinitions="42,*,Auto,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto">
+                    <Grid Grid.RowSpan="2" Classes="toolIcon" RenderOptions.BitmapInterpolationMode="HighQuality">
+                        <spp:Image2 Width="36" Height="36" Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/CounterStrike.png" Stretch="Uniform" />
                     </Grid>
-                </Button>
-            </Border>
-            <Border spp:Animations.EnableAnimations="False">
-                <Button
-                    Click="ShaderCache_Click"
-                    IsEnabled="{x:Static spp:ShaderCachePage.IsSupported}"
-                    Tag="{x:Type spp:ShaderCachePage}"
-                    Theme="{StaticResource NavButtonStyle}">
-                    <Grid RowDefinitions="3*,*">
-                        <Viewbox Width="52" Height="52">
-                            <PathIcon Data="M5 2H7V4H9V2H11V4H13V2H15V4H17V2H19V4H20V5H22V7H20V9H22V11H20V13H22V15H20V17H22V19H20V20H19V22H17V20H15V22H13V20H11V22H9V20H7V22H5V20H4V19H2V17H4V15H2V13H4V11H2V9H4V7H2V5H4V4H5Z M8 8V16H16V8Z"
-                                Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}" />
-                        </Viewbox>
-                        <TextBlock
-                            Grid.Row="1"
-                            Margin="12"
-                            FontWeight="SemiBold"
-                            Text="{x:Static spp:Strings.GameTools_Shader_Title}"
-                            TextWrapping="Wrap" />
+                    <StackPanel Grid.Column="1" Classes="toolLabel">
+                        <TextBlock Classes="toolTitle" Text="{x:Static spp:Strings.L10nGames_VacTitle}" />
+                        <TextBlock Classes="toolDescription" Text="{x:Static spp:Strings.L10nGames_VacDescription}" />
+                    </StackPanel>
+                    <StackPanel Classes="toolPlatforms" Orientation="Horizontal">
+                        <PathIcon AutomationProperties.Name="Windows" Classes="toolPlatform" Data="{StaticResource ToolWindowsLogo}" ToolTip.Tip="Windows" />
+                    </StackPanel>
+                    <ui:FASymbolIcon Grid.Column="3" Grid.RowSpan="2" Classes="toolChevron" Symbol="ChevronRight" />
+                </Grid>
+            </Button>
+
+            <Border Classes="toolDivider" />
+
+            <Button
+                AutomationProperties.Name="{x:Static spp:Strings.L10nGames_CpuScheduling}"
+                AutomationProperties.HelpText="{x:Static spp:Strings.L10nGames_WindowsOnly}"
+                Classes="toolEntry windowsOnly"
+                Click="CpuScheduling_Click"
+                IsEnabled="{spp:OnPlatform Windows}"
+                Tag="{x:Type spp:CpuSchedulingPage}">
+                <Grid ColumnDefinitions="42,*,Auto,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto">
+                    <Grid Grid.RowSpan="2" Classes="toolIcon" RenderOptions.BitmapInterpolationMode="HighQuality">
+                        <spp:Image2 Width="40" Height="40" Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/CPU.png" Stretch="Uniform" />
                     </Grid>
-                </Button>
-            </Border>
-        </WrapPanel>
-    </ScrollViewer>
+                    <StackPanel Grid.Column="1" Classes="toolLabel">
+                        <TextBlock Classes="toolTitle" Text="{x:Static spp:Strings.L10nGames_CpuScheduling}" />
+                        <TextBlock Classes="toolDescription" Text="{x:Static spp:Strings.GameTools_Cpu_Description}" />
+                    </StackPanel>
+                    <StackPanel Classes="toolPlatforms" Orientation="Horizontal">
+                        <PathIcon AutomationProperties.Name="Windows" Classes="toolPlatform" Data="{StaticResource ToolWindowsLogo}" ToolTip.Tip="Windows" />
+                    </StackPanel>
+                    <ui:FASymbolIcon Grid.Column="3" Grid.RowSpan="2" Classes="toolChevron" Symbol="ChevronRight" />
+                </Grid>
+            </Button>
+
+            <Border Classes="toolDivider" />
+
+            <Button
+                AutomationProperties.Name="{x:Static spp:Strings.GameTools_Shader_Title}"
+                AutomationProperties.HelpText="Windows, macOS, Linux"
+                Classes="toolEntry"
+                Click="ShaderCache_Click"
+                IsEnabled="{x:Static spp:ShaderCachePage.IsSupported}"
+                Tag="{x:Type spp:ShaderCachePage}"
+                ToolTip.Tip="{x:Static spp:Strings.GameTools_Shader_Description}">
+                <Grid ColumnDefinitions="42,*,Auto,Auto" ColumnSpacing="12" RowDefinitions="Auto,Auto">
+                    <Grid Grid.RowSpan="2" Classes="toolIcon">
+                        <Image
+                            Width="32"
+                            Height="32"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            RenderOptions.BitmapInterpolationMode="HighQuality"
+                            Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/trash.png" />
+                    </Grid>
+                    <StackPanel Grid.Column="1" Classes="toolLabel">
+                        <TextBlock Classes="toolTitle" Text="{x:Static spp:Strings.GameTools_Shader_Title}" />
+                        <TextBlock Classes="toolDescription" Text="{x:Static spp:Strings.GameTools_Shader_Description}" />
+                    </StackPanel>
+                    <StackPanel Classes="toolPlatforms" Orientation="Horizontal">
+                        <PathIcon AutomationProperties.Name="Windows" Classes="toolPlatform" Data="{StaticResource ToolWindowsLogo}" ToolTip.Tip="Windows" />
+                        <PathIcon AutomationProperties.Name="macOS" Classes="toolPlatform" Data="{StaticResource Apple}" ToolTip.Tip="macOS" />
+                        <PathIcon AutomationProperties.Name="Linux" Classes="toolPlatform" Data="{StaticResource ToolLinuxLogo}" ToolTip.Tip="Linux" />
+                    </StackPanel>
+                    <ui:FASymbolIcon Grid.Column="3" Grid.RowSpan="2" Classes="toolChevron" Symbol="ChevronRight" />
+                </Grid>
+            </Button>
+        </StackPanel>
+    </Border>
 </spp:PageBase>

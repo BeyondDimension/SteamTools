@@ -97,6 +97,7 @@ partial interface IPlatformService
     bool MoveWindowToMonitor(NativeWindowModel window, NativeWindowMonitor monitor, NativeWindowMonitorAction action);
     bool SetWallpaperWindow(NativeWindowModel window, NativeWindowMonitor monitor, bool mouse, bool keyboard);
     bool SetWallpaperInput(NativeWindowModel window, bool mouse, bool keyboard);
+    bool InteractWithWallpaper(NativeWindowModel window) => false;
     bool PauseWallpaperWindow(NativeWindowModel window);
     bool RestoreWindow(NativeWindowModel window);
     void SetWindowRules(IReadOnlyList<NativeWindowRule> rules);

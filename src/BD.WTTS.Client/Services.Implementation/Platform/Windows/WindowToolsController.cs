@@ -245,8 +245,9 @@ sealed unsafe partial class WindowToolsController
 
         var old = state.Options;
         var window = state.Handle;
+        var interacting = wallpaperInteraction?.State == state;
         if ((old.Opacity != options.Opacity || old.ClickThrough != options.ClickThrough) &&
-            !ApplyLayer(state, options, state.Wallpaper?.UsesLayeredChild == true))
+            !ApplyLayer(state, options, !interacting && state.Wallpaper?.UsesLayeredChild == true))
             return false;
 
         if (old.Topmost != options.Topmost && state.Wallpaper is null &&
@@ -257,6 +258,8 @@ sealed unsafe partial class WindowToolsController
         }
 
         state.Options = options;
+        if (interacting && options.ClickThrough)
+            EndWallpaperInteraction();
         if (old.ConfineCursor != options.ConfineCursor || old.MuteInBackground != options.MuteInBackground ||
             old.BackgroundPriority != options.BackgroundPriority)
         {
@@ -324,6 +327,7 @@ sealed unsafe partial class WindowToolsController
         if (!RestoreNative(state))
             return false;
 
+        ClearWallpaperInteraction(state);
         windows.Remove(state.Handle);
         return true;
     }
@@ -487,6 +491,7 @@ sealed unsafe partial class WindowToolsController
                 appliedRules.RemoveWhere(item => item.Window == handle);
                 if (windows.Remove(handle, out var removed))
                 {
+                    ClearWallpaperInteraction(removed);
                     if (mouseWindow == removed)
                         ReleaseForwardedMouse(cancel: false);
                     if (keyboardWindow == removed)

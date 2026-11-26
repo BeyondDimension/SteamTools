@@ -6920,40 +6920,36 @@ Farming games: {3}</value>
   <data name="LogConsole_CommandHint" xml:space="preserve"><value>Enter a command, or type / for suggestions</value></data>
   <data name="Settings_Storage_AppFolder" xml:space="preserve"><value>Application folder</value></data>
   <data name="Settings_Storage_OpenFolder" xml:space="preserve"><value>Open folder</value></data>
-	<data name="GameTools_Shader_Title" xml:space="preserve"><value>Clean shader cache</value></data>
-	<data name="GameTools_Shader_Description" xml:space="preserve"><value>Scan and clean graphics driver and Steam shader caches.</value></data>
-	<data name="GameTools_Shader_Recompile" xml:space="preserve"><value>Games may stutter on the first launch after cleanup while they recompile shaders.</value></data>
+	<data name="GameTools_Shader_ClientRunning" xml:space="preserve"><value>Close these game clients or games before cleaning their caches.&#10;&#10;{0}</value></data>
+	<data name="GameTools_Shader_ProductCache" xml:space="preserve"><value>{0} cache</value></data>
+	<data name="GameTools_Shader_Title" xml:space="preserve"><value>Clean game caches</value></data>
+	<data name="GameTools_Shader_Description" xml:space="preserve"><value>Scan and clear supported game, launcher, and graphics shader caches.</value></data>
+	<data name="GameTools_Shader_Recompile" xml:space="preserve"><value>After you clear shader caches, games may stutter on the first launch while they recompile shaders.</value></data>
 	<data name="GameTools_Shader_Rescan" xml:space="preserve"><value>Rescan</value></data>
-	<data name="GameTools_Shader_DryRun" xml:space="preserve"><value>Dry run</value></data>
-	<data name="GameTools_Shader_Preview" xml:space="preserve"><value>Preview deletion</value></data>
 	<data name="GameTools_Shader_Clean" xml:space="preserve"><value>Clean selected</value></data>
 	<data name="GameTools_Shader_SelectAll" xml:space="preserve"><value>Select all</value></data>
-	<data name="GameTools_Shader_SelectOld" xml:space="preserve"><value>Select Steam caches older than this many days</value></data>
-	<data name="GameTools_Shader_SelectLarge" xml:space="preserve"><value>Select caches larger than this many MB</value></data>
-	<data name="GameTools_Shader_AgeDays" xml:space="preserve"><value>Cache age in days</value></data>
-	<data name="GameTools_Shader_SizeMb" xml:space="preserve"><value>Cache size threshold in MB</value></data>
+	<data name="GameTools_Shader_SelectOld" xml:space="preserve"><value>Select older Steam shader caches</value></data>
+	<data name="GameTools_Shader_SelectLarge" xml:space="preserve"><value>Select larger caches</value></data>
+	<data name="GameTools_Shader_AgeDays" xml:space="preserve"><value>Older than (days)</value></data>
+	<data name="GameTools_Shader_SizeMb" xml:space="preserve"><value>Larger than (MB)</value></data>
 	<data name="GameTools_Shader_Cache" xml:space="preserve"><value>Cache and path</value></data>
 	<data name="GameTools_Shader_Size" xml:space="preserve"><value>Size</value></data>
 	<data name="GameTools_Shader_Files" xml:space="preserve"><value>Files</value></data>
 	<data name="GameTools_Shader_LastModified" xml:space="preserve"><value>Last modified</value></data>
-	<data name="GameTools_Shader_BackToCaches" xml:space="preserve"><value>Back to caches</value></data>
-	<data name="GameTools_Shader_Empty" xml:space="preserve"><value>No shader caches found.</value></data>
+	<data name="GameTools_Shader_Empty" xml:space="preserve"><value>No game caches found.</value></data>
 	<data name="GameTools_Shader_Total" xml:space="preserve"><value>Total cache size {0}. Unreadable or skipped entries {1:N0}.</value></data>
-	<data name="GameTools_Shader_Scanning" xml:space="preserve"><value>Scanning shader caches…</value></data>
+	<data name="GameTools_Shader_Scanning" xml:space="preserve"><value>Scanning game caches…</value></data>
 	<data name="GameTools_Shader_ScanCancelled" xml:space="preserve"><value>Scan canceled.</value></data>
 	<data name="GameTools_Shader_ScanFailed" xml:space="preserve"><value>Scan failed. See the application log.</value></data>
 	<data name="GameTools_Shader_Unavailable" xml:space="preserve"><value>Unavailable</value></data>
-	<data name="GameTools_Shader_Previewing" xml:space="preserve"><value>Preparing the deletion preview…</value></data>
-	<data name="GameTools_Shader_PreviewSummary" xml:space="preserve"><value>Preview found {1:N0} files totaling {0}. Skipped {2:N0} files and {3:N0} folders.</value></data>
 	<data name="GameTools_Shader_Confirm" xml:space="preserve"><value>Delete the selected caches? The scan found {0} in total.</value></data>
-	<data name="GameTools_Shader_SteamRunning" xml:space="preserve"><value>Close these running Steam processes before cleaning.&#10;&#10;{0}</value></data>
 	<data name="GameTools_Shader_DriverRunning" xml:space="preserve"><value>These processes may be using driver caches. Close them first, or choose Clean selected to continue.&#10;&#10;{0}</value></data>
 	<data name="GameTools_Shader_ProcessChanged" xml:space="preserve"><value>More processes that may use driver caches appeared after confirmation. Review them and try again.&#10;&#10;{0}</value></data>
-	<data name="GameTools_Shader_Cleaning" xml:space="preserve"><value>Cleaning shader caches…</value></data>
-	<data name="GameTools_Shader_CleanupInProgress" xml:space="preserve"><value>Another page is cleaning shader caches.</value></data>
+	<data name="GameTools_Shader_Cleaning" xml:space="preserve"><value>Cleaning game caches…</value></data>
+	<data name="GameTools_Shader_CleanupInProgress" xml:space="preserve"><value>Another page is cleaning game caches.</value></data>
 	<data name="GameTools_Shader_CleanSummary" xml:space="preserve"><value>Freed {0}. Skipped {1:N0} files and {2:N0} folders.</value></data>
 	<data name="GameTools_Shader_CleanFailed" xml:space="preserve"><value>Operation failed. See the application log.</value></data>
-	<data name="GameTools_Shader_SteamGame" xml:space="preserve"><value>Steam · {0}</value></data>
+	<data name="GameTools_Shader_SteamGame" xml:space="preserve"><value>Steam shader cache · {0}</value></data>
 	<data name="GameTools_Shader_SteamTemporary" xml:space="preserve"><value>Steam temporary shader cache</value></data>
 	<data name="GameTools_Win_Advanced" xml:space="preserve"><value>Window controls</value></data>
 	<data name="GameTools_Win_Monitor" xml:space="preserve"><value>Monitor</value></data>
@@ -6976,9 +6972,11 @@ Farming games: {3}</value>
 	<data name="GameTools_Win_PriorityBelowNormal" xml:space="preserve"><value>Below normal</value></data>
 	<data name="GameTools_Win_PriorityIdle" xml:space="preserve"><value>Idle</value></data>
 	<data name="GameTools_Win_Wallpaper" xml:space="preserve"><value>Wallpaper layer</value></data>
-	<data name="GameTools_Win_WallpaperMouse" xml:space="preserve"><value>Interact on wallpaper</value></data>
-	<data name="GameTools_Win_WallpaperKeyboard" xml:space="preserve"><value>Forward keys while desktop is focused</value></data>
-	<data name="GameTools_Win_WallpaperHelp" xml:space="preserve"><value>Click the wallpaper window on bare desktop to select its keyboard target. Temporarily detach the window when it needs full focus.</value></data>
+	<data name="GameTools_Win_WallpaperMouse" xml:space="preserve"><value>Allow mouse input on the wallpaper</value></data>
+	<data name="GameTools_Win_WallpaperKeyboard" xml:space="preserve"><value>Allow keyboard input on the wallpaper</value></data>
+	<data name="GameTools_Win_WallpaperHelp" xml:space="preserve"><value>If only keyboard input is enabled, click an exposed area of the wallpaper to forward keystrokes to it.</value></data>
+	<data name="GameTools_Win_WallpaperInteract" xml:space="preserve"><value>Start interacting</value></data>
+	<data name="GameTools_Win_WallpaperInteractHelp" xml:space="preserve"><value>Enable mouse and keyboard input and turn off click-through. Click an exposed area of the wallpaper or select Start interacting. The game returns to the wallpaper layer when you switch windows.</value></data>
 	<data name="GameTools_Win_AttachWallpaper" xml:space="preserve"><value>Move to wallpaper layer</value></data>
 	<data name="GameTools_Win_PauseWallpaper" xml:space="preserve"><value>Temporarily detach</value></data>
 	<data name="GameTools_Win_ResumeWallpaper" xml:space="preserve"><value>Reattach to wallpaper</value></data>
@@ -7022,8 +7020,12 @@ Farming games: {3}</value>
   <data name="GameTools_Cpu_Priority" xml:space="preserve">
     <value>Priority</value>
   </data>
+	<data name="GameTools_Cpu_PriorityHelp" xml:space="preserve"><value>Controls relative scheduling priority when processes compete for CPU time.</value></data>
+	<data name="GameTools_Cpu_EcoHelp" xml:space="preserve"><value>On favors energy efficiency, Off disables this power throttling, and System managed lets Windows decide.</value></data>
+	<data name="GameTools_Cpu_MemoryPriorityHelp" xml:space="preserve"><value>When memory is tight, lower-priority memory pages are more likely to be reclaimed.</value></data>
+	<data name="GameTools_Cpu_CoresHelp" xml:space="preserve"><value>Choose which logical processors this process can run on. Use a preset or expand a core group to choose manually.</value></data>
   <data name="GameTools_Cpu_Affinity" xml:space="preserve">
-    <value>CPU affinity</value>
+    <value>CPU cores</value>
   </data>
   <data name="GameTools_Cpu_Eco" xml:space="preserve">
     <value>EcoQoS</value>
@@ -7143,10 +7145,10 @@ Farming games: {3}</value>
     <value>Windows could not report the CPU topology.</value>
   </data>
   <data name="GameTools_Cpu_MultiGroup" xml:space="preserve">
-    <value>Hard affinity editing requires a single processor group. The CPU grid is read-only on this computer.</value>
+    <value>This device has multiple processor groups, so CPU cores are read-only.</value>
   </data>
   <data name="GameTools_Cpu_Presets" xml:space="preserve">
-    <value>Affinity presets</value>
+    <value>Core presets</value>
   </data>
   <data name="GameTools_Cpu_AllCores" xml:space="preserve">
     <value>All cores</value>
@@ -7238,162 +7240,177 @@ Farming games: {3}</value>
   <data name="GameTools_Cpu_RefreshFailed" xml:space="preserve">
     <value>Could not refresh the process list.</value>
   </data>
-  <data name="GameList_Cat_Title" xml:space="preserve"><value>Categories</value></data>
-  <data name="GameList_Cat_New" xml:space="preserve"><value>New category</value></data>
-  <data name="GameList_Cat_Templates" xml:space="preserve"><value>Add from template</value></data>
-  <data name="GameList_Cat_EmptyList" xml:space="preserve"><value>Create a category or choose a template to get started.</value></data>
-  <data name="GameList_Cat_EmptyEditor" xml:space="preserve"><value>Select or create a category to edit its rules and preview matching games.</value></data>
-  <data name="GameList_Cat_Name" xml:space="preserve"><value>Category name</value></data>
-  <data name="GameList_Cat_Mode" xml:space="preserve"><value>Category mode</value></data>
-  <data name="GameList_Cat_Mode_Manual" xml:space="preserve"><value>Manual</value></data>
-  <data name="GameList_Cat_Mode_Auto" xml:space="preserve"><value>Automatic</value></data>
-  <data name="GameList_Cat_Mode_Mixed" xml:space="preserve"><value>Mixed</value></data>
-  <data name="GameList_Cat_Save" xml:space="preserve"><value>Save category</value></data>
-  <data name="GameList_Cat_Delete" xml:space="preserve"><value>Delete category</value></data>
-  <data name="GameList_Cat_DeleteConfirm" xml:space="preserve"><value>Delete this category and its saved membership?</value></data>
-  <data name="GameList_Cat_Saved" xml:space="preserve"><value>Category saved.</value></data>
-  <data name="GameList_Cat_Deleted" xml:space="preserve"><value>Category deleted.</value></data>
-  <data name="GameList_Cat_EnterName" xml:space="preserve"><value>Enter a category name.</value></data>
-  <data name="GameList_Cat_Import" xml:space="preserve"><value>Import JSON</value></data>
-  <data name="GameList_Cat_Export" xml:space="preserve"><value>Export JSON</value></data>
-  <data name="GameList_Cat_ImportConfirm" xml:space="preserve"><value>Import category definitions? Definitions with matching IDs will be replaced.</value></data>
-  <data name="GameList_Cat_Imported" xml:space="preserve"><value>Categories imported.</value></data>
-  <data name="GameList_Cat_ImportFailed" xml:space="preserve"><value>Could not import the category file. Check its JSON structure, version, and category count.</value></data>
-  <data name="GameList_Cat_Exported" xml:space="preserve"><value>JSON exported.</value></data>
-  <data name="GameList_Cat_RunAll" xml:space="preserve"><value>Run all auto categories</value></data>
-  <data name="GameList_Cat_RunComplete" xml:space="preserve"><value>Applied {0:N0} automatic or mixed categories.</value></data>
-  <data name="GameList_Cat_Refresh" xml:space="preserve"><value>Refresh store data</value></data>
-  <data name="GameList_Cat_ReloadLibrary" xml:space="preserve"><value>Reload local library</value></data>
-  <data name="GameList_Cat_LibraryLoaded" xml:space="preserve"><value>Loaded {0:N0} local library entries.</value></data>
-  <data name="GameList_Cat_EmptyLibrary" xml:space="preserve"><value>The local library has no games to refresh.</value></data>
-  <data name="GameList_Cat_Cancel" xml:space="preserve"><value>Cancel</value></data>
-  <data name="GameList_Cat_RefreshProgress" xml:space="preserve"><value>Refreshing store data ({0:N0}/{1:N0})</value></data>
-  <data name="GameList_Cat_RefreshComplete" xml:space="preserve"><value>Cache checked. Store data is still incomplete for {0:N0} entries.</value></data>
-  <data name="GameList_Cat_RefreshCanceled" xml:space="preserve"><value>Refresh canceled. The next refresh will resume from saved results.</value></data>
-  <data name="GameList_Cat_RateLimited" xml:space="preserve"><value>Steam rate-limited the refresh. Cached results are available. Try again later.</value></data>
-  <data name="GameList_Cat_RefreshUnavailable" xml:space="preserve"><value>Some store data is unavailable. The last cached results are available.</value></data>
-  <data name="GameList_Cat_LoadFailed" xml:space="preserve"><value>Could not load categories or the local library.</value></data>
-  <data name="GameList_Cat_OperationFailed" xml:space="preserve"><value>The category operation failed. Check the app log for details.</value></data>
-  <data name="GameList_Cat_Region" xml:space="preserve"><value>Store region</value></data>
-  <data name="GameList_Cat_ApplyRegion" xml:space="preserve"><value>Apply region</value></data>
-  <data name="GameList_Cat_CurrencyDisplay" xml:space="preserve"><value>Region {0} · Currency {1}</value></data>
-  <data name="GameList_Cat_CurrencyUnknown" xml:space="preserve"><value>Awaiting store prices</value></data>
-  <data name="GameList_Cat_InvalidRegion" xml:space="preserve"><value>Enter a two-letter country code such as CN.</value></data>
-  <data name="GameList_Cat_RegionSaved" xml:space="preserve"><value>Store region saved.</value></data>
-  <data name="GameList_Cat_Overrides" xml:space="preserve"><value>Manual includes and exclusions</value></data>
-  <data name="GameList_Cat_FindGame" xml:space="preserve"><value>Search games by name or App ID</value></data>
-  <data name="GameList_Cat_Include" xml:space="preserve"><value>Include</value></data>
-  <data name="GameList_Cat_Exclude" xml:space="preserve"><value>Exclude</value></data>
-  <data name="GameList_Cat_IncludedIds" xml:space="preserve"><value>Included App IDs (comma-separated)</value></data>
-  <data name="GameList_Cat_ExcludedIds" xml:space="preserve"><value>Excluded App IDs (comma-separated)</value></data>
-  <data name="GameList_Cat_InvalidIds" xml:space="preserve"><value>Enter valid Steam App IDs separated by commas.</value></data>
-  <data name="GameList_Cat_Rules" xml:space="preserve"><value>Automatic rules</value></data>
-  <data name="GameList_Cat_Group" xml:space="preserve"><value>Group type</value></data>
-  <data name="GameList_Cat_Group_All" xml:space="preserve"><value>All (AND)</value></data>
-  <data name="GameList_Cat_Group_Any" xml:space="preserve"><value>Any (OR)</value></data>
-  <data name="GameList_Cat_Group_Not" xml:space="preserve"><value>Negate (NOT)</value></data>
-  <data name="GameList_Cat_AddCondition" xml:space="preserve"><value>Add condition</value></data>
-  <data name="GameList_Cat_AddGroup" xml:space="preserve"><value>Add group</value></data>
-  <data name="GameList_Cat_Remove" xml:space="preserve"><value>Remove</value></data>
-  <data name="GameList_Cat_Field" xml:space="preserve"><value>Field</value></data>
-  <data name="GameList_Cat_Operator" xml:space="preserve"><value>Operator</value></data>
-  <data name="GameList_Cat_Value" xml:space="preserve"><value>Value</value></data>
-  <data name="GameList_Cat_ValueList" xml:space="preserve"><value>Values separated by commas</value></data>
-  <data name="GameList_Cat_MinValue" xml:space="preserve"><value>Minimum value</value></data>
-  <data name="GameList_Cat_MaxValue" xml:space="preserve"><value>Maximum value</value></data>
-  <data name="GameList_Cat_Days" xml:space="preserve"><value>Days</value></data>
-  <data name="GameList_Cat_FindTag" xml:space="preserve"><value>Search or enter a store tag</value></data>
-  <data name="GameList_Cat_AddTag" xml:space="preserve"><value>Add tag</value></data>
-  <data name="GameList_Cat_ValueFormula" xml:space="preserve"><value>Value rating = positive review % ÷ (1 + price per hour). Price per hour = current regional price ÷ max(hours played, 0.1). Compare games in the same currency.</value></data>
-  <data name="GameList_Cat_Preview" xml:space="preserve"><value>Match preview</value></data>
-  <data name="GameList_Cat_ManualMatch" xml:space="preserve"><value>Manually included</value></data>
-  <data name="GameList_Cat_MatchCount" xml:space="preserve"><value>{0:N0} matching games</value></data>
-  <data name="GameList_Cat_NoMatches" xml:space="preserve"><value>No games match. Conditions need data to produce a match.</value></data>
-  <data name="GameList_Cat_Conflicts" xml:space="preserve"><value>Overlapping categories</value></data>
-  <data name="GameList_Cat_ConflictCount" xml:space="preserve"><value>{0:N0} games appear in more than one applied category.</value></data>
-  <data name="GameList_Cat_NoConflicts" xml:space="preserve"><value>The applied categories have no games in common.</value></data>
-  <data name="GameList_Cat_SteamPreview" xml:space="preserve"><value>Preview Steam collection export</value></data>
-  <data name="GameList_Cat_SteamReadOnly" xml:space="preserve"><value>Read-only export. Copy or save this category and its matching Steam App IDs.</value></data>
-  <data name="GameList_Cat_CopyJson" xml:space="preserve"><value>Copy JSON</value></data>
-  <data name="GameList_Cat_Copied" xml:space="preserve"><value>JSON copied to the clipboard.</value></data>
-  <data name="GameList_Cat_TemplateHiddenGems" xml:space="preserve"><value>Hidden gems</value></data>
-  <data name="GameList_Cat_TemplateValue" xml:space="preserve"><value>High value</value></data>
-  <data name="GameList_Cat_TemplateBacklog" xml:space="preserve"><value>Unplayed backlog</value></data>
-  <data name="GameList_Cat_TemplateShort" xml:space="preserve"><value>Short games</value></data>
-  <data name="GameList_Cat_TemplateChinese" xml:space="preserve"><value>Single-player with Simplified Chinese</value></data>
-  <data name="GameList_Cat_TemplateDeck" xml:space="preserve"><value>Steam Deck ready</value></data>
-  <data name="GameList_Cat_Op_Equal" xml:space="preserve"><value>Equals (=)</value></data>
-  <data name="GameList_Cat_Op_NotEqual" xml:space="preserve"><value>Does not equal (≠)</value></data>
-  <data name="GameList_Cat_Op_GreaterThan" xml:space="preserve"><value>Greater than (&gt;)</value></data>
-  <data name="GameList_Cat_Op_AtLeast" xml:space="preserve"><value>At least (≥)</value></data>
-  <data name="GameList_Cat_Op_LessThan" xml:space="preserve"><value>Less than (&lt;)</value></data>
-  <data name="GameList_Cat_Op_AtMost" xml:space="preserve"><value>At most (≤)</value></data>
-  <data name="GameList_Cat_Op_Between" xml:space="preserve"><value>Between (inclusive)</value></data>
-  <data name="GameList_Cat_Op_Contains" xml:space="preserve"><value>Contains</value></data>
-  <data name="GameList_Cat_Op_In" xml:space="preserve"><value>Is one of</value></data>
-  <data name="GameList_Cat_Op_HasTag" xml:space="preserve"><value>Has tag</value></data>
-  <data name="GameList_Cat_Op_HasAny" xml:space="preserve"><value>Has any of</value></data>
-  <data name="GameList_Cat_Op_HasAll" xml:space="preserve"><value>Has all of</value></data>
-  <data name="GameList_Cat_Op_IsEmpty" xml:space="preserve"><value>Is empty</value></data>
-  <data name="GameList_Cat_Op_WithinDays" xml:space="preserve"><value>Within the last N days</value></data>
-  <data name="GameList_Cat_Op_OlderThanDays" xml:space="preserve"><value>More than N days ago</value></data>
-  <data name="GameList_Cat_Field_PlaytimeMinutes" xml:space="preserve"><value>Total playtime (minutes)</value></data>
-  <data name="GameList_Cat_Field_RecentPlaytimeMinutes" xml:space="preserve"><value>Playtime in past 2 weeks (minutes)</value></data>
-  <data name="GameList_Cat_Field_LastPlayed" xml:space="preserve"><value>Last played date</value></data>
-  <data name="GameList_Cat_Field_OwnedSince" xml:space="preserve"><value>Acquisition date (when available)</value></data>
-  <data name="GameList_Cat_Field_Installed" xml:space="preserve"><value>Installed</value></data>
-  <data name="GameList_Cat_Field_SizeOnDisk" xml:space="preserve"><value>Disk usage (GiB)</value></data>
-  <data name="GameList_Cat_Field_Hidden" xml:space="preserve"><value>Hidden</value></data>
-  <data name="GameList_Cat_Field_Favourite" xml:space="preserve"><value>Favorite</value></data>
-  <data name="GameList_Cat_Field_AchievementCompletion" xml:space="preserve"><value>Base-game achievement completion (%)</value></data>
-  <data name="GameList_Cat_Field_AchievementCount" xml:space="preserve"><value>Achievement count</value></data>
-  <data name="GameList_Cat_Field_FamilyShared" xml:space="preserve"><value>From Family Sharing</value></data>
-  <data name="GameList_Cat_Field_Type" xml:space="preserve"><value>App type</value></data>
-  <data name="GameList_Cat_Field_Platforms" xml:space="preserve"><value>Supported operating systems</value></data>
-  <data name="GameList_Cat_Field_Price" xml:space="preserve"><value>Current price</value></data>
-  <data name="GameList_Cat_Field_OriginalPrice" xml:space="preserve"><value>Original price</value></data>
-  <data name="GameList_Cat_Field_Discount" xml:space="preserve"><value>Discount (%)</value></data>
-  <data name="GameList_Cat_Field_PricePerHour" xml:space="preserve"><value>Price per hour played</value></data>
-  <data name="GameList_Cat_Field_ValueRating" xml:space="preserve"><value>Value rating</value></data>
-  <data name="GameList_Cat_Field_Free" xml:space="preserve"><value>Free to play</value></data>
-  <data name="GameList_Cat_Field_ReleaseYear" xml:space="preserve"><value>Release year</value></data>
-  <data name="GameList_Cat_Field_Genres" xml:space="preserve"><value>Genres</value></data>
-  <data name="GameList_Cat_Field_Tags" xml:space="preserve"><value>Store user tags</value></data>
-  <data name="GameList_Cat_Field_TagCount" xml:space="preserve"><value>Store user tag count</value></data>
-  <data name="GameList_Cat_Field_Developer" xml:space="preserve"><value>Developer</value></data>
-  <data name="GameList_Cat_Field_Publisher" xml:space="preserve"><value>Publisher</value></data>
-  <data name="GameList_Cat_Field_ReviewScore" xml:space="preserve"><value>Positive reviews (%)</value></data>
-  <data name="GameList_Cat_Field_ReviewCount" xml:space="preserve"><value>Review count</value></data>
-  <data name="GameList_Cat_Field_ReviewTier" xml:space="preserve"><value>Review tier</value></data>
-  <data name="GameList_Cat_Field_Metacritic" xml:space="preserve"><value>Metacritic score</value></data>
-  <data name="GameList_Cat_Field_DeckStatus" xml:space="preserve"><value>Steam Deck compatibility</value></data>
-  <data name="GameList_Cat_Field_Controller" xml:space="preserve"><value>Controller support</value></data>
-  <data name="GameList_Cat_Field_Languages" xml:space="preserve"><value>Supported languages</value></data>
-  <data name="GameList_Cat_Field_Singleplayer" xml:space="preserve"><value>Single-player</value></data>
-  <data name="GameList_Cat_Field_Multiplayer" xml:space="preserve"><value>Multiplayer</value></data>
-  <data name="GameList_Cat_Choice_true" xml:space="preserve"><value>Yes</value></data>
-  <data name="GameList_Cat_Choice_false" xml:space="preserve"><value>No</value></data>
-  <data name="GameList_Cat_Choice_Type_game" xml:space="preserve"><value>Game</value></data>
-  <data name="GameList_Cat_Choice_Type_dlc" xml:space="preserve"><value>DLC</value></data>
-  <data name="GameList_Cat_Choice_Type_application" xml:space="preserve"><value>Software</value></data>
-  <data name="GameList_Cat_Choice_Type_tool" xml:space="preserve"><value>Tool</value></data>
-  <data name="GameList_Cat_Choice_Type_demo" xml:space="preserve"><value>Demo</value></data>
-  <data name="GameList_Cat_Choice_Type_other" xml:space="preserve"><value>Other</value></data>
-  <data name="GameList_Cat_Choice_DeckStatus_verified" xml:space="preserve"><value>Verified</value></data>
-  <data name="GameList_Cat_Choice_DeckStatus_playable" xml:space="preserve"><value>Playable</value></data>
-  <data name="GameList_Cat_Choice_DeckStatus_unsupported" xml:space="preserve"><value>Unsupported</value></data>
-  <data name="GameList_Cat_Choice_DeckStatus_untested" xml:space="preserve"><value>Untested</value></data>
-  <data name="GameList_Cat_Choice_Controller_full" xml:space="preserve"><value>Full</value></data>
-  <data name="GameList_Cat_Choice_Controller_partial" xml:space="preserve"><value>Partial</value></data>
-  <data name="GameList_Cat_Choice_Controller_none" xml:space="preserve"><value>None</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_9" xml:space="preserve"><value>Overwhelmingly Positive</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_8" xml:space="preserve"><value>Very Positive</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_7" xml:space="preserve"><value>Positive</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_6" xml:space="preserve"><value>Mostly Positive</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_5" xml:space="preserve"><value>Mixed</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_4" xml:space="preserve"><value>Mostly Negative</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_3" xml:space="preserve"><value>Negative</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_2" xml:space="preserve"><value>Very Negative</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_1" xml:space="preserve"><value>Overwhelmingly Negative</value></data>
-  <data name="GameList_Cat_Choice_ReviewTier_0" xml:space="preserve"><value>No review tier</value></data>
+  <data name="GameList_Saves_PageTitle" xml:space="preserve"><value>Save Manager</value></data>
+  <data name="GameList_Saves_FilterSettings" xml:space="preserve"><value>Filter &amp; Settings</value></data>
+  <data name="GameList_Saves_BackupSettings" xml:space="preserve"><value>Backup Settings</value></data>
+  <data name="GameList_Saves_BatchSelection" xml:space="preserve"><value>Batch Selection</value></data>
+  <data name="GameList_Saves_FilterWithSavesOrScreenshots" xml:space="preserve"><value>With Saves or Screenshots</value></data>
+  <data name="GameList_Saves_FilterWithScreenshots" xml:space="preserve"><value>With Steam Screenshots Only</value></data>
+  <data name="GameList_Saves_SortOccupiedSize" xml:space="preserve"><value>Total Size ↓</value></data>
+  <data name="GameList_Saves_SortSaveSize" xml:space="preserve"><value>Save Size ↓</value></data>
+  <data name="GameList_Saves_SortScreenshotSize" xml:space="preserve"><value>Screenshot Size ↓</value></data>
+  <data name="GameList_Saves_SortRecent" xml:space="preserve"><value>Recently Modified ↓</value></data>
+  <data name="GameList_Saves_SortNameAscending" xml:space="preserve"><value>Game Name A-Z</value></data>
+  <data name="GameList_Saves_ExpandAll" xml:space="preserve"><value>Expand All</value></data>
+  <data name="GameList_Saves_CollapseAll" xml:space="preserve"><value>Collapse All</value></data>
+  <data name="GameList_Saves_Expand" xml:space="preserve"><value>Expand</value></data>
+  <data name="GameList_Saves_Collapse" xml:space="preserve"><value>Collapse</value></data>
+  <data name="GameList_Saves_GameSaves" xml:space="preserve"><value>Game Saves</value></data>
+  <data name="GameList_Saves_LocalSaves" xml:space="preserve"><value>Local Saves</value></data>
+  <data name="GameList_Saves_SteamScreenshots" xml:space="preserve"><value>Steam Screenshots</value></data>
+  <data name="GameList_Saves_LocalBackups" xml:space="preserve"><value>Local Backups</value></data>
+  <data name="GameList_Saves_SavesLegendCount" xml:space="preserve"><value>{0} games · {1} files</value></data>
+  <data name="GameList_Saves_ScreenshotsLegendCount" xml:space="preserve"><value>{0} games · {1} images</value></data>
+  <data name="GameList_Saves_BackupsLegendCount" xml:space="preserve"><value>{0} backups</value></data>
+  <data name="GameList_Saves_OverviewAccountPath" xml:space="preserve"><value>{0} · {1}</value></data>
+  <data name="GameList_Saves_OverviewSteam" xml:space="preserve"><value>STEAM</value></data>
+  <data name="GameList_Saves_OverviewGameCount" xml:space="preserve"><value>{0:N0} games · {1:N0} with saves or screenshots</value></data>
+  <data name="GameList_Saves_ScanInstalledProgress" xml:space="preserve"><value>Scanning installed games ({0}/{1})…</value></data>
+  <data name="GameList_Saves_ScanBackgroundProgress" xml:space="preserve"><value>Scanning uninstalled games in the background ({0}/{1})…</value></data>
+  <data name="GameList_Saves_Stop" xml:space="preserve"><value>Stop</value></data>
+  <data name="GameList_Saves_More" xml:space="preserve"><value>More</value></data>
+  <data name="GameList_Saves_OpenSteamScreenshotsFolder" xml:space="preserve"><value>Open Steam Screenshots Folder</value></data>
+  <data name="GameList_Saves_OpenScreenshotFolder" xml:space="preserve"><value>Open Screenshot Folder</value></data>
+  <data name="GameList_Saves_OpenScreenshot" xml:space="preserve"><value>Open Screenshot</value></data>
+  <data name="GameList_Saves_OpenScreenshotFailed" xml:space="preserve"><value>Could not open the screenshot.</value></data>
+  <data name="GameList_Saves_SelectedGames" xml:space="preserve"><value>{0} games selected</value></data>
+  <data name="GameList_Saves_CancelSelection" xml:space="preserve"><value>Deselect</value></data>
+  <data name="GameList_Saves_CardMetadata" xml:space="preserve"><value>AppID {0} · Saves {1} · Screenshots {2} ({3} images)</value></data>
+  <data name="GameList_Saves_ViewScreenshot" xml:space="preserve"><value>View</value></data>
+  <data name="GameList_Saves_ScreenshotSizeAndCount" xml:space="preserve"><value>{0} · {1} images</value></data>
+  <data name="GameList_Saves_ShowMoreFiles" xml:space="preserve"><value>Show {0} more items…</value></data>
+  <data name="GameList_Saves_ShowMoreScreenshots" xml:space="preserve"><value>Show {0} more images…</value></data>
+  <data name="GameList_Saves_FileTreeFailed" xml:space="preserve"><value>Could not load the file tree.</value></data>
+  <data name="GameList_Saves_SettingsSaveFailed" xml:space="preserve"><value>Could not save Game Saves settings.</value></data>
+  <data name="GameList_Saves_SaveFolderMenuItem" xml:space="preserve"><value>Saves · {0}</value></data>
+  <data name="GameList_Saves_ScreenshotFolderMenuItem" xml:space="preserve"><value>Steam Screenshots · {0}</value></data>
+  <data name="GameList_Saves_CopyComplete" xml:space="preserve"><value>Copied saves for {0} games.</value></data>
+  <data name="GameList_Saves_CopyPartial" xml:space="preserve"><value>Copied saves for {0} games. Copy failed for {1}.</value></data>
+  <data name="GameList_Saves_CopyFailed" xml:space="preserve"><value>Could not copy game saves.</value></data>
+  <data name="GameList_Saves_Title" xml:space="preserve"><value>Saves</value></data>
+  <data name="GameList_Saves_Description" xml:space="preserve"><value>Manage local saves for detected Steam games, see how much space they use, and back them up or restore them.</value></data>
+  <data name="GameList_Saves_Rescan" xml:space="preserve"><value>Rescan</value></data>
+  <data name="GameList_Saves_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="GameList_Saves_ChangeBackupFolder" xml:space="preserve"><value>Change Backup Folder</value></data>
+  <data name="GameList_Saves_OpenBackupFolder" xml:space="preserve"><value>Open Backup Folder</value></data>
+  <data name="GameList_Saves_DiscoveredGames" xml:space="preserve"><value>Games with Saves</value></data>
+  <data name="GameList_Saves_SavesSize" xml:space="preserve"><value>Total Save Size</value></data>
+  <data name="GameList_Saves_BackupSnapshots" xml:space="preserve"><value>Local Backup Snapshots</value></data>
+  <data name="GameList_Saves_CurrentBackupFolder" xml:space="preserve"><value>Current Backup Folder</value></data>
+  <data name="GameList_Saves_DiscoveredFormat" xml:space="preserve"><value>{0} / {1}</value></data>
+  <data name="GameList_Saves_SnapshotMetrics" xml:space="preserve"><value>{0} snapshots · {1}</value></data>
+  <data name="GameList_Saves_Change" xml:space="preserve"><value>Change</value></data>
+  <data name="GameList_Saves_Open" xml:space="preserve"><value>Open</value></data>
+  <data name="GameList_Saves_Search" xml:space="preserve"><value>Search by game name or App ID…</value></data>
+  <data name="GameList_Saves_Account" xml:space="preserve"><value>Steam Account</value></data>
+  <data name="GameList_Saves_RefreshAccounts" xml:space="preserve"><value>Refresh Accounts</value></data>
+  <data name="GameList_Saves_RefreshAccountsFailed" xml:space="preserve"><value>Could not refresh Steam accounts.</value></data>
+  <data name="GameList_Saves_BackUp" xml:space="preserve"><value>Back Up</value></data>
+  <data name="GameList_Saves_Filter" xml:space="preserve"><value>Filter Games</value></data>
+  <data name="GameList_Saves_Sort" xml:space="preserve"><value>Sort</value></data>
+  <data name="GameList_Saves_FilterWithSaves" xml:space="preserve"><value>With Local Saves Only</value></data>
+  <data name="GameList_Saves_FilterAll" xml:space="preserve"><value>All Detected Games</value></data>
+  <data name="GameList_Saves_FilterInstalled" xml:space="preserve"><value>Installed Only</value></data>
+  <data name="GameList_Saves_FilterWithBackups" xml:space="preserve"><value>With Backups</value></data>
+  <data name="GameList_Saves_SortSize" xml:space="preserve"><value>Save Size (Largest First)</value></data>
+  <data name="GameList_Saves_SortModified" xml:space="preserve"><value>Recently Modified</value></data>
+  <data name="GameList_Saves_SortName" xml:space="preserve"><value>Game Name</value></data>
+  <data name="GameList_Saves_SelectAll" xml:space="preserve"><value>Select All Games with Saves</value></data>
+  <data name="GameList_Saves_ClearSelection" xml:space="preserve"><value>Clear Selection</value></data>
+  <data name="GameList_Saves_BatchBackup" xml:space="preserve"><value>Batch Backup</value></data>
+  <data name="GameList_Saves_BatchBackupCount" xml:space="preserve"><value>Back Up Selected ({0})</value></data>
+  <data name="GameList_Saves_BatchCopy" xml:space="preserve"><value>Copy to Another Folder…</value></data>
+  <data name="GameList_Saves_FilteredSummary" xml:space="preserve"><value>{0} games · {1}</value></data>
+  <data name="GameList_Saves_EmptyGames" xml:space="preserve"><value>No Steam games found</value></data>
+  <data name="GameList_Saves_EmptyGamesHint" xml:space="preserve"><value>Make sure Steam is installed and its library is accessible, then rescan.</value></data>
+  <data name="GameList_Saves_EmptyFilter" xml:space="preserve"><value>No matching games</value></data>
+  <data name="GameList_Saves_EmptyFilterHint" xml:space="preserve"><value>Try another filter or clear the search.</value></data>
+  <data name="GameList_Saves_SelectGame" xml:space="preserve"><value>Select a game to view its save folders and sizes, back up saves, or restore a snapshot.</value></data>
+  <data name="GameList_Saves_BackupBadge" xml:space="preserve"><value>{0} backups</value></data>
+  <data name="GameList_Saves_CloudCache" xml:space="preserve"><value>Cloud Cache</value></data>
+  <data name="GameList_Saves_AppId" xml:space="preserve"><value>AppID {0}</value></data>
+  <data name="GameList_Saves_GameMetadata" xml:space="preserve"><value>AppID {0} · {1} · {2} files · {3}</value></data>
+  <data name="GameList_Saves_FileMetadata" xml:space="preserve"><value>{0} · {1} files · {2}</value></data>
+  <data name="GameList_Saves_SizeAndFiles" xml:space="preserve"><value>{0} · {1} files</value></data>
+  <data name="GameList_Saves_LocationCount" xml:space="preserve"><value>{0} locations</value></data>
+  <data name="GameList_Saves_NoLocations" xml:space="preserve"><value>No known save locations</value></data>
+  <data name="GameList_Saves_Unavailable" xml:space="preserve"><value>--</value></data>
+  <data name="GameList_Saves_Installed" xml:space="preserve"><value>Installed</value></data>
+  <data name="GameList_Saves_NotInstalled" xml:space="preserve"><value>Not Installed</value></data>
+  <data name="GameList_Saves_QuickBackup" xml:space="preserve"><value>Back Up Now</value></data>
+  <data name="GameList_Saves_QuickBackupHint" xml:space="preserve"><value>Back up to the current backup folder</value></data>
+  <data name="GameList_Saves_BackupElsewhere" xml:space="preserve"><value>Back Up to Another Folder…</value></data>
+  <data name="GameList_Saves_OpenSaveFolder" xml:space="preserve"><value>Open Save Folder</value></data>
+  <data name="GameList_Saves_ChooseSaveFolder" xml:space="preserve"><value>Choose a save folder to open</value></data>
+  <data name="GameList_Saves_RestoreExternal" xml:space="preserve"><value>Restore from Another Folder…</value></data>
+  <data name="GameList_Saves_Locations" xml:space="preserve"><value>Save Locations and Sizes</value></data>
+  <data name="GameList_Saves_SourceRule" xml:space="preserve"><value>Steam Rule</value></data>
+  <data name="GameList_Saves_SourceCloud" xml:space="preserve"><value>Local Steam Cloud Folder</value></data>
+  <data name="GameList_Saves_Recursive" xml:space="preserve"><value>Recursive</value></data>
+  <data name="GameList_Saves_Pattern" xml:space="preserve"><value>Pattern {0}</value></data>
+  <data name="GameList_Saves_PathUnresolved" xml:space="preserve"><value>Save path could not be resolved</value></data>
+  <data name="GameList_Saves_LocationMissing" xml:space="preserve"><value>Not Found</value></data>
+  <data name="GameList_Saves_LocationEmpty" xml:space="preserve"><value>Empty Folder</value></data>
+  <data name="GameList_Saves_LocationDenied" xml:space="preserve"><value>Access Denied</value></data>
+  <data name="GameList_Saves_LocationUnresolved" xml:space="preserve"><value>Unresolved</value></data>
+  <data name="GameList_Saves_OpenFolder" xml:space="preserve"><value>Open Folder</value></data>
+  <data name="GameList_Saves_CopyPath" xml:space="preserve"><value>Copy Path</value></data>
+  <data name="GameList_Saves_Backups" xml:space="preserve"><value>Backup History and Quick Restore</value></data>
+  <data name="GameList_Saves_SnapshotCount" xml:space="preserve"><value>{0} snapshots</value></data>
+  <data name="GameList_Saves_Refresh" xml:space="preserve"><value>Refresh</value></data>
+  <data name="GameList_Saves_EmptyBackups" xml:space="preserve"><value>This game has no local backups yet. Select Back Up Now to create one.</value></data>
+  <data name="GameList_Saves_AutoBackupBadge" xml:space="preserve"><value>Automatic Pre-Restore Backup</value></data>
+  <data name="GameList_Saves_QuickRestore" xml:space="preserve"><value>Quick Restore</value></data>
+  <data name="GameList_Saves_Delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="GameList_Saves_RestoreTitle" xml:space="preserve"><value>Restore Game Saves</value></data>
+  <data name="GameList_Saves_RestoreWarning" xml:space="preserve"><value>Close the game and let Steam Cloud finish syncing before restoring. Restore overwrites matching files in the destination.</value></data>
+  <data name="GameList_Saves_RestoreSnapshotInfo" xml:space="preserve"><value>{0} · backed up on {1}</value></data>
+  <data name="GameList_Saves_RestoreTargets" xml:space="preserve"><value>Restore to these folders</value></data>
+  <data name="GameList_Saves_RestoreSource" xml:space="preserve"><value>Source folder</value></data>
+  <data name="GameList_Saves_RestoreChooseTarget" xml:space="preserve"><value>Choose a destination save folder</value></data>
+  <data name="GameList_Saves_RestoreAutoBackup" xml:space="preserve"><value>Back up current saves before restoring</value></data>
+  <data name="GameList_Saves_RestoreConfirm" xml:space="preserve"><value>Restore</value></data>
+  <data name="GameList_Saves_RestoreNoTarget" xml:space="preserve"><value>This game has no available save folder to restore to.</value></data>
+  <data name="GameList_Saves_SnapshotInvalid" xml:space="preserve"><value>The selected snapshot is invalid or uses an unsupported format.</value></data>
+  <data name="GameList_Saves_SnapshotWrongGame" xml:space="preserve"><value>The selected snapshot belongs to another game.</value></data>
+  <data name="GameList_Saves_DeleteTitle" xml:space="preserve"><value>Delete Local Backup</value></data>
+  <data name="GameList_Saves_DeleteConfirm" xml:space="preserve"><value>Permanently delete the backup of {0} created on {1}?</value></data>
+  <data name="GameList_Saves_Scanning" xml:space="preserve"><value>Reading Steam games and save locations…</value></data>
+  <data name="GameList_Saves_ScanningProgress" xml:space="preserve"><value>Scanning {0} / {1} · {2}</value></data>
+  <data name="GameList_Saves_ScanCancelled" xml:space="preserve"><value>Scan canceled.</value></data>
+  <data name="GameList_Saves_ScanFinished" xml:space="preserve"><value>Scanned {0} games and found local saves for {1}.</value></data>
+  <data name="GameList_Saves_ScanFailed" xml:space="preserve"><value>Could not scan game saves.</value></data>
+  <data name="GameList_Saves_BackingUp" xml:space="preserve"><value>Backing up game saves…</value></data>
+  <data name="GameList_Saves_BackupProgress" xml:space="preserve"><value>Processed {0} / {1} games · {2}</value></data>
+  <data name="GameList_Saves_BackupComplete" xml:space="preserve"><value>Backed up saves for {0} games.</value></data>
+  <data name="GameList_Saves_BackupPartial" xml:space="preserve"><value>Backed up {0} games. Backups failed for {1}.</value></data>
+  <data name="GameList_Saves_BackupFailed" xml:space="preserve"><value>Could not back up game saves.</value></data>
+  <data name="GameList_Saves_OperationWarnings" xml:space="preserve"><value>The operation finished, but some files need attention.</value></data>
+  <data name="GameList_Saves_Restoring" xml:space="preserve"><value>Restoring game saves…</value></data>
+  <data name="GameList_Saves_RestoreComplete" xml:space="preserve"><value>Restored {0} save files.</value></data>
+  <data name="GameList_Saves_RestoreFailed" xml:space="preserve"><value>Could not restore game saves.</value></data>
+  <data name="GameList_Saves_RestorePartial" xml:space="preserve"><value>Restore stopped after replacing {0} save files.</value></data>
+  <data name="GameList_Saves_Refreshing" xml:space="preserve"><value>Reading local backups…</value></data>
+  <data name="GameList_Saves_RefreshComplete" xml:space="preserve"><value>Backup history refreshed.</value></data>
+  <data name="GameList_Saves_RefreshFailed" xml:space="preserve"><value>Could not refresh backup history.</value></data>
+  <data name="GameList_Saves_Deleting" xml:space="preserve"><value>Deleting backup…</value></data>
+  <data name="GameList_Saves_DeleteComplete" xml:space="preserve"><value>Backup deleted.</value></data>
+  <data name="GameList_Saves_DeleteFailed" xml:space="preserve"><value>Could not delete the backup.</value></data>
+  <data name="GameList_Saves_BackupFolderUpdated" xml:space="preserve"><value>Backup folder changed.</value></data>
+  <data name="GameList_Saves_BackupFolderFailed" xml:space="preserve"><value>Could not change the backup folder.</value></data>
+  <data name="GameList_Saves_OpenFolderFailed" xml:space="preserve"><value>Could not open the folder.</value></data>
+  <data name="GameList_Saves_FolderPickerFailed" xml:space="preserve"><value>Could not select a local folder.</value></data>
+  <data name="GameList_Saves_PathCopied" xml:space="preserve"><value>Path copied.</value></data>
+  <data name="GameList_Saves_CopyPathFailed" xml:space="preserve"><value>Could not copy the path.</value></data>
+  <data name="GameList_Saves_ConfirmationFailed" xml:space="preserve"><value>Could not show the confirmation dialog.</value></data>
+  <data name="GameList_Saves_DateTimeFormat" xml:space="preserve"><value>yyyy-MM-dd HH:mm:ss</value></data>
+  <data name="GameList_Saves_BytesFormat" xml:space="preserve"><value>{0} B</value></data>
+  <data name="GameList_Saves_KilobytesFormat" xml:space="preserve"><value>{0:0.##} KB</value></data>
+  <data name="GameList_Saves_MegabytesFormat" xml:space="preserve"><value>{0:0.##} MB</value></data>
+  <data name="GameList_Saves_GigabytesFormat" xml:space="preserve"><value>{0:0.##} GB</value></data>
+  <data name="GameList_Saves_TerabytesFormat" xml:space="preserve"><value>{0:0.##} TB</value></data>
+  <data name="GameTools_Cpu_PerformanceCores" xml:space="preserve"><value>Performance cores (P)</value></data>
+  <data name="GameTools_Cpu_EfficiencyCores" xml:space="preserve"><value>Efficiency cores (E)</value></data>
+  <data name="GameTools_Cpu_ChooseProcess" xml:space="preserve"><value>Choose process</value></data>
+  <data name="GameTools_Cpu_Description" xml:space="preserve"><value>Adjust process priority, CPU cores, and automatic scheduling rules.</value></data>
 </root>

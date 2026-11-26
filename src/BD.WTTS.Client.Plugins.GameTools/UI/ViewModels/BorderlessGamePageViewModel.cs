@@ -19,6 +19,7 @@ public sealed partial class BorderlessGamePageViewModel : ViewModelBase
                 _SelectWindow = value;
                 this.RaisePropertyChanged();
                 this.RaisePropertyChanged(nameof(HasSelectedWindow));
+                this.RaisePropertyChanged(nameof(HasExecutablePath));
 #if WINDOWS
                 SelectControls();
 #endif
@@ -46,9 +47,11 @@ public sealed partial class BorderlessGamePageViewModel : ViewModelBase
     public bool IsWindowPickingSupported { get; }
 
     public bool HasSelectedWindow => IsWindowPickingSupported && SelectWindow is not null;
+    public bool HasExecutablePath => SelectWindow?.Path is { Length: > 0 } path && Path.IsPathFullyQualified(path);
 
     public ICommand? PickWindowCommand { get; }
     public ICommand? CopyGameInfoCommand { get; }
+    public ICommand? OpenExecutableLocationCommand { get; }
     public ICommand? BorderlessWindowCommand { get; }
     public ICommand? MaximizeWindowCommand { get; }
     public ICommand? NormalWindowCommand { get; }
@@ -56,6 +59,7 @@ public sealed partial class BorderlessGamePageViewModel : ViewModelBase
     public ICommand? ShowWindowCommand { get; }
     public ICommand? HideWindowCommand { get; }
     public ICommand? ToWallpaperWindowCommand { get; }
+    public ICommand? InteractWithWallpaperCommand { get; }
     public ICommand? ResetWallpaperCommand { get; }
     public ICommand? PauseWallpaperCommand { get; }
     public ICommand? ReattachWallpaperCommand { get; }
@@ -99,6 +103,7 @@ public sealed partial class BorderlessGamePageViewModel : ViewModelBase
 #if WINDOWS
         IsWindowPickingSupported = true;
         PickWindowCommand = Register(PickWindow);
+        OpenExecutableLocationCommand = Register(OpenExecutableLocation);
         BorderlessWindowCommand = Register(BorderlessWindow);
         MaximizeWindowCommand = Register(MaximizeWindow);
         NormalWindowCommand = Register(NormalWindow);
@@ -106,6 +111,7 @@ public sealed partial class BorderlessGamePageViewModel : ViewModelBase
         ShowWindowCommand = Register(ShowWindow);
         HideWindowCommand = Register(HideWindow);
         ToWallpaperWindowCommand = Register(ToWallpaperWindow);
+        InteractWithWallpaperCommand = Register(InteractWithWallpaper);
         ResetWallpaperCommand = Register(ResetWallpaper);
         PauseWallpaperCommand = Register(() => Apply(windowApi.PauseWallpaperWindow));
         ReattachWallpaperCommand = Register(ToWallpaperWindow);
@@ -148,6 +154,25 @@ public sealed partial class BorderlessGamePageViewModel : ViewModelBase
                    $"{Strings.GameRelated_Borderless_Path}: {window.Path}";
         await Clipboard2.SetTextAsync(text);
         Toast.Show(ToastIcon.Success, Strings.CopyToClipboard);
+    }
+
+    void OpenExecutableLocation()
+    {
+        if (!HasExecutablePath || SelectWindow?.Path is not { } path)
+            return;
+
+        try
+        {
+            if (Directory.Exists(Path.GetDirectoryName(path)))
+                windowApi.OpenFolder(path);
+            else
+                Toast.Show(ToastIcon.Warning, Strings.FilePathNotExist);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException
+                                   or NotSupportedException or System.ComponentModel.Win32Exception)
+        {
+            ex.LogAndShowT(nameof(BorderlessGamePageViewModel));
+        }
     }
 
     void PickWindow()
@@ -220,6 +245,12 @@ public sealed partial class BorderlessGamePageViewModel : ViewModelBase
     {
         if (Controls is { Monitor: { } monitor } state)
             Apply(window => windowApi.SetWallpaperWindow(window, monitor, state.WallpaperMouse, state.WallpaperKeyboard));
+    }
+
+    void InteractWithWallpaper()
+    {
+        if (Controls?.CanInteractWithWallpaper == true)
+            Apply(windowApi.InteractWithWallpaper);
     }
 
     void ResetWallpaper()

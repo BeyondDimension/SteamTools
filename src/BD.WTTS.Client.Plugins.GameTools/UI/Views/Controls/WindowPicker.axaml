@@ -1,0 +1,15 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.WindowPicker"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    Width="48"
+    Height="48"
+    AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_PickWindow}"
+    Cursor="Cross"
+    ToolTip.Tip="{Binding $self.Instruction}">
+    <Panel Background="Transparent">
+        <Image IsHitTestVisible="False" Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/movecross_hide.png" />
+        <Image x:Name="Crosshair" IsHitTestVisible="False" Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/movecross.png" />
+    </Panel>
+</UserControl>

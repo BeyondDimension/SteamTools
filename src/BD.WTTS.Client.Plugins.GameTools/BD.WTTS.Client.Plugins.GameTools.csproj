@@ -13,6 +13,7 @@
 	  <None Remove="UI\Assets\CPU.png" />
 	  <None Remove="UI\Assets\movecross.png" />
 	  <None Remove="UI\Assets\movecross_hide.png" />
+	  <None Remove="UI\Assets\trash.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -21,6 +22,7 @@
 	  <AvaloniaResource Include="UI\Assets\CPU.png" />
 	  <AvaloniaResource Include="UI\Assets\movecross.png" />
 	  <AvaloniaResource Include="UI\Assets\movecross_hide.png" />
+	  <AvaloniaResource Include="UI\Assets\trash.png" />
 	  <AvaloniaResource Include="UI\Assets\toolbox.ico" />
 	</ItemGroup>
 

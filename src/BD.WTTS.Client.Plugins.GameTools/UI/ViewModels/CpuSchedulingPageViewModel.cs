@@ -1,9 +1,11 @@
+using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using BD.WTTS.Services.GameTools;
 using ReactiveUI.Reactive;
 using System.Diagnostics;
 using System.Globalization;
+using System.Windows.Input;
 
 namespace BD.WTTS.UI.ViewModels;
 
@@ -14,9 +16,11 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
     readonly Dictionary<string, Bitmap?> icons = new(StringComparer.OrdinalIgnoreCase);
     readonly CpuTopology topology;
     Func<bool>? isVisible;
-    bool refreshing;
+    Task? processRefresh;
+    bool processPickerOpen;
     bool busy;
     bool windowedOnly;
+    bool realtimeConfirmed;
     string? search;
     CpuProcessRow? process;
     CpuChoice? priority;
@@ -28,7 +32,9 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
     {
         try
         {
-            var buffer = OperatingSystem.IsWindows() ? IPlatformService.Instance.GetCpuSchedulingTopology() : [];
+            var buffer = OperatingSystem.IsWindows() && !Design.IsDesignMode
+                ? IPlatformService.Instance.GetCpuSchedulingTopology()
+                : [];
             topology = CpuTopology.Parse(buffer, IntPtr.Size);
         }
         catch (Exception ex)
@@ -38,6 +44,7 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
         }
 
         CoreGrid = CreateCoreGrid();
+        CoreGroups = CreateCoreGroups();
         Presets = new CpuChoice[]
         {
             new((int)CpuPreset.All, Strings.GameTools_Cpu_AllCores),
@@ -48,13 +55,21 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
             new((int)CpuPreset.Ccd1, Strings.GameTools_Cpu_Ccd1),
             new((int)CpuPreset.LeaveFirstCoreFree, Strings.GameTools_Cpu_LeaveFirst),
         }.Where(choice => topology.GetPreset((CpuPreset)choice.Value).Count != 0).ToArray();
+#if WINDOWS
+        var pickWindow = ReactiveCommand.Create(PickWindow);
+        CompositeDisposable.Add(pickWindow);
+        PickWindowCommand = pickWindow;
+#endif
         refreshTimer.Tick += async (_, _) => await RefreshAsync();
     }
 
     public ObservableCollection<CpuProcessRow> Processes { get; } = new();
     public ObservableCollection<CpuRuleRow> Rules { get; } = new();
-    public IReadOnlyList<CpuCoreRow> CoreGrid { get; }
+    IReadOnlyList<CpuCoreRow> CoreGrid { get; }
+    public IReadOnlyList<CpuCoreGroup> CoreGroups { get; }
     public IReadOnlyList<CpuChoice> Presets { get; }
+    public ICommand? PickWindowCommand { get; }
+    public bool IsWindowPickingSupported => PickWindowCommand is not null;
     public bool HasTopology => topology.LogicalProcessors.Count > 0;
     public bool HasMultipleGroups => topology.Groups.Count > 1;
     public bool HasNoTopology => !HasTopology;
@@ -68,6 +83,11 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
     public bool CanEditMemory => CanEdit && SelectedProcess?.State.MemoryPriority is not null;
     public bool NeedsRealtimeConfirmation => SelectedPriority?.Value == (int)ProcessPriorityClass.RealTime &&
         editorBaseline.Priority != ProcessPriorityClass.RealTime;
+    public bool RealtimeConfirmed
+    {
+        get => realtimeConfirmed;
+        set => this.RaiseAndSetIfChanged(ref realtimeConfirmed, value);
+    }
     public bool CanMatchPath => SelectedProcess?.ImagePath is not null;
     public bool DisableAllRules { get; private set; }
     public bool RulesAreEditable => !Busy;
@@ -121,6 +141,9 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
         get => priority;
         set
         {
+            if (ReferenceEquals(priority, value))
+                return;
+            RealtimeConfirmed = false;
             this.RaiseAndSetIfChanged(ref priority, value);
             this.RaisePropertyChanged(nameof(NeedsRealtimeConfirmation));
         }
@@ -189,8 +212,6 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
         {
             var first = core.Threads[0];
             var labels = new List<string> { string.Format(Strings.GameTools_Cpu_Core, grid.Count) };
-            if (topology.IsHybrid)
-                labels.Add(core.EfficiencyClass == topology.HighestEfficiencyClass ? Strings.GameTools_Cpu_PerformanceCore : Strings.GameTools_Cpu_EfficiencyCore);
             for (int i = 0; i < topology.L3Groups.Count; i++)
             {
                 if (Array.IndexOf(topology.L3Groups[i], first) >= 0)
@@ -210,6 +231,21 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
         return grid;
     }
 
+    IReadOnlyList<CpuCoreGroup> CreateCoreGroups()
+    {
+        if (!HasTopology)
+            return [];
+        if (!topology.IsHybrid)
+            return [new(Strings.GameTools_Cpu_AllCores, CoreGrid)];
+
+        var performance = topology.GetPreset(CpuPreset.Performance).ToHashSet();
+        return
+        [
+            new(Strings.GameTools_Cpu_PerformanceCores, CoreGrid.Where(core => performance.Contains(core.Tiles[0].Cpu)).ToArray()),
+            new(Strings.GameTools_Cpu_EfficiencyCores, CoreGrid.Where(core => !performance.Contains(core.Tiles[0].Cpu)).ToArray()),
+        ];
+    }
+
     internal void Start(Func<bool> visible)
     {
         if (!OperatingSystem.IsWindows())
@@ -225,18 +261,22 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
         isVisible = null;
         refreshTimer.Stop();
         SelectedProcess = null;
+        processPickerOpen = false;
         Processes.Clear();
         rows.Clear();
-        if (!refreshing)
+        if (processRefresh is not { IsCompleted: false })
             ClearIcons();
     }
 
-    async Task RefreshAsync()
+    Task RefreshAsync()
     {
-        if (refreshing || isVisible?.Invoke() != true)
-            return;
+        if (isVisible?.Invoke() != true)
+            return Task.CompletedTask;
+        return processRefresh is { IsCompleted: false } active ? active : processRefresh = RefreshProcessesAsync();
+    }
 
-        refreshing = true;
+    async Task RefreshProcessesAsync()
+    {
         try
         {
             var snapshot = await Task.Run(CaptureSnapshot);
@@ -255,6 +295,8 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
             }
             foreach (var key in remaining)
                 rows.Remove(key);
+            if (SelectedProcess is { } selected && !IsCurrentProcess(selected))
+                SelectedProcess = null;
             UpdateProcessList();
             NotifySelection();
         }
@@ -266,7 +308,6 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
         }
         finally
         {
-            refreshing = false;
             if (isVisible is null)
                 ClearIcons();
         }
@@ -361,8 +402,25 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
     }
 #endif
 
+    internal void SetProcessPickerOpen(bool open)
+    {
+        processPickerOpen = open;
+        if (open)
+        {
+            UpdateProcessList();
+            _ = RefreshAsync();
+        }
+        else
+        {
+            Processes.Clear();
+        }
+    }
+
     void UpdateProcessList()
     {
+        if (!processPickerOpen)
+            return;
+
         var filter = Search?.Trim();
         var desired = rows.Values.Where(row => (!WindowedOnly || row.HasWindow) &&
             (string.IsNullOrEmpty(filter) || row.Name.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
@@ -377,23 +435,61 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
         }
         for (int i = 0; i < desired.Length; i++)
         {
-            if (i >= Processes.Count || !ReferenceEquals(Processes[i], desired[i]))
+            if (i < Processes.Count && ReferenceEquals(Processes[i], desired[i]))
+                continue;
+            int existing = Processes.IndexOf(desired[i]);
+            if (existing >= 0)
+                Processes.Move(existing, i);
+            else
                 Processes.Insert(i, desired[i]);
         }
-        if (SelectedProcess is { } selected && !set.Contains(selected))
-            SelectedProcess = null;
         this.RaisePropertyChanged(nameof(HasNoProcesses));
     }
 
+    bool IsCurrentProcess(CpuProcessRow row) =>
+        rows.TryGetValue((row.Pid, row.State.CreationTime), out var current) && ReferenceEquals(current, row);
+
+    internal void SelectProcess(CpuProcessRow row)
+    {
+        if (IsCurrentProcess(row))
+            SelectedProcess = row;
+        else
+            Toast.Show(ToastIcon.Warning, Strings.GameTools_Cpu_ProcessChanged);
+    }
+
+#if WINDOWS
+    void PickWindow()
+    {
+        if (Busy)
+            return;
+        try
+        {
+            IPlatformService.Instance.GetMoveMouseDownWindow(window =>
+            {
+                using var pickedProcess = window.Process;
+                if (pickedProcess is not null)
+                {
+                    int pid = pickedProcess.Id;
+                    Dispatcher.UIThread.Post(async () => await SelectProcessAsync(pid));
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            ex.LogAndShowT(nameof(CpuSchedulingPageViewModel));
+        }
+    }
+#endif
+
     internal async Task SelectProcessAsync(int pid)
     {
-        Search = null;
-        WindowedOnly = false;
-        if (isVisible?.Invoke() == true)
-        {
-            await RefreshAsync();
-            SelectedProcess = Processes.FirstOrDefault(row => row.Pid == pid);
-        }
+        await RefreshAsync();
+        if (isVisible?.Invoke() != true)
+            return;
+        if (rows.Values.FirstOrDefault(row => row.Pid == pid) is { } selected)
+            SelectProcess(selected);
+        else
+            Toast.Show(ToastIcon.Warning, Strings.GameTools_Cpu_ProcessChanged);
     }
 
     void NotifySelection()
@@ -409,6 +505,7 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
 
     internal void ReloadEditor()
     {
+        RealtimeConfirmed = false;
         editorBaseline = SelectedProcess?.State ?? default;
         SelectedPriority = Priorities.FirstOrDefault(choice => choice.Value == (int?)editorBaseline.Priority);
         SelectedEcoMode = EcoModes.FirstOrDefault(choice => choice.Value == (int?)editorBaseline.EcoMode);
@@ -431,11 +528,11 @@ public sealed class CpuSchedulingPageViewModel : ViewModelBase
     ulong SelectedAffinity() => CoreGrid.SelectMany(core => core.Tiles).Where(tile => tile.IsSelected)
         .Aggregate(0UL, (mask, tile) => mask | (1UL << tile.Cpu.Index));
 
-    internal async Task ApplyAsync(bool restoreDefaults, bool realtimeConfirmed)
+    internal async Task ApplyAsync(bool restoreDefaults)
     {
         if (!CanEdit || SelectedProcess is not { } selected)
             return;
-        if (!restoreDefaults && NeedsRealtimeConfirmation && !realtimeConfirmed)
+        if (!restoreDefaults && NeedsRealtimeConfirmation && !RealtimeConfirmed)
         {
             Toast.Show(ToastIcon.Warning, Strings.GameTools_Cpu_RealtimeWarning);
             return;

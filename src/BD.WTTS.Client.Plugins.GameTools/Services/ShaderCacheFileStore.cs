@@ -1,7 +1,10 @@
 namespace BD.WTTS.Services;
 
 readonly record struct ShaderCacheStatistics(long Bytes, long Files, DateTime? LastWriteUtc,
-    long SkippedFiles, long SkippedDirectories);
+    long SkippedFiles, long SkippedDirectories)
+{
+    public bool IsKnownEmpty => LastWriteUtc.HasValue && Files == 0 && SkippedFiles == 0 && SkippedDirectories == 0;
+}
 
 sealed class ShaderCacheFileStore(Action<string, Exception> reportError)
 {
@@ -28,6 +31,24 @@ sealed class ShaderCacheFileStore(Action<string, Exception> reportError)
         path.Length > root.Length &&
         (path[root.Length] == Path.DirectorySeparatorChar || path[root.Length] == Path.AltDirectorySeparatorChar) &&
         PathComparer.Equals(path[..root.Length], root);
+
+    public static string GetCacheDirectoryPath(ShaderCacheLocation location)
+    {
+        var root = CanonicalPath(location.Root);
+        var target = CanonicalPath(location.Path);
+        if (!PathComparer.Equals(target, root) && !IsWithin(target, root))
+            throw new IOException("The cache is outside its declared root.");
+        if (location.Kind is ShaderCacheKind.GameClient or ShaderCacheKind.Game && !PathComparer.Equals(target, root))
+            throw new IOException("Expected the exact declared game cache directory.");
+        if (location.Kind == ShaderCacheKind.SteamGame &&
+            (!PathComparer.Equals(Path.GetDirectoryName(target), root) ||
+                !PathComparer.Equals(Path.GetFileName(root), "shadercache") ||
+                location.AppId is null or 0 ||
+                !uint.TryParse(Path.GetFileName(target), out var appId) || appId != location.AppId))
+            throw new IOException("Expected a Steam app ID directly under steamapps/shadercache.");
+        CheckPath(target, directory: true);
+        return target;
+    }
 
     public string[] FindDirectories(string parent, string pattern, CancellationToken token)
     {
@@ -68,17 +89,7 @@ sealed class ShaderCacheFileStore(Action<string, Exception> reportError)
         string target;
         try
         {
-            var root = CanonicalPath(location.Root);
-            target = CanonicalPath(location.Path);
-            if (!PathComparer.Equals(target, root) && !IsWithin(target, root))
-                throw new IOException("The cache is outside its declared root.");
-            if (location.Kind == ShaderCacheKind.SteamGame &&
-                (!PathComparer.Equals(Path.GetDirectoryName(target), root) ||
-                    !PathComparer.Equals(Path.GetFileName(root), "shadercache") ||
-                    location.AppId is null or 0 ||
-                    !uint.TryParse(Path.GetFileName(target), out var appId) || appId != location.AppId))
-                throw new IOException("Expected a Steam app ID directly under steamapps/shadercache.");
-            CheckPath(target, directory: true);
+            target = GetCacheDirectoryPath(location);
         }
         catch (Exception ex) when (IsFileError(ex))
         {

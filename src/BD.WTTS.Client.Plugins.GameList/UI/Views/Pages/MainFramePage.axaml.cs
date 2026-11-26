@@ -42,7 +42,7 @@ public partial class MainFramePage : UserControl
             var item when ReferenceEquals(item, DownloadsTab) => typeof(DownloadPage),
             var item when ReferenceEquals(item, IdleAppsTab) => typeof(IdleAppsPage),
             var item when ReferenceEquals(item, EditAppsTab) => typeof(EditAppsPage),
-            var item when ReferenceEquals(item, CategoriesTab) => typeof(CategoriesPage),
+            var item when ReferenceEquals(item, SavesTab) => typeof(GameSavesPage),
             _ => null,
         };
 

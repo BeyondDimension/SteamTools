@@ -74,10 +74,15 @@ sealed class ShaderCacheDiscovery(ShaderCacheFileStore files)
             }
         }
 
-        var locations = ShaderCacheLocations.FindDriverCaches(files, token)
+        var results = ShaderCacheLocations.FindDriverCaches(files, token)
             .Concat(ShaderCacheLocations.FindSteamCaches(files, installations, libraries, token))
-            .DistinctBy(static location => location.Path, ShaderCacheFileStore.PathComparer).ToArray();
-        var unresolved = locations.Where(static location => location.AppId.HasValue)
+            .Concat(ShaderCacheLocations.FindGameCaches(installations, token))
+            .DistinctBy(static location => location.Path, ShaderCacheFileStore.PathComparer)
+            .Select(location => new ShaderCacheScanEntry(location, files.Scan(location, token)))
+            .Where(static entry => !entry.Statistics.IsKnownEmpty)
+            .ToArray();
+        var unresolved = results.Select(static entry => entry.Location)
+            .Where(static location => location.AppId.HasValue)
             .Select(static location => location.AppId!.Value).ToHashSet();
         var names = new Dictionary<uint, string>();
         if (steam != null && steamDirectory != null && unresolved.Count > 0)
@@ -102,18 +107,16 @@ sealed class ShaderCacheDiscovery(ShaderCacheFileStore files)
             }
         }
 
-        var results = new ShaderCacheScanEntry[locations.Length];
         for (var i = 0; i < results.Length; i++)
         {
-            var location = locations[i];
-            if (location.AppId is { } appId)
-            {
-                if (!names.TryGetValue(appId, out var name))
-                    name = ReadInstalledName(location, appId);
-                if (!string.IsNullOrWhiteSpace(name))
-                    location = location with { Name = name };
-            }
-            results[i] = new(location, files.Scan(location, token));
+            token.ThrowIfCancellationRequested();
+            var entry = results[i];
+            if (entry.Location.AppId is not { } appId)
+                continue;
+            if (!names.TryGetValue(appId, out var name))
+                name = ReadInstalledName(entry.Location, appId);
+            if (!string.IsNullOrWhiteSpace(name))
+                results[i] = entry with { Location = entry.Location with { Name = name } };
         }
         return (results, libraries.ToArray());
 
@@ -154,7 +157,7 @@ sealed class ShaderCacheDiscovery(ShaderCacheFileStore files)
         }
     }
 
-    public static (string[] Steam, string[] Driver) FindRunningProcesses(
+    public static (string[] Steam, string[] Driver, string[] GameClients) FindRunningProcesses(
         IReadOnlyCollection<ShaderCacheLocation> selected, IReadOnlyCollection<string> libraries)
     {
         var includesDriver = selected.Any(static location => location.Kind == ShaderCacheKind.Driver);
@@ -169,6 +172,9 @@ sealed class ShaderCacheDiscovery(ShaderCacheFileStore files)
             : [];
         var steam = new SortedSet<string>(StringComparer.CurrentCultureIgnoreCase);
         var driver = new SortedSet<string>(StringComparer.CurrentCultureIgnoreCase);
+        var gameClients = new SortedSet<string>(StringComparer.CurrentCultureIgnoreCase);
+        var selectedGameClients = ShaderCacheLocations.GetGameClientProcessNames(selected);
+        var battleNetAgentRoot = selectedGameClients.Contains("Agent") ? ShaderCacheLocations.GetBattleNetAgentRoot() : null;
         foreach (var process in Process.GetProcesses())
         {
             using (process)
@@ -176,16 +182,22 @@ sealed class ShaderCacheDiscovery(ShaderCacheFileStore files)
                 try
                 {
                     var name = process.ProcessName;
+                    var isAgent = name.Equals("Agent", StringComparison.OrdinalIgnoreCase);
+                    if (selectedGameClients.Contains(name) && !isAgent)
+                        gameClients.Add(name);
                     if (includesDriver && graphicsProcesses.Contains(name))
                         driver.Add(name);
                     // Steam can write its global temporary cache while the client is open.
                     if (includesSteamTemporary && (name.Equals("steam", StringComparison.OrdinalIgnoreCase) ||
                         name.Equals("steam_osx", StringComparison.OrdinalIgnoreCase)))
                         steam.Add(name);
-                    if (selectedLibraries.Length == 0 && allLibraries.Length == 0)
+                    if (selectedLibraries.Length == 0 && allLibraries.Length == 0 && !(isAgent && battleNetAgentRoot != null))
                         continue;
 
-                    CheckProcessPath(GetProcessPath(process), name);
+                    var processPath = GetProcessPath(process);
+                    if (isAgent && ShaderCacheLocations.IsBattleNetAgentPath(processPath, battleNetAgentRoot))
+                        gameClients.Add("Battle.net Agent");
+                    CheckProcessPath(processPath, name);
                     if (OperatingSystem.IsLinux())
                     {
                         // Proton may run a Wine executable with the game directory as working directory.
@@ -200,7 +212,7 @@ sealed class ShaderCacheDiscovery(ShaderCacheFileStore files)
                 }
             }
         }
-        return (steam.ToArray(), driver.ToArray());
+        return (steam.ToArray(), driver.ToArray(), gameClients.ToArray());
 
         void CheckProcessPath(string? path, string name)
         {

@@ -2,6 +2,7 @@
     x:Class="BD.WTTS.UI.Views.Pages.BorderlessGamePage"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:BD.WTTS.UI.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:BD.WTTS.Models"
@@ -19,39 +20,25 @@
     <spp:PageBase.PreviewImage>
         <ui:FAImageIconSource Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/BorderlessWindow.png" />
     </spp:PageBase.PreviewImage>
+
     <spp:PageBase.ActionContent>
         <StackPanel Orientation="Horizontal" Spacing="2">
             <ToggleButton
-                Padding="8,4"
-                DockPanel.Dock="Right"
+                Padding="8"
+                AutomationProperties.Name="{x:Static spp:Strings.L10nGames_ViewWindowHistory}"
                 IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
-                Theme="{StaticResource TransparentButton}">
-                <Panel>
-                    <Viewbox
-                        Width="16"
-                        Height="16"
-                        HorizontalAlignment="Left">
-                        <ui:FAFontIcon Glyph="&#xE81C;" />
-                    </Viewbox>
-                    <TextBlock
-                        Margin="28,4,0,4"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Text="{x:Static spp:Strings.L10nGames_ViewWindowHistory}" />
-                </Panel>
+                Theme="{StaticResource TransparentButton}"
+                ToolTip.Tip="{x:Static spp:Strings.L10nGames_ViewWindowHistory}">
+                <ui:FAFontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="20" Glyph="&#xE81C;" />
             </ToggleButton>
             <DropDownButton
                 Padding="8"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
                 Content="{StaticResource More}"
                 FontFamily="{StaticResource SymbolThemeFontFamily}"
                 FontSize="20"
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!--<ui:FAMenuFlyoutItem x:Name="PluginSettingButton" Text="{x:Static spp:Strings.Settings_Plugin}" />-->
-                        <!--<ui:FAMenuFlyoutSeparator  />-->
                         <ui:FAMenuFlyoutItem IsEnabled="False">
                             <ui:FAMenuFlyoutItem.Text>
                                 <MultiBinding StringFormat="{}{0}{1}">
@@ -63,356 +50,534 @@
                                 </MultiBinding>
                             </ui:FAMenuFlyoutItem.Text>
                         </ui:FAMenuFlyoutItem>
-                        <!--<ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.ViewInStore}" />
-                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.UseHelp}" />
-                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.AboutThisPlugin}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>
+
     <spp:PageBase.PaneContent>
-        <StackPanel Margin="15,20" Spacing="10">
+        <StackPanel Margin="16" Spacing="12">
             <TextBlock
-                VerticalAlignment="Center"
                 Text="{x:Static spp:Strings.L10nGames_History}"
-                Theme="{StaticResource CaptionTextBlockStyle}" />
-            <ListBox ItemsSource="{Binding WindowList, Mode=OneWay}" SelectedItem="{Binding SelectWindow, Mode=TwoWay}">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" Spacing="5" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
+                Theme="{StaticResource SubtitleTextBlockStyle}" />
+            <ListBox
+                MaxHeight="500"
+                ItemsSource="{Binding WindowList, Mode=OneWay}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                SelectedItem="{Binding SelectWindow, Mode=TwoWay}">
+                <ListBox.Styles>
+                    <Style Selector="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListBox.Styles>
                 <ListBox.ItemTemplate>
                     <DataTemplate x:DataType="models:NativeWindowModel">
-                        <WrapPanel VerticalAlignment="Center">
-                            <TextBlock>
-                                <Run Text="{Binding Name, Mode=OneWay}" />
-                                <Run Text="(" />
-                                <Run Text="{Binding Title, Mode=OneWay}" />
-                                <Run Text=")" />
-                            </TextBlock>
-                        </WrapPanel>
+                        <StackPanel Spacing="2">
+                            <TextBlock
+                                Text="{Binding Name, Mode=OneWay}"
+                                TextTrimming="CharacterEllipsis"
+                                Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding Title, Mode=OneWay}"
+                                TextTrimming="CharacterEllipsis"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
     </spp:PageBase.PaneContent>
 
-    <ScrollViewer>
-		<StackPanel x:Name="Grid_Menu" MaxWidth="1000" Spacing="8">
-			<Border Padding="20" Classes="paper" 
-                    Height="180">
-				<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="*" />
-					</Grid.ColumnDefinitions>
-					<Grid HorizontalAlignment="Center" Grid.Column="0">
-						<Image
-						  Width="64"
-						  HorizontalAlignment="Left"
-						  Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/movecross_hide.png">
-						</Image>
-						<Image
-						  x:Name="move"
-						  Width="64"
-						  HorizontalAlignment="Left"
-                          IsEnabled="{Binding IsWindowPickingSupported}"
-                          Source="avares://BD.WTTS.Client.Plugins.GameTools/UI/Assets/movecross.png" />
-					</Grid>
-					<TextBlock Grid.Column="1"
-						Margin="10"
-						VerticalAlignment="Center"
-						Text="{x:Static spp:Strings.GameRelated_Borderless_MoveMouseTip}"
-						TextWrapping="WrapWithOverflow"/>
-				</Grid>
-			</Border>
+    <Grid
+        MaxWidth="1040"
+        VerticalAlignment="Top"
+        ColumnDefinitions="*,*"
+        ColumnSpacing="12"
+        Container.Name="borderlessWindow"
+        Container.Sizing="Width"
+        RowDefinitions="Auto,Auto">
+        <Grid.Styles>
+            <Style Selector="ui|FASettingsExpanderItem.windowSetting">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Theme" Value="{StaticResource SettingsExpanderItem2}" />
+            </Style>
+            <Style Selector="Grid.settingRow">
+                <Setter Property="ColumnSpacing" Value="12" />
+            </Style>
+            <Style Selector="TextBlock.settingLabel">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+            <Style Selector="Grid.settingRow > ToggleSwitch">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style Selector="Grid.settingRow > ComboBox">
+                <Setter Property="Width" Value="156" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style Selector="Grid.settingRow > NumericUpDown">
+                <Setter Property="Width" Value="156" />
+                <Setter Property="FormatString" Value="0" />
+                <Setter Property="Maximum" Value="65535" />
+            </Style>
+            <Style Selector="StackPanel#WindowOptions">
+                <Setter Property="(Grid.Column)" Value="1" />
+            </Style>
+            <ContainerQuery Name="borderlessWindow" Query="max-width:740">
+                <Style Selector="StackPanel#WindowActions">
+                    <Setter Property="(Grid.ColumnSpan)" Value="2" />
+                </Style>
+                <Style Selector="ui|FASettingsExpanderItem.windowSetting">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Theme" Value="{StaticResource SettingsExpanderItem2}" />
+            </Style>
+            <Style Selector="Grid.settingRow">
+                <Setter Property="ColumnSpacing" Value="12" />
+            </Style>
+            <Style Selector="TextBlock.settingLabel">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+            <Style Selector="Grid.settingRow > ToggleSwitch">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style Selector="Grid.settingRow > ComboBox">
+                <Setter Property="Width" Value="156" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style Selector="Grid.settingRow > NumericUpDown">
+                <Setter Property="Width" Value="156" />
+                <Setter Property="FormatString" Value="0" />
+                <Setter Property="Maximum" Value="65535" />
+            </Style>
+            <Style Selector="StackPanel#WindowOptions">
+                    <Setter Property="(Grid.Row)" Value="1" />
+                    <Setter Property="(Grid.Column)" Value="0" />
+                    <Setter Property="(Grid.ColumnSpan)" Value="2" />
+                    <Setter Property="Margin" Value="0,8,0,0" />
+                </Style>
+            </ContainerQuery>
+        </Grid.Styles>
 
-			<Expander IsExpanded="True">
-				<Expander.Styles>
-					<Style Selector="Expander /template/ ToggleButton#ExpanderHeader">
-						<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-					</Style>
-				</Expander.Styles>
-				<Expander.Header>
-					<DockPanel>
-						<StackPanel Orientation="Horizontal" >
-							<ui:FAFontIcon FontSize="26" Margin="0 0 12 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;" />
-							<TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.L10nGames_WindowInfo}" />
-							<!--<TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.SteamAppType_Game}" />-->
-							<!--<TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.Info}" />-->
-						</StackPanel>
-						<Button DockPanel.Dock="Right" HorizontalAlignment="Right" 
-								Width="100" Content="{x:Static spp:Strings.Copy}"
-								Command="{Binding CopyGameInfoCommand}"
-								IsEnabled="{Binding HasSelectedWindow}" />
-					</DockPanel>
-				</Expander.Header>
-				
-				<StackPanel>
-					<Grid
-						HorizontalAlignment="Stretch"
-						ColumnDefinitions="Auto,*"
-						RowDefinitions="Auto,Auto,Auto,Auto">
-						<TextBlock VerticalAlignment="Top" Text="{Binding Source={x:Static spp:Strings.GameRelated_Borderless_Title}, Mode=OneTime, StringFormat={}{0}:}" />
-						<SelectableTextBlock
-							Grid.Column="1"
-							Margin="4,0,0,10"
-							Text="{Binding SelectWindow.Title, Mode=OneWay}"
-							TextWrapping="WrapWithOverflow" 
-							Foreground="Gray" VerticalAlignment="Top" />
+        <StackPanel x:Name="WindowActions" Spacing="8">
+            <Border Padding="12" Classes="paper">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                    <controls:WindowPicker
+                        VerticalAlignment="Center"
+                        Instruction="{x:Static spp:Strings.GameRelated_Borderless_MoveMouseTip}"
+                        IsVisible="{Binding IsWindowPickingSupported}"
+                        PickCommand="{Binding PickWindowCommand}" />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="4">
+                        <TextBlock
+                            Text="{x:Static spp:Strings.GameTools_Cpu_PickWindow}"
+                            TextWrapping="Wrap"
+                            Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                        <TextBlock
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            IsVisible="{Binding IsWindowPickingSupported}"
+                            Text="{x:Static spp:Strings.GameRelated_Borderless_MoveMouseTip}"
+                            TextWrapping="Wrap"
+                            Theme="{StaticResource CaptionTextBlockStyle}" />
+                        <TextBlock
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            IsVisible="{Binding !IsWindowPickingSupported}"
+                            Text="{x:Static spp:Strings.L10nGames_WindowsOnly}"
+                            TextWrapping="Wrap"
+                            Theme="{StaticResource CaptionTextBlockStyle}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
 
-						<TextBlock
-							Grid.Row="1"
-							VerticalAlignment="Top"
-							Text="{Binding Source={x:Static spp:Strings.GameRelated_Borderless_Process}, Mode=OneTime, StringFormat={}{0}:}" />
-						<SelectableTextBlock
-							Grid.Row="1"
-							Grid.Column="1"
-							Margin="4,0,0,10"
-							Text="{Binding SelectWindow.Name, Mode=OneWay}"
-							TextWrapping="WrapWithOverflow"
-							Foreground="Gray" VerticalAlignment="Top" />
+            <Border x:Name="ButtonGroup" Padding="12" Classes="paper" IsVisible="{Binding IsWindowPickingSupported}">
+                <StackPanel Spacing="8">
+                    <TextBlock
+                        Text="{x:Static spp:Strings.Tray_QuickActions}"
+                        Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                    <WrapPanel IsEnabled="{Binding HasSelectedWindow}" ItemSpacing="8" LineSpacing="8">
+                        <Button
+                            Classes="accent"
+                            Command="{Binding BorderlessWindowCommand}"
+                            Content="{x:Static spp:Strings.GameRelated_Borderless_BorderlessWindow}" />
+                        <Button
+                            Command="{Binding MaximizeWindowCommand}"
+                            Content="{x:Static spp:Strings.GameRelated_Borderless_Maximize}" />
+                        <Button
+                            Command="{Binding NormalWindowCommand}"
+                            Content="{x:Static spp:Strings.GameTools_Win_RestoreWindow}" />
+                        <Button
+                            Command="{Binding HideWindowCommand}"
+                            Content="{x:Static spp:Strings.GameRelated_Borderless_Hide}" />
+                        <Button
+                            Command="{Binding ShowWindowCommand}"
+                            Content="{x:Static spp:Strings.GameRelated_Borderless_Show}" />
+                        <Button
+                            Command="{Binding KillWindowCommand}"
+                            Content="{x:Static spp:Strings.GameRelated_Borderless_KillProcess}"
+                            Foreground="{DynamicResource SystemFillColorCriticalBrush}" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
 
-						<TextBlock
-							Grid.Row="2"
-							VerticalAlignment="Top"
-							Text="{Binding Source={x:Static spp:Strings.GameRelated_Borderless_ClassName}, Mode=OneTime, StringFormat={}{0}:}" />
-						<SelectableTextBlock
-							Grid.Row="2"
-							Grid.Column="1"
-							Margin="4,0,0,10"
-							Text="{Binding SelectWindow.ClassName, Mode=OneWay}"
-							TextWrapping="WrapWithOverflow" 
-							Foreground="Gray" VerticalAlignment="Top" />
+            <ui:FASettingsExpander
+                x:Name="WindowInfoSettings"
+                Header="{x:Static spp:Strings.L10nGames_WindowInfo}"
+                IsExpanded="{Binding HasSelectedWindow, Mode=OneWay}"
+                IsVisible="{Binding IsWindowPickingSupported}">
+                <ui:FASettingsExpander.IconSource>
+                    <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;" />
+                </ui:FASettingsExpander.IconSource>
+                <ui:FASettingsExpanderItem Classes="windowSetting" IsVisible="{Binding !HasSelectedWindow}">
+                    <TextBlock
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{x:Static spp:Strings.GameTools_Cpu_PickWindow}"
+                        TextWrapping="Wrap" />
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem HorizontalContentAlignment="Stretch" IsVisible="{Binding HasSelectedWindow}">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="8">
+                        <Grid.Styles>
+                            <Style Selector="SelectableTextBlock">
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                            </Style>
+                        </Grid.Styles>
+                        <TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_Title}" />
+                        <SelectableTextBlock Grid.Column="1" Text="{Binding SelectWindow.Title, Mode=OneWay}" />
+                        <TextBlock Grid.Row="1" Text="{x:Static spp:Strings.GameRelated_Borderless_Process}" />
+                        <SelectableTextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectWindow.Name, Mode=OneWay}" />
+                        <TextBlock Grid.Row="2" Text="{x:Static spp:Strings.GameRelated_Borderless_ClassName}" />
+                        <SelectableTextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectWindow.ClassName, Mode=OneWay}" />
+                        <TextBlock Grid.Row="3" Text="{x:Static spp:Strings.GameRelated_Borderless_Path}" />
+                        <Panel Grid.Row="3" Grid.Column="1">
+                            <spp:PathLink
+                                x:Name="ExecutablePathLink"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top"
+                                AutomationProperties.HelpText="{x:Static spp:Strings.Settings_Storage_OpenFolder}"
+                                Command="{Binding OpenExecutableLocationCommand}"
+                                IsVisible="{Binding HasExecutablePath}"
+                                Path="{Binding SelectWindow.Path}" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                IsVisible="{Binding !HasExecutablePath}"
+                                Text="—" />
+                        </Panel>
+                        <Button
+                            Grid.Row="4"
+                            Grid.ColumnSpan="2"
+                            HorizontalAlignment="Right"
+                            Command="{Binding CopyGameInfoCommand}"
+                            Content="{x:Static spp:Strings.Copy}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+            </ui:FASettingsExpander>
 
-						<TextBlock
-							Grid.Row="3"
-							VerticalAlignment="Top"
-							Text="{Binding Source={x:Static spp:Strings.GameRelated_Borderless_Path}, Mode=OneTime, StringFormat={}{0}:}" />
-						<SelectableTextBlock
-							Grid.Row="3"
-							Grid.Column="1"
-							Margin="4,0,0,10"
-							Text="{Binding SelectWindow.Path, Mode=OneWay}"
-							TextWrapping="WrapWithOverflow"
-							Foreground="Gray" VerticalAlignment="Top" />
-					</Grid>
+            <ui:FASettingsExpander
+                x:Name="MonitorSettings"
+                Header="{x:Static spp:Strings.GameTools_Win_Monitor}"
+                IsVisible="{Binding IsWindowPickingSupported}">
+                <ui:FASettingsExpander.IconSource>
+                    <ui:FAPathIconSource Data="F0 M3 3H21V16H3Z M4.5 4.5V14.5H19.5V4.5Z M8 18H16V20H8Z" />
+                </ui:FASettingsExpander.IconSource>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_Monitor}" />
+                        <ComboBox
+                            Grid.Column="1"
+                            Width="216"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Monitor}"
+                            IsEnabled="{Binding HasSelectedWindow}"
+                            ItemsSource="{Binding Monitors}"
+                            SelectedItem="{Binding Controls.Monitor, Mode=TwoWay}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <WrapPanel HorizontalAlignment="Right" ItemSpacing="8" LineSpacing="8">
+                        <Button Command="{Binding RefreshMonitorsCommand}" Content="{x:Static spp:Strings.GameTools_Win_RefreshMonitors}" />
+                        <Button
+                            Command="{Binding CenterWindowCommand}"
+                            Content="{x:Static spp:Strings.GameTools_Win_Center}"
+                            IsEnabled="{Binding HasSelectedWindow}" />
+                        <Button
+                            Command="{Binding MoveToMonitorCommand}"
+                            Content="{x:Static spp:Strings.GameTools_Win_MoveToMonitor}"
+                            IsEnabled="{Binding HasSelectedWindow}" />
+                        <Button
+                            Command="{Binding FitMonitorCommand}"
+                            Content="{x:Static spp:Strings.GameTools_Win_FitMonitor}"
+                            IsEnabled="{Binding HasSelectedWindow}" />
+                    </WrapPanel>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_PositionX}" />
+                        <NumericUpDown
+                            Grid.Column="1"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_PositionX}"
+                            IsEnabled="{Binding HasSelectedWindow}"
+                            Minimum="-65535"
+                            Value="{Binding Controls.X, Mode=TwoWay}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_PositionY}" />
+                        <NumericUpDown
+                            Grid.Column="1"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_PositionY}"
+                            IsEnabled="{Binding HasSelectedWindow}"
+                            Minimum="-65535"
+                            Value="{Binding Controls.Y, Mode=TwoWay}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_Width}" />
+                        <NumericUpDown
+                            Grid.Column="1"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Width}"
+                            IsEnabled="{Binding HasSelectedWindow}"
+                            Minimum="1"
+                            Value="{Binding Controls.Width, Mode=TwoWay}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_Height}" />
+                        <NumericUpDown
+                            Grid.Column="1"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Height}"
+                            IsEnabled="{Binding HasSelectedWindow}"
+                            Minimum="1"
+                            Value="{Binding Controls.Height, Mode=TwoWay}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Button
+                        HorizontalAlignment="Right"
+                        Command="{Binding SetBoundsCommand}"
+                        Content="{x:Static spp:Strings.GameTools_Win_SetBounds}"
+                        IsEnabled="{Binding HasSelectedWindow}" />
+                </ui:FASettingsExpanderItem>
+            </ui:FASettingsExpander>
+        </StackPanel>
 
-					<Border x:Name="ButtonGroup" Padding="4" Classes="paper" Margin="-16 16 -16 -16"
-							Height="200">
-						<WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
-							<WrapPanel.Styles>
-								<Style Selector="Button">
-									<Setter Property="Height" Value="30" />
-									<Setter Property="Margin" Value="8" />
-									<Setter Property="Width" Value="120" />
-								</Style>
-							</WrapPanel.Styles>
+        <StackPanel x:Name="WindowOptions" IsVisible="{Binding IsWindowPickingSupported}" Spacing="8">
+            <ui:FASettingsExpander
+                x:Name="WindowControlSettings"
+                Header="{x:Static spp:Strings.GameTools_Win_Advanced}">
+                <ui:FASettingsExpander.IconSource>
+                    <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE713;" />
+                </ui:FASettingsExpander.IconSource>
 
-							<!--Button Group 1-->
-							<Button Command="{Binding BorderlessWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
-								<!--<Button.Styles>
-									<Style Selector="Button">
-										<Setter Property="Background" Value="#0071c7" />
-										<Setter Property="Foreground" Value="White" />
-									</Style>
-									<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-										<Setter Property="TextElement.Foreground" Value="White" />
-										<Setter Property="TextElement.Background" Value="#006abb" />
-									</Style>
-									<Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
-										<Setter Property="Background" Value="#0062ae" />
-									</Style>
-								</Button.Styles>-->
-
-								<StackPanel Orientation="Horizontal">
-									<ui:FAFontIcon Glyph="&#xf58a;" FontFamily="Segoe Fluent Icons" />
-									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_BorderlessWindow}"/>
-								</StackPanel>
-							</Button>
-							<Button Command="{Binding MaximizeWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
-								<StackPanel Orientation="Horizontal">
-									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE922;" />
-									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_Maximize}"/>
-								</StackPanel>
-							</Button>
-							<Button Command="{Binding NormalWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
-								<StackPanel Orientation="Horizontal">
-									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE923;" />
-									<TextBlock Text="{x:Static spp:Strings.GameTools_Win_RestoreWindow}"/>
-								</StackPanel>
-							</Button>
-
-							<!--Button Group 2-->
-							<Button Command="{Binding HideWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
-								<StackPanel Orientation="Horizontal">
-									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xed1a;" />
-									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_Hide}"/>
-								</StackPanel>
-							</Button>
-							<Button Command="{Binding ShowWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
-								<StackPanel Orientation="Horizontal">
-									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7b3;" />
-									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_Show}"/>
-								</StackPanel>
-							</Button>
-
-							<Button Command="{Binding KillWindowCommand}" IsEnabled="{Binding HasSelectedWindow}">
-								<Button.Styles>
-									<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-										<Setter Property="TextElement.Foreground" Value="White" />
-										<Setter Property="TextElement.Background" Value="Red" />
-									</Style>
-									<Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
-										<Setter Property="Background" Value="#f1707a" />
-									</Style>
-								</Button.Styles>
-								<StackPanel Orientation="Horizontal">
-									<ui:FAFontIcon Margin="0 0 4 0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8BB;" />
-									<TextBlock Text="{x:Static spp:Strings.GameRelated_Borderless_KillProcess}"/>
-								</StackPanel>
-							</Button>
-
-						</WrapPanel>
-					</Border>
-				</StackPanel>
-			</Expander>
-
-            <StackPanel IsVisible="{Binding IsWindowPickingSupported}" Spacing="8">
-                <Expander Header="{x:Static spp:Strings.GameTools_Win_Advanced}" IsEnabled="{Binding HasSelectedWindow}" IsExpanded="True">
-                    <StackPanel Spacing="12">
-                        <WrapPanel>
-                            <WrapPanel.Styles>
-                                <Style Selector="WrapPanel > Control">
-                                    <Setter Property="Margin" Value="0,0,8,8" />
-                                </Style>
-                            </WrapPanel.Styles>
-                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_Topmost}" IsChecked="{Binding Controls.Topmost, Mode=TwoWay}" IsEnabled="{Binding !Controls.WallpaperAttached}" />
-                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_ClickThrough}" IsChecked="{Binding Controls.ClickThrough, Mode=TwoWay}" />
-                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_ConfineCursor}" IsChecked="{Binding Controls.ConfineCursor, Mode=TwoWay}" IsEnabled="{Binding !Controls.WallpaperAttached}" />
-                        </WrapPanel>
-                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
-                            <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.GameTools_Win_Opacity}" />
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_Topmost}" />
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Topmost}"
+                            Classes="OnlySwitch"
+                            IsChecked="{Binding Controls.Topmost, Mode=TwoWay}"
+                            IsEnabled="{Binding !Controls.WallpaperAttached, FallbackValue=False}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_ClickThrough}" />
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_ClickThrough}"
+                            Classes="OnlySwitch"
+                            IsChecked="{Binding Controls.ClickThrough, Mode=TwoWay}"
+                            IsEnabled="{Binding HasSelectedWindow}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_ConfineCursor}" />
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_ConfineCursor}"
+                            Classes="OnlySwitch"
+                            IsChecked="{Binding Controls.ConfineCursor, Mode=TwoWay}"
+                            IsEnabled="{Binding !Controls.WallpaperAttached, FallbackValue=False}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_Opacity}" />
+                        <Grid Grid.Column="1" Width="156" ColumnDefinitions="*,Auto" ColumnSpacing="8">
                             <Slider
-                                Grid.Column="1"
+                                AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Opacity}"
+                                IsEnabled="{Binding HasSelectedWindow}"
                                 IsSnapToTickEnabled="True"
                                 Maximum="100"
                                 Minimum="20"
                                 TickFrequency="1"
                                 Value="{Binding Controls.Opacity, Mode=TwoWay}" />
-                            <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Controls.Opacity, StringFormat={}{0:0}%}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                MinWidth="35"
+                                VerticalAlignment="Center"
+                                Text="{Binding Controls.Opacity, StringFormat={}{0:0}%}"
+                                TextAlignment="Right" />
                         </Grid>
-                        <StackPanel Spacing="6">
-                            <TextBlock Text="{x:Static spp:Strings.GameTools_Win_Monitor}" />
-                            <WrapPanel>
-                                <ComboBox
-                                    MinWidth="190"
-                                    Margin="0,0,8,8"
-                                    AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Monitor}"
-                                    ItemsSource="{Binding Monitors}"
-                                    SelectedItem="{Binding Controls.Monitor, Mode=TwoWay}" />
-                                <Button Margin="0,0,8,8" Command="{Binding RefreshMonitorsCommand}" Content="{x:Static spp:Strings.GameTools_Win_RefreshMonitors}" />
-                            </WrapPanel>
-                            <WrapPanel>
-                                <WrapPanel.Styles>
-                                    <Style Selector="WrapPanel > Button">
-                                        <Setter Property="Margin" Value="0,0,8,8" />
-                                    </Style>
-                                </WrapPanel.Styles>
-                                <Button Command="{Binding CenterWindowCommand}" Content="{x:Static spp:Strings.GameTools_Win_Center}" />
-                                <Button Command="{Binding MoveToMonitorCommand}" Content="{x:Static spp:Strings.GameTools_Win_MoveToMonitor}" />
-                                <Button Command="{Binding FitMonitorCommand}" Content="{x:Static spp:Strings.GameTools_Win_FitMonitor}" />
-                            </WrapPanel>
-                            <WrapPanel>
-                                <WrapPanel.Styles>
-                                    <Style Selector="WrapPanel > StackPanel">
-                                        <Setter Property="Margin" Value="0,0,8,8" />
-                                        <Setter Property="Width" Value="118" />
-                                        <Setter Property="Spacing" Value="4" />
-                                    </Style>
-                                    <Style Selector="NumericUpDown">
-                                        <Setter Property="FormatString" Value="0" />
-                                        <Setter Property="Maximum" Value="65535" />
-                                    </Style>
-                                </WrapPanel.Styles>
-                                <StackPanel>
-                                    <TextBlock Text="{x:Static spp:Strings.GameTools_Win_PositionX}" />
-                                    <NumericUpDown AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_PositionX}" Minimum="-65535" Value="{Binding Controls.X, Mode=TwoWay}" />
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="{x:Static spp:Strings.GameTools_Win_PositionY}" />
-                                    <NumericUpDown AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_PositionY}" Minimum="-65535" Value="{Binding Controls.Y, Mode=TwoWay}" />
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="{x:Static spp:Strings.GameTools_Win_Width}" />
-                                    <NumericUpDown AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Width}" Minimum="1" Value="{Binding Controls.Width, Mode=TwoWay}" />
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="{x:Static spp:Strings.GameTools_Win_Height}" />
-                                    <NumericUpDown AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Height}" Minimum="1" Value="{Binding Controls.Height, Mode=TwoWay}" />
-                                </StackPanel>
-                            </WrapPanel>
-                            <Button Command="{Binding SetBoundsCommand}" Content="{x:Static spp:Strings.GameTools_Win_SetBounds}" />
-                        </StackPanel>
-                        <StackPanel Spacing="6">
-                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_MuteInBackground}" IsChecked="{Binding Controls.MuteInBackground, Mode=TwoWay}" />
-                            <TextBlock Text="{x:Static spp:Strings.GameTools_Win_BackgroundPriority}" />
-                            <ComboBox
-                                AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_BackgroundPriority}"
-                                ItemsSource="{Binding Priorities}"
-                                SelectedItem="{Binding Controls.Priority, Mode=TwoWay}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate x:DataType="spp:WindowPriorityChoice">
-                                        <TextBlock Text="{Binding Label}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </StackPanel>
-                    </StackPanel>
-                </Expander>
-
-                <Expander Header="{x:Static spp:Strings.GameTools_Win_Wallpaper}" IsExpanded="True">
-                    <StackPanel Spacing="8">
-                        <StackPanel IsEnabled="{Binding HasSelectedWindow}" Spacing="6">
-                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_WallpaperMouse}" IsChecked="{Binding Controls.WallpaperMouse, Mode=TwoWay}" />
-                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_WallpaperKeyboard}" IsChecked="{Binding Controls.WallpaperKeyboard, Mode=TwoWay}" />
-                            <TextBlock Text="{x:Static spp:Strings.GameTools_Win_WallpaperHelp}" TextWrapping="Wrap" />
-                            <WrapPanel>
-                                <Button Margin="0,0,8,0" Command="{Binding ToWallpaperWindowCommand}" Content="{x:Static spp:Strings.GameTools_Win_AttachWallpaper}" IsVisible="{Binding !Controls.WallpaperPaused}" />
-                                <Button Margin="0,0,8,0" Command="{Binding PauseWallpaperCommand}" Content="{x:Static spp:Strings.GameTools_Win_PauseWallpaper}" IsVisible="{Binding Controls.WallpaperAttached}" />
-                                <Button Command="{Binding ReattachWallpaperCommand}" Content="{x:Static spp:Strings.GameTools_Win_ResumeWallpaper}" IsVisible="{Binding Controls.WallpaperPaused}" />
-                            </WrapPanel>
-                        </StackPanel>
-                        <Button Command="{Binding ResetWallpaperCommand}" Content="{x:Static spp:Strings.GameTools_Win_ResetWallpaper}" />
-                    </StackPanel>
-                </Expander>
-
-                <Expander Header="{x:Static spp:Strings.GameTools_Win_Rules}">
-                    <StackPanel Spacing="8">
-                        <StackPanel IsEnabled="{Binding HasSelectedWindow}" Spacing="6">
-                            <CheckBox Content="{x:Static spp:Strings.GameTools_Win_AutoApply}" IsChecked="{Binding Controls.AutoApply, Mode=TwoWay}" />
-                            <Button Command="{Binding SaveRuleCommand}" Content="{x:Static spp:Strings.GameTools_Win_SaveRule}" />
-                        </StackPanel>
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_MuteInBackground}" />
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_MuteInBackground}"
+                            Classes="OnlySwitch"
+                            IsChecked="{Binding Controls.MuteInBackground, Mode=TwoWay}"
+                            IsEnabled="{Binding HasSelectedWindow}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_BackgroundPriority}" />
                         <ComboBox
-                            MinWidth="190"
-                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Rules}"
-                            ItemsSource="{Binding WindowRules}"
-                            SelectedItem="{Binding SelectedRule, Mode=TwoWay}">
+                            Grid.Column="1"
+                            Width="184"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_BackgroundPriority}"
+                            IsEnabled="{Binding HasSelectedWindow}"
+                            ItemsSource="{Binding Priorities}"
+                            SelectedItem="{Binding Controls.Priority, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
-                                <DataTemplate x:DataType="spp:WindowRuleChoice">
-                                    <TextBlock Text="{Binding Label}" />
+                                <DataTemplate x:DataType="spp:WindowPriorityChoice">
+                                    <TextBlock Text="{Binding Label}" TextTrimming="CharacterEllipsis" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <WrapPanel IsEnabled="{Binding HasSelectedRule}">
-                            <Button Margin="0,0,8,0" Command="{Binding ToggleRuleCommand}" Content="{x:Static spp:Strings.GameTools_Win_ToggleRule}" />
-                            <Button Command="{Binding RemoveRuleCommand}" Content="{x:Static spp:Strings.GameTools_Win_RemoveRule}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+            </ui:FASettingsExpander>
+
+            <ui:FASettingsExpander
+                x:Name="WallpaperSettings"
+                Header="{x:Static spp:Strings.GameTools_Win_Wallpaper}">
+                <ui:FASettingsExpander.IconSource>
+                    <ui:FAPathIconSource Data="F0 M3 3H21V17H3Z M4.5 4.5V15.5H19.5V4.5Z M11.25 17H12.75V20H17V21.5H7V20H11.25Z" />
+                </ui:FASettingsExpander.IconSource>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_WallpaperMouse}" />
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_WallpaperMouse}"
+                            Classes="OnlySwitch"
+                            IsChecked="{Binding Controls.WallpaperMouse, Mode=TwoWay}"
+                            IsEnabled="{Binding HasSelectedWindow}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <StackPanel VerticalAlignment="Center" Spacing="3">
+                            <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_WallpaperKeyboard}" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{x:Static spp:Strings.GameTools_Win_WallpaperHelp}"
+                                TextWrapping="Wrap"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_WallpaperKeyboard}"
+                            Classes="OnlySwitch"
+                            IsChecked="{Binding Controls.WallpaperKeyboard, Mode=TwoWay}"
+                            IsEnabled="{Binding HasSelectedWindow}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock
+                            Classes="settingLabel"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{x:Static spp:Strings.GameTools_Win_WallpaperInteractHelp}"
+                            Theme="{StaticResource CaptionTextBlockStyle}" />
+                        <Button
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Command="{Binding InteractWithWallpaperCommand}"
+                            Content="{x:Static spp:Strings.GameTools_Win_WallpaperInteract}"
+                            IsEnabled="{Binding Controls.CanInteractWithWallpaper, FallbackValue=False}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <WrapPanel HorizontalAlignment="Right" ItemSpacing="8" LineSpacing="8">
+                        <Button
+                            Command="{Binding ToWallpaperWindowCommand}"
+                            Content="{x:Static spp:Strings.GameTools_Win_AttachWallpaper}"
+                            IsEnabled="{Binding HasSelectedWindow}"
+                            IsVisible="{Binding !Controls.WallpaperPaused, FallbackValue=True}" />
+                        <Button
+                            Command="{Binding PauseWallpaperCommand}"
+                            Content="{x:Static spp:Strings.GameTools_Win_PauseWallpaper}"
+                            IsEnabled="{Binding HasSelectedWindow}"
+                            IsVisible="{Binding Controls.WallpaperAttached, FallbackValue=False}" />
+                        <Button
+                            Command="{Binding ReattachWallpaperCommand}"
+                            Content="{x:Static spp:Strings.GameTools_Win_ResumeWallpaper}"
+                            IsEnabled="{Binding HasSelectedWindow}"
+                            IsVisible="{Binding Controls.WallpaperPaused, FallbackValue=False}" />
+                        <Button
+                            Command="{Binding ResetWallpaperCommand}"
+                            Content="{x:Static spp:Strings.GameTools_Win_ResetWallpaper}" />
+                    </WrapPanel>
+                </ui:FASettingsExpanderItem>
+            </ui:FASettingsExpander>
+
+            <ui:FASettingsExpander x:Name="WindowRuleSettings" Header="{x:Static spp:Strings.GameTools_Win_Rules}">
+                <ui:FASettingsExpander.IconSource>
+                    <ui:FAFontIconSource FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8A5;" />
+                </ui:FASettingsExpander.IconSource>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_AutoApply}" />
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_AutoApply}"
+                            Classes="OnlySwitch"
+                            IsChecked="{Binding Controls.AutoApply, Mode=TwoWay}"
+                            IsEnabled="{Binding HasSelectedWindow}" />
+                    </Grid>
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <Button
+                        HorizontalAlignment="Right"
+                        Command="{Binding SaveRuleCommand}"
+                        Content="{x:Static spp:Strings.GameTools_Win_SaveRule}"
+                        IsEnabled="{Binding HasSelectedWindow}" />
+                </ui:FASettingsExpanderItem>
+                <ui:FASettingsExpanderItem Classes="windowSetting">
+                    <StackPanel Spacing="8">
+                        <Grid Classes="settingRow" ColumnDefinitions="*,Auto">
+                            <TextBlock Classes="settingLabel" Text="{x:Static spp:Strings.GameTools_Win_Rules}" />
+                            <ComboBox
+                                Grid.Column="1"
+                                AutomationProperties.Name="{x:Static spp:Strings.GameTools_Win_Rules}"
+                                ItemsSource="{Binding WindowRules}"
+                                SelectedItem="{Binding SelectedRule, Mode=TwoWay}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="spp:WindowRuleChoice">
+                                        <TextBlock Text="{Binding Label}" TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+                        <WrapPanel HorizontalAlignment="Right" IsEnabled="{Binding HasSelectedRule}" ItemSpacing="8" LineSpacing="8">
+                            <Button Command="{Binding ToggleRuleCommand}" Content="{x:Static spp:Strings.GameTools_Win_ToggleRule}" />
+                            <Button
+                                Command="{Binding RemoveRuleCommand}"
+                                Content="{x:Static spp:Strings.GameTools_Win_RemoveRule}"
+                                Foreground="{DynamicResource SystemFillColorCriticalBrush}" />
                         </WrapPanel>
                     </StackPanel>
-                </Expander>
-            </StackPanel>
-		</StackPanel>
-    </ScrollViewer>
+                </ui:FASettingsExpanderItem>
+            </ui:FASettingsExpander>
+        </StackPanel>
+    </Grid>
 </spp:PageBase>

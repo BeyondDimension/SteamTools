@@ -76,6 +76,7 @@ public sealed class BorderlessWindowControls : ReactiveObject
             if (wallpaperMouse != value)
             {
                 this.RaiseAndSetIfChanged(ref wallpaperMouse, value);
+                this.RaisePropertyChanged(nameof(CanInteractWithWallpaper));
                 wallpaperInputChanged();
             }
         }
@@ -89,6 +90,7 @@ public sealed class BorderlessWindowControls : ReactiveObject
             if (wallpaperKeyboard != value)
             {
                 this.RaiseAndSetIfChanged(ref wallpaperKeyboard, value);
+                this.RaisePropertyChanged(nameof(CanInteractWithWallpaper));
                 wallpaperInputChanged();
             }
         }
@@ -97,8 +99,17 @@ public sealed class BorderlessWindowControls : ReactiveObject
     public bool WallpaperAttached
     {
         get => wallpaperAttached;
-        private set => this.RaiseAndSetIfChanged(ref wallpaperAttached, value);
+        private set
+        {
+            if (wallpaperAttached != value)
+            {
+                this.RaiseAndSetIfChanged(ref wallpaperAttached, value);
+                this.RaisePropertyChanged(nameof(CanInteractWithWallpaper));
+            }
+        }
     }
+
+    public bool CanInteractWithWallpaper => WallpaperAttached && WallpaperMouse && WallpaperKeyboard && !ClickThrough;
 
     public bool WallpaperPaused
     {
@@ -154,6 +165,7 @@ public sealed class BorderlessWindowControls : ReactiveObject
         this.RaisePropertyChanged(nameof(Topmost));
         this.RaisePropertyChanged(nameof(Opacity));
         this.RaisePropertyChanged(nameof(ClickThrough));
+        this.RaisePropertyChanged(nameof(CanInteractWithWallpaper));
         this.RaisePropertyChanged(nameof(ConfineCursor));
         this.RaisePropertyChanged(nameof(MuteInBackground));
         this.RaisePropertyChanged(nameof(Priority));

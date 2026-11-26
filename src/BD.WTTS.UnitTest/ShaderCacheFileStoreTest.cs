@@ -19,6 +19,26 @@ public sealed class ShaderCacheFileStoreTest
     public void TearDown() => temp.Delete(recursive: true);
 
     [Test]
+    public void ScanDistinguishesEmptyFoldersFromZeroByteFilesAndUnavailableFolders()
+    {
+        var cache = new ShaderCacheLocation(temp.FullName, temp.FullName, ShaderCacheKind.Driver, "cache");
+        var empty = files.Scan(cache, default);
+
+        File.WriteAllBytes(Path.Combine(temp.FullName, "zero-byte.shader"), []);
+        var nonempty = files.Scan(cache, default);
+        var missing = files.Scan(cache with { Path = Path.Combine(temp.FullName, "missing") }, default);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(empty.IsKnownEmpty, Is.True);
+            Assert.That(nonempty.Bytes, Is.Zero);
+            Assert.That(nonempty.IsKnownEmpty, Is.False);
+            Assert.That(missing.SkippedDirectories, Is.EqualTo(1));
+            Assert.That(missing.IsKnownEmpty, Is.False);
+        });
+    }
+
+    [Test]
     public void PreviewListsContentsAndCleanKeepsDriverFolder()
     {
         var cache = Directory.CreateDirectory(Path.Combine(temp.FullName, "DXCache")).FullName;
@@ -71,6 +91,102 @@ public sealed class ShaderCacheFileStoreTest
     }
 
     [Test]
+    public void LauncherDiscoveryCleansOnlyVerifiedDataLeaves()
+    {
+        var profile = Path.Combine(temp.FullName, "EpicGamesLauncher", "Saved", "webcache_4430");
+        var cache = Directory.CreateDirectory(Path.Combine(profile, "Default", "Cache")).FullName;
+        var state = Directory.CreateDirectory(Path.Combine(profile, "Default", "Network")).FullName;
+        var otherProfile = Directory.CreateDirectory(Path.Combine(temp.FullName, "EpicGamesLauncher", "Saved", "webcache-other", "Cache")).FullName;
+        var vault = Directory.CreateDirectory(Path.Combine(temp.FullName, "Epic", "EpicGamesLauncher", "VaultCache")).FullName;
+        File.WriteAllBytes(Path.Combine(cache, "data_0"), new byte[32]);
+        var protectedFiles = new[] { Path.Combine(state, "Cookies"), Path.Combine(otherProfile, "data_0"), Path.Combine(vault, "item") };
+        foreach (var file in protectedFiles)
+            File.WriteAllText(file, "keep");
+
+        var locations = ShaderCacheLocations.FindGameCaches("Windows", _ => temp.FullName, [], default).ToArray();
+        Assert.That(locations.Select(x => x.Path), Is.EqualTo(new[] { cache }));
+        var location = locations.Single();
+        Assert.That(location.Kind, Is.EqualTo(ShaderCacheKind.GameClient));
+        var processes = ShaderCacheLocations.GetGameClientProcessNames(locations);
+        Assert.That(processes.Contains("epicwebhelper"), Is.True);
+        Assert.That(processes.Contains("RiotClientServices"), Is.False);
+        Assert.That(files.Clean(location with { Path = profile }, default).SkippedDirectories, Is.EqualTo(1));
+        Assert.That(files.Clean(location, default).Bytes, Is.EqualTo(32));
+        Assert.That(Directory.Exists(cache), Is.True);
+        Assert.That(protectedFiles.Select(File.ReadAllText), Is.All.EqualTo("keep"));
+    }
+
+    [Test]
+    public void GameDiscoveryRequiresWorldOfWarcraftExecutableAndLeavesUserData()
+    {
+        var game = Path.Combine(temp.FullName, "World of Warcraft", "_retail_");
+        var cache = Directory.CreateDirectory(Path.Combine(game, "Cache")).FullName;
+        var settings = Directory.CreateDirectory(Path.Combine(game, "WTF")).FullName;
+        var sentinel = Path.Combine(settings, "Config.wtf");
+        File.WriteAllText(sentinel, "keep");
+        File.WriteAllBytes(Path.Combine(cache, "game-data"), new byte[64]);
+        var launches = () => ShaderCacheLocations.FindGameCaches("Windows", _ => temp.FullName, [], default).ToArray();
+
+        Assert.That(launches(), Is.Empty);
+        File.WriteAllBytes(Path.Combine(game, "Wow.exe"), []);
+        var location = launches().Single();
+
+        Assert.That(location.Kind, Is.EqualTo(ShaderCacheKind.Game));
+        Assert.That(location.Path, Is.EqualTo(cache));
+        Assert.That(ShaderCacheLocations.GetGameClientProcessNames([location]).Contains("WOW"), Is.True);
+        Assert.That(files.Clean(location, default).Bytes, Is.EqualTo(64));
+        Assert.That(File.ReadAllText(sentinel), Is.EqualTo("keep"));
+    }
+
+    [Test]
+    public void UbisoftDefaultInstallationCacheRequiresLauncherExecutable()
+    {
+        var install = Path.Combine(temp.FullName, "Ubisoft", "Ubisoft Game Launcher");
+        var cache = Directory.CreateDirectory(Path.Combine(install, "cache")).FullName;
+        var data = Directory.CreateDirectory(Path.Combine(install, "savegames")).FullName;
+        var sentinel = Path.Combine(data, "profile");
+        File.WriteAllText(sentinel, "keep");
+        File.WriteAllBytes(Path.Combine(cache, "data"), new byte[12]);
+
+        Assert.That(Discover(), Is.Empty);
+        File.WriteAllBytes(Path.Combine(install, "UbisoftConnect.exe"), []);
+
+        var location = Discover().Single();
+        Assert.That(location.Path, Is.EqualTo(cache));
+        Assert.That(files.Clean(location, default).Bytes, Is.EqualTo(12));
+        Assert.That(File.ReadAllText(sentinel), Is.EqualTo("keep"));
+
+        IEnumerable<ShaderCacheLocation> Discover() => ShaderCacheLocations.FindGameCaches("Windows",
+             folder => folder == Environment.SpecialFolder.ProgramFilesX86 ? temp.FullName : string.Empty, [], default);
+    }
+
+    [Test]
+    public void BattleNetAgentRequiresExecutableWithinTheDedicatedAgentRoot()
+    {
+        var root = Path.Combine(temp.FullName, "Battle.net", "Agent");
+        Assert.That(ShaderCacheLocations.IsBattleNetAgentPath(Path.Combine(root, "Agent.9000", "Agent.exe"), root), Is.True);
+        Assert.That(ShaderCacheLocations.IsBattleNetAgentPath(Path.Combine(root, "Agent.app", "Contents", "MacOS", "Agent"), root), Is.True);
+        Assert.That(ShaderCacheLocations.IsBattleNetAgentPath(Path.Combine(root + "Other", "Agent.exe"), root), Is.False);
+        Assert.That(ShaderCacheLocations.IsBattleNetAgentPath(Path.Combine(root, "..", "Agent.exe"), root), Is.False);
+        Assert.That(ShaderCacheLocations.IsBattleNetAgentPath(Path.Combine(root, "Updater.exe"), root), Is.False);
+    }
+
+    [TestCase("Linux", ".config", "heroic", "Cache", "Cache_Data")]
+    [TestCase("macOS", "Library", "Application Support", "heroic", "GPUCache")]
+    public void NonWindowsDiscoveryFindsExactBrowserLeaves(string platform, string first, string second, string third, string fourth)
+    {
+        var safe = Directory.CreateDirectory(Path.Combine(temp.FullName, first, second, third, fourth)).FullName;
+        var unrelated = Directory.CreateDirectory(Path.Combine(temp.FullName, ".cache", "lutris")).FullName;
+
+        var locations = ShaderCacheLocations.FindGameCaches(platform,
+            folder => folder == Environment.SpecialFolder.ApplicationData ? Path.Combine(temp.FullName, ".config") : temp.FullName,
+            [], default).ToArray();
+
+        Assert.That(locations.Select(x => x.Path), Is.EqualTo(new[] { safe }));
+        Assert.That(locations.Select(x => x.Path), Does.Not.Contain(unrelated));
+    }
+
+    [Test]
     public void RefusesSiblingTraversalEmptyPathsAndDriveRoots()
     {
         var cache = Directory.CreateDirectory(Path.Combine(temp.FullName, "cache")).FullName;
@@ -82,7 +198,9 @@ public sealed class ShaderCacheFileStoreTest
 
         foreach (var path in rejected)
         {
-            var result = files.Clean(new(path, cache, ShaderCacheKind.Driver, "cache"), default);
+            var location = new ShaderCacheLocation(path, cache, ShaderCacheKind.Driver, "cache");
+            Assert.Throws<IOException>(() => ShaderCacheFileStore.GetCacheDirectoryPath(location), path);
+            var result = files.Clean(location, default);
             Assert.That(result.SkippedDirectories, Is.EqualTo(1), path);
             Assert.That(result.Bytes, Is.Zero, path);
         }
@@ -121,6 +239,11 @@ public sealed class ShaderCacheFileStoreTest
 
             var location = new ShaderCacheLocation(cache, cache, ShaderCacheKind.Driver, "cache");
             var paths = new List<string>();
+            var scan = files.Scan(location, default);
+            Assert.That(scan.LastWriteUtc, Is.Not.Null);
+            Assert.That(scan.SkippedDirectories, Is.EqualTo(1));
+            Assert.That(scan.IsKnownEmpty, Is.False);
+            Assert.Throws<IOException>(() => ShaderCacheFileStore.GetCacheDirectoryPath(new(viaLink, viaLink, ShaderCacheKind.Driver, "nested")));
             Assert.That(files.Preview(location, paths.Add, default).SkippedDirectories, Is.EqualTo(1));
             Assert.That(paths, Is.Empty);
             Assert.That(files.Clean(location, default).SkippedDirectories, Is.EqualTo(1));

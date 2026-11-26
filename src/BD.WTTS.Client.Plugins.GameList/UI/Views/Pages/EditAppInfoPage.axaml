@@ -156,15 +156,11 @@
 							<Grid Classes="row" ColumnDefinitions="3*,7*" IsVisible="{Binding App.IsInstalled}">
 								<TextBlock Classes="label"
 								           Text="{x:Static spp:Strings.InstalledPath}" />
-								<HyperlinkButton
+								<spp:PathLink
 									Grid.Column="1"
-									Padding="0"
-									HorizontalAlignment="Stretch"
+									Path="{Binding App.InstalledDir}"
 									Command="{Binding OpenFolderCommand}"
-									CommandParameter="{Binding App.InstalledDir}"
-									ToolTip.Tip="{Binding Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Mode=OneTime, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Null}}">
-									<TextBlock Text="{Binding App.InstalledDir}" TextWrapping="Wrap" TextTrimming="None" />
-								</HyperlinkButton>
+									CommandParameter="{Binding App.InstalledDir}" />
 							</Grid>
 						</StackPanel>
 					</Border>
@@ -630,15 +626,11 @@
 										<Grid Classes="row" ColumnDefinitions="3*,7*">
 											<TextBlock Classes="label"
 											           Text="{x:Static spp:Strings.DirPath}" />
-											<HyperlinkButton
+											<spp:PathLink
 												Grid.Column="1"
-												Padding="0"
-												HorizontalAlignment="Stretch"
+												Path="{Binding FormatDirPath}"
 												Command="{Binding $parent[UserControl].((spp:EditAppInfoPageViewModel)DataContext).OpenFolderCommand}"
-												CommandParameter="{Binding FormatDirPath}"
-												ToolTip.Tip="{Binding Source={x:Static spp:Strings.Settings_General_BrowseCustomFolder}, Mode=OneTime, Converter={StaticResource StringFormatConverter}, ConverterParameter={x:Null}}">
-												<TextBlock Text="{Binding FormatDirPath}" TextWrapping="Wrap" TextTrimming="None" />
-											</HyperlinkButton>
+												CommandParameter="{Binding FormatDirPath}" />
 										</Grid>
 									</StackPanel>
 								</Border>

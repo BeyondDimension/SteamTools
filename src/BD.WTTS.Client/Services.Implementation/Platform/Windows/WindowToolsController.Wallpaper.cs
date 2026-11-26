@@ -16,6 +16,7 @@ unsafe partial class WindowToolsController
     static readonly Guid AccessibleIid = new("618736E0-3C3D-11CF-810C-00AA00389B71");
     WindowState? keyboardWindow;
     WindowState? mouseWindow;
+    (WindowState State, NativeWindowBounds Bounds)? wallpaperInteraction;
     nint mouseTarget;
     Click lastClick;
 
@@ -68,27 +69,10 @@ unsafe partial class WindowToolsController
         {
             var display = ResolveMonitor(monitor.DeviceName);
             var layer = state.Wallpaper ?? FindDesktopLayer();
-            if (layer is null || display is null || IsWindow(layer.Parent) == 0 || IsWindow(layer.IconView) == 0)
+            if (layer is null || display is null || !AttachToDesktop(state, layer, MonitorBounds(display)))
                 return false;
 
-            var handle = state.Handle;
-            var previous = CaptureState(handle, state.Pid);
-            if (previous is null)
-                return false;
-
-            var style = (previous.OriginalStyle & ~(Popup | Frame | 0x21000000)) | Child;
-            if (((IsIconic(handle) != 0 || IsZoomed(handle) != 0) && !RestoreSize(handle)) ||
-                (previous.Options.Topmost && SetWindowPos(handle, -2, 0, 0, 0, 0, NoMove | NoSize | NoActivate) == 0) ||
-                !TrySetStyle(handle, Style, style) ||
-                (previous.OriginalParent != layer.Parent && !TryReparent(handle, layer.Parent)) ||
-                !ApplyLayer(state, state.Options, layer.UsesLayeredChild) ||
-                !Position(handle, layer.Parent, MonitorBounds(display), layer.UsesLayeredChild ? layer.IconView : 0,
-                    FrameChanged | NoActivate | 0x40))
-            {
-                RestoreNative(previous);
-                return false;
-            }
-
+            ClearWallpaperInteraction(state);
             state.Wallpaper = layer;
             state.WallpaperPaused = false;
             state.ForwardMouse = mouse;
@@ -97,6 +81,26 @@ unsafe partial class WindowToolsController
             UpdateFocusBehaviors();
             return true;
         });
+
+    static bool AttachToDesktop(WindowState state, DesktopLayer layer, NativeWindowBounds bounds)
+    {
+        var handle = state.Handle;
+        if (IsWindow(layer.Parent) == 0 || IsWindow(layer.IconView) == 0 ||
+            CaptureState(handle, state.Pid) is not { } previous)
+            return false;
+
+        var style = (previous.OriginalStyle & ~(Popup | Frame | 0x21000000)) | Child;
+        if (((IsIconic(handle) == 0 && IsZoomed(handle) == 0) || RestoreSize(handle)) &&
+            (!previous.Options.Topmost || SetWindowPos(handle, -2, 0, 0, 0, 0, NoMove | NoSize | NoActivate) != 0) &&
+            TrySetStyle(handle, Style, style) &&
+            (previous.OriginalParent == layer.Parent || TryReparent(handle, layer.Parent)) &&
+            ApplyLayer(state, state.Options, layer.UsesLayeredChild) &&
+            Position(handle, layer.Parent, bounds, layer.UsesLayeredChild ? layer.IconView : 0, FrameChanged | NoActivate | ShowWindowFlag))
+            return true;
+
+        RestoreNative(previous);
+        return false;
+    }
 
     internal bool ChangeWallpaperInput(NativeWindowModel window, bool mouse, bool keyboard)
     {
@@ -107,6 +111,8 @@ unsafe partial class WindowToolsController
 
             state.ForwardMouse = mouse;
             state.ForwardKeyboard = keyboard;
+            if (wallpaperInteraction?.State == state && (!mouse || !keyboard))
+                EndWallpaperInteraction();
             if (!mouse && mouseWindow == state)
                 ReleaseForwardedMouse(cancel: true);
             if (!keyboard && keyboardWindow == state)
@@ -121,17 +127,10 @@ unsafe partial class WindowToolsController
         if (state.Wallpaper is null || CaptureState(state.Handle, state.Pid) is not { } previous)
             return false;
 
-        var handle = state.Handle;
-        var style = (GetWindowLong(handle, Style) & ~Child) | Popup;
-        var rect = previous.OriginalRect;
-        if (!TryReparent(handle, 0) || !TrySetStyle(handle, Style, style) ||
-            !ApplyLayer(state, state.Options, false) ||
-            !Position(handle, 0, new(rect.Left, rect.Top, rect.Width, rect.Height), state.Options.Topmost ? -1 : -2, FrameChanged | NoActivate))
-        {
-            RestoreNative(previous);
+        if (wallpaperInteraction?.State != state && !DetachFromDesktop(state, previous, state.Options.Topmost ? -1 : -2))
             return false;
-        }
 
+        ClearWallpaperInteraction(state);
         state.Wallpaper = null;
         state.WallpaperPaused = true;
         if (mouseWindow == state)
@@ -142,6 +141,89 @@ unsafe partial class WindowToolsController
         UpdateFocusBehaviors();
         return true;
     });
+
+    static bool DetachFromDesktop(WindowState state, WindowState previous, nint insertAfter)
+    {
+        var handle = state.Handle;
+        var style = (previous.OriginalStyle & ~Child) | Popup;
+        var rect = previous.OriginalRect;
+        if (TryReparent(handle, 0) && TrySetStyle(handle, Style, style) && ApplyLayer(state, state.Options, false) &&
+            Position(handle, 0, new(rect.Left, rect.Top, rect.Width, rect.Height), insertAfter, FrameChanged | NoActivate))
+            return true;
+
+        RestoreNative(previous);
+        return false;
+    }
+
+    internal bool InteractWithWallpaper(NativeWindowModel window) => Apply(window, BeginWallpaperInteraction);
+
+    bool BeginWallpaperInteraction(WindowState state)
+    {
+        if (state.Wallpaper is null || !state.ForwardMouse || !state.ForwardKeyboard || state.Options.ClickThrough)
+            return false;
+        if (wallpaperInteraction?.State == state)
+            return true;
+
+        EndWallpaperInteraction();
+        if (CaptureState(state.Handle, state.Pid) is not { } attached || !attached.OriginallyVisible ||
+            !DetachFromDesktop(state, attached, insertAfter: -2))
+            return false;
+
+        var rect = attached.OriginalRect;
+        wallpaperInteraction = (state, new(rect.Left, rect.Top, rect.Width, rect.Height));
+        if (!TryActivateWallpaper(state))
+        {
+            // A click on the desktop may not grant this process foreground access.
+            // Keep the wallpaper attached so message-based input can still be attempted.
+            EndWallpaperInteraction();
+            return false;
+        }
+
+        keyboardWindow = null;
+        ReleaseForwardedMouse(cancel: true);
+        return true;
+    }
+
+    static bool TryActivateWallpaper(WindowState state)
+    {
+        // Activation of another input queue can be asynchronous. Let the game's
+        // window process it before checking which process owns real foreground input.
+        return SetForegroundWindow(state.Handle) != 0 &&
+            SendMessageTimeout(state.Handle, 0, 0, 0, 2, 150, out _) != 0 &&
+            GetWindowThreadProcessId(GetForegroundWindow(), out var pid) != 0 && pid == state.Pid;
+    }
+
+    void EndWallpaperInteraction()
+    {
+        if (wallpaperInteraction is not { } interaction)
+            return;
+
+        wallpaperInteraction = null;
+        var (state, bounds) = interaction;
+        if (state.Wallpaper is not { } layer || !Matches(state.Handle, state.Pid) || AttachToDesktop(state, layer, bounds))
+            return;
+
+        if (!RestoreState(state))
+        {
+            state.Wallpaper = null;
+            state.WallpaperPaused = true;
+        }
+        UpdateHooks();
+    }
+
+    void ClearWallpaperInteraction(WindowState state)
+    {
+        if (wallpaperInteraction?.State == state)
+            wallpaperInteraction = null;
+    }
+
+    void CheckWallpaperForeground(uint foregroundPid)
+    {
+        // Keep focus transfers to the same game's dialogs in the interaction session.
+        if (wallpaperInteraction is { } interaction &&
+            (foregroundPid != interaction.State.Pid || IsIconic(interaction.State.Handle) != 0))
+            EndWallpaperInteraction();
+    }
 
     internal void ResetWallpaper()
     {
@@ -189,11 +271,16 @@ unsafe partial class WindowToolsController
             var hitRoot = GetAncestor(hit, 2);
             var state = WindowAtPoint(layer, input.Point);
             var hitTarget = state is not null && (hit == state.Handle || IsChild(state.Handle, hit) != 0);
+            var bareDesktopStillHit = bareDesktop && WindowFromPoint(input.Point) == hit && layer.IsDesktopForeground(hitRoot);
             var down = input.Message is 0x201 or 0x204 or 0x207 or 0x20B;
             if (down)
             {
                 keyboardWindow = null;
-                if (state is not null && !state.Options.ClickThrough && state.ForwardKeyboard && (bareDesktop || hitTarget))
+                if (input.Message == 0x201 && state is not null && (bareDesktopStillHit || hitTarget) &&
+                    layer.IsDesktopForeground(GetForegroundWindow()) && BeginWallpaperInteraction(state))
+                    return;
+
+                if (state is not null && !state.Options.ClickThrough && state.ForwardKeyboard && (bareDesktopStillHit || hitTarget))
                 {
                     keyboardWindow = state;
                     state.KeyboardTarget = FindChildAtPoint(state.Handle, input.Point);
@@ -202,8 +289,7 @@ unsafe partial class WindowToolsController
 
             // Shell chrome and app windows occlude the wallpaper. If Windows already
             // delivers to the wallpaper directly (for example with icons hidden), avoid duplication.
-            if (!bareDesktop || hitTarget || state is null || !state.ForwardMouse || state.Options.ClickThrough ||
-                WindowFromPoint(input.Point) != hit || !layer.IsDesktopForeground(hitRoot))
+            if (!bareDesktopStillHit || hitTarget || state is null || !state.ForwardMouse || state.Options.ClickThrough)
             {
                 lastClick = default;
                 ReleaseForwardedMouse(cancel: true);

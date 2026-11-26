@@ -1,0 +1,116 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.CpuProcessPicker"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    x:DataType="spp:CpuSchedulingPageViewModel">
+    <UserControl.Styles>
+        <Style Selector="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+        <Style Selector="TextBlock.cpuDetail">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Style>
+    </UserControl.Styles>
+    <Grid RowDefinitions="Auto,Auto,*" RowSpacing="8">
+        <TextBox
+            x:Name="ProcessSearch"
+            AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_Search}"
+            KeyDown="Search_KeyDown"
+            PlaceholderText="{x:Static spp:Strings.GameTools_Cpu_Search}"
+            Text="{Binding Search, Mode=TwoWay}" />
+        <CheckBox
+            Grid.Row="1"
+            Content="{x:Static spp:Strings.GameTools_Cpu_WindowsOnly}"
+            IsChecked="{Binding WindowedOnly, Mode=TwoWay}" />
+        <Grid Grid.Row="2">
+            <ListBox
+                x:Name="ProcessList"
+                AutomationProperties.Name="{x:Static spp:Strings.GameTools_Cpu_Process}"
+                Background="Transparent"
+                ItemsSource="{Binding Processes}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="spp:CpuProcessRow">
+                        <Grid
+                            Margin="0,3"
+                            ColumnDefinitions="20,*,Auto,Auto"
+                            ColumnSpacing="8"
+                            RowDefinitions="Auto,Auto,Auto,Auto"
+                            RowSpacing="3">
+                            <Image Width="18" Height="18" VerticalAlignment="Top" Source="{Binding Icon}" />
+                            <StackPanel Grid.Column="1">
+                                <TextBlock
+                                    Text="{Binding Name}"
+                                    TextTrimming="CharacterEllipsis"
+                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                <TextBlock
+                                    Classes="cpuDetail"
+                                    Text="{Binding Pid}"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock
+                                    Classes="cpuDetail"
+                                    Text="{x:Static spp:Strings.GameTools_Cpu_ProcessorUsage}"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                                <TextBlock Text="{Binding CpuUsage}" Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="3">
+                                <TextBlock
+                                    Classes="cpuDetail"
+                                    Text="{x:Static spp:Strings.GameTools_Cpu_Memory}"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                                <TextBlock Text="{Binding Memory}" Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </StackPanel>
+                            <WrapPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" ItemSpacing="12" LineSpacing="3">
+                                <TextBlock
+                                    Classes="cpuDetail"
+                                    Text="{Binding Priority}"
+                                    Theme="{StaticResource CaptionTextBlockStyle}"
+                                    ToolTip.Tip="{x:Static spp:Strings.GameTools_Cpu_Priority}" />
+                                <TextBlock
+                                    Classes="cpuDetail"
+                                    Text="{Binding Affinity}"
+                                    Theme="{StaticResource CaptionTextBlockStyle}"
+                                    ToolTip.Tip="{x:Static spp:Strings.GameTools_Cpu_Affinity}" />
+                            </WrapPanel>
+                            <spp:PathLink
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                FontSize="12"
+                                IsVisible="{Binding HasImagePath}"
+                                Path="{Binding ImagePath}" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="3"
+                                Classes="cpuDetail"
+                                IsVisible="{Binding HasStatus}"
+                                Text="{Binding Status}"
+                                TextWrapping="Wrap"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBlock
+                Margin="12"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Classes="cpuDetail"
+                IsHitTestVisible="False"
+                IsVisible="{Binding HasNoProcesses}"
+                Text="{x:Static spp:Strings.GameTools_Cpu_NoProcesses}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+        </Grid>
+    </Grid>
+</UserControl>

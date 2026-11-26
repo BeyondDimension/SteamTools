@@ -55,6 +55,7 @@
     <StyleInclude Source="/UI/Styling/Controls/Separator.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/ProgressBar.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/TextBox.axaml" />
+    <StyleInclude Source="/UI/Styling/Controls/ComboBox.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/Snackbar.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/Button.axaml" />
     <StyleInclude Source="/UI/Styling/Controls/TabStrip.axaml" />

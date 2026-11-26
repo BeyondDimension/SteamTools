@@ -49,8 +49,6 @@ public partial class ShaderCachePage : PageBase<ShaderCachePageViewModel>
 
     void SelectLarge_Click(object? sender, RoutedEventArgs e) => ViewModel?.SelectLargeCaches();
 
-    void ClosePreview_Click(object? sender, RoutedEventArgs e) => ViewModel?.ClosePreview();
-
     async Task<bool> ConfirmCleanupAsync(string message)
     {
         if (TopLevel.GetTopLevel(this) is not { } owner)

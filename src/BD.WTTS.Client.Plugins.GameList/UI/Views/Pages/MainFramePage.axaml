@@ -10,7 +10,18 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Panel>
+    <Grid RowDefinitions="Auto,*" Container.Name="gameListPages" Container.Sizing="Width">
+        <Grid.Styles>
+            <Style Selector="ui|FAFrame#InnerNavFrame">
+                <Setter Property="(Grid.RowSpan)" Value="2" />
+            </Style>
+            <ContainerQuery Name="gameListPages" Query="max-width:640">
+                <Style Selector="ui|FAFrame#InnerNavFrame">
+                    <Setter Property="(Grid.Row)" Value="1" />
+                    <Setter Property="(Grid.RowSpan)" Value="1" />
+                </Style>
+            </ContainerQuery>
+        </Grid.Styles>
         <TabStrip
             Name="Tabs"
             Margin="9"
@@ -34,8 +45,8 @@
             <TabStripItem Name="DownloadsTab" Content="{x:Static spp:Strings.Download}" />
             <TabStripItem Name="IdleAppsTab" Content="{x:Static spp:Strings.OnHook}" />
             <TabStripItem Name="EditAppsTab" Content="{x:Static spp:Strings.Edit}" />
-            <TabStripItem Name="CategoriesTab" Content="{x:Static spp:Strings.GameList_Cat_Title}" />
+            <TabStripItem Name="SavesTab" Content="{x:Static spp:Strings.GameList_Saves_Title}" />
         </TabStrip>
         <ui:FAFrame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
-    </Panel>
+    </Grid>
 </UserControl>
