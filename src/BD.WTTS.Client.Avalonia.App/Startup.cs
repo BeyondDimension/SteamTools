@@ -40,6 +40,9 @@ sealed partial class Program : Startup
         //#endif
         services.AddJumpListService();
 #endif
+#if WINDOWS || MACOS || LINUX
+        services.AddAccountShortcutService();
+#endif
 
         // 添加日志实现
         services.AddGeneralLogging();

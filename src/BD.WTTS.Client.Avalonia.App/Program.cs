@@ -212,6 +212,7 @@ partial class Program
 #elif LINUX
                 builder.With(new X11PlatformOptions
                 {
+                    WmClass = Constants.HARDCODED_APP_NAME,
 #if WTTS_SIMD_SKIA
                     RenderingMode = [X11RenderingMode.Software],
 #else

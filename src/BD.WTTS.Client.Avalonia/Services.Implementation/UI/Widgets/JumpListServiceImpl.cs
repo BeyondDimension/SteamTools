@@ -1,7 +1,5 @@
 #if WINDOWS
-using Avalonia.Win32.JumpLists;
 using static BD.WTTS.Services.IJumpListService;
-using AvaloniaApplication = Avalonia.Application;
 using WinUI = Windows.UI.StartScreen;
 
 // ReSharper disable once CheckNamespace
@@ -10,39 +8,28 @@ namespace BD.WTTS.Services.Implementation;
 /// <inheritdoc cref="IJumpListService"/>
 internal sealed class JumpListServiceImpl : IJumpListService
 {
-#if WINDOWS
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static bool IsWindows10JumpListSupported()
+    async ValueTask IJumpListService.AddJumpItemsAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items)
     {
-        if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 10586))
+        if (DesktopBridge.IsRunningAsUwp && await AddPackagedJumpItemsAsync(items))
+            return;
+
+        try
         {
-            return WinUI.JumpList.IsSupported();
+            DesktopJumpList.Apply(items);
         }
-        return false;
-    }
-#endif
-
-    ValueTask IJumpListService.AddJumpItemsAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items)
-    {
-#if WINDOWS
-        return AddJumpItemsByWinAsync(items);
-#else
-        return default;
-#endif
+        catch (Exception ex)
+        {
+            Log.Error(TAG, ex, "Could not update the desktop Jump List.");
+        }
     }
 
-#if WINDOWS
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static async ValueTask AddJumpItemsByWinAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items)
-    {
-        if (IsWindows10JumpListSupported() && await AddJumpItemsByWin10Async(items)) return;
-        await AddJumpItemsByWPFAsync(items);
-    }
-
-    static async ValueTask<bool> AddJumpItemsByWin10Async(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items)
+    static async ValueTask<bool> AddPackagedJumpItemsAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items)
     {
         try
         {
+            if (!WinUI.JumpList.IsSupported())
+                return false;
+
             var jumpList1 = await WinUI.JumpList.LoadCurrentAsync();
 
             foreach (var (title, _, _, arguments, description, customCategory) in items)
@@ -70,71 +57,9 @@ internal sealed class JumpListServiceImpl : IJumpListService
         }
         catch (Exception ex)
         {
-            const string log_msg = $"{nameof(AddJumpItemsByWin10Async)} catch.";
-            Log.Error(TAG, ex, log_msg);
+            Log.Error(TAG, ex, "Could not update the packaged Jump List.");
             return false;
         }
     }
-
-    static ValueTask<bool> AddJumpItemsByWPFAsync(IEnumerable<(string title, string applicationPath, string iconResourcePath, string arguments, string description, string customCategory)> items)
-    {
-        try
-        {
-            var avaloniaApp = AvaloniaApplication.Current;
-            avaloniaApp.ThrowIsNull();
-
-            var jumpList1 = JumpList.GetJumpList(avaloniaApp);
-            if (jumpList1 == null)
-            {
-                jumpList1 = new JumpList
-                {
-                    ShowRecentCategory = true,
-                    ShowFrequentCategory = false,
-                };
-                JumpList.SetJumpList(avaloniaApp, jumpList1);
-            }
-
-            foreach (var (title, applicationPath, iconResourcePath, arguments, description, customCategory) in items)
-            {
-                var task = (from s in jumpList1.JumpItems
-                            let v = s is JumpTask t ? t : null
-                            where v != null &&
-                              v.ApplicationPath == applicationPath &&
-                              v.Arguments == arguments
-                            select v).FirstOrDefault();
-                if (task != null)
-                {
-                    task.Title = title;
-                    task.IconResourcePath = iconResourcePath;
-                    task.Description = description;
-                    task.CustomCategory = customCategory;
-                }
-                else
-                {
-                    task = new JumpTask
-                    {
-                        // Get the path to Calculator and set the JumpTask properties.
-                        ApplicationPath = applicationPath,
-                        IconResourcePath = iconResourcePath,
-                        Arguments = arguments,
-                        Title = title,
-                        Description = description,
-                        CustomCategory = customCategory,
-                    };
-                    jumpList1.JumpItems.Add(task);
-                }
-            }
-
-            jumpList1.Apply();
-            return new(true);
-        }
-        catch (Exception ex)
-        {
-            const string log_msg = $"{nameof(AddJumpItemsByWPFAsync)} catch.";
-            Log.Error(TAG, ex, log_msg);
-            return new(false);
-        }
-    }
-#endif
 }
 #endif

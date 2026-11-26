@@ -92,6 +92,10 @@
 		<ProjectReference Include="..\BD.Avalonia8.Image2.Compat\BD.Avalonia8.Image2.Compat.csproj" />
 	</ItemGroup>
 
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<!-- Windows Only -->
 		<ProjectReference Include="..\Avalonia.X11\Avalonia.X11.csproj" Condition="'$(WttsUseSimdSkia)' != 'true'" />
@@ -101,7 +105,6 @@
 		<PackageReference Include="Aigio.Avalonia.AppCenter.Crashes" />-->
 		<PackageReference Include="Avalonia.Win32" />
 		<ProjectReference Include="..\..\ref\Common\src\BD.Common.Essentials.Maui.Runtime\BD.Common.Essentials.Maui.Runtime.csproj" />
-		<PackageReference Include="JumpLists.Win32.Avalonia" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos' OR $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst' ">

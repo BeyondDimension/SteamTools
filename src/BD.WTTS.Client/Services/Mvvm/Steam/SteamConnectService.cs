@@ -744,71 +744,29 @@ public sealed partial class SteamConnectService
     public void RefreshSteamUsers(bool requireReadSuccess = false)
     {
         var generation = Volatile.Read(ref steamPathGeneration);
-        List<SteamUser> list;
-        if (requireReadSuccess)
-        {
-            if (!stmService.TryGetRememberUserList(out list))
-                throw new IOException("Unable to read Steam's saved account list.");
-        }
-        else
-        {
-            list = stmService.GetRememberUserList();
-        }
+        var readSucceeded = stmService.TryGetRememberUserList(out var list);
+        if (!readSucceeded && requireReadSuccess)
+            throw new IOException("Unable to read Steam's saved account list.");
         lock (gameListSync)
         {
             if (generation != Volatile.Read(ref steamPathGeneration)) return;
             SteamUsers.Clear();
-            if (!list.Any_Nullable()) return;
             SteamUsers.AddOrUpdate(list);
         }
 
-        #region 加载备注信息和 JumpList
+        #region 加载备注信息和桌面账号快捷入口
 
         var accountRemarks = Ioc.Get_Nullable<IPartialGameAccountSettings>()?.AccountRemarks;
 
-#if WINDOWS
-        List<(string title, string applicationPath, string iconResourcePath, string arguments, string description,
-            string customCategory)>? jumplistData = new();
-#endif
-        foreach (var user in SteamUsers.Items)
+        foreach (var user in list)
         {
             if (accountRemarks?.TryGetValue("Steam-" + user.SteamId64, out var remark) == true &&
                 !string.IsNullOrEmpty(remark))
                 user.Remark = remark;
-
-#if WINDOWS
-            {
-                var title = user.SteamNickName ?? user.SteamId64.ToString(CultureInfo.InvariantCulture);
-                if (!string.IsNullOrEmpty(user.Remark))
-                {
-                    title = user.SteamNickName + "(" + user.Remark + ")";
-                }
-
-                var processPath = Environment.ProcessPath;
-                processPath.ThrowIsNull();
-                if (!string.IsNullOrEmpty(user.AccountName))
-                {
-                    jumplistData!.Add((title,
-                        applicationPath: processPath,
-                        iconResourcePath: processPath,
-                        arguments: $"-clt steam -account {user.AccountName}",
-                        description: AppResources.UserChange_BtnTootlip,
-                        customCategory: AppResources.UserFastChange));
-                }
-            }
-#endif
         }
 
-#if WINDOWS
-        if (jumplistData.Any())
-        {
-            MainThread2.BeginInvokeOnMainThread(async () =>
-            {
-                var s = IJumpListService.Instance;
-                await s.AddJumpItemsAsync(jumplistData);
-            });
-        }
-#endif
+        if (readSucceeded)
+            UpdateSteamAccountShortcuts(list, generation);
 
         SteamUsers.Refresh();
 
@@ -867,6 +825,37 @@ public sealed partial class SteamConnectService
         //_SteamUsersSourceList.Refresh();
 
         #endregion
+    }
+
+    public void RemoveCachedSteamAccount(long steamId)
+    {
+        var generation = Volatile.Read(ref steamPathGeneration);
+        SteamUsers.RemoveKey(steamId);
+        UpdateSteamAccountShortcuts(SteamUsers.Items, generation);
+    }
+
+    void UpdateSteamAccountShortcuts(IEnumerable<SteamUser> users, int generation)
+    {
+#if WINDOWS || MACOS || LINUX
+        if (Ioc.Get_Nullable<IAccountShortcutService>() is not { } shortcuts)
+            return;
+
+        var accounts = users.Where(static user => !string.IsNullOrWhiteSpace(user.AccountName))
+            .Select(static user =>
+            {
+                var title = string.IsNullOrWhiteSpace(user.SteamNickName)
+                    ? user.SteamId64.ToString(CultureInfo.InvariantCulture) : user.SteamNickName;
+                if (!string.IsNullOrEmpty(user.Remark))
+                    title = $"{title} ({user.Remark})";
+                return new SteamAccountShortcut(title, user.AccountName!);
+            }).ToArray();
+
+        MainThread2.BeginInvokeOnMainThread(async () =>
+        {
+            if (generation == Volatile.Read(ref steamPathGeneration))
+                await shortcuts.UpdateSteamAccountsAsync(accounts);
+        });
+#endif
     }
 
     public async Task RefreshSteamUsersInfo()

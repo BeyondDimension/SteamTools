@@ -158,23 +158,21 @@ partial class Startup // 自定义控制台命令参数
 
                 await WaitConfiguredServices;
 
-                var steamService = ISteamService.Instance;
-
-                var users = steamService.GetRememberUserList();
-
-                var currentuser = users.Where(s => s.AccountName == account).FirstOrDefault();
-
-                await steamService.TryKillSteamProcess();
-
-                if (currentuser != null)
+                FileStream switchLock;
+                try
                 {
-                    currentuser.MostRecent = true;
-                    currentuser.AutoLogin = true;
-                    steamService.UpdateLocalUserData(users);
-                    await steamService.SetSteamCurrentUserAsync(account);
+                    Directory.CreateDirectory(IOPath.CacheDirectory);
+                    var lockPath = Path.Combine(IOPath.CacheDirectory, "steam-account-switch.lock");
+                    switchLock = File.Open(lockPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
+                }
+                catch (IOException ex)
+                {
+                    Log.Error(nameof(Startup), ex, "Could not acquire the Steam account switch lock.");
+                    return;
                 }
 
-                steamService.StartSteamWithParameter();
+                using (switchLock)
+                    await SwitchSavedSteamAccountAsync(ISteamService.Instance, account);
             }
         });
         rootCommand.Subcommands.Add(steamuser);
@@ -650,6 +648,26 @@ partial class Startup // 自定义控制台命令参数
                 parseResult.GetValue(silence));
         });
         return command;
+    }
+
+    static async Task SwitchSavedSteamAccountAsync(ISteamService steamService, string account)
+    {
+        if (!steamService.TryGetRememberUserList(out var users))
+            return;
+
+        var selected = users.FirstOrDefault(user => user.AccountName == account);
+        if (selected is null || !await steamService.TryKillSteamProcess())
+            return;
+
+        foreach (var user in users)
+        {
+            user.MostRecent = user == selected;
+            user.AutoLogin = user.MostRecent;
+        }
+
+        steamService.UpdateLocalUserData(users);
+        await steamService.SetSteamCurrentUserAsync(account);
+        steamService.StartSteamWithParameter();
     }
 
     /// <summary>Dispatches plain Steam idling before application services are initialized.</summary>

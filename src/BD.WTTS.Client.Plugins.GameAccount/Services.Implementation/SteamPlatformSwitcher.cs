@@ -304,9 +304,9 @@ public sealed class SteamPlatformSwitcher : IPlatformSwitcher
 
                 platform.Accounts?.Remove(account);
                 var id = steamAccount.SteamUser.SteamId64;
-                if (steamService.GetRememberUserList()?.Any(user => user.SteamId64 == id) != true
+                if (steamService.TryGetRememberUserList(out var savedUsers) && !savedUsers.Any(user => user.SteamId64 == id)
                     && string.Equals(path, platform.ExePath, StringComparison.Ordinal))
-                    SteamConnectService.Current.SteamUsers.RemoveKey(id);
+                    SteamConnectService.Current.RemoveCachedSteamAccount(id);
                 return true;
             }
         }
