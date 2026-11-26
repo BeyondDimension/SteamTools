@@ -34,6 +34,7 @@
             <TabStripItem Name="DownloadsTab" Content="{x:Static spp:Strings.Download}" />
             <TabStripItem Name="IdleAppsTab" Content="{x:Static spp:Strings.OnHook}" />
             <TabStripItem Name="EditAppsTab" Content="{x:Static spp:Strings.Edit}" />
+            <TabStripItem Name="CategoriesTab" Content="{x:Static spp:Strings.GameList_Cat_Title}" />
         </TabStrip>
         <ui:FAFrame Name="InnerNavFrame" IsNavigationStackEnabled="False" />
     </Panel>

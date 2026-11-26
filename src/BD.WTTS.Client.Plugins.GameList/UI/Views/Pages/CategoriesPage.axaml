@@ -1,0 +1,97 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.CategoriesPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui">
+    <Grid Margin="16,56,16,12" RowDefinitions="Auto,*,Auto" RowSpacing="10">
+        <WrapPanel Orientation="Horizontal" ItemSpacing="8" LineSpacing="6">
+            <Button Name="RunCategoriesButton" Classes="accent" Click="RunCategories_Click" Content="{x:Static spp:Strings.GameList_Cat_RunAll}" />
+            <Button Name="RefreshMetadataButton" Click="RefreshMetadata_Click" Content="{x:Static spp:Strings.GameList_Cat_Refresh}" />
+            <Button Name="CancelRefreshButton" Click="CancelRefresh_Click" IsVisible="False" Content="{x:Static spp:Strings.GameList_Cat_Cancel}" />
+            <Button Name="ReloadGamesButton" Click="ReloadGames_Click" Content="{x:Static spp:Strings.GameList_Cat_ReloadLibrary}" />
+            <TextBox Name="RegionInput" Width="65" MaxLength="2" PlaceholderText="{x:Static spp:Strings.GameList_Cat_Region}"
+                AutomationProperties.Name="{x:Static spp:Strings.GameList_Cat_Region}" />
+            <Button Name="RegionButton" Click="ApplyRegion_Click" Content="{x:Static spp:Strings.GameList_Cat_ApplyRegion}" />
+            <TextBlock Name="CurrencyText" VerticalAlignment="Center" />
+        </WrapPanel>
+        <Grid Grid.Row="1" ColumnDefinitions="220,10,*">
+            <Grid RowDefinitions="Auto,*,Auto" RowSpacing="8">
+                <WrapPanel ItemSpacing="6" LineSpacing="6">
+                    <Button Name="NewCategoryButton" Click="NewCategory_Click" Content="{x:Static spp:Strings.GameList_Cat_New}" />
+                    <Button Name="TemplatesButton" Content="{x:Static spp:Strings.GameList_Cat_Templates}" />
+                </WrapPanel>
+                <Panel Grid.Row="1">
+                    <ListBox Name="CategoryList" SelectionChanged="CategoryList_SelectionChanged"
+                        AutomationProperties.Name="{x:Static spp:Strings.GameList_Cat_Title}" />
+                    <TextBlock Name="ListEmpty" Margin="8" TextWrapping="Wrap" IsHitTestVisible="False"
+                        Text="{x:Static spp:Strings.GameList_Cat_EmptyList}" />
+                </Panel>
+                <WrapPanel Grid.Row="2" ItemSpacing="6" LineSpacing="6">
+                    <Button Name="ImportButton" Click="Import_Click" Content="{x:Static spp:Strings.GameList_Cat_Import}" />
+                    <Button Name="ExportButton" Click="Export_Click" Content="{x:Static spp:Strings.GameList_Cat_Export}" />
+                </WrapPanel>
+            </Grid>
+            <Grid Grid.Column="2" RowDefinitions="3*,Auto,2*" RowSpacing="6">
+                <TextBlock Name="EditorEmpty" Margin="12" TextWrapping="Wrap" Text="{x:Static spp:Strings.GameList_Cat_EmptyEditor}" />
+                <ScrollViewer Name="EditorScroll" IsVisible="False">
+                    <StackPanel Name="EditorPanel" Spacing="10" Margin="6,0,12,6">
+                        <WrapPanel ItemSpacing="8" LineSpacing="6">
+                            <TextBox Name="CategoryName" Width="240" MaxLength="100" TextChanged="DraftText_Changed"
+                                PlaceholderText="{x:Static spp:Strings.GameList_Cat_Name}" AutomationProperties.Name="{x:Static spp:Strings.GameList_Cat_Name}" />
+                            <ComboBox Name="CategoryModeInput" MinWidth="130" SelectionChanged="CategoryMode_Changed"
+                                AutomationProperties.Name="{x:Static spp:Strings.GameList_Cat_Mode}" />
+                            <Button Name="SaveButton" Classes="accent" Click="SaveCategory_Click" Content="{x:Static spp:Strings.GameList_Cat_Save}" />
+                            <Button Name="DeleteButton" Click="DeleteCategory_Click" Content="{x:Static spp:Strings.GameList_Cat_Delete}" />
+                            <Button Name="SteamExportButton" Click="SteamExport_Click" Content="{x:Static spp:Strings.GameList_Cat_SteamPreview}" />
+                        </WrapPanel>
+                        <StackPanel Name="ManualPanel" Spacing="6">
+                            <TextBlock FontWeight="SemiBold" Text="{x:Static spp:Strings.GameList_Cat_Overrides}" />
+                            <WrapPanel ItemSpacing="8" LineSpacing="6">
+                                <AutoCompleteBox Name="FindGameInput" Width="245" MinimumPrefixLength="2" FilterMode="ContainsOrdinal"
+                                    PlaceholderText="{x:Static spp:Strings.GameList_Cat_FindGame}" AutomationProperties.Name="{x:Static spp:Strings.GameList_Cat_FindGame}" />
+                                <Button Click="IncludeGame_Click" Content="{x:Static spp:Strings.GameList_Cat_Include}" />
+                                <Button Click="ExcludeGame_Click" Content="{x:Static spp:Strings.GameList_Cat_Exclude}" />
+                            </WrapPanel>
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                                <StackPanel Spacing="3">
+                                    <TextBlock Text="{x:Static spp:Strings.GameList_Cat_IncludedIds}" />
+                                    <TextBox Name="IncludedInput" TextChanged="DraftText_Changed"
+                                        AutomationProperties.Name="{x:Static spp:Strings.GameList_Cat_IncludedIds}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Spacing="3">
+                                    <TextBlock Text="{x:Static spp:Strings.GameList_Cat_ExcludedIds}" />
+                                    <TextBox Name="ExcludedInput" TextChanged="DraftText_Changed"
+                                        AutomationProperties.Name="{x:Static spp:Strings.GameList_Cat_ExcludedIds}" />
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Name="RulePanel" Spacing="6">
+                            <TextBlock FontWeight="SemiBold" Text="{x:Static spp:Strings.GameList_Cat_Rules}" />
+                            <StackPanel Name="RuleTree" />
+                            <TextBlock Text="{x:Static spp:Strings.GameList_Cat_ValueFormula}" TextWrapping="Wrap" Opacity="0.75" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+                <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" ResizeDirection="Rows" />
+                <TabControl Grid.Row="2" Name="ResultTabs">
+                    <TabItem Header="{x:Static spp:Strings.GameList_Cat_Preview}">
+                        <Grid RowDefinitions="Auto,*" RowSpacing="6">
+                            <TextBlock Name="PreviewCount" Margin="8,2" TextWrapping="Wrap" />
+                            <ListBox Grid.Row="1" Name="PreviewGames" AutomationProperties.Name="{x:Static spp:Strings.GameList_Cat_Preview}" />
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="{x:Static spp:Strings.GameList_Cat_Conflicts}">
+                        <Grid RowDefinitions="Auto,*" RowSpacing="6">
+                            <TextBlock Name="ConflictCount" Margin="8,2" TextWrapping="Wrap" />
+                            <ListBox Grid.Row="1" Name="ConflictGames" AutomationProperties.Name="{x:Static spp:Strings.GameList_Cat_Conflicts}" />
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" ColumnDefinitions="*,150" ColumnSpacing="10">
+            <TextBlock Name="StatusText" TextWrapping="Wrap" AutomationProperties.LiveSetting="Polite" />
+            <ProgressBar Grid.Column="1" Name="MetadataProgress" IsVisible="False" />
+        </Grid>
+    </Grid>
+</spp:PageBase>

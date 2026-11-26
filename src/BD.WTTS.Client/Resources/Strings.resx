@@ -5414,4 +5414,162 @@
   <data name="GameTools_Cpu_RefreshFailed" xml:space="preserve">
     <value>无法刷新进程列表。</value>
   </data>
+  <data name="GameList_Cat_Title" xml:space="preserve"><value>分类</value></data>
+  <data name="GameList_Cat_New" xml:space="preserve"><value>新建分类</value></data>
+  <data name="GameList_Cat_Templates" xml:space="preserve"><value>从模板新建</value></data>
+  <data name="GameList_Cat_EmptyList" xml:space="preserve"><value>还没有分类。新建一个分类，或选择模板开始。</value></data>
+  <data name="GameList_Cat_EmptyEditor" xml:space="preserve"><value>选择或新建一个分类，即可编辑规则并预览匹配游戏。</value></data>
+  <data name="GameList_Cat_Name" xml:space="preserve"><value>分类名称</value></data>
+  <data name="GameList_Cat_Mode" xml:space="preserve"><value>分类模式</value></data>
+  <data name="GameList_Cat_Mode_Manual" xml:space="preserve"><value>手动</value></data>
+  <data name="GameList_Cat_Mode_Auto" xml:space="preserve"><value>自动</value></data>
+  <data name="GameList_Cat_Mode_Mixed" xml:space="preserve"><value>混合</value></data>
+  <data name="GameList_Cat_Save" xml:space="preserve"><value>保存分类</value></data>
+  <data name="GameList_Cat_Delete" xml:space="preserve"><value>删除分类</value></data>
+  <data name="GameList_Cat_DeleteConfirm" xml:space="preserve"><value>删除此分类及其已应用的成员记录？</value></data>
+  <data name="GameList_Cat_Saved" xml:space="preserve"><value>已保存分类。</value></data>
+  <data name="GameList_Cat_Deleted" xml:space="preserve"><value>已删除分类。</value></data>
+  <data name="GameList_Cat_EnterName" xml:space="preserve"><value>请输入分类名称。</value></data>
+  <data name="GameList_Cat_Import" xml:space="preserve"><value>导入 JSON</value></data>
+  <data name="GameList_Cat_Export" xml:space="preserve"><value>导出 JSON</value></data>
+  <data name="GameList_Cat_ImportConfirm" xml:space="preserve"><value>导入分类定义。同一 ID 的定义会被替换。</value></data>
+  <data name="GameList_Cat_Imported" xml:space="preserve"><value>已导入分类。</value></data>
+  <data name="GameList_Cat_ImportFailed" xml:space="preserve"><value>无法导入该分类文件。请检查 JSON 格式、版本和分类数量。</value></data>
+  <data name="GameList_Cat_Exported" xml:space="preserve"><value>已导出 JSON。</value></data>
+  <data name="GameList_Cat_RunAll" xml:space="preserve"><value>运行所有自动分类</value></data>
+  <data name="GameList_Cat_RunComplete" xml:space="preserve"><value>已运行 {0:N0} 个自动或混合分类。</value></data>
+  <data name="GameList_Cat_Refresh" xml:space="preserve"><value>刷新商店数据</value></data>
+  <data name="GameList_Cat_ReloadLibrary" xml:space="preserve"><value>重新读取本地库</value></data>
+  <data name="GameList_Cat_LibraryLoaded" xml:space="preserve"><value>已读取 {0:N0} 个本地库条目。</value></data>
+  <data name="GameList_Cat_EmptyLibrary" xml:space="preserve"><value>当前没有可刷新商店数据的游戏。</value></data>
+  <data name="GameList_Cat_Cancel" xml:space="preserve"><value>取消</value></data>
+  <data name="GameList_Cat_RefreshProgress" xml:space="preserve"><value>正在更新商店数据（{0:N0}/{1:N0}）</value></data>
+  <data name="GameList_Cat_RefreshComplete" xml:space="preserve"><value>已检查缓存。{0:N0} 个条目的商店数据仍不完整。</value></data>
+  <data name="GameList_Cat_RefreshCanceled" xml:space="preserve"><value>已取消刷新。下次将从已缓存的结果继续。</value></data>
+  <data name="GameList_Cat_RateLimited" xml:space="preserve"><value>Steam 限制了请求频率。已保留缓存，请稍后重试。</value></data>
+  <data name="GameList_Cat_RefreshUnavailable" xml:space="preserve"><value>部分商店数据当前不可用，已保留上次的缓存。</value></data>
+  <data name="GameList_Cat_LoadFailed" xml:space="preserve"><value>无法读取分类或本地库。</value></data>
+  <data name="GameList_Cat_OperationFailed" xml:space="preserve"><value>分类操作失败。请查看应用日志。</value></data>
+  <data name="GameList_Cat_Region" xml:space="preserve"><value>商店地区</value></data>
+  <data name="GameList_Cat_ApplyRegion" xml:space="preserve"><value>应用地区</value></data>
+  <data name="GameList_Cat_CurrencyDisplay" xml:space="preserve"><value>地区 {0} · 币种 {1}</value></data>
+  <data name="GameList_Cat_CurrencyUnknown" xml:space="preserve"><value>等待商店价格</value></data>
+  <data name="GameList_Cat_InvalidRegion" xml:space="preserve"><value>请输入两个英文字母的地区代码（例如 CN）。</value></data>
+  <data name="GameList_Cat_RegionSaved" xml:space="preserve"><value>已保存商店地区。</value></data>
+  <data name="GameList_Cat_Overrides" xml:space="preserve"><value>手动纳入和排除</value></data>
+  <data name="GameList_Cat_FindGame" xml:space="preserve"><value>搜索游戏名或 App ID</value></data>
+  <data name="GameList_Cat_Include" xml:space="preserve"><value>纳入</value></data>
+  <data name="GameList_Cat_Exclude" xml:space="preserve"><value>排除</value></data>
+  <data name="GameList_Cat_IncludedIds" xml:space="preserve"><value>纳入的 App ID（逗号分隔）</value></data>
+  <data name="GameList_Cat_ExcludedIds" xml:space="preserve"><value>排除的 App ID（逗号分隔）</value></data>
+  <data name="GameList_Cat_InvalidIds" xml:space="preserve"><value>请输入用逗号分隔的有效 Steam App ID。</value></data>
+  <data name="GameList_Cat_Rules" xml:space="preserve"><value>自动分类规则</value></data>
+  <data name="GameList_Cat_Group" xml:space="preserve"><value>组合方式</value></data>
+  <data name="GameList_Cat_Group_All" xml:space="preserve"><value>并且（AND）</value></data>
+  <data name="GameList_Cat_Group_Any" xml:space="preserve"><value>或者（OR）</value></data>
+  <data name="GameList_Cat_Group_Not" xml:space="preserve"><value>取反（NOT）</value></data>
+  <data name="GameList_Cat_AddCondition" xml:space="preserve"><value>添加条件</value></data>
+  <data name="GameList_Cat_AddGroup" xml:space="preserve"><value>添加规则组</value></data>
+  <data name="GameList_Cat_Remove" xml:space="preserve"><value>移除</value></data>
+  <data name="GameList_Cat_Field" xml:space="preserve"><value>字段</value></data>
+  <data name="GameList_Cat_Operator" xml:space="preserve"><value>运算符</value></data>
+  <data name="GameList_Cat_Value" xml:space="preserve"><value>值</value></data>
+  <data name="GameList_Cat_ValueList" xml:space="preserve"><value>多个值用逗号分隔</value></data>
+  <data name="GameList_Cat_MinValue" xml:space="preserve"><value>最小值</value></data>
+  <data name="GameList_Cat_MaxValue" xml:space="preserve"><value>最大值</value></data>
+  <data name="GameList_Cat_Days" xml:space="preserve"><value>天数</value></data>
+  <data name="GameList_Cat_FindTag" xml:space="preserve"><value>搜索或输入商店标签</value></data>
+  <data name="GameList_Cat_AddTag" xml:space="preserve"><value>添加标签</value></data>
+  <data name="GameList_Cat_ValueFormula" xml:space="preserve"><value>性价比分 = 好评率 ÷ (1 + 每小时价格)。每小时价格 = 当前地区价格 ÷ max(游玩小时数, 0.1)。请使用同一币种比较。</value></data>
+  <data name="GameList_Cat_Preview" xml:space="preserve"><value>匹配预览</value></data>
+  <data name="GameList_Cat_ManualMatch" xml:space="preserve"><value>手动纳入</value></data>
+  <data name="GameList_Cat_MatchCount" xml:space="preserve"><value>匹配 {0:N0} 个游戏</value></data>
+  <data name="GameList_Cat_NoMatches" xml:space="preserve"><value>没有匹配的游戏。缺少数据的条件无法匹配。</value></data>
+  <data name="GameList_Cat_Conflicts" xml:space="preserve"><value>分类冲突</value></data>
+  <data name="GameList_Cat_ConflictCount" xml:space="preserve"><value>{0:N0} 个游戏出现在多个已应用的分类中。</value></data>
+  <data name="GameList_Cat_NoConflicts" xml:space="preserve"><value>已应用的分类中没有重叠游戏。</value></data>
+  <data name="GameList_Cat_SteamPreview" xml:space="preserve"><value>Steam 合集导出预览</value></data>
+  <data name="GameList_Cat_SteamReadOnly" xml:space="preserve"><value>当前提供只读导出。可以复制或保存此分类及匹配的 Steam App ID。</value></data>
+  <data name="GameList_Cat_CopyJson" xml:space="preserve"><value>复制 JSON</value></data>
+  <data name="GameList_Cat_Copied" xml:space="preserve"><value>已将 JSON 复制到剪贴板。</value></data>
+  <data name="GameList_Cat_TemplateHiddenGems" xml:space="preserve"><value>高分冷门</value></data>
+  <data name="GameList_Cat_TemplateValue" xml:space="preserve"><value>高性价比</value></data>
+  <data name="GameList_Cat_TemplateBacklog" xml:space="preserve"><value>买了没玩</value></data>
+  <data name="GameList_Cat_TemplateShort" xml:space="preserve"><value>短流程游戏</value></data>
+  <data name="GameList_Cat_TemplateChinese" xml:space="preserve"><value>支持简体中文的单人游戏</value></data>
+  <data name="GameList_Cat_TemplateDeck" xml:space="preserve"><value>Steam Deck 可玩</value></data>
+  <data name="GameList_Cat_Op_Equal" xml:space="preserve"><value>等于 (=)</value></data>
+  <data name="GameList_Cat_Op_NotEqual" xml:space="preserve"><value>不等于 (≠)</value></data>
+  <data name="GameList_Cat_Op_GreaterThan" xml:space="preserve"><value>大于 (&gt;)</value></data>
+  <data name="GameList_Cat_Op_AtLeast" xml:space="preserve"><value>至少 (≥)</value></data>
+  <data name="GameList_Cat_Op_LessThan" xml:space="preserve"><value>小于 (&lt;)</value></data>
+  <data name="GameList_Cat_Op_AtMost" xml:space="preserve"><value>最多 (≤)</value></data>
+  <data name="GameList_Cat_Op_Between" xml:space="preserve"><value>介于（含端点）</value></data>
+  <data name="GameList_Cat_Op_Contains" xml:space="preserve"><value>包含</value></data>
+  <data name="GameList_Cat_Op_In" xml:space="preserve"><value>属于下列任一项</value></data>
+  <data name="GameList_Cat_Op_HasTag" xml:space="preserve"><value>具有标签</value></data>
+  <data name="GameList_Cat_Op_HasAny" xml:space="preserve"><value>包含任一项</value></data>
+  <data name="GameList_Cat_Op_HasAll" xml:space="preserve"><value>包含全部</value></data>
+  <data name="GameList_Cat_Op_IsEmpty" xml:space="preserve"><value>为空</value></data>
+  <data name="GameList_Cat_Op_WithinDays" xml:space="preserve"><value>最近 N 天内</value></data>
+  <data name="GameList_Cat_Op_OlderThanDays" xml:space="preserve"><value>超过 N 天</value></data>
+  <data name="GameList_Cat_Field_PlaytimeMinutes" xml:space="preserve"><value>游玩时长（分钟）</value></data>
+  <data name="GameList_Cat_Field_RecentPlaytimeMinutes" xml:space="preserve"><value>近两周游玩时长（分钟）</value></data>
+  <data name="GameList_Cat_Field_LastPlayed" xml:space="preserve"><value>上次游玩日期</value></data>
+  <data name="GameList_Cat_Field_OwnedSince" xml:space="preserve"><value>取得日期（如可用）</value></data>
+  <data name="GameList_Cat_Field_Installed" xml:space="preserve"><value>已安装</value></data>
+  <data name="GameList_Cat_Field_SizeOnDisk" xml:space="preserve"><value>磁盘占用（GiB）</value></data>
+  <data name="GameList_Cat_Field_Hidden" xml:space="preserve"><value>已隐藏</value></data>
+  <data name="GameList_Cat_Field_Favourite" xml:space="preserve"><value>已收藏</value></data>
+  <data name="GameList_Cat_Field_AchievementCompletion" xml:space="preserve"><value>本体成就完成率（%）</value></data>
+  <data name="GameList_Cat_Field_AchievementCount" xml:space="preserve"><value>成就总数</value></data>
+  <data name="GameList_Cat_Field_FamilyShared" xml:space="preserve"><value>来自家庭共享</value></data>
+  <data name="GameList_Cat_Field_Type" xml:space="preserve"><value>应用类型</value></data>
+  <data name="GameList_Cat_Field_Platforms" xml:space="preserve"><value>支持的操作系统</value></data>
+  <data name="GameList_Cat_Field_Price" xml:space="preserve"><value>当前价格</value></data>
+  <data name="GameList_Cat_Field_OriginalPrice" xml:space="preserve"><value>原价</value></data>
+  <data name="GameList_Cat_Field_Discount" xml:space="preserve"><value>折扣（%）</value></data>
+  <data name="GameList_Cat_Field_PricePerHour" xml:space="preserve"><value>每小时价格</value></data>
+  <data name="GameList_Cat_Field_ValueRating" xml:space="preserve"><value>性价比分</value></data>
+  <data name="GameList_Cat_Field_Free" xml:space="preserve"><value>免费游玩</value></data>
+  <data name="GameList_Cat_Field_ReleaseYear" xml:space="preserve"><value>发行年份</value></data>
+  <data name="GameList_Cat_Field_Genres" xml:space="preserve"><value>游戏类型</value></data>
+  <data name="GameList_Cat_Field_Tags" xml:space="preserve"><value>商店用户标签</value></data>
+  <data name="GameList_Cat_Field_TagCount" xml:space="preserve"><value>商店用户标签数</value></data>
+  <data name="GameList_Cat_Field_Developer" xml:space="preserve"><value>开发商</value></data>
+  <data name="GameList_Cat_Field_Publisher" xml:space="preserve"><value>发行商</value></data>
+  <data name="GameList_Cat_Field_ReviewScore" xml:space="preserve"><value>好评率（%）</value></data>
+  <data name="GameList_Cat_Field_ReviewCount" xml:space="preserve"><value>评测总数</value></data>
+  <data name="GameList_Cat_Field_ReviewTier" xml:space="preserve"><value>评测等级</value></data>
+  <data name="GameList_Cat_Field_Metacritic" xml:space="preserve"><value>Metacritic 评分</value></data>
+  <data name="GameList_Cat_Field_DeckStatus" xml:space="preserve"><value>Steam Deck 兼容状态</value></data>
+  <data name="GameList_Cat_Field_Controller" xml:space="preserve"><value>手柄支持</value></data>
+  <data name="GameList_Cat_Field_Languages" xml:space="preserve"><value>支持语言</value></data>
+  <data name="GameList_Cat_Field_Singleplayer" xml:space="preserve"><value>支持单人</value></data>
+  <data name="GameList_Cat_Field_Multiplayer" xml:space="preserve"><value>支持多人</value></data>
+  <data name="GameList_Cat_Choice_true" xml:space="preserve"><value>是</value></data>
+  <data name="GameList_Cat_Choice_false" xml:space="preserve"><value>否</value></data>
+  <data name="GameList_Cat_Choice_Type_game" xml:space="preserve"><value>游戏</value></data>
+  <data name="GameList_Cat_Choice_Type_dlc" xml:space="preserve"><value>DLC</value></data>
+  <data name="GameList_Cat_Choice_Type_application" xml:space="preserve"><value>软件</value></data>
+  <data name="GameList_Cat_Choice_Type_tool" xml:space="preserve"><value>工具</value></data>
+  <data name="GameList_Cat_Choice_Type_demo" xml:space="preserve"><value>试玩</value></data>
+  <data name="GameList_Cat_Choice_Type_other" xml:space="preserve"><value>其他</value></data>
+  <data name="GameList_Cat_Choice_DeckStatus_verified" xml:space="preserve"><value>已验证</value></data>
+  <data name="GameList_Cat_Choice_DeckStatus_playable" xml:space="preserve"><value>可玩</value></data>
+  <data name="GameList_Cat_Choice_DeckStatus_unsupported" xml:space="preserve"><value>不支持</value></data>
+  <data name="GameList_Cat_Choice_DeckStatus_untested" xml:space="preserve"><value>未测试</value></data>
+  <data name="GameList_Cat_Choice_Controller_full" xml:space="preserve"><value>完全支持</value></data>
+  <data name="GameList_Cat_Choice_Controller_partial" xml:space="preserve"><value>部分支持</value></data>
+  <data name="GameList_Cat_Choice_Controller_none" xml:space="preserve"><value>无</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_9" xml:space="preserve"><value>好评如潮</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_8" xml:space="preserve"><value>特别好评</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_7" xml:space="preserve"><value>好评</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_6" xml:space="preserve"><value>多半好评</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_5" xml:space="preserve"><value>褒贬不一</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_4" xml:space="preserve"><value>多半差评</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_3" xml:space="preserve"><value>差评</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_2" xml:space="preserve"><value>特别差评</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_1" xml:space="preserve"><value>差评如潮</value></data>
+  <data name="GameList_Cat_Choice_ReviewTier_0" xml:space="preserve"><value>暂无评测等级</value></data>
 </root>
