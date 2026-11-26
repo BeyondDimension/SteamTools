@@ -89,6 +89,19 @@ partial interface IPlatformService
 
     void ReleaseBackground(IntPtr dest);
 
+    IReadOnlyList<NativeWindowMonitor> GetWindowMonitors();
+    NativeWindowToolInfo? GetWindowToolInfo(NativeWindowModel window);
+    bool SetWindowToolOptions(NativeWindowModel window, NativeWindowToolOptions options);
+    bool SetWindowPenetrate(NativeWindowModel window, bool enabled);
+    bool SetWindowToolBounds(NativeWindowModel window, NativeWindowBounds bounds);
+    bool MoveWindowToMonitor(NativeWindowModel window, NativeWindowMonitor monitor, NativeWindowMonitorAction action);
+    bool SetWallpaperWindow(NativeWindowModel window, NativeWindowMonitor monitor, bool mouse, bool keyboard);
+    bool SetWallpaperInput(NativeWindowModel window, bool mouse, bool keyboard);
+    bool PauseWallpaperWindow(NativeWindowModel window);
+    bool RestoreWindow(NativeWindowModel window);
+    void SetWindowRules(IReadOnlyList<NativeWindowRule> rules);
+    void ShutDownWindowTools();
+
 #endif
 }
 

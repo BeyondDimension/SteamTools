@@ -23,7 +23,8 @@ static partial class MouseHook
         remove
         {
             MouseUp -= value;
-            Unsubscribe();
+            if (MouseUp == null)
+                Unsubscribe();
         }
     }
 
@@ -44,7 +45,6 @@ static partial class MouseHook
             var currentProcessMainModuleName = Process.GetCurrentProcess().MainModule?.ModuleName;
             if (string.IsNullOrWhiteSpace(currentProcessMainModuleName)) throw new ArgumentNullException(nameof(currentProcessMainModuleName));
             _mouseDelegate = MouseHookProc;
-            PInvoke.User32.SafeHookHandle d;
             _mouseHookHandle = PInvoke.User32.SetWindowsHookEx(PInvoke.User32.WindowsHookType.WH_MOUSE_LL,
                 _mouseDelegate,
                 PInvoke.Kernel32.GetModuleHandle(currentProcessMainModuleName),
@@ -52,6 +52,7 @@ static partial class MouseHook
             if (_mouseHookHandle.DangerousGetHandle() == nint.Zero)
             {
                 int errorCode = Marshal.GetLastWin32Error();
+                Unsubscribe();
                 throw new Win32Exception(errorCode);
             }
         }
@@ -64,14 +65,8 @@ static partial class MouseHook
             var mouseHookStruct = (MSLLHOOKSTRUCT*)lParam;
             MouseUp?.Invoke(null, new PointDouble(mouseHookStruct->pt.X, mouseHookStruct->pt.Y));
         }
-        if (_mouseHookHandle != null)
-        {
-            return PInvoke.User32.CallNextHookEx(_mouseHookHandle.DangerousGetHandle(), nCode, wParam, lParam);
-        }
-        else
-        {
-            return 0;
-        }
+        // MouseUp may unsubscribe the picker. Pass the event along to other hooks even then.
+        return PInvoke.User32.CallNextHookEx(nint.Zero, nCode, wParam, lParam);
     }
 
     const int WM_LBUTTONUP = 0x0202;
