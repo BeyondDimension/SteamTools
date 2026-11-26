@@ -73,7 +73,8 @@
                     <CompiledBindingExtension Path="!IsLoading" />
                 </MultiBinding>
             </Grid.IsVisible>
-            <spp:FlexPanel x:Name="TradeToolbar" Margin="0,0,0,10" AlignItems="Center" ColumnSpacing="12" RowSpacing="6">
+            <FlexPanel x:Name="TradeToolbar" Margin="0,0,0,10" AlignContent="FlexStart" AlignItems="Center"
+                       ColumnSpacing="12" RowSpacing="6" Wrap="Wrap">
                 <WrapPanel x:Name="TradeSelectionActions" ItemSpacing="8" LineSpacing="6"
                            IsVisible="{Binding !!Confirmations.Count}" IsEnabled="{Binding CanChangeConfirmations}">
                     <CheckBox x:Name="TradeSelectAll" VerticalAlignment="Center" Command="{Binding SelectAllCommand}"
@@ -112,7 +113,7 @@
                         </StackPanel>
                     </Button>
                 </WrapPanel>
-            </spp:FlexPanel>
+            </FlexPanel>
             <StackPanel Grid.Row="1">
                 <Border x:Name="TradeError" Margin="0,0,0,8" Classes="trade-card"
                         IsVisible="{Binding ConfirmationLoadError, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">

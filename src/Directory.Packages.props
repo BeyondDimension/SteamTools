@@ -1,3 +1,12 @@
 <Project>
   <Import Project="..\ref\DirectoryPackages\Directory.Packages.props" />
+
+  <PropertyGroup>
+    <Version_Avalonia>12.2.0</Version_Avalonia>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageVersion Update="Avalonia;Avalonia.Android;Avalonia.Controls.ColorPicker;Avalonia.Desktop;Avalonia.HarfBuzz;Avalonia.Native;Avalonia.Skia;Avalonia.Win32;Avalonia.X11"
+                    Version="$(Version_Avalonia)" />
+  </ItemGroup>
 </Project>

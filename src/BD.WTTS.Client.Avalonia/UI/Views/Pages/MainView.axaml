@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:enum="using:BD.WTTS.Enums"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
@@ -127,6 +128,17 @@
 	</UserControl.Styles>
 
 	<Grid RowDefinitions="Auto, *">
+		<Border
+            BackdropEffectBoundsSource="Layout"
+            IsHitTestVisible="False"
+            IsVisible="{Binding Source={x:Static ms:UISettings.WindowBackgroundCustomImage}, Path=Value, Mode=OneWay}">
+			<Border.Background>
+				<SolidColorBrush Color="{DynamicResource SolidBackgroundFillColorBase}" Opacity="0.65" />
+			</Border.Background>
+			<Border.BackdropEffect>
+				<BlurEffect Radius="16" />
+			</Border.BackdropEffect>
+		</Border>
 		<spp:TitleBar Name="TitleBarHost">
 			<spp:TitleBar.ActionContent>
 				<StackPanel Orientation="Horizontal" Spacing="8">
