@@ -148,8 +148,13 @@
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.SteamIdleCard\BD.WTTS.Client.Plugins.SteamIdleCard.csproj" Aliases="SteamIdleCardPlugin" />
 		<ProjectReference Include="..\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus\BD.WTTS.Client.Plugins.ArchiSteamFarmPlus.csproj" Aliases="ArchiSteamFarmPlusPlugin"
 						  Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
-		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameTools\BD.WTTS.Client.Plugins.GameTools.csproj" Aliases="GameToolsPlugin"
-						  Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(WttsNativeAot)' == 'true' OR '$(Configuration)' == 'Debug'">
+		<ProjectReference Include="..\BD.WTTS.Client.Plugins.GameTools\BD.WTTS.Client.Plugins.GameTools.csproj" Aliases="GameToolsPlugin">
+			<ReferenceOutputAssembly Condition="'$(WttsNativeAot)' != 'true'">false</ReferenceOutputAssembly>
+			<Private Condition="'$(WttsNativeAot)' != 'true'">false</Private>
+		</ProjectReference>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(WttsNativeAot)' != 'true' AND '$(Configuration)' == 'Debug' AND $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

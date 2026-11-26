@@ -226,8 +226,7 @@ public static partial class PluginsCore
 #if !WTTS_NATIVE_AOT
     static bool IsModuleSupported(string name) =>
         OperatingSystem.IsWindows() ||
-        (!string.Equals(name, GameTools, StringComparison.OrdinalIgnoreCase) &&
-         !string.Equals(name, ArchiSteamFarmPlus, StringComparison.OrdinalIgnoreCase));
+        !string.Equals(name, ArchiSteamFarmPlus, StringComparison.OrdinalIgnoreCase);
 
     //static readonly HashSet<string> ignoreDirNames = new(StringComparer.OrdinalIgnoreCase)
     //{

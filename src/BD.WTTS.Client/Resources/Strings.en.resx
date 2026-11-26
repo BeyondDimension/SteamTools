@@ -6920,4 +6920,39 @@ Farming games: {3}</value>
   <data name="LogConsole_CommandHint" xml:space="preserve"><value>Enter a command, or type / for suggestions</value></data>
   <data name="Settings_Storage_AppFolder" xml:space="preserve"><value>Application folder</value></data>
   <data name="Settings_Storage_OpenFolder" xml:space="preserve"><value>Open folder</value></data>
+	<data name="GameTools_Shader_Title" xml:space="preserve"><value>Clean shader cache</value></data>
+	<data name="GameTools_Shader_Description" xml:space="preserve"><value>Scan and clean graphics driver and Steam shader caches.</value></data>
+	<data name="GameTools_Shader_Recompile" xml:space="preserve"><value>Games may stutter on the first launch after cleanup while they recompile shaders.</value></data>
+	<data name="GameTools_Shader_Rescan" xml:space="preserve"><value>Rescan</value></data>
+	<data name="GameTools_Shader_DryRun" xml:space="preserve"><value>Dry run</value></data>
+	<data name="GameTools_Shader_Preview" xml:space="preserve"><value>Preview deletion</value></data>
+	<data name="GameTools_Shader_Clean" xml:space="preserve"><value>Clean selected</value></data>
+	<data name="GameTools_Shader_SelectAll" xml:space="preserve"><value>Select all</value></data>
+	<data name="GameTools_Shader_SelectOld" xml:space="preserve"><value>Select Steam caches older than this many days</value></data>
+	<data name="GameTools_Shader_SelectLarge" xml:space="preserve"><value>Select caches larger than this many MB</value></data>
+	<data name="GameTools_Shader_AgeDays" xml:space="preserve"><value>Cache age in days</value></data>
+	<data name="GameTools_Shader_SizeMb" xml:space="preserve"><value>Cache size threshold in MB</value></data>
+	<data name="GameTools_Shader_Cache" xml:space="preserve"><value>Cache and path</value></data>
+	<data name="GameTools_Shader_Size" xml:space="preserve"><value>Size</value></data>
+	<data name="GameTools_Shader_Files" xml:space="preserve"><value>Files</value></data>
+	<data name="GameTools_Shader_LastModified" xml:space="preserve"><value>Last modified</value></data>
+	<data name="GameTools_Shader_BackToCaches" xml:space="preserve"><value>Back to caches</value></data>
+	<data name="GameTools_Shader_Empty" xml:space="preserve"><value>No shader caches found.</value></data>
+	<data name="GameTools_Shader_Total" xml:space="preserve"><value>Total cache size {0}. Unreadable or skipped entries {1:N0}.</value></data>
+	<data name="GameTools_Shader_Scanning" xml:space="preserve"><value>Scanning shader caches…</value></data>
+	<data name="GameTools_Shader_ScanCancelled" xml:space="preserve"><value>Scan canceled.</value></data>
+	<data name="GameTools_Shader_ScanFailed" xml:space="preserve"><value>Scan failed. See the application log.</value></data>
+	<data name="GameTools_Shader_Unavailable" xml:space="preserve"><value>Unavailable</value></data>
+	<data name="GameTools_Shader_Previewing" xml:space="preserve"><value>Preparing the deletion preview…</value></data>
+	<data name="GameTools_Shader_PreviewSummary" xml:space="preserve"><value>Preview found {1:N0} files totaling {0}. Skipped {2:N0} files and {3:N0} folders.</value></data>
+	<data name="GameTools_Shader_Confirm" xml:space="preserve"><value>Delete the selected caches? The scan found {0} in total.</value></data>
+	<data name="GameTools_Shader_SteamRunning" xml:space="preserve"><value>Close these running Steam processes before cleaning.&#10;&#10;{0}</value></data>
+	<data name="GameTools_Shader_DriverRunning" xml:space="preserve"><value>These processes may be using driver caches. Close them first, or choose Clean selected to continue.&#10;&#10;{0}</value></data>
+	<data name="GameTools_Shader_ProcessChanged" xml:space="preserve"><value>More processes that may use driver caches appeared after confirmation. Review them and try again.&#10;&#10;{0}</value></data>
+	<data name="GameTools_Shader_Cleaning" xml:space="preserve"><value>Cleaning shader caches…</value></data>
+	<data name="GameTools_Shader_CleanupInProgress" xml:space="preserve"><value>Another page is cleaning shader caches.</value></data>
+	<data name="GameTools_Shader_CleanSummary" xml:space="preserve"><value>Freed {0}. Skipped {1:N0} files and {2:N0} folders.</value></data>
+	<data name="GameTools_Shader_CleanFailed" xml:space="preserve"><value>Operation failed. See the application log.</value></data>
+	<data name="GameTools_Shader_SteamGame" xml:space="preserve"><value>Steam · {0}</value></data>
+	<data name="GameTools_Shader_SteamTemporary" xml:space="preserve"><value>Steam temporary shader cache</value></data>
 </root>

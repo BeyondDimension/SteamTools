@@ -1205,11 +1205,9 @@ publish -c {0} -p:OutputType={1} -p:PublishDir=bin\{0}\Publish\win-any -p:Publis
         yield return AssemblyInfo.GameList;
         yield return AssemblyInfo.Authenticator;
         yield return AssemblyInfo.SteamIdleCard;
+        yield return AssemblyInfo.GameTools;
         if (platform == Platform.Windows)
-        {
             yield return AssemblyInfo.ArchiSteamFarmPlus;
-            yield return AssemblyInfo.GameTools;
-        }
     }
 
     /// <summary>

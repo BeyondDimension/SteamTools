@@ -165,6 +165,26 @@
                     </Grid>
                 </Button>
             </Border>
+            <Border spp:Animations.EnableAnimations="False">
+                <Button
+                    Click="ShaderCache_Click"
+                    IsEnabled="{x:Static spp:ShaderCachePage.IsSupported}"
+                    Tag="{x:Type spp:ShaderCachePage}"
+                    Theme="{StaticResource NavButtonStyle}">
+                    <Grid RowDefinitions="3*,*">
+                        <Viewbox Width="52" Height="52">
+                            <PathIcon Data="M5 2H7V4H9V2H11V4H13V2H15V4H17V2H19V4H20V5H22V7H20V9H22V11H20V13H22V15H20V17H22V19H20V20H19V22H17V20H15V22H13V20H11V22H9V20H7V22H5V20H4V19H2V17H4V15H2V13H4V11H2V9H4V7H2V5H4V4H5Z M8 8V16H16V8Z"
+                                Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}" />
+                        </Viewbox>
+                        <TextBlock
+                            Grid.Row="1"
+                            Margin="12"
+                            FontWeight="SemiBold"
+                            Text="{x:Static spp:Strings.GameTools_Shader_Title}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                </Button>
+            </Border>
         </WrapPanel>
     </ScrollViewer>
 </spp:PageBase>

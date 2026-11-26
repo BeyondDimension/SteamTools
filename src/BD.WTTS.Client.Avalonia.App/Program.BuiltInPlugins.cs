@@ -4,9 +4,9 @@ extern alias GameAccountPlugin;
 extern alias GameListPlugin;
 extern alias AuthenticatorPlugin;
 extern alias SteamIdleCardPlugin;
+extern alias GameToolsPlugin;
 #if WINDOWS
 extern alias ArchiSteamFarmPlusPlugin;
-extern alias GameToolsPlugin;
 #endif
 
 namespace BD.WTTS;
@@ -22,8 +22,8 @@ partial class Program
             (AssemblyInfo.Authenticator, static () => new AuthenticatorPlugin::BD.WTTS.Plugins.Plugin()),
 #if WINDOWS
             (AssemblyInfo.ArchiSteamFarmPlus, static () => new ArchiSteamFarmPlusPlugin::BD.WTTS.Plugins.Plugin()),
-            (AssemblyInfo.GameTools, static () => new GameToolsPlugin::BD.WTTS.Plugins.Plugin()),
 #endif
+            (AssemblyInfo.GameTools, static () => new GameToolsPlugin::BD.WTTS.Plugins.Plugin()),
             (AssemblyInfo.SteamIdleCard, static () => new SteamIdleCardPlugin::BD.WTTS.Plugins.Plugin()));
     }
 }

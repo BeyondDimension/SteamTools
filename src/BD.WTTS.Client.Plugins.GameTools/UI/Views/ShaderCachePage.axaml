@@ -1,0 +1,106 @@
+<spp:PageBase
+    x:Class="BD.WTTS.UI.Views.Pages.ShaderCachePage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:spp="https://steampp.net/ui"
+    x:DataType="spp:ShaderCachePageViewModel"
+    Title="{x:Static spp:Strings.GameTools_Shader_Title}"
+    Description="{x:Static spp:Strings.GameTools_Shader_Description}">
+    <StackPanel Margin="12" Spacing="12">
+        <TextBlock
+            Text="{x:Static spp:Strings.GameTools_Shader_Recompile}"
+            TextWrapping="Wrap" />
+
+        <WrapPanel Orientation="Horizontal" ItemSpacing="8" LineSpacing="6">
+            <Button
+                Click="Rescan_Click"
+                Content="{x:Static spp:Strings.GameTools_Shader_Rescan}"
+                IsEnabled="{Binding !IsBusy}" />
+            <Button
+                Click="CancelScan_Click"
+                Content="{x:Static spp:Strings.Cancel}"
+                IsVisible="{Binding IsScanning}" />
+            <CheckBox
+                Content="{x:Static spp:Strings.GameTools_Shader_DryRun}"
+                IsChecked="{Binding DryRun, Mode=TwoWay}"
+                IsEnabled="{Binding !IsBusy}" />
+            <Button
+                Classes="accent"
+                Click="Clean_Click"
+                Content="{Binding CleanActionText}"
+                IsEnabled="{Binding CanClean}" />
+        </WrapPanel>
+
+        <WrapPanel IsEnabled="{Binding !IsBusy}" IsVisible="{Binding !ShowingPreview}"
+                   Orientation="Horizontal" ItemSpacing="8" LineSpacing="6">
+            <Button Click="SelectAll_Click" Content="{x:Static spp:Strings.GameTools_Shader_SelectAll}" />
+            <StackPanel Orientation="Horizontal" Spacing="4">
+                <NumericUpDown
+                    Width="96" Minimum="0" Maximum="36500" FormatString="0"
+                    AutomationProperties.Name="{x:Static spp:Strings.GameTools_Shader_AgeDays}"
+                    Value="{Binding MinimumAgeDays, Mode=TwoWay}" />
+                <Button Click="SelectOld_Click" Content="{x:Static spp:Strings.GameTools_Shader_SelectOld}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="4">
+                <NumericUpDown
+                    Width="96" Minimum="0" Maximum="1000000" FormatString="0"
+                    AutomationProperties.Name="{x:Static spp:Strings.GameTools_Shader_SizeMb}"
+                    Value="{Binding MinimumSizeMb, Mode=TwoWay}" />
+                <Button Click="SelectLarge_Click" Content="{x:Static spp:Strings.GameTools_Shader_SelectLarge}" />
+            </StackPanel>
+        </WrapPanel>
+
+        <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsBusy}" />
+        <TextBlock Text="{Binding StatusText}" TextWrapping="Wrap" />
+
+        <StackPanel IsEnabled="{Binding !IsBusy}" IsVisible="{Binding !ShowingPreview}" Spacing="4">
+            <Grid Margin="10,0,18,0" ColumnDefinitions="*,96,64,148" ColumnSpacing="8">
+                <TextBlock Text="{x:Static spp:Strings.GameTools_Shader_Cache}" FontWeight="SemiBold" />
+                <TextBlock Grid.Column="1" Text="{x:Static spp:Strings.GameTools_Shader_Size}" FontWeight="SemiBold" />
+                <TextBlock Grid.Column="2" Text="{x:Static spp:Strings.GameTools_Shader_Files}" FontWeight="SemiBold" />
+                <TextBlock Grid.Column="3" Text="{x:Static spp:Strings.GameTools_Shader_LastModified}" FontWeight="SemiBold" />
+            </Grid>
+            <ListBox Background="Transparent" ItemsSource="{Binding Rows}" MaxHeight="460"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.Styles>
+                    <Style Selector="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListBox.Styles>
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="spp:ShaderCacheRowViewModel">
+                        <Grid ColumnDefinitions="32,*,96,64,148" ColumnSpacing="8">
+                            <CheckBox
+                                AutomationProperties.Name="{Binding Name}"
+                                IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                IsEnabled="{Binding CanSelect}" />
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock FontWeight="SemiBold" Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                                <TextBlock
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Text="{Binding Path}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTip.Tip="{Binding Path}" />
+                            </StackPanel>
+                            <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Size}" />
+                            <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding FileCount}" />
+                            <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding LastModified}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <StackPanel IsVisible="{Binding ShowingPreview}" Spacing="6">
+            <Button Click="ClosePreview_Click" Content="{x:Static spp:Strings.GameTools_Shader_BackToCaches}" />
+            <ListBox ItemsSource="{Binding PreviewPaths}" MaxHeight="460"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <SelectableTextBlock Text="{Binding}" TextWrapping="Wrap" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+    </StackPanel>
+</spp:PageBase>
