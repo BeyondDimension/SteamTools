@@ -15,11 +15,9 @@ public partial class GameToolsPage : PageBase
     private void VacRepair_Click(object? sender, RoutedEventArgs e) =>
         NavigationService.Instance.Navigate(typeof(CsgoVacRepairPage), NavigationTransitionEffect.FromRight);
 
-<<<<<<< HEAD
     private void ShaderCache_Click(object? sender, RoutedEventArgs e) =>
         NavigationService.Instance.Navigate(typeof(ShaderCachePage), NavigationTransitionEffect.FromRight);
-=======
+
     private void CpuScheduling_Click(object? sender, RoutedEventArgs e) =>
         NavigationService.Instance.Navigate(typeof(CpuSchedulingPage), NavigationTransitionEffect.FromRight);
->>>>>>> RMBGAME/gt-cpu-scheduler
 }
