@@ -14,4 +14,7 @@ public partial class GameToolsPage : PageBase
 
     private void VacRepair_Click(object? sender, RoutedEventArgs e) =>
         NavigationService.Instance.Navigate(typeof(CsgoVacRepairPage), NavigationTransitionEffect.FromRight);
+
+    private void ShaderCache_Click(object? sender, RoutedEventArgs e) =>
+        NavigationService.Instance.Navigate(typeof(ShaderCachePage), NavigationTransitionEffect.FromRight);
 }

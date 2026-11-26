@@ -5096,4 +5096,39 @@
 	<data name="LogConsole_CommandHint" xml:space="preserve"><value>输入指令，键入 / 查看建议</value></data>
 	<data name="Settings_Storage_AppFolder" xml:space="preserve"><value>程序目录</value></data>
 	<data name="Settings_Storage_OpenFolder" xml:space="preserve"><value>打开文件夹</value></data>
+	<data name="GameTools_Shader_Title" xml:space="preserve"><value>清理着色器缓存</value></data>
+	<data name="GameTools_Shader_Description" xml:space="preserve"><value>扫描并清理显卡驱动和 Steam 的着色器缓存。</value></data>
+	<data name="GameTools_Shader_Recompile" xml:space="preserve"><value>清理后，游戏会在首次启动时重新编译着色器，期间可能出现卡顿。</value></data>
+	<data name="GameTools_Shader_Rescan" xml:space="preserve"><value>重新扫描</value></data>
+	<data name="GameTools_Shader_DryRun" xml:space="preserve"><value>仅预览</value></data>
+	<data name="GameTools_Shader_Preview" xml:space="preserve"><value>预览清理</value></data>
+	<data name="GameTools_Shader_Clean" xml:space="preserve"><value>清理所选</value></data>
+	<data name="GameTools_Shader_SelectAll" xml:space="preserve"><value>全选</value></data>
+	<data name="GameTools_Shader_SelectOld" xml:space="preserve"><value>选择超过指定天数的 Steam 游戏缓存</value></data>
+	<data name="GameTools_Shader_SelectLarge" xml:space="preserve"><value>选择大于指定 MB 的缓存</value></data>
+	<data name="GameTools_Shader_AgeDays" xml:space="preserve"><value>缓存保留天数</value></data>
+	<data name="GameTools_Shader_SizeMb" xml:space="preserve"><value>大小阈值（MB）</value></data>
+	<data name="GameTools_Shader_Cache" xml:space="preserve"><value>缓存和路径</value></data>
+	<data name="GameTools_Shader_Size" xml:space="preserve"><value>大小</value></data>
+	<data name="GameTools_Shader_Files" xml:space="preserve"><value>文件数</value></data>
+	<data name="GameTools_Shader_LastModified" xml:space="preserve"><value>最后修改时间</value></data>
+	<data name="GameTools_Shader_BackToCaches" xml:space="preserve"><value>返回缓存列表</value></data>
+	<data name="GameTools_Shader_Empty" xml:space="preserve"><value>未找到着色器缓存。</value></data>
+	<data name="GameTools_Shader_Total" xml:space="preserve"><value>缓存总大小 {0}。有 {1:N0} 个项目无法读取或已跳过。</value></data>
+	<data name="GameTools_Shader_Scanning" xml:space="preserve"><value>正在扫描着色器缓存…</value></data>
+	<data name="GameTools_Shader_ScanCancelled" xml:space="preserve"><value>已取消扫描。</value></data>
+	<data name="GameTools_Shader_ScanFailed" xml:space="preserve"><value>扫描失败。请查看应用日志。</value></data>
+	<data name="GameTools_Shader_Unavailable" xml:space="preserve"><value>不可读取</value></data>
+	<data name="GameTools_Shader_Previewing" xml:space="preserve"><value>正在准备清理预览…</value></data>
+	<data name="GameTools_Shader_PreviewSummary" xml:space="preserve"><value>预计可清理 {0}，共 {1:N0} 个文件。跳过 {2:N0} 个文件和 {3:N0} 个文件夹。</value></data>
+	<data name="GameTools_Shader_Confirm" xml:space="preserve"><value>确定清理所选缓存吗？扫描显示其总大小为 {0}。</value></data>
+	<data name="GameTools_Shader_SteamRunning" xml:space="preserve"><value>以下 Steam 进程正在运行。请关闭它们后再清理。&#10;&#10;{0}</value></data>
+	<data name="GameTools_Shader_DriverRunning" xml:space="preserve"><value>以下进程可能正在使用驱动缓存。建议先关闭它们。若要继续，请选择“清理所选”。&#10;&#10;{0}</value></data>
+	<data name="GameTools_Shader_ProcessChanged" xml:space="preserve"><value>确认后又发现可能使用驱动缓存的进程。请检查后重试。&#10;&#10;{0}</value></data>
+	<data name="GameTools_Shader_Cleaning" xml:space="preserve"><value>正在清理着色器缓存…</value></data>
+	<data name="GameTools_Shader_CleanupInProgress" xml:space="preserve"><value>正在从另一个页面清理着色器缓存。</value></data>
+	<data name="GameTools_Shader_CleanSummary" xml:space="preserve"><value>已释放 {0}。跳过 {1:N0} 个文件和 {2:N0} 个文件夹。</value></data>
+	<data name="GameTools_Shader_CleanFailed" xml:space="preserve"><value>操作失败。请查看应用日志。</value></data>
+	<data name="GameTools_Shader_SteamGame" xml:space="preserve"><value>Steam · {0}</value></data>
+	<data name="GameTools_Shader_SteamTemporary" xml:space="preserve"><value>Steam 临时着色器缓存</value></data>
 </root>

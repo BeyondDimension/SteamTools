@@ -28,6 +28,8 @@
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Certificate\CertGenerator.cs">
 			<LinkBase>Services.Implementation\Certificate</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.GameTools\Services\ShaderCacheFileStore.cs" />
+		<Compile Include="..\BD.WTTS.Client.Plugins.GameTools\Services\ShaderCacheLocations.cs" />
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services\Certificate\CertificateFailureDiagnostics.cs" />
 		<Compile Condition="'$(Configuration)'!='Debug'" Include="..\Utils.cs" />
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator.ReverseProxy\Services.Implementation\Net\DnsDohAnalysisService.cs">
