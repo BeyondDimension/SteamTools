@@ -95,5 +95,11 @@ fi
 rm -rf $Cache 2>/dev/null
 rm -rf $Cache_t 2>/dev/null
 rm -rf $base_path 2>/dev/null
-rm -rf "$HOME/Desktop/Watt Toolkit.desktop" 2>/dev/null
+# 检查XDG_DESKTOP_DIR环境变量，如果未设置则使用默认值，支持KDE的中文桌面路径
+if command -v xdg-user-dir &>/dev/null; then
+    XDG_DESKTOP_DIR=$(xdg-user-dir DESKTOP)
+else
+    XDG_DESKTOP_DIR="$HOME/Desktop"
+fi
+rm -rf "$XDG_DESKTOP_DIR/Watt Toolkit.desktop" 2>/dev/null
 zenity --info --text="卸载完成!" --width=300
