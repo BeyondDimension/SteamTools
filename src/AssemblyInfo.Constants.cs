@@ -5,7 +5,7 @@ namespace BD.WTTS;
 /// </summary>
 public static partial class AssemblyInfo
 {
-    const string Version2 = "3.3";
+    const string Version2 = "3.4";
 
     /// <summary>
     /// 语义化应用程序版本
