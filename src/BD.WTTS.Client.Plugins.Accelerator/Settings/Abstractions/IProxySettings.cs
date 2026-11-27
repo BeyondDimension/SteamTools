@@ -173,6 +173,14 @@ public partial interface IProxySettings
     /// <summary>是否已迁移为混合解析服务器列表。</summary>
     bool ResolverServersMigrated { get; set; }
 
+    ScriptInjectScopeMode ScriptInjectScopeMode { get; set; }
+
+    ScriptUserAgentPreset ScriptUserAgentPresets { get; set; }
+
+    string? ScriptCustomUserAgents { get; set; }
+
+    bool ScriptScopeMigrated { get; set; }
+
     /// <summary>
     /// 启用脚本自动检查更新的默认值
     /// </summary>

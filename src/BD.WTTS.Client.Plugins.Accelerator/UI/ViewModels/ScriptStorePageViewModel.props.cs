@@ -1,25 +1,69 @@
 namespace BD.WTTS.UI.ViewModels;
 
-public partial class ScriptStorePageViewModel : ViewModelBase
+public partial class ScriptStorePageViewModel
 {
-    readonly ReadOnlyObservableCollection<ScriptDTO> _Scripts;
+    string searchText = string.Empty;
+    int selectedFilterIndex;
+    bool isLoading;
+    bool hasError;
+    string? errorMessage;
 
-    public ReadOnlyObservableCollection<ScriptDTO> Scripts => _Scripts;
+    public ReadOnlyObservableCollection<ScriptStoreItemViewModel> FilteredScripts { get; }
 
-    readonly SourceList<ScriptDTO> _ScriptsSourceList;
-
-    string? _SearchText;
-
-    public string? SearchText
+    public string SearchText
     {
-        get => _SearchText;
-        set => this.RaiseAndSetIfChanged(ref _SearchText, value);
+        get => searchText;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref searchText, value ?? string.Empty);
+            this.RaisePropertyChanged(nameof(HasActiveFilter));
+        }
     }
 
-    public bool IsScriptsEmpty => !Scripts.Any_Nullable();
+    public int SelectedFilterIndex
+    {
+        get => selectedFilterIndex;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref selectedFilterIndex, value);
+            this.RaisePropertyChanged(nameof(HasActiveFilter));
+        }
+    }
 
-    [Reactive]
-    public partial bool IsLoading { get; private set; }
+    public bool IsLoading
+    {
+        get => isLoading;
+        private set
+        {
+            this.RaiseAndSetIfChanged(ref isLoading, value);
+            this.RaisePropertyChanged(nameof(ShowEmptyState));
+        }
+    }
 
-    public ICommand? DownloadScriptItemCommand { get; }
+    public bool HasError
+    {
+        get => hasError;
+        private set
+        {
+            this.RaiseAndSetIfChanged(ref hasError, value);
+            this.RaisePropertyChanged(nameof(ShowEmptyState));
+        }
+    }
+
+    public string? ErrorMessage
+    {
+        get => errorMessage;
+        private set
+        {
+            this.RaiseAndSetIfChanged(ref errorMessage, value);
+            HasError = value != null;
+        }
+    }
+
+    public string CountSummary => Strings.Script_Store_CountFormat.Format(scriptRows.Count, scriptRows.Items.Count(item => item.IsInstalled));
+    public bool HasActiveFilter => !string.IsNullOrWhiteSpace(SearchText) || SelectedFilterIndex != 0;
+    public bool ShowEmptyState => !IsLoading && !HasError && FilteredScripts.Count == 0;
+    public ICommand RefreshCommand { get; }
+    public ICommand ClearFilterCommand { get; }
+    public ICommand DownloadScriptItemCommand { get; }
 }

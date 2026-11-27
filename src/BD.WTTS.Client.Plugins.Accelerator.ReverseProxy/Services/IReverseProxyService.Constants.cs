@@ -107,6 +107,12 @@ public partial interface IReverseProxySettings
     /// </summary>
     bool IsOnlyWorkSteamBrowser { get; set; }
 
+    ScriptInjectScopeMode ScriptInjectScopeMode { get; set; }
+
+    ScriptUserAgentPreset ScriptUserAgentPresets { get; set; }
+
+    string? ScriptCustomUserAgents { get; set; }
+
     /// <summary>
     /// 代理服务器端口号
     /// </summary>
@@ -223,7 +229,13 @@ public readonly partial record struct ReverseProxySettings(
     [property:MP2Key(19)]
     bool IsSupportIpv6,
     [property:MP2Key(22)]
-    string? ServerSideProxyToken)
+    string? ServerSideProxyToken,
+    [property: MP2Key(23)]
+    ScriptInjectScopeMode ScriptInjectScopeMode = ScriptInjectScopeMode.All,
+    [property: MP2Key(24)]
+    ScriptUserAgentPreset ScriptUserAgentPresets = ScriptUserAgentPreset.None,
+    [property: MP2Key(25)]
+    string? ScriptCustomUserAgents = null)
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal IPAddress GetProxyIp() => GetProxyIp(ProxyIp);
@@ -252,6 +264,9 @@ public readonly partial record struct ReverseProxySettings(
         settings.Scripts = Scripts;
         settings.IsEnableScript = IsEnableScript;
         settings.IsOnlyWorkSteamBrowser = IsOnlyWorkSteamBrowser;
+        settings.ScriptInjectScopeMode = ScriptInjectScopeMode;
+        settings.ScriptUserAgentPresets = ScriptUserAgentPresets;
+        settings.ScriptCustomUserAgents = ScriptCustomUserAgents;
         settings.ProxyPort = ProxyPort == default ? ReverseProxyServiceImpl.DefaultProxyPort : ProxyPort;
         settings.ProxyIp = GetProxyIp();
         settings.ProxyMode = ProxyMode;

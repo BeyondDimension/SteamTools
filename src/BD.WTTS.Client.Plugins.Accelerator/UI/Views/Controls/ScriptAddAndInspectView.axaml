@@ -1,0 +1,577 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.ScriptAddAndInspectView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:m="using:BD.WTTS.Models"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:BD.WTTS.UI.ViewModels"
+    d:DesignHeight="580"
+    d:DesignWidth="680"
+    x:CompileBindings="True"
+    x:DataType="vm:ScriptAddAndInspectViewModel"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="Border.inspect-card">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+            <Setter Property="Padding" Value="10,8" />
+        </Style>
+        <Style Selector="Border.inspect-pill">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+            <Setter Property="CornerRadius" Value="9" />
+            <Setter Property="Padding" Value="7,2" />
+        </Style>
+        <Style Selector="Border.inspect-pill.accent">
+            <Style.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Default">
+                            <SolidColorBrush x:Key="InspectAccentPillBg">#DEEEFF</SolidColorBrush>
+                            <SolidColorBrush x:Key="InspectAccentPillFg">#174B73</SolidColorBrush>
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="Dark">
+                            <SolidColorBrush x:Key="InspectAccentPillBg">#163C5C</SolidColorBrush>
+                            <SolidColorBrush x:Key="InspectAccentPillFg">#B7DDFF</SolidColorBrush>
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+            </Style.Resources>
+            <Setter Property="Background" Value="{DynamicResource InspectAccentPillBg}" />
+        </Style>
+        <Style Selector="Border.inspect-pill.accent TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource InspectAccentPillFg}" />
+        </Style>
+        <Style Selector="Border.inspect-pill.warning">
+            <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBackgroundBrush}" />
+        </Style>
+        <Style Selector="Border.inspect-pill.warning TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
+        </Style>
+        <Style Selector="Border.inspect-warning">
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="9,7" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+        </Style>
+        <Style Selector="Border.inspect-warning.warn">
+            <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemFillColorCautionBrush}" />
+        </Style>
+        <Style Selector="Border.inspect-warning.critical">
+            <Setter Property="Background" Value="{DynamicResource SystemFillColorCriticalBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+        </Style>
+        <Style Selector="TextBlock.inspect-caption">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+            <Setter Property="Theme" Value="{StaticResource CaptionTextBlockStyle}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style Selector="TextBlock.inspect-mono">
+            <Setter Property="FontFamily" Value="Cascadia Mono, Consolas, DejaVu Sans Mono, monospace" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style Selector="Border.rule-list-box">
+            <Setter Property="Background" Value="{DynamicResource LayerFillColorAltBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="9,5" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid
+        Margin="6,2,6,4"
+        RowDefinitions="Auto,*,Auto"
+        RowSpacing="8">
+        <!-- Row 0: Unified URL paste + Local file import + Script sources (Workshop, ScriptCat, Greasy Fork) -->
+        <Border Classes="inspect-card" IsVisible="{Binding ShowUrlInputBar}">
+            <StackPanel Spacing="8">
+                <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="6">
+                    <TextBox
+                        IsEnabled="{Binding !IsBusy}"
+                        PlaceholderText="{x:Static spp:Strings.Script_QuickPastePlaceholder}"
+                        Text="{Binding UrlInput, Mode=TwoWay}">
+                        <TextBox.KeyBindings>
+                            <KeyBinding Command="{Binding InspectUrlCommand}" Gesture="Enter" />
+                        </TextBox.KeyBindings>
+                    </TextBox>
+                    <Button
+                        Grid.Column="1"
+                        Command="{Binding PasteUrlCommand}"
+                        Content="{x:Static spp:Strings.Script_Paste}"
+                        IsEnabled="{Binding !IsBusy}" />
+                    <Button
+                        Grid.Column="2"
+                        Classes="accent"
+                        Command="{Binding InspectUrlCommand}"
+                        Content="{x:Static spp:Strings.Script_Inspect_FetchButton}"
+                        IsEnabled="{Binding !IsBusy}" />
+                </Grid>
+
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                    <Button
+                        Padding="9,4"
+                        Command="{Binding PickLocalFileCommand}"
+                        IsEnabled="{Binding !IsBusy}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <ui:FASymbolIcon FontSize="13" Symbol="OpenFile" />
+                            <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.Script_Inspect_SwitchLocalButton}" />
+                        </StackPanel>
+                    </Button>
+
+                    <WrapPanel
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        ItemSpacing="4"
+                        LineSpacing="4">
+                        <TextBlock
+                            Margin="0,0,2,0"
+                            VerticalAlignment="Center"
+                            Classes="inspect-caption"
+                            Text="{x:Static spp:Strings.Script_GetScriptsFrom}" />
+                        <Button
+                            Padding="8,4"
+                            Command="{Binding OpenScriptStoreCommand}"
+                            Theme="{StaticResource TransparentButton}">
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <ui:FASymbolIcon FontSize="13" Symbol="Globe" />
+                                <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.ScriptStore}" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Padding="8,4"
+                            Command="{Binding OpenScriptCatCommand}"
+                            Theme="{StaticResource TransparentButton}"
+                            ToolTip.Tip="{x:Static spp:Strings.Script_OpenScriptCatTip}">
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <ui:FASymbolIcon FontSize="13" Symbol="Open" />
+                                <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.Script_Source_ScriptCat}" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Padding="8,4"
+                            Command="{Binding OpenGreasyForkCommand}"
+                            Theme="{StaticResource TransparentButton}"
+                            ToolTip.Tip="{x:Static spp:Strings.Script_OpenGreasyForkTip}">
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <ui:FASymbolIcon FontSize="13" Symbol="Open" />
+                                <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.Script_Source_GreasyFork}" />
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Row 1: Scrollable inspection body -->
+        <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="0,0,4,0" Spacing="8">
+                <!-- Loading indicator -->
+                <Border Classes="inspect-card" IsVisible="{Binding IsBusy}">
+                    <StackPanel
+                        Margin="0,14"
+                        HorizontalAlignment="Center"
+                        Spacing="8">
+                        <ui:FAProgressRing
+                            Width="24"
+                            Height="24"
+                            HorizontalAlignment="Center"
+                            IsActive="{Binding IsBusy}" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Classes="inspect-caption"
+                            Text="{x:Static spp:Strings.Script_Inspect_Fetching}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Ready state hint -->
+                <Border Classes="inspect-card" IsVisible="{Binding ShowReadyHint}">
+                    <StackPanel Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <ui:FASymbolIcon FontSize="15" Symbol="Document" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="{x:Static spp:Strings.Script_Inspect_DialogTitleAdd}"
+                                Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                        </StackPanel>
+                        <TextBlock
+                            Classes="inspect-caption"
+                            Text="{x:Static spp:Strings.Script_Inspect_ReadyHint}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Error bar -->
+                <ui:FAInfoBar
+                    IsClosable="False"
+                    IsOpen="{Binding HasError}"
+                    IsVisible="{Binding HasError}"
+                    Message="{Binding ErrorMessage}"
+                    Severity="Error" />
+
+                <!-- Full Rule Inspection Report -->
+                <StackPanel IsVisible="{Binding HasResult}" Spacing="8">
+                    <!-- Overview Card (includes prominent Open Homepage action) -->
+                    <Border Classes="inspect-card">
+                        <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="10">
+                            <Border
+                                Width="44"
+                                Height="44"
+                                VerticalAlignment="Top"
+                                Background="{DynamicResource LayerFillColorAltBrush}"
+                                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                ClipToBounds="True"
+                                CornerRadius="8">
+                                <spp:Image2
+                                    Margin="5"
+                                    FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico"
+                                    RenderOptions.BitmapInterpolationMode="HighQuality"
+                                    Source="{Binding ScriptIconUrl}"
+                                    Stretch="Uniform" />
+                            </Border>
+
+                            <StackPanel Grid.Column="1" Spacing="4">
+                                <WrapPanel ItemSpacing="6" LineSpacing="3">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Text="{Binding ScriptName}"
+                                        TextWrapping="Wrap"
+                                        Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                    <Border Classes="inspect-pill">
+                                        <TextBlock
+                                            Classes="inspect-caption"
+                                            Text="{Binding ScriptVersion}" />
+                                    </Border>
+                                    <Border Classes="inspect-pill accent">
+                                        <TextBlock
+                                            Classes="inspect-caption"
+                                            Text="{Binding SourceOriginLabel}" />
+                                    </Border>
+                                    <Border
+                                        Classes="inspect-pill"
+                                        Classes.accent="{Binding !IsUpgradeOrReplace}"
+                                        Classes.warning="{Binding IsUpgradeOrReplace}"
+                                        IsVisible="{Binding IsAddMode}">
+                                        <TextBlock
+                                            Classes="inspect-caption"
+                                            Text="{Binding InstallModeBadge}" />
+                                    </Border>
+                                </WrapPanel>
+
+                                <TextBlock
+                                    Classes="inspect-caption"
+                                    IsVisible="{Binding HasDescription}"
+                                    Text="{Binding ScriptDescription}" />
+
+                                <WrapPanel ItemSpacing="12" LineSpacing="3">
+                                    <TextBlock Classes="inspect-caption">
+                                        <Run Text="{x:Static spp:Strings.Script_Inspect_LabelAuthor}" /><Run Text="：" /><Run Text="{Binding ScriptAuthor}" />
+                                    </TextBlock>
+                                    <TextBlock Classes="inspect-caption">
+                                        <Run Text="{x:Static spp:Strings.Script_Inspect_LabelRunAt}" /><Run Text="：" /><Run Text="{Binding RunAt}" />
+                                    </TextBlock>
+                                    <TextBlock Classes="inspect-caption">
+                                        <Run Text="{x:Static spp:Strings.Script_Inspect_LabelSize}" /><Run Text="：" /><Run Text="{Binding SizeDisplay}" />
+                                    </TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+
+                            <Button
+                                Grid.Column="2"
+                                Padding="8,4"
+                                VerticalAlignment="Top"
+                                Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                                CommandParameter="{Binding HomepageUrl}"
+                                IsVisible="{Binding HasHomepageUrl}"
+                                ToolTip.Tip="{Binding HomepageUrl}">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <ui:FASymbolIcon FontSize="13" Symbol="Open" />
+                                    <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.Script_OpenHomepage}" />
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </Border>
+
+                    <!-- Warnings / Checks -->
+                    <ItemsControl IsVisible="{Binding HasWarnings}" ItemsSource="{Binding Warnings}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Spacing="6" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="m:ScriptRuleWarning">
+                                <Border
+                                    Classes="inspect-warning"
+                                    Classes.critical="{Binding IsCritical}"
+                                    Classes.warn="{Binding IsWarning}">
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                                        <ui:FASymbolIcon
+                                            Margin="0,2,0,0"
+                                            VerticalAlignment="Top"
+                                            FontSize="14"
+                                            Symbol="Alert" />
+                                        <StackPanel Grid.Column="1" Spacing="2">
+                                            <TextBlock
+                                                FontWeight="SemiBold"
+                                                Text="{Binding Title}"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                Classes="inspect-caption"
+                                                Text="{Binding Detail}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Match / Include Rules -->
+                    <Border Classes="inspect-card">
+                        <StackPanel Spacing="6">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Text="{x:Static spp:Strings.Script_Inspect_SectionMatchRules}"
+                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                <Border Classes="inspect-pill accent">
+                                    <TextBlock Classes="inspect-caption" Text="{Binding MatchRulesCount}" />
+                                </Border>
+                            </StackPanel>
+                            <Border Classes="rule-list-box">
+                                <StackPanel Spacing="2">
+                                    <TextBlock
+                                        Classes="inspect-caption"
+                                        IsVisible="{Binding !HasMatchRules}"
+                                        Text="{x:Static spp:Strings.Script_Inspect_None}" />
+                                    <ItemsControl IsVisible="{Binding HasMatchRules}" ItemsSource="{Binding MatchRules}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="x:String">
+                                                <TextBlock
+                                                    Margin="0,1"
+                                                    Classes="inspect-mono"
+                                                    Text="{Binding}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Exclude Rules -->
+                    <Border Classes="inspect-card" IsVisible="{Binding HasExcludeRules}">
+                        <StackPanel Spacing="6">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Text="{x:Static spp:Strings.Script_Inspect_SectionExcludeRules}"
+                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                <Border Classes="inspect-pill">
+                                    <TextBlock Classes="inspect-caption" Text="{Binding ExcludeRulesCount}" />
+                                </Border>
+                            </StackPanel>
+                            <Border Classes="rule-list-box">
+                                <ItemsControl ItemsSource="{Binding ExcludeRules}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="x:String">
+                                            <TextBlock
+                                                Margin="0,1"
+                                                Classes="inspect-mono"
+                                                Text="{Binding}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Permissions (@grant / @connect) -->
+                    <Border Classes="inspect-card" IsVisible="{Binding HasPermissions}">
+                        <StackPanel Spacing="6">
+                            <TextBlock
+                                Text="{x:Static spp:Strings.Script_Inspect_SectionPermissions}"
+                                Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                            <ItemsControl IsVisible="{Binding HasGrants}" ItemsSource="{Binding Grants}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel ItemSpacing="5" LineSpacing="5" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="x:String">
+                                        <Border Classes="inspect-pill warning">
+                                            <TextBlock Classes="inspect-mono" Text="{Binding}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <ItemsControl IsVisible="{Binding HasConnects}" ItemsSource="{Binding Connects}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel ItemSpacing="5" LineSpacing="5" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="x:String">
+                                        <Border Classes="inspect-pill">
+                                            <TextBlock Classes="inspect-mono" Text="{Binding}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- External Dependencies (@require) -->
+                    <Border Classes="inspect-card" IsVisible="{Binding HasRequires}">
+                        <StackPanel Spacing="6">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Text="{x:Static spp:Strings.Script_Inspect_SectionRequires}"
+                                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                <Border Classes="inspect-pill">
+                                    <TextBlock Classes="inspect-caption" Text="{Binding RequiresCount}" />
+                                </Border>
+                            </StackPanel>
+                            <Border Classes="rule-list-box">
+                                <ItemsControl ItemsSource="{Binding Requires}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="x:String">
+                                            <TextBlock
+                                                Margin="0,1"
+                                                Classes="inspect-mono"
+                                                Text="{Binding}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Source & Update URLs -->
+                    <Border Classes="inspect-card">
+                        <StackPanel Spacing="5">
+                            <TextBlock
+                                Text="{x:Static spp:Strings.Script_Inspect_SectionLinks}"
+                                Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                            <Grid
+                                ColumnDefinitions="76,*,Auto"
+                                ColumnSpacing="8"
+                                IsVisible="{Binding HasHomepageUrl}">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Classes="inspect-caption"
+                                    Text="{x:Static spp:Strings.Script_Inspect_LabelHomepage}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Classes="inspect-mono"
+                                    Text="{Binding HomepageUrl}" />
+                                <Button
+                                    Grid.Column="2"
+                                    Padding="6,3"
+                                    Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
+                                    CommandParameter="{Binding HomepageUrl}"
+                                    Theme="{StaticResource TransparentButton}"
+                                    ToolTip.Tip="{x:Static spp:Strings.Script_OpenHomepage}">
+                                    <ui:FASymbolIcon FontSize="13" Symbol="Open" />
+                                </Button>
+                            </Grid>
+                            <Grid
+                                ColumnDefinitions="76,*,Auto"
+                                ColumnSpacing="8"
+                                IsVisible="{Binding HasDownloadUrl}">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Classes="inspect-caption"
+                                    Text="{x:Static spp:Strings.Script_Inspect_LabelDownloadUrl}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Classes="inspect-mono"
+                                    Text="{Binding DownloadUrl}" />
+                                <Button
+                                    Grid.Column="2"
+                                    Padding="6,3"
+                                    Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}"
+                                    CommandParameter="{Binding DownloadUrl}"
+                                    Theme="{StaticResource TransparentButton}"
+                                    ToolTip.Tip="{x:Static spp:Strings.Copy}">
+                                    <ui:FASymbolIcon FontSize="13" Symbol="Copy" />
+                                </Button>
+                            </Grid>
+                            <Grid
+                                ColumnDefinitions="76,*,Auto"
+                                ColumnSpacing="8"
+                                IsVisible="{Binding HasUpdateUrl}">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Classes="inspect-caption"
+                                    Text="{x:Static spp:Strings.Script_Inspect_LabelUpdateUrl}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Classes="inspect-mono"
+                                    Text="{Binding UpdateUrl}" />
+                                <Button
+                                    Grid.Column="2"
+                                    Padding="6,3"
+                                    Command="{Binding CopyToClipboardCommand, Source={x:Static spp:App.Instance}}"
+                                    CommandParameter="{Binding UpdateUrl}"
+                                    Theme="{StaticResource TransparentButton}"
+                                    ToolTip.Tip="{x:Static spp:Strings.Copy}">
+                                    <ui:FASymbolIcon FontSize="13" Symbol="Copy" />
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Raw Metadata Header -->
+                    <Expander
+                        HorizontalAlignment="Stretch"
+                        Header="{x:Static spp:Strings.Script_Inspect_SectionRawHeader}"
+                        IsExpanded="False"
+                        IsVisible="{Binding HasHeaderPreview}">
+                        <TextBox
+                            MaxHeight="180"
+                            AcceptsReturn="True"
+                            FontFamily="Cascadia Mono, Consolas, DejaVu Sans Mono, monospace"
+                            FontSize="12"
+                            IsReadOnly="True"
+                            Text="{Binding HeaderPreview, Mode=OneWay}"
+                            TextWrapping="NoWrap" />
+                    </Expander>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Row 2: Install Options (Add Mode only) -->
+        <Border
+            Grid.Row="2"
+            Classes="inspect-card"
+            IsVisible="{Binding CanConfirmInstall}">
+            <WrapPanel ItemSpacing="16" LineSpacing="4">
+                <CheckBox
+                    Content="{x:Static spp:Strings.Script_Inspect_EnableAfterAdd}"
+                    IsChecked="{Binding EnableAfterAdd, Mode=TwoWay}" />
+                <CheckBox
+                    Content="{x:Static spp:Strings.Script_Inspect_CompileRequires}"
+                    IsChecked="{Binding CompileRequires, Mode=TwoWay}" />
+            </WrapPanel>
+        </Border>
+    </Grid>
+</UserControl>

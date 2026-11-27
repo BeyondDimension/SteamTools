@@ -107,6 +107,7 @@
 		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator\Enums\ProxyMode.cs">
 			<LinkBase>Enums</LinkBase>
 		</Compile>
+		<Compile Include="..\BD.WTTS.Client.Plugins.Accelerator\Models\ScriptUserAgentScope.cs" Link="Models\ScriptUserAgentScope.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

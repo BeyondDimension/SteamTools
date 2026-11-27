@@ -54,13 +54,15 @@ internal partial class NetworkTestService : INetworkTestService
 
     public async Task<(bool Success, long? DelayMs)> TestOpenUrlAsync(string url, Func<HttpClient>? httpClientFunc = null, CancellationToken cancellationToken = default)
     {
-        using var testClient = httpClientFunc?.Invoke() ?? new HttpClient();
+        var suppliedClient = httpClientFunc?.Invoke();
+        using var ownedClient = suppliedClient is null ? new HttpClient() : null;
+        var testClient = suppliedClient ?? ownedClient!;
 
         Stopwatch watch = Stopwatch.StartNew();
 
         try
         {
-            var resp = await testClient.GetAsync(url, HttpCompletionOption.ResponseContentRead, cancellationToken);
+            using var response = await testClient.GetAsync(url, HttpCompletionOption.ResponseContentRead, cancellationToken);
 
             watch.Stop();
 

@@ -39,6 +39,12 @@ abstract class ReverseProxyServiceImpl : IReverseProxySettings
     /// <inheritdoc cref="IReverseProxyService.IsOnlyWorkSteamBrowser"/>
     public bool IsOnlyWorkSteamBrowser { get; set; }
 
+    public ScriptInjectScopeMode ScriptInjectScopeMode { get; set; }
+
+    public ScriptUserAgentPreset ScriptUserAgentPresets { get; set; }
+
+    public string? ScriptCustomUserAgents { get; set; }
+
     public const ushort DefaultProxyPort = 26501;
 
     /// <inheritdoc cref="IReverseProxyService.ProxyPort"/>

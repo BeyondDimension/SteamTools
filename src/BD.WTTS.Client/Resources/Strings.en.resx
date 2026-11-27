@@ -7413,4 +7413,138 @@ Farming games: {3}</value>
   <data name="GameTools_Cpu_EfficiencyCores" xml:space="preserve"><value>Efficiency cores (E)</value></data>
   <data name="GameTools_Cpu_ChooseProcess" xml:space="preserve"><value>Choose process</value></data>
   <data name="GameTools_Cpu_Description" xml:space="preserve"><value>Adjust process priority, CPU cores, and automatic scheduling rules.</value></data>
+  <data name="Script_AddScript" xml:space="preserve"><value>Add Script</value></data>
+  <data name="Script_AddFromUrl" xml:space="preserve"><value>Add from URL</value></data>
+  <data name="Script_ImportLocal" xml:space="preserve"><value>Import Local</value></data>
+  <data name="Script_CheckUpdates" xml:space="preserve"><value>Check Updates</value></data>
+  <data name="Script_CheckingUpdates" xml:space="preserve"><value>Checking for updates…</value></data>
+  <data name="Script_UpdateAll" xml:space="preserve"><value>Update All</value></data>
+  <data name="Script_OpenDirectory" xml:space="preserve"><value>Open Scripts Folder</value></data>
+  <data name="Script_QuickPastePlaceholder" xml:space="preserve"><value>Paste script URL (.user.js, ScriptCat, or Greasy Fork page)</value></data>
+  <data name="Script_Paste" xml:space="preserve"><value>Paste</value></data>
+  <data name="Script_InspectAndAdd" xml:space="preserve"><value>Inspect &amp; Add</value></data>
+  <data name="Script_GetScriptsFrom" xml:space="preserve"><value>Get scripts:</value></data>
+  <data name="Script_Source_Workshop" xml:space="preserve"><value>Workshop</value></data>
+  <data name="Script_Source_ScriptCat" xml:space="preserve"><value>ScriptCat</value></data>
+  <data name="Script_Source_GreasyFork" xml:space="preserve"><value>Greasy Fork</value></data>
+  <data name="Script_Source_ExternalUrl" xml:space="preserve"><value>URL Import</value></data>
+  <data name="Script_Source_LocalFile" xml:space="preserve"><value>Local File</value></data>
+  <data name="Script_Source_Basics" xml:space="preserve"><value>Core Script</value></data>
+  <data name="Script_OpenScriptCatTip" xml:space="preserve"><value>Open ScriptCat (https://scriptcat.org/zh-CN)</value></data>
+  <data name="Script_OpenGreasyForkTip" xml:space="preserve"><value>Open Greasy Fork (https://greasyfork.org/)</value></data>
+  <data name="Script_ServiceEnabled" xml:space="preserve"><value>Enabled</value></data>
+  <data name="Script_ServiceDisabled" xml:space="preserve"><value>Disabled</value></data>
+  <data name="Script_TotalCountFormat" xml:space="preserve"><value>{0} scripts</value></data>
+  <data name="Script_EnabledCountFormat" xml:space="preserve"><value>{0} enabled</value></data>
+  <data name="Script_UpdatesCountFormat" xml:space="preserve"><value>{0} updates</value></data>
+  <data name="Script_SearchPlaceholder" xml:space="preserve"><value>Search by name, author, description, or domain…</value></data>
+  <data name="Script_Filter_All" xml:space="preserve"><value>All</value></data>
+  <data name="Script_Filter_Enabled" xml:space="preserve"><value>Enabled</value></data>
+  <data name="Script_Filter_Disabled" xml:space="preserve"><value>Disabled</value></data>
+  <data name="Script_Filter_Updatable" xml:space="preserve"><value>Updates</value></data>
+  <data name="Script_ClearFilter" xml:space="preserve"><value>Clear Filter</value></data>
+  <data name="Script_NoMatchTitle" xml:space="preserve"><value>No matching scripts</value></data>
+  <data name="Script_NoMatchHint" xml:space="preserve"><value>Try adjusting your search keywords or filter selection.</value></data>
+  <data name="Script_EmptyTitle" xml:space="preserve"><value>No scripts installed yet</value></data>
+  <data name="Script_EmptyHint" xml:space="preserve"><value>Paste a script URL, import a local .user.js file, or browse the Workshop, ScriptCat, and Greasy Fork.</value></data>
+  <data name="Script_UpdateAvailableBanner" xml:space="preserve"><value>{0} script update(s) available.</value></data>
+  <data name="Script_ProxyRestartHint" xml:space="preserve"><value>Acceleration is running. Script or scope changes take effect after restarting acceleration.</value></data>
+  <data name="Script_ScopeEmptyWarning" xml:space="preserve"><value>User-Agent scope filtering is enabled, but no browser preset or custom rule is selected. Scripts will not be injected.</value></data>
+  <data name="Script_ViewRules" xml:space="preserve"><value>Rules</value></data>
+  <data name="Script_CheckSingleUpdate" xml:space="preserve"><value>Check Update</value></data>
+  <data name="Script_UpdateNow" xml:space="preserve"><value>Update</value></data>
+  <data name="Script_UpdateToVersionFormat" xml:space="preserve"><value>Update to v{0}</value></data>
+  <data name="Script_NewVersionBadgeFormat" xml:space="preserve"><value>New v{0}</value></data>
+  <data name="Script_MatchRulesSummaryFormat" xml:space="preserve"><value>{0} match rules</value></data>
+  <data name="Script_NoMatchRules" xml:space="preserve"><value>No match rules</value></data>
+  <data name="Script_CopyUpdateLink" xml:space="preserve"><value>Copy Script URL</value></data>
+  <data name="Script_UpdateStatus_Latest" xml:space="preserve"><value>Up to date</value></data>
+  <data name="Script_UpdateStatus_Updatable" xml:space="preserve"><value>Update v{0} available</value></data>
+  <data name="Script_UpdateStatus_NoRemoteUrl" xml:space="preserve"><value>No remote update URL</value></data>
+  <data name="Script_UpdateStatus_Failed" xml:space="preserve"><value>Update check failed</value></data>
+  <data name="Script_UpdateCheckSummary_Found" xml:space="preserve"><value>Check complete: {0} update(s) available</value></data>
+  <data name="Script_UpdateCheckSummary_AllLatest" xml:space="preserve"><value>Check complete: all remote scripts are up to date</value></data>
+  <data name="Script_UpdateCheckSummary_PartialFail" xml:space="preserve"><value>Check complete: {0} update(s) available, {1} failed</value></data>
+  <data name="Script_UpdateCheckSummary_NoUpdatable" xml:space="preserve"><value>No installed scripts have remote update URLs</value></data>
+  <data name="Script_UpdateAllComplete" xml:space="preserve"><value>Updated {0} script(s)</value></data>
+  <data name="Script_UpdateAllPartial" xml:space="preserve"><value>Updated {0} script(s), {1} failed</value></data>
+  <data name="Script_Settings_General" xml:space="preserve"><value>General</value></data>
+  <data name="Script_Settings_ScopeSection" xml:space="preserve"><value>Injection Scope (User-Agent)</value></data>
+  <data name="Script_Settings_ScopeHint" xml:space="preserve"><value>Control which browsers or clients receive injected scripts.</value></data>
+  <data name="Script_Settings_ScopeModeAll" xml:space="preserve"><value>All browsers and clients (no UA restriction)</value></data>
+  <data name="Script_Settings_ScopeModeSelected" xml:space="preserve"><value>Only matching browsers / User-Agents</value></data>
+  <data name="Script_Settings_Presets" xml:space="preserve"><value>Browser Presets</value></data>
+  <data name="Script_Settings_Preset_Steam" xml:space="preserve"><value>Steam Built-in Browser</value></data>
+  <data name="Script_Settings_Preset_SteamDesc" xml:space="preserve"><value>Matches Steam client built-in browser requests (&quot;Valve Steam&quot;)</value></data>
+  <data name="Script_Settings_Preset_Chrome" xml:space="preserve"><value>Google Chrome</value></data>
+  <data name="Script_Settings_Preset_ChromeDesc" xml:space="preserve"><value>Matches Chrome UA (excludes Edge and Steam browser)</value></data>
+  <data name="Script_Settings_Preset_Edge" xml:space="preserve"><value>Microsoft Edge</value></data>
+  <data name="Script_Settings_Preset_EdgeDesc" xml:space="preserve"><value>Matches Microsoft Edge UA (Edg/, EdgA/, EdgiOS/)</value></data>
+  <data name="Script_Settings_CustomUa" xml:space="preserve"><value>Custom User-Agent Rules</value></data>
+  <data name="Script_Settings_CustomUaHint" xml:space="preserve"><value>Supports keywords (e.g. Firefox/), wildcards (*MyApp*), or regex (/Safari\/605/i). Injects when any preset or rule matches.</value></data>
+  <data name="Script_Settings_CustomUaPlaceholder" xml:space="preserve"><value>Enter UA keyword, wildcard, or /regex/</value></data>
+  <data name="Script_Settings_CustomUaAdd" xml:space="preserve"><value>Add</value></data>
+  <data name="Script_Settings_CustomUaEmpty" xml:space="preserve"><value>No custom UA rules added</value></data>
+  <data name="Script_Settings_CustomUaDuplicate" xml:space="preserve"><value>This UA rule already exists</value></data>
+  <data name="Script_Settings_CustomUaInvalidRegex" xml:space="preserve"><value>Invalid regular expression: {0}</value></data>
+  <data name="Script_Settings_UaTester" xml:space="preserve"><value>Test User-Agent</value></data>
+  <data name="Script_Settings_UaTesterPlaceholder" xml:space="preserve"><value>Enter or paste a User-Agent string to test…</value></data>
+  <data name="Script_Settings_UaTesterMatch" xml:space="preserve"><value>Matched: scripts will inject ({0})</value></data>
+  <data name="Script_Settings_UaTesterNoMatch" xml:space="preserve"><value>Not matched: scripts will not inject</value></data>
+  <data name="Script_Settings_ResetScope" xml:space="preserve"><value>Reset to All Browsers</value></data>
+  <data name="Script_Settings_QuickLinks" xml:space="preserve"><value>Quick Links</value></data>
+  <data name="Script_ScopeSummary_All" xml:space="preserve"><value>Scope: All browsers</value></data>
+  <data name="Script_ScopeSummary_RestrictedFormat" xml:space="preserve"><value>Scope: {0}</value></data>
+  <data name="Script_ScopeSummary_None" xml:space="preserve"><value>Scope: None (inactive)</value></data>
+  <data name="Script_ScopeSummary_CustomCountFormat" xml:space="preserve"><value>Custom UA ({0})</value></data>
+  <data name="Script_Inspect_DialogTitleAdd" xml:space="preserve"><value>Add Script &amp; Inspect Rules</value></data>
+  <data name="Script_Inspect_DialogTitleView" xml:space="preserve"><value>Rule Details</value></data>
+  <data name="Script_Inspect_UrlLabel" xml:space="preserve"><value>Script URL</value></data>
+  <data name="Script_Inspect_FetchButton" xml:space="preserve"><value>Fetch &amp; Inspect</value></data>
+  <data name="Script_Inspect_SwitchLocalButton" xml:space="preserve"><value>Pick Local File</value></data>
+  <data name="Script_Inspect_Fetching" xml:space="preserve"><value>Fetching and inspecting script rules…</value></data>
+  <data name="Script_Inspect_ReadyHint" xml:space="preserve"><value>Paste a script URL and click Fetch &amp; Inspect, or pick a local file. Match rules, exclusions, permissions, and dependencies will be listed before adding.</value></data>
+  <data name="Script_Inspect_ConfirmAdd" xml:space="preserve"><value>Confirm Add Script</value></data>
+  <data name="Script_Inspect_ConfirmUpgrade" xml:space="preserve"><value>Confirm Update</value></data>
+  <data name="Script_Inspect_EnableAfterAdd" xml:space="preserve"><value>Enable immediately after adding</value></data>
+  <data name="Script_Inspect_CompileRequires" xml:space="preserve"><value>Bundle external @require dependencies</value></data>
+  <data name="Script_Inspect_SectionOverview" xml:space="preserve"><value>Overview</value></data>
+  <data name="Script_Inspect_SectionMatchRules" xml:space="preserve"><value>Match Rules (@match / @include)</value></data>
+  <data name="Script_Inspect_SectionExcludeRules" xml:space="preserve"><value>Exclude Rules (@exclude)</value></data>
+  <data name="Script_Inspect_SectionPermissions" xml:space="preserve"><value>Permissions &amp; Domains (@grant / @connect)</value></data>
+  <data name="Script_Inspect_SectionRequires" xml:space="preserve"><value>External Dependencies (@require)</value></data>
+  <data name="Script_Inspect_SectionLinks" xml:space="preserve"><value>Source &amp; Update Info</value></data>
+  <data name="Script_Inspect_SectionRawHeader" xml:space="preserve"><value>Raw Metadata Header (==UserScript==)</value></data>
+  <data name="Script_Inspect_LabelAuthor" xml:space="preserve"><value>Author</value></data>
+  <data name="Script_Inspect_LabelVersion" xml:space="preserve"><value>Version</value></data>
+  <data name="Script_Inspect_LabelRunAt" xml:space="preserve"><value>Run At</value></data>
+  <data name="Script_Inspect_LabelSize" xml:space="preserve"><value>Size</value></data>
+  <data name="Script_Inspect_LabelSource" xml:space="preserve"><value>Source</value></data>
+  <data name="Script_Inspect_LabelHomepage" xml:space="preserve"><value>Homepage</value></data>
+  <data name="Script_Inspect_LabelDownloadUrl" xml:space="preserve"><value>Download URL</value></data>
+  <data name="Script_Inspect_LabelUpdateUrl" xml:space="preserve"><value>Update URL</value></data>
+  <data name="Script_Inspect_None" xml:space="preserve"><value>None</value></data>
+  <data name="Script_Inspect_BadgeNew" xml:space="preserve"><value>New Install</value></data>
+  <data name="Script_Inspect_BadgeUpgradeFormat" xml:space="preserve"><value>Will update v{0} → v{1}</value></data>
+  <data name="Script_Inspect_BadgeReplaceFormat" xml:space="preserve"><value>Will replace installed script (current v{0})</value></data>
+  <data name="Script_Inspect_Warn_NoHeaderTitle" xml:space="preserve"><value>Missing ==UserScript== header</value></data>
+  <data name="Script_Inspect_Warn_NoHeaderDetail" xml:space="preserve"><value>This file lacks a // ==UserScript== metadata block and cannot be installed.</value></data>
+  <data name="Script_Inspect_Warn_NoMatchTitle" xml:space="preserve"><value>No match rules declared</value></data>
+  <data name="Script_Inspect_Warn_NoMatchDetail" xml:space="preserve"><value>No @match or @include rules were found, so this script will not inject into any webpage.</value></data>
+  <data name="Script_Inspect_Warn_BroadMatchTitle" xml:space="preserve"><value>Matches all websites</value></data>
+  <data name="Script_Inspect_Warn_BroadMatchDetail" xml:space="preserve"><value>Broad wildcard rules such as *://*/* were detected. Confirm you trust this script before adding.</value></data>
+  <data name="Script_Inspect_Warn_HighPrivGrantTitle" xml:space="preserve"><value>Requests privileged GM APIs</value></data>
+  <data name="Script_Inspect_Warn_HighPrivGrantDetail" xml:space="preserve"><value>Detected permissions: {0}. Confirm the source is trusted; some GM APIs require the GM.js core script.</value></data>
+  <data name="Script_Inspect_Warn_NoUpdateUrlTitle" xml:space="preserve"><value>No remote update URL</value></data>
+  <data name="Script_Inspect_Warn_NoUpdateUrlDetail" xml:space="preserve"><value>No @updateURL or @downloadURL was found; automatic remote update checks may be unavailable.</value></data>
+  <data name="Script_Inspect_Warn_InvalidUrl" xml:space="preserve"><value>Please enter a valid HTTP or HTTPS script URL.</value></data>
+  <data name="Script_Inspect_Warn_FetchFailed" xml:space="preserve"><value>Failed to fetch script: {0}</value></data>
+  <data name="Script_Store_ExternalHint" xml:space="preserve"><value>You can also browse ScriptCat or Greasy Fork, then paste any script link on the Scripts page to inspect and add it.</value></data>
+  <data name="Script_ActiveScripts_Empty" xml:space="preserve"><value>No active proxy scripts</value></data>
+  <data name="Script_ActiveScripts_Header" xml:space="preserve"><value>Active Scripts</value></data>
+  <data name="Script_OpenHomepage" xml:space="preserve"><value>Open Homepage</value></data>
+  <data name="Script_Store_Filter_NotInstalled" xml:space="preserve"><value>Not Installed</value></data>
+  <data name="Script_Store_Filter_Installed" xml:space="preserve"><value>Installed</value></data>
+  <data name="Script_Store_CountFormat" xml:space="preserve"><value>{0} scripts · {1} installed</value></data>
+  <data name="Script_Store_LoadFailed" xml:space="preserve"><value>Failed to load Script Workshop. Please retry.</value></data>
 </root>

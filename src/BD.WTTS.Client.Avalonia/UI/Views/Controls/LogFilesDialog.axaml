@@ -3,7 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:spp="https://steampp.net/ui">
-    <Grid RowDefinitions="Auto,Auto,*">
+    <Grid Margin="6,2,6,4" RowDefinitions="Auto,Auto,*">
         <Grid Margin="0,0,0,6" ColumnDefinitions="*,Auto" ColumnSpacing="6">
             <ComboBox
                 x:Name="LogFiles"

@@ -219,6 +219,18 @@ public sealed partial class ProxySettings_ : IProxySettings, ISettings, ISetting
     [MPKey(26), MP2Key(26), JsonPropertyOrder(26)]
     public bool ResolverServersMigrated { get; set; }
 
+    [MPKey(27), MP2Key(27), JsonPropertyOrder(27)]
+    public ScriptInjectScopeMode ScriptInjectScopeMode { get; set; }
+
+    [MPKey(28), MP2Key(28), JsonPropertyOrder(28)]
+    public ScriptUserAgentPreset ScriptUserAgentPresets { get; set; }
+
+    [MPKey(29), MP2Key(29), JsonPropertyOrder(29)]
+    public string? ScriptCustomUserAgents { get; set; }
+
+    [MPKey(30), MP2Key(30), JsonPropertyOrder(30)]
+    public bool ScriptScopeMigrated { get; set; }
+
 }
 
 public static partial class ProxySettings

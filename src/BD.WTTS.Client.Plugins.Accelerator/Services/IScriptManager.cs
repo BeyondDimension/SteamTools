@@ -8,6 +8,23 @@ public interface IScriptManager
 
     static IScriptManager Instance => Ioc.Get<IScriptManager>();
 
+    Task<IApiRsp<ScriptInspectionResult?>> InspectScriptFromUrlAsync(string url,
+        IEnumerable<ScriptDTO>? existingScripts = null, CancellationToken cancellationToken = default);
+
+    Task<IApiRsp<ScriptInspectionResult?>> InspectScriptFromFileAsync(string filePath,
+        IEnumerable<ScriptDTO>? existingScripts = null, CancellationToken cancellationToken = default);
+
+    Task<IApiRsp<ScriptInspectionResult?>> InspectInstalledScriptAsync(ScriptDTO script,
+        CancellationToken cancellationToken = default);
+
+    Task<IApiRsp<ScriptDTO?>> InstallInspectedScriptAsync(ScriptInspectionResult inspection,
+        bool enable = true, bool isCompile = true, CancellationToken cancellationToken = default);
+
+    Task<ScriptUpdateCheckResult> CheckScriptUpdateAsync(ScriptDTO script, CancellationToken cancellationToken = default);
+
+    Task<ScriptBatchUpdateCheckResult> CheckAllScriptUpdatesAsync(IEnumerable<ScriptDTO> scripts,
+        CancellationToken cancellationToken = default);
+
     /// <summary>
     /// 加载列表 JS 内容
     /// </summary>

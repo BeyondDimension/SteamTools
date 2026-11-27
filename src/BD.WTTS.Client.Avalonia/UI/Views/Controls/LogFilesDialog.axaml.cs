@@ -24,8 +24,9 @@ public partial class LogFilesDialog : UserControl
         var view = new LogFilesDialog
         {
             logDirectory = logDirectory,
-            Width = Math.Clamp(root.Bounds.Width - 96, 240, 640),
-            Height = Math.Clamp(root.Bounds.Height - 160, 140, 460),
+            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
+            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
+            Height = Math.Clamp(root.Bounds.Height - 190, 200, 480),
         };
         var dialog = new TaskDialogEx
         {
@@ -33,8 +34,10 @@ public partial class LogFilesDialog : UserControl
             Header = title ?? Strings.LogConsole_ViewLogs,
             Content = view,
             XamlRoot = root,
+            FooterVisibility = TaskDialogFooterVisibility.Never,
         };
         dialog.Classes.Add("disableScroll");
+        dialog.Classes.Add("wide");
         dialog.Buttons.Add(new TaskDialogButton(Strings.Close, TaskDialogStandardResult.Close));
         try
         {

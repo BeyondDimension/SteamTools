@@ -96,7 +96,10 @@ sealed class ReverseProxyConfig : IReverseProxyConfig
         {
             foreach (var item in scripts)
             {
-                var domainNames = string.Join(DomainPattern.GeneralSeparator, item.MatchDomainNamesArray.Select(GetDomainPatternString));
+                var domainNames = string.Join(DomainPattern.GeneralSeparator, item.MatchDomainNamesArray
+                    .Where(rule => !string.IsNullOrWhiteSpace(rule)).Select(GetDomainPatternString));
+                if (domainNames.Length == 0)
+                    continue;
                 //if (item.ExcludeDomainNamesArray.Any_Nullable())
                 //{
                 //    var domainNames2 = string.Join(DomainPattern.GeneralSeparator, item.ExcludeDomainNamesArray.Select(GetDomainPatternString));

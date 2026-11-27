@@ -5589,4 +5589,138 @@
   <data name="GameTools_Cpu_EfficiencyCores" xml:space="preserve"><value>能效核（E 核）</value></data>
   <data name="GameTools_Cpu_ChooseProcess" xml:space="preserve"><value>选择进程</value></data>
   <data name="GameTools_Cpu_Description" xml:space="preserve"><value>调整进程优先级、CPU 核心和自动调度规则。</value></data>
+  <data name="Script_AddScript" xml:space="preserve"><value>添加脚本</value></data>
+  <data name="Script_AddFromUrl" xml:space="preserve"><value>从链接添加</value></data>
+  <data name="Script_ImportLocal" xml:space="preserve"><value>导入本地</value></data>
+  <data name="Script_CheckUpdates" xml:space="preserve"><value>检查更新</value></data>
+  <data name="Script_CheckingUpdates" xml:space="preserve"><value>正在检查更新…</value></data>
+  <data name="Script_UpdateAll" xml:space="preserve"><value>全部更新</value></data>
+  <data name="Script_OpenDirectory" xml:space="preserve"><value>打开脚本目录</value></data>
+  <data name="Script_QuickPastePlaceholder" xml:space="preserve"><value>粘贴脚本链接（支持 .user.js、ScriptCat、Greasy Fork 页面）</value></data>
+  <data name="Script_Paste" xml:space="preserve"><value>粘贴</value></data>
+  <data name="Script_InspectAndAdd" xml:space="preserve"><value>检查并添加</value></data>
+  <data name="Script_GetScriptsFrom" xml:space="preserve"><value>获取脚本：</value></data>
+  <data name="Script_Source_Workshop" xml:space="preserve"><value>脚本工坊</value></data>
+  <data name="Script_Source_ScriptCat" xml:space="preserve"><value>ScriptCat</value></data>
+  <data name="Script_Source_GreasyFork" xml:space="preserve"><value>Greasy Fork</value></data>
+  <data name="Script_Source_ExternalUrl" xml:space="preserve"><value>外部链接</value></data>
+  <data name="Script_Source_LocalFile" xml:space="preserve"><value>本地文件</value></data>
+  <data name="Script_Source_Basics" xml:space="preserve"><value>基础脚本</value></data>
+  <data name="Script_OpenScriptCatTip" xml:space="preserve"><value>前往 ScriptCat 脚本站 (https://scriptcat.org/zh-CN)</value></data>
+  <data name="Script_OpenGreasyForkTip" xml:space="preserve"><value>前往 Greasy Fork 脚本站 (https://greasyfork.org/)</value></data>
+  <data name="Script_ServiceEnabled" xml:space="preserve"><value>已启用</value></data>
+  <data name="Script_ServiceDisabled" xml:space="preserve"><value>未启用</value></data>
+  <data name="Script_TotalCountFormat" xml:space="preserve"><value>共 {0} 个脚本</value></data>
+  <data name="Script_EnabledCountFormat" xml:space="preserve"><value>已启用 {0} 个</value></data>
+  <data name="Script_UpdatesCountFormat" xml:space="preserve"><value>{0} 个可更新</value></data>
+  <data name="Script_SearchPlaceholder" xml:space="preserve"><value>搜索脚本名称、作者、说明或匹配域名…</value></data>
+  <data name="Script_Filter_All" xml:space="preserve"><value>全部</value></data>
+  <data name="Script_Filter_Enabled" xml:space="preserve"><value>已启用</value></data>
+  <data name="Script_Filter_Disabled" xml:space="preserve"><value>已禁用</value></data>
+  <data name="Script_Filter_Updatable" xml:space="preserve"><value>可更新</value></data>
+  <data name="Script_ClearFilter" xml:space="preserve"><value>清除筛选</value></data>
+  <data name="Script_NoMatchTitle" xml:space="preserve"><value>没有匹配的脚本</value></data>
+  <data name="Script_NoMatchHint" xml:space="preserve"><value>尝试调整搜索关键词或切换筛选条件。</value></data>
+  <data name="Script_EmptyTitle" xml:space="preserve"><value>尚未添加任何脚本</value></data>
+  <data name="Script_EmptyHint" xml:space="preserve"><value>你可以直接粘贴脚本链接、导入本地 .user.js 文件，或前往脚本工坊、ScriptCat、Greasy Fork 获取脚本。</value></data>
+  <data name="Script_UpdateAvailableBanner" xml:space="preserve"><value>发现 {0} 个脚本有新版本可用，建议及时更新。</value></data>
+  <data name="Script_ProxyRestartHint" xml:space="preserve"><value>网络加速运行中，脚本或生效范围变更将在重新启动加速后生效。</value></data>
+  <data name="Script_ScopeEmptyWarning" xml:space="preserve"><value>已开启按 UA 限制生效范围，但尚未勾选任何浏览器预设或添加自定义规则，脚本将不会注入任何网页。</value></data>
+  <data name="Script_ViewRules" xml:space="preserve"><value>规则详情</value></data>
+  <data name="Script_CheckSingleUpdate" xml:space="preserve"><value>检查更新</value></data>
+  <data name="Script_UpdateNow" xml:space="preserve"><value>更新</value></data>
+  <data name="Script_UpdateToVersionFormat" xml:space="preserve"><value>更新至 v{0}</value></data>
+  <data name="Script_NewVersionBadgeFormat" xml:space="preserve"><value>新版本 v{0}</value></data>
+  <data name="Script_MatchRulesSummaryFormat" xml:space="preserve"><value>匹配 {0} 条规则</value></data>
+  <data name="Script_NoMatchRules" xml:space="preserve"><value>未配置匹配规则</value></data>
+  <data name="Script_CopyUpdateLink" xml:space="preserve"><value>复制脚本链接</value></data>
+  <data name="Script_UpdateStatus_Latest" xml:space="preserve"><value>已是最新</value></data>
+  <data name="Script_UpdateStatus_Updatable" xml:space="preserve"><value>可更新至 v{0}</value></data>
+  <data name="Script_UpdateStatus_NoRemoteUrl" xml:space="preserve"><value>无远程更新地址</value></data>
+  <data name="Script_UpdateStatus_Failed" xml:space="preserve"><value>检查更新失败</value></data>
+  <data name="Script_UpdateCheckSummary_Found" xml:space="preserve"><value>检查完成：发现 {0} 个可更新脚本</value></data>
+  <data name="Script_UpdateCheckSummary_AllLatest" xml:space="preserve"><value>检查完成：所有支持远程更新的脚本均已是最新版本</value></data>
+  <data name="Script_UpdateCheckSummary_PartialFail" xml:space="preserve"><value>检查完成：发现 {0} 个可更新，{1} 个检查失败</value></data>
+  <data name="Script_UpdateCheckSummary_NoUpdatable" xml:space="preserve"><value>当前没有支持远程检查更新的脚本</value></data>
+  <data name="Script_UpdateAllComplete" xml:space="preserve"><value>已完成 {0} 个脚本的更新</value></data>
+  <data name="Script_UpdateAllPartial" xml:space="preserve"><value>已更新 {0} 个脚本，{1} 个更新失败</value></data>
+  <data name="Script_Settings_General" xml:space="preserve"><value>常规设置</value></data>
+  <data name="Script_Settings_ScopeSection" xml:space="preserve"><value>生效范围（User-Agent）</value></data>
+  <data name="Script_Settings_ScopeHint" xml:space="preserve"><value>控制脚本仅在指定浏览器或客户端的网页请求中注入。</value></data>
+  <data name="Script_Settings_ScopeModeAll" xml:space="preserve"><value>所有浏览器与客户端（不限制 UA）</value></data>
+  <data name="Script_Settings_ScopeModeSelected" xml:space="preserve"><value>仅在指定浏览器 / UA 中生效</value></data>
+  <data name="Script_Settings_Presets" xml:space="preserve"><value>浏览器预选项</value></data>
+  <data name="Script_Settings_Preset_Steam" xml:space="preserve"><value>Steam 内置浏览器</value></data>
+  <data name="Script_Settings_Preset_SteamDesc" xml:space="preserve"><value>匹配包含 &quot;Valve Steam&quot; 的 Steam 客户端内置浏览器</value></data>
+  <data name="Script_Settings_Preset_Chrome" xml:space="preserve"><value>Google Chrome</value></data>
+  <data name="Script_Settings_Preset_ChromeDesc" xml:space="preserve"><value>匹配 Chrome 浏览器 UA（自动排除 Edge 与 Steam 内置浏览器）</value></data>
+  <data name="Script_Settings_Preset_Edge" xml:space="preserve"><value>Microsoft Edge</value></data>
+  <data name="Script_Settings_Preset_EdgeDesc" xml:space="preserve"><value>匹配 Edge 浏览器 UA（Edg/、EdgA/、EdgiOS/）</value></data>
+  <data name="Script_Settings_CustomUa" xml:space="preserve"><value>自定义 User-Agent 规则</value></data>
+  <data name="Script_Settings_CustomUaHint" xml:space="preserve"><value>支持关键词（如 Firefox/）、通配符（如 *MyApp*）或正则（如 /Safari\/605/i）。命中任意预选项或自定义规则即生效。</value></data>
+  <data name="Script_Settings_CustomUaPlaceholder" xml:space="preserve"><value>输入 UA 关键词、通配符或 /正则/</value></data>
+  <data name="Script_Settings_CustomUaAdd" xml:space="preserve"><value>添加</value></data>
+  <data name="Script_Settings_CustomUaEmpty" xml:space="preserve"><value>尚未添加自定义 UA 规则</value></data>
+  <data name="Script_Settings_CustomUaDuplicate" xml:space="preserve"><value>该 UA 规则已存在</value></data>
+  <data name="Script_Settings_CustomUaInvalidRegex" xml:space="preserve"><value>正则表达式无效：{0}</value></data>
+  <data name="Script_Settings_UaTester" xml:space="preserve"><value>UA 匹配测试</value></data>
+  <data name="Script_Settings_UaTesterPlaceholder" xml:space="preserve"><value>输入或粘贴 User-Agent 测试当前规则是否生效…</value></data>
+  <data name="Script_Settings_UaTesterMatch" xml:space="preserve"><value>匹配成功：将会注入脚本（{0}）</value></data>
+  <data name="Script_Settings_UaTesterNoMatch" xml:space="preserve"><value>未匹配：不会注入脚本</value></data>
+  <data name="Script_Settings_ResetScope" xml:space="preserve"><value>重置为全部浏览器生效</value></data>
+  <data name="Script_Settings_QuickLinks" xml:space="preserve"><value>快捷入口</value></data>
+  <data name="Script_ScopeSummary_All" xml:space="preserve"><value>生效范围：全部浏览器</value></data>
+  <data name="Script_ScopeSummary_RestrictedFormat" xml:space="preserve"><value>生效范围：{0}</value></data>
+  <data name="Script_ScopeSummary_None" xml:space="preserve"><value>生效范围：未选择（不生效）</value></data>
+  <data name="Script_ScopeSummary_CustomCountFormat" xml:space="preserve"><value>自定义 UA ({0})</value></data>
+  <data name="Script_Inspect_DialogTitleAdd" xml:space="preserve"><value>添加脚本与规则检查</value></data>
+  <data name="Script_Inspect_DialogTitleView" xml:space="preserve"><value>规则详情</value></data>
+  <data name="Script_Inspect_UrlLabel" xml:space="preserve"><value>脚本链接</value></data>
+  <data name="Script_Inspect_FetchButton" xml:space="preserve"><value>拉取并检查规则</value></data>
+  <data name="Script_Inspect_SwitchLocalButton" xml:space="preserve"><value>选择本地文件</value></data>
+  <data name="Script_Inspect_Fetching" xml:space="preserve"><value>正在获取并解析脚本规则…</value></data>
+  <data name="Script_Inspect_ReadyHint" xml:space="preserve"><value>粘贴脚本链接并点击“拉取并检查规则”，或点击“选择本地文件”导入脚本；添加前将列出全部匹配规则、排除规则、申请权限与依赖详情。</value></data>
+  <data name="Script_Inspect_ConfirmAdd" xml:space="preserve"><value>确认添加脚本</value></data>
+  <data name="Script_Inspect_ConfirmUpgrade" xml:space="preserve"><value>确认覆盖更新</value></data>
+  <data name="Script_Inspect_EnableAfterAdd" xml:space="preserve"><value>添加后立即启用</value></data>
+  <data name="Script_Inspect_CompileRequires" xml:space="preserve"><value>编译并打包外部依赖 (@require)</value></data>
+  <data name="Script_Inspect_SectionOverview" xml:space="preserve"><value>脚本概览</value></data>
+  <data name="Script_Inspect_SectionMatchRules" xml:space="preserve"><value>生效匹配规则 (@match / @include)</value></data>
+  <data name="Script_Inspect_SectionExcludeRules" xml:space="preserve"><value>排除规则 (@exclude)</value></data>
+  <data name="Script_Inspect_SectionPermissions" xml:space="preserve"><value>权限与跨域声明 (@grant / @connect)</value></data>
+  <data name="Script_Inspect_SectionRequires" xml:space="preserve"><value>外部依赖脚本 (@require)</value></data>
+  <data name="Script_Inspect_SectionLinks" xml:space="preserve"><value>来源与更新信息</value></data>
+  <data name="Script_Inspect_SectionRawHeader" xml:space="preserve"><value>原始元数据头 (==UserScript==)</value></data>
+  <data name="Script_Inspect_LabelAuthor" xml:space="preserve"><value>作者</value></data>
+  <data name="Script_Inspect_LabelVersion" xml:space="preserve"><value>版本</value></data>
+  <data name="Script_Inspect_LabelRunAt" xml:space="preserve"><value>执行时机</value></data>
+  <data name="Script_Inspect_LabelSize" xml:space="preserve"><value>文件大小</value></data>
+  <data name="Script_Inspect_LabelSource" xml:space="preserve"><value>来源</value></data>
+  <data name="Script_Inspect_LabelHomepage" xml:space="preserve"><value>脚本主页</value></data>
+  <data name="Script_Inspect_LabelDownloadUrl" xml:space="preserve"><value>下载地址</value></data>
+  <data name="Script_Inspect_LabelUpdateUrl" xml:space="preserve"><value>更新地址</value></data>
+  <data name="Script_Inspect_None" xml:space="preserve"><value>无</value></data>
+  <data name="Script_Inspect_BadgeNew" xml:space="preserve"><value>新安装</value></data>
+  <data name="Script_Inspect_BadgeUpgradeFormat" xml:space="preserve"><value>将更新已安装版本 v{0} → v{1}</value></data>
+  <data name="Script_Inspect_BadgeReplaceFormat" xml:space="preserve"><value>将覆盖已安装脚本（当前 v{0}）</value></data>
+  <data name="Script_Inspect_Warn_NoHeaderTitle" xml:space="preserve"><value>未检测到标准 UserScript 元数据头</value></data>
+  <data name="Script_Inspect_Warn_NoHeaderDetail" xml:space="preserve"><value>文件缺少 // ==UserScript== 头部注释，无法识别名称与匹配规则，无法直接添加。</value></data>
+  <data name="Script_Inspect_Warn_NoMatchTitle" xml:space="preserve"><value>未声明任何匹配规则</value></data>
+  <data name="Script_Inspect_Warn_NoMatchDetail" xml:space="preserve"><value>脚本不包含 @match 或 @include 规则，添加后不会自动注入到任何网页。</value></data>
+  <data name="Script_Inspect_Warn_BroadMatchTitle" xml:space="preserve"><value>包含全站匹配规则</value></data>
+  <data name="Script_Inspect_Warn_BroadMatchDetail" xml:space="preserve"><value>检测到类似 *://*/* 的宽泛匹配规则，该脚本会在所有被代理的网页中执行，请确认来源可信。</value></data>
+  <data name="Script_Inspect_Warn_HighPrivGrantTitle" xml:space="preserve"><value>脚本申请了扩展 API 权限</value></data>
+  <data name="Script_Inspect_Warn_HighPrivGrantDetail" xml:space="preserve"><value>检测到 {0} 等权限声明，请确认来源可信；部分油猴 API 依赖基础脚本 GM.js。</value></data>
+  <data name="Script_Inspect_Warn_NoUpdateUrlTitle" xml:space="preserve"><value>未包含远程更新地址</value></data>
+  <data name="Script_Inspect_Warn_NoUpdateUrlDetail" xml:space="preserve"><value>该脚本未声明 @updateURL 或 @downloadURL，后续可能无法自动检查远程更新。</value></data>
+  <data name="Script_Inspect_Warn_InvalidUrl" xml:space="preserve"><value>请输入有效的 HTTP 或 HTTPS 脚本链接。</value></data>
+  <data name="Script_Inspect_Warn_FetchFailed" xml:space="preserve"><value>无法获取脚本内容：{0}</value></data>
+  <data name="Script_Store_ExternalHint" xml:space="preserve"><value>除了内置脚本工坊，你也可以直接前往 ScriptCat 或 Greasy Fork 寻找脚本，复制链接回到脚本页粘贴添加。</value></data>
+  <data name="Script_ActiveScripts_Empty" xml:space="preserve"><value>当前未启用任何代理脚本</value></data>
+  <data name="Script_ActiveScripts_Header" xml:space="preserve"><value>当前生效的脚本</value></data>
+  <data name="Script_OpenHomepage" xml:space="preserve"><value>打开脚本主页</value></data>
+  <data name="Script_Store_Filter_NotInstalled" xml:space="preserve"><value>未安装</value></data>
+  <data name="Script_Store_Filter_Installed" xml:space="preserve"><value>已安装</value></data>
+  <data name="Script_Store_CountFormat" xml:space="preserve"><value>共 {0} 个脚本 · 已安装 {1} 个</value></data>
+  <data name="Script_Store_LoadFailed" xml:space="preserve"><value>加载脚本工坊失败，请点击重试。</value></data>
 </root>

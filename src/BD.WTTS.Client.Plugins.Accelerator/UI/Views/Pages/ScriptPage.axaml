@@ -2,95 +2,188 @@
     x:Class="BD.WTTS.UI.Views.Pages.ScriptPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:BD.WTTS.UI.Views.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ir="using:Avalonia.Xaml.Interactions.Responsive"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ms="https://steampp.net/settings"
     xmlns:s="https://steampp.net/services"
     xmlns:spp="https://steampp.net/ui"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:BD.WTTS.UI.ViewModels"
     Title="{x:Static spp:Strings.ScriptConfig}"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="680"
+    d:DesignWidth="1040"
     x:CompileBindings="True"
-    x:DataType="spp:ScriptPageViewModel"
+    x:DataType="vm:ScriptPageViewModel"
     Description="{x:Static spp:Strings.L10nAccel_076}"
+    OpenPaneLength="380"
+    ScrollViewer.VerticalScrollBarVisibility="Auto"
     Subtitle="{Binding Author, Source={x:Static s:Plugin.Instance}, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=Plugin_Author}"
     mc:Ignorable="d">
-    <spp:PageBase.Styles>
-        <Style Selector="spp|AppItem /template/ TextBlock#HeaderText">
-            <Setter Property="Grid.ColumnSpan" Value="0" />
-        </Style>
-    </spp:PageBase.Styles>
     <spp:PageBase.PreviewImage>
         <ui:FAImageIconSource Source="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico" />
     </spp:PageBase.PreviewImage>
+
+    <spp:PageBase.Styles>
+        <Style Selector="StackPanel.compact TextBlock.headerActionLabel">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="Border.script-card">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+            <Setter Property="Padding" Value="12,10" />
+        </Style>
+        <Style Selector="Border.script-card.script-row">
+            <Setter Property="Padding" Value="12,9" />
+        </Style>
+        <Style Selector="Border.script-card.script-row:pointerover">
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
+        </Style>
+        <Style Selector="TextBlock.script-caption">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+            <Setter Property="Theme" Value="{StaticResource CaptionTextBlockStyle}" />
+        </Style>
+        <Style Selector="Border.script-badge">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+            <Setter Property="CornerRadius" Value="9" />
+            <Setter Property="Padding" Value="7,2" />
+        </Style>
+        <Style Selector="Border.script-badge.success">
+            <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBackgroundBrush}" />
+        </Style>
+        <Style Selector="Border.script-badge.success > TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+        </Style>
+        <Style Selector="Border.script-badge.accent">
+            <Style.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Default">
+                            <SolidColorBrush x:Key="ScriptAccentBadgeBg">#DEEEFF</SolidColorBrush>
+                            <SolidColorBrush x:Key="ScriptAccentBadgeFg">#174B73</SolidColorBrush>
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="Dark">
+                            <SolidColorBrush x:Key="ScriptAccentBadgeBg">#163C5C</SolidColorBrush>
+                            <SolidColorBrush x:Key="ScriptAccentBadgeFg">#B7DDFF</SolidColorBrush>
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+            </Style.Resources>
+            <Setter Property="Background" Value="{DynamicResource ScriptAccentBadgeBg}" />
+        </Style>
+        <Style Selector="Border.script-badge.accent > TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource ScriptAccentBadgeFg}" />
+        </Style>
+        <Style Selector="Border.script-badge.update">
+            <Setter Property="Background" Value="{DynamicResource SystemFillColorCautionBackgroundBrush}" />
+        </Style>
+        <Style Selector="Border.script-badge.update > TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
+        </Style>
+        <Style Selector="Button.script-compact, DropDownButton.script-compact">
+            <Setter Property="Padding" Value="8,4" />
+            <Setter Property="MinHeight" Value="28" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="WrapPanel#ScriptCardActions">
+            <Setter Property="(Grid.Column)" Value="2" />
+        </Style>
+        <Style Selector="TabStrip#ScriptFilterTabs">
+            <Setter Property="(Grid.Column)" Value="1" />
+        </Style>
+        <ContainerQuery Name="scriptToolbar" Query="max-width:640">
+            <Style Selector="TabStrip#ScriptFilterTabs">
+                <Setter Property="(Grid.Row)" Value="1" />
+                <Setter Property="(Grid.Column)" Value="0" />
+                <Setter Property="(Grid.ColumnSpan)" Value="2" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Margin" Value="0,6,0,0" />
+            </Style>
+        </ContainerQuery>
+        <ContainerQuery Name="scriptCard" Query="max-width:720">
+            <Style Selector="WrapPanel#ScriptCardActions">
+                <Setter Property="(Grid.Row)" Value="1" />
+                <Setter Property="(Grid.Column)" Value="0" />
+                <Setter Property="(Grid.ColumnSpan)" Value="3" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Margin" Value="52,6,0,0" />
+            </Style>
+        </ContainerQuery>
+    </spp:PageBase.Styles>
+
     <spp:PageBase.ActionContent>
-        <StackPanel Orientation="Horizontal" Spacing="2">
+        <StackPanel Orientation="Horizontal" Spacing="4">
+            <i:Interaction.Behaviors>
+                <spp:AdaptiveBehavior SourceControl="{Binding $parent[TopLevel]}">
+                    <ir:AdaptiveClassSetter ClassName="compact" MaxWidth="760" MinWidth="0" />
+                </spp:AdaptiveBehavior>
+            </i:Interaction.Behaviors>
+
             <Button
-                Padding="8,4"
-                Command="{Binding ScriptStoreCommand}"
-                DockPanel.Dock="Right"
-                Theme="{StaticResource TransparentButton}">
-                <Panel>
-                    <Viewbox
-                        Width="16"
-                        Height="16"
-                        HorizontalAlignment="Left">
-                        <ui:FASymbolIcon Symbol="Globe" />
-                    </Viewbox>
+                Padding="10,5"
+                Classes="accent"
+                Command="{Binding OpenAddFromUrlDialogCommand}"
+                ToolTip.Tip="{x:Static spp:Strings.Script_AddScript}">
+                <StackPanel Orientation="Horizontal" Spacing="7">
+                    <ui:FASymbolIcon FontSize="15" Symbol="Add" />
                     <TextBlock
-                        Margin="28,4,0,4"
-                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{x:Static spp:Strings.ScriptStore}" />
-                </Panel>
+                        Classes="headerActionLabel"
+                        Text="{x:Static spp:Strings.Script_AddScript}" />
+                </StackPanel>
             </Button>
+
+            <Button
+                Padding="8,5"
+                Command="{Binding CheckAllUpdatesCommand}"
+                IsEnabled="{Binding !IsCheckingUpdates}"
+                Theme="{StaticResource TransparentButton}"
+                ToolTip.Tip="{x:Static spp:Strings.Script_CheckUpdates}">
+                <StackPanel Orientation="Horizontal" Spacing="7">
+                    <Panel Width="15" Height="15">
+                        <ui:FASymbolIcon
+                            FontSize="15"
+                            IsVisible="{Binding !IsCheckingUpdates}"
+                            Symbol="Sync" />
+                        <ui:FAProgressRing
+                            Width="15"
+                            Height="15"
+                            IsActive="{Binding IsCheckingUpdates}"
+                            IsVisible="{Binding IsCheckingUpdates}" />
+                    </Panel>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Classes="headerActionLabel"
+                        Text="{x:Static spp:Strings.Script_CheckUpdates}" />
+                </StackPanel>
+            </Button>
+
             <Separator
                 Height="18"
-                Margin="0"
+                Margin="4,0"
                 VerticalAlignment="Center"
                 Background="{DynamicResource ButtonBorderBrush}"
                 Classes="Vertical"
-                DockPanel.Dock="Right"
                 IsHitTestVisible="False" />
-            <Button
-                Padding="8,4"
-                Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).AddNewScriptCommand}"
-                DockPanel.Dock="Right"
-                Theme="{StaticResource TransparentButton}">
-                <Panel>
-                    <Viewbox
-                        Width="16"
-                        Height="16"
-                        HorizontalAlignment="Left">
-                        <ui:FASymbolIcon Symbol="Add" />
-                    </Viewbox>
+
+            <ToggleButton
+                Padding="8,5"
+                IsChecked="{Binding $parent[spp:PageBase].IsPaneOpen, Mode=TwoWay}"
+                Theme="{StaticResource TransparentToggleButton}"
+                ToolTip.Tip="{x:Static spp:Strings.Script_Settings}">
+                <StackPanel Orientation="Horizontal" Spacing="7">
+                    <ui:FASymbolIcon FontSize="15" Symbol="Settings" />
                     <TextBlock
-                        Margin="28,4,0,4"
-                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{x:Static spp:Strings.Import}" />
-                </Panel>
-            </Button>
-            <Button
-                Padding="8,4"
-                Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).RefreshALLScriptCommand}"
-                DockPanel.Dock="Right"
-                Theme="{StaticResource TransparentButton}">
-                <Panel>
-                    <Viewbox
-                        Width="16"
-                        Height="16"
-                        HorizontalAlignment="Left">
-                        <ui:FASymbolIcon Symbol="Refresh" />
-                    </Viewbox>
-                    <TextBlock
-                        Margin="28,4,0,4"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Text="{x:Static spp:Strings.Refresh}" />
-                </Panel>
-            </Button>
+                        Classes="headerActionLabel"
+                        Text="{x:Static spp:Strings.Script_Settings}" />
+                </StackPanel>
+            </ToggleButton>
+
             <DropDownButton
                 Padding="8"
                 HorizontalContentAlignment="Center"
@@ -101,10 +194,22 @@
                 Theme="{StaticResource TransparentButton}">
                 <DropDownButton.Flyout>
                     <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
-                        <!--<ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.Script_Settings}" />-->
-                        <!--<ui:FAMenuFlyoutSeparator />-->
-                        <ui:FAToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:ProxySettings.IsAutoCheckScriptUpdate}, Path=Value, Mode=TwoWay}" Text="{x:Static spp:Strings.Script_AutoUpdate}" />
-                        <ui:FAToggleMenuFlyoutItem IsChecked="{Binding Source={x:Static ms:ProxySettings.IsOnlyWorkSteamBrowser}, Path=Value, Mode=TwoWay}" Text="{x:Static spp:Strings.CommunityFix_OnlySteamBrowser}" />
+                        <ui:FAMenuFlyoutItem
+                            Command="{Binding RefreshALLScriptCommand}"
+                            Text="{x:Static spp:Strings.Refresh}" />
+                        <ui:FAMenuFlyoutItem
+                            Command="{Binding OpenScriptsDirectoryCommand}"
+                            Text="{x:Static spp:Strings.Script_OpenDirectory}" />
+                        <ui:FAMenuFlyoutSeparator />
+                        <ui:FAMenuFlyoutItem
+                            Command="{Binding ScriptStoreCommand}"
+                            Text="{x:Static spp:Strings.ScriptStore}" />
+                        <ui:FAMenuFlyoutItem
+                            Command="{Binding OpenScriptCatCommand}"
+                            Text="ScriptCat (scriptcat.org)" />
+                        <ui:FAMenuFlyoutItem
+                            Command="{Binding OpenGreasyForkCommand}"
+                            Text="Greasy Fork (greasyfork.org)" />
                         <ui:FAMenuFlyoutSeparator />
                         <ui:FAMenuFlyoutItem IsEnabled="False">
                             <ui:FAMenuFlyoutItem.Text>
@@ -117,144 +222,396 @@
                                 </MultiBinding>
                             </ui:FAMenuFlyoutItem.Text>
                         </ui:FAMenuFlyoutItem>
-                        <!--<ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.ViewInStore}" />
-                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.UseHelp}" />
-                        <ui:FAMenuFlyoutItem Text="{x:Static spp:Strings.AboutThisPlugin}" />-->
                     </ui:FAMenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
         </StackPanel>
     </spp:PageBase.ActionContent>
-    <spp:ContentLoader
-        IsLoading="False"
-        IsShowNoResultText="{Binding !!!ProxyScripts.Count, Mode=OneWay}"
-        NoResultMessage="{x:Static spp:Strings.L10nAccel_070}">
-        <ItemsRepeater Grid.Row="1" ItemsSource="{Binding ProxyScripts}">
+
+    <spp:PageBase.PaneContent>
+        <controls:ScriptSettingsPane DataContext="{Binding Settings}" />
+    </spp:PageBase.PaneContent>
+
+    <StackPanel
+        MaxWidth="1160"
+        HorizontalAlignment="Stretch"
+        Spacing="8">
+        <!-- Compact Top Bar: Script Switch, Execution Scope, Search, Filter Tabs -->
+        <Border
+            Classes="script-card"
+            Container.Name="scriptToolbar"
+            Container.Sizing="Width"
+            Padding="12,8">
+            <StackPanel Spacing="6">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                    <WrapPanel
+                        VerticalAlignment="Center"
+                        ItemSpacing="10"
+                        LineSpacing="2">
+                        <ToggleSwitch
+                            VerticalAlignment="Center"
+                            Classes="NoContent"
+                            IsChecked="{Binding Settings.IsEnableScript, Mode=TwoWay}"
+                            OffContent="{x:Static spp:Strings.CommunityFix_EnableScriptService}"
+                            OnContent="{x:Static spp:Strings.CommunityFix_EnableScriptService}" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Classes="script-caption"
+                            IsVisible="{Binding HasAnyScripts}">
+                            <Run Text="{Binding TotalCountText}" /><Run Text=" · " /><Run Text="{Binding EnabledCountText}" />
+                        </TextBlock>
+                    </WrapPanel>
+
+                    <Button
+                        Grid.Column="1"
+                        Padding="9,4"
+                        VerticalAlignment="Center"
+                        Click="OpenSettingsPane_Click"
+                        ToolTip.Tip="{x:Static spp:Strings.Script_Settings_ScopeHint}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <ui:FASymbolIcon FontSize="13" Symbol="Filter" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="{Binding Settings.ScopeSummary}"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <Grid
+                    ColumnDefinitions="*,Auto"
+                    ColumnSpacing="10"
+                    RowDefinitions="Auto,Auto">
+                    <TextBox
+                        PlaceholderText="{x:Static spp:Strings.Script_SearchPlaceholder}"
+                        Text="{Binding SearchText, Mode=TwoWay}" />
+
+                    <TabStrip
+                        Name="ScriptFilterTabs"
+                        VerticalAlignment="Center"
+                        Background="{DynamicResource ControlOnImageFillColorDefaultBrush}"
+                        CornerRadius="{StaticResource ControlCornerRadius}"
+                        ItemContainerTheme="{StaticResource TabItemStyle}"
+                        SelectedIndex="{Binding SelectedFilterIndex, Mode=TwoWay}"
+                        Theme="{StaticResource TabStripStyle}">
+                        <TabStripItem Content="{x:Static spp:Strings.Script_Filter_All}" />
+                        <TabStripItem Content="{x:Static spp:Strings.Script_Filter_Enabled}" />
+                        <TabStripItem Content="{x:Static spp:Strings.Script_Filter_Disabled}" />
+                        <TabStripItem Content="{x:Static spp:Strings.Script_Filter_Updatable}" />
+                    </TabStrip>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Contextual InfoBars (IsVisible bound so closed bars leave zero vertical gap) -->
+        <ui:FAInfoBar
+            IsClosable="False"
+            IsOpen="{Binding HasAvailableUpdates}"
+            IsVisible="{Binding HasAvailableUpdates}"
+            Message="{Binding UpdateBannerMessage}"
+            Severity="Informational">
+            <ui:FAInfoBar.ActionButton>
+                <Button
+                    Classes="accent"
+                    Command="{Binding UpdateAllScriptsCommand}"
+                    Content="{x:Static spp:Strings.Script_UpdateAll}"
+                    IsEnabled="{Binding !IsUpdatingAll}" />
+            </ui:FAInfoBar.ActionButton>
+        </ui:FAInfoBar>
+
+        <ui:FAInfoBar
+            IsClosable="False"
+            IsOpen="{Binding Settings.IsScopeEmptyWarning}"
+            IsVisible="{Binding Settings.IsScopeEmptyWarning}"
+            Message="{x:Static spp:Strings.Script_ScopeEmptyWarning}"
+            Severity="Warning">
+            <ui:FAInfoBar.ActionButton>
+                <Button
+                    Click="OpenSettingsPane_Click"
+                    Content="{x:Static spp:Strings.Script_Settings}" />
+            </ui:FAInfoBar.ActionButton>
+        </ui:FAInfoBar>
+
+        <ui:FAInfoBar
+            IsClosable="False"
+            IsOpen="{Binding ShowRestartProxyHint}"
+            IsVisible="{Binding ShowRestartProxyHint}"
+            Message="{x:Static spp:Strings.Script_ProxyRestartHint}"
+            Severity="Warning" />
+
+        <TextBlock
+            Margin="4,0,0,0"
+            Classes="script-caption"
+            IsVisible="{Binding HasLastUpdateCheckSummary}"
+            Text="{Binding LastUpdateCheckSummary}" />
+
+        <!-- Installed Scripts List -->
+        <ItemsRepeater ItemsSource="{Binding FilteredScripts}">
             <ItemsRepeater.Layout>
-                <UniformGridLayout
-                    ItemsJustification="Start"
-                    ItemsStretch="Uniform"
-                    MinColumnSpacing="10"
-                    MinItemHeight="160"
-                    MinItemWidth="400"
-                    MinRowSpacing="10" />
+                <StackLayout Spacing="6" />
             </ItemsRepeater.Layout>
             <ItemsRepeater.ItemTemplate>
-                <DataTemplate DataType="spp:ScriptDTO">
-                    <spp:AppItem
-                        Title="{Binding Name}"
-                        Description="{Binding Describe}"
-                        ImageMargin="30"
-                        ImageStretch="None">
-                        <spp:AppItem.Status>
-                            <ToggleSwitch Classes="LeftContent" IsChecked="{Binding !Disable, Mode=TwoWay}" />
-                        </spp:AppItem.Status>
-                        <spp:AppItem.Tags>
-                            <MultiBinding StringFormat="{}{0} | {1}">
-                                <CompiledBindingExtension Mode="OneWay" Path="AuthorName" />
-                                <CompiledBindingExtension Mode="OneWay" Path="Version" />
-                            </MultiBinding>
-                        </spp:AppItem.Tags>
-                        <spp:AppItem.ActionButton>
-                            <StackPanel
-                                Margin="0,0,3,0"
-                                Orientation="Horizontal"
-                                Spacing="5">
+                <DataTemplate x:DataType="vm:ScriptItemViewModel">
+                    <Border
+                        Classes="script-card script-row"
+                        Container.Name="scriptCard"
+                        Container.Sizing="Width">
+                        <Grid
+                            ColumnDefinitions="40,*,Auto"
+                            ColumnSpacing="10"
+                            RowDefinitions="Auto,Auto">
+                            <!-- Script Icon -->
+                            <Border
+                                Width="40"
+                                Height="40"
+                                VerticalAlignment="Top"
+                                Background="{DynamicResource LayerFillColorAltBrush}"
+                                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                ClipToBounds="True"
+                                CornerRadius="8">
+                                <Panel>
+                                    <spp:Image2
+                                        Margin="5"
+                                        FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico"
+                                        IsVisible="{Binding !IsBusy}"
+                                        RenderOptions.BitmapInterpolationMode="HighQuality"
+                                        Source="{Binding IconUrl}"
+                                        Stretch="Uniform" />
+                                    <ui:FAProgressRing
+                                        Width="20"
+                                        Height="20"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        IsActive="{Binding IsBusy}"
+                                        IsVisible="{Binding IsBusy}" />
+                                </Panel>
+                            </Border>
+
+                            <!-- Script Info -->
+                            <StackPanel Grid.Column="1" Spacing="2">
+                                <WrapPanel
+                                    VerticalAlignment="Center"
+                                    ItemSpacing="6"
+                                    LineSpacing="3">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Name}"
+                                        TextWrapping="Wrap"
+                                        Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                                    <Border Classes="script-badge">
+                                        <TextBlock
+                                            Classes="script-caption"
+                                            Text="{Binding VersionDisplay}" />
+                                    </Border>
+                                    <Border
+                                        Classes="script-badge"
+                                        Classes.accent="{Binding IsExternalMarketSource}">
+                                        <TextBlock
+                                            Classes="script-caption"
+                                            Text="{Binding SourceLabel}" />
+                                    </Border>
+                                    <Border
+                                        Classes="script-badge update"
+                                        IsVisible="{Binding IsUpdate}">
+                                        <TextBlock
+                                            Classes="script-caption"
+                                            Text="{Binding NewVersionBadge}" />
+                                    </Border>
+                                </WrapPanel>
+
+                                <TextBlock
+                                    Classes="script-caption"
+                                    IsVisible="{Binding HasDescription}"
+                                    MaxLines="2"
+                                    Text="{Binding Describe}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap"
+                                    ToolTip.Tip="{Binding Describe}" />
+
+                                <WrapPanel
+                                    VerticalAlignment="Center"
+                                    ItemSpacing="10"
+                                    LineSpacing="2">
+                                    <TextBlock Classes="script-caption">
+                                        <Run Text="{x:Static spp:Strings.Script_Inspect_LabelAuthor}" /><Run Text="：" /><Run Text="{Binding AuthorName}" />
+                                    </TextBlock>
+                                    <TextBlock
+                                        Classes="script-caption"
+                                        Text="{Binding MatchSummary}"
+                                        ToolTip.Tip="{Binding MatchTooltip}" />
+                                    <TextBlock
+                                        Classes="script-caption"
+                                        IsVisible="{Binding HasUpdateStatusText}"
+                                        Text="{Binding UpdateStatusText}" />
+                                </WrapPanel>
+                            </StackPanel>
+
+                            <!-- Actions -->
+                            <WrapPanel
+                                Name="ScriptCardActions"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                ItemSpacing="6"
+                                LineSpacing="4">
                                 <Button
-                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DownloadScriptItemCommand}"
+                                    Classes="accent script-compact"
+                                    Command="{Binding $parent[spp:PageBase].((vm:ScriptPageViewModel)DataContext).UpdateScriptItemCommand}"
                                     CommandParameter="{Binding}"
+                                    IsEnabled="{Binding !IsBusy}"
                                     IsVisible="{Binding IsUpdate}"
-                                    Theme="{DynamicResource TransparentButton}">
-                                    <ToolTip.Tip>
-                                        <MultiBinding StringFormat="{}{0} v{1}">
-                                            <Binding Mode="OneTime" Source="{x:Static spp:Strings.Script_Update}" />
-                                            <CompiledBindingExtension Mode="OneWay" Path="NewVersion" />
-                                        </MultiBinding>
-                                    </ToolTip.Tip>
-                                    <StackPanel Orientation="Horizontal" Spacing="3">
-                                        <Viewbox Width="16" Height="16">
-                                            <ui:FASymbolIcon Symbol="Download" />
-                                        </Viewbox>
-                                        <TextBlock VerticalAlignment="Center" Text="{Binding NewVersion}" />
-                                        <Ellipse
-                                            Width="6"
-                                            Height="6"
-                                            Fill="#dd5a5a" />
+                                    ToolTip.Tip="{Binding UpdateButtonTooltip}">
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <ui:FASymbolIcon FontSize="13" Symbol="Download" />
+                                        <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.Script_UpdateNow}" />
                                     </StackPanel>
                                 </Button>
+
                                 <Button
-                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).EditScriptItemCommand}"
+                                    Classes="script-compact"
+                                    Command="{Binding $parent[spp:PageBase].((vm:ScriptPageViewModel)DataContext).InspectScriptRulesCommand}"
                                     CommandParameter="{Binding}"
-                                    Theme="{DynamicResource TransparentButton}"
-                                    ToolTip.Tip="{x:Static spp:Strings.Script_Edit}">
-                                    <Viewbox Width="16" Height="16">
-                                        <ui:FASymbolIcon Symbol="CodeHTML" />
-                                    </Viewbox>
+                                    Theme="{StaticResource TransparentButton}"
+                                    ToolTip.Tip="{x:Static spp:Strings.Script_Inspect_DialogTitleView}">
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <ui:FASymbolIcon FontSize="13" Symbol="Document" />
+                                        <TextBlock VerticalAlignment="Center" Text="{x:Static spp:Strings.Script_ViewRules}" />
+                                    </StackPanel>
                                 </Button>
+
                                 <Button
-                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).RefreshScriptItemCommand}"
+                                    Classes="script-compact"
+                                    Command="{Binding $parent[spp:PageBase].((vm:ScriptPageViewModel)DataContext).CheckSingleScriptUpdateCommand}"
                                     CommandParameter="{Binding}"
-                                    Theme="{DynamicResource TransparentButton}"
-                                    ToolTip.Tip="{x:Static spp:Strings.Script_Refresh}">
-                                    <Viewbox Width="16" Height="16">
-                                        <ui:FASymbolIcon Symbol="Refresh" />
-                                    </Viewbox>
+                                    IsEnabled="{Binding HasRemoteUpdateLink}"
+                                    Theme="{StaticResource TransparentButton}"
+                                    ToolTip.Tip="{x:Static spp:Strings.Script_CheckSingleUpdate}">
+                                    <ui:FASymbolIcon FontSize="14" Symbol="Sync" />
                                 </Button>
-                            </StackPanel>
-                        </spp:AppItem.ActionButton>
-                        <spp:AppItem.MoreFlyout>
-                            <ui:FAMenuFlyout>
-                                <!--<ui:FAMenuFlyoutItem
-                                        Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).EditScriptItemButton}"
-                                        CommandParameter="{Binding}"
-                                        Text="{x:Static spp:Strings.Script_Edit}" />
-                                    <ui:FAMenuFlyoutItem
-                                        Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).RefreshScriptItemButton}"
-                                        CommandParameter="{Binding}"
-                                        Text="{x:Static spp:Strings.Script_Refresh}" />-->
-                                <ui:FAMenuFlyoutItem
-                                    Command="{Binding OpenBrowserCommand, Source={x:Static spp:App.Instance}}"
-                                    CommandParameter="{Binding SourceLink}"
-                                    Text="{x:Static spp:Strings.Script_Home}" />
-                                <ui:FAMenuFlyoutItem
-                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DownloadScriptItemCommand}"
-                                    CommandParameter="{Binding}"
-                                    IsVisible="{Binding IsUpdate}">
-                                    <ui:FAMenuFlyoutItem.Text>
-                                        <MultiBinding StringFormat="{}{0} v{1}">
-                                            <Binding Mode="OneTime" Source="{x:Static spp:Strings.Script_Update}" />
-                                            <CompiledBindingExtension Mode="OneWay" Path="NewVersion" />
-                                        </MultiBinding>
-                                    </ui:FAMenuFlyoutItem.Text>
-                                </ui:FAMenuFlyoutItem>
-                                <ui:FAMenuFlyoutSeparator />
-                                <ui:FAMenuFlyoutItem
-                                    Command="{Binding $parent[spp:PageBase].((spp:ScriptPageViewModel)DataContext).DeleteScriptItemCommand}"
-                                    CommandParameter="{Binding}"
-                                    Foreground="{DynamicResource SystemFillColorCriticalBrush}"
-                                    Text="{x:Static spp:Strings.Delete}" />
-                            </ui:FAMenuFlyout>
-                        </spp:AppItem.MoreFlyout>
-                        <spp:AppItem.Image>
-                            <Panel Width="64">
-                                <spp:Image2
-                                    FallbackSource="avares://BD.WTTS.Client.Plugins.Accelerator/UI/Assets/script.ico"
-                                    IsVisible="{Binding !IsLoading}"
-                                    RenderOptions.BitmapInterpolationMode="HighQuality"
-                                    Source="{Binding IconUrl}"
-                                    Stretch="Uniform" />
-                                <ProgressBar
-                                    Width="64"
-                                    Height="64"
-                                    Classes="Circle"
-                                    IsIndeterminate="True"
-                                    IsVisible="{Binding IsLoading}"
-                                    ToolTip.Tip="{x:Static spp:Strings.Script_ImportLoading}" />
-                            </Panel>
-                        </spp:AppItem.Image>
-                    </spp:AppItem>
+
+                                <ToggleSwitch
+                                    MinWidth="0"
+                                    VerticalAlignment="Center"
+                                    Classes="LeftContent"
+                                    IsChecked="{Binding IsEnabled, Mode=TwoWay}" />
+
+                                <DropDownButton
+                                    Classes="script-compact"
+                                    Theme="{StaticResource TransparentButton}">
+                                    <ui:FASymbolIcon FontSize="15" Symbol="More" />
+                                    <DropDownButton.Flyout>
+                                        <ui:FAMenuFlyout Placement="BottomEdgeAlignedRight">
+                                            <ui:FAMenuFlyoutItem
+                                                Command="{Binding $parent[spp:PageBase].((vm:ScriptPageViewModel)DataContext).InspectScriptRulesCommand}"
+                                                CommandParameter="{Binding}"
+                                                Text="{x:Static spp:Strings.Script_Inspect_DialogTitleView}" />
+                                            <ui:FAMenuFlyoutItem
+                                                Command="{Binding $parent[spp:PageBase].((vm:ScriptPageViewModel)DataContext).CheckSingleScriptUpdateCommand}"
+                                                CommandParameter="{Binding}"
+                                                IsEnabled="{Binding HasRemoteUpdateLink}"
+                                                Text="{x:Static spp:Strings.Script_CheckSingleUpdate}" />
+                                            <ui:FAMenuFlyoutItem
+                                                Command="{Binding $parent[spp:PageBase].((vm:ScriptPageViewModel)DataContext).UpdateScriptItemCommand}"
+                                                CommandParameter="{Binding}"
+                                                IsVisible="{Binding IsUpdate}"
+                                                Text="{Binding UpdateButtonTooltip}" />
+                                            <ui:FAMenuFlyoutSeparator />
+                                            <ui:FAMenuFlyoutItem
+                                                Command="{Binding $parent[spp:PageBase].((vm:ScriptPageViewModel)DataContext).EditScriptItemCommand}"
+                                                CommandParameter="{Binding}"
+                                                Text="{x:Static spp:Strings.Script_Edit}" />
+                                            <ui:FAMenuFlyoutItem
+                                                Command="{Binding $parent[spp:PageBase].((vm:ScriptPageViewModel)DataContext).RefreshScriptItemCommand}"
+                                                CommandParameter="{Binding}"
+                                                Text="{x:Static spp:Strings.Script_Refresh}" />
+                                            <ui:FAMenuFlyoutItem
+                                                Command="{Binding $parent[spp:PageBase].((vm:ScriptPageViewModel)DataContext).CopyScriptLinkCommand}"
+                                                CommandParameter="{Binding}"
+                                                IsEnabled="{Binding HasCopyableLink}"
+                                                Text="{x:Static spp:Strings.Script_CopyUpdateLink}" />
+                                            <ui:FAMenuFlyoutSeparator />
+                                            <ui:FAMenuFlyoutItem
+                                                Command="{Binding $parent[spp:PageBase].((vm:ScriptPageViewModel)DataContext).DeleteScriptItemCommand}"
+                                                CommandParameter="{Binding}"
+                                                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                                Text="{x:Static spp:Strings.Delete}" />
+                                        </ui:FAMenuFlyout>
+                                    </DropDownButton.Flyout>
+                                </DropDownButton>
+                            </WrapPanel>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </ItemsRepeater.ItemTemplate>
         </ItemsRepeater>
-    </spp:ContentLoader>
+
+        <!-- Empty State: No installed scripts -->
+        <Border
+            Classes="script-card"
+            IsVisible="{Binding IsCompletelyEmpty}"
+            Padding="24">
+            <StackPanel
+                MaxWidth="560"
+                HorizontalAlignment="Center"
+                Spacing="8">
+                <ui:FASymbolIcon
+                    HorizontalAlignment="Center"
+                    FontSize="32"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Symbol="CodeHTML" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="{x:Static spp:Strings.Script_EmptyTitle}"
+                    Theme="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Classes="script-caption"
+                    Text="{x:Static spp:Strings.Script_EmptyHint}"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+                <WrapPanel
+                    Margin="0,4,0,0"
+                    HorizontalAlignment="Center"
+                    ItemSpacing="8"
+                    LineSpacing="6">
+                    <Button
+                        Classes="accent"
+                        Command="{Binding OpenAddFromUrlDialogCommand}"
+                        Content="{x:Static spp:Strings.Script_AddScript}" />
+                    <Button
+                        Command="{Binding ScriptStoreCommand}"
+                        Content="{x:Static spp:Strings.ScriptStore}" />
+                    <Button
+                        Command="{Binding OpenScriptCatCommand}"
+                        Content="{x:Static spp:Strings.Script_Source_ScriptCat}" />
+                    <Button
+                        Command="{Binding OpenGreasyForkCommand}"
+                        Content="{x:Static spp:Strings.Script_Source_GreasyFork}" />
+                </WrapPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Empty State: Filtered search returned 0 items -->
+        <Border
+            Classes="script-card"
+            IsVisible="{Binding IsFilteredEmpty}"
+            Padding="20">
+            <StackPanel HorizontalAlignment="Center" Spacing="6">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Text="{x:Static spp:Strings.Script_NoMatchTitle}"
+                    Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Classes="script-caption"
+                    Text="{x:Static spp:Strings.Script_NoMatchHint}"
+                    TextWrapping="Wrap" />
+                <Button
+                    Margin="0,2,0,0"
+                    HorizontalAlignment="Center"
+                    Command="{Binding ClearFilterCommand}"
+                    Content="{x:Static spp:Strings.Script_ClearFilter}" />
+            </StackPanel>
+        </Border>
+    </StackPanel>
 </spp:PageBase>

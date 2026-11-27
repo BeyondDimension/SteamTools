@@ -32,6 +32,7 @@ partial class ProxyService
 
     async Task<OperateProxyServiceResult> StartProxyServiceCoreAsync()
     {
+        ProxySettings.MigrateScriptScope();
         IReadOnlyCollection<AccelerateProjectDTO>? proxyDomains = EnableProxyDomains;
 
         if (!proxyDomains.Any_Nullable())
@@ -44,14 +45,10 @@ partial class ProxyService
             { "ProxyScriptStatus", ProxySettings.IsEnableScript.Value.ToString() },
         });
 
-        IReadOnlyCollection<ScriptIPCDTO>? scripts = default;
-        bool isEnableScript = ProxySettings.IsEnableScript.Value;
-        bool isOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
         ushort proxyPort = ProxySettings.SystemProxyPortId.Value == 0 ? ProxySettings.SystemProxyPortId.Default : ProxySettings.SystemProxyPortId.Value;
         string? proxyIp = ProxySettings.SystemProxyIp.Value;
         proxyMode = defaultProxyMode;
         bool isProxyGOG = ProxySettings.IsProxyGOG.Value;
-        bool onlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
         bool enableHttpProxyToHttps = ProxySettings.EnableHttpProxyToHttps.Value;
         bool socks5ProxyEnable = ProxySettings.Socks5ProxyEnable.Value ||
             (OperatingSystem.IsAndroid() && // Android VPN 模式使用 tun2socks
@@ -94,33 +91,11 @@ partial class ProxyService
             proxyIp = proxyIPAddress.ToString();
         }
 
-        if (isEnableScript)
-        {
-            await EnableProxyScripts.ContinueWith(e =>
-            {
-                scripts = e.Result?.Select(item => new ScriptIPCDTO(
-                               item.LocalId,
-                               item.CachePath,
-                               item.MatchDomainNamesArray,
-                               item.ExcludeDomainNames,
-                               item.Order)
-                          ).ToImmutableArray();
-                //.Select(item =>
-                //          new ScriptIPCDTO(
-                //               item.LocalId,
-                //               item.CachePath,
-                //               item.MatchDomainNamesArray,
-                //               item.ExcludeDomainNames)
-                //          );
-            });
-        }
-
 #if (WINDOWS || MACCATALYST || MACOS || LINUX) && !(IOS || ANDROID)
 #if MACCATALYST
                     if (OperatingSystem.IsMacOS())
 #endif
         {
-            isOnlyWorkSteamBrowser = ProxySettings.IsOnlyWorkSteamBrowser.Value;
             proxyMode = ProxySettings.ProxyModeValue;
             isProxyGOG = ProxySettings.IsProxyGOG.Value;
         }
@@ -135,7 +110,6 @@ partial class ProxyService
         //reverseProxyService.HostProxyPortId = ProxySettings.HostProxyPortId;
 
         this.RaisePropertyChanged(nameof(EnableProxyDomains));
-        this.RaisePropertyChanged(nameof(EnableProxyScripts));
 
         switch (proxyMode)
         {
@@ -215,14 +189,46 @@ partial class ProxyService
             }
         }
 
-        ReverseProxySettings reverseProxySettings = new(proxyDomains, scripts,
-            isEnableScript, isOnlyWorkSteamBrowser, proxyPort,
-            proxyIp, proxyMode, isProxyGOG, onlyEnableProxyScript,
-            enableHttpProxyToHttps, socks5ProxyEnable, socks5ProxyPortId,
-            twoLevelAgentEnable, twoLevelAgentProxyType, twoLevelAgentIp,
-            twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS, isSupportIpv6, proxyToken);
-        byte[] reverseProxySettings_ = Serializable.SMP2(reverseProxySettings);
-        var startProxyResult = await reverseProxyService.StartProxyAsync(reverseProxySettings_);
+        ScriptDTO[]? configuredScripts;
+        StartProxyResult startProxyResult;
+        bool isEnableScript;
+        bool onlyEnableProxyScript;
+        long scriptRevision;
+
+        await scriptOperation.WaitAsync();
+        try
+        {
+            ScriptInjectScopeMode scopeMode;
+            ScriptUserAgentPreset presets;
+            string? customRules;
+            lock (SettingsPropertyBase.GetSynchronizationRoot<ProxySettings_>())
+            {
+                scriptRevision = Interlocked.Read(ref scriptConfigurationRevision);
+                isEnableScript = ProxySettings.IsEnableScript.Value;
+                onlyEnableProxyScript = ProxySettings.OnlyEnableProxyScript.Value;
+                scopeMode = ProxySettings.ScriptInjectScopeMode.Value;
+                presets = ProxySettings.ScriptUserAgentPresets.Value;
+                customRules = ProxySettings.ScriptCustomUserAgents.Value;
+            }
+
+            configuredScripts = isEnableScript ? GetEnableProxyScripts()?.ToArray() ?? [] : null;
+            await scriptManager.LoadingScriptContentAsync(configuredScripts);
+            IReadOnlyCollection<ScriptIPCDTO>? scripts = configuredScripts?.Select(script => new ScriptIPCDTO(script.LocalId, script.CachePath,
+                script.MatchDomainNamesArray, script.ExcludeDomainNames, script.Order)).ToImmutableArray();
+            var legacySteamScope = scopeMode == ScriptInjectScopeMode.SelectedUserAgents
+                && presets == ScriptUserAgentPreset.SteamBrowser
+                && ScriptUserAgentMatcher.ParseCustomRules(customRules).Count == 0;
+            ReverseProxySettings reverseProxySettings = new(proxyDomains, scripts,
+                isEnableScript, legacySteamScope, proxyPort, proxyIp, proxyMode, isProxyGOG, onlyEnableProxyScript,
+                enableHttpProxyToHttps, socks5ProxyEnable, socks5ProxyPortId, twoLevelAgentEnable, twoLevelAgentProxyType,
+                twoLevelAgentIp, twoLevelAgentPortId, twoLevelAgentUserName, twoLevelAgentPassword, proxyDNS,
+                isSupportIpv6, proxyToken, scopeMode, presets, customRules);
+            startProxyResult = await reverseProxyService.StartProxyAsync(Serializable.SMP2(reverseProxySettings));
+        }
+        finally
+        {
+            scriptOperation.Release();
+        }
         if (startProxyResult)
         {
             switch (proxyMode)
@@ -288,6 +294,8 @@ partial class ProxyService
                     .Select(static project => project.Name).ToArray(),
                 ReadTrayTraffic);
             StartTimer();
+            activeProxyScripts = configuredScripts;
+            activeScriptConfigurationRevision = scriptRevision;
             return default;
         }
         else

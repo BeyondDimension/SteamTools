@@ -68,17 +68,6 @@ Actual value was {actualValue}.
         var url = context.Request.GetDisplayUrl();
         //var url = context.Request.GetDisplayUrl().Remove(0, context.Request.Scheme.Length + 3);
 
-        var isScriptInject = reverseProxyConfig.TryGetScriptConfig(url, out var scriptConfigs);
-
-        var originalBody = context.Response.Body;
-        MemoryStream? memoryStream = null;
-
-        if (isScriptInject)
-        {
-            memoryStream = new MemoryStream();
-            context.Response.Body = memoryStream;
-        }
-
         if (TryGetDomainConfig(url.Remove(0, context.Request.Scheme.Length + 3), out var domainConfig, out var unknownHost) == false)
         {
             if (reverseProxyConfig.Service.TwoLevelAgentEnable)
@@ -142,6 +131,13 @@ Actual value was {actualValue}.
                 destination = new Uri(newUrl);
             }
 
+            var settings = reverseProxyConfig.Service;
+            IEnumerable<IScriptConfig>? scriptConfigs = null;
+            var injectScripts = settings.IsEnableScript && context.Request.Method == HttpMethods.Get
+                && ScriptUserAgentMatcher.IsAllowed(context.Request.UserAgent(), settings.ScriptInjectScopeMode,
+                    settings.ScriptUserAgentPresets, settings.ScriptCustomUserAgents, settings.IsOnlyWorkSteamBrowser)
+                && reverseProxyConfig.TryGetScriptConfig(url, out scriptConfigs);
+
             var destinationPrefix = GetDestinationPrefix(context.Request.Scheme, context.Request.Host, destination);
             var httpClient = httpClientFactory.CreateHttpClient(context.Request.Host.Host, domainConfig);
             if (!string.IsNullOrEmpty(domainConfig.UserAgent))
@@ -168,15 +164,27 @@ Actual value was {actualValue}.
                 };
             }
 
-            var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, forwarderRequestConfig, HttpTransformer.Empty);
-
-            if (error != ForwarderError.None)
+            var originalBody = context.Response.Body;
+            using var bufferedBody = injectScripts ? new MemoryStream() : null;
+            if (bufferedBody != null)
+                context.Response.Body = bufferedBody;
+            try
             {
-                await HandleErrorAsync(context, error);
+                var error = await httpForwarder.SendAsync(context, destinationPrefix, httpClient, forwarderRequestConfig, HttpTransformer.Empty);
+                if (error != ForwarderError.None)
+                {
+                    context.Response.Body = originalBody;
+                    await HandleErrorAsync(context, error);
+                }
+                else if (bufferedBody != null)
+                {
+                    await HandleScriptInject(context, scriptConfigs, bufferedBody, originalBody);
+                }
             }
-            else if (isScriptInject)
+            finally
             {
-                await HandleScriptInject(context, scriptConfigs, memoryStream!, originalBody!);
+                if (bufferedBody != null)
+                    context.Response.Body = originalBody;
             }
         }
         else
@@ -286,16 +294,9 @@ Actual value was {actualValue}.
         }
 
         if (!scripts.Any_Nullable() ||
-            context.Request.Method != HttpMethods.Get ||
             context.Response.StatusCode != StatusCodes.Status200OK ||
             context.Response.ContentType == null ||
             !context.Response.ContentType.Contains("text/html", StringComparison.OrdinalIgnoreCase))
-        {
-            await ResetBody();
-            return;
-        }
-
-        if (IReverseProxyService.Constants.Instance.IsOnlyWorkSteamBrowser && context.Request.UserAgent()?.Contains("Valve Steam") == false)
         {
             await ResetBody();
             return;

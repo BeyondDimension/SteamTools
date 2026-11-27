@@ -1,0 +1,348 @@
+<UserControl
+    x:Class="BD.WTTS.UI.Views.Controls.ScriptSettingsPane"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:spp="https://steampp.net/ui"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:BD.WTTS.UI.ViewModels"
+    d:DesignHeight="760"
+    d:DesignWidth="380"
+    x:CompileBindings="True"
+    x:DataType="vm:ScriptSettingsViewModel"
+    mc:Ignorable="d">
+    <UserControl.Styles>
+        <Style Selector="Border.pane-card">
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+            <Setter Property="Padding" Value="12" />
+        </Style>
+        <Style Selector="Border.preset-row">
+            <Setter Property="Background" Value="{DynamicResource LayerFillColorAltBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="10,8" />
+        </Style>
+        <Style Selector="TextBlock.pane-caption">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+            <Setter Property="Theme" Value="{StaticResource CaptionTextBlockStyle}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style Selector="TextBlock.mono-rule">
+            <Setter Property="FontFamily" Value="Cascadia Mono, Consolas, DejaVu Sans Mono, monospace" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style Selector="Border.tester-badge">
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="Border.tester-badge.matched">
+            <Setter Property="Background" Value="{DynamicResource SystemFillColorSuccessBackgroundBrush}" />
+        </Style>
+        <Style Selector="Border.tester-badge.matched TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+        </Style>
+    </UserControl.Styles>
+
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="14,14" Spacing="10">
+            <StackPanel Spacing="2">
+                <TextBlock
+                    Text="{x:Static spp:Strings.Script_Settings}"
+                    Theme="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock
+                    Classes="pane-caption"
+                    Text="{Binding ScopeSummary}" />
+            </StackPanel>
+
+            <!-- General Settings -->
+            <Border Classes="pane-card">
+                <StackPanel Spacing="10">
+                    <TextBlock
+                        Text="{x:Static spp:Strings.Script_Settings_General}"
+                        Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+                    <ToggleSwitch
+                        Classes="NoContent"
+                        IsChecked="{Binding IsEnableScript, Mode=TwoWay}"
+                        OffContent="{x:Static spp:Strings.CommunityFix_EnableScriptService}"
+                        OnContent="{x:Static spp:Strings.CommunityFix_EnableScriptService}" />
+
+                    <ToggleSwitch
+                        Classes="NoContent"
+                        IsChecked="{Binding IsAutoCheckScriptUpdate, Mode=TwoWay}"
+                        OffContent="{x:Static spp:Strings.Script_AutoUpdate}"
+                        OnContent="{x:Static spp:Strings.Script_AutoUpdate}" />
+
+                    <ToggleSwitch
+                        Classes="NoContent"
+                        IsChecked="{Binding OnlyEnableProxyScript, Mode=TwoWay}"
+                        OffContent="{x:Static spp:Strings.CommunityFix_ProxyOnlyOnScript}"
+                        OnContent="{x:Static spp:Strings.CommunityFix_ProxyOnlyOnScript}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Execution Scope & User-Agent Configuration -->
+            <Border Classes="pane-card">
+                <StackPanel Spacing="10">
+                    <StackPanel Spacing="2">
+                        <TextBlock
+                            Text="{x:Static spp:Strings.Script_Settings_ScopeSection}"
+                            Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                        <TextBlock
+                            Classes="pane-caption"
+                            Text="{x:Static spp:Strings.Script_Settings_ScopeHint}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="6">
+                        <RadioButton
+                            GroupName="ScriptScopeModeGroup"
+                            IsChecked="{Binding IsScopeAll, Mode=TwoWay}">
+                            <TextBlock
+                                Text="{x:Static spp:Strings.Script_Settings_ScopeModeAll}"
+                                TextWrapping="Wrap" />
+                        </RadioButton>
+                        <RadioButton
+                            GroupName="ScriptScopeModeGroup"
+                            IsChecked="{Binding IsScopeSelected, Mode=TwoWay}">
+                            <TextBlock
+                                Text="{x:Static spp:Strings.Script_Settings_ScopeModeSelected}"
+                                TextWrapping="Wrap" />
+                        </RadioButton>
+                    </StackPanel>
+
+                    <StackPanel IsVisible="{Binding IsScopeSelected}" Spacing="10">
+                        <ui:FAInfoBar
+                            IsClosable="False"
+                            IsOpen="{Binding IsScopeEmptyWarning}"
+                            IsVisible="{Binding IsScopeEmptyWarning}"
+                            Message="{x:Static spp:Strings.Script_ScopeEmptyWarning}"
+                            Severity="Warning" />
+
+                        <TextBlock
+                            Text="{x:Static spp:Strings.Script_Settings_Presets}"
+                            Theme="{StaticResource BodyStrongTextBlockStyle}" />
+
+                        <!-- Browser Presets -->
+                        <StackPanel Spacing="6">
+                            <Border Classes="preset-row">
+                                <CheckBox
+                                    HorizontalAlignment="Stretch"
+                                    IsChecked="{Binding PresetSteamBrowser, Mode=TwoWay}">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock
+                                            FontWeight="SemiBold"
+                                            Text="{x:Static spp:Strings.Script_Settings_Preset_Steam}" />
+                                        <TextBlock
+                                            Classes="pane-caption"
+                                            Text="{x:Static spp:Strings.Script_Settings_Preset_SteamDesc}" />
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+
+                            <Border Classes="preset-row">
+                                <CheckBox
+                                    HorizontalAlignment="Stretch"
+                                    IsChecked="{Binding PresetChrome, Mode=TwoWay}">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock
+                                            FontWeight="SemiBold"
+                                            Text="{x:Static spp:Strings.Script_Settings_Preset_Chrome}" />
+                                        <TextBlock
+                                            Classes="pane-caption"
+                                            Text="{x:Static spp:Strings.Script_Settings_Preset_ChromeDesc}" />
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+
+                            <Border Classes="preset-row">
+                                <CheckBox
+                                    HorizontalAlignment="Stretch"
+                                    IsChecked="{Binding PresetEdge, Mode=TwoWay}">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock
+                                            FontWeight="SemiBold"
+                                            Text="{x:Static spp:Strings.Script_Settings_Preset_Edge}" />
+                                        <TextBlock
+                                            Classes="pane-caption"
+                                            Text="{x:Static spp:Strings.Script_Settings_Preset_EdgeDesc}" />
+                                    </StackPanel>
+                                </CheckBox>
+                            </Border>
+                        </StackPanel>
+
+                        <Separator Margin="0,2" />
+
+                        <!-- Custom UA Rules -->
+                        <StackPanel Spacing="6">
+                            <TextBlock
+                                Text="{x:Static spp:Strings.Script_Settings_CustomUa}"
+                                Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                            <TextBlock
+                                Classes="pane-caption"
+                                Text="{x:Static spp:Strings.Script_Settings_CustomUaHint}" />
+
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                                <TextBox
+                                    PlaceholderText="{x:Static spp:Strings.Script_Settings_CustomUaPlaceholder}"
+                                    Text="{Binding NewCustomUserAgent, Mode=TwoWay}">
+                                    <TextBox.KeyBindings>
+                                        <KeyBinding Command="{Binding AddCustomUserAgentCommand}" Gesture="Enter" />
+                                    </TextBox.KeyBindings>
+                                </TextBox>
+                                <Button
+                                    Grid.Column="1"
+                                    Classes="accent"
+                                    Command="{Binding AddCustomUserAgentCommand}"
+                                    Content="{x:Static spp:Strings.Script_Settings_CustomUaAdd}" />
+                            </Grid>
+
+                            <TextBlock
+                                Foreground="{DynamicResource SystemFillColorCriticalBrush}"
+                                IsVisible="{Binding HasCustomUserAgentError}"
+                                Text="{Binding CustomUserAgentError}"
+                                TextWrapping="Wrap"
+                                Theme="{StaticResource CaptionTextBlockStyle}" />
+
+                            <Border
+                                Padding="8,6"
+                                Background="{DynamicResource LayerFillColorAltBrush}"
+                                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="6">
+                                <StackPanel Spacing="4">
+                                    <TextBlock
+                                        Classes="pane-caption"
+                                        IsVisible="{Binding !HasCustomUserAgents}"
+                                        Text="{x:Static spp:Strings.Script_Settings_CustomUaEmpty}" />
+                                    <ItemsControl
+                                        IsVisible="{Binding HasCustomUserAgents}"
+                                        ItemsSource="{Binding CustomUserAgents}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="x:String">
+                                                <Grid
+                                                    Margin="0,2"
+                                                    ColumnDefinitions="*,Auto"
+                                                    ColumnSpacing="6">
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Classes="mono-rule"
+                                                        Text="{Binding}"
+                                                        TextWrapping="Wrap" />
+                                                    <Button
+                                                        Grid.Column="1"
+                                                        Padding="6,4"
+                                                        Command="{Binding $parent[UserControl].((vm:ScriptSettingsViewModel)DataContext).RemoveCustomUserAgentCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        Theme="{StaticResource TransparentButton}"
+                                                        ToolTip.Tip="{x:Static spp:Strings.Delete}">
+                                                        <ui:FASymbolIcon FontSize="12" Symbol="Cancel" />
+                                                    </Button>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <Separator Margin="0,2" />
+
+                        <!-- Live UA Tester -->
+                        <StackPanel Spacing="6">
+                            <TextBlock
+                                Text="{x:Static spp:Strings.Script_Settings_UaTester}"
+                                Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                            <WrapPanel ItemSpacing="6" LineSpacing="4">
+                                <Button
+                                    Padding="8,3"
+                                    Command="{Binding FillSampleUserAgentCommand}"
+                                    CommandParameter="steam"
+                                    Content="Steam" />
+                                <Button
+                                    Padding="8,3"
+                                    Command="{Binding FillSampleUserAgentCommand}"
+                                    CommandParameter="chrome"
+                                    Content="Chrome" />
+                                <Button
+                                    Padding="8,3"
+                                    Command="{Binding FillSampleUserAgentCommand}"
+                                    CommandParameter="edge"
+                                    Content="Edge" />
+                                <Button
+                                    Padding="8,3"
+                                    Command="{Binding FillSampleUserAgentCommand}"
+                                    CommandParameter="firefox"
+                                    Content="Firefox" />
+                            </WrapPanel>
+                            <TextBox
+                                AcceptsReturn="False"
+                                PlaceholderText="{x:Static spp:Strings.Script_Settings_UaTesterPlaceholder}"
+                                Text="{Binding TestUserAgentInput, Mode=TwoWay}" />
+                            <Border
+                                Classes="tester-badge"
+                                Classes.matched="{Binding TestUserAgentMatched}"
+                                IsVisible="{Binding HasTestUserAgentInput}">
+                                <TextBlock
+                                    Text="{Binding TestUserAgentResultText}"
+                                    TextWrapping="Wrap"
+                                    Theme="{StaticResource CaptionTextBlockStyle}" />
+                            </Border>
+                        </StackPanel>
+
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            Command="{Binding ResetScopeCommand}"
+                            Content="{x:Static spp:Strings.Script_Settings_ResetScope}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Quick Links -->
+            <Border Classes="pane-card">
+                <StackPanel Spacing="8">
+                    <TextBlock
+                        Text="{x:Static spp:Strings.Script_Settings_QuickLinks}"
+                        Theme="{StaticResource BodyStrongTextBlockStyle}" />
+                    <WrapPanel ItemSpacing="6" LineSpacing="6">
+                        <Button
+                            Command="{Binding OpenScriptCatCommand}"
+                            ToolTip.Tip="{x:Static spp:Strings.Script_OpenScriptCatTip}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <ui:FASymbolIcon FontSize="14" Symbol="Open" />
+                                <TextBlock Text="{x:Static spp:Strings.Script_Source_ScriptCat}" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Command="{Binding OpenGreasyForkCommand}"
+                            ToolTip.Tip="{x:Static spp:Strings.Script_OpenGreasyForkTip}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <ui:FASymbolIcon FontSize="14" Symbol="Open" />
+                                <TextBlock Text="{x:Static spp:Strings.Script_Source_GreasyFork}" />
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding OpenScriptStoreCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <ui:FASymbolIcon FontSize="14" Symbol="Globe" />
+                                <TextBlock Text="{x:Static spp:Strings.ScriptStore}" />
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding OpenScriptsDirectoryCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <ui:FASymbolIcon FontSize="14" Symbol="Folder" />
+                                <TextBlock Text="{x:Static spp:Strings.Script_OpenDirectory}" />
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
