@@ -33,7 +33,7 @@ static class DotNetRuntimeHelper
         var rootValue = dotnetRoot.Value;
         if (rootValue != null)
         {
-            psi.Environment.TryAdd(EnvName_DotNetRoot, rootValue);
+            psi.Environment[EnvName_DotNetRoot] = rootValue;
         }
     }
 }
