@@ -437,6 +437,7 @@ Icon=$base_path/Icons/Watt-Toolkit.png
 Terminal=false
 Type=Application
 StartupNotify=false
+StartupWMClass=Steam++
 EOT
     chmod +x "$target_dir/Watt Toolkit.desktop"
 }
