@@ -85,15 +85,15 @@ zenity --question --text="是否删除用户数据?" --width=400
 delUserData=$?
 
 if [ $delUserData -eq 0 ]; then
-    rm -rf $AppData 2>/dev/null
-    rm -rf $AppData_t 2>/dev/null
+    rm -rf "$AppData" 2>/dev/null
+    rm -rf "$AppData_t" 2>/dev/null
     certutil -D -d $HOME/.pki/nssdb -n "SteamTools"
 else
     echo "保留用户数据方便下次安装。"
     echo "如需删除可手动删除该目录:$AppData 或者 $AppData_t"
 fi
-rm -rf $Cache 2>/dev/null
-rm -rf $Cache_t 2>/dev/null
-rm -rf $base_path 2>/dev/null
+rm -rf "$Cache" 2>/dev/null
+rm -rf "$Cache_t" 2>/dev/null
+rm -rf "$base_path" 2>/dev/null
 rm -rf "$HOME/Desktop/Watt Toolkit.desktop" 2>/dev/null
 zenity --info --text="卸载完成!" --width=300
