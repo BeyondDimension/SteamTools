@@ -1,0 +1,4 @@
+{
+  // 工作区中存在多个解决方案（ref/** 下为上游仓库），显式指定要打开的解决方案
+  "dotnet.defaultSolution": "WattToolkit.slnx"
+}
