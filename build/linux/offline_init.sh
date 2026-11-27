@@ -1,6 +1,6 @@
 #!/bin/bash
-run_path=$(dirname "$0")
-base_path="$(dirname "$run_path")"
+run_path=$(cd -- "$(dirname -- "$0")" && pwd) || exit 1
+base_path="$(dirname -- "$run_path")"
 mkdir -p "$base_path"
 cd "$base_path" || exit 1
 appVer_path="$base_path/WattToolkit.AppVer"
@@ -192,7 +192,7 @@ Install_jq
 certutil_Init
 Kill_Process
 dotnet_path="$base_path/dotnet"
-dotnet_exec="$dotnet_path/dotnet/dotnet"
+dotnet_exec="$dotnet_path/dotnet"
 if [ -x "$dotnet_exec" ]; then
     echo "文件具有执行权限。"
 else
