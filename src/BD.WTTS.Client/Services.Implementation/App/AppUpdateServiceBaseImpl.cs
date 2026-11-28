@@ -595,7 +595,7 @@ public abstract class AppUpdateServiceBaseImpl : ReactiveObject, IAppUpdateServi
             return;
         }
 #endif
-        await Browser2.OpenAsync(Constants.Urls.OfficialWebsite);
+        await Browser2.OpenAsync(Constants.Urls.OfficialWebsite_Changelog);
     }
 
 #if DEBUG
